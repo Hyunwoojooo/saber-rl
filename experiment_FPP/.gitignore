@@ -1,0 +1,5 @@
+runs/
+analysis/
+analysis_smoke/
+__pycache__/
+*.pyc
