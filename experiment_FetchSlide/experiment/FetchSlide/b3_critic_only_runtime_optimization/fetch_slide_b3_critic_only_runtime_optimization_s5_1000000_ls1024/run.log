@@ -54,3 +54,8 @@
 2026-05-28 11:38:26,701 | INFO | step=51000 replay=51000 updates=46001 loss_q=0.7904 loss_pi=-3.7823
 2026-05-28 11:39:52,196 | INFO | step=52000 replay=52000 updates=47001 loss_q=0.4598 loss_pi=-3.8221
 2026-05-28 11:41:17,243 | INFO | step=53000 replay=53000 updates=48001 loss_q=0.3269 loss_pi=-1.8353
+2026-05-28 11:42:43,919 | INFO | step=54000 replay=54000 updates=49001 loss_q=0.6525 loss_pi=-2.7373
+2026-05-28 11:44:10,455 | INFO | step=55000 replay=55000 updates=50001 loss_q=0.9705 loss_pi=-2.4396
+2026-05-28 11:45:36,181 | INFO | step=56000 replay=56000 updates=51001 loss_q=0.4855 loss_pi=-4.9274
+2026-05-28 11:47:01,386 | INFO | step=57000 replay=57000 updates=52001 loss_q=1.0981 loss_pi=-3.2743
+2026-05-28 11:48:27,715 | INFO | step=58000 replay=58000 updates=53001 loss_q=1.3142 loss_pi=-3.1480
