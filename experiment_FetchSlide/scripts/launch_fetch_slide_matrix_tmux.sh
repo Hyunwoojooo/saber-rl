@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-cd "${ROOT_DIR}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+EXPERIMENT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+cd "${WORKSPACE_ROOT}"
 
 METHODS="${METHODS:-b0 b3_original b3_critic_only b3_critic_only_random b3_critic_only_shuffled b3_critic_only_runtime_optimization b3_critic_only_fast_512 b3_critic_only_fast_2048}"
 SEEDS="${SEEDS:-1 2 3 4 5}"
 TOTAL_STEPS="${TOTAL_STEPS:-1000000}"
 DEVICE="${DEVICE:-cuda}"
 REWARD_TYPE="${REWARD_TYPE:-sparse}"
-OUTPUT_ROOT="${OUTPUT_ROOT:-SABER/experiment/FetchSlide}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-${EXPERIMENT_ROOT}/experiment/FetchSlide}"
 EXTRA_ARGS="${EXTRA_ARGS:-}"
 
 for method in ${METHODS}; do
@@ -20,7 +22,7 @@ for method in ${METHODS}; do
       continue
     fi
     tmux new-session -d -s "${session}" -- bash -lc "
-      cd '${ROOT_DIR}' &&
+      cd '${WORKSPACE_ROOT}' &&
       METHOD='${method}' \
       SEED='${seed}' \
       TOTAL_STEPS='${TOTAL_STEPS}' \
@@ -28,7 +30,7 @@ for method in ${METHODS}; do
       REWARD_TYPE='${REWARD_TYPE}' \
       OUTPUT_ROOT='${OUTPUT_ROOT}' \
       EXTRA_ARGS='${EXTRA_ARGS}' \
-      bash SABER/scripts/run_fetch_slide_one.sh
+      bash '${EXPERIMENT_ROOT}/scripts/run_fetch_slide_one.sh'
     "
     echo "started ${session}"
   done

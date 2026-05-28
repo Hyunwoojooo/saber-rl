@@ -17,8 +17,15 @@ import numpy as np
 import torch
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-LITE_SRC = REPO_ROOT / "version_v0_lite" / "src"
+EXPERIMENT_ROOT = Path(__file__).resolve().parents[2]
+SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
+WORKSPACE_ROOT = SABER_REPO_ROOT.parent
+LITE_SRC_CANDIDATES = (
+    WORKSPACE_ROOT / "version_v0_lite" / "src",
+    SABER_REPO_ROOT / "version_v0_lite" / "src",
+    EXPERIMENT_ROOT / "code" / "src",
+)
+LITE_SRC = next((path for path in LITE_SRC_CANDIDATES if path.exists()), LITE_SRC_CANDIDATES[0])
 if str(LITE_SRC) not in sys.path:
     sys.path.insert(0, str(LITE_SRC))
 
@@ -128,7 +135,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--method", choices=sorted(METHODS), required=True)
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--total_steps", type=int, default=1_000_000)
-    parser.add_argument("--output_root", type=str, default="SABER/experiment/FetchSlide")
+    parser.add_argument("--output_root", type=str, default=str(EXPERIMENT_ROOT / "experiment" / "FetchSlide"))
     parser.add_argument("--run_name", type=str, default=None)
     parser.add_argument("--reward_type", choices=["sparse", "dense"], default="sparse")
     parser.add_argument("--device", type=str, default="cuda")
@@ -897,7 +904,7 @@ def run(args: argparse.Namespace) -> Path:
             "runtime_optimization_enabled": args.method == RUNTIME_OPT_METHOD,
             "runtime_optimization_verify": bool(args.verify_runtime_optimization),
             "thread_hint": env_thread_hint(),
-            "result_layout": "SABER/experiment/FetchSlide/{method}/{run_name}",
+            "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
         },
     )
     write_json(

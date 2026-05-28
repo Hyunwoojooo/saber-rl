@@ -11,9 +11,9 @@ from statistics import mean, stdev
 from typing import Any, Dict, Iterable
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_INPUT = REPO_ROOT / "SABER" / "experiment" / "FetchSlide"
-DEFAULT_OUTPUT = REPO_ROOT / "SABER" / "analysis" / "FetchSlide"
+EXPERIMENT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = EXPERIMENT_ROOT / "experiment" / "FetchSlide"
+DEFAULT_OUTPUT = EXPERIMENT_ROOT / "analysis" / "FetchSlide"
 SABER_METHOD = "b3_critic_only"
 COMPARATORS = [
     "b0",
