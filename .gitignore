@@ -1,0 +1,20 @@
+# Runtime and experiment outputs
+experiment/
+analysis/
+*.log
+*.jsonl
+*.csv
+*.pt
+*.pth
+*.npz
+
+# Python/cache artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local/editor state
+.DS_Store
+.vscode/
+.idea/
+
