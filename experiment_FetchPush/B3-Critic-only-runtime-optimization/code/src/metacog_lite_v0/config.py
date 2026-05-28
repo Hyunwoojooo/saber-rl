@@ -115,6 +115,7 @@ class LiteConfig:
     support_lookup_optimization: bool = False
     support_cache_enabled: bool = False
     support_short_circuit: bool = False
+    support_batch_query_coalescing: bool = False
     support_cache_max_entries: int = 200_000
 
     # FetchPush bucket.
@@ -208,6 +209,7 @@ class LiteConfig:
         if self.support_lookup_optimization:
             self.support_cache_enabled = True
             self.support_short_circuit = True
+            self.support_batch_query_coalescing = True
         if self.task_name == "unitree_apple":
             if self.max_episode_steps == 50:
                 self.max_episode_steps = 100

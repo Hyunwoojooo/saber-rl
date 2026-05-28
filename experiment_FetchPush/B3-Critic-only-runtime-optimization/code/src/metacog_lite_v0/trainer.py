@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import time
 from pathlib import Path
@@ -10,7 +10,6 @@ import torch
 from .agent import DDPGAgent
 from .config import LiteConfig
 from .envs import FetchGoalEnv
-from .envs_maniskill import ManiSkillPickCubeGoalEnv, UnitreeAppleGoalEnv
 from .io_utils import (
     MetricsCSVWriter,
     MetricsJSONLWriter,
@@ -22,11 +21,7 @@ from .io_utils import (
     write_json,
 )
 from .replay import HERReplayBuffer
-from .task_fetch_pick_and_place import FetchPickAndPlaceTaskSpec
 from .task_fetch_push import FetchPushTaskSpec
-from .task_fetch_slide import FetchSlideTaskSpec
-from .task_pick_cube import PickCubeTaskSpec
-from .task_unitree_apple import UnitreeAppleTaskSpec
 from .weights import GapStats, LiteWeightComputer
 
 
@@ -52,113 +47,29 @@ def load_checkpoint(path: Path) -> Dict[str, Any]:
 
 
 def make_env(config: LiteConfig, seed: int, render: bool) -> Any:
-    if config.task_name in {"fetch_push", "fetch_pick_and_place", "fetch_slide"}:
-        return FetchGoalEnv(config.env_id, config.max_episode_steps, seed, render)
-    if config.task_name == "unitree_apple":
-        return UnitreeAppleGoalEnv(
-            env_id=config.env_id,
-            max_episode_steps=config.max_episode_steps,
-            seed=seed,
-            render=render,
-            obs_mode=config.obs_mode,
-            reward_type=config.reward_type,
-            control_mode=config.control_mode,
-            num_envs=config.num_envs,
-            backend=config.backend,
-            sim_backend=config.sim_backend,
+    if config.task_name != "fetch_push":
+        raise ValueError(
+            f"Unsupported task_name={config.task_name!r}; "
+            "this FetchPush experiment snapshot only supports 'fetch_push'"
         )
-    if config.task_name == "pick_cube":
-        return ManiSkillPickCubeGoalEnv(
-            env_id=config.env_id,
-            max_episode_steps=config.max_episode_steps,
-            seed=seed,
-            render=render,
-            obs_mode=config.obs_mode,
-            reward_type=config.reward_type,
-            robot_uids=config.robot_uids,
-            control_mode=config.control_mode,
-            num_envs=config.num_envs,
-            backend=config.backend,
-            sim_backend=config.sim_backend,
-        )
-    raise ValueError(f"Unsupported task_name={config.task_name!r}")
-
+    return FetchGoalEnv(config.env_id, config.max_episode_steps, seed, render)
 
 def make_task_spec(config: LiteConfig, env: Any) -> Any:
-    if config.task_name == "fetch_push":
-        return FetchPushTaskSpec(
-            action_low=env.action_low,
-            action_high=env.action_high,
-            epsilon_g=env.distance_threshold,
-            d_contact=config.d_contact,
-            d_goal_near=config.d_goal_near,
-            ee_obj_bins=config.ee_obj_bins,
-            obj_goal_bins=config.obj_goal_bins,
-            horizon_bins=config.horizon_bins,
+    if config.task_name != "fetch_push":
+        raise ValueError(
+            f"Unsupported task_name={config.task_name!r}; "
+            "this FetchPush experiment snapshot only supports 'fetch_push'"
         )
-    if config.task_name == "fetch_pick_and_place":
-        return FetchPickAndPlaceTaskSpec(
-            action_low=env.action_low,
-            action_high=env.action_high,
-            epsilon_g=env.distance_threshold,
-            d_reach=config.d_reach,
-            d_goal_near=config.d_goal_near,
-            z_lift_min=config.z_lift_min,
-            grip_close_thresh=config.grip_close_thresh,
-            hand_obj_bins=config.pick_hand_obj_bins,
-            obj_goal_bins=config.pick_obj_goal_bins,
-            object_z_bins=config.pick_object_z_bins,
-            gripper_gap_bins=config.pick_gripper_gap_bins,
-            horizon_bins=config.horizon_bins,
-        )
-    if config.task_name == "fetch_slide":
-        return FetchSlideTaskSpec(
-            action_low=env.action_low,
-            action_high=env.action_high,
-            epsilon_g=env.distance_threshold,
-            d_contact=config.slide_d_contact,
-            d_goal_near=config.slide_d_goal_near,
-            v_slide_min=config.slide_v_slide_min,
-            v_fast=config.slide_v_fast,
-            ee_obj_bins=config.slide_ee_obj_bins,
-            obj_goal_bins=config.slide_obj_goal_bins,
-            obj_speed_bins=config.slide_obj_speed_bins,
-            vel_align_bins=config.slide_vel_align_bins,
-            horizon_bins=config.horizon_bins,
-        )
-    if config.task_name == "unitree_apple":
-        return UnitreeAppleTaskSpec(
-            action_low=env.action_low,
-            action_high=env.action_high,
-            epsilon_g=env.distance_threshold,
-            d_reach=config.d_reach,
-            d_goal_near=config.d_goal_near,
-            hand_apple_bins=config.hand_apple_bins,
-            apple_goal_bins=config.apple_goal_bins,
-            apple_z_bins=config.apple_z_bins,
-            horizon_bins=config.horizon_bins,
-        )
-    if config.task_name == "pick_cube":
-        z_lift_min = (
-            float(config.pick_cube_z_lift_min)
-            if config.pick_cube_z_lift_min is not None
-            else float(getattr(env, "z_lift_min", 0.07))
-        )
-        return PickCubeTaskSpec(
-            action_low=env.action_low,
-            action_high=env.action_high,
-            epsilon_g=env.distance_threshold,
-            d_reach=config.d_reach,
-            d_goal_near=env.distance_threshold,
-            z_lift_min=z_lift_min,
-            tcp_cube_bins=config.pick_cube_tcp_cube_bins,
-            cube_goal_bins=config.pick_cube_goal_bins,
-            cube_z_bins=config.pick_cube_z_bins,
-            horizon_bins=config.horizon_bins,
-            z_lift_min_source=str(getattr(env, "z_lift_min_source", "config")),
-        )
-    raise ValueError(f"Unsupported task_name={config.task_name!r}")
-
+    return FetchPushTaskSpec(
+        action_low=env.action_low,
+        action_high=env.action_high,
+        epsilon_g=env.distance_threshold,
+        d_contact=config.d_contact,
+        d_goal_near=config.d_goal_near,
+        ee_obj_bins=config.ee_obj_bins,
+        obj_goal_bins=config.obj_goal_bins,
+        horizon_bins=config.horizon_bins,
+    )
 
 @torch.no_grad()
 def evaluate_agent(agent: DDPGAgent, env: Any, eval_seed: int, eval_episodes: int) -> Dict[str, float]:
@@ -469,6 +380,14 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "time_actor_critic_update",
         "runtime/steps_per_sec",
         "runtime/total_sec",
+        "runtime/exact_negative_short_circuit_rate",
+        "runtime/full_context_scan_rate",
+        "runtime/support_cache_hit_rate",
+        "runtime/support_cache_miss_rate",
+        "runtime/batch_query_unique_rate",
+        "runtime/batch_query_coalescing_saving_rate",
+        "runtime/local_scan_cache_hit_rate",
+        "runtime/local_scan_cache_miss_rate",
         "td_error/abs_mean",
         "td_error/abs_p90",
         "td_error/weight_mean",
@@ -874,6 +793,14 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "time_actor_critic_update": 0.0,
         "runtime/steps_per_sec": 0.0,
         "runtime/total_sec": 0.0,
+        "runtime/exact_negative_short_circuit_rate": 0.0,
+        "runtime/full_context_scan_rate": 0.0,
+        "runtime/support_cache_hit_rate": 0.0,
+        "runtime/support_cache_miss_rate": 0.0,
+        "runtime/batch_query_unique_rate": 0.0,
+        "runtime/batch_query_coalescing_saving_rate": 0.0,
+        "runtime/local_scan_cache_hit_rate": 0.0,
+        "runtime/local_scan_cache_miss_rate": 0.0,
         "td_error/abs_mean": 0.0,
         "td_error/abs_p90": 0.0,
         "td_error/weight_mean": 0.0,
@@ -1036,3 +963,4 @@ def _metric_row(
         "eval/goal_success_mean": "",
         "eval/env_success_mean": "",
     }
+

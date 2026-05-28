@@ -96,7 +96,7 @@ class LiteWeightComputer:
         self.cfg = config
         self.task = task
         self.gap_stats = gap_stats
-        self._support_context_cache: Dict[tuple[int, int, int, int], LocalContextResult] = {}
+        self._support_context_cache: Dict[tuple[int, int, int, int, int, str], LocalContextResult] = {}
 
     @torch.no_grad()
     def compute(
@@ -126,16 +126,37 @@ class LiteWeightComputer:
         t_lookup0 = time.perf_counter()
         if self.cfg.method == "b2_unrestricted_gap":
             query_coarse = np.zeros(b, dtype=np.int64)
+            query_full = np.zeros(b, dtype=np.int64)
             local_lookup: Dict[int, LocalScan] = {}
         else:
             query_coarse, local_lookup = self._prepare_local_lookup(batch, replay, rng)
+            query_full = self.task.full_context_hash_batch(
+                batch.observation,
+                batch.desired_goal_train,
+                batch.h,
+            ).astype(np.int64, copy=False)
         local_lookup_time = time.perf_counter() - t_lookup0
         local_context_cache: Dict[tuple[int, int], LocalContextResult] = {}
+        policy_action_bins = (
+            self.task.action_bin_batch(a_policy, self.cfg.action_bins_per_dim).astype(np.int64, copy=False)
+            if self.cfg.policy_support_mode == "bin"
+            else np.full(b, -1, dtype=np.int64)
+        )
+        if self.cfg.method == "b2_unrestricted_gap":
+            query_count = 0
+            unique_query_count = 0
+        else:
+            query_count = int(b)
+            support_keys = np.stack([query_coarse.astype(np.int64, copy=False), query_full], axis=1)
+            unique_query_count = int(np.unique(support_keys, axis=0).shape[0]) if support_keys.size else 0
         lookup_stats = {
+            "query_count": query_count,
+            "unique_query_count": unique_query_count,
             "batch_cache_hit": 0,
             "versioned_cache_hit": 0,
             "versioned_cache_miss": 0,
             "short_circuit": 0,
+            "full_context_scan": 0,
             "full_context_filter_count": 0,
         }
         candidate_construction_time = 0.0
@@ -175,10 +196,12 @@ class LiteWeightComputer:
                     batch,
                     replay,
                     query_coarse,
+                    query_full,
                     local_lookup,
                     local_context_cache,
                     lookup_stats,
                     a_policy[i],
+                    int(policy_action_bins[i]),
                 )
                 local_lookup_time += time.perf_counter() - t_local0
                 coarse_count[i] = float(n_coarse)
@@ -196,6 +219,7 @@ class LiteWeightComputer:
                     replay,
                     local_indices,
                     local_action_bins,
+                    int(policy_action_bins[i]),
                 )
                 candidate_construction_time += time.perf_counter() - t_support0
                 if n_sup < self.cfg.M_Q_min or psi_a_policy[i] < 0.5:
@@ -309,21 +333,48 @@ class LiteWeightComputer:
             + lookup_stats["short_circuit"]
         )
         lookup_denom = max(1, int(lookup_count))
+        cache_attempts = lookup_stats["versioned_cache_hit"] + lookup_stats["versioned_cache_miss"]
+        cache_denom = max(1, int(cache_attempts))
+        query_denom = max(1, int(lookup_stats["query_count"]))
+        unique_rate = float(lookup_stats["unique_query_count"] / query_denom)
+        coalescing_saving_rate = (
+            max(0.0, 1.0 - unique_rate) if self.cfg.support_batch_query_coalescing else 0.0
+        )
+        exact_short_circuit_rate = float(lookup_stats["short_circuit"] / query_denom)
+        full_context_scan_rate = float(lookup_stats["full_context_scan"] / query_denom)
         if self.cfg.method != "b0_ddpg_her":
             extra_metrics_out.update(
                 {
                     "lite/support_lookup_optimization_enabled": float(self.cfg.support_lookup_optimization),
                     "lite/support_cache_enabled": float(self.cfg.support_cache_enabled),
                     "lite/support_short_circuit_enabled": float(self.cfg.support_short_circuit),
+                    "lite/support_batch_query_coalescing_enabled": float(
+                        self.cfg.support_batch_query_coalescing
+                    ),
+                    "lite/support_query_count": float(lookup_stats["query_count"]),
+                    "lite/support_unique_query_count": float(lookup_stats["unique_query_count"]),
                     "lite/support_batch_cache_hit_count": float(lookup_stats["batch_cache_hit"]),
                     "lite/support_versioned_cache_hit_count": float(lookup_stats["versioned_cache_hit"]),
                     "lite/support_versioned_cache_miss_count": float(lookup_stats["versioned_cache_miss"]),
                     "lite/support_short_circuit_count": float(lookup_stats["short_circuit"]),
+                    "lite/support_full_context_scan_count": float(lookup_stats["full_context_scan"]),
                     "lite/support_full_context_filter_count": float(lookup_stats["full_context_filter_count"]),
                     "lite/support_versioned_cache_hit_rate": float(
                         lookup_stats["versioned_cache_hit"] / lookup_denom
                     ),
                     "lite/support_short_circuit_rate": float(lookup_stats["short_circuit"] / lookup_denom),
+                    "runtime/exact_negative_short_circuit_rate": exact_short_circuit_rate,
+                    "runtime/full_context_scan_rate": full_context_scan_rate,
+                    "runtime/support_cache_hit_rate": float(
+                        lookup_stats["versioned_cache_hit"] / cache_denom
+                    ),
+                    "runtime/support_cache_miss_rate": float(
+                        lookup_stats["versioned_cache_miss"] / cache_denom
+                    ),
+                    "runtime/batch_query_unique_rate": unique_rate,
+                    "runtime/batch_query_coalescing_saving_rate": coalescing_saving_rate,
+                    "runtime/local_scan_cache_hit_rate": 0.0,
+                    "runtime/local_scan_cache_miss_rate": 0.0,
                 }
             )
 
@@ -456,35 +507,39 @@ class LiteWeightComputer:
         batch: SampleBatch,
         replay: HERReplayBuffer,
         query_coarse: np.ndarray,
+        query_full: np.ndarray,
         local_lookup: Dict[int, LocalScan],
         local_context_cache: Dict[tuple[int, int], LocalContextResult],
         lookup_stats: Dict[str, int],
         action_policy: np.ndarray,
+        policy_action_bin: int,
     ) -> tuple[np.ndarray, np.ndarray, int, int, bool]:
         coarse_key = int(query_coarse[i])
         goal = batch.desired_goal_train[i]
-        full_key = self.task.full_context_hash(batch.observation[i], goal, int(batch.h[i]))
+        full_key = int(query_full[i])
         cache_key = (coarse_key, full_key)
-        cached = local_context_cache.get(cache_key)
-        if cached is not None:
-            lookup_stats["batch_cache_hit"] += 1
-            return (
-                cached.indices,
-                cached.action_bins,
-                cached.num_coarse_candidates,
-                cached.num_scanned_candidates,
-                cached.local_scan_truncated,
-            )
+        if self.cfg.support_batch_query_coalescing:
+            cached = local_context_cache.get(cache_key)
+            if cached is not None:
+                lookup_stats["batch_cache_hit"] += 1
+                return (
+                    cached.indices,
+                    cached.action_bins,
+                    cached.num_coarse_candidates,
+                    cached.num_scanned_candidates,
+                    cached.local_scan_truncated,
+                )
 
         scan = local_lookup.get(coarse_key)
         if scan is None or scan.indices.size == 0:
-            local_context_cache[cache_key] = LocalContextResult(
-                indices=np.zeros((0,), dtype=np.int64),
-                action_bins=np.zeros((0,), dtype=np.int64),
-                num_coarse_candidates=0,
-                num_scanned_candidates=0,
-                local_scan_truncated=False,
-            )
+            if self.cfg.support_batch_query_coalescing:
+                local_context_cache[cache_key] = LocalContextResult(
+                    indices=np.zeros((0,), dtype=np.int64),
+                    action_bins=np.zeros((0,), dtype=np.int64),
+                    num_coarse_candidates=0,
+                    num_scanned_candidates=0,
+                    local_scan_truncated=False,
+                )
             return (
                 np.zeros((0,), dtype=np.int64),
                 np.zeros((0,), dtype=np.int64),
@@ -497,7 +552,7 @@ class LiteWeightComputer:
             and self.cfg.policy_support_mode == "bin"
             and scan.action_bins.size > 0
         ):
-            p_bin = int(self.task.action_bin_batch(action_policy[None, :], self.cfg.action_bins_per_dim)[0])
+            p_bin = int(policy_action_bin)
             if not bool(np.any(scan.action_bins == p_bin)):
                 lookup_stats["short_circuit"] += 1
                 empty = np.zeros((0,), dtype=np.int64)
@@ -519,12 +574,15 @@ class LiteWeightComputer:
             full_key,
             int(scan.bucket_version),
             int(self.cfg.local_search_max),
+            int(self.cfg.action_bins_per_dim),
+            str(self.cfg.policy_support_mode),
         )
         if can_persist:
             persistent = self._support_context_cache.get(persistent_key)
             if persistent is not None:
                 lookup_stats["versioned_cache_hit"] += 1
-                local_context_cache[cache_key] = persistent
+                if self.cfg.support_batch_query_coalescing:
+                    local_context_cache[cache_key] = persistent
                 return (
                     persistent.indices,
                     persistent.action_bins,
@@ -537,6 +595,7 @@ class LiteWeightComputer:
         ref_obs = replay.observation[scan.indices]
         ref_goal = np.repeat(goal[None, :], scan.indices.size, axis=0)
         ref_h = replay.h[scan.indices]
+        lookup_stats["full_context_scan"] += 1
         lookup_stats["full_context_filter_count"] += int(scan.indices.size)
         ref_hash = self.task.full_context_hash_batch(ref_obs, ref_goal, ref_h)
         local_idx = scan.indices[ref_hash == full_key]
@@ -552,7 +611,8 @@ class LiteWeightComputer:
             num_scanned_candidates=int(scan.indices.size),
             local_scan_truncated=scan.local_scan_truncated,
         )
-        local_context_cache[cache_key] = result
+        if self.cfg.support_batch_query_coalescing:
+            local_context_cache[cache_key] = result
         if can_persist:
             if len(self._support_context_cache) >= self.cfg.support_cache_max_entries:
                 self._support_context_cache.clear()
@@ -614,6 +674,7 @@ class LiteWeightComputer:
         replay: HERReplayBuffer,
         local_indices: np.ndarray,
         local_action_bins: np.ndarray,
+        policy_action_bin: int,
     ) -> float:
         if local_indices.size == 0:
             return 0.0
@@ -621,7 +682,7 @@ class LiteWeightComputer:
             local_actions = replay.action_exec[local_indices]
             return self._policy_action_supported(action_policy, local_actions, local_action_bins)
 
-        p_bin = int(self.task.action_bin_batch(action_policy[None, :], self.cfg.action_bins_per_dim)[0])
+        p_bin = int(policy_action_bin)
         if local_action_bins.shape[0] == local_indices.size and np.all(local_action_bins >= 0):
             local_bins = local_action_bins
         else:

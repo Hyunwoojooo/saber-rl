@@ -67,6 +67,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--support_lookup_optimization", action="store_true")
     parser.add_argument("--support_cache_enabled", action="store_true")
     parser.add_argument("--support_short_circuit", action="store_true")
+    parser.add_argument("--support_batch_query_coalescing", action="store_true")
     parser.add_argument("--support_cache_max_entries", type=int, default=200_000)
 
     parser.add_argument("--d_contact", type=float, default=0.08)
@@ -134,6 +135,7 @@ def main() -> int:
         support_lookup_optimization=args.support_lookup_optimization,
         support_cache_enabled=args.support_cache_enabled,
         support_short_circuit=args.support_short_circuit,
+        support_batch_query_coalescing=args.support_batch_query_coalescing,
         support_cache_max_entries=args.support_cache_max_entries,
         d_contact=args.d_contact,
         d_goal_near=args.d_goal_near,
