@@ -20,6 +20,9 @@ import torch
 EXPERIMENT_ROOT = Path(__file__).resolve().parents[2]
 SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
 WORKSPACE_ROOT = SABER_REPO_ROOT.parent
+EXPERIMENT_SRC = EXPERIMENT_ROOT / "src"
+if str(EXPERIMENT_SRC) not in sys.path:
+    sys.path.insert(0, str(EXPERIMENT_SRC))
 LITE_SRC_CANDIDATES = (
     WORKSPACE_ROOT / "version_v0_lite" / "src",
     SABER_REPO_ROOT / "version_v0_lite" / "src",
@@ -44,11 +47,21 @@ from metacog_lite_v0.replay import HERReplayBuffer, SampleBatch
 from metacog_lite_v0.trainer import load_checkpoint, make_env, make_task_spec, save_checkpoint
 from metacog_lite_v0.weights import GapStats, LiteWeightComputer, WeightBatch
 
+from saber_fetch_slide.numba_support_scan import (
+    NUMBA_AVAILABLE,
+    can_scan_fetch_slide_support_exact,
+    make_fetch_slide_support_scan_constants,
+    scan_fetch_slide_support_exact_with_constants,
+    warmup_fetch_slide_support_exact,
+)
+
 
 FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX = 1024
 FETCH_SLIDE_FAST_SWEEP = (512, 2048)
 DEFAULT_THRESHOLDS = (0.25, 0.50, 0.75, 0.90, 1.00)
 RUNTIME_OPT_METHOD = "b3_critic_only_runtime_optimization"
+RUNTIME_OPT_V4_METHOD = "b3_critic_only_runtime_opt_v4"
+RUNTIME_OPT_METHODS = {RUNTIME_OPT_METHOD, RUNTIME_OPT_V4_METHOD}
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
 
@@ -97,6 +110,12 @@ METHODS: Dict[str, MethodSpec] = {
     ),
     "b3_critic_only_runtime_optimization": MethodSpec(
         "b3_critic_only_runtime_optimization",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v4": MethodSpec(
+        "b3_critic_only_runtime_opt_v4",
         "b3_support_only",
         "critic_only",
         FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
@@ -295,6 +314,7 @@ class RuntimeSupportEntry:
     num_coarse_candidates: int
     num_scanned_candidates: int
     local_scan_truncated: bool
+    psi_a_policy: float | None = None
 
 
 class RuntimeOptimizedSupportComputer:
@@ -304,12 +324,32 @@ class RuntimeOptimizedSupportComputer:
     support context, not actor/critic values or any loss-side quantity.
     """
 
-    def __init__(self, cfg: LiteConfig, task: Any, gap_stats: GapStats) -> None:
+    def __init__(
+        self,
+        cfg: LiteConfig,
+        task: Any,
+        gap_stats: GapStats,
+        enable_numba_scan: bool = True,
+    ) -> None:
         self.cfg = cfg
         self.task = task
         self.gap_stats = gap_stats
         self.support_cache: OrderedDict[tuple[Any, ...], RuntimeSupportEntry] = OrderedDict()
         self.local_scan_cache: OrderedDict[tuple[Any, ...], RuntimeScanResult] = OrderedDict()
+        self.numba_scan_enabled = bool(enable_numba_scan and can_scan_fetch_slide_support_exact(task))
+        self.numba_scanner_warmed = False
+        self.numba_scan_constants = None
+        if self.numba_scan_enabled:
+            try:
+                self.numba_scan_constants = make_fetch_slide_support_scan_constants(task)
+                action_dim = int(np.asarray(task.action_low).shape[0])
+                obs_dim = int(max(task.ee_velocity_slice[1], task.object_velocity_slice[1], task.object_slice[1]))
+                self.numba_scanner_warmed = warmup_fetch_slide_support_exact(task, action_dim, obs_dim)
+                self.numba_scan_enabled = bool(self.numba_scanner_warmed)
+            except Exception:
+                self.numba_scan_enabled = False
+                self.numba_scanner_warmed = False
+                self.numba_scan_constants = None
 
     @torch.no_grad()
     def compute(
@@ -384,6 +424,7 @@ class RuntimeOptimizedSupportComputer:
                 "q_candidate_eval": 0.0,
                 "weight_compute": weight_computation_time,
                 "weight_computation": weight_computation_time,
+                "numba_support_scan": support.get("numba_support_scan_time", 0.0),
             },
             gap_ready=False,
             gap_tau=0.0,
@@ -427,6 +468,7 @@ class RuntimeOptimizedSupportComputer:
                 f"got policy_support_mode={self.cfg.policy_support_mode!r}"
             )
         policy_bins = self.task.action_bin_batch(a_policy, self.cfg.action_bins_per_dim)
+        use_numba_scan = bool(use_caches and self.numba_scan_enabled)
         support_keys = [
             self._support_cache_key(
                 coarse_key=int(query_coarse[i]),
@@ -434,6 +476,7 @@ class RuntimeOptimizedSupportComputer:
                 goal=batch.desired_goal_train[i],
                 h=int(batch.h[i]),
                 replay=replay,
+                policy_bin=int(policy_bins[i]) if use_numba_scan else None,
             )
             for i in range(b)
         ]
@@ -442,6 +485,9 @@ class RuntimeOptimizedSupportComputer:
         support_misses = 0
         scan_hits = 0
         scan_misses = 0
+        numba_support_queries = 0
+        numba_support_fallbacks = 0
+        numba_support_scan_time = 0.0
         if coalesce:
             first_index: Dict[tuple[Any, ...], int] = {}
             for i, key in enumerate(support_keys):
@@ -454,19 +500,24 @@ class RuntimeOptimizedSupportComputer:
         lookup_results: Dict[Any, RuntimeSupportEntry] = {}
         for key, i in unique_items:
             cache_key = key if coalesce else key[1]
-            entry, hit, scan_hit, scan_miss = self._lookup_support_entry(
+            entry, hit, scan_hit, scan_miss, numba_query, numba_fallback, numba_time = self._lookup_support_entry(
                 cache_key=cache_key,
                 coarse_key=int(query_coarse[i]),
                 full_key=int(full_keys[i]),
                 goal=batch.desired_goal_train[i],
+                policy_bin=int(policy_bins[i]),
                 replay=replay,
                 use_caches=use_caches,
+                use_numba_scan=use_numba_scan,
             )
             if use_caches:
                 support_hits += int(hit)
                 support_misses += int(not hit)
                 scan_hits += scan_hit
                 scan_misses += scan_miss
+            numba_support_queries += int(numba_query)
+            numba_support_fallbacks += int(numba_fallback)
+            numba_support_scan_time += float(numba_time)
             lookup_results[key] = entry
 
         local_context_lookup_time = time.perf_counter() - t_lookup0
@@ -483,7 +534,10 @@ class RuntimeOptimizedSupportComputer:
                 continue
             n_sup = int(entry.available_support_size)
             len_sup[i] = float(n_sup)
-            psi_a_policy[i] = self._bin_supported(entry.action_bins, int(policy_bins[i]))
+            if entry.psi_a_policy is None:
+                psi_a_policy[i] = self._bin_supported(entry.action_bins, int(policy_bins[i]))
+            else:
+                psi_a_policy[i] = float(entry.psi_a_policy)
             if n_sup < self.cfg.M_Q_min or psi_a_policy[i] < 0.5:
                 continue
             psi_q_rank[i] = 1.0
@@ -501,6 +555,13 @@ class RuntimeOptimizedSupportComputer:
             "runtime/batch_query_coalescing_saving_rate": float(1.0 - unique_count / max(1, b)),
             "runtime/local_scan_cache_hit_rate": float(scan_hits / scan_queries),
             "runtime/local_scan_cache_miss_rate": float(scan_misses / scan_queries),
+            "runtime/numba_support_scan_enabled": float(use_numba_scan),
+            "runtime/numba_support_scan_fallback_rate": float(
+                numba_support_fallbacks / max(1, numba_support_queries + numba_support_fallbacks)
+            ),
+            "runtime/numba_support_queries": float(numba_support_queries),
+            "runtime/numba_scanner_warmed": float(self.numba_scanner_warmed),
+            "time/numba_support_scan": float(numba_support_scan_time),
         }
         return {
             "w_raw": w_raw,
@@ -519,6 +580,7 @@ class RuntimeOptimizedSupportComputer:
             "local_context_lookup_time": local_context_lookup_time,
             "candidate_construction_time": candidate_construction_time,
             "weight_compute_time": 0.0,
+            "numba_support_scan_time": float(numba_support_scan_time),
             "extra_metrics": extra_metrics,
         }
 
@@ -528,13 +590,15 @@ class RuntimeOptimizedSupportComputer:
         coarse_key: int,
         full_key: int,
         goal: np.ndarray,
+        policy_bin: int,
         replay: HERReplayBuffer,
         use_caches: bool,
-    ) -> tuple[RuntimeSupportEntry, bool, int, int]:
+        use_numba_scan: bool,
+    ) -> tuple[RuntimeSupportEntry, bool, int, int, int, int, float]:
         if use_caches:
             cached = self._lru_get(self.support_cache, cache_key)
             if cached is not None:
-                return cached, True, 0, 0
+                return cached, True, 0, 0, 0, 0, 0.0
 
         scan, scan_hit, scan_miss = self._scan_for_key(coarse_key, replay, use_caches)
         if scan.indices.size == 0:
@@ -548,7 +612,46 @@ class RuntimeOptimizedSupportComputer:
             )
             if use_caches:
                 self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
-            return entry, False, scan_hit, scan_miss
+            return entry, False, scan_hit, scan_miss, 0, 0, 0.0
+
+        numba_fallback = 0
+        if use_numba_scan:
+            t_numba = time.perf_counter()
+            try:
+                if self.numba_scan_constants is None:
+                    raise RuntimeError("FetchSlide Numba scan constants are not initialized")
+                local_pool_size, available_support_size, psi_a_policy, _, _ = scan_fetch_slide_support_exact_with_constants(
+                    replay_obs=replay.observation,
+                    replay_h=replay.h,
+                    replay_action_bin=replay.action_bin,
+                    replay_action_exec=replay.action_exec,
+                    scanned_indices=scan.indices,
+                    query_goal=goal,
+                    query_full_key=int(full_key),
+                    query_policy_bin=int(policy_bin),
+                    constants=self.numba_scan_constants,
+                    n_local_min=int(self.cfg.N_local_min),
+                    m_q_min=int(self.cfg.M_Q_min),
+                    m_b=int(self.cfg.M_B),
+                    action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                )
+                numba_time = time.perf_counter() - t_numba
+                entry = RuntimeSupportEntry(
+                    local_pool_size=int(local_pool_size),
+                    available_support_size=int(available_support_size),
+                    action_bins=np.zeros((0,), dtype=np.int64),
+                    num_coarse_candidates=scan.num_coarse_candidates,
+                    num_scanned_candidates=int(scan.indices.size),
+                    local_scan_truncated=scan.local_scan_truncated,
+                    psi_a_policy=float(psi_a_policy),
+                )
+                if use_caches:
+                    self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
+                return entry, False, scan_hit, scan_miss, 1, 0, float(numba_time)
+            except Exception:
+                self.numba_scan_enabled = False
+                numba_fallback = 1
+                use_numba_scan = False
 
         ref_obs = replay.observation[scan.indices]
         ref_goal = np.repeat(np.asarray(goal, dtype=np.float32)[None, :], scan.indices.size, axis=0)
@@ -576,7 +679,7 @@ class RuntimeOptimizedSupportComputer:
         )
         if use_caches:
             self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
-        return entry, False, scan_hit, scan_miss
+        return entry, False, scan_hit, scan_miss, 0, numba_fallback, 0.0
 
     def _scan_for_key(
         self,
@@ -615,8 +718,9 @@ class RuntimeOptimizedSupportComputer:
         goal: np.ndarray,
         h: int,
         replay: HERReplayBuffer,
+        policy_bin: int | None = None,
     ) -> tuple[Any, ...]:
-        return (
+        key = (
             int(coarse_key),
             int(full_key),
             np.asarray(goal, dtype=np.float32).tobytes(),
@@ -624,6 +728,9 @@ class RuntimeOptimizedSupportComputer:
             int(self.cfg.local_search_max),
             self._replay_version_for_key(replay, int(coarse_key)),
         )
+        if policy_bin is not None:
+            return (*key, int(policy_bin))
+        return key
 
     def _scan_cache_key(self, coarse_key: int, replay: HERReplayBuffer) -> tuple[int, int, int]:
         return (
@@ -717,8 +824,13 @@ class SaberWeightComputer:
         self.task = task
         self.base = LiteWeightComputer(cfg, task, gap_stats)
         self.runtime_optimized = (
-            RuntimeOptimizedSupportComputer(cfg, task, gap_stats)
-            if spec.public_name == RUNTIME_OPT_METHOD
+            RuntimeOptimizedSupportComputer(
+                cfg,
+                task,
+                gap_stats,
+                enable_numba_scan=spec.public_name == RUNTIME_OPT_V4_METHOD,
+            )
+            if spec.public_name in RUNTIME_OPT_METHODS
             else None
         )
 
@@ -840,7 +952,7 @@ def run(args: argparse.Namespace) -> Path:
     run_name = args.run_name or default_run_name(args.method, args.seed, args.total_steps, effective_ls)
     output_root = Path(args.output_root)
     if not output_root.is_absolute():
-        output_root = REPO_ROOT / output_root
+        output_root = SABER_REPO_ROOT / output_root
     cfg = build_config(args, spec, run_name, output_root / args.method)
     run_dir = make_run_dir(output_root, args.method, run_name, args.resume)
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -901,8 +1013,9 @@ def run(args: argparse.Namespace) -> Path:
             "method_spec": spec.__dict__,
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
-            "runtime_optimization_enabled": args.method == RUNTIME_OPT_METHOD,
+            "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
             "runtime_optimization_verify": bool(args.verify_runtime_optimization),
+            "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
             "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
         },
@@ -1225,12 +1338,17 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "time/actor_critic_update",
         "time/q_candidate_eval",
         "time/q_policy_eval",
+        "time/numba_support_scan",
         "runtime/support_cache_hit_rate",
         "runtime/support_cache_miss_rate",
         "runtime/batch_query_unique_rate",
         "runtime/batch_query_coalescing_saving_rate",
         "runtime/local_scan_cache_hit_rate",
         "runtime/local_scan_cache_miss_rate",
+        "runtime/numba_support_scan_enabled",
+        "runtime/numba_support_scan_fallback_rate",
+        "runtime/numba_support_queries",
+        "runtime/numba_scanner_warmed",
         "runtime/steps_per_sec",
         "runtime/total_sec",
         "eval/success_mean",
@@ -1333,6 +1451,7 @@ def empty_metrics(phase_names: Iterable[str], control_mode: str) -> Dict[str, fl
         "time/actor_critic_update": 0.0,
         "time/q_candidate_eval": 0.0,
         "time/q_policy_eval": 0.0,
+        "time/numba_support_scan": 0.0,
     }
     for phase in phase_names:
         metrics[f"phase/{phase}/count_rate"] = 0.0
@@ -1374,6 +1493,7 @@ def metrics_from_weight_batch(wb: WeightBatch, phase_names: Iterable[str], contr
             "time/weight_compute": float(wb.timing.get("weight_compute", 0.0)),
             "time/q_candidate_eval": float(wb.timing.get("q_candidate_eval", 0.0)),
             "time/q_policy_eval": float(wb.timing.get("q_policy_eval", 0.0)),
+            "time/numba_support_scan": float(wb.timing.get("numba_support_scan", 0.0)),
         }
     )
     phases = getattr(wb, "phase", np.zeros_like(w, dtype=np.int64))
@@ -1592,7 +1712,8 @@ def build_summary(
         "config_weight_scope": cfg.weight_scope,
         "control_mode": spec.control_mode,
         "support_lookup_enabled": uses_support_lookup(spec),
-        "runtime_optimization_enabled": args.method == RUNTIME_OPT_METHOD,
+        "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
+        "numba_available": bool(NUMBA_AVAILABLE),
         "seed": int(args.seed),
         "total_steps": total_steps,
         "local_search_max": int(cfg.local_search_max) if uses_support_lookup(spec) else None,
