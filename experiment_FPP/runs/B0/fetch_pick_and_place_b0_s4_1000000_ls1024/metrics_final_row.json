@@ -1,0 +1,18 @@
+{
+  "step": "1000000",
+  "episode": "20000",
+  "loss/critic": "1.630598545074463",
+  "loss/actor": "-10.026299476623535",
+  "lite/mean_w_P": "1.0",
+  "lite/psi_q_rank_rate": "0.0",
+  "lite/q_candidate_fallback_rate": "1.0",
+  "lite/psi_A_policy_rate": "0.0",
+  "time/local_context_lookup": "0.0",
+  "runtime/steps_per_sec": "65.10034029715096",
+  "eval/success_mean": "0.9",
+  "eval/goal_success_mean": "0.9",
+  "eval/env_success_mean": "0.9",
+  "eval/AUC_success": "0.32525252525252524",
+  "eval/final_success": "0.9",
+  "eval/best_success": "1.0"
+}
