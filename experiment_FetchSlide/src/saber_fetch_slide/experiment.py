@@ -1799,6 +1799,8 @@ def run(args: argparse.Namespace) -> Path:
         {
             **cfg.as_dict(),
             "saber_method": args.method,
+            "seed": int(args.seed),
+            "seed_config": cfg.seeds.__dict__,
             "method_spec": spec.__dict__,
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
