@@ -64,10 +64,18 @@ DEFAULT_THRESHOLDS = (0.25, 0.50, 0.75, 0.90, 1.00)
 RUNTIME_OPT_METHOD = "b3_critic_only_runtime_optimization"
 RUNTIME_OPT_V4_METHOD = "b3_critic_only_runtime_opt_v4"
 RUNTIME_OPT_V5_METHOD = "b3_critic_only_runtime_opt_v5"
-RUNTIME_OPT_METHODS = {RUNTIME_OPT_METHOD, RUNTIME_OPT_V4_METHOD, RUNTIME_OPT_V5_METHOD}
+RUNTIME_OPT_V6_METHOD = "b3_critic_only_runtime_opt_v6_anneal_300k"
+RUNTIME_OPT_METHODS = {
+    RUNTIME_OPT_METHOD,
+    RUNTIME_OPT_V4_METHOD,
+    RUNTIME_OPT_V5_METHOD,
+    RUNTIME_OPT_V6_METHOD,
+}
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
 RUNTIME_PREDICATE_AUDIT_INTERVAL = 100
+RUNTIME_V6_ANNEAL_START_STEP = 300_000
+RUNTIME_V6_ANNEAL_END_STEP = 500_000
 
 
 @dataclass(frozen=True)
@@ -126,6 +134,12 @@ METHODS: Dict[str, MethodSpec] = {
     ),
     "b3_critic_only_runtime_opt_v5": MethodSpec(
         "b3_critic_only_runtime_opt_v5",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v6_anneal_300k": MethodSpec(
+        "b3_critic_only_runtime_opt_v6_anneal_300k",
         "b3_support_only",
         "critic_only",
         FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
@@ -189,6 +203,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--M_Q_min", type=int, default=4)
     parser.add_argument("--N_local_min", type=int, default=4)
     parser.add_argument("--lambda_support", type=float, default=1.0)
+    parser.add_argument("--support_anneal_start_step", type=int, default=RUNTIME_V6_ANNEAL_START_STEP)
+    parser.add_argument("--support_anneal_end_step", type=int, default=RUNTIME_V6_ANNEAL_END_STEP)
     parser.add_argument("--action_bins_per_dim", type=int, default=5)
     parser.add_argument("--policy_support_mode", choices=["bin", "radius", "auto"], default="bin")
     parser.add_argument("--policy_action_radius", type=float, default=0.35)
@@ -264,6 +280,8 @@ def build_config(args: argparse.Namespace, spec: MethodSpec, run_name: str, outp
     )
     cfg.normalize()
     cfg.verify_runtime_optimization = bool(args.verify_runtime_optimization)
+    cfg.support_anneal_start_step = int(args.support_anneal_start_step)
+    cfg.support_anneal_end_step = int(args.support_anneal_end_step)
     if args.smoke:
         cfg.total_steps = min(cfg.total_steps, 1_000)
         cfg.start_steps = min(cfg.start_steps, 200)
@@ -334,6 +352,27 @@ class RuntimeSupportEntry:
     diagnostics_exact: bool = True
 
 
+def scheduled_support_lambda(
+    public_name: str,
+    base_lambda: float,
+    global_step: int | None,
+    anneal_start_step: int = RUNTIME_V6_ANNEAL_START_STEP,
+    anneal_end_step: int = RUNTIME_V6_ANNEAL_END_STEP,
+) -> float:
+    if public_name != RUNTIME_OPT_V6_METHOD:
+        return float(base_lambda)
+    step = 0 if global_step is None else int(global_step)
+    start = int(anneal_start_step)
+    end = max(start + 1, int(anneal_end_step))
+    if step < start:
+        return float(base_lambda)
+    if step >= end:
+        return 0.0
+    span = max(1, end - start)
+    scale = (end - step) / float(span)
+    return float(base_lambda) * max(0.0, min(1.0, scale))
+
+
 class RuntimeOptimizedSupportComputer:
     """Exact B3 support-only lookup with bounded deterministic caching.
 
@@ -348,6 +387,7 @@ class RuntimeOptimizedSupportComputer:
         gap_stats: GapStats,
         enable_numba_scan: bool = True,
         enable_predicate_early_exit: bool = False,
+        enable_periodic_predicate_audit: bool = True,
     ) -> None:
         self.cfg = cfg
         self.task = task
@@ -356,6 +396,7 @@ class RuntimeOptimizedSupportComputer:
         self.local_scan_cache: OrderedDict[tuple[Any, ...], RuntimeScanResult] = OrderedDict()
         self.numba_scan_enabled = bool(enable_numba_scan and can_scan_fetch_slide_support_exact(task))
         self.predicate_early_exit_enabled = bool(enable_predicate_early_exit)
+        self.periodic_predicate_audit_enabled = bool(enable_periodic_predicate_audit)
         self.numba_scanner_warmed = False
         self.numba_scan_constants = None
         self.compute_calls = 0
@@ -384,11 +425,30 @@ class RuntimeOptimizedSupportComputer:
         agent: DDPGAgent,
         rng: np.random.Generator,
         device: torch.device,
+        lambda_support: float | None = None,
+        support_lookup_enabled: bool = True,
+        schedule_metrics: Dict[str, float] | None = None,
     ) -> WeightBatch:
         del rng
         t0 = time.perf_counter()
         b = int(batch.observation.shape[0])
         phase, extra_metrics = self._task_batch_diagnostics(batch, b)
+        effective_lambda = self.cfg.lambda_support if lambda_support is None else float(lambda_support)
+        if schedule_metrics:
+            extra_metrics.update(schedule_metrics)
+        extra_metrics.update(
+            {
+                "runtime/support_lambda_effective": float(effective_lambda),
+                "runtime/support_lookup_enabled": float(bool(support_lookup_enabled and effective_lambda > 0.0)),
+                "runtime/support_lookup_skipped": float(not bool(support_lookup_enabled and effective_lambda > 0.0)),
+            }
+        )
+        if (not support_lookup_enabled) or effective_lambda <= 0.0:
+            return self._uniform_weight_batch(
+                batch=batch,
+                phase=phase,
+                extra_metrics=extra_metrics,
+            )
 
         state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
         state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
@@ -402,14 +462,19 @@ class RuntimeOptimizedSupportComputer:
             a_policy=a_policy,
             use_caches=True,
             coalesce=True,
+            lambda_support=effective_lambda,
         )
         extra_metrics.update(support["extra_metrics"])
+        extra_metrics["runtime/support_lambda_effective"] = float(effective_lambda)
+        extra_metrics["runtime/support_lookup_enabled"] = 1.0
+        extra_metrics["runtime/support_lookup_skipped"] = 0.0
 
         w_raw = support["w_raw"]
         omega_critic, omega_actor = self._omegas(w_raw)
         verify_runtime = bool(getattr(self.cfg, "verify_runtime_optimization", False))
         predicate_audit_due = bool(
             self.predicate_early_exit_enabled
+            and self.periodic_predicate_audit_enabled
             and self.compute_calls % RUNTIME_PREDICATE_AUDIT_INTERVAL == 0
         )
         predicate_audit_ran = False
@@ -420,6 +485,7 @@ class RuntimeOptimizedSupportComputer:
                 a_policy=a_policy,
                 use_caches=False,
                 coalesce=False,
+                lambda_support=effective_lambda,
             )
             ref_critic, ref_actor = self._omegas(reference["w_raw"])
             if self.predicate_early_exit_enabled:
@@ -492,6 +558,50 @@ class RuntimeOptimizedSupportComputer:
             extra_metrics=extra_metrics,
         )
 
+    def _uniform_weight_batch(
+        self,
+        batch: SampleBatch,
+        phase: np.ndarray,
+        extra_metrics: Dict[str, float],
+    ) -> WeightBatch:
+        b = int(batch.observation.shape[0])
+        ones = np.ones(b, dtype=np.float32)
+        zeros = np.zeros(b, dtype=np.float32)
+        fallback = np.ones(b, dtype=np.float32)
+        return WeightBatch(
+            omega_critic=ones.copy(),
+            omega_actor=ones.copy(),
+            w_p_raw=ones.copy(),
+            g_sup=zeros.copy(),
+            kappa=zeros.copy(),
+            psi_q_rank=zeros.copy(),
+            q_candidate_fallback=fallback,
+            psi_a_policy=zeros.copy(),
+            len_a_q_sup=zeros.copy(),
+            len_a_q_local=zeros.copy(),
+            num_coarse_candidates=zeros.copy(),
+            num_scanned_candidates=zeros.copy(),
+            local_scan_truncated=zeros.copy(),
+            q_imp_minus_q_policy=zeros.copy(),
+            unrestricted_gap=zeros.copy(),
+            phase=phase,
+            timing={
+                "actor": 0.0,
+                "local_context_lookup": 0.0,
+                "candidate_construction": 0.0,
+                "local_context": 0.0,
+                "q_policy_eval": 0.0,
+                "q_candidate_eval": 0.0,
+                "weight_compute": 0.0,
+                "weight_computation": 0.0,
+                "numba_support_scan": 0.0,
+            },
+            gap_ready=False,
+            gap_tau=0.0,
+            gap_max=0.0,
+            extra_metrics=extra_metrics,
+        )
+
     def _support_arrays(
         self,
         batch: SampleBatch,
@@ -499,9 +609,11 @@ class RuntimeOptimizedSupportComputer:
         a_policy: np.ndarray,
         use_caches: bool,
         coalesce: bool,
+        lambda_support: float | None = None,
     ) -> Dict[str, Any]:
         t_lookup0 = time.perf_counter()
         b = int(batch.observation.shape[0])
+        effective_lambda = self.cfg.lambda_support if lambda_support is None else float(lambda_support)
         w_raw = np.ones(b, dtype=np.float32)
         g_sup = np.zeros(b, dtype=np.float32)
         kappa = np.zeros(b, dtype=np.float32)
@@ -612,7 +724,7 @@ class RuntimeOptimizedSupportComputer:
                 psi_q_rank[i] = float(entry.psi_q_rank)
                 fallback[i] = float(entry.q_candidate_fallback or 0.0)
                 if psi_q_rank[i] >= 0.5:
-                    w_raw[i] = 1.0 + self.cfg.lambda_support
+                    w_raw[i] = 1.0 + effective_lambda
                 continue
             if local_count < self.cfg.N_local_min:
                 continue
@@ -626,7 +738,7 @@ class RuntimeOptimizedSupportComputer:
                 continue
             psi_q_rank[i] = 1.0
             fallback[i] = 0.0
-            w_raw[i] = 1.0 + self.cfg.lambda_support
+            w_raw[i] = 1.0 + effective_lambda
         candidate_construction_time = time.perf_counter() - t_support0
 
         unique_count = len(unique_items)
@@ -1038,8 +1150,9 @@ class SaberWeightComputer:
                 cfg,
                 task,
                 gap_stats,
-                enable_numba_scan=spec.public_name in {RUNTIME_OPT_V4_METHOD, RUNTIME_OPT_V5_METHOD},
-                enable_predicate_early_exit=spec.public_name == RUNTIME_OPT_V5_METHOD,
+                enable_numba_scan=spec.public_name in {RUNTIME_OPT_V4_METHOD, RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
+                enable_predicate_early_exit=spec.public_name in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
+                enable_periodic_predicate_audit=spec.public_name != RUNTIME_OPT_V6_METHOD,
             )
             if spec.public_name in RUNTIME_OPT_METHODS
             else None
@@ -1054,9 +1167,43 @@ class SaberWeightComputer:
         device: torch.device,
         reward_train: np.ndarray,
         nonterminal: np.ndarray,
+        global_step: int | None = None,
     ) -> WeightBatch:
         if self.runtime_optimized is not None:
-            return self.runtime_optimized.compute(batch, replay, agent, rng, device)
+            anneal_start = int(getattr(self.cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP))
+            anneal_end = int(getattr(self.cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP))
+            effective_lambda = scheduled_support_lambda(
+                self.spec.public_name,
+                self.cfg.lambda_support,
+                global_step,
+                anneal_start,
+                anneal_end,
+            )
+            schedule_metrics: Dict[str, float] = {}
+            if self.spec.public_name == RUNTIME_OPT_V6_METHOD:
+                step = 0 if global_step is None else int(global_step)
+                span = max(1, anneal_end - anneal_start)
+                if step < anneal_start:
+                    progress = 0.0
+                elif step >= anneal_end:
+                    progress = 1.0
+                else:
+                    progress = (step - anneal_start) / float(span)
+                schedule_metrics = {
+                    "runtime/support_anneal_start_step": float(anneal_start),
+                    "runtime/support_anneal_end_step": float(anneal_end),
+                    "runtime/support_anneal_progress": float(max(0.0, min(1.0, progress))),
+                }
+            return self.runtime_optimized.compute(
+                batch,
+                replay,
+                agent,
+                rng,
+                device,
+                lambda_support=effective_lambda,
+                support_lookup_enabled=effective_lambda > 0.0,
+                schedule_metrics=schedule_metrics,
+            )
 
         if self.spec.control_mode in {"td_error", "per_style"}:
             wb = self.base.compute(batch, replay, agent, rng, device)
@@ -1225,7 +1372,11 @@ def run(args: argparse.Namespace) -> Path:
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
             "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
-            "runtime_predicate_early_exit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
+            "runtime_predicate_early_exit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
+            "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
+            "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
+            "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
+            "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
             "runtime_optimization_verify": bool(args.verify_runtime_optimization),
             "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
@@ -1359,7 +1510,16 @@ def run(args: argparse.Namespace) -> Path:
                 env_terminal = batch.done.astype(np.float32) * (1.0 - batch.timeout.astype(np.float32))
                 nonterminal = (1.0 - np.maximum(env_terminal, success_train.astype(np.float32) * 0.0)).astype(np.float32)
 
-                wb = weight_computer.compute(batch, replay, agent, weight_rng, device, reward_train, nonterminal)
+                wb = weight_computer.compute(
+                    batch,
+                    replay,
+                    agent,
+                    weight_rng,
+                    device,
+                    reward_train,
+                    nonterminal,
+                    global_step=global_step,
+                )
                 state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
                 next_state_np = np.concatenate([batch.next_observation, batch.desired_goal_train], axis=1).astype(np.float32)
 
@@ -1561,6 +1721,12 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "runtime/numba_support_scan_fallback_rate",
         "runtime/numba_support_queries",
         "runtime/numba_scanner_warmed",
+        "runtime/support_lambda_effective",
+        "runtime/support_lookup_enabled",
+        "runtime/support_lookup_skipped",
+        "runtime/support_anneal_start_step",
+        "runtime/support_anneal_end_step",
+        "runtime/support_anneal_progress",
         "runtime/predicate_early_exit_enabled",
         "runtime/predicate_early_exit_rate",
         "runtime/predicate_positive_early_exit_rate",
@@ -1947,7 +2113,11 @@ def build_summary(
         "control_mode": spec.control_mode,
         "support_lookup_enabled": uses_support_lookup(spec),
         "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
-        "runtime_predicate_early_exit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
+        "runtime_predicate_early_exit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
+        "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
+        "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
+        "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
+        "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
         "numba_available": bool(NUMBA_AVAILABLE),
         "seed": int(args.seed),
         "total_steps": total_steps,
