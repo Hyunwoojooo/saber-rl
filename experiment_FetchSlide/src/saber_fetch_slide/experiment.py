@@ -53,8 +53,10 @@ from saber_fetch_slide.numba_support_scan import (
     make_fetch_slide_support_scan_constants,
     scan_fetch_slide_support_exact_with_constants,
     scan_fetch_slide_support_predicate_with_constants,
+    scan_fetch_slide_support_quality_with_constants,
     warmup_fetch_slide_support_exact,
     warmup_fetch_slide_support_predicate,
+    warmup_fetch_slide_support_quality,
 )
 
 
@@ -205,6 +207,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lambda_support", type=float, default=1.0)
     parser.add_argument("--support_anneal_start_step", type=int, default=RUNTIME_V6_ANNEAL_START_STEP)
     parser.add_argument("--support_anneal_end_step", type=int, default=RUNTIME_V6_ANNEAL_END_STEP)
+    parser.add_argument("--support_quality_mode", choices=["none", "fetch_slide_phase_soft"], default="none")
+    parser.add_argument("--support_quality_apply_to_weight", action="store_true")
+    parser.add_argument("--support_quality_floor", type=float, default=0.25)
+    parser.add_argument("--support_quality_approach_scale", type=float, default=0.02)
+    parser.add_argument("--support_quality_goal_progress_scale", type=float, default=0.03)
+    parser.add_argument("--support_quality_align_min", type=float, default=0.0)
+    parser.add_argument("--support_quality_strike_speed_scale_mult", type=float, default=2.0)
+    parser.add_argument("--support_quality_near_margin_mult", type=float, default=0.25)
+    parser.add_argument("--support_quality_near_speed_mult", type=float, default=1.0)
     parser.add_argument("--action_bins_per_dim", type=int, default=5)
     parser.add_argument("--policy_support_mode", choices=["bin", "radius", "auto"], default="bin")
     parser.add_argument("--policy_action_radius", type=float, default=0.35)
@@ -282,6 +293,15 @@ def build_config(args: argparse.Namespace, spec: MethodSpec, run_name: str, outp
     cfg.verify_runtime_optimization = bool(args.verify_runtime_optimization)
     cfg.support_anneal_start_step = int(args.support_anneal_start_step)
     cfg.support_anneal_end_step = int(args.support_anneal_end_step)
+    cfg.support_quality_mode = str(args.support_quality_mode)
+    cfg.support_quality_apply_to_weight = bool(args.support_quality_apply_to_weight)
+    cfg.support_quality_floor = float(args.support_quality_floor)
+    cfg.support_quality_approach_scale = float(args.support_quality_approach_scale)
+    cfg.support_quality_goal_progress_scale = float(args.support_quality_goal_progress_scale)
+    cfg.support_quality_align_min = float(args.support_quality_align_min)
+    cfg.support_quality_strike_speed_scale_mult = float(args.support_quality_strike_speed_scale_mult)
+    cfg.support_quality_near_margin_mult = float(args.support_quality_near_margin_mult)
+    cfg.support_quality_near_speed_mult = float(args.support_quality_near_speed_mult)
     if args.smoke:
         cfg.total_steps = min(cfg.total_steps, 1_000)
         cfg.start_steps = min(cfg.start_steps, 200)
@@ -350,6 +370,13 @@ class RuntimeSupportEntry:
     predicate_positive_early_exit: bool = False
     predicate_negative_early_exit: bool = False
     diagnostics_exact: bool = True
+    support_quality: float = 1.0
+    support_score: float = 0.0
+    same_bin_match_count: int = 0
+    quality_speed: float = 0.0
+    quality_alignment: float = 0.0
+    quality_progress: float = 0.0
+    quality_near_stability: float = 0.0
 
 
 def scheduled_support_lambda(
@@ -394,10 +421,16 @@ class RuntimeOptimizedSupportComputer:
         self.gap_stats = gap_stats
         self.support_cache: OrderedDict[tuple[Any, ...], RuntimeSupportEntry] = OrderedDict()
         self.local_scan_cache: OrderedDict[tuple[Any, ...], RuntimeScanResult] = OrderedDict()
+        self.support_quality_mode = str(getattr(cfg, "support_quality_mode", "none"))
+        if self.support_quality_mode not in {"none", "fetch_slide_phase_soft"}:
+            raise ValueError(f"Unsupported support_quality_mode={self.support_quality_mode!r}")
+        self.support_quality_enabled = self.support_quality_mode != "none"
+        self.support_quality_apply_to_weight = bool(getattr(cfg, "support_quality_apply_to_weight", False))
         self.numba_scan_enabled = bool(enable_numba_scan and can_scan_fetch_slide_support_exact(task))
-        self.predicate_early_exit_enabled = bool(enable_predicate_early_exit)
+        self.predicate_early_exit_enabled = bool(enable_predicate_early_exit and not self.support_quality_enabled)
         self.periodic_predicate_audit_enabled = bool(enable_periodic_predicate_audit)
         self.numba_scanner_warmed = False
+        self.support_quality_numba_enabled = False
         self.numba_scan_constants = None
         self.compute_calls = 0
         self.predicate_audit_age_updates = 0
@@ -407,7 +440,10 @@ class RuntimeOptimizedSupportComputer:
                 self.numba_scan_constants = make_fetch_slide_support_scan_constants(task)
                 action_dim = int(np.asarray(task.action_low).shape[0])
                 obs_dim = int(max(task.ee_velocity_slice[1], task.object_velocity_slice[1], task.object_slice[1]))
-                if self.predicate_early_exit_enabled:
+                if self.support_quality_enabled:
+                    self.numba_scanner_warmed = warmup_fetch_slide_support_quality(task, action_dim, obs_dim)
+                    self.support_quality_numba_enabled = bool(self.numba_scanner_warmed)
+                elif self.predicate_early_exit_enabled:
                     self.numba_scanner_warmed = warmup_fetch_slide_support_predicate(task, action_dim, obs_dim)
                 else:
                     self.numba_scanner_warmed = warmup_fetch_slide_support_exact(task, action_dim, obs_dim)
@@ -415,6 +451,7 @@ class RuntimeOptimizedSupportComputer:
             except Exception:
                 self.numba_scan_enabled = False
                 self.numba_scanner_warmed = False
+                self.support_quality_numba_enabled = False
                 self.numba_scan_constants = None
 
     @torch.no_grad()
@@ -441,6 +478,13 @@ class RuntimeOptimizedSupportComputer:
                 "runtime/support_lambda_effective": float(effective_lambda),
                 "runtime/support_lookup_enabled": float(bool(support_lookup_enabled and effective_lambda > 0.0)),
                 "runtime/support_lookup_skipped": float(not bool(support_lookup_enabled and effective_lambda > 0.0)),
+                "runtime/support_quality_enabled": float(self.support_quality_enabled),
+                "runtime/support_quality_apply_to_weight": float(
+                    self.support_quality_enabled and self.support_quality_apply_to_weight
+                ),
+                "runtime/support_quality_numba_enabled": float(
+                    self.support_quality_enabled and self.support_quality_numba_enabled
+                ),
             }
         )
         if (not support_lookup_enabled) or effective_lambda <= 0.0:
@@ -463,6 +507,7 @@ class RuntimeOptimizedSupportComputer:
             use_caches=True,
             coalesce=True,
             lambda_support=effective_lambda,
+            phase=phase,
         )
         extra_metrics.update(support["extra_metrics"])
         extra_metrics["runtime/support_lambda_effective"] = float(effective_lambda)
@@ -486,9 +531,19 @@ class RuntimeOptimizedSupportComputer:
                 use_caches=False,
                 coalesce=False,
                 lambda_support=effective_lambda,
+                phase=phase,
             )
             ref_critic, ref_actor = self._omegas(reference["w_raw"])
-            if self.predicate_early_exit_enabled:
+            if self.support_quality_enabled:
+                self._assert_quality_equivalent(
+                    support,
+                    reference,
+                    omega_critic,
+                    omega_actor,
+                    ref_critic,
+                    ref_actor,
+                )
+            elif self.predicate_early_exit_enabled:
                 self._assert_semantic_equivalent(
                     support,
                     reference,
@@ -551,6 +606,7 @@ class RuntimeOptimizedSupportComputer:
                 "weight_compute": weight_computation_time,
                 "weight_computation": weight_computation_time,
                 "numba_support_scan": support.get("numba_support_scan_time", 0.0),
+                "support_quality_scan": support["extra_metrics"].get("time/support_quality_scan", 0.0),
             },
             gap_ready=False,
             gap_tau=0.0,
@@ -595,6 +651,7 @@ class RuntimeOptimizedSupportComputer:
                 "weight_compute": 0.0,
                 "weight_computation": 0.0,
                 "numba_support_scan": 0.0,
+                "support_quality_scan": 0.0,
             },
             gap_ready=False,
             gap_tau=0.0,
@@ -610,6 +667,7 @@ class RuntimeOptimizedSupportComputer:
         use_caches: bool,
         coalesce: bool,
         lambda_support: float | None = None,
+        phase: np.ndarray | None = None,
     ) -> Dict[str, Any]:
         t_lookup0 = time.perf_counter()
         b = int(batch.observation.shape[0])
@@ -627,6 +685,15 @@ class RuntimeOptimizedSupportComputer:
         scan_truncated = np.zeros(b, dtype=np.float32)
         q_delta = np.zeros(b, dtype=np.float32)
         unrestricted_gap = np.zeros(b, dtype=np.float32)
+        support_quality = np.zeros(b, dtype=np.float32)
+        support_score = np.zeros(b, dtype=np.float32)
+        same_bin_match_count = np.zeros(b, dtype=np.float32)
+        quality_speed = np.zeros(b, dtype=np.float32)
+        quality_alignment = np.zeros(b, dtype=np.float32)
+        quality_progress = np.zeros(b, dtype=np.float32)
+        quality_near_stability = np.zeros(b, dtype=np.float32)
+        if phase is None:
+            phase = np.zeros(b, dtype=np.int64)
 
         query_coarse = self.task.coarse_hash_batch(batch.observation, batch.h)
         full_keys = self.task.full_context_hash_batch(
@@ -648,7 +715,7 @@ class RuntimeOptimizedSupportComputer:
                 goal=batch.desired_goal_train[i],
                 h=int(batch.h[i]),
                 replay=replay,
-                policy_bin=int(policy_bins[i]) if use_numba_scan else None,
+                policy_bin=int(policy_bins[i]) if (use_numba_scan or self.support_quality_enabled) else None,
             )
             for i in range(b)
         ]
@@ -666,6 +733,7 @@ class RuntimeOptimizedSupportComputer:
         predicate_positive_early_exits = 0
         predicate_negative_early_exits = 0
         diagnostics_exact_count = 0
+        support_quality_scan_time = 0.0
         if coalesce:
             first_index: Dict[tuple[Any, ...], int] = {}
             for i, key in enumerate(support_keys):
@@ -696,6 +764,8 @@ class RuntimeOptimizedSupportComputer:
             numba_support_queries += int(numba_query)
             numba_support_fallbacks += int(numba_fallback)
             numba_support_scan_time += float(numba_time)
+            if self.support_quality_enabled:
+                support_quality_scan_time += float(numba_time)
             predicate_candidates_examined += int(entry.predicate_candidates_examined)
             predicate_selected_candidates += int(entry.num_scanned_candidates)
             predicate_early_exits += int(entry.predicate_early_exit)
@@ -714,6 +784,12 @@ class RuntimeOptimizedSupportComputer:
             scan_truncated[i] = float(entry.local_scan_truncated)
             local_count = int(entry.local_pool_size)
             len_local[i] = float(local_count)
+            support_quality[i] = float(entry.support_quality) if self.support_quality_enabled else 0.0
+            same_bin_match_count[i] = float(entry.same_bin_match_count)
+            quality_speed[i] = float(entry.quality_speed)
+            quality_alignment[i] = float(entry.quality_alignment)
+            quality_progress[i] = float(entry.quality_progress)
+            quality_near_stability[i] = float(entry.quality_near_stability)
             if entry.psi_q_rank is not None:
                 if local_count < self.cfg.N_local_min:
                     continue
@@ -723,8 +799,16 @@ class RuntimeOptimizedSupportComputer:
                     continue
                 psi_q_rank[i] = float(entry.psi_q_rank)
                 fallback[i] = float(entry.q_candidate_fallback or 0.0)
+                support_score[i] = (
+                    float(entry.support_score)
+                    if self.support_quality_enabled
+                    else float(entry.psi_q_rank)
+                )
                 if psi_q_rank[i] >= 0.5:
-                    w_raw[i] = 1.0 + effective_lambda
+                    if self.support_quality_enabled and self.support_quality_apply_to_weight:
+                        w_raw[i] = 1.0 + effective_lambda * support_score[i]
+                    else:
+                        w_raw[i] = 1.0 + effective_lambda
                 continue
             if local_count < self.cfg.N_local_min:
                 continue
@@ -738,7 +822,11 @@ class RuntimeOptimizedSupportComputer:
                 continue
             psi_q_rank[i] = 1.0
             fallback[i] = 0.0
-            w_raw[i] = 1.0 + effective_lambda
+            support_score[i] = float(entry.support_score) if self.support_quality_enabled else 1.0
+            if self.support_quality_enabled and self.support_quality_apply_to_weight:
+                w_raw[i] = 1.0 + effective_lambda * support_score[i]
+            else:
+                w_raw[i] = 1.0 + effective_lambda
         candidate_construction_time = time.perf_counter() - t_support0
 
         unique_count = len(unique_items)
@@ -771,7 +859,47 @@ class RuntimeOptimizedSupportComputer:
             ),
             "runtime/predicate_audit_interval": float(RUNTIME_PREDICATE_AUDIT_INTERVAL),
             "time/numba_support_scan": float(numba_support_scan_time),
+            "runtime/support_quality_enabled": float(self.support_quality_enabled),
+            "runtime/support_quality_apply_to_weight": float(
+                self.support_quality_enabled and self.support_quality_apply_to_weight
+            ),
+            "runtime/support_quality_numba_enabled": float(
+                self.support_quality_enabled and use_numba_scan and self.support_quality_numba_enabled
+            ),
+            "runtime/support_quality_numba_fallback_rate": float(
+                numba_support_fallbacks / max(1, numba_support_queries + numba_support_fallbacks)
+            )
+            if self.support_quality_enabled
+            else 0.0,
+            "time/support_quality_scan": float(support_quality_scan_time),
+            "lite/support_quality_mean": float(np.mean(support_quality)) if support_quality.size else 0.0,
+            "lite/support_quality_p50": _percentile(support_quality, 50.0),
+            "lite/support_quality_p90": _percentile(support_quality, 90.0),
+            "lite/support_quality_positive_rate": float(np.mean(support_quality > 0.0)) if support_quality.size else 0.0,
+            "lite/support_score_mean": float(np.mean(support_score)) if support_score.size else 0.0,
+            "lite/support_score_p50": _percentile(support_score, 50.0),
+            "lite/support_score_p90": _percentile(support_score, 90.0),
+            "lite/same_bin_match_count_mean": float(np.mean(same_bin_match_count)) if same_bin_match_count.size else 0.0,
+            "fetch_slide/quality_speed_mean": float(np.mean(quality_speed)) if quality_speed.size else 0.0,
+            "fetch_slide/quality_alignment_mean": float(np.mean(quality_alignment)) if quality_alignment.size else 0.0,
+            "fetch_slide/quality_progress_mean": float(np.mean(quality_progress)) if quality_progress.size else 0.0,
+            "fetch_slide/quality_near_stability_mean": float(np.mean(quality_near_stability))
+            if quality_near_stability.size
+            else 0.0,
         }
+        phase_names = tuple(getattr(self.task, "phase_names", ("approach", "strike", "slide", "near_goal")))
+        for phase_id, phase_name in enumerate(phase_names):
+            mask = phase == phase_id
+            if np.any(mask):
+                extra_metrics[f"phase/{phase_name}/support_quality_mean"] = float(np.mean(support_quality[mask]))
+                extra_metrics[f"phase/{phase_name}/support_score_mean"] = float(np.mean(support_score[mask]))
+                extra_metrics[f"phase/{phase_name}/same_bin_match_count_mean"] = float(
+                    np.mean(same_bin_match_count[mask])
+                )
+            else:
+                extra_metrics[f"phase/{phase_name}/support_quality_mean"] = 0.0
+                extra_metrics[f"phase/{phase_name}/support_score_mean"] = 0.0
+                extra_metrics[f"phase/{phase_name}/same_bin_match_count_mean"] = 0.0
         return {
             "w_raw": w_raw,
             "g_sup": g_sup,
@@ -784,6 +912,13 @@ class RuntimeOptimizedSupportComputer:
             "num_coarse_candidates": coarse_count,
             "num_scanned_candidates": scanned_count,
             "local_scan_truncated": scan_truncated,
+            "support_quality": support_quality,
+            "support_score": support_score,
+            "same_bin_match_count": same_bin_match_count,
+            "quality_speed": quality_speed,
+            "quality_alignment": quality_alignment,
+            "quality_progress": quality_progress,
+            "quality_near_stability": quality_near_stability,
             "q_imp_minus_q_policy": q_delta,
             "unrestricted_gap": unrestricted_gap,
             "local_context_lookup_time": local_context_lookup_time,
@@ -818,12 +953,99 @@ class RuntimeOptimizedSupportComputer:
                 num_coarse_candidates=scan.num_coarse_candidates,
                 num_scanned_candidates=0,
                 local_scan_truncated=scan.local_scan_truncated,
+                support_quality=0.0 if self.support_quality_enabled else 1.0,
             )
             if use_caches:
                 self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
             return entry, False, scan_hit, scan_miss, 0, 0, 0.0
 
         numba_fallback = 0
+        if self.support_quality_enabled:
+            if use_numba_scan and self.support_quality_numba_enabled:
+                t_numba = time.perf_counter()
+                try:
+                    if self.numba_scan_constants is None:
+                        raise RuntimeError("FetchSlide Numba scan constants are not initialized")
+                    (
+                        local_pool_size,
+                        available_support_size,
+                        psi_a_policy,
+                        psi_q_rank,
+                        fallback,
+                        support_quality,
+                        support_score,
+                        same_bin_match_count,
+                        quality_progress,
+                        quality_speed,
+                        quality_alignment,
+                        quality_near_stability,
+                    ) = scan_fetch_slide_support_quality_with_constants(
+                        replay_obs=replay.observation,
+                        replay_next_obs=replay.next_observation,
+                        replay_h=replay.h,
+                        replay_action_bin=replay.action_bin,
+                        replay_action_exec=replay.action_exec,
+                        scanned_indices=scan.indices,
+                        query_goal=goal,
+                        query_full_key=int(full_key),
+                        query_policy_bin=int(policy_bin),
+                        constants=self.numba_scan_constants,
+                        n_local_min=int(self.cfg.N_local_min),
+                        m_q_min=int(self.cfg.M_Q_min),
+                        m_b=int(self.cfg.M_B),
+                        action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                        quality_floor=float(getattr(self.cfg, "support_quality_floor", 0.25)),
+                        approach_scale=float(getattr(self.cfg, "support_quality_approach_scale", 0.02)),
+                        goal_progress_scale=float(getattr(self.cfg, "support_quality_goal_progress_scale", 0.03)),
+                        align_min=float(getattr(self.cfg, "support_quality_align_min", 0.0)),
+                        strike_speed_scale_mult=float(
+                            getattr(self.cfg, "support_quality_strike_speed_scale_mult", 2.0)
+                        ),
+                        near_margin_mult=float(getattr(self.cfg, "support_quality_near_margin_mult", 0.25)),
+                        near_speed_mult=float(getattr(self.cfg, "support_quality_near_speed_mult", 1.0)),
+                    )
+                    numba_time = time.perf_counter() - t_numba
+                    entry = RuntimeSupportEntry(
+                        local_pool_size=int(local_pool_size),
+                        available_support_size=int(available_support_size),
+                        action_bins=np.zeros((0,), dtype=np.int64),
+                        num_coarse_candidates=scan.num_coarse_candidates,
+                        num_scanned_candidates=int(scan.indices.size),
+                        local_scan_truncated=scan.local_scan_truncated,
+                        psi_a_policy=float(psi_a_policy),
+                        psi_q_rank=float(psi_q_rank),
+                        q_candidate_fallback=float(fallback),
+                        predicate_candidates_examined=int(scan.indices.size),
+                        diagnostics_exact=True,
+                        support_quality=float(support_quality),
+                        support_score=float(support_score),
+                        same_bin_match_count=int(same_bin_match_count),
+                        quality_speed=float(quality_speed),
+                        quality_alignment=float(quality_alignment),
+                        quality_progress=float(quality_progress),
+                        quality_near_stability=float(quality_near_stability),
+                    )
+                    if use_caches:
+                        self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
+                    return entry, False, scan_hit, scan_miss, 1, 0, float(numba_time)
+                except Exception:
+                    if bool(getattr(self.cfg, "verify_runtime_optimization", False)) and self.support_quality_apply_to_weight:
+                        raise
+                    self.support_quality_numba_enabled = False
+                    numba_fallback = 1
+                    use_numba_scan = False
+
+            entry = self._quality_reference_entry(
+                scan=scan,
+                full_key=int(full_key),
+                goal=goal,
+                policy_bin=int(policy_bin),
+                replay=replay,
+            )
+            if use_caches:
+                self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
+            return entry, False, scan_hit, scan_miss, 0, numba_fallback, 0.0
+
         if use_numba_scan:
             t_numba = time.perf_counter()
             try:
@@ -928,6 +1150,161 @@ class RuntimeOptimizedSupportComputer:
             self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
         return entry, False, scan_hit, scan_miss, 0, numba_fallback, 0.0
 
+    def _quality_reference_entry(
+        self,
+        scan: RuntimeScanResult,
+        full_key: int,
+        goal: np.ndarray,
+        policy_bin: int,
+        replay: HERReplayBuffer,
+    ) -> RuntimeSupportEntry:
+        ref_obs = replay.observation[scan.indices]
+        ref_goal = np.repeat(np.asarray(goal, dtype=np.float32)[None, :], scan.indices.size, axis=0)
+        ref_h = replay.h[scan.indices]
+        ref_hash = self.task.full_context_hash_batch(ref_obs, ref_goal, ref_h)
+        local_idx = scan.indices[ref_hash == int(full_key)]
+        if local_idx.size > 0:
+            local_bins = replay.action_bin[local_idx].copy()
+            if local_bins.shape[0] != local_idx.size or np.any(local_bins < 0):
+                local_bins = self.task.action_bin_batch(
+                    replay.action_exec[local_idx],
+                    self.cfg.action_bins_per_dim,
+                )
+            local_bins = local_bins.astype(np.int64, copy=False)
+        else:
+            local_bins = np.zeros((0,), dtype=np.int64)
+
+        same_bin_idx = local_idx[local_bins == int(policy_bin)]
+        best_quality = 0.0
+        best_progress = 0.0
+        best_speed = 0.0
+        best_alignment = 0.0
+        best_near_stability = 0.0
+        for idx in same_bin_idx:
+            quality, q_progress, q_speed, q_alignment, q_near = self._candidate_quality_reference(
+                int(idx),
+                np.asarray(goal, dtype=np.float32),
+                replay,
+            )
+            if quality > best_quality:
+                best_quality = float(quality)
+                best_progress = float(q_progress)
+                best_speed = float(q_speed)
+                best_alignment = float(q_alignment)
+                best_near_stability = float(q_near)
+
+        local_pool_size = int(local_idx.size)
+        available_support_size = min(local_pool_size, int(self.cfg.M_B))
+        psi_a_policy = int(same_bin_idx.size > 0)
+        support_positive = int(
+            local_pool_size >= int(self.cfg.N_local_min)
+            and available_support_size >= int(self.cfg.M_Q_min)
+            and psi_a_policy == 1
+        )
+        support_score = 0.0
+        if support_positive:
+            floor = self._clip01(float(getattr(self.cfg, "support_quality_floor", 0.25)))
+            support_score = floor + (1.0 - floor) * float(best_quality)
+        return RuntimeSupportEntry(
+            local_pool_size=local_pool_size,
+            available_support_size=available_support_size,
+            action_bins=np.zeros((0,), dtype=np.int64),
+            num_coarse_candidates=scan.num_coarse_candidates,
+            num_scanned_candidates=int(scan.indices.size),
+            local_scan_truncated=scan.local_scan_truncated,
+            psi_a_policy=float(psi_a_policy),
+            psi_q_rank=float(support_positive),
+            q_candidate_fallback=float(0 if support_positive else 1),
+            predicate_candidates_examined=int(scan.indices.size),
+            diagnostics_exact=True,
+            support_quality=float(best_quality),
+            support_score=float(support_score),
+            same_bin_match_count=int(same_bin_idx.size),
+            quality_speed=float(best_speed),
+            quality_alignment=float(best_alignment),
+            quality_progress=float(best_progress),
+            quality_near_stability=float(best_near_stability),
+        )
+
+    def _candidate_quality_reference(
+        self,
+        idx: int,
+        goal: np.ndarray,
+        replay: HERReplayBuffer,
+    ) -> tuple[float, float, float, float, float]:
+        obs = replay.observation[int(idx)]
+        next_obs = replay.next_observation[int(idx)]
+        phase = int(self.task.phase_batch(obs[None, :], goal[None, :])[0])
+        ee_start = int(self.task.ee_slice[0])
+        obj_start = int(self.task.object_slice[0])
+        vel_start = int(self.task.object_velocity_slice[0])
+
+        ee = obs[ee_start : ee_start + 3].astype(np.float32, copy=False)
+        obj = obs[obj_start : obj_start + 3].astype(np.float32, copy=False)
+        next_ee = next_obs[ee_start : ee_start + 3].astype(np.float32, copy=False)
+        next_obj = next_obs[obj_start : obj_start + 3].astype(np.float32, copy=False)
+        next_vel = next_obs[vel_start : vel_start + 3].astype(np.float32, copy=False)
+
+        d_obj_goal_before = float(np.linalg.norm(obj - goal))
+        d_obj_goal_after = float(np.linalg.norm(next_obj - goal))
+        speed_next = float(np.linalg.norm(next_vel[:2]))
+        align_next = self._goal_alignment_xy(next_vel[:2], obj[:2], goal[:2])
+        align_min = float(getattr(self.cfg, "support_quality_align_min", 0.0))
+        align_denom = max(1e-6, 1.0 - align_min)
+        q_align = self._clip01((align_next - align_min) / align_denom)
+        speed_denom = max(
+            1e-6,
+            float(getattr(self.cfg, "support_quality_strike_speed_scale_mult", 2.0))
+            * float(self.task.v_slide_min),
+        )
+        q_speed = self._clip01(speed_next / speed_denom)
+
+        if phase == int(getattr(self.task, "PHASE_APPROACH", 0)):
+            d_ee_obj_before = float(np.linalg.norm(ee - obj))
+            d_ee_obj_after = float(np.linalg.norm(next_ee - next_obj))
+            denom = max(1e-6, float(getattr(self.cfg, "support_quality_approach_scale", 0.02)))
+            q_progress = self._clip01((d_ee_obj_before - d_ee_obj_after) / denom)
+            return q_progress, q_progress, 0.0, 0.0, 0.0
+
+        if phase == int(getattr(self.task, "PHASE_STRIKE", 1)):
+            quality = q_speed * q_align
+            return quality, 0.0, q_speed, q_align, 0.0
+
+        if phase == int(getattr(self.task, "PHASE_SLIDE", 2)):
+            denom = max(1e-6, float(getattr(self.cfg, "support_quality_goal_progress_scale", 0.03)))
+            q_progress = self._clip01((d_obj_goal_before - d_obj_goal_after) / denom)
+            quality = max(q_progress, q_align)
+            return quality, q_progress, q_speed, q_align, 0.0
+
+        distance_delta = d_obj_goal_after - d_obj_goal_before
+        near_margin = max(
+            1e-6,
+            float(getattr(self.cfg, "support_quality_near_margin_mult", 0.25)) * float(self.task.d_goal_near),
+        )
+        near_speed_limit = max(
+            1e-6,
+            float(getattr(self.cfg, "support_quality_near_speed_mult", 1.0)) * float(self.task.v_slide_min),
+        )
+        q_no_overshoot = self._clip01((near_margin - max(0.0, distance_delta)) / near_margin)
+        q_slow = self._clip01((near_speed_limit - speed_next) / near_speed_limit)
+        q_near = q_no_overshoot * q_slow
+        return q_near, 0.0, q_slow, 0.0, q_near
+
+    @staticmethod
+    def _clip01(value: float) -> float:
+        return float(min(1.0, max(0.0, value)))
+
+    @staticmethod
+    def _goal_alignment_xy(vel_xy: np.ndarray, obj_xy: np.ndarray, goal_xy: np.ndarray) -> float:
+        speed = float(np.linalg.norm(vel_xy))
+        if speed < 1e-8:
+            return 0.0
+        goal_vec = goal_xy - obj_xy
+        goal_norm = float(np.linalg.norm(goal_vec))
+        if goal_norm < 1e-8:
+            return 0.0
+        return float(np.clip(np.dot(vel_xy, goal_vec) / (speed * goal_norm), -1.0, 1.0))
+
     def _scan_for_key(
         self,
         coarse_key: int,
@@ -976,7 +1353,21 @@ class RuntimeOptimizedSupportComputer:
             self._replay_version_for_key(replay, int(coarse_key)),
         )
         if policy_bin is not None:
-            mode = "predicate_v1" if self.predicate_early_exit_enabled else "exact_v1"
+            if self.support_quality_enabled:
+                mode = (
+                    "quality_v1",
+                    str(self.support_quality_mode),
+                    float(getattr(self.cfg, "support_quality_floor", 0.25)),
+                    float(getattr(self.cfg, "support_quality_approach_scale", 0.02)),
+                    float(getattr(self.cfg, "support_quality_goal_progress_scale", 0.03)),
+                    float(getattr(self.cfg, "support_quality_align_min", 0.0)),
+                    float(getattr(self.cfg, "support_quality_strike_speed_scale_mult", 2.0)),
+                    float(getattr(self.cfg, "support_quality_near_margin_mult", 0.25)),
+                    float(getattr(self.cfg, "support_quality_near_speed_mult", 1.0)),
+                    bool(self.support_quality_apply_to_weight),
+                )
+            else:
+                mode = "predicate_v1" if self.predicate_early_exit_enabled else "exact_v1"
             return (*key, int(policy_bin), mode)
         return key
 
@@ -1063,6 +1454,46 @@ class RuntimeOptimizedSupportComputer:
             raise AssertionError("runtime optimization mismatch in Omega_critic")
         if not np.allclose(opt_actor, ref_actor, rtol=0.0, atol=0.0):
             raise AssertionError("runtime optimization mismatch in Omega_actor")
+
+    @staticmethod
+    def _assert_quality_equivalent(
+        optimized: Dict[str, Any],
+        reference: Dict[str, Any],
+        opt_critic: np.ndarray,
+        opt_actor: np.ndarray,
+        ref_critic: np.ndarray,
+        ref_actor: np.ndarray,
+    ) -> None:
+        exact_fields = [
+            "psi_q_rank",
+            "psi_a_policy",
+            "q_candidate_fallback",
+            "len_a_q_local",
+            "len_a_q_sup",
+            "num_coarse_candidates",
+            "num_scanned_candidates",
+            "local_scan_truncated",
+            "same_bin_match_count",
+        ]
+        for field in exact_fields:
+            if not np.array_equal(optimized[field], reference[field]):
+                raise AssertionError(f"runtime quality support mismatch in {field}")
+        float_fields = [
+            "support_quality",
+            "support_score",
+            "quality_speed",
+            "quality_alignment",
+            "quality_progress",
+            "quality_near_stability",
+            "w_raw",
+        ]
+        for field in float_fields:
+            if not np.allclose(optimized[field], reference[field], rtol=1e-6, atol=1e-6):
+                raise AssertionError(f"runtime quality support mismatch in {field}")
+        if not np.allclose(opt_critic, ref_critic, rtol=1e-6, atol=1e-6):
+            raise AssertionError("runtime quality support mismatch in Omega_critic")
+        if not np.allclose(opt_actor, ref_actor, rtol=1e-6, atol=1e-6):
+            raise AssertionError("runtime quality support mismatch in Omega_actor")
 
     @staticmethod
     def _assert_semantic_equivalent(
@@ -1378,6 +1809,19 @@ def run(args: argparse.Namespace) -> Path:
             "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
             "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
             "runtime_optimization_verify": bool(args.verify_runtime_optimization),
+            "support_quality_mode": str(getattr(cfg, "support_quality_mode", "none")),
+            "support_quality_apply_to_weight": bool(getattr(cfg, "support_quality_apply_to_weight", False)),
+            "support_quality_floor": float(getattr(cfg, "support_quality_floor", 0.25)),
+            "support_quality_approach_scale": float(getattr(cfg, "support_quality_approach_scale", 0.02)),
+            "support_quality_goal_progress_scale": float(
+                getattr(cfg, "support_quality_goal_progress_scale", 0.03)
+            ),
+            "support_quality_align_min": float(getattr(cfg, "support_quality_align_min", 0.0)),
+            "support_quality_strike_speed_scale_mult": float(
+                getattr(cfg, "support_quality_strike_speed_scale_mult", 2.0)
+            ),
+            "support_quality_near_margin_mult": float(getattr(cfg, "support_quality_near_margin_mult", 0.25)),
+            "support_quality_near_speed_mult": float(getattr(cfg, "support_quality_near_speed_mult", 1.0)),
             "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
             "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
@@ -1711,6 +2155,7 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "time/q_candidate_eval",
         "time/q_policy_eval",
         "time/numba_support_scan",
+        "time/support_quality_scan",
         "runtime/support_cache_hit_rate",
         "runtime/support_cache_miss_rate",
         "runtime/batch_query_unique_rate",
@@ -1724,6 +2169,10 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "runtime/support_lambda_effective",
         "runtime/support_lookup_enabled",
         "runtime/support_lookup_skipped",
+        "runtime/support_quality_enabled",
+        "runtime/support_quality_apply_to_weight",
+        "runtime/support_quality_numba_enabled",
+        "runtime/support_quality_numba_fallback_rate",
         "runtime/support_anneal_start_step",
         "runtime/support_anneal_end_step",
         "runtime/support_anneal_progress",
@@ -1749,6 +2198,14 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "audit/mean_len_A_Q_sup",
         "audit/mean_num_scanned_candidates",
         "audit/local_scan_truncated_rate",
+        "lite/support_quality_mean",
+        "lite/support_quality_p50",
+        "lite/support_quality_p90",
+        "lite/support_quality_positive_rate",
+        "lite/support_score_mean",
+        "lite/support_score_p50",
+        "lite/support_score_p90",
+        "lite/same_bin_match_count_mean",
         "runtime/steps_per_sec",
         "runtime/total_sec",
         "eval/success_mean",
@@ -1767,6 +2224,10 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "fetch_slide/strike_contact_like_rate",
         "fetch_slide/progress_rate",
         "fetch_slide/overshoot_rate",
+        "fetch_slide/quality_speed_mean",
+        "fetch_slide/quality_alignment_mean",
+        "fetch_slide/quality_progress_mean",
+        "fetch_slide/quality_near_stability_mean",
     ]
     for threshold in DEFAULT_THRESHOLDS:
         fields.append(f"eval/first_hit_{threshold:.2f}")
@@ -1779,6 +2240,9 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
                 f"phase/{phase}/fallback_rate",
                 f"phase/{phase}/local_scan_truncated_rate",
                 f"phase/{phase}/td_error_abs_mean",
+                f"phase/{phase}/support_quality_mean",
+                f"phase/{phase}/support_score_mean",
+                f"phase/{phase}/same_bin_match_count_mean",
                 f"fetch_slide/phase_distribution_{phase}",
             ]
         )
@@ -1852,6 +2316,7 @@ def empty_metrics(phase_names: Iterable[str], control_mode: str) -> Dict[str, fl
         "time/q_candidate_eval": 0.0,
         "time/q_policy_eval": 0.0,
         "time/numba_support_scan": 0.0,
+        "time/support_quality_scan": 0.0,
     }
     for phase in phase_names:
         metrics[f"phase/{phase}/count_rate"] = 0.0
@@ -1894,6 +2359,7 @@ def metrics_from_weight_batch(wb: WeightBatch, phase_names: Iterable[str], contr
             "time/q_candidate_eval": float(wb.timing.get("q_candidate_eval", 0.0)),
             "time/q_policy_eval": float(wb.timing.get("q_policy_eval", 0.0)),
             "time/numba_support_scan": float(wb.timing.get("numba_support_scan", 0.0)),
+            "time/support_quality_scan": float(wb.timing.get("support_quality_scan", 0.0)),
         }
     )
     phases = getattr(wb, "phase", np.zeros_like(w, dtype=np.int64))
@@ -2118,6 +2584,9 @@ def build_summary(
         "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
         "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
         "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
+        "support_quality_mode": str(getattr(cfg, "support_quality_mode", "none")),
+        "support_quality_apply_to_weight": bool(getattr(cfg, "support_quality_apply_to_weight", False)),
+        "support_quality_floor": float(getattr(cfg, "support_quality_floor", 0.25)),
         "numba_available": bool(NUMBA_AVAILABLE),
         "seed": int(args.seed),
         "total_steps": total_steps,
