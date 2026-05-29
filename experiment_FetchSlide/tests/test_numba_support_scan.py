@@ -22,8 +22,10 @@ from saber_fetch_slide.experiment import RuntimeOptimizedSupportComputer
 from saber_fetch_slide.numba_support_scan import (
     NUMBA_AVAILABLE,
     fetch_slide_support_exact_nopython_signatures,
+    fetch_slide_support_predicate_nopython_signatures,
     make_fetch_slide_support_scan_constants,
     scan_fetch_slide_support_exact_with_constants,
+    scan_fetch_slide_support_predicate_with_constants,
 )
 
 
@@ -160,6 +162,70 @@ def run_scanner_case(
     assert actual == expected, f"{name}: actual={actual} expected={expected}"
 
 
+def run_predicate_case(
+    name: str,
+    replay_obs: np.ndarray,
+    replay_h: np.ndarray,
+    replay_action_bin: np.ndarray,
+    replay_action_exec: np.ndarray,
+    scanned_indices: np.ndarray,
+    query_obs: np.ndarray,
+    query_goal: np.ndarray,
+    query_h: int,
+    query_policy_action: np.ndarray,
+    n_local_min: int,
+    m_q_min: int,
+    m_b: int,
+    expect_early_exit: bool,
+) -> None:
+    if not NUMBA_AVAILABLE:
+        return
+    task = make_task()
+    constants = make_fetch_slide_support_scan_constants(task)
+    full_key = int(
+        task.full_context_hash_batch(
+            query_obs[None, :],
+            query_goal[None, :],
+            np.asarray([query_h], dtype=np.int16),
+        )[0]
+    )
+    policy_bin = int(task.action_bin_batch(query_policy_action[None, :], ACTION_BINS_PER_DIM)[0])
+    expected = legacy_scan(
+        task,
+        replay_obs,
+        replay_h,
+        replay_action_bin,
+        replay_action_exec,
+        scanned_indices,
+        query_obs,
+        query_goal,
+        query_h,
+        policy_bin,
+        n_local_min,
+        m_q_min,
+        m_b,
+    )
+    actual = scan_fetch_slide_support_predicate_with_constants(
+        replay_obs=replay_obs,
+        replay_h=replay_h,
+        replay_action_bin=replay_action_bin,
+        replay_action_exec=replay_action_exec,
+        scanned_indices=scanned_indices,
+        query_goal=query_goal,
+        query_full_key=full_key,
+        query_policy_bin=policy_bin,
+        constants=constants,
+        n_local_min=n_local_min,
+        m_q_min=m_q_min,
+        m_b=m_b,
+        action_bins_per_dim=ACTION_BINS_PER_DIM,
+    )
+    assert actual[2:5] == expected[2:5], f"{name}: semantic actual={actual} expected={expected}"
+    assert (actual[6] != 0) == expect_early_exit, f"{name}: early_exit_code={actual[6]}"
+    if expect_early_exit:
+        assert actual[5] < scanned_indices.size, f"{name}: inspected={actual[5]} scan={scanned_indices.size}"
+
+
 def test_scanner_cases() -> None:
     task = make_task()
     query_obs = base_obs()
@@ -290,6 +356,73 @@ def test_scanner_cases() -> None:
         assert fetch_slide_support_exact_nopython_signatures()
 
 
+def test_predicate_scanner_cases() -> None:
+    task = make_task()
+    query_obs = base_obs()
+    query_goal = np.asarray([0.6, 0.0, 0.0], dtype=np.float32)
+    query_h = 20
+    policy_action = np.asarray([0.2, -0.2, 0.0, 0.4], dtype=np.float32)
+    other_action = -policy_action
+    policy_bin = int(task.action_bin_batch(policy_action[None, :], ACTION_BINS_PER_DIM)[0])
+    other_bin = int(task.action_bin_batch(other_action[None, :], ACTION_BINS_PER_DIM)[0])
+    match = base_obs()
+    miss = nonmatching_obs()
+
+    def arrays(obs_rows: list[np.ndarray], actions: list[np.ndarray], bins: list[int]) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+        return (
+            np.stack(obs_rows).astype(np.float32),
+            np.full(len(obs_rows), query_h, dtype=np.int16),
+            np.asarray(bins, dtype=np.int64),
+            np.stack(actions).astype(np.float32),
+        )
+
+    replay_obs, replay_h, replay_bin, replay_action = arrays(
+        [match, match, match, match, miss],
+        [policy_action, other_action, other_action, other_action, other_action],
+        [policy_bin, other_bin, other_bin, other_bin, other_bin],
+    )
+    run_predicate_case(
+        "positive early exit",
+        replay_obs,
+        replay_h,
+        replay_bin,
+        replay_action,
+        np.arange(5, dtype=np.int64),
+        query_obs,
+        query_goal,
+        query_h,
+        policy_action,
+        n_local_min=2,
+        m_q_min=2,
+        m_b=4,
+        expect_early_exit=True,
+    )
+
+    replay_obs, replay_h, replay_bin, replay_action = arrays(
+        [match, miss, miss, miss],
+        [policy_action, other_action, other_action, other_action],
+        [policy_bin, other_bin, other_bin, other_bin],
+    )
+    run_predicate_case(
+        "negative full scan",
+        replay_obs,
+        replay_h,
+        replay_bin,
+        replay_action,
+        np.arange(4, dtype=np.int64),
+        query_obs,
+        query_goal,
+        query_h,
+        policy_action,
+        n_local_min=3,
+        m_q_min=3,
+        m_b=4,
+        expect_early_exit=False,
+    )
+    if NUMBA_AVAILABLE:
+        assert fetch_slide_support_predicate_nopython_signatures()
+
+
 class FixedPolicyAgent:
     def __init__(self, action: np.ndarray) -> None:
         self.action = torch.as_tensor(action[None, :], dtype=torch.float32)
@@ -386,11 +519,100 @@ def test_runtime_computer_verify_with_numba() -> None:
     np.testing.assert_array_equal(wb.q_candidate_fallback, np.asarray([0.0, 0.0, 1.0], dtype=np.float32))
 
 
+def test_runtime_computer_verify_with_predicate_early_exit() -> None:
+    if not NUMBA_AVAILABLE:
+        return
+    task = make_task()
+    policy_action = np.asarray([0.2, -0.2, 0.0, 0.4], dtype=np.float32)
+    other_action = -policy_action
+    query_obs = base_obs()
+    query_goal = np.asarray([0.6, 0.0, 0.0], dtype=np.float32)
+    query_h = 20
+    policy_bin = int(task.action_bin_batch(policy_action[None, :], ACTION_BINS_PER_DIM)[0])
+    other_bin = int(task.action_bin_batch(other_action[None, :], ACTION_BINS_PER_DIM)[0])
+
+    cfg = LiteConfig(
+        task_name="fetch_slide",
+        method="b3_support_only",
+        batch_size=2,
+        M_B=4,
+        M_Q_min=2,
+        N_local_min=2,
+        local_search_max=10,
+        action_bins_per_dim=ACTION_BINS_PER_DIM,
+        policy_support_mode="bin",
+        weighting_mode="batch_norm",
+        weight_scope="critic_only",
+    )
+    cfg.normalize()
+    cfg.verify_runtime_optimization = True
+
+    replay = HERReplayBuffer(capacity=16, obs_dim=OBS_DIM, goal_dim=3, action_dim=ACTION_DIM)
+    rows = [
+        (base_obs(), policy_action, policy_bin),
+        (base_obs(), other_action, other_bin),
+        (base_obs(), other_action, other_bin),
+        (nonmatching_obs(), other_action, other_bin),
+    ]
+    for step, (obs, action, action_bin) in enumerate(rows):
+        replay.add_transition(
+            observation=obs,
+            achieved_goal=query_goal,
+            desired_goal=query_goal,
+            action_exec=action,
+            reward_ext=0.0,
+            next_observation=obs,
+            next_achieved_goal=query_goal,
+            done=False,
+            timeout=False,
+            h=query_h,
+            episode_id=step,
+            episode_step=0,
+            coarse_key=int(task.coarse_hash(obs, query_h)),
+            action_bin=int(action_bin),
+        )
+
+    obs_batch = np.stack([query_obs, nonmatching_obs()]).astype(np.float32)
+    goal_batch = np.stack([query_goal, query_goal]).astype(np.float32)
+    batch = SampleBatch(
+        indices=np.arange(2, dtype=np.int64),
+        observation=obs_batch,
+        achieved_goal=goal_batch.copy(),
+        desired_goal_train=goal_batch.copy(),
+        next_observation=obs_batch.copy(),
+        next_achieved_goal=goal_batch.copy(),
+        action_exec=np.zeros((2, ACTION_DIM), dtype=np.float32),
+        reward_ext=np.zeros(2, dtype=np.float32),
+        done=np.zeros(2, dtype=np.bool_),
+        timeout=np.zeros(2, dtype=np.bool_),
+        h=np.full(2, query_h, dtype=np.int16),
+        her_relabel_ratio=1.0,
+    )
+    computer = RuntimeOptimizedSupportComputer(
+        cfg,
+        task,
+        GapStats(maxlen=100, n_min=10, q_low=0.6, q_high=0.95, eps_g=1e-6),
+        enable_predicate_early_exit=True,
+    )
+    wb = computer.compute(
+        batch=batch,
+        replay=replay,
+        agent=FixedPolicyAgent(policy_action),
+        rng=np.random.default_rng(0),
+        device=torch.device("cpu"),
+    )
+    assert wb.extra_metrics["runtime/predicate_early_exit_enabled"] == 1.0
+    assert wb.extra_metrics["runtime/predicate_early_exit_rate"] > 0.0
+    np.testing.assert_array_equal(wb.psi_q_rank, np.asarray([1.0, 0.0], dtype=np.float32))
+    np.testing.assert_array_equal(wb.q_candidate_fallback, np.asarray([0.0, 1.0], dtype=np.float32))
+
+
 def main() -> None:
     test_scanner_cases()
+    test_predicate_scanner_cases()
     test_runtime_computer_verify_with_numba()
+    test_runtime_computer_verify_with_predicate_early_exit()
 
 
 if __name__ == "__main__":
     main()
-

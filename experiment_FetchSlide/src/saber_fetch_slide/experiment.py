@@ -52,7 +52,9 @@ from saber_fetch_slide.numba_support_scan import (
     can_scan_fetch_slide_support_exact,
     make_fetch_slide_support_scan_constants,
     scan_fetch_slide_support_exact_with_constants,
+    scan_fetch_slide_support_predicate_with_constants,
     warmup_fetch_slide_support_exact,
+    warmup_fetch_slide_support_predicate,
 )
 
 
@@ -61,9 +63,11 @@ FETCH_SLIDE_FAST_SWEEP = (512, 2048)
 DEFAULT_THRESHOLDS = (0.25, 0.50, 0.75, 0.90, 1.00)
 RUNTIME_OPT_METHOD = "b3_critic_only_runtime_optimization"
 RUNTIME_OPT_V4_METHOD = "b3_critic_only_runtime_opt_v4"
-RUNTIME_OPT_METHODS = {RUNTIME_OPT_METHOD, RUNTIME_OPT_V4_METHOD}
+RUNTIME_OPT_V5_METHOD = "b3_critic_only_runtime_opt_v5"
+RUNTIME_OPT_METHODS = {RUNTIME_OPT_METHOD, RUNTIME_OPT_V4_METHOD, RUNTIME_OPT_V5_METHOD}
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
+RUNTIME_PREDICATE_AUDIT_INTERVAL = 100
 
 
 @dataclass(frozen=True)
@@ -116,6 +120,12 @@ METHODS: Dict[str, MethodSpec] = {
     ),
     "b3_critic_only_runtime_opt_v4": MethodSpec(
         "b3_critic_only_runtime_opt_v4",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v5": MethodSpec(
+        "b3_critic_only_runtime_opt_v5",
         "b3_support_only",
         "critic_only",
         FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
@@ -315,6 +325,13 @@ class RuntimeSupportEntry:
     num_scanned_candidates: int
     local_scan_truncated: bool
     psi_a_policy: float | None = None
+    psi_q_rank: float | None = None
+    q_candidate_fallback: float | None = None
+    predicate_candidates_examined: int = 0
+    predicate_early_exit: bool = False
+    predicate_positive_early_exit: bool = False
+    predicate_negative_early_exit: bool = False
+    diagnostics_exact: bool = True
 
 
 class RuntimeOptimizedSupportComputer:
@@ -330,6 +347,7 @@ class RuntimeOptimizedSupportComputer:
         task: Any,
         gap_stats: GapStats,
         enable_numba_scan: bool = True,
+        enable_predicate_early_exit: bool = False,
     ) -> None:
         self.cfg = cfg
         self.task = task
@@ -337,14 +355,21 @@ class RuntimeOptimizedSupportComputer:
         self.support_cache: OrderedDict[tuple[Any, ...], RuntimeSupportEntry] = OrderedDict()
         self.local_scan_cache: OrderedDict[tuple[Any, ...], RuntimeScanResult] = OrderedDict()
         self.numba_scan_enabled = bool(enable_numba_scan and can_scan_fetch_slide_support_exact(task))
+        self.predicate_early_exit_enabled = bool(enable_predicate_early_exit)
         self.numba_scanner_warmed = False
         self.numba_scan_constants = None
+        self.compute_calls = 0
+        self.predicate_audit_age_updates = 0
+        self.last_predicate_audit_metrics: Dict[str, float] = {}
         if self.numba_scan_enabled:
             try:
                 self.numba_scan_constants = make_fetch_slide_support_scan_constants(task)
                 action_dim = int(np.asarray(task.action_low).shape[0])
                 obs_dim = int(max(task.ee_velocity_slice[1], task.object_velocity_slice[1], task.object_slice[1]))
-                self.numba_scanner_warmed = warmup_fetch_slide_support_exact(task, action_dim, obs_dim)
+                if self.predicate_early_exit_enabled:
+                    self.numba_scanner_warmed = warmup_fetch_slide_support_predicate(task, action_dim, obs_dim)
+                else:
+                    self.numba_scanner_warmed = warmup_fetch_slide_support_exact(task, action_dim, obs_dim)
                 self.numba_scan_enabled = bool(self.numba_scanner_warmed)
             except Exception:
                 self.numba_scan_enabled = False
@@ -369,6 +394,7 @@ class RuntimeOptimizedSupportComputer:
         state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
         a_policy = agent.policy_actions(state_t).detach().cpu().numpy().astype(np.float32)
         t_actor = time.perf_counter()
+        self.compute_calls += 1
 
         support = self._support_arrays(
             batch=batch,
@@ -381,7 +407,13 @@ class RuntimeOptimizedSupportComputer:
 
         w_raw = support["w_raw"]
         omega_critic, omega_actor = self._omegas(w_raw)
-        if getattr(self.cfg, "verify_runtime_optimization", False):
+        verify_runtime = bool(getattr(self.cfg, "verify_runtime_optimization", False))
+        predicate_audit_due = bool(
+            self.predicate_early_exit_enabled
+            and self.compute_calls % RUNTIME_PREDICATE_AUDIT_INTERVAL == 0
+        )
+        predicate_audit_ran = False
+        if verify_runtime or predicate_audit_due:
             reference = self._support_arrays(
                 batch=batch,
                 replay=replay,
@@ -390,7 +422,35 @@ class RuntimeOptimizedSupportComputer:
                 coalesce=False,
             )
             ref_critic, ref_actor = self._omegas(reference["w_raw"])
-            self._assert_equivalent(support, reference, omega_critic, omega_actor, ref_critic, ref_actor)
+            if self.predicate_early_exit_enabled:
+                self._assert_semantic_equivalent(
+                    support,
+                    reference,
+                    omega_critic,
+                    omega_actor,
+                    ref_critic,
+                    ref_actor,
+                )
+                predicate_audit_ran = True
+                self.predicate_audit_age_updates = 0
+                self.last_predicate_audit_metrics = self._predicate_audit_metrics(
+                    support,
+                    reference,
+                    ran=True,
+                )
+            else:
+                self._assert_equivalent(support, reference, omega_critic, omega_actor, ref_critic, ref_actor)
+        if self.predicate_early_exit_enabled:
+            if not predicate_audit_ran:
+                self.predicate_audit_age_updates += 1
+            audit_metrics = dict(
+                self.last_predicate_audit_metrics
+                or self._predicate_audit_metrics(support, support, ran=False)
+            )
+            audit_metrics["runtime/predicate_audit_ran"] = float(predicate_audit_ran)
+            audit_metrics["runtime/predicate_audit_has_run"] = float(bool(self.last_predicate_audit_metrics))
+            audit_metrics["runtime/predicate_audit_age_updates"] = float(self.predicate_audit_age_updates)
+            extra_metrics.update(audit_metrics)
 
         t_weight0 = time.perf_counter()
         self.gap_stats.update(support["g_sup"], support["psi_q_rank"])
@@ -488,6 +548,12 @@ class RuntimeOptimizedSupportComputer:
         numba_support_queries = 0
         numba_support_fallbacks = 0
         numba_support_scan_time = 0.0
+        predicate_candidates_examined = 0
+        predicate_selected_candidates = 0
+        predicate_early_exits = 0
+        predicate_positive_early_exits = 0
+        predicate_negative_early_exits = 0
+        diagnostics_exact_count = 0
         if coalesce:
             first_index: Dict[tuple[Any, ...], int] = {}
             for i, key in enumerate(support_keys):
@@ -518,6 +584,12 @@ class RuntimeOptimizedSupportComputer:
             numba_support_queries += int(numba_query)
             numba_support_fallbacks += int(numba_fallback)
             numba_support_scan_time += float(numba_time)
+            predicate_candidates_examined += int(entry.predicate_candidates_examined)
+            predicate_selected_candidates += int(entry.num_scanned_candidates)
+            predicate_early_exits += int(entry.predicate_early_exit)
+            predicate_positive_early_exits += int(entry.predicate_positive_early_exit)
+            predicate_negative_early_exits += int(entry.predicate_negative_early_exit)
+            diagnostics_exact_count += int(entry.diagnostics_exact)
             lookup_results[key] = entry
 
         local_context_lookup_time = time.perf_counter() - t_lookup0
@@ -530,6 +602,18 @@ class RuntimeOptimizedSupportComputer:
             scan_truncated[i] = float(entry.local_scan_truncated)
             local_count = int(entry.local_pool_size)
             len_local[i] = float(local_count)
+            if entry.psi_q_rank is not None:
+                if local_count < self.cfg.N_local_min:
+                    continue
+                len_sup[i] = float(entry.available_support_size)
+                psi_a_policy[i] = float(entry.psi_a_policy or 0.0)
+                if entry.available_support_size < self.cfg.M_Q_min or psi_a_policy[i] < 0.5:
+                    continue
+                psi_q_rank[i] = float(entry.psi_q_rank)
+                fallback[i] = float(entry.q_candidate_fallback or 0.0)
+                if psi_q_rank[i] >= 0.5:
+                    w_raw[i] = 1.0 + self.cfg.lambda_support
+                continue
             if local_count < self.cfg.N_local_min:
                 continue
             n_sup = int(entry.available_support_size)
@@ -548,6 +632,8 @@ class RuntimeOptimizedSupportComputer:
         unique_count = len(unique_items)
         support_queries = max(1, support_hits + support_misses)
         scan_queries = max(1, scan_hits + scan_misses)
+        predicate_den = max(1, numba_support_queries)
+        scan_fraction_den = max(1, predicate_selected_candidates)
         extra_metrics = {
             "runtime/support_cache_hit_rate": float(support_hits / support_queries),
             "runtime/support_cache_miss_rate": float(support_misses / support_queries),
@@ -561,6 +647,17 @@ class RuntimeOptimizedSupportComputer:
             ),
             "runtime/numba_support_queries": float(numba_support_queries),
             "runtime/numba_scanner_warmed": float(self.numba_scanner_warmed),
+            "runtime/predicate_early_exit_enabled": float(self.predicate_early_exit_enabled and use_numba_scan),
+            "runtime/predicate_early_exit_rate": float(predicate_early_exits / predicate_den),
+            "runtime/predicate_positive_early_exit_rate": float(predicate_positive_early_exits / predicate_den),
+            "runtime/predicate_negative_early_exit_rate": float(predicate_negative_early_exits / predicate_den),
+            "runtime/predicate_candidates_examined_mean": float(predicate_candidates_examined / predicate_den),
+            "runtime/predicate_scan_fraction_mean": float(predicate_candidates_examined / scan_fraction_den),
+            "runtime/support_diagnostics_exact_rate": float(diagnostics_exact_count / max(1, unique_count)),
+            "runtime/support_diagnostics_approx_rate": float(
+                1.0 - diagnostics_exact_count / max(1, unique_count)
+            ),
+            "runtime/predicate_audit_interval": float(RUNTIME_PREDICATE_AUDIT_INTERVAL),
             "time/numba_support_scan": float(numba_support_scan_time),
         }
         return {
@@ -620,21 +717,52 @@ class RuntimeOptimizedSupportComputer:
             try:
                 if self.numba_scan_constants is None:
                     raise RuntimeError("FetchSlide Numba scan constants are not initialized")
-                local_pool_size, available_support_size, psi_a_policy, _, _ = scan_fetch_slide_support_exact_with_constants(
-                    replay_obs=replay.observation,
-                    replay_h=replay.h,
-                    replay_action_bin=replay.action_bin,
-                    replay_action_exec=replay.action_exec,
-                    scanned_indices=scan.indices,
-                    query_goal=goal,
-                    query_full_key=int(full_key),
-                    query_policy_bin=int(policy_bin),
-                    constants=self.numba_scan_constants,
-                    n_local_min=int(self.cfg.N_local_min),
-                    m_q_min=int(self.cfg.M_Q_min),
-                    m_b=int(self.cfg.M_B),
-                    action_bins_per_dim=int(self.cfg.action_bins_per_dim),
-                )
+                if self.predicate_early_exit_enabled:
+                    (
+                        local_pool_size,
+                        available_support_size,
+                        psi_a_policy,
+                        psi_q_rank,
+                        fallback,
+                        predicate_examined,
+                        early_exit_code,
+                    ) = scan_fetch_slide_support_predicate_with_constants(
+                        replay_obs=replay.observation,
+                        replay_h=replay.h,
+                        replay_action_bin=replay.action_bin,
+                        replay_action_exec=replay.action_exec,
+                        scanned_indices=scan.indices,
+                        query_goal=goal,
+                        query_full_key=int(full_key),
+                        query_policy_bin=int(policy_bin),
+                        constants=self.numba_scan_constants,
+                        n_local_min=int(self.cfg.N_local_min),
+                        m_q_min=int(self.cfg.M_Q_min),
+                        m_b=int(self.cfg.M_B),
+                        action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                    )
+                    diagnostics_exact = int(early_exit_code) == 0
+                else:
+                    local_pool_size, available_support_size, psi_a_policy, psi_q_rank, fallback = (
+                        scan_fetch_slide_support_exact_with_constants(
+                            replay_obs=replay.observation,
+                            replay_h=replay.h,
+                            replay_action_bin=replay.action_bin,
+                            replay_action_exec=replay.action_exec,
+                            scanned_indices=scan.indices,
+                            query_goal=goal,
+                            query_full_key=int(full_key),
+                            query_policy_bin=int(policy_bin),
+                            constants=self.numba_scan_constants,
+                            n_local_min=int(self.cfg.N_local_min),
+                            m_q_min=int(self.cfg.M_Q_min),
+                            m_b=int(self.cfg.M_B),
+                            action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                        )
+                    )
+                    predicate_examined = int(scan.indices.size)
+                    early_exit_code = 0
+                    diagnostics_exact = True
                 numba_time = time.perf_counter() - t_numba
                 entry = RuntimeSupportEntry(
                     local_pool_size=int(local_pool_size),
@@ -644,6 +772,13 @@ class RuntimeOptimizedSupportComputer:
                     num_scanned_candidates=int(scan.indices.size),
                     local_scan_truncated=scan.local_scan_truncated,
                     psi_a_policy=float(psi_a_policy),
+                    psi_q_rank=float(psi_q_rank) if self.predicate_early_exit_enabled else None,
+                    q_candidate_fallback=float(fallback) if self.predicate_early_exit_enabled else None,
+                    predicate_candidates_examined=int(predicate_examined),
+                    predicate_early_exit=bool(early_exit_code),
+                    predicate_positive_early_exit=int(early_exit_code) == 1,
+                    predicate_negative_early_exit=int(early_exit_code) == 2,
+                    diagnostics_exact=bool(diagnostics_exact),
                 )
                 if use_caches:
                     self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
@@ -729,7 +864,8 @@ class RuntimeOptimizedSupportComputer:
             self._replay_version_for_key(replay, int(coarse_key)),
         )
         if policy_bin is not None:
-            return (*key, int(policy_bin))
+            mode = "predicate_v1" if self.predicate_early_exit_enabled else "exact_v1"
+            return (*key, int(policy_bin), mode)
         return key
 
     def _scan_cache_key(self, coarse_key: int, replay: HERReplayBuffer) -> tuple[int, int, int]:
@@ -816,6 +952,80 @@ class RuntimeOptimizedSupportComputer:
         if not np.allclose(opt_actor, ref_actor, rtol=0.0, atol=0.0):
             raise AssertionError("runtime optimization mismatch in Omega_actor")
 
+    @staticmethod
+    def _assert_semantic_equivalent(
+        optimized: Dict[str, Any],
+        reference: Dict[str, Any],
+        opt_critic: np.ndarray,
+        opt_actor: np.ndarray,
+        ref_critic: np.ndarray,
+        ref_actor: np.ndarray,
+    ) -> None:
+        semantic_fields = [
+            "psi_q_rank",
+            "psi_a_policy",
+            "q_candidate_fallback",
+            "w_raw",
+        ]
+        for field in semantic_fields:
+            if not np.array_equal(optimized[field], reference[field]):
+                raise AssertionError(f"runtime optimization semantic mismatch in {field}")
+        if not np.allclose(opt_critic, ref_critic, rtol=0.0, atol=0.0):
+            raise AssertionError("runtime optimization semantic mismatch in Omega_critic")
+        if not np.allclose(opt_actor, ref_actor, rtol=0.0, atol=0.0):
+            raise AssertionError("runtime optimization semantic mismatch in Omega_actor")
+
+    @staticmethod
+    def _predicate_audit_metrics(
+        optimized: Dict[str, Any],
+        reference: Dict[str, Any],
+        ran: bool,
+    ) -> Dict[str, float]:
+        if not ran:
+            return {
+                "runtime/predicate_audit_ran": 0.0,
+                "audit/support_semantic_match_rate": 1.0,
+                "audit/local_count_exact_match_rate": 0.0,
+                "audit/local_count_abs_delta_mean": 0.0,
+                "audit/psi_q_rank_rate": 0.0,
+                "audit/psi_A_policy_rate": 0.0,
+                "audit/q_candidate_fallback_rate": 0.0,
+                "audit/mean_len_A_Q_replay_local": 0.0,
+                "audit/mean_len_A_Q_sup": 0.0,
+                "audit/mean_num_scanned_candidates": 0.0,
+                "audit/local_scan_truncated_rate": 0.0,
+            }
+        semantic_match = (
+            (optimized["psi_q_rank"] == reference["psi_q_rank"])
+            & (optimized["psi_a_policy"] == reference["psi_a_policy"])
+            & (optimized["q_candidate_fallback"] == reference["q_candidate_fallback"])
+            & (optimized["w_raw"] == reference["w_raw"])
+        )
+        local_delta = np.abs(optimized["len_a_q_local"] - reference["len_a_q_local"])
+        return {
+            "runtime/predicate_audit_ran": 1.0,
+            "audit/support_semantic_match_rate": float(np.mean(semantic_match)) if semantic_match.size else 1.0,
+            "audit/local_count_exact_match_rate": float(np.mean(local_delta == 0.0)) if local_delta.size else 1.0,
+            "audit/local_count_abs_delta_mean": float(np.mean(local_delta)) if local_delta.size else 0.0,
+            "audit/psi_q_rank_rate": float(np.mean(reference["psi_q_rank"])) if reference["psi_q_rank"].size else 0.0,
+            "audit/psi_A_policy_rate": float(np.mean(reference["psi_a_policy"])) if reference["psi_a_policy"].size else 0.0,
+            "audit/q_candidate_fallback_rate": float(np.mean(reference["q_candidate_fallback"]))
+            if reference["q_candidate_fallback"].size
+            else 1.0,
+            "audit/mean_len_A_Q_replay_local": float(np.mean(reference["len_a_q_local"]))
+            if reference["len_a_q_local"].size
+            else 0.0,
+            "audit/mean_len_A_Q_sup": float(np.mean(reference["len_a_q_sup"]))
+            if reference["len_a_q_sup"].size
+            else 0.0,
+            "audit/mean_num_scanned_candidates": float(np.mean(reference["num_scanned_candidates"]))
+            if reference["num_scanned_candidates"].size
+            else 0.0,
+            "audit/local_scan_truncated_rate": float(np.mean(reference["local_scan_truncated"]))
+            if reference["local_scan_truncated"].size
+            else 0.0,
+        }
+
 
 class SaberWeightComputer:
     def __init__(self, cfg: LiteConfig, spec: MethodSpec, task: Any, gap_stats: GapStats) -> None:
@@ -828,7 +1038,8 @@ class SaberWeightComputer:
                 cfg,
                 task,
                 gap_stats,
-                enable_numba_scan=spec.public_name == RUNTIME_OPT_V4_METHOD,
+                enable_numba_scan=spec.public_name in {RUNTIME_OPT_V4_METHOD, RUNTIME_OPT_V5_METHOD},
+                enable_predicate_early_exit=spec.public_name == RUNTIME_OPT_V5_METHOD,
             )
             if spec.public_name in RUNTIME_OPT_METHODS
             else None
@@ -1014,6 +1225,7 @@ def run(args: argparse.Namespace) -> Path:
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
             "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
+            "runtime_predicate_early_exit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
             "runtime_optimization_verify": bool(args.verify_runtime_optimization),
             "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
@@ -1349,6 +1561,28 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "runtime/numba_support_scan_fallback_rate",
         "runtime/numba_support_queries",
         "runtime/numba_scanner_warmed",
+        "runtime/predicate_early_exit_enabled",
+        "runtime/predicate_early_exit_rate",
+        "runtime/predicate_positive_early_exit_rate",
+        "runtime/predicate_negative_early_exit_rate",
+        "runtime/predicate_candidates_examined_mean",
+        "runtime/predicate_scan_fraction_mean",
+        "runtime/support_diagnostics_exact_rate",
+        "runtime/support_diagnostics_approx_rate",
+        "runtime/predicate_audit_interval",
+        "runtime/predicate_audit_ran",
+        "runtime/predicate_audit_has_run",
+        "runtime/predicate_audit_age_updates",
+        "audit/support_semantic_match_rate",
+        "audit/local_count_exact_match_rate",
+        "audit/local_count_abs_delta_mean",
+        "audit/psi_q_rank_rate",
+        "audit/psi_A_policy_rate",
+        "audit/q_candidate_fallback_rate",
+        "audit/mean_len_A_Q_replay_local",
+        "audit/mean_len_A_Q_sup",
+        "audit/mean_num_scanned_candidates",
+        "audit/local_scan_truncated_rate",
         "runtime/steps_per_sec",
         "runtime/total_sec",
         "eval/success_mean",
@@ -1713,6 +1947,7 @@ def build_summary(
         "control_mode": spec.control_mode,
         "support_lookup_enabled": uses_support_lookup(spec),
         "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
+        "runtime_predicate_early_exit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
         "numba_available": bool(NUMBA_AVAILABLE),
         "seed": int(args.seed),
         "total_steps": total_steps,

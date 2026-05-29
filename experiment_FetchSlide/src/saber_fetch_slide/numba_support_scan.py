@@ -162,6 +162,57 @@ def scan_fetch_slide_support_exact_with_constants(
     )
 
 
+def scan_fetch_slide_support_predicate_with_constants(
+    replay_obs: np.ndarray,
+    replay_h: np.ndarray,
+    replay_action_bin: np.ndarray,
+    replay_action_exec: np.ndarray,
+    scanned_indices: np.ndarray,
+    query_goal: np.ndarray,
+    query_full_key: int,
+    query_policy_bin: int,
+    constants: FetchSlideSupportScanConstants,
+    n_local_min: int,
+    m_q_min: int,
+    m_b: int,
+    action_bins_per_dim: int,
+) -> tuple[int, int, int, int, int, int, int]:
+    """Predicate-only support lookup.
+
+    Returns approximate local-count diagnostics when an early exit occurs, but
+    returns the exact support predicate for the fixed scanned_indices subset.
+    """
+    if not NUMBA_AVAILABLE:
+        raise RuntimeError("numba is not available")
+    return _scan_fetch_slide_support_predicate_jit(
+        replay_obs,
+        replay_h,
+        replay_action_bin,
+        replay_action_exec,
+        np.asarray(scanned_indices, dtype=np.int64),
+        np.asarray(query_goal, dtype=np.float32),
+        int(query_full_key),
+        int(query_policy_bin),
+        constants.ee_obj_bins,
+        constants.obj_goal_bins,
+        constants.obj_speed_bins,
+        constants.vel_align_bins,
+        constants.horizon_bins,
+        constants.ee_start,
+        constants.object_start,
+        constants.object_velocity_start,
+        constants.action_low,
+        constants.action_high,
+        constants.d_contact,
+        constants.d_goal_near,
+        constants.v_slide_min,
+        int(n_local_min),
+        int(m_q_min),
+        int(m_b),
+        int(action_bins_per_dim),
+    )
+
+
 def warmup_fetch_slide_support_exact(task: Any, action_dim: int, obs_dim: int) -> bool:
     if not can_scan_fetch_slide_support_exact(task):
         return False
@@ -189,10 +240,44 @@ def warmup_fetch_slide_support_exact(task: Any, action_dim: int, obs_dim: int) -
     return bool(getattr(_scan_fetch_slide_support_exact_jit, "nopython_signatures", ()))
 
 
+def warmup_fetch_slide_support_predicate(task: Any, action_dim: int, obs_dim: int) -> bool:
+    if not can_scan_fetch_slide_support_exact(task):
+        return False
+    constants = make_fetch_slide_support_scan_constants(task)
+    replay_obs = np.zeros((2, max(int(obs_dim), int(task.ee_velocity_slice[1]))), dtype=np.float32)
+    replay_h = np.ones(2, dtype=np.int16)
+    replay_action_bin = np.zeros(2, dtype=np.int64)
+    replay_action_exec = np.zeros((2, int(action_dim)), dtype=np.float32)
+    scanned_indices = np.arange(2, dtype=np.int64)
+    query_goal = np.zeros(3, dtype=np.float32)
+    scan_fetch_slide_support_predicate_with_constants(
+        replay_obs=replay_obs,
+        replay_h=replay_h,
+        replay_action_bin=replay_action_bin,
+        replay_action_exec=replay_action_exec,
+        scanned_indices=scanned_indices,
+        query_goal=query_goal,
+        query_full_key=0,
+        query_policy_bin=0,
+        constants=constants,
+        n_local_min=1,
+        m_q_min=1,
+        m_b=1,
+        action_bins_per_dim=5,
+    )
+    return bool(getattr(_scan_fetch_slide_support_predicate_jit, "nopython_signatures", ()))
+
+
 def fetch_slide_support_exact_nopython_signatures() -> tuple[Any, ...]:
     if not NUMBA_AVAILABLE:
         return ()
     return tuple(getattr(_scan_fetch_slide_support_exact_jit, "nopython_signatures", ()))
+
+
+def fetch_slide_support_predicate_nopython_signatures() -> tuple[Any, ...]:
+    if not NUMBA_AVAILABLE:
+        return ()
+    return tuple(getattr(_scan_fetch_slide_support_predicate_jit, "nopython_signatures", ()))
 
 
 if NUMBA_AVAILABLE:
@@ -385,7 +470,99 @@ if NUMBA_AVAILABLE:
             fallback = 0
         return local_pool_size, available_support_size, psi_a_policy, support_positive, fallback
 
+    @njit(cache=True)
+    def _scan_fetch_slide_support_predicate_jit(
+        replay_obs: np.ndarray,
+        replay_h: np.ndarray,
+        replay_action_bin: np.ndarray,
+        replay_action_exec: np.ndarray,
+        scanned_indices: np.ndarray,
+        query_goal: np.ndarray,
+        query_full_key: int,
+        query_policy_bin: int,
+        ee_obj_bins: np.ndarray,
+        obj_goal_bins: np.ndarray,
+        obj_speed_bins: np.ndarray,
+        vel_align_bins: np.ndarray,
+        horizon_bins: np.ndarray,
+        ee_start: int,
+        object_start: int,
+        object_velocity_start: int,
+        action_low: np.ndarray,
+        action_high: np.ndarray,
+        d_contact: np.float32,
+        d_goal_near: np.float32,
+        v_slide_min: np.float32,
+        n_local_min: int,
+        m_q_min: int,
+        m_b: int,
+        action_bins_per_dim: int,
+    ) -> tuple[int, int, int, int, int, int, int]:
+        local_pool_size = 0
+        psi_a_policy = 0
+        support_positive = 0
+        inspected_count = 0
+        early_exit_code = 0
+        for pos in range(scanned_indices.shape[0]):
+            inspected_count = pos + 1
+            idx = int(scanned_indices[pos])
+            candidate_key = _fetch_slide_full_context_key_one(
+                replay_obs,
+                idx,
+                query_goal,
+                int(replay_h[idx]),
+                ee_obj_bins,
+                obj_goal_bins,
+                obj_speed_bins,
+                vel_align_bins,
+                horizon_bins,
+                ee_start,
+                object_start,
+                object_velocity_start,
+                d_contact,
+                d_goal_near,
+                v_slide_min,
+            )
+            if candidate_key == query_full_key:
+                local_pool_size += 1
+                candidate_bin = int(replay_action_bin[idx])
+                if candidate_bin < 0:
+                    candidate_bin = _action_bin_one(
+                        replay_action_exec,
+                        idx,
+                        action_low,
+                        action_high,
+                        action_bins_per_dim,
+                    )
+                if candidate_bin == query_policy_bin:
+                    psi_a_policy = 1
+
+            available_support_size = local_pool_size
+            if available_support_size > m_b:
+                available_support_size = m_b
+            if (
+                local_pool_size >= n_local_min
+                and available_support_size >= m_q_min
+                and psi_a_policy == 1
+            ):
+                support_positive = 1
+                early_exit_code = 1
+                return local_pool_size, available_support_size, psi_a_policy, support_positive, 0, inspected_count, early_exit_code
+
+        available_support_size = local_pool_size
+        if available_support_size > m_b:
+            available_support_size = m_b
+        if local_pool_size >= n_local_min and available_support_size >= m_q_min and psi_a_policy == 1:
+            support_positive = 1
+        fallback = 1
+        if support_positive == 1:
+            fallback = 0
+        return local_pool_size, available_support_size, psi_a_policy, support_positive, fallback, inspected_count, early_exit_code
+
 else:
 
     def _scan_fetch_slide_support_exact_jit(*args: Any, **kwargs: Any) -> tuple[int, int, int, int, int]:
+        raise RuntimeError("numba is not available")
+
+    def _scan_fetch_slide_support_predicate_jit(*args: Any, **kwargs: Any) -> tuple[int, int, int, int, int, int, int]:
         raise RuntimeError("numba is not available")

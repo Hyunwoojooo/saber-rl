@@ -18,8 +18,10 @@ from metacog_lite_v0.task_fetch_slide import FetchSlideTaskSpec
 from saber_fetch_slide.numba_support_scan import (
     NUMBA_AVAILABLE,
     fetch_slide_support_exact_nopython_signatures,
+    fetch_slide_support_predicate_nopython_signatures,
     make_fetch_slide_support_scan_constants,
     scan_fetch_slide_support_exact_with_constants,
+    scan_fetch_slide_support_predicate_with_constants,
 )
 
 
@@ -126,6 +128,22 @@ def main() -> None:
         action_bins_per_dim,
     )
     assert warmed == legacy, (warmed, legacy)
+    predicate_warmed = scan_fetch_slide_support_predicate_with_constants(
+        replay_obs,
+        replay_h,
+        replay_action_bin,
+        replay_action_exec,
+        scanned_indices,
+        query_goal,
+        full_key,
+        policy_bin,
+        constants,
+        n_local_min,
+        m_q_min,
+        m_b,
+        action_bins_per_dim,
+    )
+    assert predicate_warmed[2:5] == legacy[2:5], (predicate_warmed, legacy)
 
     t0 = time.perf_counter()
     for _ in range(repeat):
@@ -166,14 +184,38 @@ def main() -> None:
         )
     numba_time = time.perf_counter() - t0
 
+    t0 = time.perf_counter()
+    for _ in range(repeat):
+        predicate = scan_fetch_slide_support_predicate_with_constants(
+            replay_obs,
+            replay_h,
+            replay_action_bin,
+            replay_action_exec,
+            scanned_indices,
+            query_goal,
+            full_key,
+            policy_bin,
+            constants,
+            n_local_min,
+            m_q_min,
+            m_b,
+            action_bins_per_dim,
+        )
+    predicate_time = time.perf_counter() - t0
+
     print(f"legacy_time_sec {legacy_time:.6f}")
     print(f"numba_time_sec {numba_time:.6f}")
+    print(f"predicate_time_sec {predicate_time:.6f}")
     print(f"speedup {legacy_time / max(numba_time, 1e-12):.3f}")
+    print(f"predicate_speedup {legacy_time / max(predicate_time, 1e-12):.3f}")
     print(f"local_count_match {int(legacy[0] == numba[0])}")
     print(f"psi_match {int(legacy[3] == numba[3])}")
+    print(f"predicate_psi_match {int(legacy[3] == predicate[3])}")
+    print(f"predicate_mean_inspected {predicate[5]}")
+    print(f"predicate_early_exit_code {predicate[6]}")
     print(f"numba_nopython_signatures {len(fetch_slide_support_exact_nopython_signatures())}")
+    print(f"predicate_nopython_signatures {len(fetch_slide_support_predicate_nopython_signatures())}")
 
 
 if __name__ == "__main__":
     main()
-
