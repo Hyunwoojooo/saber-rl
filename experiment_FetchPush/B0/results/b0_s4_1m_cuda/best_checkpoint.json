@@ -1,0 +1,8 @@
+{
+  "checkpoint": "C:\\Users\\SS\\Projects\\metacog-rl\\metacog-rl\\version5.0\\metacog-lite-v0\\experiment_FetchPush\\B0\\results\\b0_s4_1m_cuda\\best_checkpoint.pt",
+  "eval_env_success_mean": 1.0,
+  "eval_goal_success_mean": 1.0,
+  "eval_return_mean": -7.35,
+  "eval_success_mean": 1.0,
+  "step": 960000
+}
