@@ -1,0 +1,5 @@
+2026-05-27 14:15:18,250 | INFO | method=per_style lite_method=b0_ddpg_her weight_scope=critic_only device=cpu
+2026-05-27 14:15:20,426 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=0.993 psi=0.000 fallback=1.000
+2026-05-27 14:15:22,988 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=0.975 psi=0.000 fallback=1.000
+2026-05-27 14:15:23,006 | INFO | step=1000 replay=1000 updates=801 loss_q=0.1187 loss_pi=0.7908
+2026-05-27 14:15:23,007 | INFO | finished run at /home/joo/papers/metacog-rl/SABER/experiment/FetchSlide/per_style/fetch_slide_per_style_s1_300_lsnone

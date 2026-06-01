@@ -1,0 +1,5 @@
+2026-05-27 14:15:40,100 | INFO | method=b3_critic_only lite_method=b3_support_only weight_scope=critic_only device=cpu
+2026-05-27 14:15:44,957 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.203 psi=0.203 fallback=0.797
+2026-05-27 14:15:52,175 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=1.047 psi=0.047 fallback=0.953
+2026-05-27 14:15:52,196 | INFO | step=1000 replay=1000 updates=801 loss_q=0.0940 loss_pi=0.6201
+2026-05-27 14:15:52,196 | INFO | finished run at /home/joo/papers/metacog-rl/SABER/experiment/FetchSlide/b3_critic_only/fetch_slide_b3_critic_only_s1_300_ls1024

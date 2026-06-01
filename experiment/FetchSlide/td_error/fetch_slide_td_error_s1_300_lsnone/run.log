@@ -1,0 +1,5 @@
+2026-05-27 14:15:07,420 | INFO | method=td_error lite_method=b0_ddpg_her weight_scope=critic_only device=cpu
+2026-05-27 14:15:09,593 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.583 psi=0.000 fallback=1.000
+2026-05-27 14:15:12,146 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=1.612 psi=0.000 fallback=1.000
+2026-05-27 14:15:12,167 | INFO | step=1000 replay=1000 updates=801 loss_q=0.0929 loss_pi=0.7163
+2026-05-27 14:15:12,168 | INFO | finished run at /home/joo/papers/metacog-rl/SABER/experiment/FetchSlide/td_error/fetch_slide_td_error_s1_300_lsnone

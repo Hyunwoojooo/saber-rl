@@ -1,0 +1,8 @@
+{
+  "checkpoint": "/home/joo/papers/metacog-rl/SABER/experiment_FetchSlide/experiment/FetchSlideRuntimePatchCuda300k/b3_critic_only/fetch_slide_b3_critic_only_s2_300000_ls1024/best_checkpoint.pt",
+  "eval_env_success_mean": 0.15000000596046448,
+  "eval_goal_success_mean": 0.15000000596046448,
+  "eval_return_mean": -49.45000076293945,
+  "eval_success_mean": 0.15000000596046448,
+  "step": 75000
+}

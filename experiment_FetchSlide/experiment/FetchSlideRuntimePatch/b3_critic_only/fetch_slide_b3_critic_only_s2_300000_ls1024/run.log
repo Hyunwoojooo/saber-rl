@@ -1,0 +1,10 @@
+2026-05-28 14:15:34,347 | INFO | method=b3_critic_only lite_method=b3_support_only effective_weight_scope=critic_only config_weight_scope=critic_only support_lookup=True device=cpu
+2026-05-28 14:15:35,725 | INFO | step=1000 replay=1000 updates=0 loss_q=0.0000 loss_pi=0.0000
+2026-05-28 14:15:36,683 | INFO | step=2000 replay=2000 updates=0 loss_q=0.0000 loss_pi=0.0000
+2026-05-28 14:15:37,646 | INFO | step=3000 replay=3000 updates=0 loss_q=0.0000 loss_pi=0.0000
+2026-05-28 14:15:38,600 | INFO | step=4000 replay=4000 updates=0 loss_q=0.0000 loss_pi=0.0000
+2026-05-28 14:15:39,576 | INFO | step=5000 replay=5000 updates=1 loss_q=0.2668 loss_pi=0.0728
+2026-05-28 14:16:14,506 | INFO | step=6000 replay=6000 updates=1001 loss_q=0.0611 loss_pi=1.1666
+2026-05-28 14:16:49,299 | INFO | step=7000 replay=7000 updates=2001 loss_q=0.0336 loss_pi=1.3108
+2026-05-28 14:17:28,658 | INFO | step=8000 replay=8000 updates=3001 loss_q=0.0286 loss_pi=1.2890
+2026-05-28 14:18:09,711 | INFO | step=9000 replay=9000 updates=4001 loss_q=0.0444 loss_pi=1.4389
