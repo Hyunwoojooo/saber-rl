@@ -346,6 +346,28 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
     )
     env.close()
     print(json.dumps(checks, indent=2, sort_keys=True))
+    required_checks = (
+        "desired_goal_source_safe",
+        "reset_finite",
+        "flat_state_is_concat_obs_goal",
+        "action_low_finite",
+        "action_high_finite",
+        "her_relabel_changed_goal",
+        "raw_reward_finite",
+        "b0_omega_all_one",
+        "b4_omega_finite",
+        "b4_g_sup_finite",
+        "b3_runtime_opt_omega_finite",
+        "b3_runtime_opt_support_finite",
+        "b3_runtime_opt_numba_metric_present",
+        "b3_runtime_opt_predicate_metric_present",
+        "b3_runtime_opt_time_numba_scan_logged",
+        "time_q_candidate_eval_logged",
+        "time_local_context_lookup_logged",
+    )
+    failed_checks = [name for name in required_checks if not bool(checks.get(name, False))]
+    if failed_checks:
+        raise RuntimeError(f"Drawer-Open validate_only failed checks: {failed_checks}")
 
 
 def _finite_goal_obs(obs: object) -> bool:

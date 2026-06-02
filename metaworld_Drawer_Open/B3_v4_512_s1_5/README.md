@@ -55,6 +55,35 @@ After installing MetaWorld, run:
 python run.py --seed 1 --steps 1000 --device cpu --validate_only
 ```
 
+`--validate_only` is a hard gate for experiment validity. It prints a JSON
+diagnostic report, then raises `RuntimeError` if any required check fails.
+The required checks include:
+
+- Drawer desired-goal source must come from MetaWorld environment metadata
+  (`_target_pos`, `target_pos`, `_goal`, or `goal`). `obs_tail`,
+  `synthetic_fallback`, and `unknown` are treated as invalid.
+- B0 sanity path must produce unit actor/critic weights.
+- B4 sanity path must produce finite support weights and finite `G_sup`.
+- B3 runtime-opt path must produce finite critic weights and finite support
+  diagnostics.
+- Runtime-opt diagnostics must confirm that Numba support scan metrics,
+  predicate early-exit metrics, and Numba scan timing are actually present.
+- HER relabeling, replay indexing, raw reward finiteness, and local context
+  timing diagnostics must be present.
+
+This is intentional: if the Drawer-Open GoalEnv conversion or runtime-opt
+support lookup silently falls back to an invalid path, the run should fail
+before a long experiment starts.
+
+Additional Drawer diagnostics are logged for analysis:
+
+- `hand_handle_dist_mean`
+- `handle_goal_dist_mean`
+- `phase_approach_frac`
+- `phase_contact_frac`
+- `phase_opening_frac`
+- `phase_open_frac`
+
 For a short smoke run:
 
 ```bash
