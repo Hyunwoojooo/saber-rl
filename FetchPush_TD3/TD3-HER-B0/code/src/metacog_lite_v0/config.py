@@ -1,0 +1,365 @@
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+
+def resolve_fetch_push_env_id(reward_type: str) -> str:
+    rt = reward_type.lower()
+    if rt == "sparse":
+        return "FetchPush-v4"
+    if rt == "dense":
+        return "FetchPushDense-v4"
+    raise ValueError(f"Unsupported reward_type={reward_type!r}")
+
+
+def resolve_fetch_pick_and_place_env_id(reward_type: str) -> str:
+    rt = reward_type.lower()
+    if rt == "sparse":
+        return "FetchPickAndPlace-v4"
+    if rt == "dense":
+        return "FetchPickAndPlaceDense-v4"
+    raise ValueError(f"Unsupported reward_type={reward_type!r}")
+
+
+def resolve_fetch_slide_env_id(reward_type: str) -> str:
+    rt = reward_type.lower()
+    if rt == "sparse":
+        return "FetchSlide-v4"
+    if rt == "dense":
+        return "FetchSlideDense-v4"
+    raise ValueError(f"Unsupported reward_type={reward_type!r}")
+
+
+def resolve_env_id(task_name: str, reward_type: str) -> str:
+    task = task_name.lower()
+    if task == "fetch_push":
+        return resolve_fetch_push_env_id(reward_type)
+    if task == "fetch_pick_and_place":
+        return resolve_fetch_pick_and_place_env_id(reward_type)
+    if task == "fetch_slide":
+        return resolve_fetch_slide_env_id(reward_type)
+    if task == "unitree_apple":
+        return "UnitreeG1PlaceAppleInBowl-v1"
+    if task == "pick_cube":
+        return "PickCube-v1"
+    raise ValueError(f"Unsupported task_name={task_name!r}")
+
+
+@dataclass
+class SeedConfig:
+    env_seed: int = 1
+    torch_seed: int = 1
+    numpy_seed: int = 1
+    action_noise_seed: int = 1
+    weight_seed: int = 31
+    eval_seed: int = 10001
+
+    def as_dict(self) -> Dict[str, int]:
+        return asdict(self)
+
+
+@dataclass
+class LiteConfig:
+    run_name: str = "fetch_push_lite_v0"
+    output_root: str = "version_v0_lite/results"
+    resume: bool = False
+    resume_path: Optional[str] = None
+
+    # B0..B4 from the specification.
+    task_name: str = "fetch_push"
+    method: str = "b4_lite"
+    reward_type: str = "sparse"
+    env_id: str = "FetchPush-v4"
+    obs_mode: str = "state"
+    robot_uids: str = "panda"
+    control_mode: Optional[str] = None
+    num_envs: int = 1
+    backend: Optional[str] = None
+    sim_backend: Optional[str] = None
+    max_episode_steps: int = 50
+    render: bool = False
+
+    total_steps: int = 200_000
+    start_steps: int = 10_000
+    warmup_steps: int = 5_000
+    updates_per_step: int = 1
+    batch_size: int = 256
+    buffer_capacity: int = 300_000
+    her_ratio: float = 0.8
+
+    gamma: float = 0.98
+    tau: float = 0.005
+    actor_lr: float = 3e-4
+    critic_lr: float = 3e-4
+    hidden_dim: int = 256
+    noise_std: float = 0.2
+    l2_action_penalty: float = 0.0
+    policy_delay: int = 2
+    target_policy_noise: float = 0.2
+    target_noise_clip: float = 0.5
+
+    eval_freq: int = 10_000
+    eval_episodes: int = 20
+    checkpoint_every_steps: int = 50_000
+    save_step_checkpoints: bool = True
+    log_every_steps: int = 1_000
+    smoke: bool = False
+
+    # MetaCog-Lite v0 local replay-action support.
+    M_B: int = 32
+    M_Q_min: int = 8
+    N_local_min: int = 8
+    local_search_max: int = 8_192
+    action_bins_per_dim: int = 5
+    policy_support_mode: str = "bin"
+    policy_action_radius: float = 0.35
+    support_lookup_optimization: bool = False
+    support_cache_enabled: bool = False
+    support_short_circuit: bool = False
+    support_batch_query_coalescing: bool = False
+    disable_support_short_circuit: bool = False
+    disable_support_batch_query_coalescing: bool = False
+    support_deterministic_scan: bool = False
+    support_scan_mode: str = "random"
+    support_scan_seed: int = 0
+    support_local_scan_cache_enabled: bool = False
+    support_cache_max_entries: int = 500_000
+    support_local_scan_cache_max_entries: int = 200_000
+    support_numba_scan_enabled: bool = False
+    support_numba_scan_warmup: bool = True
+
+    # FetchPush bucket.
+    d_contact: float = 0.08
+    d_reach: float = 0.10
+    d_goal_near: float = 0.05
+    ee_obj_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40)
+    obj_goal_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40)
+    horizon_bins: tuple[int, ...] = (10, 25, 50, 100)
+
+    # UnitreeApple bucket.
+    hand_apple_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40)
+    apple_goal_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40)
+    apple_z_bins: tuple[float, ...] = (0.75, 0.85, 1.00)
+
+    # ManiSkill PickCube bucket.
+    pick_cube_z_lift_min: Optional[float] = None
+    pick_cube_tcp_cube_bins: tuple[float, ...] = (0.03, 0.05, 0.08, 0.12, 0.20, 0.40)
+    pick_cube_goal_bins: tuple[float, ...] = (0.025, 0.05, 0.10, 0.20, 0.40, 0.70)
+    pick_cube_z_bins: tuple[float, ...] = (0.04, 0.07, 0.10, 0.15, 0.25, 0.40)
+
+    # FetchPickAndPlace bucket.
+    z_lift_min: float = 0.48
+    grip_close_thresh: float = 0.04
+    pick_hand_obj_bins: tuple[float, ...] = (0.03, 0.05, 0.08, 0.12, 0.20, 0.40)
+    pick_obj_goal_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40, 0.70)
+    pick_object_z_bins: tuple[float, ...] = (0.43, 0.48, 0.55, 0.65, 0.75)
+    pick_gripper_gap_bins: tuple[float, ...] = (0.02, 0.05, 0.08)
+
+    # FetchSlide bucket.
+    slide_d_contact: float = 0.08
+    slide_d_goal_near: float = 0.05
+    slide_v_slide_min: float = 0.05
+    slide_v_fast: float = 0.15
+    slide_ee_obj_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40)
+    slide_obj_goal_bins: tuple[float, ...] = (0.05, 0.10, 0.20, 0.40, 0.70, 1.00)
+    slide_obj_speed_bins: tuple[float, ...] = (0.02, 0.05, 0.10, 0.20, 0.40)
+    slide_vel_align_bins: tuple[float, ...] = (-0.50, 0.0, 0.50, 0.80)
+
+    # Gap normalization and weighting.
+    N_gap_min: int = 256
+    gap_window: int = 50_000
+    gap_q_low: float = 0.60
+    gap_q_high: float = 0.95
+    eps: float = 1e-8
+    eps_G: float = 1e-6
+    lambda_P: float = 1.0
+    lambda_support: float = 1.0
+    U_P_max: float = 1.0
+    weighting_mode: str = "batch_norm"
+    weight_scope: str = "actor_critic"
+    unrestricted_candidate_std: float = 0.5
+
+    # Terminal convention is part of the experiment spec.
+    success_terminates: bool = False
+    timeout_bootstrap: bool = True
+
+    device: str = "auto"
+    seeds: SeedConfig = field(default_factory=SeedConfig)
+
+    def normalize(self) -> None:
+        self.task_name = self.task_name.lower()
+        if self.task_name not in {"fetch_push", "fetch_pick_and_place", "fetch_slide", "unitree_apple", "pick_cube"}:
+            raise ValueError("task_name must be fetch_push|fetch_pick_and_place|fetch_slide|unitree_apple|pick_cube")
+        self.method = self.method.lower()
+        allowed = {
+            "b0_ddpg_her",
+            "b1_uniform_scale",
+            "b2_unrestricted_gap",
+            "b3_support_only",
+            "b3_support_random",
+            "b3_support_shuffled",
+            "b4_lite",
+        }
+        if self.method not in allowed:
+            raise ValueError(f"Unsupported method={self.method!r}, expected one of {sorted(allowed)}")
+        self.reward_type = self.reward_type.lower()
+        if self.reward_type not in {"sparse", "dense"}:
+            raise ValueError("reward_type must be sparse|dense")
+        self.env_id = resolve_env_id(self.task_name, self.reward_type)
+        self.obs_mode = self.obs_mode.lower()
+        self.weighting_mode = self.weighting_mode.lower()
+        if self.weighting_mode not in {"batch_norm", "raw"}:
+            raise ValueError("weighting_mode must be batch_norm|raw")
+        self.weight_scope = self.weight_scope.lower()
+        if self.weight_scope not in {"actor_critic", "critic_only", "actor_only"}:
+            raise ValueError("weight_scope must be actor_critic|critic_only|actor_only")
+        self.policy_support_mode = self.policy_support_mode.lower()
+        if self.policy_support_mode not in {"bin", "radius", "auto"}:
+            raise ValueError("policy_support_mode must be bin|radius|auto")
+        self.support_scan_mode = self.support_scan_mode.lower()
+        if self.support_scan_mode in {
+            "cached_random_v1",
+            "deterministic_random_v1",
+            "deterministic_random_by_version_v1",
+        }:
+            self.support_scan_mode = "sticky_random_v1"
+        if self.support_lookup_optimization:
+            self.support_cache_enabled = True
+            self.support_short_circuit = True
+            self.support_deterministic_scan = True
+            if self.support_scan_mode == "random":
+                self.support_scan_mode = "sticky_random_v1"
+            self.support_local_scan_cache_enabled = True
+            # Numba exact scanners are opt-in because they are task-specific.
+        if self.support_deterministic_scan and self.support_scan_mode == "random":
+            self.support_scan_mode = "sticky_random_v1"
+        if self.disable_support_short_circuit:
+            self.support_short_circuit = False
+        if self.disable_support_batch_query_coalescing:
+            self.support_batch_query_coalescing = False
+        if self.support_scan_mode not in {
+            "random",
+            "deterministic_tail_v1",
+            "deterministic_back_v1",
+            "deterministic_even_v1",
+            "sticky_random_v1",
+        }:
+            raise ValueError(
+                "support_scan_mode must be random|deterministic_tail_v1|deterministic_back_v1|deterministic_even_v1|sticky_random_v1"
+            )
+        if self.task_name == "unitree_apple":
+            if self.max_episode_steps == 50:
+                self.max_episode_steps = 100
+            if self.total_steps == 200_000:
+                self.total_steps = 100_000
+            if self.batch_size == 256:
+                self.batch_size = 128
+            if self.M_B == 32:
+                self.M_B = 16
+            if self.M_Q_min == 8:
+                self.M_Q_min = 4
+            if self.N_local_min == 8:
+                self.N_local_min = 4
+            if self.local_search_max == 8_192:
+                self.local_search_max = 1_024
+            if self.N_gap_min == 256:
+                self.N_gap_min = 128
+            if self.policy_support_mode == "bin":
+                self.policy_support_mode = "radius"
+        if self.task_name == "fetch_pick_and_place":
+            if self.M_B == 32:
+                self.M_B = 16
+            if self.M_Q_min == 8:
+                self.M_Q_min = 4
+            if self.N_local_min == 8:
+                self.N_local_min = 4
+            if self.local_search_max == 8_192:
+                self.local_search_max = 1_024
+            if self.N_gap_min == 256:
+                self.N_gap_min = 128
+        if self.task_name == "fetch_slide":
+            if self.M_B == 32:
+                self.M_B = 16
+            if self.M_Q_min == 8:
+                self.M_Q_min = 4
+            if self.N_local_min == 8:
+                self.N_local_min = 4
+            if self.local_search_max == 8_192:
+                self.local_search_max = 1_024
+            if self.N_gap_min == 256:
+                self.N_gap_min = 128
+            if self.slide_d_goal_near == 0.05:
+                self.slide_d_goal_near = self.d_goal_near
+        if self.task_name == "pick_cube":
+            if self.total_steps == 200_000:
+                self.total_steps = 100_000
+            if self.M_B == 32:
+                self.M_B = 16
+            if self.M_Q_min == 8:
+                self.M_Q_min = 4
+            if self.N_local_min == 8:
+                self.N_local_min = 4
+            if self.local_search_max == 8_192:
+                self.local_search_max = 1_024
+            if self.N_gap_min == 256:
+                self.N_gap_min = 128
+            if self.d_goal_near == 0.05:
+                self.d_goal_near = 0.025
+            if self.policy_support_mode == "bin":
+                self.policy_support_mode = "auto"
+        self.num_envs = max(1, int(self.num_envs))
+        self.her_ratio = max(0.0, min(1.0, float(self.her_ratio)))
+        self.policy_delay = max(1, int(self.policy_delay))
+        self.target_policy_noise = max(0.0, float(self.target_policy_noise))
+        self.target_noise_clip = max(0.0, float(self.target_noise_clip))
+        self.batch_size = max(1, int(self.batch_size))
+        self.M_B = max(1, int(self.M_B))
+        self.M_Q_min = max(1, int(self.M_Q_min))
+        self.N_local_min = max(1, int(self.N_local_min))
+        self.local_search_max = max(0, int(self.local_search_max))
+        self.support_cache_max_entries = max(0, int(self.support_cache_max_entries))
+        self.support_local_scan_cache_max_entries = max(0, int(self.support_local_scan_cache_max_entries))
+        self.support_numba_scan_enabled = bool(self.support_numba_scan_enabled)
+        self.support_numba_scan_warmup = bool(self.support_numba_scan_warmup)
+        self.action_bins_per_dim = max(2, int(self.action_bins_per_dim))
+        self.N_gap_min = max(1, int(self.N_gap_min))
+        self.gap_window = max(self.N_gap_min, int(self.gap_window))
+        if self.smoke:
+            if self.task_name in {"unitree_apple", "pick_cube"}:
+                self.total_steps = min(self.total_steps, 5_000)
+                self.start_steps = min(self.start_steps, 1_000)
+                self.warmup_steps = min(self.warmup_steps, 1_000)
+                self.batch_size = min(self.batch_size, 128)
+                self.buffer_capacity = min(self.buffer_capacity, 20_000)
+                self.eval_freq = min(self.eval_freq, 1_000)
+                self.eval_episodes = min(self.eval_episodes, 5)
+                self.checkpoint_every_steps = min(self.checkpoint_every_steps, 1_000)
+                self.M_B = min(self.M_B, 16)
+                self.M_Q_min = min(self.M_Q_min, 4)
+                self.N_local_min = min(self.N_local_min, 4)
+                self.local_search_max = min(self.local_search_max, 512)
+                self.N_gap_min = min(self.N_gap_min, 32)
+                self.gap_window = min(self.gap_window, 2_000)
+            else:
+                self.total_steps = 1_000
+                self.start_steps = 200
+                self.warmup_steps = 200
+                self.batch_size = min(self.batch_size, 64)
+                self.buffer_capacity = min(self.buffer_capacity, 20_000)
+                self.eval_freq = 500
+                self.eval_episodes = 5
+                self.checkpoint_every_steps = 500
+                self.local_search_max = min(self.local_search_max, 1_024)
+                self.N_gap_min = min(self.N_gap_min, 32)
+                self.gap_window = min(self.gap_window, 2_000)
+
+    def as_dict(self) -> Dict[str, Any]:
+        payload = asdict(self)
+        payload["resolved_env_id"] = self.env_id
+        return payload
+
+    def output_root_path(self, repo_root: Path) -> Path:
+        path = Path(self.output_root)
+        return path if path.is_absolute() else repo_root / path
