@@ -1,0 +1,215 @@
+{
+  "M_B": 32,
+  "M_Q_min": 8,
+  "N_gap_min": 256,
+  "N_local_min": 8,
+  "U_P_max": 1.0,
+  "action_bins_per_dim": 5,
+  "actor_lr": 0.0003,
+  "apple_goal_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "apple_z_bins": [
+    0.75,
+    0.85,
+    1.0
+  ],
+  "backend": null,
+  "batch_size": 256,
+  "buffer_capacity": 300000,
+  "checkpoint_every_steps": 50000,
+  "control_mode": null,
+  "critic_lr": 0.0003,
+  "d_contact": 0.08,
+  "d_goal_near": 0.05,
+  "d_reach": 0.1,
+  "device": "cuda",
+  "disable_support_batch_query_coalescing": true,
+  "disable_support_short_circuit": false,
+  "ee_obj_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "env_id": "FetchPush-v4",
+  "eps": 1e-08,
+  "eps_G": 1e-06,
+  "eval_episodes": 20,
+  "eval_freq": 10000,
+  "gamma": 0.98,
+  "gap_q_high": 0.95,
+  "gap_q_low": 0.6,
+  "gap_window": 50000,
+  "grip_close_thresh": 0.04,
+  "hand_apple_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "her_ratio": 0.8,
+  "hidden_dim": 256,
+  "horizon_bins": [
+    10,
+    25,
+    50,
+    100
+  ],
+  "l2_action_penalty": 0.0,
+  "lambda_P": 1.0,
+  "lambda_support": 1.0,
+  "local_search_max": 512,
+  "log_every_steps": 1000,
+  "max_episode_steps": 50,
+  "method": "b3_support_only",
+  "noise_std": 0.2,
+  "num_envs": 1,
+  "obj_goal_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "obs_mode": "state",
+  "output_root": "C:\\Users\\SS\\Projects\\metacog-rl\\metacog-rl\\version5.0\\metacog-lite-v0\\experiment_FetchPush\\B3-Critic-only-runtime-optimization-jit-sticky-v2\\results",
+  "pick_cube_goal_bins": [
+    0.025,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.7
+  ],
+  "pick_cube_tcp_cube_bins": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.2,
+    0.4
+  ],
+  "pick_cube_z_bins": [
+    0.04,
+    0.07,
+    0.1,
+    0.15,
+    0.25,
+    0.4
+  ],
+  "pick_cube_z_lift_min": null,
+  "pick_gripper_gap_bins": [
+    0.02,
+    0.05,
+    0.08
+  ],
+  "pick_hand_obj_bins": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.2,
+    0.4
+  ],
+  "pick_obj_goal_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.7
+  ],
+  "pick_object_z_bins": [
+    0.43,
+    0.48,
+    0.55,
+    0.65,
+    0.75
+  ],
+  "policy_action_radius": 0.35,
+  "policy_support_mode": "bin",
+  "render": false,
+  "resolved_env_id": "FetchPush-v4",
+  "resume": false,
+  "resume_path": null,
+  "reward_type": "sparse",
+  "robot_uids": "panda",
+  "run_name": "b3jitsticky_s1_1m_cuda",
+  "save_step_checkpoints": false,
+  "seeds": {
+    "action_noise_seed": 1,
+    "env_seed": 1,
+    "eval_seed": 10001,
+    "numpy_seed": 1,
+    "torch_seed": 1,
+    "weight_seed": 20001
+  },
+  "sim_backend": null,
+  "slide_d_contact": 0.08,
+  "slide_d_goal_near": 0.05,
+  "slide_ee_obj_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "slide_obj_goal_bins": [
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.7,
+    1.0
+  ],
+  "slide_obj_speed_bins": [
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "slide_v_fast": 0.15,
+  "slide_v_slide_min": 0.05,
+  "slide_vel_align_bins": [
+    -0.5,
+    0.0,
+    0.5,
+    0.8
+  ],
+  "smoke": false,
+  "start_steps": 10000,
+  "success_terminates": false,
+  "support_batch_query_coalescing": false,
+  "support_cache_enabled": true,
+  "support_cache_max_entries": 500000,
+  "support_deterministic_scan": true,
+  "support_local_scan_cache_enabled": true,
+  "support_local_scan_cache_max_entries": 200000,
+  "support_lookup_optimization": true,
+  "support_numba_scan_enabled": true,
+  "support_numba_scan_warmup": true,
+  "support_scan_mode": "sticky_random_v1",
+  "support_scan_seed": 30001,
+  "support_short_circuit": true,
+  "task_name": "fetch_push",
+  "tau": 0.005,
+  "terminal_convention": {
+    "success_terminates": false,
+    "timeout_bootstrap": true
+  },
+  "thread_hint": {
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "timeout_bootstrap": true,
+  "total_steps": 1000000,
+  "unrestricted_candidate_std": 0.5,
+  "updates_per_step": 1,
+  "warmup_steps": 5000,
+  "weight_scope": "critic_only",
+  "weighting_mode": "batch_norm",
+  "z_lift_min": 0.48
+}
