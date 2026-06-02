@@ -1,0 +1,112 @@
+2026-05-28 16:57:13,904 | INFO | device=cuda
+2026-05-28 16:57:15,264 | INFO | step=1000 replay=1000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-28 16:57:15,735 | INFO | step=2000 replay=2000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-28 16:57:16,221 | INFO | step=3000 replay=3000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-28 16:57:16,700 | INFO | step=4000 replay=4000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-28 16:57:17,683 | INFO | step=5000 replay=5000 updates=1 loss_q=0.2651 loss_pi=0.0419 wP=1.059 psiQ=0.059 fallback=0.941
+2026-05-28 16:57:35,926 | INFO | step=6000 replay=6000 updates=1001 loss_q=0.0816 loss_pi=0.8045 wP=1.078 psiQ=0.078 fallback=0.922
+2026-05-28 16:57:54,936 | INFO | step=7000 replay=7000 updates=2001 loss_q=0.0356 loss_pi=1.2027 wP=1.168 psiQ=0.168 fallback=0.832
+2026-05-28 16:58:14,361 | INFO | step=8000 replay=8000 updates=3001 loss_q=0.0494 loss_pi=1.9538 wP=1.148 psiQ=0.148 fallback=0.852
+2026-05-28 16:58:35,013 | INFO | step=9000 replay=9000 updates=4001 loss_q=0.0320 loss_pi=1.7806 wP=1.176 psiQ=0.176 fallback=0.824
+2026-05-28 16:58:57,123 | INFO | step=10000 episode=200 replay=10000 eval_goal=0.050 eval_env=0.050 eval_ret=-47.50 wP=1.168 psiQ=0.168 fallback=0.832
+2026-05-28 16:58:57,123 | INFO | step=10000 replay=10000 updates=5001 loss_q=0.0431 loss_pi=1.4948 wP=1.168 psiQ=0.168 fallback=0.832
+2026-05-28 16:59:14,922 | INFO | step=11000 replay=11000 updates=6001 loss_q=0.0447 loss_pi=1.0966 wP=1.199 psiQ=0.199 fallback=0.801
+2026-05-28 16:59:32,052 | INFO | step=12000 replay=12000 updates=7001 loss_q=0.0444 loss_pi=0.6668 wP=1.234 psiQ=0.234 fallback=0.766
+2026-05-28 16:59:50,325 | INFO | step=13000 replay=13000 updates=8001 loss_q=0.0566 loss_pi=2.3088 wP=1.254 psiQ=0.254 fallback=0.746
+2026-05-28 17:00:10,652 | INFO | step=14000 replay=14000 updates=9001 loss_q=0.0922 loss_pi=1.0846 wP=1.223 psiQ=0.223 fallback=0.777
+2026-05-28 17:00:33,880 | INFO | step=15000 replay=15000 updates=10001 loss_q=0.0607 loss_pi=1.2822 wP=1.344 psiQ=0.344 fallback=0.656
+2026-05-28 17:00:59,170 | INFO | step=16000 replay=16000 updates=11001 loss_q=0.0859 loss_pi=0.7159 wP=1.188 psiQ=0.188 fallback=0.812
+2026-05-28 17:01:20,500 | INFO | step=17000 replay=17000 updates=12001 loss_q=0.0980 loss_pi=1.5979 wP=1.168 psiQ=0.168 fallback=0.832
+2026-05-28 17:01:41,238 | INFO | step=18000 replay=18000 updates=13001 loss_q=0.1930 loss_pi=1.1129 wP=1.305 psiQ=0.305 fallback=0.695
+2026-05-28 17:02:04,730 | INFO | step=19000 replay=19000 updates=14001 loss_q=0.1639 loss_pi=2.3789 wP=1.336 psiQ=0.336 fallback=0.664
+2026-05-28 17:02:32,997 | INFO | step=20000 episode=400 replay=20000 eval_goal=0.050 eval_env=0.050 eval_ret=-47.50 wP=1.391 psiQ=0.391 fallback=0.609
+2026-05-28 17:02:32,997 | INFO | step=20000 replay=20000 updates=15001 loss_q=0.1353 loss_pi=1.8678 wP=1.391 psiQ=0.391 fallback=0.609
+2026-05-28 17:03:02,249 | INFO | step=21000 replay=21000 updates=16001 loss_q=0.4131 loss_pi=1.2552 wP=1.414 psiQ=0.414 fallback=0.586
+2026-05-28 17:03:30,530 | INFO | step=22000 replay=22000 updates=17001 loss_q=0.1604 loss_pi=2.2822 wP=1.434 psiQ=0.434 fallback=0.566
+2026-05-28 17:03:56,703 | INFO | step=23000 replay=23000 updates=18001 loss_q=0.2397 loss_pi=2.3902 wP=1.375 psiQ=0.375 fallback=0.625
+2026-05-28 17:04:23,802 | INFO | step=24000 replay=24000 updates=19001 loss_q=0.1673 loss_pi=1.9982 wP=1.398 psiQ=0.398 fallback=0.602
+2026-05-28 17:04:51,982 | INFO | step=25000 replay=25000 updates=20001 loss_q=0.4604 loss_pi=2.3751 wP=1.355 psiQ=0.355 fallback=0.645
+2026-05-28 17:05:19,997 | INFO | step=26000 replay=26000 updates=21001 loss_q=0.5510 loss_pi=1.7875 wP=1.367 psiQ=0.367 fallback=0.633
+2026-05-28 17:05:47,826 | INFO | step=27000 replay=27000 updates=22001 loss_q=0.1367 loss_pi=3.6828 wP=1.289 psiQ=0.289 fallback=0.711
+2026-05-28 17:06:09,046 | INFO | step=28000 replay=28000 updates=23001 loss_q=0.2446 loss_pi=0.7831 wP=1.148 psiQ=0.148 fallback=0.852
+2026-05-28 17:06:32,570 | INFO | step=29000 replay=29000 updates=24001 loss_q=0.3638 loss_pi=-0.0302 wP=1.230 psiQ=0.230 fallback=0.770
+2026-05-28 17:07:01,005 | INFO | step=30000 episode=600 replay=30000 eval_goal=0.050 eval_env=0.050 eval_ret=-47.50 wP=1.266 psiQ=0.266 fallback=0.734
+2026-05-28 17:07:01,005 | INFO | step=30000 replay=30000 updates=25001 loss_q=0.8520 loss_pi=-0.6753 wP=1.266 psiQ=0.266 fallback=0.734
+2026-05-28 17:07:30,213 | INFO | step=31000 replay=31000 updates=26001 loss_q=0.3524 loss_pi=1.3325 wP=1.359 psiQ=0.359 fallback=0.641
+2026-05-28 17:07:58,855 | INFO | step=32000 replay=32000 updates=27001 loss_q=0.3633 loss_pi=0.5245 wP=1.246 psiQ=0.246 fallback=0.754
+2026-05-28 17:08:29,741 | INFO | step=33000 replay=33000 updates=28001 loss_q=0.2094 loss_pi=-1.9836 wP=1.238 psiQ=0.238 fallback=0.762
+2026-05-28 17:09:01,328 | INFO | step=34000 replay=34000 updates=29001 loss_q=0.2482 loss_pi=-0.0229 wP=1.230 psiQ=0.230 fallback=0.770
+2026-05-28 17:09:32,784 | INFO | step=35000 replay=35000 updates=30001 loss_q=0.4501 loss_pi=-2.8939 wP=1.219 psiQ=0.219 fallback=0.781
+2026-05-28 17:10:01,438 | INFO | step=36000 replay=36000 updates=31001 loss_q=0.2474 loss_pi=-2.0674 wP=1.227 psiQ=0.227 fallback=0.773
+2026-05-28 17:10:29,522 | INFO | step=37000 replay=37000 updates=32001 loss_q=0.1643 loss_pi=-1.6599 wP=1.250 psiQ=0.250 fallback=0.750
+2026-05-28 17:10:58,393 | INFO | step=38000 replay=38000 updates=33001 loss_q=0.3488 loss_pi=-1.6947 wP=1.277 psiQ=0.277 fallback=0.723
+2026-05-28 17:11:27,312 | INFO | step=39000 replay=39000 updates=34001 loss_q=0.3091 loss_pi=-4.4110 wP=1.320 psiQ=0.320 fallback=0.680
+2026-05-28 17:11:57,559 | INFO | step=40000 episode=800 replay=40000 eval_goal=0.000 eval_env=0.000 eval_ret=-50.00 wP=1.320 psiQ=0.320 fallback=0.680
+2026-05-28 17:11:57,559 | INFO | step=40000 replay=40000 updates=35001 loss_q=0.1954 loss_pi=-4.4819 wP=1.320 psiQ=0.320 fallback=0.680
+2026-05-28 17:12:26,827 | INFO | step=41000 replay=41000 updates=36001 loss_q=0.3004 loss_pi=-4.9266 wP=1.430 psiQ=0.430 fallback=0.570
+2026-05-28 17:12:56,693 | INFO | step=42000 replay=42000 updates=37001 loss_q=0.6091 loss_pi=-3.4365 wP=1.352 psiQ=0.352 fallback=0.648
+2026-05-28 17:13:27,628 | INFO | step=43000 replay=43000 updates=38001 loss_q=0.4995 loss_pi=-6.0381 wP=1.258 psiQ=0.258 fallback=0.742
+2026-05-28 17:13:58,276 | INFO | step=44000 replay=44000 updates=39001 loss_q=0.2510 loss_pi=-5.2261 wP=1.285 psiQ=0.285 fallback=0.715
+2026-05-28 17:14:29,818 | INFO | step=45000 replay=45000 updates=40001 loss_q=0.6462 loss_pi=-5.8316 wP=1.207 psiQ=0.207 fallback=0.793
+2026-05-28 17:15:00,881 | INFO | step=46000 replay=46000 updates=41001 loss_q=1.0642 loss_pi=-4.5321 wP=1.270 psiQ=0.270 fallback=0.730
+2026-05-28 17:15:33,021 | INFO | step=47000 replay=47000 updates=42001 loss_q=0.3963 loss_pi=-5.9542 wP=1.223 psiQ=0.223 fallback=0.777
+2026-05-28 17:16:03,788 | INFO | step=48000 replay=48000 updates=43001 loss_q=0.3260 loss_pi=-5.2539 wP=1.328 psiQ=0.328 fallback=0.672
+2026-05-28 17:16:35,230 | INFO | step=49000 replay=49000 updates=44001 loss_q=0.1875 loss_pi=-7.1208 wP=1.293 psiQ=0.293 fallback=0.707
+2026-05-28 17:17:04,535 | INFO | step=50000 episode=1000 replay=50000 eval_goal=0.050 eval_env=0.050 eval_ret=-49.70 wP=1.242 psiQ=0.242 fallback=0.758
+2026-05-28 17:17:05,215 | INFO | step=50000 replay=50000 updates=45001 loss_q=0.2481 loss_pi=-6.9657 wP=1.242 psiQ=0.242 fallback=0.758
+2026-05-28 17:17:34,406 | INFO | step=51000 replay=51000 updates=46001 loss_q=1.5438 loss_pi=-5.9544 wP=1.254 psiQ=0.254 fallback=0.746
+2026-05-28 17:18:03,659 | INFO | step=52000 replay=52000 updates=47001 loss_q=0.2186 loss_pi=-5.9797 wP=1.301 psiQ=0.301 fallback=0.699
+2026-05-28 17:18:33,217 | INFO | step=53000 replay=53000 updates=48001 loss_q=0.5377 loss_pi=-5.1874 wP=1.309 psiQ=0.309 fallback=0.691
+2026-05-28 17:19:04,559 | INFO | step=54000 replay=54000 updates=49001 loss_q=0.6354 loss_pi=-4.8153 wP=1.340 psiQ=0.340 fallback=0.660
+2026-05-28 17:19:36,660 | INFO | step=55000 replay=55000 updates=50001 loss_q=0.2757 loss_pi=-5.9097 wP=1.223 psiQ=0.223 fallback=0.777
+2026-05-28 17:20:08,362 | INFO | step=56000 replay=56000 updates=51001 loss_q=0.5216 loss_pi=-6.2733 wP=1.293 psiQ=0.293 fallback=0.707
+2026-05-28 17:20:41,831 | INFO | step=57000 replay=57000 updates=52001 loss_q=0.2441 loss_pi=-5.7282 wP=1.309 psiQ=0.309 fallback=0.691
+2026-05-28 17:21:11,958 | INFO | step=58000 replay=58000 updates=53001 loss_q=0.6536 loss_pi=-5.5037 wP=1.293 psiQ=0.293 fallback=0.707
+2026-05-28 17:21:43,979 | INFO | step=59000 replay=59000 updates=54001 loss_q=0.4820 loss_pi=-4.8697 wP=1.273 psiQ=0.273 fallback=0.727
+2026-05-28 17:22:18,132 | INFO | step=60000 episode=1200 replay=60000 eval_goal=0.000 eval_env=0.000 eval_ret=-50.00 wP=1.352 psiQ=0.352 fallback=0.648
+2026-05-28 17:22:18,132 | INFO | step=60000 replay=60000 updates=55001 loss_q=0.3044 loss_pi=-6.5672 wP=1.352 psiQ=0.352 fallback=0.648
+2026-05-28 17:22:50,780 | INFO | step=61000 replay=61000 updates=56001 loss_q=0.7593 loss_pi=-7.8198 wP=1.336 psiQ=0.336 fallback=0.664
+2026-05-28 17:23:24,140 | INFO | step=62000 replay=62000 updates=57001 loss_q=0.6661 loss_pi=-6.4403 wP=1.395 psiQ=0.395 fallback=0.605
+2026-05-28 17:23:57,902 | INFO | step=63000 replay=63000 updates=58001 loss_q=0.7962 loss_pi=-5.6516 wP=1.387 psiQ=0.387 fallback=0.613
+2026-05-28 17:24:32,997 | INFO | step=64000 replay=64000 updates=59001 loss_q=1.5285 loss_pi=-5.4623 wP=1.359 psiQ=0.359 fallback=0.641
+2026-05-28 17:25:09,550 | INFO | step=65000 replay=65000 updates=60001 loss_q=0.8406 loss_pi=-5.5037 wP=1.418 psiQ=0.418 fallback=0.582
+2026-05-28 17:25:43,024 | INFO | step=66000 replay=66000 updates=61001 loss_q=0.8198 loss_pi=-5.9452 wP=1.371 psiQ=0.371 fallback=0.629
+2026-05-28 17:26:16,846 | INFO | step=67000 replay=67000 updates=62001 loss_q=0.2815 loss_pi=-4.4261 wP=1.469 psiQ=0.469 fallback=0.531
+2026-05-28 17:26:52,492 | INFO | step=68000 replay=68000 updates=63001 loss_q=1.3751 loss_pi=-5.7712 wP=1.395 psiQ=0.395 fallback=0.605
+2026-05-28 17:27:28,401 | INFO | step=69000 replay=69000 updates=64001 loss_q=0.7649 loss_pi=-4.1953 wP=1.422 psiQ=0.422 fallback=0.578
+2026-05-28 17:28:04,421 | INFO | step=70000 episode=1400 replay=70000 eval_goal=0.000 eval_env=0.000 eval_ret=-50.00 wP=1.438 psiQ=0.438 fallback=0.562
+2026-05-28 17:28:04,421 | INFO | step=70000 replay=70000 updates=65001 loss_q=0.3546 loss_pi=-4.5214 wP=1.438 psiQ=0.438 fallback=0.562
+2026-05-28 17:28:39,483 | INFO | step=71000 replay=71000 updates=66001 loss_q=0.2782 loss_pi=-2.4860 wP=1.473 psiQ=0.473 fallback=0.527
+2026-05-28 17:29:15,637 | INFO | step=72000 replay=72000 updates=67001 loss_q=0.8226 loss_pi=-4.4698 wP=1.395 psiQ=0.395 fallback=0.605
+2026-05-28 17:29:52,026 | INFO | step=73000 replay=73000 updates=68001 loss_q=0.3774 loss_pi=-5.0356 wP=1.379 psiQ=0.379 fallback=0.621
+2026-05-28 17:30:25,467 | INFO | step=74000 replay=74000 updates=69001 loss_q=0.2019 loss_pi=-3.2152 wP=1.426 psiQ=0.426 fallback=0.574
+2026-05-28 17:31:00,004 | INFO | step=75000 replay=75000 updates=70001 loss_q=0.3893 loss_pi=-3.8116 wP=1.410 psiQ=0.410 fallback=0.590
+2026-05-28 17:31:33,107 | INFO | step=76000 replay=76000 updates=71001 loss_q=0.3109 loss_pi=-5.1097 wP=1.410 psiQ=0.410 fallback=0.590
+2026-05-28 17:32:07,526 | INFO | step=77000 replay=77000 updates=72001 loss_q=0.4865 loss_pi=-4.8026 wP=1.344 psiQ=0.344 fallback=0.656
+2026-05-28 17:32:42,331 | INFO | step=78000 replay=78000 updates=73001 loss_q=0.9423 loss_pi=-3.6188 wP=1.395 psiQ=0.395 fallback=0.605
+2026-05-28 17:33:18,091 | INFO | step=79000 replay=79000 updates=74001 loss_q=0.3901 loss_pi=-3.6603 wP=1.316 psiQ=0.316 fallback=0.684
+2026-05-28 17:33:54,971 | INFO | step=80000 episode=1600 replay=80000 eval_goal=0.100 eval_env=0.100 eval_ret=-46.15 wP=1.398 psiQ=0.398 fallback=0.602
+2026-05-28 17:33:54,971 | INFO | step=80000 replay=80000 updates=75001 loss_q=0.6553 loss_pi=-2.4534 wP=1.398 psiQ=0.398 fallback=0.602
+2026-05-28 17:34:33,485 | INFO | step=81000 replay=81000 updates=76001 loss_q=0.5770 loss_pi=-3.2441 wP=1.379 psiQ=0.379 fallback=0.621
+2026-05-28 17:35:13,300 | INFO | step=82000 replay=82000 updates=77001 loss_q=0.6622 loss_pi=-3.0152 wP=1.426 psiQ=0.426 fallback=0.574
+2026-05-28 17:35:48,628 | INFO | step=83000 replay=83000 updates=78001 loss_q=0.5823 loss_pi=-4.7943 wP=1.324 psiQ=0.324 fallback=0.676
+2026-05-28 17:36:24,592 | INFO | step=84000 replay=84000 updates=79001 loss_q=1.8789 loss_pi=-2.8126 wP=1.371 psiQ=0.371 fallback=0.629
+2026-05-28 17:37:01,148 | INFO | step=85000 replay=85000 updates=80001 loss_q=0.5091 loss_pi=-4.9995 wP=1.363 psiQ=0.363 fallback=0.637
+2026-05-28 17:37:37,906 | INFO | step=86000 replay=86000 updates=81001 loss_q=0.7534 loss_pi=-3.6808 wP=1.328 psiQ=0.328 fallback=0.672
+2026-05-28 17:38:15,019 | INFO | step=87000 replay=87000 updates=82001 loss_q=0.5276 loss_pi=-4.7498 wP=1.391 psiQ=0.391 fallback=0.609
+2026-05-28 17:38:53,451 | INFO | step=88000 replay=88000 updates=83001 loss_q=0.7394 loss_pi=-3.5612 wP=1.434 psiQ=0.434 fallback=0.566
+2026-05-28 17:39:31,946 | INFO | step=89000 replay=89000 updates=84001 loss_q=0.9263 loss_pi=-3.9933 wP=1.340 psiQ=0.340 fallback=0.660
+2026-05-28 17:40:08,985 | INFO | step=90000 episode=1800 replay=90000 eval_goal=0.050 eval_env=0.050 eval_ret=-49.95 wP=1.371 psiQ=0.371 fallback=0.629
+2026-05-28 17:40:08,985 | INFO | step=90000 replay=90000 updates=85001 loss_q=0.5951 loss_pi=-2.8827 wP=1.371 psiQ=0.371 fallback=0.629
+2026-05-28 17:40:46,933 | INFO | step=91000 replay=91000 updates=86001 loss_q=0.4250 loss_pi=-3.2774 wP=1.371 psiQ=0.371 fallback=0.629
+2026-05-28 17:41:25,873 | INFO | step=92000 replay=92000 updates=87001 loss_q=0.5439 loss_pi=-1.7562 wP=1.430 psiQ=0.430 fallback=0.570
+2026-05-28 17:42:05,926 | INFO | step=93000 replay=93000 updates=88001 loss_q=0.6013 loss_pi=-2.6690 wP=1.375 psiQ=0.375 fallback=0.625
+2026-05-28 17:42:44,051 | INFO | step=94000 replay=94000 updates=89001 loss_q=0.5560 loss_pi=-3.1271 wP=1.406 psiQ=0.406 fallback=0.594
+2026-05-28 17:43:22,910 | INFO | step=95000 replay=95000 updates=90001 loss_q=0.3342 loss_pi=-3.8931 wP=1.500 psiQ=0.500 fallback=0.500
+2026-05-28 17:44:01,470 | INFO | step=96000 replay=96000 updates=91001 loss_q=0.6660 loss_pi=-3.4916 wP=1.484 psiQ=0.484 fallback=0.516
+2026-05-28 17:44:38,990 | INFO | step=97000 replay=97000 updates=92001 loss_q=0.7685 loss_pi=-3.7073 wP=1.430 psiQ=0.430 fallback=0.570
+2026-05-28 17:45:16,769 | INFO | step=98000 replay=98000 updates=93001 loss_q=0.6201 loss_pi=-4.2410 wP=1.402 psiQ=0.402 fallback=0.598
+2026-05-28 17:45:55,518 | INFO | step=99000 replay=99000 updates=94001 loss_q=0.9446 loss_pi=-3.7418 wP=1.469 psiQ=0.469 fallback=0.531
+2026-05-28 17:46:34,878 | INFO | step=100000 episode=2000 replay=100000 eval_goal=0.150 eval_env=0.150 eval_ret=-45.45 wP=1.430 psiQ=0.430 fallback=0.570
+2026-05-28 17:46:35,774 | INFO | step=100000 replay=100000 updates=95001 loss_q=0.5750 loss_pi=-5.2804 wP=1.430 psiQ=0.430 fallback=0.570
+2026-05-28 17:46:35,775 | INFO | finished run at /home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v3/fetch_pick_and_place_b3_critic_only_runtime_opt_v3_s3_100000_ls1024_20260528_075713

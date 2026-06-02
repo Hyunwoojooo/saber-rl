@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v3/fetch_pick_and_place_b3_critic_only_runtime_opt_v3_s1_100000_ls1024_20260528_075713/best_checkpoint.pt",
+  "eval_env_success_ever_mean": 0.05,
+  "eval_env_success_final_mean": 0.05,
+  "eval_env_success_mean": 0.05,
+  "eval_goal_success_ever_mean": 0.05,
+  "eval_goal_success_final_mean": 0.05,
+  "eval_goal_success_mean": 0.05,
+  "eval_return_mean": -47.5,
+  "eval_success_mean": 0.05,
+  "selection_metric": "eval_goal_success_mean",
+  "step": 10000
+}

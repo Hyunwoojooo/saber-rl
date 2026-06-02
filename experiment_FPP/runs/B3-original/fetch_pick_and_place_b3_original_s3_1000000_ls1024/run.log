@@ -1,0 +1,13 @@
+2026-05-27 21:30:50,145 | INFO | device=cuda
+2026-05-27 21:30:51,787 | INFO | step=1000 replay=1000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-27 21:30:52,259 | INFO | step=2000 replay=2000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-27 21:30:52,746 | INFO | step=3000 replay=3000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-27 21:30:53,226 | INFO | step=4000 replay=4000 updates=0 loss_q=0.0000 loss_pi=0.0000 wP=1.000 psiQ=0.000 fallback=1.000
+2026-05-27 21:30:54,219 | INFO | step=5000 replay=5000 updates=1 loss_q=0.2701 loss_pi=0.0419 wP=1.039 psiQ=0.039 fallback=0.961
+2026-05-27 21:31:22,505 | INFO | step=6000 replay=6000 updates=1001 loss_q=0.0814 loss_pi=0.8461 wP=1.117 psiQ=0.117 fallback=0.883
+2026-05-27 21:31:51,410 | INFO | step=7000 replay=7000 updates=2001 loss_q=0.0417 loss_pi=1.3423 wP=1.160 psiQ=0.160 fallback=0.840
+2026-05-27 21:32:20,512 | INFO | step=8000 replay=8000 updates=3001 loss_q=0.0508 loss_pi=1.8002 wP=1.148 psiQ=0.148 fallback=0.852
+2026-05-27 21:32:50,120 | INFO | step=9000 replay=9000 updates=4001 loss_q=0.0251 loss_pi=1.5178 wP=1.164 psiQ=0.164 fallback=0.836
+2026-05-27 21:33:19,753 | INFO | step=10000 episode=200 replay=10000 eval_goal=0.050 eval_env=0.050 eval_ret=-47.50 wP=1.102 psiQ=0.102 fallback=0.898
+2026-05-27 21:33:19,753 | INFO | step=10000 replay=10000 updates=5001 loss_q=0.0529 loss_pi=1.7109 wP=1.102 psiQ=0.102 fallback=0.898
+2026-05-27 21:33:52,041 | INFO | step=11000 replay=11000 updates=6001 loss_q=0.0607 loss_pi=1.9431 wP=1.191 psiQ=0.191 fallback=0.809

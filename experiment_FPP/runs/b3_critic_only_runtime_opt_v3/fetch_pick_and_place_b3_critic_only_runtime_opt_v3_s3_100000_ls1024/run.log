@@ -1,0 +1,5 @@
+2026-05-28 16:55:58,188 | INFO | device=cuda
+2026-05-28 16:56:02,759 | INFO | step=500 episode=10 replay=500 eval_goal=0.000 eval_env=0.000 eval_ret=-50.00 wP=1.094 psiQ=0.094 fallback=0.906
+2026-05-28 16:56:08,489 | INFO | step=1000 episode=20 replay=1000 eval_goal=0.000 eval_env=0.000 eval_ret=-50.00 wP=1.109 psiQ=0.109 fallback=0.891
+2026-05-28 16:56:08,527 | INFO | step=1000 replay=1000 updates=801 loss_q=0.0555 loss_pi=0.6324 wP=1.109 psiQ=0.109 fallback=0.891
+2026-05-28 16:56:08,527 | INFO | finished run at /home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v3/fetch_pick_and_place_b3_critic_only_runtime_opt_v3_s3_100000_ls1024
