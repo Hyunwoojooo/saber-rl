@@ -1,0 +1,8 @@
+{
+  "checkpoint": "/home/joo/papers/metacog-rl/SABER/experiment_FetchSlide/experiment/FetchSlide/b3_critic_only_runtime_opt_v7_positive_mse/fetch_slide_b3_critic_only_runtime_opt_v7_positive_mse_s1_1000000_ls512/best_checkpoint.pt",
+  "eval_env_success_mean": 0.75,
+  "eval_goal_success_mean": 0.75,
+  "eval_return_mean": -33.0,
+  "eval_success_mean": 0.75,
+  "step": 650000
+}

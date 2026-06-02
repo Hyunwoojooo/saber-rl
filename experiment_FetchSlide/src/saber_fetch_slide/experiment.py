@@ -58,6 +58,11 @@ from saber_fetch_slide.numba_support_scan import (
     warmup_fetch_slide_support_predicate,
     warmup_fetch_slide_support_quality,
 )
+from saber_fetch_slide.positive_huber_loss import (
+    reliability_metrics,
+    reliability_score_from_weight_batch,
+    update_ddpg_with_saber_loss,
+)
 
 
 FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX = 1024
@@ -67,11 +72,17 @@ RUNTIME_OPT_METHOD = "b3_critic_only_runtime_optimization"
 RUNTIME_OPT_V4_METHOD = "b3_critic_only_runtime_opt_v4"
 RUNTIME_OPT_V5_METHOD = "b3_critic_only_runtime_opt_v5"
 RUNTIME_OPT_V6_METHOD = "b3_critic_only_runtime_opt_v6_anneal_300k"
+RUNTIME_OPT_V7_POS_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_positive_huber"
+RUNTIME_OPT_V7_POS_MSE_METHOD = "b3_critic_only_runtime_opt_v7_positive_mse"
+RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_batch_norm_huber"
 RUNTIME_OPT_METHODS = {
     RUNTIME_OPT_METHOD,
     RUNTIME_OPT_V4_METHOD,
     RUNTIME_OPT_V5_METHOD,
     RUNTIME_OPT_V6_METHOD,
+    RUNTIME_OPT_V7_POS_HUBER_METHOD,
+    RUNTIME_OPT_V7_POS_MSE_METHOD,
+    RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
 }
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
@@ -146,6 +157,24 @@ METHODS: Dict[str, MethodSpec] = {
         "critic_only",
         FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
     ),
+    "b3_critic_only_runtime_opt_v7_positive_huber": MethodSpec(
+        "b3_critic_only_runtime_opt_v7_positive_huber",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v7_positive_mse": MethodSpec(
+        "b3_critic_only_runtime_opt_v7_positive_mse",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v7_batch_norm_huber": MethodSpec(
+        "b3_critic_only_runtime_opt_v7_batch_norm_huber",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
     "b3_critic_only_fast_512": MethodSpec(
         "b3_critic_only_fast_512",
         "b3_support_only",
@@ -216,6 +245,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--support_quality_strike_speed_scale_mult", type=float, default=2.0)
     parser.add_argument("--support_quality_near_margin_mult", type=float, default=0.25)
     parser.add_argument("--support_quality_near_speed_mult", type=float, default=1.0)
+    parser.add_argument("--critic_td_loss", choices=["mse", "huber"], default="mse")
+    parser.add_argument("--huber_delta", type=float, default=1.0)
+    parser.add_argument("--saber_loss_mode", choices=["batch_norm", "positive_huber_bonus"], default="batch_norm")
+    parser.add_argument("--support_bonus_beta", type=float, default=1.0)
+    parser.add_argument("--support_bonus_score_source", choices=["auto", "psi", "support_score"], default="auto")
+    parser.add_argument("--support_bonus_detach_score", dest="support_bonus_detach_score", action="store_true", default=True)
+    parser.add_argument("--no_support_bonus_detach_score", dest="support_bonus_detach_score", action="store_false")
     parser.add_argument("--action_bins_per_dim", type=int, default=5)
     parser.add_argument("--policy_support_mode", choices=["bin", "radius", "auto"], default="bin")
     parser.add_argument("--policy_action_radius", type=float, default=0.35)
@@ -302,6 +338,16 @@ def build_config(args: argparse.Namespace, spec: MethodSpec, run_name: str, outp
     cfg.support_quality_strike_speed_scale_mult = float(args.support_quality_strike_speed_scale_mult)
     cfg.support_quality_near_margin_mult = float(args.support_quality_near_margin_mult)
     cfg.support_quality_near_speed_mult = float(args.support_quality_near_speed_mult)
+    cfg.critic_td_loss = str(args.critic_td_loss)
+    cfg.huber_delta = float(args.huber_delta)
+    cfg.saber_loss_mode = str(args.saber_loss_mode)
+    cfg.support_bonus_beta = float(args.support_bonus_beta)
+    cfg.support_bonus_score_source = str(args.support_bonus_score_source)
+    cfg.support_bonus_detach_score = bool(args.support_bonus_detach_score)
+    if cfg.huber_delta <= 0.0:
+        raise ValueError("huber_delta must be positive")
+    if cfg.saber_loss_mode == "positive_huber_bonus" and spec.weight_scope != "critic_only":
+        raise ValueError("positive_huber_bonus is currently supported only for critic_only SABER methods")
     if args.smoke:
         cfg.total_steps = min(cfg.total_steps, 1_000)
         cfg.start_steps = min(cfg.start_steps, 200)
@@ -579,7 +625,7 @@ class RuntimeOptimizedSupportComputer:
         weight_computation_time += support["weight_compute_time"]
 
         local_context_time = support["local_context_lookup_time"] + support["candidate_construction_time"]
-        return WeightBatch(
+        wb = WeightBatch(
             omega_critic=omega_critic.astype(np.float32),
             omega_actor=omega_actor.astype(np.float32),
             w_p_raw=w_raw.astype(np.float32),
@@ -613,6 +659,9 @@ class RuntimeOptimizedSupportComputer:
             gap_max=0.0,
             extra_metrics=extra_metrics,
         )
+        setattr(wb, "support_score", support["support_score"].astype(np.float32, copy=False))
+        setattr(wb, "reliability_score", support["support_score"].astype(np.float32, copy=False))
+        return wb
 
     def _uniform_weight_batch(
         self,
@@ -1581,9 +1630,24 @@ class SaberWeightComputer:
                 cfg,
                 task,
                 gap_stats,
-                enable_numba_scan=spec.public_name in {RUNTIME_OPT_V4_METHOD, RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
-                enable_predicate_early_exit=spec.public_name in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
-                enable_periodic_predicate_audit=spec.public_name != RUNTIME_OPT_V6_METHOD,
+                enable_numba_scan=spec.public_name
+                in {
+                    RUNTIME_OPT_V4_METHOD,
+                    RUNTIME_OPT_V5_METHOD,
+                    RUNTIME_OPT_V6_METHOD,
+                    RUNTIME_OPT_V7_POS_HUBER_METHOD,
+                    RUNTIME_OPT_V7_POS_MSE_METHOD,
+                    RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                },
+                enable_predicate_early_exit=spec.public_name
+                in {
+                    RUNTIME_OPT_V5_METHOD,
+                    RUNTIME_OPT_V6_METHOD,
+                    RUNTIME_OPT_V7_POS_HUBER_METHOD,
+                    RUNTIME_OPT_V7_POS_MSE_METHOD,
+                    RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                },
+                enable_periodic_predicate_audit=spec.public_name == RUNTIME_OPT_V5_METHOD,
             )
             if spec.public_name in RUNTIME_OPT_METHODS
             else None
@@ -1805,7 +1869,14 @@ def run(args: argparse.Namespace) -> Path:
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
             "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
-            "runtime_predicate_early_exit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
+            "runtime_predicate_early_exit_enabled": args.method
+            in {
+                RUNTIME_OPT_V5_METHOD,
+                RUNTIME_OPT_V6_METHOD,
+                RUNTIME_OPT_V7_POS_HUBER_METHOD,
+                RUNTIME_OPT_V7_POS_MSE_METHOD,
+                RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+            },
             "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
             "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
             "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
@@ -1824,6 +1895,12 @@ def run(args: argparse.Namespace) -> Path:
             ),
             "support_quality_near_margin_mult": float(getattr(cfg, "support_quality_near_margin_mult", 0.25)),
             "support_quality_near_speed_mult": float(getattr(cfg, "support_quality_near_speed_mult", 1.0)),
+            "critic_td_loss": str(getattr(cfg, "critic_td_loss", "mse")),
+            "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
+            "saber_loss_mode": str(getattr(cfg, "saber_loss_mode", "batch_norm")),
+            "support_bonus_beta": float(getattr(cfg, "support_bonus_beta", 1.0)),
+            "support_bonus_score_source": str(getattr(cfg, "support_bonus_score_source", "auto")),
+            "support_bonus_detach_score": bool(getattr(cfg, "support_bonus_detach_score", True)),
             "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
             "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
@@ -1855,7 +1932,17 @@ def run(args: argparse.Namespace) -> Path:
     eval_history: list[tuple[int, float]] = []
     eval_rows: list[Dict[str, Any]] = []
     last_eval_metrics: Dict[str, float] = {}
-    last_loss = {"critic": 0.0, "actor": 0.0, "q_mean": 0.0, "target_mean": 0.0}
+    last_loss = {
+        "critic": 0.0,
+        "actor": 0.0,
+        "q_mean": 0.0,
+        "target_mean": 0.0,
+        "critic_base": 0.0,
+        "support_bonus": 0.0,
+        "critic_total": 0.0,
+        "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
+        "td_loss_mode_huber": float(str(getattr(cfg, "critic_td_loss", "mse")) == "huber"),
+    }
     last_lite = empty_metrics(phase_names, spec.control_mode)
     last_her_ratio = 0.0
 
@@ -1970,23 +2057,72 @@ def run(args: argparse.Namespace) -> Path:
                 next_state_np = np.concatenate([batch.next_observation, batch.desired_goal_train], axis=1).astype(np.float32)
 
                 t_update = time.perf_counter()
-                update = agent.update(
-                    state=torch.as_tensor(state_np, dtype=torch.float32, device=device),
-                    action_exec=torch.as_tensor(batch.action_exec, dtype=torch.float32, device=device),
-                    reward=torch.as_tensor(reward_train, dtype=torch.float32, device=device),
-                    next_state=torch.as_tensor(next_state_np, dtype=torch.float32, device=device),
-                    nonterminal=torch.as_tensor(nonterminal, dtype=torch.float32, device=device),
-                    omega_critic=torch.as_tensor(wb.omega_critic, dtype=torch.float32, device=device),
-                    omega_actor=torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device),
+                state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
+                action_t = torch.as_tensor(batch.action_exec, dtype=torch.float32, device=device)
+                reward_t = torch.as_tensor(reward_train, dtype=torch.float32, device=device)
+                next_state_t = torch.as_tensor(next_state_np, dtype=torch.float32, device=device)
+                nonterminal_t = torch.as_tensor(nonterminal, dtype=torch.float32, device=device)
+                omega_critic_t = torch.as_tensor(wb.omega_critic, dtype=torch.float32, device=device)
+                omega_actor_t = torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device)
+                reliability_score = reliability_score_from_weight_batch(
+                    wb,
+                    str(getattr(cfg, "support_bonus_score_source", "auto")),
                 )
+                support_bonus_beta_eff = float(
+                    wb.extra_metrics.get("runtime/support_lambda_effective", cfg.lambda_support)
+                ) * float(getattr(cfg, "support_bonus_beta", 1.0))
+                use_saber_loss_helper = (
+                    str(getattr(cfg, "saber_loss_mode", "batch_norm")) != "batch_norm"
+                    or str(getattr(cfg, "critic_td_loss", "mse")) != "mse"
+                )
+                if use_saber_loss_helper:
+                    update = update_ddpg_with_saber_loss(
+                        agent=agent,
+                        state=state_t,
+                        action_exec=action_t,
+                        reward=reward_t,
+                        next_state=next_state_t,
+                        nonterminal=nonterminal_t,
+                        omega_critic=omega_critic_t,
+                        omega_actor=omega_actor_t,
+                        reliability_score=torch.as_tensor(reliability_score, dtype=torch.float32, device=device),
+                        critic_td_loss=str(getattr(cfg, "critic_td_loss", "mse")),
+                        huber_delta=float(getattr(cfg, "huber_delta", 1.0)),
+                        saber_loss_mode=str(getattr(cfg, "saber_loss_mode", "batch_norm")),
+                        support_bonus_beta_eff=support_bonus_beta_eff,
+                        support_bonus_detach_score=bool(getattr(cfg, "support_bonus_detach_score", True)),
+                    )
+                else:
+                    update = agent.update(
+                        state=state_t,
+                        action_exec=action_t,
+                        reward=reward_t,
+                        next_state=next_state_t,
+                        nonterminal=nonterminal_t,
+                        omega_critic=omega_critic_t,
+                        omega_actor=omega_actor_t,
+                    )
                 actor_critic_time = time.perf_counter() - t_update
                 last_loss = {
                     "critic": update.critic_loss,
                     "actor": update.actor_loss,
                     "q_mean": update.q_mean,
                     "target_mean": update.target_mean,
+                    "critic_base": getattr(update, "critic_base_loss", update.critic_loss),
+                    "support_bonus": getattr(update, "support_bonus_loss", 0.0),
+                    "critic_total": getattr(update, "critic_total_loss", update.critic_loss),
+                    "huber_delta": getattr(update, "huber_delta", float(getattr(cfg, "huber_delta", 1.0))),
+                    "td_loss_mode_huber": getattr(
+                        update,
+                        "td_loss_mode_huber",
+                        float(str(getattr(cfg, "critic_td_loss", "mse")) == "huber"),
+                    ),
                 }
                 last_lite = metrics_from_weight_batch(wb, phase_names, spec.control_mode)
+                last_lite.update(reliability_metrics(reliability_score, support_bonus_beta_eff))
+                last_lite["runtime/saber_loss_mode_positive_huber_bonus"] = float(
+                    str(getattr(cfg, "saber_loss_mode", "batch_norm")) == "positive_huber_bonus"
+                )
                 last_lite["time/actor_critic_update"] = actor_critic_time
                 total_updates += 1
 
@@ -2131,6 +2267,11 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "train/her_relabel_ratio",
         "loss/critic",
         "loss/actor",
+        "loss/critic_base",
+        "loss/support_bonus",
+        "loss/critic_total",
+        "loss/huber_delta",
+        "loss/td_loss_mode_huber",
         "critic/q_policy_mean",
         "critic/q_target_mean",
         "lite/mean_w_P",
@@ -2175,6 +2316,11 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "runtime/support_quality_apply_to_weight",
         "runtime/support_quality_numba_enabled",
         "runtime/support_quality_numba_fallback_rate",
+        "runtime/saber_loss_mode_positive_huber_bonus",
+        "lite/reliability_score_mean",
+        "lite/reliability_score_p50",
+        "lite/reliability_score_p90",
+        "lite/support_bonus_beta_eff",
         "runtime/support_anneal_start_step",
         "runtime/support_anneal_end_step",
         "runtime/support_anneal_progress",
@@ -2328,7 +2474,14 @@ def empty_metrics(phase_names: Iterable[str], control_mode: str) -> Dict[str, fl
         metrics[f"phase/{phase}/local_scan_truncated_rate"] = 0.0
         metrics[f"phase/{phase}/td_error_abs_mean"] = 0.0
         metrics[f"fetch_slide/phase_distribution_{phase}"] = 0.0
-    metrics.update({key: 0.0 for key in metric_fields(phase_names, control_mode) if "/" in key and key not in metrics})
+    row_owned_prefixes = ("train/", "loss/", "critic/", "eval/")
+    metrics.update(
+        {
+            key: 0.0
+            for key in metric_fields(phase_names, control_mode)
+            if "/" in key and key not in metrics and not key.startswith(row_owned_prefixes)
+        }
+    )
     metrics["lite/ESS_w"] = _ess(wb, 1e-8)
     return metrics
 
@@ -2401,6 +2554,11 @@ def metric_row(
         "train/her_relabel_ratio": float(her_ratio),
         "loss/critic": loss["critic"],
         "loss/actor": loss["actor"],
+        "loss/critic_base": loss.get("critic_base", 0.0),
+        "loss/support_bonus": loss.get("support_bonus", 0.0),
+        "loss/critic_total": loss.get("critic_total", loss["critic"]),
+        "loss/huber_delta": loss.get("huber_delta", 1.0),
+        "loss/td_loss_mode_huber": loss.get("td_loss_mode_huber", 0.0),
         "critic/q_policy_mean": loss["q_mean"],
         "critic/q_target_mean": loss["target_mean"],
         **lite,
@@ -2581,7 +2739,14 @@ def build_summary(
         "control_mode": spec.control_mode,
         "support_lookup_enabled": uses_support_lookup(spec),
         "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
-        "runtime_predicate_early_exit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V6_METHOD},
+        "runtime_predicate_early_exit_enabled": args.method
+        in {
+            RUNTIME_OPT_V5_METHOD,
+            RUNTIME_OPT_V6_METHOD,
+            RUNTIME_OPT_V7_POS_HUBER_METHOD,
+            RUNTIME_OPT_V7_POS_MSE_METHOD,
+            RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+        },
         "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
         "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
         "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
@@ -2589,6 +2754,12 @@ def build_summary(
         "support_quality_mode": str(getattr(cfg, "support_quality_mode", "none")),
         "support_quality_apply_to_weight": bool(getattr(cfg, "support_quality_apply_to_weight", False)),
         "support_quality_floor": float(getattr(cfg, "support_quality_floor", 0.25)),
+        "critic_td_loss": str(getattr(cfg, "critic_td_loss", "mse")),
+        "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
+        "saber_loss_mode": str(getattr(cfg, "saber_loss_mode", "batch_norm")),
+        "support_bonus_beta": float(getattr(cfg, "support_bonus_beta", 1.0)),
+        "support_bonus_score_source": str(getattr(cfg, "support_bonus_score_source", "auto")),
+        "support_bonus_detach_score": bool(getattr(cfg, "support_bonus_detach_score", True)),
         "numba_available": bool(NUMBA_AVAILABLE),
         "seed": int(args.seed),
         "total_steps": total_steps,

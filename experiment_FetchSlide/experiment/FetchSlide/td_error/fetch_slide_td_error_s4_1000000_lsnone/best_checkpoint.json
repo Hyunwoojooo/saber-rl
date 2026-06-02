@@ -1,0 +1,8 @@
+{
+  "checkpoint": "/home/joo/papers/metacog-rl/SABER/experiment_FetchSlide/experiment/FetchSlide/td_error/fetch_slide_td_error_s4_1000000_lsnone/best_checkpoint.pt",
+  "eval_env_success_mean": 0.75,
+  "eval_goal_success_mean": 0.75,
+  "eval_return_mean": -33.099998474121094,
+  "eval_success_mean": 0.75,
+  "step": 975000
+}
