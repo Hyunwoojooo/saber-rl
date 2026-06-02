@@ -732,6 +732,12 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "pushT/vel_align_to_goal_mean",
         "pushT/pos_progress_rate",
         "pushT/rot_progress_rate",
+        "hand_handle_dist_mean",
+        "handle_goal_dist_mean",
+        "phase_approach_frac",
+        "phase_contact_frac",
+        "phase_opening_frac",
+        "phase_open_frac",
         "b2/unrestricted_gap_mean",
         "b2/unrestricted_gap_p95",
         "b2/candidate_action_norm_mean",
@@ -786,7 +792,9 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     start_step = 0
     episode_idx = 0
     total_updates = 0
-    selection_metric = "eval_env_success_mean" if config.task_name == "push_t" else "eval_goal_success_mean"
+    selection_metric = (
+        "eval_env_success_mean" if config.task_name in {"push_t", "drawer_open"} else "eval_goal_success_mean"
+    )
     best_eval_success = -1.0
     best_eval_selection_success = -1.0
     best_eval_goal_success = -1.0
@@ -1294,6 +1302,12 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
     metrics["lite/slide_phase_distribution_strike"] = 0.0
     metrics["lite/slide_phase_distribution_slide"] = 0.0
     metrics["lite/slide_phase_distribution_near_goal"] = 0.0
+    metrics["hand_handle_dist_mean"] = 0.0
+    metrics["handle_goal_dist_mean"] = 0.0
+    metrics["phase_approach_frac"] = 0.0
+    metrics["phase_contact_frac"] = 0.0
+    metrics["phase_opening_frac"] = 0.0
+    metrics["phase_open_frac"] = 0.0
     return metrics
 
 

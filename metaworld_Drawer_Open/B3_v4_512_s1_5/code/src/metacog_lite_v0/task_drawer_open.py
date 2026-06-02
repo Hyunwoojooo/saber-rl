@@ -151,6 +151,20 @@ class MetaWorldDrawerOpenTaskSpec:
         scale = np.maximum(1e-6, 0.5 * (self.action_high - self.action_low))
         return ((action - center) / scale).astype(np.float32)
 
+    def diagnostic_metrics(self, obs: np.ndarray, goal: np.ndarray) -> Dict[str, float]:
+        p_ee, p_handle, _handle_y, _gripper = self.parse_features(obs)
+        goal_arr = np.asarray(goal, dtype=np.float32)
+        d_hand_handle = np.linalg.norm(p_ee - p_handle, axis=1)
+        d_handle_goal = np.linalg.norm(p_handle - goal_arr, axis=1)
+        phase = self.phase_batch(obs, goal_arr)
+        metrics: Dict[str, float] = {
+            "hand_handle_dist_mean": float(np.mean(d_hand_handle)) if d_hand_handle.size else 0.0,
+            "handle_goal_dist_mean": float(np.mean(d_handle_goal)) if d_handle_goal.size else 0.0,
+        }
+        for phase_id, phase_name in enumerate(self.phase_names):
+            metrics[f"phase_{phase_name}_frac"] = float(np.mean(phase == phase_id)) if phase.size else 0.0
+        return metrics
+
     def metadata(self) -> Dict[str, object]:
         return {
             "task": "MetaWorldDrawerOpen-v3",

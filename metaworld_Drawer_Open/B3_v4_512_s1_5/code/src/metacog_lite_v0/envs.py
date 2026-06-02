@@ -156,6 +156,7 @@ class MetaWorldDrawerOpenGoalEnv:
         self.env_name = str(env_name)
         self.reward_type = str(reward_type).lower()
         self.distance_threshold = float(distance_threshold)
+        self.desired_goal_source = "unknown"
         obs, info = self._reset_raw(seed=seed)
         goal_obs = self._parse_obs(obs, info)
         self.obs_dim = int(goal_obs.observation.shape[0])
@@ -191,6 +192,7 @@ class MetaWorldDrawerOpenGoalEnv:
         info["goal_success"] = goal_success
         info["env_success"] = env_success
         info["is_success"] = env_success
+        info["desired_goal_source"] = self.desired_goal_source
         if self.reward_type == "sparse":
             reward = float(self.compute_reward(goal_obs.achieved_goal[None, :], goal_obs.desired_goal[None, :], info)[0])
         else:
@@ -232,6 +234,7 @@ class MetaWorldDrawerOpenGoalEnv:
             "action_high": self.action_high.tolist(),
             "render_mode": getattr(self._env, "render_mode", None),
             "reward_type": self.reward_type,
+            "desired_goal_source": self.desired_goal_source,
         }
 
     def close(self) -> None:
@@ -248,7 +251,9 @@ class MetaWorldDrawerOpenGoalEnv:
     def _parse_obs(self, obs: np.ndarray, info: Dict[str, Any]) -> GoalObservation:
         obs_arr = np.asarray(obs, dtype=np.float32).copy()
         achieved = self._handle_position(obs_arr)
-        desired = self._target_position(obs_arr)
+        desired, desired_goal_source = self._target_position(obs_arr)
+        self.desired_goal_source = desired_goal_source
+        info["desired_goal_source"] = desired_goal_source
         env_success = float(info.get("success", info.get("is_success", 0.0)))
         return GoalObservation(
             observation=obs_arr,
@@ -265,7 +270,7 @@ class MetaWorldDrawerOpenGoalEnv:
             return np.asarray(obs[3:6], dtype=np.float32)
         raise ValueError(f"MetaWorld drawer-open observation too small for handle position: obs_dim={obs.shape[0]}")
 
-    def _target_position(self, obs: np.ndarray) -> np.ndarray:
+    def _target_position(self, obs: np.ndarray) -> tuple[np.ndarray, str]:
         unwrapped = getattr(self._env, "unwrapped", self._env)
         for name in ("_target_pos", "target_pos", "_goal", "goal"):
             value = getattr(unwrapped, name, None)
@@ -273,13 +278,13 @@ class MetaWorldDrawerOpenGoalEnv:
                 continue
             arr = np.asarray(value, dtype=np.float32).reshape(-1)
             if arr.size >= 3 and np.all(np.isfinite(arr[:3])):
-                return arr[:3].astype(np.float32, copy=True)
+                return arr[:3].astype(np.float32, copy=True), name
         if obs.shape[0] >= 3:
             tail = np.asarray(obs[-3:], dtype=np.float32)
             if np.all(np.isfinite(tail)) and np.linalg.norm(tail) > 1e-8:
-                return tail.astype(np.float32, copy=True)
+                return tail.astype(np.float32, copy=True), "obs_tail"
         # Last resort: a synthetic "opened" target slightly behind the handle.
         handle = self._handle_position(obs)
         fallback = handle.copy()
         fallback[1] += 0.15
-        return fallback.astype(np.float32)
+        return fallback.astype(np.float32), "synthetic_fallback"

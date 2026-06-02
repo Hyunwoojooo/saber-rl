@@ -225,8 +225,13 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
     rng = np.random.default_rng(config.seeds.numpy_seed)
     device = torch.device("cpu")
     obs = env.reset(seed=config.seeds.env_seed)
+    env_snapshot = env.snapshot()
+    desired_goal_source = str(env_snapshot.get("desired_goal_source", "unknown"))
+    unsafe_goal_sources = {"obs_tail", "synthetic_fallback", "unknown"}
     checks = {
-        "env_id": env.snapshot()["env_id"],
+        "env_id": env_snapshot["env_id"],
+        "desired_goal_source": desired_goal_source,
+        "desired_goal_source_safe": desired_goal_source not in unsafe_goal_sources,
         "reset_finite": _finite_goal_obs(obs),
         "flat_state_is_concat_obs_goal": bool(
             np.allclose(obs.flat_state(), np.concatenate([obs.observation, obs.desired_goal], axis=0))
@@ -240,6 +245,12 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
         "action_low_finite": bool(np.all(np.isfinite(env.action_low))),
         "action_high_finite": bool(np.all(np.isfinite(env.action_high))),
     }
+    if not checks["desired_goal_source_safe"]:
+        env.close()
+        raise RuntimeError(
+            "Unsafe MetaWorld drawer-open desired_goal source: "
+            f"{desired_goal_source}. Expected _target_pos, target_pos, _goal, or goal."
+        )
     replay = HERReplayBuffer(
         capacity=256,
         obs_dim=env.obs_dim,
@@ -304,6 +315,9 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
     b4_wb = LiteWeightComputer(replace(config, method="b4_lite"), task, gap_stats).compute(
         batch, replay, agent, rng, device
     )
+    b3_runtime_wb = LiteWeightComputer(replace(config, method="b3_support_runtime_opt"), task, gap_stats).compute(
+        batch, replay, agent, rng, device
+    )
     checks.update(
         {
             "random_step_20": True,
@@ -319,6 +333,13 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
             "b0_omega_all_one": bool(np.allclose(b0_wb.omega_critic, 1.0) and np.allclose(b0_wb.omega_actor, 1.0)),
             "b4_omega_finite": bool(np.all(np.isfinite(b4_wb.omega_critic))),
             "b4_g_sup_finite": bool(np.all(np.isfinite(b4_wb.g_sup))),
+            "b3_runtime_opt_omega_finite": bool(np.all(np.isfinite(b3_runtime_wb.omega_critic))),
+            "b3_runtime_opt_support_finite": bool(np.all(np.isfinite(b3_runtime_wb.psi_q_rank))),
+            "b3_runtime_opt_numba_metric_present": "runtime/numba_support_scan_enabled"
+            in b3_runtime_wb.extra_metrics,
+            "b3_runtime_opt_predicate_metric_present": "runtime/predicate_early_exit_rate"
+            in b3_runtime_wb.extra_metrics,
+            "b3_runtime_opt_time_numba_scan_logged": "numba_support_scan" in b3_runtime_wb.timing,
             "time_q_candidate_eval_logged": "q_candidate_eval" in b4_wb.timing,
             "time_local_context_lookup_logged": "local_context_lookup" in b4_wb.timing,
         }
