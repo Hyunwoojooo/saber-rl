@@ -58,11 +58,14 @@ from saber_fetch_slide.numba_support_scan import (
     warmup_fetch_slide_support_predicate,
     warmup_fetch_slide_support_quality,
 )
+from saber_fetch_slide.per_full_sampler import FullPERSampler
 from saber_fetch_slide.positive_huber_loss import (
     reliability_metrics,
     reliability_score_from_weight_batch,
     update_ddpg_with_saber_loss,
 )
+from saber_fetch_slide.sac_agent import SACAgent
+from saber_fetch_slide.td3_agent import TD3Agent
 
 
 FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX = 1024
@@ -75,6 +78,11 @@ RUNTIME_OPT_V6_METHOD = "b3_critic_only_runtime_opt_v6_anneal_300k"
 RUNTIME_OPT_V7_POS_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_positive_huber"
 RUNTIME_OPT_V7_POS_MSE_METHOD = "b3_critic_only_runtime_opt_v7_positive_mse"
 RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_batch_norm_huber"
+TD3_METHOD = "td3"
+TD3_SABER_METHOD = "td3_saber"
+TD3_PER_STYLE_METHOD = "td3_per_style"
+SAC_METHOD = "sac"
+SAC_SABER_METHOD = "sac_saber"
 RUNTIME_OPT_METHODS = {
     RUNTIME_OPT_METHOD,
     RUNTIME_OPT_V4_METHOD,
@@ -83,6 +91,8 @@ RUNTIME_OPT_METHODS = {
     RUNTIME_OPT_V7_POS_HUBER_METHOD,
     RUNTIME_OPT_V7_POS_MSE_METHOD,
     RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+    TD3_SABER_METHOD,
+    SAC_SABER_METHOD,
 }
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
@@ -97,6 +107,7 @@ class MethodSpec:
     lite_method: str
     weight_scope: str
     local_search_max: int | None
+    agent_kind: str = "ddpg"
     control_mode: str = "none"
     lambda_td: float = 1.0
     u_td_max: float = 1.0
@@ -201,6 +212,49 @@ METHODS: Dict[str, MethodSpec] = {
         None,
         control_mode="per_style",
     ),
+    "per_full": MethodSpec(
+        "per_full",
+        "b0_ddpg_her",
+        "critic_only",
+        None,
+        control_mode="per_full",
+    ),
+    "td3": MethodSpec(
+        TD3_METHOD,
+        "b0_ddpg_her",
+        "none",
+        None,
+        agent_kind="td3",
+    ),
+    "td3_saber": MethodSpec(
+        TD3_SABER_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="td3",
+    ),
+    "td3_per_style": MethodSpec(
+        TD3_PER_STYLE_METHOD,
+        "b0_ddpg_her",
+        "critic_only",
+        None,
+        agent_kind="td3",
+        control_mode="per_style",
+    ),
+    "sac": MethodSpec(
+        SAC_METHOD,
+        "b0_ddpg_her",
+        "none",
+        None,
+        agent_kind="sac",
+    ),
+    "sac_saber": MethodSpec(
+        SAC_SABER_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="sac",
+    ),
 }
 
 
@@ -261,6 +315,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--per_alpha", type=float, default=0.6)
     parser.add_argument("--eps_PER", type=float, default=1e-6)
     parser.add_argument("--U_PER_max", type=float, default=2.0)
+    parser.add_argument("--per_beta_start", type=float, default=0.4)
+    parser.add_argument("--per_beta_final", type=float, default=1.0)
+    parser.add_argument("--per_beta_anneal_steps", type=int, default=1_000_000)
+    parser.add_argument("--per_initial_priority", type=float, default=1.0)
+    parser.add_argument("--per_min_priority", type=float, default=1e-6)
 
     parser.add_argument("--gamma", type=float, default=0.98)
     parser.add_argument("--tau", type=float, default=0.005)
@@ -269,6 +328,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hidden_dim", type=int, default=256)
     parser.add_argument("--noise_std", type=float, default=0.2)
     parser.add_argument("--l2_action_penalty", type=float, default=0.0)
+    parser.add_argument("--td3_policy_delay", type=int, default=2)
+    parser.add_argument("--td3_target_policy_noise", type=float, default=0.2)
+    parser.add_argument("--td3_target_noise_clip", type=float, default=0.5)
+    parser.add_argument("--sac_alpha", type=float, default=0.2)
+    parser.add_argument("--sac_alpha_lr", type=float, default=3e-4)
+    parser.add_argument("--sac_auto_alpha", dest="sac_auto_alpha", action="store_true", default=True)
+    parser.add_argument("--no_sac_auto_alpha", dest="sac_auto_alpha", action="store_false")
+    parser.add_argument("--sac_target_entropy", type=float, default=None)
     return parser.parse_args()
 
 
@@ -344,10 +411,54 @@ def build_config(args: argparse.Namespace, spec: MethodSpec, run_name: str, outp
     cfg.support_bonus_beta = float(args.support_bonus_beta)
     cfg.support_bonus_score_source = str(args.support_bonus_score_source)
     cfg.support_bonus_detach_score = bool(args.support_bonus_detach_score)
+    cfg.lambda_td = float(args.lambda_td)
+    cfg.u_td_max = float(args.U_TD_max)
+    cfg.per_alpha = float(args.per_alpha)
+    cfg.per_eps = float(args.eps_PER)
+    cfg.u_per_max = float(args.U_PER_max)
+    cfg.per_beta_start = float(args.per_beta_start)
+    cfg.per_beta_final = float(args.per_beta_final)
+    cfg.per_beta_anneal_steps = int(args.per_beta_anneal_steps)
+    cfg.per_initial_priority = float(args.per_initial_priority)
+    cfg.per_min_priority = float(args.per_min_priority)
+    cfg.agent_kind = str(spec.agent_kind)
+    cfg.td3_policy_delay = int(args.td3_policy_delay)
+    cfg.td3_target_policy_noise = float(args.td3_target_policy_noise)
+    cfg.td3_target_noise_clip = float(args.td3_target_noise_clip)
+    cfg.sac_alpha = float(args.sac_alpha)
+    cfg.sac_alpha_lr = float(args.sac_alpha_lr)
+    cfg.sac_auto_alpha = bool(args.sac_auto_alpha)
+    cfg.sac_target_entropy = None if args.sac_target_entropy is None else float(args.sac_target_entropy)
     if cfg.huber_delta <= 0.0:
         raise ValueError("huber_delta must be positive")
+    if spec.agent_kind == "td3" and (
+        str(cfg.saber_loss_mode) != "batch_norm" or str(cfg.critic_td_loss) != "mse"
+    ):
+        raise ValueError("TD3 FetchSlide methods currently support only saber_loss_mode=batch_norm and critic_td_loss=mse")
+    if spec.agent_kind == "sac" and (
+        str(cfg.saber_loss_mode) != "batch_norm" or str(cfg.critic_td_loss) != "mse"
+    ):
+        raise ValueError("SAC FetchSlide methods currently support only saber_loss_mode=batch_norm and critic_td_loss=mse")
+    if cfg.td3_policy_delay < 1:
+        raise ValueError("td3_policy_delay must be >= 1")
+    if cfg.td3_target_policy_noise < 0.0:
+        raise ValueError("td3_target_policy_noise must be non-negative")
+    if cfg.td3_target_noise_clip < 0.0:
+        raise ValueError("td3_target_noise_clip must be non-negative")
+    if cfg.sac_alpha <= 0.0:
+        raise ValueError("sac_alpha must be positive")
+    if cfg.sac_alpha_lr <= 0.0:
+        raise ValueError("sac_alpha_lr must be positive")
     if cfg.saber_loss_mode == "positive_huber_bonus" and spec.weight_scope != "critic_only":
         raise ValueError("positive_huber_bonus is currently supported only for critic_only SABER methods")
+    if cfg.per_alpha < 0.0:
+        raise ValueError("per_alpha must be non-negative")
+    if cfg.per_beta_start < 0.0 or cfg.per_beta_final < 0.0:
+        raise ValueError("PER beta values must be non-negative")
+    if cfg.per_beta_anneal_steps < 1:
+        raise ValueError("per_beta_anneal_steps must be >= 1")
+    if cfg.per_initial_priority <= 0.0 or cfg.per_min_priority <= 0.0:
+        raise ValueError("PER priority values must be positive")
     if args.smoke:
         cfg.total_steps = min(cfg.total_steps, 1_000)
         cfg.start_steps = min(cfg.start_steps, 200)
@@ -444,6 +555,24 @@ def scheduled_support_lambda(
     span = max(1, end - start)
     scale = (end - step) / float(span)
     return float(base_lambda) * max(0.0, min(1.0, scale))
+
+
+@torch.no_grad()
+def td_errors_for_priority(
+    agent: Any,
+    state: torch.Tensor,
+    action: torch.Tensor,
+    reward: torch.Tensor,
+    next_state: torch.Tensor,
+    nonterminal: torch.Tensor,
+    gamma: float,
+) -> torch.Tensor:
+    if hasattr(agent, "td_errors_for_priority"):
+        return agent.td_errors_for_priority(state, action, reward, next_state, nonterminal)
+    target_action = agent.actor_target(next_state)
+    target = reward + float(gamma) * nonterminal * agent.critic_target(next_state, target_action)
+    q = agent.critic(state, action)
+    return torch.abs(q - target)
 
 
 class RuntimeOptimizedSupportComputer:
@@ -1638,6 +1767,8 @@ class SaberWeightComputer:
                     RUNTIME_OPT_V7_POS_HUBER_METHOD,
                     RUNTIME_OPT_V7_POS_MSE_METHOD,
                     RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                    TD3_SABER_METHOD,
+                    SAC_SABER_METHOD,
                 },
                 enable_predicate_early_exit=spec.public_name
                 in {
@@ -1646,6 +1777,8 @@ class SaberWeightComputer:
                     RUNTIME_OPT_V7_POS_HUBER_METHOD,
                     RUNTIME_OPT_V7_POS_MSE_METHOD,
                     RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                    TD3_SABER_METHOD,
+                    SAC_SABER_METHOD,
                 },
                 enable_periodic_predicate_audit=spec.public_name == RUNTIME_OPT_V5_METHOD,
             )
@@ -1699,6 +1832,17 @@ class SaberWeightComputer:
                 support_lookup_enabled=effective_lambda > 0.0,
                 schedule_metrics=schedule_metrics,
             )
+
+        if self.spec.control_mode == "per_full":
+            wb = self.base.compute(batch, replay, agent, rng, device)
+            weights = np.asarray(getattr(batch, "per_full_is_weight", np.ones_like(wb.w_p_raw)), dtype=np.float32)
+            if weights.shape != wb.w_p_raw.shape:
+                weights = np.ones_like(wb.w_p_raw, dtype=np.float32)
+            wb.w_p_raw[:] = weights
+            wb.omega_critic[:] = weights
+            wb.omega_actor[:] = 1.0
+            wb.extra_metrics.update(getattr(batch, "per_full_sample_metrics", {}))
+            return wb
 
         if self.spec.control_mode in {"td_error", "per_style"}:
             wb = self.base.compute(batch, replay, agent, rng, device)
@@ -1769,20 +1913,29 @@ class SaberWeightComputer:
         reward = torch.as_tensor(reward_train, dtype=torch.float32, device=device)
         nt = torch.as_tensor(nonterminal, dtype=torch.float32, device=device)
         with torch.no_grad():
-            target_action = agent.actor_target(next_state)
-            target = reward + self.cfg.gamma * nt * agent.critic_target(next_state, target_action)
-            q = agent.critic(state, action)
-            td = torch.abs(q - target).detach().cpu().numpy().astype(np.float32)
+            td_tensor = td_errors_for_priority(
+                agent=agent,
+                state=state,
+                action=action,
+                reward=reward,
+                next_state=next_state,
+                nonterminal=nt,
+                gamma=self.cfg.gamma,
+            )
+            td = td_tensor.detach().cpu().numpy().astype(np.float32)
 
         if self.spec.control_mode == "td_error":
             td_norm = td / max(float(np.mean(td)), self.cfg.eps)
-            u = np.clip(td_norm, 0.0, self.spec.u_td_max).astype(np.float32)
-            weights = (1.0 + self.spec.lambda_td * u).astype(np.float32)
+            u = np.clip(td_norm, 0.0, float(getattr(self.cfg, "u_td_max", self.spec.u_td_max))).astype(np.float32)
+            weights = (1.0 + float(getattr(self.cfg, "lambda_td", self.spec.lambda_td)) * u).astype(np.float32)
             prefix = "td_error"
         else:
-            priority = np.power(td + self.spec.per_eps, self.spec.per_alpha).astype(np.float32)
+            priority = np.power(
+                td + float(getattr(self.cfg, "per_eps", self.spec.per_eps)),
+                float(getattr(self.cfg, "per_alpha", self.spec.per_alpha)),
+            ).astype(np.float32)
             p_norm = priority / max(float(np.mean(priority)), self.cfg.eps)
-            weights = np.clip(p_norm, 0.0, self.spec.u_per_max).astype(np.float32)
+            weights = np.clip(p_norm, 0.0, float(getattr(self.cfg, "u_per_max", self.spec.u_per_max))).astype(np.float32)
             prefix = "per"
 
         extras = {
@@ -1830,24 +1983,74 @@ def run(args: argparse.Namespace) -> Path:
     task = make_task_spec(cfg, train_env)
     phase_names = tuple(getattr(task, "phase_names", ("approach", "strike", "slide", "near_goal")))
 
-    agent = DDPGAgent(
-        state_dim=train_env.state_dim,
-        action_dim=train_env.action_dim,
-        hidden_dim=cfg.hidden_dim,
-        actor_lr=cfg.actor_lr,
-        critic_lr=cfg.critic_lr,
-        gamma=cfg.gamma,
-        tau=cfg.tau,
-        action_low=train_env.action_low,
-        action_high=train_env.action_high,
-        device=device,
-        l2_action_penalty=cfg.l2_action_penalty,
-    )
+    if spec.agent_kind == "td3":
+        agent = TD3Agent(
+            state_dim=train_env.state_dim,
+            action_dim=train_env.action_dim,
+            hidden_dim=cfg.hidden_dim,
+            actor_lr=cfg.actor_lr,
+            critic_lr=cfg.critic_lr,
+            gamma=cfg.gamma,
+            tau=cfg.tau,
+            action_low=train_env.action_low,
+            action_high=train_env.action_high,
+            device=device,
+            l2_action_penalty=cfg.l2_action_penalty,
+            policy_delay=int(getattr(cfg, "td3_policy_delay", 2)),
+            target_policy_noise=float(getattr(cfg, "td3_target_policy_noise", 0.2)),
+            target_noise_clip=float(getattr(cfg, "td3_target_noise_clip", 0.5)),
+        )
+    elif spec.agent_kind == "sac":
+        agent = SACAgent(
+            state_dim=train_env.state_dim,
+            action_dim=train_env.action_dim,
+            hidden_dim=cfg.hidden_dim,
+            actor_lr=cfg.actor_lr,
+            critic_lr=cfg.critic_lr,
+            gamma=cfg.gamma,
+            tau=cfg.tau,
+            action_low=train_env.action_low,
+            action_high=train_env.action_high,
+            device=device,
+            l2_action_penalty=cfg.l2_action_penalty,
+            alpha=float(getattr(cfg, "sac_alpha", 0.2)),
+            auto_alpha=bool(getattr(cfg, "sac_auto_alpha", True)),
+            alpha_lr=float(getattr(cfg, "sac_alpha_lr", 3e-4)),
+            target_entropy=getattr(cfg, "sac_target_entropy", None),
+        )
+    else:
+        agent = DDPGAgent(
+            state_dim=train_env.state_dim,
+            action_dim=train_env.action_dim,
+            hidden_dim=cfg.hidden_dim,
+            actor_lr=cfg.actor_lr,
+            critic_lr=cfg.critic_lr,
+            gamma=cfg.gamma,
+            tau=cfg.tau,
+            action_low=train_env.action_low,
+            action_high=train_env.action_high,
+            device=device,
+            l2_action_penalty=cfg.l2_action_penalty,
+        )
     replay = HERReplayBuffer(
         capacity=cfg.buffer_capacity,
         obs_dim=train_env.obs_dim,
         goal_dim=train_env.goal_dim,
         action_dim=train_env.action_dim,
+    )
+    per_full_sampler = (
+        FullPERSampler(
+            capacity=cfg.buffer_capacity,
+            alpha=float(getattr(cfg, "per_alpha", 0.6)),
+            beta_start=float(getattr(cfg, "per_beta_start", 0.4)),
+            beta_final=float(getattr(cfg, "per_beta_final", 1.0)),
+            beta_anneal_steps=int(getattr(cfg, "per_beta_anneal_steps", cfg.total_steps)),
+            eps=float(getattr(cfg, "per_eps", 1e-6)),
+            initial_priority=float(getattr(cfg, "per_initial_priority", 1.0)),
+            min_priority=float(getattr(cfg, "per_min_priority", 1e-6)),
+        )
+        if spec.control_mode == "per_full"
+        else None
     )
     gap_stats = GapStats(
         maxlen=cfg.gap_window,
@@ -1866,6 +2069,14 @@ def run(args: argparse.Namespace) -> Path:
             "seed": int(args.seed),
             "seed_config": cfg.seeds.__dict__,
             "method_spec": spec.__dict__,
+            "agent_kind": str(spec.agent_kind),
+            "td3_policy_delay": int(getattr(cfg, "td3_policy_delay", 2)),
+            "td3_target_policy_noise": float(getattr(cfg, "td3_target_policy_noise", 0.2)),
+            "td3_target_noise_clip": float(getattr(cfg, "td3_target_noise_clip", 0.5)),
+            "sac_alpha": float(getattr(cfg, "sac_alpha", 0.2)),
+            "sac_alpha_lr": float(getattr(cfg, "sac_alpha_lr", 3e-4)),
+            "sac_auto_alpha": bool(getattr(cfg, "sac_auto_alpha", True)),
+            "sac_target_entropy": getattr(cfg, "sac_target_entropy", None),
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
             "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
@@ -1876,6 +2087,8 @@ def run(args: argparse.Namespace) -> Path:
                 RUNTIME_OPT_V7_POS_HUBER_METHOD,
                 RUNTIME_OPT_V7_POS_MSE_METHOD,
                 RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                TD3_SABER_METHOD,
+                SAC_SABER_METHOD,
             },
             "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
             "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
@@ -1901,6 +2114,17 @@ def run(args: argparse.Namespace) -> Path:
             "support_bonus_beta": float(getattr(cfg, "support_bonus_beta", 1.0)),
             "support_bonus_score_source": str(getattr(cfg, "support_bonus_score_source", "auto")),
             "support_bonus_detach_score": bool(getattr(cfg, "support_bonus_detach_score", True)),
+            "lambda_td": float(getattr(cfg, "lambda_td", args.lambda_td)),
+            "u_td_max": float(getattr(cfg, "u_td_max", args.U_TD_max)),
+            "per_alpha": float(getattr(cfg, "per_alpha", args.per_alpha)),
+            "per_eps": float(getattr(cfg, "per_eps", args.eps_PER)),
+            "u_per_max": float(getattr(cfg, "u_per_max", args.U_PER_max)),
+            "per_beta_start": float(getattr(cfg, "per_beta_start", args.per_beta_start)),
+            "per_beta_final": float(getattr(cfg, "per_beta_final", args.per_beta_final)),
+            "per_beta_anneal_steps": int(getattr(cfg, "per_beta_anneal_steps", args.per_beta_anneal_steps)),
+            "per_initial_priority": float(getattr(cfg, "per_initial_priority", args.per_initial_priority)),
+            "per_min_priority": float(getattr(cfg, "per_min_priority", args.per_min_priority)),
+            "per_full_enabled": bool(per_full_sampler is not None),
             "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
             "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
@@ -1942,6 +2166,19 @@ def run(args: argparse.Namespace) -> Path:
         "critic_total": 0.0,
         "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
         "td_loss_mode_huber": float(str(getattr(cfg, "critic_td_loss", "mse")) == "huber"),
+        "q1_mean": 0.0,
+        "q2_mean": 0.0,
+        "critic_q1_loss": 0.0,
+        "critic_q2_loss": 0.0,
+        "td3_actor_updated": 0.0,
+        "td3_policy_delay": float(getattr(cfg, "td3_policy_delay", 0)),
+        "td3_target_policy_noise": float(getattr(cfg, "td3_target_policy_noise", 0.0)),
+        "td3_target_noise_clip": float(getattr(cfg, "td3_target_noise_clip", 0.0)),
+        "sac_alpha": float(getattr(cfg, "sac_alpha", 0.0)),
+        "sac_alpha_loss": 0.0,
+        "sac_log_prob_mean": 0.0,
+        "sac_target_entropy": float(getattr(cfg, "sac_target_entropy", 0.0) or 0.0),
+        "sac_auto_alpha": float(bool(getattr(cfg, "sac_auto_alpha", False))),
     }
     last_lite = empty_metrics(phase_names, spec.control_mode)
     last_her_ratio = 0.0
@@ -1955,6 +2192,8 @@ def run(args: argparse.Namespace) -> Path:
             replay.rebuild_action_index(task.coarse_hash_batch(replay.observation[: replay.size], replay.h[: replay.size]))
         if uses_support_lookup(spec):
             replay.rebuild_action_bins(task.action_bin_batch(replay.action_exec[: replay.size], cfg.action_bins_per_dim))
+        if per_full_sampler is not None and "per_full_sampler" in payload:
+            per_full_sampler.load_state_dict(payload["per_full_sampler"])
         gap_stats.load_state_dict(payload.get("gap_stats", {}))
         start_step = int(payload["global_step"]) + 1
         episode_idx = int(payload["episode_idx"])
@@ -1987,6 +2226,7 @@ def run(args: argparse.Namespace) -> Path:
             "best_eval_step": best_eval_step,
             "agent": agent.state_dict(),
             "replay": replay.state_dict(),
+            "per_full_sampler": per_full_sampler.state_dict() if per_full_sampler is not None else None,
             "gap_stats": gap_stats.state_dict(),
             "noise_rng_state": noise_rng.bit_generator.state,
             "sample_rng_state": sample_rng.bit_generator.state,
@@ -2013,6 +2253,7 @@ def run(args: argparse.Namespace) -> Path:
             coarse_key = None
             action_bin = None
 
+        replay_slot = int(replay.ptr)
         replay.add_transition(
             observation=obs.observation,
             achieved_goal=obs.achieved_goal,
@@ -2029,6 +2270,8 @@ def run(args: argparse.Namespace) -> Path:
             coarse_key=coarse_key,
             action_bin=action_bin,
         )
+        if per_full_sampler is not None:
+            per_full_sampler.on_transition_added(replay_slot)
 
         obs = obs_next
         ep_step += 1
@@ -2036,7 +2279,10 @@ def run(args: argparse.Namespace) -> Path:
 
         if replay.size >= cfg.batch_size and global_step >= cfg.warmup_steps:
             for _ in range(cfg.updates_per_step):
-                batch = replay.sample(cfg.batch_size, cfg.her_ratio, sample_rng)
+                if per_full_sampler is not None:
+                    batch = per_full_sampler.sample(replay, cfg.batch_size, cfg.her_ratio, sample_rng, global_step)
+                else:
+                    batch = replay.sample(cfg.batch_size, cfg.her_ratio, sample_rng)
                 last_her_ratio = batch.her_relabel_ratio
                 reward_train = train_env.compute_reward(batch.next_achieved_goal, batch.desired_goal_train, {})
                 success_train = train_env.success_from_goal(batch.next_achieved_goal, batch.desired_goal_train)
@@ -2102,6 +2348,21 @@ def run(args: argparse.Namespace) -> Path:
                         omega_critic=omega_critic_t,
                         omega_actor=omega_actor_t,
                     )
+                per_update_metrics: Dict[str, float] = {}
+                if per_full_sampler is not None:
+                    td_after = td_errors_for_priority(
+                        agent=agent,
+                        state=state_t,
+                        action=action_t,
+                        reward=reward_t,
+                        next_state=next_state_t,
+                        nonterminal=nonterminal_t,
+                        gamma=cfg.gamma,
+                    )
+                    per_update_metrics = per_full_sampler.update_priorities(
+                        batch.indices,
+                        td_after.detach().cpu().numpy().astype(np.float32),
+                    )
                 actor_critic_time = time.perf_counter() - t_update
                 last_loss = {
                     "critic": update.critic_loss,
@@ -2117,8 +2378,22 @@ def run(args: argparse.Namespace) -> Path:
                         "td_loss_mode_huber",
                         float(str(getattr(cfg, "critic_td_loss", "mse")) == "huber"),
                     ),
+                    "q1_mean": getattr(update, "q1_mean", update.q_mean),
+                    "q2_mean": getattr(update, "q2_mean", update.q_mean),
+                    "critic_q1_loss": getattr(update, "critic_q1_loss", update.critic_loss),
+                    "critic_q2_loss": getattr(update, "critic_q2_loss", 0.0),
+                    "td3_actor_updated": getattr(update, "actor_updated", 1.0),
+                    "td3_policy_delay": getattr(update, "policy_delay", 0.0),
+                    "td3_target_policy_noise": getattr(update, "target_policy_noise", 0.0),
+                    "td3_target_noise_clip": getattr(update, "target_noise_clip", 0.0),
+                    "sac_alpha": getattr(update, "alpha", 0.0),
+                    "sac_alpha_loss": getattr(update, "alpha_loss", 0.0),
+                    "sac_log_prob_mean": getattr(update, "log_prob_mean", 0.0),
+                    "sac_target_entropy": getattr(update, "target_entropy", 0.0),
+                    "sac_auto_alpha": getattr(update, "auto_alpha", 0.0),
                 }
                 last_lite = metrics_from_weight_batch(wb, phase_names, spec.control_mode)
+                last_lite.update(per_update_metrics)
                 last_lite.update(reliability_metrics(reliability_score, support_bonus_beta_eff))
                 last_lite["runtime/saber_loss_mode_positive_huber_bonus"] = float(
                     str(getattr(cfg, "saber_loss_mode", "batch_norm")) == "positive_huber_bonus"
@@ -2274,6 +2549,19 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "loss/td_loss_mode_huber",
         "critic/q_policy_mean",
         "critic/q_target_mean",
+        "critic/q1_mean",
+        "critic/q2_mean",
+        "critic/q1_loss",
+        "critic/q2_loss",
+        "td3/actor_updated",
+        "td3/policy_delay",
+        "td3/target_policy_noise",
+        "td3/target_noise_clip",
+        "sac/alpha",
+        "sac/alpha_loss",
+        "sac/log_prob_mean",
+        "sac/target_entropy",
+        "sac/auto_alpha",
         "lite/mean_w_P",
         "lite/max_w_P",
         "lite/std_w_P",
@@ -2434,6 +2722,25 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
                 "per/weight_ESS",
             ]
         )
+    if control_mode == "per_full":
+        fields.extend(
+            [
+                "per_full/alpha",
+                "per_full/beta",
+                "per_full/replay_size",
+                "per_full/priority_mean",
+                "per_full/priority_max",
+                "per_full/sample_prob_mean",
+                "per_full/sample_prob_max",
+                "per_full/is_weight_mean",
+                "per_full/is_weight_min",
+                "per_full/is_weight_max",
+                "per_full/priority_ESS",
+                "per_full/priority_update_abs_mean",
+                "per_full/priority_update_abs_p90",
+                "per_full/priority_update_count",
+            ]
+        )
     return list(dict.fromkeys(fields))
 
 
@@ -2561,6 +2868,19 @@ def metric_row(
         "loss/td_loss_mode_huber": loss.get("td_loss_mode_huber", 0.0),
         "critic/q_policy_mean": loss["q_mean"],
         "critic/q_target_mean": loss["target_mean"],
+        "critic/q1_mean": loss.get("q1_mean", loss["q_mean"]),
+        "critic/q2_mean": loss.get("q2_mean", loss["q_mean"]),
+        "critic/q1_loss": loss.get("critic_q1_loss", loss["critic"]),
+        "critic/q2_loss": loss.get("critic_q2_loss", 0.0),
+        "td3/actor_updated": loss.get("td3_actor_updated", 1.0),
+        "td3/policy_delay": loss.get("td3_policy_delay", 0.0),
+        "td3/target_policy_noise": loss.get("td3_target_policy_noise", 0.0),
+        "td3/target_noise_clip": loss.get("td3_target_noise_clip", 0.0),
+        "sac/alpha": loss.get("sac_alpha", 0.0),
+        "sac/alpha_loss": loss.get("sac_alpha_loss", 0.0),
+        "sac/log_prob_mean": loss.get("sac_log_prob_mean", 0.0),
+        "sac/target_entropy": loss.get("sac_target_entropy", 0.0),
+        "sac/auto_alpha": loss.get("sac_auto_alpha", 0.0),
         **lite,
         "runtime/total_sec": total_sec,
         "runtime/steps_per_sec": float(step) / max(total_sec, 1e-8),
@@ -2734,6 +3054,14 @@ def build_summary(
         "task": "FetchSlide",
         "method": args.method,
         "lite_method": cfg.method,
+        "agent_kind": str(getattr(cfg, "agent_kind", spec.agent_kind)),
+        "td3_policy_delay": int(getattr(cfg, "td3_policy_delay", 0)),
+        "td3_target_policy_noise": float(getattr(cfg, "td3_target_policy_noise", 0.0)),
+        "td3_target_noise_clip": float(getattr(cfg, "td3_target_noise_clip", 0.0)),
+        "sac_alpha": float(getattr(cfg, "sac_alpha", 0.2)),
+        "sac_alpha_lr": float(getattr(cfg, "sac_alpha_lr", 3e-4)),
+        "sac_auto_alpha": bool(getattr(cfg, "sac_auto_alpha", True)),
+        "sac_target_entropy": getattr(cfg, "sac_target_entropy", None),
         "weight_scope": spec.weight_scope,
         "config_weight_scope": cfg.weight_scope,
         "control_mode": spec.control_mode,
@@ -2746,6 +3074,8 @@ def build_summary(
             RUNTIME_OPT_V7_POS_HUBER_METHOD,
             RUNTIME_OPT_V7_POS_MSE_METHOD,
             RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+            TD3_SABER_METHOD,
+            SAC_SABER_METHOD,
         },
         "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
         "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,

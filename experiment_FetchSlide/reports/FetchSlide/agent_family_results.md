@@ -4,7 +4,9 @@ Generated: 2026-06-04 KST
 
 ## Scope
 
-All rows use completed FetchSlide 1M-step runs with seeds 1-5. `DDPG+HER+SABER` is the no-quality B3 critic-only runtime-optimized v5 control with `local_search_max=512`; quality-gate, anneal, and positive-loss variants are intentionally excluded from this comparison.
+The main comparison rows use completed FetchSlide 1M-step runs with seeds 1-5. `DDPG+HER+SABER` is the no-quality B3 critic-only runtime-optimized v5 control with `local_search_max=512`; quality-gate, anneal, and positive-loss variants are intentionally excluded from this comparison.
+
+Additional `DDPG+HER+SABER local_search_max=1024` records are included in a separate incomplete-run section. Those runs did not reach 1M steps, so they should not be interpreted as final-performance comparisons.
 
 ## Run Mapping
 
@@ -12,6 +14,7 @@ All rows use completed FetchSlide 1M-step runs with seeds 1-5. `DDPG+HER+SABER` 
 |---|---|---|
 | DDPG+HER | B0 DDPG+HER | `experiment/FetchSlide/b0/fetch_slide_b0_s1_1000000_lsnone` |
 | DDPG+HER+SABER | B3 critic-only runtime opt v5 no-quality, ls512 | `experiment_FetchSlide/experiment/FetchSlide/b3_critic_only_runtime_opt_v5/fetch_slide_b3_critic_only_runtime_opt_v5_no_quality_s1_1000000_ls512_after_quality` |
+| DDPG+HER+SABER ls1024, incomplete | Earlier B3 critic-only/runtime-optimization attempts with `local_search_max=1024` | `experiment_FetchSlide/experiment/FetchSlide/b3_critic_only_runtime_optimization/fetch_slide_b3_critic_only_runtime_optimization_s1_1000000_ls1024` |
 | DDPG+HER+PER-Style | PER-style weighting baseline | `experiment_FetchSlide/experiment/FetchSlide/per_style/fetch_slide_per_style_s1_1000000_lsnone` |
 | TD3+HER | TD3 baseline | `experiment_FetchSlide/experiment/FetchSlide/td3/fetch_slide_td3_s1_1000000_lsnone` |
 | TD3+SABER | TD3 + SABER critic-only, ls512 | `experiment_FetchSlide/experiment/FetchSlide/td3_saber/fetch_slide_td3_saber_s1_1000000_ls512` |
@@ -55,6 +58,36 @@ First evaluation step where success rate reaches the threshold. `n/5` means how 
 | TD3+SABER | 380k +/- 29k (5/5) | 580k +/- 104k (5/5) | 895k +/- 70k (5/5) | 950k +/- 0k (1/5) |
 | SAC+HER | 230k +/- 81k (5/5) | 355k +/- 40k (5/5) | 515k +/- 37k (5/5) | 900k +/- 0k (3/5) |
 | SAC+SABER | 220k +/- 58k (5/5) | 340k +/- 60k (5/5) | 455k +/- 66k (5/5) | 850k +/- 133k (4/5) |
+
+## Incomplete DDPG+HER+SABER ls1024 Records
+
+These `local_search_max=1024` runs were launched with 1M-step directory names, but the available metrics stop before 1M and no completed-run `summary.json` exists. They are useful for runtime/context, not for final success comparison against the completed 1M rows above.
+
+| Run set | n | Last step | Last eval success | Best success | AUC so far | Steps/sec | Hours/run | psi_q_rank | mean_w_P | lookup time |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Runtime opt ls1024 mirror | 5 | 58k +/- 0k | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 14.27 +/- 0.07 | 1.13 +/- 0.00 | 0.188 +/- 0.023 | 1.188 +/- 0.023 | 0.079 +/- 0.002 |
+| Runtime opt ls1024 old root | 5 | 144k +/- 1k | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 12.19 +/- 0.06 | 3.28 +/- 0.00 | 0.207 +/- 0.025 | 1.207 +/- 0.025 | 0.075 +/- 0.006 |
+| Original B3 critic-only ls1024 | 5 | 480k +/- 3k | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 7.66 +/- 0.04 | 17.41 +/- 0.00 | 0.239 +/- 0.020 | 1.239 +/- 0.020 | 0.144 +/- 0.007 |
+
+### ls1024 Per-Seed Completion Status
+
+| Run set | Seed | Last step | Last eval success | Steps/sec | Hours | psi_q_rank | lookup time |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Runtime opt ls1024 mirror | 1 | 58k | 0.000 | 14.32 | 1.13 | 0.172 | 0.082 |
+| Runtime opt ls1024 mirror | 2 | 58k | 0.000 | 14.36 | 1.13 | 0.230 | 0.078 |
+| Runtime opt ls1024 mirror | 3 | 58k | 0.000 | 14.25 | 1.13 | 0.191 | 0.078 |
+| Runtime opt ls1024 mirror | 4 | 57k | 0.000 | 14.14 | 1.13 | 0.168 | 0.079 |
+| Runtime opt ls1024 mirror | 5 | 58k | 0.000 | 14.27 | 1.13 | 0.180 | 0.079 |
+| Runtime opt ls1024 old root | 1 | 144k | 0.000 | 12.26 | 3.27 | 0.207 | 0.083 |
+| Runtime opt ls1024 old root | 2 | 144k | 0.000 | 12.23 | 3.27 | 0.230 | 0.080 |
+| Runtime opt ls1024 old root | 3 | 144k | 0.000 | 12.17 | 3.28 | 0.238 | 0.074 |
+| Runtime opt ls1024 old root | 4 | 143k | 0.000 | 12.10 | 3.28 | 0.176 | 0.070 |
+| Runtime opt ls1024 old root | 5 | 144k | 0.000 | 12.21 | 3.28 | 0.184 | 0.066 |
+| Original B3 critic-only ls1024 | 1 | 483k | 0.000 | 7.70 | 17.41 | 0.203 | 0.136 |
+| Original B3 critic-only ls1024 | 2 | 483k | 0.000 | 7.71 | 17.41 | 0.234 | 0.158 |
+| Original B3 critic-only ls1024 | 3 | 476k | 0.000 | 7.60 | 17.41 | 0.250 | 0.142 |
+| Original B3 critic-only ls1024 | 4 | 478k | 0.000 | 7.63 | 17.41 | 0.258 | 0.140 |
+| Original B3 critic-only ls1024 | 5 | 479k | 0.000 | 7.65 | 17.40 | 0.250 | 0.145 |
 
 ## SABER / PER / SAC Diagnostics
 
@@ -113,4 +146,5 @@ First evaluation step where success rate reaches the threshold. `n/5` means how 
 - SAC family is the strongest completed set. SAC+SABER has the best mean final success, success AUC, and last-quarter AUC, while SAC+HER is close and faster.
 - TD3+SABER improves TD3+HER on mean final success, best success, AUC, and last-quarter AUC, but costs about 3x wall-clock time.
 - DDPG+HER+SABER no-quality ls512 does not improve over DDPG+HER in this FetchSlide set; it is slower and has lower final/late success.
+- Earlier DDPG+HER+SABER ls1024 attempts did not finish 1M steps. They mainly show why ls512 became the practical main setting: lookup time and wall-clock cost were much higher, especially for the original B3 critic-only path.
 - DDPG+HER+PER-Style improves DDPG success AUC over B0 and roughly matches final success, with modest runtime overhead compared with B0.
