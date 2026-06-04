@@ -121,6 +121,13 @@ def _percentile(arr: np.ndarray, q: float) -> float:
     return float(np.percentile(arr, q)) if arr.size else 0.0
 
 
+def _trapz(y: np.ndarray, x: np.ndarray) -> float:
+    fn = getattr(np, "trapezoid", None)
+    if fn is None:
+        fn = np.trapz
+    return float(fn(y, x))
+
+
 def _entropy_weight(w: np.ndarray, eps: float) -> float:
     if w.size == 0:
         return 0.0
@@ -195,7 +202,7 @@ def _eval_curve_summary(eval_history: list[Dict[str, float]], total_steps: int) 
     if auc_steps[-1] < float(total_steps):
         auc_steps = np.concatenate([auc_steps, np.asarray([float(total_steps)])])
         auc_values = np.concatenate([auc_values, np.asarray([auc_values[-1]])])
-    auc = float(np.trapz(auc_values, auc_steps) / max(1.0, float(total_steps)))
+    auc = float(_trapz(auc_values, auc_steps) / max(1.0, float(total_steps)))
 
     out: Dict[str, Any] = {
         "final_success": final_success,
@@ -213,7 +220,7 @@ def _eval_curve_summary(eval_history: list[Dict[str, float]], total_steps: int) 
     q_steps = eval_steps[eval_steps >= quarter_start]
     q_success = successes[eval_steps >= quarter_start]
     if q_steps.size >= 2:
-        out["last_quarter_auc"] = float(np.trapz(q_success, q_steps) / max(1.0, float(total_steps) - quarter_start))
+        out["last_quarter_auc"] = float(_trapz(q_success, q_steps) / max(1.0, float(total_steps) - quarter_start))
     elif q_success.size == 1:
         out["last_quarter_auc"] = float(q_success[0])
     else:
