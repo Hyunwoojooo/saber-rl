@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import deque
 from dataclasses import dataclass
+import hashlib
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
@@ -21,10 +22,6 @@ class SampleBatch:
     timeout: np.ndarray
     h: np.ndarray
     her_relabel_ratio: float
-    sampling_prob: np.ndarray
-    is_weight: np.ndarray
-    sampling_priority: np.ndarray
-    per_beta: float
 
 
 class ReplayActionIndex:
@@ -37,51 +34,223 @@ class ReplayActionIndex:
     def __init__(self, capacity: int) -> None:
         self.capacity = int(capacity)
         self._slots_by_key: Dict[int, List[int]] = {}
+        self._live_count_by_key: Dict[int, int] = {}
+        self._action_bin_counts_by_key: Dict[int, Dict[int, int]] = {}
         self._key_by_slot = np.full(self.capacity, -1, dtype=np.int64)
+        self._action_bin_by_slot = np.full(self.capacity, -1, dtype=np.int64)
+        self._pos_by_slot = np.full(self.capacity, -1, dtype=np.int64)
+        self._version_by_key: Dict[int, int] = {}
+        self._epoch = 0
+
+    @staticmethod
+    def _stable_u64(*items: object) -> int:
+        h = hashlib.blake2b(digest_size=8)
+        for item in items:
+            data = str(item).encode("utf-8")
+            h.update(len(data).to_bytes(4, "little", signed=False))
+            h.update(data)
+        return int.from_bytes(h.digest(), "little", signed=False)
 
     def clear(self) -> None:
         self._slots_by_key.clear()
+        self._live_count_by_key.clear()
+        self._action_bin_counts_by_key.clear()
         self._key_by_slot.fill(-1)
+        self._action_bin_by_slot.fill(-1)
+        self._pos_by_slot.fill(-1)
+        self._version_by_key.clear()
+        self._epoch += 1
 
-    def update(self, slot: int, key: int) -> None:
+    def update(self, slot: int, key: int, action_bin: int) -> None:
         slot_i = int(slot)
         key_i = int(key)
+        bin_i = int(action_bin)
         if slot_i < 0 or slot_i >= self.capacity:
             raise IndexError(f"ReplayActionIndex slot out of range: {slot_i}")
+        old_key = int(self._key_by_slot[slot_i])
+        old_bin = int(self._action_bin_by_slot[slot_i])
+
+        if old_key == key_i:
+            if old_bin != bin_i:
+                self._decrement_action_bin(key_i, old_bin)
+                self._increment_action_bin(key_i, bin_i)
+                self._action_bin_by_slot[slot_i] = bin_i
+            self._bump_version(key_i)
+            return
+
+        if old_key >= 0:
+            self._decrement_action_bin(old_key, old_bin)
+            self._remove_slot_from_key(slot_i, old_key)
+            self._bump_version(old_key)
+
+        slots = self._slots_by_key.setdefault(key_i, [])
+        self._pos_by_slot[slot_i] = len(slots)
+        slots.append(slot_i)
         self._key_by_slot[slot_i] = key_i
-        self._slots_by_key.setdefault(key_i, []).append(slot_i)
+        self._action_bin_by_slot[slot_i] = bin_i
+        self._live_count_by_key[key_i] = len(slots)
+        self._increment_action_bin(key_i, bin_i)
+        self._bump_version(key_i)
 
     def clear_slot(self, slot: int) -> None:
         slot_i = int(slot)
         if 0 <= slot_i < self.capacity:
+            old_key = int(self._key_by_slot[slot_i])
+            old_bin = int(self._action_bin_by_slot[slot_i])
+            if old_key >= 0:
+                self._decrement_action_bin(old_key, old_bin)
+                self._remove_slot_from_key(slot_i, old_key)
+                self._bump_version(old_key)
             self._key_by_slot[slot_i] = -1
+            self._action_bin_by_slot[slot_i] = -1
+            self._pos_by_slot[slot_i] = -1
+
+    def _remove_slot_from_key(self, slot: int, key: int) -> None:
+        slot_i = int(slot)
+        key_i = int(key)
+        slots = self._slots_by_key.get(key_i)
+        if not slots:
+            self._key_by_slot[slot_i] = -1
+            self._pos_by_slot[slot_i] = -1
+            return
+
+        pos = int(self._pos_by_slot[slot_i])
+        if pos < 0 or pos >= len(slots) or int(slots[pos]) != slot_i:
+            try:
+                pos = slots.index(slot_i)
+            except ValueError:
+                self._key_by_slot[slot_i] = -1
+                self._pos_by_slot[slot_i] = -1
+                self._live_count_by_key[key_i] = len(slots)
+                return
+
+        last_slot = int(slots[-1])
+        slots[pos] = last_slot
+        self._pos_by_slot[last_slot] = pos
+        slots.pop()
+
+        self._key_by_slot[slot_i] = -1
+        self._pos_by_slot[slot_i] = -1
+        if slots:
+            self._live_count_by_key[key_i] = len(slots)
+        else:
+            self._slots_by_key.pop(key_i, None)
+            self._live_count_by_key.pop(key_i, None)
+
+    def _increment_action_bin(self, key: int, action_bin: int) -> None:
+        bin_i = int(action_bin)
+        if bin_i < 0:
+            return
+        key_i = int(key)
+        counts = self._action_bin_counts_by_key.setdefault(key_i, {})
+        counts[bin_i] = int(counts.get(bin_i, 0)) + 1
+
+    def _decrement_action_bin(self, key: int, action_bin: int) -> None:
+        bin_i = int(action_bin)
+        if bin_i < 0:
+            return
+        key_i = int(key)
+        counts = self._action_bin_counts_by_key.get(key_i)
+        if not counts:
+            return
+        next_count = int(counts.get(bin_i, 0)) - 1
+        if next_count <= 0:
+            counts.pop(bin_i, None)
+        else:
+            counts[bin_i] = next_count
+        if not counts:
+            self._action_bin_counts_by_key.pop(key_i, None)
+
+    def _bump_version(self, key: int) -> None:
+        key_i = int(key)
+        self._version_by_key[key_i] = int(self._version_by_key.get(key_i, 0)) + 1
+
+    def version(self, key: int) -> int:
+        key_i = int(key)
+        return int((self._epoch << 32) + self._version_by_key.get(key_i, 0))
 
     def candidates(self, key: int, size: int) -> np.ndarray:
         key_i = int(key)
         slots = self._slots_by_key.get(key_i)
         if not slots:
             return np.zeros((0,), dtype=np.int64)
+        del size
+        return np.asarray(slots, dtype=np.int64)
 
-        size_i = min(int(size), self.capacity)
-        valid: List[int] = []
-        seen = set()
-        for slot in slots:
-            slot_i = int(slot)
-            if slot_i in seen:
-                continue
-            if 0 <= slot_i < size_i and int(self._key_by_slot[slot_i]) == key_i:
-                valid.append(slot_i)
-                seen.add(slot_i)
+    @staticmethod
+    def _canonical_scan_mode(scan_mode: str) -> str:
+        mode = str(scan_mode)
+        if mode in {"cached_random_v1", "deterministic_random_v1", "deterministic_random_by_version_v1"}:
+            return "sticky_random_v1"
+        if mode == "deterministic_tail_v1":
+            return "deterministic_back_v1"
+        return mode
 
-        if len(valid) != len(slots):
-            if valid:
-                self._slots_by_key[key_i] = valid
-            else:
-                self._slots_by_key.pop(key_i, None)
+    @staticmethod
+    def _sample_positions_without_replacement(
+        n_candidates: int,
+        k: int,
+        rng: np.random.Generator,
+    ) -> np.ndarray:
+        n_i = int(n_candidates)
+        k_i = int(k)
+        if k_i >= n_i:
+            return np.arange(n_i, dtype=np.int64)
+        # Floyd sampling avoids allocating an O(n_candidates) permutation.
+        selected: set[int] = set()
+        for j in range(n_i - k_i, n_i):
+            t = int(rng.integers(0, j + 1))
+            selected.add(j if t in selected else t)
+        positions = np.fromiter(selected, dtype=np.int64, count=k_i)
+        positions.sort()
+        return positions
 
-        if not valid:
-            return np.zeros((0,), dtype=np.int64)
-        return np.asarray(valid, dtype=np.int64)
+    def sample_candidates_direct(
+        self,
+        key: int,
+        max_scan: int,
+        scan_mode: str,
+        scan_seed: int,
+        rng: Optional[np.random.Generator] = None,
+    ) -> Tuple[np.ndarray, int, bool]:
+        key_i = int(key)
+        slots = self._slots_by_key.get(key_i)
+        if not slots:
+            return np.zeros((0,), dtype=np.int64), 0, False
+
+        n_candidates = int(self._live_count_by_key.get(key_i, len(slots)))
+        if n_candidates <= 0:
+            return np.zeros((0,), dtype=np.int64), 0, False
+
+        max_scan_i = int(max_scan)
+        k = n_candidates if max_scan_i <= 0 else min(n_candidates, max_scan_i)
+        truncated = max_scan_i > 0 and n_candidates > max_scan_i
+        if not truncated:
+            return np.asarray(slots, dtype=np.int64), n_candidates, False
+
+        mode = self._canonical_scan_mode(scan_mode)
+        if mode == "deterministic_even_v1":
+            positions = np.linspace(0, n_candidates - 1, num=k, dtype=np.int64)
+        elif mode == "sticky_random_v1":
+            seed = self._stable_u64(
+                "support_scan",
+                int(scan_seed),
+                key_i,
+                int(self.version(key_i)),
+                max_scan_i,
+                "sticky_random_v1",
+            )
+            local_rng = np.random.default_rng(seed)
+            positions = self._sample_positions_without_replacement(n_candidates, k, local_rng)
+        elif mode == "deterministic_back_v1":
+            positions = np.arange(n_candidates - k, n_candidates, dtype=np.int64)
+        else:
+            if rng is None:
+                rng = np.random.default_rng()
+            positions = self._sample_positions_without_replacement(n_candidates, k, rng)
+
+        scanned = np.asarray([slots[int(pos)] for pos in positions], dtype=np.int64)
+        return scanned, n_candidates, True
 
     def sample_candidates(
         self,
@@ -89,20 +258,46 @@ class ReplayActionIndex:
         size: int,
         max_scan: int,
         rng: np.random.Generator,
+        deterministic: bool = False,
+        scan_mode: str = "random",
+        scan_seed: int = 0,
     ) -> Tuple[np.ndarray, int, bool]:
-        candidates = self.candidates(key, size)
-        n_candidates = int(candidates.size)
-        truncated = int(max_scan) > 0 and n_candidates > int(max_scan)
-        if truncated:
-            scanned = rng.choice(candidates, size=int(max_scan), replace=False).astype(np.int64)
-        else:
-            scanned = candidates.astype(np.int64)
-        return scanned, n_candidates, bool(truncated)
+        del size, deterministic
+        return self.sample_candidates_direct(
+            key=key,
+            max_scan=max_scan,
+            scan_mode=scan_mode,
+            scan_seed=scan_seed,
+            rng=rng,
+        )
 
-    def rebuild(self, coarse_keys: np.ndarray, size: int) -> None:
+    def has_action_bin(self, key: int, action_bin: int) -> bool:
+        bin_i = int(action_bin)
+        if bin_i < 0:
+            return False
+        counts = self._action_bin_counts_by_key.get(int(key))
+        if not counts:
+            return False
+        return int(counts.get(bin_i, 0)) > 0
+
+    def action_bins(self, key: int) -> np.ndarray:
+        counts = self._action_bin_counts_by_key.get(int(key))
+        if not counts:
+            return np.zeros((0,), dtype=np.int64)
+        return np.asarray([int(bin_id) for bin_id, count in counts.items() if int(count) > 0], dtype=np.int64)
+
+    def action_bin_metadata_size(self, key: Optional[int] = None) -> int:
+        if key is not None:
+            return int(len(self._action_bin_counts_by_key.get(int(key), {})))
+        return int(sum(len(counts) for counts in self._action_bin_counts_by_key.values()))
+
+    def rebuild(self, coarse_keys: np.ndarray, action_bins: np.ndarray, size: int) -> None:
         self.clear()
         for slot in range(min(int(size), self.capacity)):
-            self.update(slot, int(coarse_keys[slot]))
+            key_i = int(coarse_keys[slot])
+            if key_i < 0:
+                continue
+            self.update(slot, key_i, int(action_bins[slot]))
 
     def indexed_slot_count(self, size: int) -> int:
         size_i = min(int(size), self.capacity)
@@ -111,26 +306,51 @@ class ReplayActionIndex:
         return int(np.count_nonzero(self._key_by_slot[:size_i] >= 0))
 
     def compact(self, size: int) -> None:
-        for key in list(self._slots_by_key.keys()):
-            self.candidates(key, size)
+        del size
+        return None
 
     def state_dict(self) -> Dict[str, object]:
         return {
+            "version": 2,
             "capacity": self.capacity,
             "key_by_slot": self._key_by_slot,
+            "action_bin_by_slot": self._action_bin_by_slot,
+            "pos_by_slot": self._pos_by_slot,
             "slots_by_key": self._slots_by_key,
+            "live_count_by_key": self._live_count_by_key,
+            "action_bin_counts_by_key": self._action_bin_counts_by_key,
+            "version_by_key": self._version_by_key,
+            "epoch": self._epoch,
         }
 
-    def load_state_dict(self, payload: Dict[str, object], size: int) -> None:
-        self.clear()
+    def load_state_dict(
+        self,
+        payload: Dict[str, object],
+        size: int,
+        action_bins: Optional[np.ndarray] = None,
+    ) -> None:
         key_by_slot = np.asarray(payload.get("key_by_slot", []), dtype=np.int64)
-        n = min(key_by_slot.shape[0], self.capacity)
-        if n > 0:
-            self._key_by_slot[:n] = key_by_slot[:n]
-        self._slots_by_key = {
-            int(k): [int(v) for v in vals] for k, vals in payload.get("slots_by_key", {}).items()
+        action_bin_by_slot = np.asarray(payload.get("action_bin_by_slot", []), dtype=np.int64)
+        if action_bins is None and action_bin_by_slot.size > 0:
+            action_bins = action_bin_by_slot
+
+        version_by_key = {
+            int(k): int(v) for k, v in payload.get("version_by_key", {}).items()
         }
-        self.compact(size)
+        epoch = int(payload.get("epoch", self._epoch))
+
+        self.clear()
+        max_slot = min(int(size), self.capacity, key_by_slot.shape[0])
+        if action_bins is None:
+            action_bins = np.full(self.capacity, -1, dtype=np.int64)
+        action_bins = np.asarray(action_bins, dtype=np.int64)
+        for slot in range(max_slot):
+            key_i = int(key_by_slot[slot])
+            if key_i >= 0:
+                bin_i = int(action_bins[slot]) if slot < action_bins.shape[0] else -1
+                self.update(slot, key_i, bin_i)
+        self._version_by_key = version_by_key if version_by_key else self._version_by_key
+        self._epoch = epoch
 
 
 class HERReplayBuffer:
@@ -153,8 +373,6 @@ class HERReplayBuffer:
         self.timeout = np.zeros(capacity, dtype=np.bool_)
         self.h = np.zeros(capacity, dtype=np.int16)
         self.action_bin = np.full(capacity, -1, dtype=np.int64)
-        self.priority = np.ones(capacity, dtype=np.float32)
-        self.max_priority = 1.0
         self.episode_id = np.full(capacity, -1, dtype=np.int64)
         self.episode_step = np.full(capacity, -1, dtype=np.int16)
 
@@ -195,13 +413,12 @@ class HERReplayBuffer:
         self.timeout[slot] = bool(timeout)
         self.h[slot] = int(h)
         self.action_bin[slot] = -1 if action_bin is None else int(action_bin)
-        self.priority[slot] = float(max(self.max_priority, 1.0))
         self.episode_id[slot] = int(episode_id)
         self.episode_step[slot] = int(episode_step)
         if coarse_key is None:
             self.action_index.clear_slot(slot)
         else:
-            self.action_index.update(slot, int(coarse_key))
+            self.action_index.update(slot, int(coarse_key), int(self.action_bin[slot]))
 
         if episode_id not in self._episode_to_slots:
             self._episode_to_slots[episode_id] = []
@@ -239,94 +456,7 @@ class HERReplayBuffer:
             timeout=self.timeout[indices].copy(),
             h=self.h[indices].copy(),
             her_relabel_ratio=float(relabeled / max(1, batch_size)),
-            sampling_prob=np.full(batch_size, 1.0 / max(1, self.size), dtype=np.float32),
-            is_weight=np.ones(batch_size, dtype=np.float32),
-            sampling_priority=self.priority[indices].copy(),
-            per_beta=0.0,
         )
-
-    def sample_prioritized(
-        self,
-        batch_size: int,
-        her_ratio: float,
-        rng: np.random.Generator,
-        alpha: float,
-        beta: float,
-        eps: float,
-    ) -> SampleBatch:
-        if self.size < batch_size:
-            raise ValueError(f"Not enough replay samples: {self.size} < {batch_size}")
-        priorities = np.asarray(self.priority[: self.size], dtype=np.float64)
-        priorities = np.where(np.isfinite(priorities) & (priorities > 0.0), priorities, float(eps))
-        scaled = np.power(priorities + float(eps), float(alpha))
-        total = float(np.sum(scaled))
-        if not np.isfinite(total) or total <= 0.0:
-            prob = np.full(self.size, 1.0 / max(1, self.size), dtype=np.float64)
-        else:
-            prob = scaled / total
-        indices = rng.choice(self.size, size=batch_size, replace=True, p=prob).astype(np.int64)
-
-        desired_goal_train = self.desired_goal[indices].copy()
-        relabel_mask = rng.random(batch_size) < float(her_ratio)
-        relabeled = 0
-        for out_i, slot in enumerate(indices):
-            if not relabel_mask[out_i]:
-                continue
-            goal = self._sample_future_goal(int(slot), rng)
-            if goal is None:
-                continue
-            desired_goal_train[out_i] = goal
-            relabeled += 1
-
-        sample_prob = prob[indices].astype(np.float32)
-        beta_f = float(beta)
-        is_weight = np.power(np.maximum(self.size * sample_prob.astype(np.float64), float(eps)), -beta_f)
-        max_weight = float(np.max(is_weight)) if is_weight.size else 1.0
-        if max_weight > 0.0 and np.isfinite(max_weight):
-            is_weight = is_weight / max_weight
-        else:
-            is_weight = np.ones_like(is_weight)
-
-        return SampleBatch(
-            indices=indices,
-            observation=self.observation[indices].copy(),
-            achieved_goal=self.achieved_goal[indices].copy(),
-            desired_goal_train=desired_goal_train,
-            next_observation=self.next_observation[indices].copy(),
-            next_achieved_goal=self.next_achieved_goal[indices].copy(),
-            action_exec=self.action_exec[indices].copy(),
-            reward_ext=self.reward_ext[indices].copy(),
-            done=self.done[indices].copy(),
-            timeout=self.timeout[indices].copy(),
-            h=self.h[indices].copy(),
-            her_relabel_ratio=float(relabeled / max(1, batch_size)),
-            sampling_prob=sample_prob,
-            is_weight=is_weight.astype(np.float32),
-            sampling_priority=self.priority[indices].copy(),
-            per_beta=beta_f,
-        )
-
-    def update_priorities(self, indices: np.ndarray, td_abs: np.ndarray, eps: float) -> None:
-        if self.size <= 0:
-            return
-        idx = np.asarray(indices, dtype=np.int64)
-        values = np.asarray(td_abs, dtype=np.float32).reshape(-1)
-        if idx.size != values.size:
-            raise ValueError(f"Priority update shape mismatch: {idx.size} indices vs {values.size} values")
-        pending: Dict[int, float] = {}
-        for slot, value in zip(idx, values):
-            slot_i = int(slot)
-            if slot_i < 0 or slot_i >= self.size:
-                continue
-            priority = float(abs(float(value)) + float(eps))
-            prev = pending.get(slot_i)
-            if prev is None or priority > prev:
-                pending[slot_i] = priority
-        for slot_i, priority in pending.items():
-            self.priority[slot_i] = np.float32(priority)
-        if pending:
-            current_max = float(np.max(self.priority[: self.size]))
-            self.max_priority = max(1.0, current_max)
 
     def reference_indices(self, max_n: int, rng: np.random.Generator) -> np.ndarray:
         if self.size == 0:
@@ -340,23 +470,34 @@ class HERReplayBuffer:
         coarse_key: int,
         max_n: int,
         rng: np.random.Generator,
+        deterministic: bool = False,
+        scan_mode: str = "random",
+        scan_seed: int = 0,
     ) -> Tuple[np.ndarray, int, bool]:
-        return self.action_index.sample_candidates(
+        del deterministic
+        return self.action_index.sample_candidates_direct(
             key=int(coarse_key),
-            size=self.size,
             max_scan=int(max_n),
             rng=rng,
+            scan_mode=str(scan_mode),
+            scan_seed=int(scan_seed),
         )
 
-    def rebuild_action_index(self, coarse_keys: np.ndarray) -> None:
+    def rebuild_action_index(self, coarse_keys: np.ndarray, action_bins: Optional[np.ndarray] = None) -> None:
         if coarse_keys.shape[0] < self.size:
             raise ValueError(f"Need at least {self.size} coarse keys, got {coarse_keys.shape[0]}")
-        self.action_index.rebuild(coarse_keys, self.size)
+        if action_bins is not None:
+            if action_bins.shape[0] < self.size:
+                raise ValueError(f"Need at least {self.size} action bins, got {action_bins.shape[0]}")
+            self.action_bin[:self.size] = action_bins[:self.size].astype(np.int64)
+        self.action_index.rebuild(coarse_keys, self.action_bin, self.size)
 
     def rebuild_action_bins(self, action_bins: np.ndarray) -> None:
         if action_bins.shape[0] < self.size:
             raise ValueError(f"Need at least {self.size} action bins, got {action_bins.shape[0]}")
         self.action_bin[:self.size] = action_bins[:self.size].astype(np.int64)
+        index_state = self.action_index.state_dict()
+        self.action_index.load_state_dict(index_state, self.size, self.action_bin)
 
     def indexed_slot_count(self) -> int:
         return self.action_index.indexed_slot_count(self.size)
@@ -395,8 +536,6 @@ class HERReplayBuffer:
             "timeout": self.timeout,
             "h": self.h,
             "action_bin": self.action_bin,
-            "priority": self.priority,
-            "max_priority": self.max_priority,
             "episode_id": self.episode_id,
             "episode_step": self.episode_step,
             "episode_to_slots": self._episode_to_slots,
@@ -421,12 +560,6 @@ class HERReplayBuffer:
             self.action_bin[:] = payload["action_bin"]
         else:
             self.action_bin.fill(-1)
-        if "priority" in payload:
-            self.priority[:] = payload["priority"]
-        else:
-            self.priority.fill(1.0)
-        self.max_priority = float(payload.get("max_priority", float(np.max(self.priority[: max(1, self.size)]))))
-        self.max_priority = max(1.0, self.max_priority)
         self.episode_id[:] = payload["episode_id"]
         self.episode_step[:] = payload["episode_step"]
         self._episode_to_slots = {
@@ -434,6 +567,6 @@ class HERReplayBuffer:
         }
         self._episode_order = deque(int(v) for v in payload["episode_order"])
         if "action_index" in payload:
-            self.action_index.load_state_dict(payload["action_index"], self.size)
+            self.action_index.load_state_dict(payload["action_index"], self.size, self.action_bin)
         else:
             self.action_index.clear()

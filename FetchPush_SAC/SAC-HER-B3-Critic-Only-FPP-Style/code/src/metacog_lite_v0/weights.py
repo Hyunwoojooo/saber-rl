@@ -12,6 +12,33 @@ from .agent import DDPGAgent
 from .config import LiteConfig
 from .replay import HERReplayBuffer, SampleBatch
 
+try:
+    from .numba_fetch_push_support_scan import (
+        FetchPushSupportScanConstants,
+        can_scan_fetch_push_support_exact,
+        make_fetch_push_support_scan_constants,
+        scan_fetch_push_support_exact_with_constants,
+        warmup_fetch_push_support_exact,
+    )
+except Exception:  # pragma: no cover - optional optimization import guard.
+    FetchPushSupportScanConstants = Any  # type: ignore[misc, assignment]
+
+    def can_scan_fetch_push_support_exact(task: Any) -> bool:
+        del task
+        return False
+
+    def make_fetch_push_support_scan_constants(task: Any) -> Any:
+        del task
+        return None
+
+    def scan_fetch_push_support_exact_with_constants(*args: Any, **kwargs: Any) -> tuple[int, int, int, int, int]:
+        del args, kwargs
+        raise RuntimeError("FetchPush numba support scanner is unavailable")
+
+    def warmup_fetch_push_support_exact(task: Any, action_dim: int, obs_dim: int) -> bool:
+        del task, action_dim, obs_dim
+        return False
+
 
 @dataclass
 class WeightBatch:
@@ -45,6 +72,8 @@ class WeightBatch:
 @dataclass
 class LocalScan:
     indices: np.ndarray
+    action_bins: np.ndarray
+    bucket_version: int
     num_coarse_candidates: int
     local_scan_truncated: bool
 
@@ -56,24 +85,11 @@ class LocalContextResult:
     num_coarse_candidates: int
     num_scanned_candidates: int
     local_scan_truncated: bool
-
-
-def _entropy_np(w: np.ndarray, eps: float) -> float:
-    if w.size == 0:
-        return 0.0
-    p = np.maximum(w.astype(np.float64), float(eps))
-    p = p / max(float(eps), float(np.sum(p)))
-    return float(-(p * np.log(p + float(eps))).sum())
-
-
-def _effective_sample_size_np(w: np.ndarray, eps: float = 1e-8) -> float:
-    if w.size == 0:
-        return 0.0
-    w64 = np.maximum(w.astype(np.float64), 0.0)
-    denom = float(np.sum(w64 * w64))
-    if denom <= eps:
-        return 0.0
-    return float((float(np.sum(w64)) ** 2) / denom)
+    local_pool_size_direct: int | None = None
+    available_support_size_direct: int | None = None
+    psi_a_policy_direct: float | None = None
+    psi_q_rank_direct: float | None = None
+    fallback_direct: float | None = None
 
 
 class GapStats:
@@ -112,6 +128,44 @@ class LiteWeightComputer:
         self.cfg = config
         self.task = task
         self.gap_stats = gap_stats
+        self._support_context_cache: Dict[tuple[Any, ...], LocalContextResult] = {}
+        self._local_scan_cache: Dict[tuple[Any, ...], LocalScan] = {}
+        self._numba_support_scan_enabled = False
+        self._numba_scanner_warmed = False
+        self._numba_support_scan_constants: FetchPushSupportScanConstants | None = None
+        if bool(getattr(config, "support_numba_scan_enabled", False)):
+            try:
+                if can_scan_fetch_push_support_exact(task):
+                    self._numba_support_scan_constants = make_fetch_push_support_scan_constants(task)
+                    if bool(getattr(config, "support_numba_scan_warmup", True)):
+                        action_dim = int(np.asarray(task.action_low).shape[0])
+                        self._numba_scanner_warmed = warmup_fetch_push_support_exact(
+                            task,
+                            action_dim=action_dim,
+                            obs_dim=6,
+                        )
+                    self._numba_support_scan_enabled = True
+            except Exception:
+                self._numba_support_scan_enabled = False
+                self._numba_support_scan_constants = None
+                self._numba_scanner_warmed = False
+
+    @staticmethod
+    def _goal_cache_key(goal: np.ndarray) -> tuple[int, ...]:
+        arr = np.asarray(goal, dtype=np.float32)
+        return tuple(arr.view(np.uint32).reshape(-1).tolist())
+
+    def _scan_is_deterministic(self) -> bool:
+        mode = str(self.cfg.support_scan_mode)
+        return mode.startswith("deterministic_") or mode in {"sticky_random_v1", "cached_random_v1"}
+
+    def _can_use_numba_support_scan(self) -> bool:
+        return bool(
+            self._numba_support_scan_enabled
+            and self._numba_support_scan_constants is not None
+            and self.cfg.policy_support_mode == "bin"
+            and self.cfg.method in {"b3_support_only", "b3_support_random", "b3_support_shuffled"}
+        )
 
     @torch.no_grad()
     def compute(
@@ -132,32 +186,6 @@ class LiteWeightComputer:
         if self.cfg.method == "b0_ddpg_her":
             return self._constant_batch(b, t0, t0, phase=phase, extra_metrics=extra_metrics)
 
-        if self.cfg.method == "per_full_baseline":
-            return self._per_full_batch(
-                batch=batch,
-                replay=replay,
-                t0=t0,
-                phase=phase,
-                extra_metrics=extra_metrics,
-            )
-
-        if self.cfg.method in {"td_error_baseline", "per_style_baseline"}:
-            if reward_train is None or nonterminal is None or state_np is None or next_state_np is None:
-                raise ValueError("TD/PER baselines require reward_train, nonterminal, state_np, and next_state_np")
-            return self._td_priority_batch(
-                batch=batch,
-                replay=replay,
-                agent=agent,
-                device=device,
-                reward_train=reward_train,
-                nonterminal=nonterminal,
-                state_np=state_np,
-                next_state_np=next_state_np,
-                t0=t0,
-                phase=phase,
-                extra_metrics=extra_metrics,
-            )
-
         state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
         state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
         a_policy = agent.policy_actions(state_t).detach().cpu().numpy().astype(np.float32)
@@ -167,11 +195,85 @@ class LiteWeightComputer:
         t_lookup0 = time.perf_counter()
         if self.cfg.method == "b2_unrestricted_gap":
             query_coarse = np.zeros(b, dtype=np.int64)
+            query_full = np.zeros(b, dtype=np.int64)
             local_lookup: Dict[int, LocalScan] = {}
         else:
-            query_coarse, local_lookup = self._prepare_local_lookup(batch, replay, rng)
+            query_coarse, local_lookup, local_scan_stats = self._prepare_local_lookup(batch, replay, rng)
+            query_full = self.task.full_context_hash_batch(
+                batch.observation,
+                batch.desired_goal_train,
+                batch.h,
+            ).astype(np.int64, copy=False)
         local_lookup_time = time.perf_counter() - t_lookup0
-        local_context_cache: Dict[tuple[int, int], LocalContextResult] = {}
+        if self.cfg.method == "b2_unrestricted_gap":
+            local_scan_stats = {
+                "local_scan_cache_hit": 0,
+                "local_scan_cache_miss": 0,
+                "local_scan_cache_attempt": 0,
+                "replay_index_direct_scan": 0,
+                "replay_index_candidates_materialized": 0,
+                "replay_index_live_count_lookup": 0,
+                "action_bin_metadata_query": 0,
+                "action_bin_unique_compute": 0,
+                "action_bin_metadata_size": 0,
+                "numba_support_queries": 0,
+                "numba_support_fallback": 0,
+                "numba_support_scan_time": 0.0,
+            }
+        local_context_cache: Dict[tuple[Any, ...], LocalContextResult] = {}
+        policy_action_bins = (
+            self.task.action_bin_batch(a_policy, self.cfg.action_bins_per_dim).astype(np.int64, copy=False)
+            if self.cfg.policy_support_mode == "bin"
+            else np.full(b, -1, dtype=np.int64)
+        )
+        if self.cfg.method == "b2_unrestricted_gap":
+            query_count = 0
+            unique_query_count = 0
+        else:
+            query_count = int(b)
+            goal_cache_keys = [self._goal_cache_key(goal) for goal in batch.desired_goal_train]
+            if self._can_use_numba_support_scan():
+                support_keys = [
+                    (
+                        int(query_coarse[j]),
+                        int(query_full[j]),
+                        goal_cache_keys[j],
+                        int(policy_action_bins[j]),
+                        "numba_fetch_push_exact_v1",
+                    )
+                    for j in range(b)
+                ]
+            else:
+                support_keys = [
+                    (int(query_coarse[j]), int(query_full[j]), goal_cache_keys[j])
+                    for j in range(b)
+                ]
+            unique_query_count = len(set(support_keys))
+        lookup_stats = {
+            "query_count": query_count,
+            "unique_query_count": unique_query_count,
+            "batch_cache_hit": 0,
+            "versioned_cache_hit": 0,
+            "versioned_cache_miss": 0,
+            "versioned_cache_attempt": 0,
+            "short_circuit": 0,
+            "full_context_scan": 0,
+            "full_context_filter_count": 0,
+            "local_scan_cache_hit": int(local_scan_stats.get("local_scan_cache_hit", 0)),
+            "local_scan_cache_miss": int(local_scan_stats.get("local_scan_cache_miss", 0)),
+            "local_scan_cache_attempt": int(local_scan_stats.get("local_scan_cache_attempt", 0)),
+            "replay_index_direct_scan": int(local_scan_stats.get("replay_index_direct_scan", 0)),
+            "replay_index_candidates_materialized": int(
+                local_scan_stats.get("replay_index_candidates_materialized", 0)
+            ),
+            "replay_index_live_count_lookup": int(local_scan_stats.get("replay_index_live_count_lookup", 0)),
+            "action_bin_metadata_query": int(local_scan_stats.get("action_bin_metadata_query", 0)),
+            "action_bin_unique_compute": int(local_scan_stats.get("action_bin_unique_compute", 0)),
+            "action_bin_metadata_size": int(local_scan_stats.get("action_bin_metadata_size", 0)),
+            "numba_support_queries": 0,
+            "numba_support_fallback": 0,
+            "numba_support_scan_time": 0.0,
+        }
         candidate_construction_time = 0.0
         q_policy_time = 0.0
         q_candidate_time = 0.0
@@ -204,42 +306,65 @@ class LiteWeightComputer:
                 fallback[i] = 0.0
             else:
                 t_local0 = time.perf_counter()
-                local_indices, local_action_bins, n_coarse, n_scanned, was_truncated = self._local_indices(
+                local_result = self._local_indices(
                     i,
                     batch,
                     replay,
                     query_coarse,
+                    query_full,
                     local_lookup,
                     local_context_cache,
+                    lookup_stats,
+                    a_policy[i],
+                    int(policy_action_bins[i]),
+                    goal_cache_keys[i],
                 )
                 local_lookup_time += time.perf_counter() - t_local0
-                coarse_count[i] = float(n_coarse)
-                scanned_count[i] = float(n_scanned)
-                scan_truncated[i] = float(was_truncated)
-                local_count = int(local_indices.size)
+                coarse_count[i] = float(local_result.num_coarse_candidates)
+                scanned_count[i] = float(local_result.num_scanned_candidates)
+                scan_truncated[i] = float(local_result.local_scan_truncated)
+                if local_result.local_pool_size_direct is not None:
+                    local_count = int(local_result.local_pool_size_direct)
+                else:
+                    local_count = int(local_result.indices.size)
                 len_local[i] = float(local_count)
                 if local_count < self.cfg.N_local_min:
                     continue
-                n_sup = min(local_count, int(self.cfg.M_B))
+                if local_result.available_support_size_direct is not None:
+                    n_sup = int(local_result.available_support_size_direct)
+                else:
+                    n_sup = min(local_count, int(self.cfg.M_B))
                 len_sup[i] = float(n_sup)
-                t_support0 = time.perf_counter()
-                psi_a_policy[i] = self._policy_action_supported_from_indices(
-                    a_policy[i],
-                    replay,
-                    local_indices,
-                    local_action_bins,
-                )
-                candidate_construction_time += time.perf_counter() - t_support0
+                if local_result.psi_a_policy_direct is not None:
+                    psi_a_policy[i] = float(local_result.psi_a_policy_direct)
+                else:
+                    t_support0 = time.perf_counter()
+                    psi_a_policy[i] = self._policy_action_supported_from_indices(
+                        a_policy[i],
+                        replay,
+                        local_result.indices,
+                        local_result.action_bins,
+                        int(policy_action_bins[i]),
+                    )
+                    candidate_construction_time += time.perf_counter() - t_support0
                 if n_sup < self.cfg.M_Q_min or psi_a_policy[i] < 0.5:
                     continue
-                psi_q_rank[i] = 1.0
-                fallback[i] = 0.0
+                psi_q_rank[i] = (
+                    float(local_result.psi_q_rank_direct)
+                    if local_result.psi_q_rank_direct is not None
+                    else 1.0
+                )
+                fallback[i] = (
+                    float(local_result.fallback_direct)
+                    if local_result.fallback_direct is not None
+                    else 0.0
+                )
                 if self.cfg.method in {"b3_support_only", "b3_support_random", "b3_support_shuffled"}:
                     w_raw[i] = 1.0 + self.cfg.lambda_support
                     continue
 
                 t_cand0 = time.perf_counter()
-                candidate_indices = self._candidate_indices(local_indices, rng)
+                candidate_indices = self._candidate_indices(local_result.indices, rng)
                 cand_actions = replay.action_exec[candidate_indices].copy().astype(np.float32)
                 candidate_construction_time += time.perf_counter() - t_cand0
 
@@ -334,6 +459,139 @@ class LiteWeightComputer:
             omega_actor = omega
         weight_computation_time += time.perf_counter() - t_weight0
 
+        extra_metrics_out = dict(extra_metrics)
+        lookup_count = (
+            lookup_stats["versioned_cache_hit"]
+            + lookup_stats["versioned_cache_miss"]
+            + lookup_stats["short_circuit"]
+        )
+        lookup_denom = max(1, int(lookup_count))
+        cache_attempts = lookup_stats["versioned_cache_hit"] + lookup_stats["versioned_cache_miss"]
+        cache_denom = max(1, int(cache_attempts))
+        support_cache_attempt_denom = max(1, int(lookup_stats["query_count"]))
+        local_scan_cache_attempts = (
+            lookup_stats["local_scan_cache_hit"] + lookup_stats["local_scan_cache_miss"]
+        )
+        local_scan_cache_denom = max(1, int(local_scan_cache_attempts))
+        query_denom = max(1, int(lookup_stats["query_count"]))
+        unique_rate = float(lookup_stats["unique_query_count"] / query_denom)
+        coalescing_saving_rate = (
+            max(0.0, 1.0 - unique_rate) if self.cfg.support_batch_query_coalescing else 0.0
+        )
+        exact_short_circuit_rate = float(lookup_stats["short_circuit"] / query_denom)
+        full_context_scan_rate = float(lookup_stats["full_context_scan"] / query_denom)
+        replay_index_lookup_denom = max(1, int(lookup_stats["replay_index_direct_scan"]))
+        action_bin_query_denom = max(1, int(lookup_stats["action_bin_metadata_query"]))
+        numba_query_denom = max(1, int(lookup_stats["numba_support_queries"]))
+        if self.cfg.method != "b0_ddpg_her":
+            extra_metrics_out.update(
+                {
+                    "lite/support_lookup_optimization_enabled": float(self.cfg.support_lookup_optimization),
+                    "lite/support_cache_enabled": float(self.cfg.support_cache_enabled),
+                    "lite/support_short_circuit_enabled": float(self.cfg.support_short_circuit),
+                    "lite/support_batch_query_coalescing_enabled": float(
+                        self.cfg.support_batch_query_coalescing
+                    ),
+                    "lite/support_deterministic_scan_enabled": float(self._scan_is_deterministic()),
+                    "lite/support_scan_mode_is_sticky_random": float(
+                        str(self.cfg.support_scan_mode) == "sticky_random_v1"
+                    ),
+                    "lite/support_scan_seed": float(self.cfg.support_scan_seed),
+                    "lite/support_query_count": float(lookup_stats["query_count"]),
+                    "lite/support_unique_query_count": float(lookup_stats["unique_query_count"]),
+                    "lite/support_batch_cache_hit_count": float(lookup_stats["batch_cache_hit"]),
+                    "lite/support_versioned_cache_hit_count": float(lookup_stats["versioned_cache_hit"]),
+                    "lite/support_versioned_cache_miss_count": float(lookup_stats["versioned_cache_miss"]),
+                    "lite/support_versioned_cache_attempt_count": float(
+                        lookup_stats["versioned_cache_attempt"]
+                    ),
+                    "lite/support_short_circuit_count": float(lookup_stats["short_circuit"]),
+                    "lite/support_full_context_scan_count": float(lookup_stats["full_context_scan"]),
+                    "lite/support_full_context_filter_count": float(lookup_stats["full_context_filter_count"]),
+                    "lite/local_scan_cache_hit_count": float(lookup_stats["local_scan_cache_hit"]),
+                    "lite/local_scan_cache_miss_count": float(lookup_stats["local_scan_cache_miss"]),
+                    "lite/local_scan_cache_attempt_count": float(
+                        lookup_stats["local_scan_cache_attempt"]
+                    ),
+                    "lite/replay_index_direct_scan_count": float(lookup_stats["replay_index_direct_scan"]),
+                    "lite/replay_index_candidates_materialized_count": float(
+                        lookup_stats["replay_index_candidates_materialized"]
+                    ),
+                    "lite/replay_index_live_count_lookup_count": float(
+                        lookup_stats["replay_index_live_count_lookup"]
+                    ),
+                    "lite/action_bin_metadata_query_count": float(
+                        lookup_stats["action_bin_metadata_query"]
+                    ),
+                    "lite/action_bin_unique_compute_count": float(
+                        lookup_stats["action_bin_unique_compute"]
+                    ),
+                    "lite/action_bin_metadata_size": float(lookup_stats["action_bin_metadata_size"]),
+                    "lite/support_versioned_cache_hit_rate": float(
+                        lookup_stats["versioned_cache_hit"] / lookup_denom
+                    ),
+                    "lite/support_short_circuit_rate": float(lookup_stats["short_circuit"] / lookup_denom),
+                    "runtime/exact_negative_short_circuit_rate": exact_short_circuit_rate,
+                    "runtime/full_context_scan_rate": full_context_scan_rate,
+                    "runtime/support_cache_hit_rate": float(
+                        lookup_stats["versioned_cache_hit"] / cache_denom
+                    ),
+                    "runtime/support_cache_miss_rate": float(
+                        lookup_stats["versioned_cache_miss"] / cache_denom
+                    ),
+                    "runtime/support_cache_attempt_rate": float(
+                        lookup_stats["versioned_cache_attempt"] / support_cache_attempt_denom
+                    ),
+                    "runtime/support_context_cache_size": float(len(self._support_context_cache)),
+                    "runtime/batch_query_unique_rate": unique_rate,
+                    "runtime/batch_query_coalescing_saving_rate": coalescing_saving_rate,
+                    "runtime/local_scan_cache_hit_rate": float(
+                        lookup_stats["local_scan_cache_hit"] / local_scan_cache_denom
+                    ),
+                    "runtime/local_scan_cache_miss_rate": float(
+                        lookup_stats["local_scan_cache_miss"] / local_scan_cache_denom
+                    ),
+                    "runtime/local_scan_cache_attempt_rate": float(
+                        lookup_stats["local_scan_cache_attempt"] / max(1, int(lookup_stats["unique_query_count"]))
+                    ),
+                    "runtime/local_scan_cache_size": float(len(self._local_scan_cache)),
+                    "runtime/full_context_filter_count_mean": float(
+                        lookup_stats["full_context_filter_count"] / max(1, int(lookup_stats["full_context_scan"]))
+                    ),
+                    "runtime/replay_index_direct_scan_count": float(
+                        lookup_stats["replay_index_direct_scan"]
+                    ),
+                    "runtime/replay_index_candidates_materialized_count": float(
+                        lookup_stats["replay_index_candidates_materialized"]
+                    ),
+                    "runtime/replay_index_candidates_materialized_rate": float(
+                        lookup_stats["replay_index_candidates_materialized"] / replay_index_lookup_denom
+                    ),
+                    "runtime/replay_index_live_count_lookup_rate": float(
+                        lookup_stats["replay_index_live_count_lookup"] / replay_index_lookup_denom
+                    ),
+                    "runtime/action_bin_metadata_query_count": float(
+                        lookup_stats["action_bin_metadata_query"]
+                    ),
+                    "runtime/action_bin_unique_compute_count": float(
+                        lookup_stats["action_bin_unique_compute"]
+                    ),
+                    "runtime/action_bin_unique_compute_rate": float(
+                        lookup_stats["action_bin_unique_compute"] / action_bin_query_denom
+                    ),
+                    "runtime/action_bin_metadata_size": float(
+                        lookup_stats["action_bin_metadata_size"]
+                    ),
+                    "runtime/numba_support_scan_enabled": float(self._can_use_numba_support_scan()),
+                    "runtime/numba_support_scan_fallback_rate": float(
+                        lookup_stats["numba_support_fallback"] / numba_query_denom
+                    ),
+                    "runtime/numba_support_queries": float(lookup_stats["numba_support_queries"]),
+                    "runtime/numba_scanner_warmed": float(self._numba_scanner_warmed),
+                    "time/numba_support_scan": float(lookup_stats["numba_support_scan_time"]),
+                }
+            )
+
         return WeightBatch(
             omega_critic=omega_critic.astype(np.float32),
             omega_actor=omega_actor.astype(np.float32),
@@ -364,11 +622,12 @@ class LiteWeightComputer:
                 "q_candidate_eval": q_candidate_time,
                 "weight_compute": weight_computation_time,
                 "weight_computation": weight_computation_time,
+                "numba_support_scan": float(lookup_stats["numba_support_scan_time"]),
             },
             gap_ready=ready,
             gap_tau=tau_g,
             gap_max=g_max,
-            extra_metrics=extra_metrics,
+            extra_metrics=extra_metrics_out,
         )
 
     def _task_batch_diagnostics(self, batch: SampleBatch, b: int) -> tuple[np.ndarray, Dict[str, float]]:
@@ -424,6 +683,7 @@ class LiteWeightComputer:
                 "q_candidate_eval": 0.0,
                 "weight_compute": 0.0,
                 "weight_computation": 0.0,
+                "numba_support_scan": 0.0,
             },
             gap_ready=False,
             gap_tau=0.0,
@@ -431,228 +691,84 @@ class LiteWeightComputer:
             extra_metrics={} if extra_metrics is None else extra_metrics,
         )
 
-    def _per_full_batch(
-        self,
-        batch: SampleBatch,
-        replay: HERReplayBuffer,
-        t0: float,
-        phase: np.ndarray,
-        extra_metrics: Dict[str, float],
-    ) -> WeightBatch:
-        t_weight0 = time.perf_counter()
-        b = int(batch.observation.shape[0])
-        is_weight = np.asarray(getattr(batch, "is_weight", np.ones(b, dtype=np.float32)), dtype=np.float32)
-        if is_weight.shape[0] != b:
-            raise ValueError(f"PER-Full IS weight shape mismatch: {is_weight.shape[0]} != {b}")
-        w_raw = np.clip(is_weight, 0.0, float(self.cfg.U_PER_max)).astype(np.float32)
-        if self.cfg.weighting_mode == "raw":
-            omega = w_raw.astype(np.float32)
-        else:
-            omega = (w_raw / max(self.cfg.eps, float(np.mean(w_raw)))).astype(np.float32)
-
-        priority = np.asarray(
-            getattr(batch, "sampling_priority", np.ones(b, dtype=np.float32)),
-            dtype=np.float32,
-        )
-        sample_prob = np.asarray(
-            getattr(batch, "sampling_prob", np.full(b, 1.0 / max(1, replay.size), dtype=np.float32)),
-            dtype=np.float32,
-        )
-        zeros = np.zeros(b, dtype=np.float32)
-        sample_age = ((int(replay.ptr) - batch.indices.astype(np.int64)) % max(1, int(replay.capacity))).astype(np.float32)
-        duplicate_rate = 1.0 - float(np.unique(batch.indices).size / max(1, b))
-        priority_ess = _effective_sample_size_np(priority)
-        metrics = {
-            **extra_metrics,
-            "td_error/abs_mean": 0.0,
-            "td_error/abs_p90": 0.0,
-            "td_error/weight_mean": float(np.mean(w_raw)) if w_raw.size else 0.0,
-            "td_error/weight_max": float(np.max(w_raw)) if w_raw.size else 0.0,
-            "td_error/weight_entropy": _entropy_np(w_raw, self.cfg.eps),
-            "td_error/weight_ESS": _effective_sample_size_np(w_raw),
-            "per/beta": float(getattr(batch, "per_beta", 0.0)),
-            "per/sampling_prob_mean": float(np.mean(sample_prob)) if sample_prob.size else 0.0,
-            "per/sampling_prob_max": float(np.max(sample_prob)) if sample_prob.size else 0.0,
-            "per/priority_entropy": _entropy_np(priority, self.cfg.eps),
-            "per/priority_ESS": priority_ess,
-            "per/IS_weight_mean": float(np.mean(w_raw)) if w_raw.size else 0.0,
-            "per/IS_weight_max": float(np.max(w_raw)) if w_raw.size else 0.0,
-            "per/replay_sample_age_mean": float(np.mean(sample_age)) if sample_age.size else 0.0,
-            "per/replay_sample_age_p90": float(np.percentile(sample_age, 90)) if sample_age.size else 0.0,
-            "per/sample_duplicate_rate": duplicate_rate,
-        }
-        weight_time = time.perf_counter() - t_weight0
-        return WeightBatch(
-            omega_critic=omega.astype(np.float32),
-            omega_actor=np.ones(b, dtype=np.float32),
-            w_p_raw=w_raw,
-            w_p_reference=w_raw.astype(np.float32, copy=True),
-            assigned_high_weight=(w_raw > (1.0 + self.cfg.eps)).astype(np.float32),
-            reference_high_weight=(w_raw > (1.0 + self.cfg.eps)).astype(np.float32),
-            support_weight_overlap=zeros.copy(),
-            g_sup=zeros.copy(),
-            kappa=zeros.copy(),
-            psi_q_rank=zeros.copy(),
-            q_candidate_fallback=zeros.copy(),
-            psi_a_policy=zeros.copy(),
-            len_a_q_sup=zeros.copy(),
-            len_a_q_local=zeros.copy(),
-            num_coarse_candidates=zeros.copy(),
-            num_scanned_candidates=zeros.copy(),
-            local_scan_truncated=zeros.copy(),
-            q_imp_minus_q_policy=zeros.copy(),
-            unrestricted_gap=zeros.copy(),
-            phase=phase.astype(np.int64, copy=False),
-            timing={
-                "actor": 0.0,
-                "local_context_lookup": 0.0,
-                "candidate_construction": 0.0,
-                "local_context": 0.0,
-                "q_policy_eval": 0.0,
-                "q_candidate_eval": 0.0,
-                "weight_compute": weight_time,
-                "weight_computation": weight_time,
-            },
-            gap_ready=False,
-            gap_tau=0.0,
-            gap_max=0.0,
-            extra_metrics=metrics,
-        )
-
-    @torch.no_grad()
-    def _td_priority_batch(
-        self,
-        batch: SampleBatch,
-        replay: HERReplayBuffer,
-        agent: DDPGAgent,
-        device: torch.device,
-        reward_train: np.ndarray,
-        nonterminal: np.ndarray,
-        state_np: np.ndarray,
-        next_state_np: np.ndarray,
-        t0: float,
-        phase: np.ndarray,
-        extra_metrics: Dict[str, float],
-    ) -> WeightBatch:
-        b = int(batch.observation.shape[0])
-        t_td0 = time.perf_counter()
-        state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
-        next_state_t = torch.as_tensor(next_state_np, dtype=torch.float32, device=device)
-        action_t = torch.as_tensor(batch.action_exec, dtype=torch.float32, device=device)
-        reward_t = torch.as_tensor(reward_train, dtype=torch.float32, device=device)
-        nonterminal_t = torch.as_tensor(nonterminal, dtype=torch.float32, device=device)
-
-        if hasattr(agent, "target_q_values"):
-            target_q = agent.target_q_values(next_state_t)
-        else:
-            next_action = agent.actor_target(next_state_t)
-            target_q = agent.critic_target(next_state_t, next_action)
-        target = reward_t + agent.gamma * nonterminal_t * target_q
-        q = agent.q_values(state_t, action_t)
-        td_abs = torch.abs(q - target).detach().cpu().numpy().astype(np.float32)
-
-        if self.cfg.method == "td_error_baseline":
-            td_norm = td_abs / max(self.cfg.eps, float(np.mean(td_abs)))
-            u = np.clip(td_norm, 0.0, float(self.cfg.U_TD_max)).astype(np.float32)
-            w_raw = (1.0 + float(self.cfg.lambda_TD) * u).astype(np.float32)
-            priority = td_abs.astype(np.float32, copy=True)
-        elif self.cfg.method == "per_style_baseline":
-            priority = np.power(td_abs + float(self.cfg.eps_PER), float(self.cfg.per_alpha)).astype(np.float32)
-            p_norm = priority / max(self.cfg.eps, float(np.mean(priority)))
-            w_raw = np.clip(p_norm, 0.0, float(self.cfg.U_PER_max)).astype(np.float32)
-        else:
-            raise ValueError(f"Unsupported TD priority method={self.cfg.method!r}")
-
-        if self.cfg.weighting_mode == "raw":
-            omega = w_raw.astype(np.float32)
-        else:
-            omega = (w_raw / max(self.cfg.eps, float(np.mean(w_raw)))).astype(np.float32)
-
-        omega_critic = omega.astype(np.float32)
-        omega_actor = np.ones(b, dtype=np.float32)
-        zeros = np.zeros(b, dtype=np.float32)
-        assigned_high = (w_raw > (1.0 + self.cfg.eps)).astype(np.float32)
-        sample_age = ((int(replay.ptr) - batch.indices.astype(np.int64)) % max(1, int(replay.capacity))).astype(np.float32)
-        duplicate_rate = 1.0 - float(np.unique(batch.indices).size / max(1, b))
-        td_weight_ess = _effective_sample_size_np(w_raw)
-        priority_ess = _effective_sample_size_np(priority)
-        metrics = {
-            **extra_metrics,
-            "td_error/abs_mean": float(np.mean(td_abs)) if td_abs.size else 0.0,
-            "td_error/abs_p90": float(np.percentile(td_abs, 90)) if td_abs.size else 0.0,
-            "td_error/weight_mean": float(np.mean(w_raw)) if w_raw.size else 0.0,
-            "td_error/weight_max": float(np.max(w_raw)) if w_raw.size else 0.0,
-            "td_error/weight_entropy": _entropy_np(w_raw, self.cfg.eps),
-            "td_error/weight_ESS": td_weight_ess,
-            "per/priority_entropy": _entropy_np(priority, self.cfg.eps),
-            "per/priority_ESS": priority_ess,
-            "per/IS_weight_mean": float(np.mean(w_raw)) if w_raw.size else 0.0,
-            "per/IS_weight_max": float(np.max(w_raw)) if w_raw.size else 0.0,
-            "per/replay_sample_age_mean": float(np.mean(sample_age)) if sample_age.size else 0.0,
-            "per/replay_sample_age_p90": float(np.percentile(sample_age, 90)) if sample_age.size else 0.0,
-            "per/sample_duplicate_rate": duplicate_rate,
-        }
-        weight_time = time.perf_counter() - t_td0
-        return WeightBatch(
-            omega_critic=omega_critic,
-            omega_actor=omega_actor,
-            w_p_raw=w_raw,
-            w_p_reference=w_raw.astype(np.float32, copy=True),
-            assigned_high_weight=assigned_high,
-            reference_high_weight=assigned_high.astype(np.float32, copy=True),
-            support_weight_overlap=zeros.copy(),
-            g_sup=zeros.copy(),
-            kappa=zeros.copy(),
-            psi_q_rank=zeros.copy(),
-            q_candidate_fallback=zeros.copy(),
-            psi_a_policy=zeros.copy(),
-            len_a_q_sup=zeros.copy(),
-            len_a_q_local=zeros.copy(),
-            num_coarse_candidates=zeros.copy(),
-            num_scanned_candidates=zeros.copy(),
-            local_scan_truncated=zeros.copy(),
-            q_imp_minus_q_policy=zeros.copy(),
-            unrestricted_gap=zeros.copy(),
-            phase=phase.astype(np.int64, copy=False),
-            timing={
-                "actor": 0.0,
-                "local_context_lookup": 0.0,
-                "candidate_construction": 0.0,
-                "local_context": 0.0,
-                "q_policy_eval": 0.0,
-                "q_candidate_eval": 0.0,
-                "weight_compute": weight_time,
-                "weight_computation": weight_time,
-            },
-            gap_ready=False,
-            gap_tau=0.0,
-            gap_max=0.0,
-            extra_metrics=metrics,
-        )
-
     def _prepare_local_lookup(
         self,
         batch: SampleBatch,
         replay: HERReplayBuffer,
         rng: np.random.Generator,
-    ) -> tuple[np.ndarray, Dict[int, LocalScan]]:
+    ) -> tuple[np.ndarray, Dict[int, LocalScan], Dict[str, int]]:
         query_coarse = self.task.coarse_hash_batch(batch.observation, batch.h)
+        stats = {
+            "local_scan_cache_hit": 0,
+            "local_scan_cache_miss": 0,
+            "local_scan_cache_attempt": 0,
+            "replay_index_direct_scan": 0,
+            "replay_index_candidates_materialized": 0,
+            "replay_index_live_count_lookup": 0,
+            "action_bin_metadata_query": 0,
+            "action_bin_unique_compute": 0,
+            "action_bin_metadata_size": 0,
+        }
         if replay.size == 0:
-            return query_coarse, {}
+            return query_coarse, {}, stats
 
         lookup: Dict[int, LocalScan] = {}
+        scan_is_deterministic = self._scan_is_deterministic()
+        use_scan_cache = (
+            self.cfg.support_local_scan_cache_enabled
+            and self.cfg.support_local_scan_cache_max_entries > 0
+            and scan_is_deterministic
+        )
         for key in np.unique(query_coarse):
+            key_i = int(key)
+            bucket_version = replay.action_index.version(key_i)
+            scan_cache_key = (
+                key_i,
+                int(bucket_version),
+                int(self.cfg.local_search_max),
+                int(self.cfg.action_bins_per_dim),
+                str(self.cfg.policy_support_mode),
+                str(self.cfg.support_scan_mode),
+                int(self.cfg.support_scan_seed),
+            )
+            if use_scan_cache:
+                stats["local_scan_cache_attempt"] += 1
+                cached = self._local_scan_cache.get(scan_cache_key)
+                if cached is not None:
+                    stats["local_scan_cache_hit"] += 1
+                    lookup[key_i] = cached
+                    continue
+                stats["local_scan_cache_miss"] += 1
             scanned, n_candidates, truncated = replay.indexed_reference_indices(
-                coarse_key=int(key),
+                coarse_key=key_i,
                 max_n=self.cfg.local_search_max,
                 rng=rng,
+                deterministic=scan_is_deterministic,
+                scan_mode=str(self.cfg.support_scan_mode),
+                scan_seed=int(self.cfg.support_scan_seed),
             )
-            lookup[int(key)] = LocalScan(
+            stats["replay_index_direct_scan"] += 1
+            stats["replay_index_live_count_lookup"] += 1
+            if self.cfg.support_short_circuit and self.cfg.policy_support_mode == "bin":
+                action_bins = replay.action_index.action_bins(key_i)
+                stats["action_bin_metadata_query"] += 1
+                stats["action_bin_metadata_size"] += int(action_bins.size)
+            else:
+                action_bins = np.zeros((0,), dtype=np.int64)
+            scan = LocalScan(
                 indices=scanned,
+                action_bins=action_bins,
+                bucket_version=bucket_version,
                 num_coarse_candidates=n_candidates,
                 local_scan_truncated=bool(truncated),
             )
-        return query_coarse, lookup
+            lookup[key_i] = scan
+            if use_scan_cache:
+                if len(self._local_scan_cache) >= self.cfg.support_local_scan_cache_max_entries:
+                    self._local_scan_cache.clear()
+                    self._support_context_cache.clear()
+                self._local_scan_cache[scan_cache_key] = scan
+        return query_coarse, lookup, stats
 
     def _local_indices(
         self,
@@ -660,42 +776,162 @@ class LiteWeightComputer:
         batch: SampleBatch,
         replay: HERReplayBuffer,
         query_coarse: np.ndarray,
+        query_full: np.ndarray,
         local_lookup: Dict[int, LocalScan],
-        local_context_cache: Dict[tuple[int, int], LocalContextResult],
-    ) -> tuple[np.ndarray, np.ndarray, int, int, bool]:
+        local_context_cache: Dict[tuple[Any, ...], LocalContextResult],
+        lookup_stats: Dict[str, int],
+        action_policy: np.ndarray,
+        policy_action_bin: int,
+        goal_key: tuple[int, ...],
+    ) -> LocalContextResult:
         coarse_key = int(query_coarse[i])
         goal = batch.desired_goal_train[i]
-        full_key = self.task.full_context_hash(batch.observation[i], goal, int(batch.h[i]))
-        cache_key = (coarse_key, full_key)
-        cached = local_context_cache.get(cache_key)
-        if cached is not None:
-            return (
-                cached.indices,
-                cached.action_bins,
-                cached.num_coarse_candidates,
-                cached.num_scanned_candidates,
-                cached.local_scan_truncated,
-            )
+        full_key = int(query_full[i])
+        use_numba_scan = self._can_use_numba_support_scan()
+        scanner_tag = "numba_fetch_push_exact_v1"
+        cache_key = (
+            (coarse_key, full_key, goal_key, int(policy_action_bin), scanner_tag)
+            if use_numba_scan
+            else (coarse_key, full_key, goal_key)
+        )
+        if self.cfg.support_batch_query_coalescing:
+            cached = local_context_cache.get(cache_key)
+            if cached is not None:
+                lookup_stats["batch_cache_hit"] += 1
+                return cached
 
         scan = local_lookup.get(coarse_key)
         if scan is None or scan.indices.size == 0:
-            local_context_cache[cache_key] = LocalContextResult(
+            empty_result = LocalContextResult(
                 indices=np.zeros((0,), dtype=np.int64),
                 action_bins=np.zeros((0,), dtype=np.int64),
                 num_coarse_candidates=0,
                 num_scanned_candidates=0,
                 local_scan_truncated=False,
             )
-            return (
-                np.zeros((0,), dtype=np.int64),
-                np.zeros((0,), dtype=np.int64),
-                0,
-                0,
-                False,
+            if self.cfg.support_batch_query_coalescing:
+                local_context_cache[cache_key] = empty_result
+            return empty_result
+        if (
+            self.cfg.support_short_circuit
+            and self.cfg.policy_support_mode == "bin"
+            and scan.action_bins.size > 0
+        ):
+            p_bin = int(policy_action_bin)
+            if not bool(np.any(scan.action_bins == p_bin)):
+                lookup_stats["short_circuit"] += 1
+                empty = np.zeros((0,), dtype=np.int64)
+                return LocalContextResult(
+                    indices=empty,
+                    action_bins=empty,
+                    num_coarse_candidates=scan.num_coarse_candidates,
+                    num_scanned_candidates=int(scan.indices.size),
+                    local_scan_truncated=scan.local_scan_truncated,
+                )
+
+        scan_cacheable = self._scan_is_deterministic() or not scan.local_scan_truncated
+        can_persist = (
+            self.cfg.support_cache_enabled
+            and self.cfg.support_cache_max_entries > 0
+            and scan_cacheable
+        )
+        persistent_key = (
+            (
+                coarse_key,
+                full_key,
+                goal_key,
+                int(policy_action_bin),
+                int(scan.bucket_version),
+                int(self.cfg.local_search_max),
+                int(self.cfg.action_bins_per_dim),
+                str(self.cfg.policy_support_mode),
+                str(self.cfg.support_scan_mode),
+                int(self.cfg.support_scan_seed),
+                scanner_tag,
             )
+            if use_numba_scan
+            else (
+                coarse_key,
+                full_key,
+                goal_key,
+                int(scan.bucket_version),
+                int(self.cfg.local_search_max),
+                int(self.cfg.action_bins_per_dim),
+                str(self.cfg.policy_support_mode),
+                str(self.cfg.support_scan_mode),
+                int(self.cfg.support_scan_seed),
+            )
+        )
+        if can_persist:
+            lookup_stats["versioned_cache_attempt"] += 1
+            persistent = self._support_context_cache.get(persistent_key)
+            if persistent is not None:
+                lookup_stats["versioned_cache_hit"] += 1
+                if self.cfg.support_batch_query_coalescing:
+                    local_context_cache[cache_key] = persistent
+                return persistent
+            lookup_stats["versioned_cache_miss"] += 1
+
+        if use_numba_scan:
+            constants = self._numba_support_scan_constants
+            if constants is not None:
+                lookup_stats["numba_support_queries"] += 1
+                t_numba0 = time.perf_counter()
+                try:
+                    (
+                        local_pool_size,
+                        available_support_size,
+                        psi_a_policy_value,
+                        support_positive,
+                        fallback_value,
+                    ) = scan_fetch_push_support_exact_with_constants(
+                        replay_obs=replay.observation,
+                        replay_h=replay.h,
+                        replay_action_bin=replay.action_bin,
+                        replay_action_exec=replay.action_exec,
+                        scanned_indices=scan.indices,
+                        query_goal=goal,
+                        query_full_key=full_key,
+                        query_policy_bin=int(policy_action_bin),
+                        constants=constants,
+                        n_local_min=int(self.cfg.N_local_min),
+                        m_q_min=int(self.cfg.M_Q_min),
+                        m_b=int(self.cfg.M_B),
+                        action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                    )
+                except Exception:
+                    lookup_stats["numba_support_fallback"] += 1
+                    self._numba_support_scan_enabled = False
+                    self._numba_support_scan_constants = None
+                else:
+                    lookup_stats["numba_support_scan_time"] += time.perf_counter() - t_numba0
+                    lookup_stats["full_context_scan"] += 1
+                    lookup_stats["full_context_filter_count"] += int(scan.indices.size)
+                    result = LocalContextResult(
+                        indices=np.zeros((0,), dtype=np.int64),
+                        action_bins=np.zeros((0,), dtype=np.int64),
+                        num_coarse_candidates=scan.num_coarse_candidates,
+                        num_scanned_candidates=int(scan.indices.size),
+                        local_scan_truncated=scan.local_scan_truncated,
+                        local_pool_size_direct=int(local_pool_size),
+                        available_support_size_direct=int(available_support_size),
+                        psi_a_policy_direct=float(psi_a_policy_value),
+                        psi_q_rank_direct=float(support_positive),
+                        fallback_direct=float(fallback_value),
+                    )
+                    if self.cfg.support_batch_query_coalescing:
+                        local_context_cache[cache_key] = result
+                    if can_persist:
+                        if len(self._support_context_cache) >= self.cfg.support_cache_max_entries:
+                            self._support_context_cache.clear()
+                        self._support_context_cache[persistent_key] = result
+                    return result
+
         ref_obs = replay.observation[scan.indices]
         ref_goal = np.repeat(goal[None, :], scan.indices.size, axis=0)
         ref_h = replay.h[scan.indices]
+        lookup_stats["full_context_scan"] += 1
+        lookup_stats["full_context_filter_count"] += int(scan.indices.size)
         ref_hash = self.task.full_context_hash_batch(ref_obs, ref_goal, ref_h)
         local_idx = scan.indices[ref_hash == full_key]
         local_bins = (
@@ -703,28 +939,20 @@ class LiteWeightComputer:
             if local_idx.size > 0
             else np.zeros((0,), dtype=np.int64)
         )
-        local_context_cache[cache_key] = LocalContextResult(
+        result = LocalContextResult(
             indices=local_idx.astype(np.int64, copy=True),
             action_bins=local_bins.astype(np.int64, copy=False),
             num_coarse_candidates=scan.num_coarse_candidates,
             num_scanned_candidates=int(scan.indices.size),
             local_scan_truncated=scan.local_scan_truncated,
         )
-        if local_idx.size == 0:
-            return (
-                np.zeros((0,), dtype=np.int64),
-                np.zeros((0,), dtype=np.int64),
-                scan.num_coarse_candidates,
-                int(scan.indices.size),
-                scan.local_scan_truncated,
-            )
-        return (
-            local_idx.astype(np.int64, copy=False),
-            local_bins,
-            scan.num_coarse_candidates,
-            int(scan.indices.size),
-            scan.local_scan_truncated,
-        )
+        if self.cfg.support_batch_query_coalescing:
+            local_context_cache[cache_key] = result
+        if can_persist:
+            if len(self._support_context_cache) >= self.cfg.support_cache_max_entries:
+                self._support_context_cache.clear()
+            self._support_context_cache[persistent_key] = result
+        return result
 
     def _candidate_indices(self, local_indices: np.ndarray, rng: np.random.Generator) -> np.ndarray:
         if local_indices.size <= self.cfg.M_B:
@@ -767,6 +995,7 @@ class LiteWeightComputer:
         replay: HERReplayBuffer,
         local_indices: np.ndarray,
         local_action_bins: np.ndarray,
+        policy_action_bin: int,
     ) -> float:
         if local_indices.size == 0:
             return 0.0
@@ -774,7 +1003,7 @@ class LiteWeightComputer:
             local_actions = replay.action_exec[local_indices]
             return self._policy_action_supported(action_policy, local_actions, local_action_bins)
 
-        p_bin = int(self.task.action_bin_batch(action_policy[None, :], self.cfg.action_bins_per_dim)[0])
+        p_bin = int(policy_action_bin)
         if local_action_bins.shape[0] == local_indices.size and np.all(local_action_bins >= 0):
             local_bins = local_action_bins
         else:
