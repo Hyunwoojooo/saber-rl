@@ -50,7 +50,7 @@ uses the replacement rerun result supplied on 2026-06-07 for
 | Method | Final success | Best success | Success AUC | Final-window success | Hit90 step | Speed | Runtime |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | DDPG+HER B0 | 0.990 +/- 0.020 | 1.000 +/- 0.000 | 0.727 +/- 0.030 | 0.974 +/- 0.016 | 356k +/- 23k | 47.85 steps/s | 5.81 h |
-| DDPG+HER+B3-Critic-Only opt256 | 0.990 +/- 0.022 | 1.000 +/- 0.000 | 0.748 +/- 0.038 | 0.984 +/- 0.015 | 344k +/- 50k | 32.04 steps/s | 8.67 h |
+| DDPG+HER+B3-Critic-Only | 0.990 +/- 0.022 | 1.000 +/- 0.000 | 0.748 +/- 0.038 | 0.984 +/- 0.015 | 344k +/- 50k | 32.04 steps/s | 8.67 h |
 | DDPG+HER+PER-Style | 0.990 +/- 0.020 | 1.000 +/- 0.000 | 0.738 +/- 0.034 | 0.973 +/- 0.016 | 346k +/- 38k | 40.52 steps/s | 6.86 h |
 
 Metric notes:
