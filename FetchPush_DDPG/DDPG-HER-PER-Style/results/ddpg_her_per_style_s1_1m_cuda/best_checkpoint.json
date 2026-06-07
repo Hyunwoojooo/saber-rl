@@ -1,0 +1,8 @@
+{
+  "checkpoint": "/home/mimiclab_asus/SABER/FetchPush_DDPG/DDPG-HER-PER-Style/results/ddpg_her_per_style_s1_1m_cuda/best_checkpoint.pt",
+  "eval_env_success_mean": 1.0,
+  "eval_goal_success_mean": 1.0,
+  "eval_return_mean": -8.6,
+  "eval_success_mean": 1.0,
+  "step": 930000
+}

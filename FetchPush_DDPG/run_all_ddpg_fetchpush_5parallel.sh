@@ -81,7 +81,7 @@ log "DDPG implementation: single critic + deterministic actor + HER"
 
 launch_variant DDPG-HER-B0 DDPG-HER-B0 ddpg_her_b0 b0_ddpg_her
 
-launch_variant DDPG-HER-B3-Critic-Only-FPP-Style DDPG-HER-B3-Critic-Only-FPP-Style ddpg_her_b3_critic_only_fppstyle b3_support_only   --M_B 16   --M_Q_min 4   --N_local_min 4   --N_gap_min 128   --lambda_support 1.0   --weighting_mode batch_norm   --weight_scope critic_only   --local_search_max 256   --policy_support_mode bin
+launch_variant DDPG-HER-B3-Critic-Only-FPP-Style DDPG-HER-B3-Critic-Only-FPP-Style ddpg_her_b3_critic_only_fppstyle b3_support_only   --M_B 16   --M_Q_min 4   --N_local_min 4   --N_gap_min 128   --lambda_support 1.0   --weighting_mode batch_norm   --weight_scope critic_only   --local_search_max 256   --policy_support_mode bin   --support_lookup_optimization   --support_scan_mode sticky_random_v1   --support_scan_seed 512   --support_cache_max_entries 500000   --support_local_scan_cache_max_entries 200000   --support_numba_scan_enabled   --no_support_batch_query_coalescing
 
 launch_variant DDPG-HER-PER-Style DDPG-HER-PER-Style ddpg_her_per_style per_style_baseline   --weighting_mode batch_norm   --weight_scope critic_only   --per_alpha 0.6   --eps_PER 1e-6   --U_PER_max 2.0
 

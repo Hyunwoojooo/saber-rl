@@ -1,0 +1,85 @@
+{
+  "eval_env": {
+    "action_dim": 4,
+    "action_high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "action_low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "distance_threshold": 0.05,
+    "entry_point": "gymnasium_robotics.envs.fetch.push:MujocoFetchPushEnv",
+    "env_id": "FetchPush-v4",
+    "goal_dim": 3,
+    "max_episode_steps": 50,
+    "obs_dim": 25,
+    "render_mode": null,
+    "spec_kwargs": {
+      "reward_type": "sparse"
+    },
+    "state_dim": 28
+  },
+  "task_spec": {
+    "coarse_index_key": "ee-object distance bin, horizon bin",
+    "d_contact": 0.08,
+    "d_goal_near": 0.05,
+    "ee_obj_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "epsilon_g": 0.05,
+    "full_context_key": "phase, ee-object distance bin, object-goal distance bin, horizon bin",
+    "horizon_bins": [
+      10,
+      25,
+      50,
+      100
+    ],
+    "obj_goal_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "phase_labels": {
+      "0": "approach",
+      "1": "push",
+      "2": "near_goal"
+    },
+    "task": "FetchPush"
+  },
+  "train_env": {
+    "action_dim": 4,
+    "action_high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "action_low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "distance_threshold": 0.05,
+    "entry_point": "gymnasium_robotics.envs.fetch.push:MujocoFetchPushEnv",
+    "env_id": "FetchPush-v4",
+    "goal_dim": 3,
+    "max_episode_steps": 50,
+    "obs_dim": 25,
+    "render_mode": null,
+    "spec_kwargs": {
+      "reward_type": "sparse"
+    },
+    "state_dim": 28
+  }
+}

@@ -70,6 +70,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--action_bins_per_dim", type=int, default=5)
     parser.add_argument("--policy_support_mode", type=str, default="bin", choices=["bin", "radius"])
     parser.add_argument("--policy_action_radius", type=float, default=0.35)
+    parser.add_argument("--support_lookup_optimization", action="store_true")
+    parser.add_argument("--support_cache_enabled", action="store_true")
+    parser.add_argument("--support_short_circuit", action="store_true")
+    parser.add_argument("--support_batch_query_coalescing", action="store_true")
+    parser.add_argument("--no_support_short_circuit", action="store_true")
+    parser.add_argument("--no_support_batch_query_coalescing", action="store_true")
+    parser.add_argument("--support_deterministic_scan", action="store_true")
+    parser.add_argument("--support_scan_mode", type=str, default="random", choices=["random", "deterministic_tail_v1", "deterministic_back_v1", "deterministic_even_v1", "sticky_random_v1", "deterministic_random_v1", "deterministic_random_by_version_v1", "cached_random_v1"])
+    parser.add_argument("--support_scan_seed", type=int, default=0)
+    parser.add_argument("--support_local_scan_cache_enabled", action="store_true")
+    parser.add_argument("--support_cache_max_entries", type=int, default=500000)
+    parser.add_argument("--support_local_scan_cache_max_entries", type=int, default=200000)
+    parser.add_argument("--support_numba_scan_enabled", "--support_numba_scan_enable", action="store_true", dest="support_numba_scan_enabled")
+    parser.add_argument("--no_support_numba_scan_warmup", action="store_false", dest="support_numba_scan_warmup")
+    parser.set_defaults(support_numba_scan_warmup=True)
 
     parser.add_argument("--d_contact", type=float, default=0.08)
     parser.add_argument("--d_goal_near", type=float, default=0.05)
@@ -143,6 +158,20 @@ def main() -> int:
         action_bins_per_dim=args.action_bins_per_dim,
         policy_support_mode=args.policy_support_mode,
         policy_action_radius=args.policy_action_radius,
+        support_lookup_optimization=args.support_lookup_optimization,
+        support_cache_enabled=args.support_cache_enabled,
+        support_short_circuit=args.support_short_circuit,
+        support_batch_query_coalescing=args.support_batch_query_coalescing,
+        disable_support_short_circuit=args.no_support_short_circuit,
+        disable_support_batch_query_coalescing=args.no_support_batch_query_coalescing,
+        support_deterministic_scan=args.support_deterministic_scan,
+        support_scan_mode=args.support_scan_mode,
+        support_scan_seed=args.support_scan_seed,
+        support_local_scan_cache_enabled=args.support_local_scan_cache_enabled,
+        support_cache_max_entries=args.support_cache_max_entries,
+        support_local_scan_cache_max_entries=args.support_local_scan_cache_max_entries,
+        support_numba_scan_enabled=args.support_numba_scan_enabled,
+        support_numba_scan_warmup=args.support_numba_scan_warmup,
         d_contact=args.d_contact,
         d_goal_near=args.d_goal_near,
         N_gap_min=args.N_gap_min,

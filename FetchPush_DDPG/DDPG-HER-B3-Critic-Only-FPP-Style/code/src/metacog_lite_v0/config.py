@@ -115,6 +115,20 @@ class LiteConfig:
     action_bins_per_dim: int = 5
     policy_support_mode: str = "bin"
     policy_action_radius: float = 0.35
+    support_lookup_optimization: bool = False
+    support_cache_enabled: bool = False
+    support_short_circuit: bool = False
+    support_batch_query_coalescing: bool = False
+    disable_support_short_circuit: bool = False
+    disable_support_batch_query_coalescing: bool = False
+    support_deterministic_scan: bool = False
+    support_scan_mode: str = "random"
+    support_scan_seed: int = 0
+    support_local_scan_cache_enabled: bool = False
+    support_cache_max_entries: int = 500_000
+    support_local_scan_cache_max_entries: int = 200_000
+    support_numba_scan_enabled: bool = False
+    support_numba_scan_warmup: bool = True
 
     # FetchPush bucket.
     d_contact: float = 0.08
@@ -217,6 +231,19 @@ class LiteConfig:
         self.policy_support_mode = self.policy_support_mode.lower()
         if self.policy_support_mode not in {"bin", "radius", "auto"}:
             raise ValueError("policy_support_mode must be bin|radius|auto")
+        self.support_scan_mode = self.support_scan_mode.lower()
+        if self.support_scan_mode not in {"random", "deterministic_tail_v1", "deterministic_back_v1", "deterministic_even_v1", "sticky_random_v1", "deterministic_random_v1", "deterministic_random_by_version_v1", "cached_random_v1"}:
+            raise ValueError("support_scan_mode is unsupported")
+        if self.support_lookup_optimization:
+            self.support_local_scan_cache_enabled = True
+            if self.support_scan_mode == "random":
+                self.support_scan_mode = "sticky_random_v1"
+        if self.disable_support_short_circuit:
+            self.support_short_circuit = False
+        if self.disable_support_batch_query_coalescing:
+            self.support_batch_query_coalescing = False
+        self.support_cache_max_entries = max(0, int(self.support_cache_max_entries))
+        self.support_local_scan_cache_max_entries = max(0, int(self.support_local_scan_cache_max_entries))
         if self.task_name == "unitree_apple":
             if self.max_episode_steps == 50:
                 self.max_episode_steps = 100
