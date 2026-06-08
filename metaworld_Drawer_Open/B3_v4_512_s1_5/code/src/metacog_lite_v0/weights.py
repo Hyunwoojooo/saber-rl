@@ -410,6 +410,8 @@ class LiteWeightComputer:
                 "q_candidate_eval": q_candidate_time,
                 "weight_compute": weight_computation_time,
                 "weight_computation": weight_computation_time,
+                "numba_support_scan": float(extra_metrics.get("time/numba_support_scan", 0.0)),
+                "time/numba_support_scan": float(extra_metrics.get("time/numba_support_scan", 0.0)),
             },
             gap_ready=ready,
             gap_tau=tau_g,

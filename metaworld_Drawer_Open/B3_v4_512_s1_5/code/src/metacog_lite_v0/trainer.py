@@ -515,6 +515,9 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         action_high=train_env.action_high,
         device=device,
         l2_action_penalty=config.l2_action_penalty,
+        policy_delay=config.policy_delay,
+        target_policy_noise=config.target_policy_noise,
+        target_noise_clip=config.target_noise_clip,
     )
     replay = HERReplayBuffer(
         capacity=config.buffer_capacity,

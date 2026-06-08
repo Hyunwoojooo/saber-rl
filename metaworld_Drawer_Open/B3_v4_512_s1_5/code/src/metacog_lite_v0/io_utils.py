@@ -32,7 +32,15 @@ def to_jsonable(obj: Any) -> Any:
         return int(obj)
     if isinstance(obj, np.bool_):
         return bool(obj)
-    return obj
+    if callable(obj):
+        module = getattr(obj, "__module__", "")
+        qualname = getattr(obj, "__qualname__", getattr(obj, "__name__", repr(obj)))
+        return f"{module}.{qualname}" if module else str(qualname)
+    try:
+        json.dumps(obj)
+        return obj
+    except TypeError:
+        return repr(obj)
 
 
 def write_json(path: Path, payload: Dict[str, Any]) -> None:

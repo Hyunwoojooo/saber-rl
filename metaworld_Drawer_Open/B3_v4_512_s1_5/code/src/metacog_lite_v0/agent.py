@@ -22,9 +22,16 @@ class UpdateMetrics:
     q_abs_max: float
     td_error_abs_mean: float
     td_error_abs_p90: float
+    critic_grad_norm: float
+    actor_grad_norm: float
+    q_policy_mean: float
+    q_policy_std: float
+    q_target_mean: float
+    q_target_std: float
+    td_error_abs_values: np.ndarray
 
 
-class DDPGAgent:
+class TD3Agent:
     def __init__(
         self,
         state_dim: int,
@@ -38,23 +45,40 @@ class DDPGAgent:
         action_high: np.ndarray,
         device: torch.device,
         l2_action_penalty: float,
+        policy_delay: int = 2,
+        target_policy_noise: float = 0.2,
+        target_noise_clip: float = 0.5,
     ) -> None:
         self.device = device
         self.gamma = float(gamma)
         self.tau = float(tau)
         self.l2_action_penalty = float(l2_action_penalty)
+        self.policy_delay = max(1, int(policy_delay))
+        self.target_policy_noise = float(target_policy_noise)
+        self.target_noise_clip = float(target_noise_clip)
+        self.total_it = 0
+
         self.action_low_np = np.asarray(action_low, dtype=np.float32)
         self.action_high_np = np.asarray(action_high, dtype=np.float32)
+        self.action_low_t = torch.as_tensor(self.action_low_np, dtype=torch.float32, device=device)
+        self.action_high_t = torch.as_tensor(self.action_high_np, dtype=torch.float32, device=device)
 
         self.actor = Actor(state_dim, action_dim, hidden_dim).to(device)
         self.actor_target = Actor(state_dim, action_dim, hidden_dim).to(device)
         self.actor_target.load_state_dict(self.actor.state_dict())
-        self.critic = Critic(state_dim, action_dim, hidden_dim).to(device)
-        self.critic_target = Critic(state_dim, action_dim, hidden_dim).to(device)
-        self.critic_target.load_state_dict(self.critic.state_dict())
+
+        self.critic1 = Critic(state_dim, action_dim, hidden_dim).to(device)
+        self.critic2 = Critic(state_dim, action_dim, hidden_dim).to(device)
+        self.critic1_target = Critic(state_dim, action_dim, hidden_dim).to(device)
+        self.critic2_target = Critic(state_dim, action_dim, hidden_dim).to(device)
+        self.critic1_target.load_state_dict(self.critic1.state_dict())
+        self.critic2_target.load_state_dict(self.critic2.state_dict())
 
         self.actor_opt = torch.optim.Adam(self.actor.parameters(), lr=actor_lr)
-        self.critic_opt = torch.optim.Adam(self.critic.parameters(), lr=critic_lr)
+        self.critic_opt = torch.optim.Adam(
+            list(self.critic1.parameters()) + list(self.critic2.parameters()),
+            lr=critic_lr,
+        )
 
     @torch.no_grad()
     def act(self, state: np.ndarray, noise_std: float, noise_rng: np.random.Generator) -> np.ndarray:
@@ -74,42 +98,83 @@ class DDPGAgent:
         omega_critic: torch.Tensor,
         omega_actor: torch.Tensor,
     ) -> UpdateMetrics:
+        self.total_it += 1
         with torch.no_grad():
-            next_action = self.actor_target(next_state)
-            target = reward + self.gamma * nonterminal * self.critic_target(next_state, next_action)
+            target_q = self.target_q_values(next_state)
+            target = reward + self.gamma * nonterminal * target_q
 
-        q = self.critic(state, action_exec)
-        td_abs = (q - target).detach().abs()
-        critic_loss = (omega_critic * (q - target).pow(2)).mean()
+        q1 = self.critic1(state, action_exec)
+        q2 = self.critic2(state, action_exec)
+        td_error1 = q1 - target
+        td_error2 = q2 - target
+        td_abs = 0.5 * (td_error1.detach().abs() + td_error2.detach().abs())
+        critic_loss = (omega_critic * (td_error1.pow(2) + td_error2.pow(2)) * 0.5).mean()
+
         self.critic_opt.zero_grad(set_to_none=True)
         critic_loss.backward()
-        nn.utils.clip_grad_norm_(self.critic.parameters(), max_norm=10.0)
+        critic_grad_norm_t = nn.utils.clip_grad_norm_(
+            list(self.critic1.parameters()) + list(self.critic2.parameters()),
+            max_norm=10.0,
+        )
         self.critic_opt.step()
 
-        pred_action = self.actor(state)
-        actor_loss = -(omega_actor * self.critic(state, pred_action)).mean()
-        if self.l2_action_penalty > 0:
-            actor_loss = actor_loss + self.l2_action_penalty * pred_action.pow(2).mean()
-        self.actor_opt.zero_grad(set_to_none=True)
-        actor_loss.backward()
-        nn.utils.clip_grad_norm_(self.actor.parameters(), max_norm=10.0)
-        self.actor_opt.step()
+        actor_loss_value = 0.0
+        actor_grad_norm_value = 0.0
+        if self.total_it % self.policy_delay == 0:
+            pred_action = self.actor(state)
+            q_policy = self.critic1(state, pred_action)
+            actor_loss = -(omega_actor * q_policy).mean()
+            if self.l2_action_penalty > 0:
+                actor_loss = actor_loss + self.l2_action_penalty * pred_action.pow(2).mean()
+            self.actor_opt.zero_grad(set_to_none=True)
+            actor_loss.backward()
+            actor_grad_norm_t = nn.utils.clip_grad_norm_(self.actor.parameters(), max_norm=10.0)
+            self.actor_opt.step()
 
-        self._soft_update(self.actor, self.actor_target)
-        self._soft_update(self.critic, self.critic_target)
+            self._soft_update(self.actor, self.actor_target)
+            self._soft_update(self.critic1, self.critic1_target)
+            self._soft_update(self.critic2, self.critic2_target)
+            actor_loss_value = float(actor_loss.item())
+            actor_grad_norm_value = float(actor_grad_norm_t.detach().cpu().item())
+
+        with torch.no_grad():
+            pred_action_eval = self.actor(state)
+            q_policy_eval = self.critic1(state, pred_action_eval)
+            q_min = torch.minimum(q1, q2)
+            if self.total_it % self.policy_delay != 0:
+                actor_loss_value = float((-(omega_actor * q_policy_eval).mean()).item())
 
         return UpdateMetrics(
             critic_loss=float(critic_loss.item()),
-            actor_loss=float(actor_loss.item()),
-            q_mean=float(q.mean().item()),
+            actor_loss=actor_loss_value,
+            q_mean=float(q_min.mean().item()),
             target_mean=float(target.mean().item()),
-            q_std=float(q.std(unbiased=False).item()),
+            q_std=float(q_min.std(unbiased=False).item()),
             target_std=float(target.std(unbiased=False).item()),
-            q_abs_mean=float(q.detach().abs().mean().item()),
-            q_abs_max=float(q.detach().abs().max().item()),
+            q_abs_mean=float(q_min.detach().abs().mean().item()),
+            q_abs_max=float(q_min.detach().abs().max().item()),
             td_error_abs_mean=float(td_abs.mean().item()),
-            td_error_abs_p90=float(torch.quantile(td_abs, 0.90).item()),
+            td_error_abs_p90=float(torch.quantile(td_abs.flatten(), 0.9).item()),
+            critic_grad_norm=float(critic_grad_norm_t.detach().cpu().item()),
+            actor_grad_norm=actor_grad_norm_value,
+            q_policy_mean=float(q_policy_eval.detach().mean().item()),
+            q_policy_std=float(q_policy_eval.detach().std(unbiased=False).item()),
+            q_target_mean=float(target.detach().mean().item()),
+            q_target_std=float(target.detach().std(unbiased=False).item()),
+            td_error_abs_values=td_abs.detach().cpu().numpy().astype(np.float32),
         )
+
+    @torch.no_grad()
+    def target_q_values(self, next_state: torch.Tensor) -> torch.Tensor:
+        next_action = self.actor_target(next_state)
+        if self.target_policy_noise > 0.0:
+            noise = torch.randn_like(next_action) * self.target_policy_noise
+            noise = noise.clamp(-self.target_noise_clip, self.target_noise_clip)
+            next_action = next_action + noise
+        next_action = torch.max(torch.min(next_action, self.action_high_t), self.action_low_t)
+        q1_t = self.critic1_target(next_state, next_action)
+        q2_t = self.critic2_target(next_state, next_action)
+        return torch.minimum(q1_t, q2_t)
 
     @torch.no_grad()
     def td_error_abs(
@@ -120,14 +185,22 @@ class DDPGAgent:
         next_state: torch.Tensor,
         nonterminal: torch.Tensor,
     ) -> torch.Tensor:
-        next_action = self.actor_target(next_state)
-        target = reward + self.gamma * nonterminal * self.critic_target(next_state, next_action)
-        q = self.critic(state, action_exec)
-        return (q - target).abs()
+        target = reward + self.gamma * nonterminal * self.target_q_values(next_state)
+        q1 = self.critic1(state, action_exec)
+        q2 = self.critic2(state, action_exec)
+        return 0.5 * ((q1 - target).abs() + (q2 - target).abs())
+
+    @torch.no_grad()
+    def critic_target(self, state: torch.Tensor, action: torch.Tensor) -> torch.Tensor:
+        q1_t = self.critic1_target(state, action)
+        q2_t = self.critic2_target(state, action)
+        return torch.minimum(q1_t, q2_t)
 
     @torch.no_grad()
     def q_values(self, state: torch.Tensor, action: torch.Tensor) -> torch.Tensor:
-        return self.critic(state, action)
+        q1 = self.critic1(state, action)
+        q2 = self.critic2(state, action)
+        return torch.minimum(q1, q2)
 
     @torch.no_grad()
     def policy_actions(self, state: torch.Tensor) -> torch.Tensor:
@@ -142,20 +215,36 @@ class DDPGAgent:
         return {
             "actor": self.actor.state_dict(),
             "actor_target": self.actor_target.state_dict(),
-            "critic": self.critic.state_dict(),
-            "critic_target": self.critic_target.state_dict(),
+            "critic1": self.critic1.state_dict(),
+            "critic2": self.critic2.state_dict(),
+            "critic1_target": self.critic1_target.state_dict(),
+            "critic2_target": self.critic2_target.state_dict(),
             "actor_opt": self.actor_opt.state_dict(),
             "critic_opt": self.critic_opt.state_dict(),
             "gamma": self.gamma,
             "tau": self.tau,
+            "policy_delay": self.policy_delay,
+            "target_policy_noise": self.target_policy_noise,
+            "target_noise_clip": self.target_noise_clip,
+            "total_it": self.total_it,
         }
 
     def load_state_dict(self, payload: Dict[str, object]) -> None:
         self.actor.load_state_dict(payload["actor"])
         self.actor_target.load_state_dict(payload["actor_target"])
-        self.critic.load_state_dict(payload["critic"])
-        self.critic_target.load_state_dict(payload["critic_target"])
+        self.critic1.load_state_dict(payload["critic1"])
+        self.critic2.load_state_dict(payload["critic2"])
+        self.critic1_target.load_state_dict(payload["critic1_target"])
+        self.critic2_target.load_state_dict(payload["critic2_target"])
         self.actor_opt.load_state_dict(payload["actor_opt"])
         self.critic_opt.load_state_dict(payload["critic_opt"])
         self.gamma = float(payload.get("gamma", self.gamma))
         self.tau = float(payload.get("tau", self.tau))
+        self.policy_delay = int(payload.get("policy_delay", self.policy_delay))
+        self.target_policy_noise = float(payload.get("target_policy_noise", self.target_policy_noise))
+        self.target_noise_clip = float(payload.get("target_noise_clip", self.target_noise_clip))
+        self.total_it = int(payload.get("total_it", self.total_it))
+
+
+# Keep the historical import path used by the DrawerOpen trainer. The backend is TD3.
+DDPGAgent = TD3Agent

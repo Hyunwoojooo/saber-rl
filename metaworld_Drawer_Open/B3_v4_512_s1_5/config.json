@@ -22,9 +22,9 @@
   "metaworld_env_name": "drawer-open-v3",
   "metaworld_reward_function_version": "v2",
   "numba_support_scan": true,
-  "output_root": "SABER/MetaWorldDrawerOpen/runs/b3_v4_512_s1_5",
+  "output_root": "metaworld_Drawer_Open/results/TD3-HER-B3-Critic-Only",
   "policy_support_mode": "bin",
-  "purpose": "Port FPP main method B3_v4_512_s1_5 to MetaWorld drawer-open-v3 while preserving the B3/SABER critic-only algorithm settings.",
+  "purpose": "Run TD3+HER, TD3+SABER/B3-Critic-Only, and TD3+PER-style on MetaWorld drawer-open-v3.",
   "reference": "FPP B3_v4_512_s1_5",
   "reward_type": "sparse",
   "run_slug": "b3_v4_512_s1_5",
@@ -35,7 +35,7 @@
     4,
     5
   ],
-  "source_spec": "FPP main method B3_v4_512_s1_5; task-specific context replaced with MetaWorld drawer-open-v3 hand-handle/open-progress context.",
+  "source_spec": "DrawerOpen task adapter and SABER support scanner retained; actor-critic backbone replaced with TD3.",
   "support_cache_enabled": true,
   "support_cache_max_entries": 200000,
   "support_lookup": true,
@@ -48,5 +48,9 @@
   "weight_scope": "critic_only",
   "weighting_mode": "batch_norm",
   "support_predicate_early_exit": true,
-  "support_diagnostic_audit_interval": 100
+  "support_diagnostic_audit_interval": 100,
+  "backbone": "TD3",
+  "policy_delay": 2,
+  "target_policy_noise": 0.2,
+  "target_noise_clip": 0.5
 }

@@ -62,6 +62,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--critic_lr", type=float, default=3e-4)
     parser.add_argument("--hidden_dim", type=int, default=256)
     parser.add_argument("--noise_std", type=float, default=0.2)
+    parser.add_argument("--policy_delay", type=int, default=2)
+    parser.add_argument("--target_policy_noise", type=float, default=0.2)
+    parser.add_argument("--target_noise_clip", type=float, default=0.5)
     parser.add_argument("--l2_action_penalty", type=float, default=0.0)
 
     parser.add_argument("--eval_freq", type=int, default=10_000)
@@ -156,6 +159,9 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         critic_lr=args.critic_lr,
         hidden_dim=args.hidden_dim,
         noise_std=args.noise_std,
+        policy_delay=args.policy_delay,
+        target_policy_noise=args.target_policy_noise,
+        target_noise_clip=args.target_noise_clip,
         l2_action_penalty=args.l2_action_penalty,
         eval_freq=args.eval_freq,
         eval_episodes=args.eval_episodes,
@@ -301,6 +307,9 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
         action_high=env.action_high,
         device=device,
         l2_action_penalty=config.l2_action_penalty,
+        policy_delay=config.policy_delay,
+        target_policy_noise=config.target_policy_noise,
+        target_noise_clip=config.target_noise_clip,
     )
     gap_stats = GapStats(
         maxlen=config.gap_window,

@@ -101,6 +101,9 @@ class LiteConfig:
     critic_lr: float = 3e-4
     hidden_dim: int = 256
     noise_std: float = 0.2
+    policy_delay: int = 2
+    target_policy_noise: float = 0.2
+    target_noise_clip: float = 0.5
     l2_action_penalty: float = 0.0
 
     eval_freq: int = 10_000
@@ -369,6 +372,9 @@ class LiteConfig:
         self.N_local_min = max(1, int(self.N_local_min))
         self.local_search_max = max(0, int(self.local_search_max))
         self.action_bins_per_dim = max(2, int(self.action_bins_per_dim))
+        self.policy_delay = max(1, int(self.policy_delay))
+        self.target_policy_noise = max(0.0, float(self.target_policy_noise))
+        self.target_noise_clip = max(0.0, float(self.target_noise_clip))
         self.support_cache_max_entries = max(0, int(self.support_cache_max_entries))
         self.local_scan_cache_max_entries = max(0, int(self.local_scan_cache_max_entries))
         self.N_gap_min = max(1, int(self.N_gap_min))

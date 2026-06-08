@@ -1,28 +1,27 @@
-# MetaWorld Drawer-Open-v3: B3_v4_512_s1_5
+# MetaWorld Drawer-Open-v3 TD3/B3 Code Snapshot
 
-This snapshot ports the FPP main method `B3_v4_512_s1_5` to MetaWorld
-`drawer-open-v3`.
+This folder contains the shared DrawerOpen training code used by the TD3
+MetaWorld drawer-open experiments. It started as the FPP `B3_v4_512_s1_5`
+port, but the actor-critic backbone is now TD3.
 
-## Preserved Algorithm Settings
+## Backbone
 
-- Method: `b3_support_runtime_opt`
-- Weight scope: `critic_only`
-- `local_search_max = 512`
-- `lambda_support = 1.0`
-- `N_local_min = 4`
-- `M_Q_min = 4`
-- `M_B = 16`
-- Weighting mode: `batch_norm`
-- Support cache enabled
-- Local scan cache enabled
-- Exact Numba support scan enabled
-- Predicate early exit enabled
-- Exact negative short-circuit enabled
+- Agent backend: TD3
+- Twin critics with clipped double-Q target
+- Target policy smoothing: `target_policy_noise = 0.2`, `target_noise_clip = 0.5`
+- Delayed actor update: `policy_delay = 2`
+- Historical imports still use `DDPGAgent`; this is an alias to `TD3Agent` in
+  `code/src/metacog_lite_v0/agent.py`.
 
-## Task-Specific Changes
+## DrawerOpen Task Adapter
 
-Only the task abstraction is changed from FetchPickAndPlace to MetaWorld
-drawer-open-v3.
+MetaWorld `drawer-open-v3` is wrapped as a Fetch-style GoalEnv:
+
+- `achieved_goal`: drawer handle position
+- `desired_goal`: MetaWorld target position
+- sparse training reward: `0` when handle-target distance is within threshold,
+  otherwise `-1`
+- evaluation logs both goal-derived success and MetaWorld environment success
 
 The drawer-open support context is:
 
@@ -30,62 +29,29 @@ The drawer-open support context is:
 - full context key: phase, hand-handle distance bin, handle-goal distance bin,
   handle-y bin, gripper bin, horizon bin
 
-Phases:
+Phases: `approach`, `contact`, `opening`, `open`.
 
-- `approach`: hand is far from the drawer handle
-- `contact`: hand is near the drawer handle
-- `opening`: hand is near and handle-goal distance is below `drawer_d_opening_mid`
-- `open`: handle-goal distance is below `drawer_d_goal_near`
+## Final Variants
 
-## Main Files
-
-- `code/src/train_drawer_open_lite_v0.py`
-- `code/src/metacog_lite_v0/envs.py`
-- `code/src/metacog_lite_v0/task_drawer_open.py`
-- `code/src/metacog_lite_v0/numba_support_scan_drawer_open.py`
-- `code/src/metacog_lite_v0/weights.py`
-- `run.py`
-- `config.json`
-
-## Validation
-
-After installing MetaWorld, run:
+Use the top-level runner from the repository root:
 
 ```bash
-python run.py --seed 1 --steps 1000 --device cpu --validate_only
+bash metaworld_Drawer_Open/run_all_td3_drawer_open_5parallel.sh
 ```
 
-`--validate_only` is a hard gate for experiment validity. It prints a JSON
-diagnostic report, then raises `RuntimeError` if any required check fails.
-The required checks include:
+That runner executes the final three variants in order with 5 parallel seeds:
 
-- Drawer desired-goal source must come from MetaWorld environment metadata
-  (`_target_pos`, `target_pos`, `_goal`, or `goal`). `obs_tail`,
-  `synthetic_fallback`, and `unknown` are treated as invalid.
-- B0 sanity path must produce unit actor/critic weights.
-- B4 sanity path must produce finite support weights and finite `G_sup`.
-- B3 runtime-opt path must produce finite critic weights and finite support
-  diagnostics.
-- Runtime-opt diagnostics must confirm that Numba support scan metrics,
-  predicate early-exit metrics, and Numba scan timing are actually present.
-- HER relabeling, replay indexing, raw reward finiteness, and local context
-  timing diagnostics must be present.
+1. `TD3+HER`
+2. `TD3+HER+B3-Critic-Only`
+3. `TD3+HER+PER-Style`
 
-This is intentional: if the Drawer-Open GoalEnv conversion or runtime-opt
-support lookup silently falls back to an invalid path, the run should fail
-before a long experiment starts.
-
-Additional Drawer diagnostics are logged for analysis:
-
-- `hand_handle_dist_mean`
-- `handle_goal_dist_mean`
-- `phase_approach_frac`
-- `phase_contact_frac`
-- `phase_opening_frac`
-- `phase_open_frac`
-
-For a short smoke run:
+A short wiring check is available with:
 
 ```bash
-python run.py --seed 1 --steps 100000 --device cuda
+bash metaworld_Drawer_Open/run_td3_drawer_open_1000_smoke.sh
 ```
+
+## Required Dependency
+
+MetaWorld must be installed in the Python environment used for the run. The
+current runner prefers `.venv/bin/python` when it exists.
