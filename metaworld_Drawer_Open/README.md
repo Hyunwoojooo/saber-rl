@@ -62,3 +62,35 @@ metaworld_Drawer_Open/logs/<variant>/
 
 MetaWorld must be installed in the Python environment selected by the runner.
 The runner prefers `.venv/bin/python`; otherwise it falls back to `python3`.
+
+## Preliminary Results
+
+Status as of 2026-06-09 13:03 KST:
+
+- `TD3+HER` and `TD3+HER+B3-Critic-Only` completed 5 seeds at 1M steps.
+- `TD3+HER+PER-Style` was still running and is excluded from the completed-result table.
+
+Aggregate metrics use 5 seeds. Success values are environment success rates
+from 20 evaluation episodes per checkpoint.
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER | 0.13 +/- 0.29 | 0.21 +/- 0.44 | 0.053 +/- 0.118 | 740k, 1/5 seeds | 41.7 steps/s |
+| TD3+HER+B3-Critic-Only | 0.29 +/- 0.39 | 0.55 +/- 0.51 | 0.141 +/- 0.173 | 670k +/- 156k, 2/5 seeds | 23.3 steps/s |
+
+Seed-level final success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER | 0.65 | 0.00 | 0.00 | 0.00 | 0.00 |
+| TD3+HER+B3-Critic-Only | 0.05 | 0.00 | 0.00 | 0.85 | 0.55 |
+
+Interpretation:
+
+- B3-Critic-Only improves the mean final success, best success, and AUC over
+  the TD3+HER baseline in this preliminary 1M-step run.
+- The result is high variance: B3 succeeds strongly on seeds 4 and 5, but seeds
+  2 and 3 remain at zero final success.
+- DrawerOpen appears harder and less stable than the Fetch tasks under this
+  setup, so a 2M-step follow-up is a reasonable next check before making a
+  strong benchmark claim.
