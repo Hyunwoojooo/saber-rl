@@ -11,8 +11,9 @@ import torch
 EXPERIMENT_ROOT = Path(__file__).resolve().parents[1]
 SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
 WORKSPACE_ROOT = SABER_REPO_ROOT.parent
-sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 sys.path.insert(0, str(WORKSPACE_ROOT / "version_v0_lite" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "code" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 
 from metacog_lite_v0.config import LiteConfig
 from metacog_lite_v0.replay import HERReplayBuffer, SampleBatch
@@ -126,6 +127,8 @@ def make_batch() -> SampleBatch:
 
 
 def main() -> None:
+    assert hasattr(HERReplayBuffer, "action_index_version")
+    assert hasattr(HERReplayBuffer, "action_index_has_action_bin")
     cfg = make_config()
     task = FakeTask()
     replay = make_replay(task, cfg)
@@ -143,6 +146,9 @@ def main() -> None:
     np.testing.assert_array_equal(wb.q_candidate_fallback, np.asarray([0.0, 0.0, 0.0, 0.0, 1.0], dtype=np.float32))
     assert wb.extra_metrics["runtime/batch_query_coalescing_saving_rate"] > 0.0
     assert wb.extra_metrics["runtime/local_scan_cache_hit_rate"] > 0.0
+    assert 0.0 <= wb.extra_metrics["runtime/predicate_early_exit_rate"] <= 1.0
+    assert 0.0 <= wb.extra_metrics["runtime/predicate_positive_early_exit_rate"] <= 1.0
+    assert 0.0 <= wb.extra_metrics["runtime/predicate_negative_early_exit_rate"] <= 1.0
 
 
 if __name__ == "__main__":

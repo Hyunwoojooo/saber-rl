@@ -34,6 +34,8 @@ except Exception:  # pragma: no cover - exercised only on machines without numba
 @dataclass(frozen=True)
 class FetchSlideSupportScanConstants:
     ee_obj_bins: np.ndarray
+    obj_x_bins: np.ndarray
+    obj_y_bins: np.ndarray
     obj_goal_bins: np.ndarray
     obj_speed_bins: np.ndarray
     vel_align_bins: np.ndarray
@@ -61,6 +63,8 @@ def can_scan_fetch_slide_support_exact(task: Any) -> bool:
 def make_fetch_slide_support_scan_constants(task: Any) -> FetchSlideSupportScanConstants:
     return FetchSlideSupportScanConstants(
         ee_obj_bins=np.asarray(task.ee_obj_bins, dtype=np.float32),
+        obj_x_bins=np.asarray(task.obj_x_bins, dtype=np.float32),
+        obj_y_bins=np.asarray(task.obj_y_bins, dtype=np.float32),
         obj_goal_bins=np.asarray(task.obj_goal_bins, dtype=np.float32),
         obj_speed_bins=np.asarray(task.obj_speed_bins, dtype=np.float32),
         vel_align_bins=np.asarray(task.vel_align_bins, dtype=np.float32),
@@ -143,6 +147,8 @@ def scan_fetch_slide_support_exact_with_constants(
         int(query_full_key),
         int(query_policy_bin),
         constants.ee_obj_bins,
+        constants.obj_x_bins,
+        constants.obj_y_bins,
         constants.obj_goal_bins,
         constants.obj_speed_bins,
         constants.vel_align_bins,
@@ -194,6 +200,8 @@ def scan_fetch_slide_support_predicate_with_constants(
         int(query_full_key),
         int(query_policy_bin),
         constants.ee_obj_bins,
+        constants.obj_x_bins,
+        constants.obj_y_bins,
         constants.obj_goal_bins,
         constants.obj_speed_bins,
         constants.vel_align_bins,
@@ -254,6 +262,8 @@ def scan_fetch_slide_support_quality_with_constants(
         int(query_full_key),
         int(query_policy_bin),
         constants.ee_obj_bins,
+        constants.obj_x_bins,
+        constants.obj_y_bins,
         constants.obj_goal_bins,
         constants.obj_speed_bins,
         constants.vel_align_bins,
@@ -607,6 +617,8 @@ if NUMBA_AVAILABLE:
         query_goal: np.ndarray,
         h_value: int,
         ee_obj_bins: np.ndarray,
+        obj_x_bins: np.ndarray,
+        obj_y_bins: np.ndarray,
         obj_goal_bins: np.ndarray,
         obj_speed_bins: np.ndarray,
         vel_align_bins: np.ndarray,
@@ -664,11 +676,22 @@ if NUMBA_AVAILABLE:
             phase = 3
 
         ee_bin = _bin_value(d_ee_obj, ee_obj_bins)
+        obj_x_bin = _bin_value(np.float32(obj_x), obj_x_bins)
+        obj_y_bin = _bin_value(np.float32(obj_y), obj_y_bins)
         goal_bin = _bin_value(d_obj_goal, obj_goal_bins)
         speed_bin = _bin_value(obj_speed_xy, obj_speed_bins)
         align_bin = _bin_value(vel_align, vel_align_bins)
         h_bin = _bin_value(np.float32(h_value), horizon_bins)
-        return phase * 1_000_000 + ee_bin * 100_000 + goal_bin * 10_000 + speed_bin * 1_000 + align_bin * 100 + h_bin
+        return (
+            phase * 100_000_000
+            + ee_bin * 10_000_000
+            + obj_x_bin * 1_000_000
+            + obj_y_bin * 100_000
+            + goal_bin * 10_000
+            + speed_bin * 1_000
+            + align_bin * 100
+            + h_bin
+        )
 
     @njit(cache=True)
     def _action_bin_one(
@@ -707,6 +730,8 @@ if NUMBA_AVAILABLE:
         query_full_key: int,
         query_policy_bin: int,
         ee_obj_bins: np.ndarray,
+        obj_x_bins: np.ndarray,
+        obj_y_bins: np.ndarray,
         obj_goal_bins: np.ndarray,
         obj_speed_bins: np.ndarray,
         vel_align_bins: np.ndarray,
@@ -734,6 +759,8 @@ if NUMBA_AVAILABLE:
                 query_goal,
                 int(replay_h[idx]),
                 ee_obj_bins,
+                obj_x_bins,
+                obj_y_bins,
                 obj_goal_bins,
                 obj_speed_bins,
                 vel_align_bins,
@@ -781,6 +808,8 @@ if NUMBA_AVAILABLE:
         query_full_key: int,
         query_policy_bin: int,
         ee_obj_bins: np.ndarray,
+        obj_x_bins: np.ndarray,
+        obj_y_bins: np.ndarray,
         obj_goal_bins: np.ndarray,
         obj_speed_bins: np.ndarray,
         vel_align_bins: np.ndarray,
@@ -812,6 +841,8 @@ if NUMBA_AVAILABLE:
                 query_goal,
                 int(replay_h[idx]),
                 ee_obj_bins,
+                obj_x_bins,
+                obj_y_bins,
                 obj_goal_bins,
                 obj_speed_bins,
                 vel_align_bins,
@@ -871,6 +902,8 @@ if NUMBA_AVAILABLE:
         query_full_key: int,
         query_policy_bin: int,
         ee_obj_bins: np.ndarray,
+        obj_x_bins: np.ndarray,
+        obj_y_bins: np.ndarray,
         obj_goal_bins: np.ndarray,
         obj_speed_bins: np.ndarray,
         vel_align_bins: np.ndarray,
@@ -912,6 +945,8 @@ if NUMBA_AVAILABLE:
                 query_goal,
                 int(replay_h[idx]),
                 ee_obj_bins,
+                obj_x_bins,
+                obj_y_bins,
                 obj_goal_bins,
                 obj_speed_bins,
                 vel_align_bins,

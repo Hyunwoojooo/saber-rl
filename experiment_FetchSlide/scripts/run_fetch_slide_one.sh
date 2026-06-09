@@ -13,13 +13,14 @@ DEVICE="${DEVICE:-cuda}"
 REWARD_TYPE="${REWARD_TYPE:-sparse}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-${EXPERIMENT_ROOT}/experiment/FetchSlide}"
 EXTRA_ARGS="${EXTRA_ARGS:-}"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
 
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
 export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
 export OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS:-1}"
 export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
 
-python3 "${EXPERIMENT_ROOT}/src/saber_fetch_slide/experiment.py" \
+"${PYTHON_BIN}" "${EXPERIMENT_ROOT}/src/saber_fetch_slide/experiment.py" \
   --method "${METHOD}" \
   --seed "${SEED}" \
   --total_steps "${TOTAL_STEPS}" \

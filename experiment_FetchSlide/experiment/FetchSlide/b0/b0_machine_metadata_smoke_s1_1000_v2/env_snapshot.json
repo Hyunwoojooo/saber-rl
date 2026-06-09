@@ -1,0 +1,142 @@
+{
+  "eval_env": {
+    "action_dim": 4,
+    "action_high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "action_low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "distance_threshold": 0.05,
+    "entry_point": "gymnasium_robotics.envs.fetch.slide:MujocoFetchSlideEnv",
+    "env_id": "FetchSlide-v4",
+    "goal_dim": 3,
+    "max_episode_steps": 50,
+    "obs_dim": 25,
+    "render_mode": null,
+    "spec_kwargs": {
+      "reward_type": "sparse"
+    },
+    "state_dim": 28
+  },
+  "machine": {
+    "cuda_available": true,
+    "cuda_device_count": 1,
+    "cuda_devices": [
+      {
+        "index": 0,
+        "major": 12,
+        "minor": 1,
+        "name": "NVIDIA GB10",
+        "total_memory_gb": 121.628
+      }
+    ],
+    "cuda_version": "13.0",
+    "fqdn": "localhost",
+    "hostname": "edgexpert-d530",
+    "label": "edgexpert-d530",
+    "platform": "Linux-6.17.0-1014-nvidia-aarch64-with-glibc2.39",
+    "python": "3.12.3",
+    "torch": "2.11.0+cu130"
+  },
+  "task_spec": {
+    "coarse_index_key": "ee-object distance bin, object speed bin, horizon bin",
+    "d_contact": 0.08,
+    "d_goal_near": 0.05,
+    "ee_obj_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "epsilon_g": 0.05,
+    "full_context_key": "phase, ee-object distance bin, object-goal distance bin, object speed bin, velocity alignment bin, horizon bin",
+    "horizon_bins": [
+      10,
+      25,
+      50,
+      100
+    ],
+    "obj_goal_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.7,
+      1.0
+    ],
+    "obj_speed_bins": [
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "observation_layout_assumption": {
+      "ee_pos": [
+        0,
+        3
+      ],
+      "ee_velocity": [
+        20,
+        23
+      ],
+      "object_pos": [
+        3,
+        6
+      ],
+      "object_velocity": [
+        14,
+        17
+      ]
+    },
+    "phase_definition": "near_goal if d_obj_goal<=d_goal_near; slide if obj_speed_xy>=v_slide_min; strike if d_ee_obj<=d_contact; else approach",
+    "phase_labels": {
+      "0": "approach",
+      "1": "strike",
+      "2": "slide",
+      "3": "near_goal"
+    },
+    "task": "FetchSlide",
+    "v_fast": 0.15,
+    "v_slide_min": 0.05,
+    "vel_align_bins": [
+      -0.5,
+      0.0,
+      0.5,
+      0.8
+    ]
+  },
+  "train_env": {
+    "action_dim": 4,
+    "action_high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "action_low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "distance_threshold": 0.05,
+    "entry_point": "gymnasium_robotics.envs.fetch.slide:MujocoFetchSlideEnv",
+    "env_id": "FetchSlide-v4",
+    "goal_dim": 3,
+    "max_episode_steps": 50,
+    "obs_dim": 25,
+    "render_mode": null,
+    "spec_kwargs": {
+      "reward_type": "sparse"
+    },
+    "state_dim": 28
+  }
+}

@@ -198,6 +198,24 @@ class SACAgent:
         return torch.minimum(self.critic(state, action), self.critic2(state, action))
 
     @torch.no_grad()
+    def td_error_abs(
+        self,
+        state: torch.Tensor,
+        action_exec: torch.Tensor,
+        reward: torch.Tensor,
+        next_state: torch.Tensor,
+        nonterminal: torch.Tensor,
+    ) -> torch.Tensor:
+        next_action, next_log_prob, _ = self.actor.sample(next_state)
+        target_q1 = self.critic_target(next_state, next_action)
+        target_q2 = self.critic2_target(next_state, next_action)
+        target_q = torch.minimum(target_q1, target_q2) - self.alpha.detach() * next_log_prob
+        target = reward + self.gamma * nonterminal * target_q
+        q1 = self.critic(state, action_exec)
+        q2 = self.critic2(state, action_exec)
+        return torch.minimum((q1 - target).abs(), (q2 - target).abs())
+
+    @torch.no_grad()
     def td_errors_for_priority(
         self,
         state: torch.Tensor,

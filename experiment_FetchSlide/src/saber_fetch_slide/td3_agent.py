@@ -151,6 +151,28 @@ class TD3Agent:
         return torch.minimum(self.critic(state, action), self.critic2(state, action))
 
     @torch.no_grad()
+    def td_error_abs(
+        self,
+        state: torch.Tensor,
+        action_exec: torch.Tensor,
+        reward: torch.Tensor,
+        next_state: torch.Tensor,
+        nonterminal: torch.Tensor,
+    ) -> torch.Tensor:
+        next_action = self.actor_target(next_state)
+        if self.target_policy_noise > 0.0:
+            noise = torch.randn_like(next_action) * self.target_policy_noise
+            noise = noise.clamp(-self.target_noise_clip, self.target_noise_clip)
+            next_action = next_action + noise
+        next_action = torch.max(torch.min(next_action, self.action_high), self.action_low)
+        target_q1 = self.critic_target(next_state, next_action)
+        target_q2 = self.critic2_target(next_state, next_action)
+        target = reward + self.gamma * nonterminal * torch.minimum(target_q1, target_q2)
+        q1 = self.critic(state, action_exec)
+        q2 = self.critic2(state, action_exec)
+        return torch.minimum((q1 - target).abs(), (q2 - target).abs())
+
+    @torch.no_grad()
     def td_errors_for_priority(
         self,
         state: torch.Tensor,

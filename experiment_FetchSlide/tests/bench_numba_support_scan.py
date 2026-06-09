@@ -11,8 +11,9 @@ import numpy as np
 EXPERIMENT_ROOT = Path(__file__).resolve().parents[1]
 SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
 WORKSPACE_ROOT = SABER_REPO_ROOT.parent
-sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 sys.path.insert(0, str(WORKSPACE_ROOT / "version_v0_lite" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "code" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 
 from metacog_lite_v0.task_fetch_slide import FetchSlideTaskSpec
 from saber_fetch_slide.numba_support_scan import (

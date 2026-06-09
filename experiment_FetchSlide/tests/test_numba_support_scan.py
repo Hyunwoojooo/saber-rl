@@ -11,8 +11,9 @@ import torch
 EXPERIMENT_ROOT = Path(__file__).resolve().parents[1]
 SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
 WORKSPACE_ROOT = SABER_REPO_ROOT.parent
-sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 sys.path.insert(0, str(WORKSPACE_ROOT / "version_v0_lite" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "code" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 
 from metacog_lite_v0.config import LiteConfig
 from metacog_lite_v0.replay import HERReplayBuffer, SampleBatch
@@ -56,6 +57,43 @@ def nonmatching_obs() -> np.ndarray:
     obs[3:6] = np.asarray([1.4, 0.0, 0.0], dtype=np.float32)
     obs[14:17] = np.asarray([0.2, 0.0, 0.0], dtype=np.float32)
     return obs
+
+
+def slide_obs_with(
+    ee: tuple[float, float, float],
+    obj: tuple[float, float, float],
+    vel: tuple[float, float, float] = (0.0, 0.0, 0.0),
+) -> np.ndarray:
+    obs = np.zeros(OBS_DIM, dtype=np.float32)
+    obs[0:3] = np.asarray(ee, dtype=np.float32)
+    obs[3:6] = np.asarray(obj, dtype=np.float32)
+    obs[14:17] = np.asarray(vel, dtype=np.float32)
+    obs[20:23] = np.zeros(3, dtype=np.float32)
+    return obs
+
+
+def test_fetch_slide_xy_context_key_shape() -> None:
+    task = make_task()
+    h = np.asarray([20, 20], dtype=np.int16)
+    obs_a = slide_obs_with((0.80, 0.70, 0.42), (1.00, 0.70, 0.42))
+    obs_b = slide_obs_with((1.20, 0.30, 0.42), (1.40, 0.30, 0.42))
+    goal_a = np.asarray([1.40, 0.70, 0.42], dtype=np.float32)
+    goal_b = np.asarray([1.40, 0.30, 0.42], dtype=np.float32)
+
+    coarse_a = int(task.coarse_hash_batch(obs_a[None, :], h[:1])[0])
+    coarse_a_other_goal = int(task.coarse_hash_batch(obs_a[None, :], h[:1])[0])
+    coarse_b = int(task.coarse_hash_batch(obs_b[None, :], h[1:])[0])
+    assert coarse_a == coarse_a_other_goal
+    assert coarse_a != coarse_b
+
+    full_a = int(task.full_context_hash_batch(obs_a[None, :], goal_a[None, :], h[:1])[0])
+    full_b = int(task.full_context_hash_batch(obs_b[None, :], goal_b[None, :], h[1:])[0])
+    assert full_a != full_b
+
+    metadata = task.metadata()
+    assert metadata["context_key_version"] == "fetch_slide_xy_v1"
+    assert metadata["coarse_key_goal_dependent"] is False
+    assert "object-x bin" in metadata["coarse_index_key"]
 
 
 def legacy_scan(
@@ -266,6 +304,31 @@ def test_scanner_cases() -> None:
         policy_action,
         n_local_min=2,
         m_q_min=2,
+        m_b=4,
+    )
+
+
+    xy_match = slide_obs_with((0.80, 0.70, 0.42), (1.00, 0.70, 0.42))
+    xy_miss_same_legacy_bins = slide_obs_with((1.20, 0.30, 0.42), (1.40, 0.30, 0.42))
+    xy_goal = np.asarray([1.40, 0.70, 0.42], dtype=np.float32)
+    replay_obs, replay_h, replay_bin, replay_action = arrays(
+        [xy_match, xy_miss_same_legacy_bins],
+        [policy_action, policy_action],
+        [policy_bin, policy_bin],
+    )
+    run_scanner_case(
+        "xy context separates same legacy bins",
+        replay_obs,
+        replay_h,
+        replay_bin,
+        replay_action,
+        np.arange(2, dtype=np.int64),
+        xy_match,
+        xy_goal,
+        query_h,
+        policy_action,
+        n_local_min=1,
+        m_q_min=1,
         m_b=4,
     )
 

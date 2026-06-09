@@ -1,0 +1,7 @@
+2026-06-06 10:52:00,729 | INFO | machine=edgexpert-d530 hostname=edgexpert-d530 cuda_devices=[{'index': 0, 'name': 'NVIDIA GB10', 'total_memory_gb': 121.628, 'major': 12, 'minor': 1}]
+2026-06-06 10:52:00,729 | INFO | lite_src=/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/code/src
+2026-06-06 10:52:00,729 | INFO | method=sac_saber_critic_only_v4_ls512 lite_method=b3_support_only effective_weight_scope=critic_only config_weight_scope=critic_only support_lookup=True device=cpu
+2026-06-06 10:52:16,005 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.016 psi=0.016 fallback=0.984
+2026-06-06 10:52:40,125 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=1.031 psi=0.031 fallback=0.969
+2026-06-06 10:52:40,153 | INFO | step=1000 replay=1000 updates=801 loss_q=0.1134 loss_pi=-1.1405
+2026-06-06 10:52:40,154 | INFO | finished run at /home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/experiment/FetchSlide/sac_saber_critic_only_v4_ls512/sac_saber_fpp_alias_source_ready_smoke_s905_1000

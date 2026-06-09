@@ -1,0 +1,6 @@
+2026-06-04 18:02:09,907 | INFO | machine=edgexpert-d530 hostname=edgexpert-d530 cuda_devices=[{'index': 0, 'name': 'NVIDIA GB10', 'total_memory_gb': 121.628, 'major': 12, 'minor': 1}]
+2026-06-04 18:02:09,907 | INFO | method=sac lite_method=b0_ddpg_her effective_weight_scope=none config_weight_scope=critic_only support_lookup=False device=cpu
+2026-06-04 18:02:33,182 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.000 psi=0.000 fallback=1.000
+2026-06-04 18:03:10,472 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=1.000 psi=0.000 fallback=1.000
+2026-06-04 18:03:10,495 | INFO | step=1000 replay=1000 updates=801 loss_q=0.1962 loss_pi=-1.1498
+2026-06-04 18:03:10,496 | INFO | finished run at /home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/experiment/FetchSlide/sac/sac_cpu_debug_smoke_s1_1000

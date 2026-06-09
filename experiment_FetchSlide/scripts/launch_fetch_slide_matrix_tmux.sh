@@ -13,6 +13,8 @@ DEVICE="${DEVICE:-cuda}"
 REWARD_TYPE="${REWARD_TYPE:-sparse}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-${EXPERIMENT_ROOT}/experiment/FetchSlide}"
 EXTRA_ARGS="${EXTRA_ARGS:-}"
+PYTHON_BIN="${PYTHON_BIN:-python3}"
+SABER_MACHINE_LABEL="${SABER_MACHINE_LABEL:-}"
 
 for method in ${METHODS}; do
   for seed in ${SEEDS}; do
@@ -30,6 +32,8 @@ for method in ${METHODS}; do
       REWARD_TYPE='${REWARD_TYPE}' \
       OUTPUT_ROOT='${OUTPUT_ROOT}' \
       EXTRA_ARGS='${EXTRA_ARGS}' \
+      PYTHON_BIN='${PYTHON_BIN}' \
+      SABER_MACHINE_LABEL='${SABER_MACHINE_LABEL}' \
       bash '${EXPERIMENT_ROOT}/scripts/run_fetch_slide_one.sh'
     "
     echo "started ${session}"

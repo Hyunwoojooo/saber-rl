@@ -6,6 +6,8 @@ import csv
 import json
 import math
 import os
+import platform
+import socket
 import sys
 import time
 from collections import OrderedDict
@@ -24,9 +26,9 @@ EXPERIMENT_SRC = EXPERIMENT_ROOT / "src"
 if str(EXPERIMENT_SRC) not in sys.path:
     sys.path.insert(0, str(EXPERIMENT_SRC))
 LITE_SRC_CANDIDATES = (
+    EXPERIMENT_ROOT / "code" / "src",
     WORKSPACE_ROOT / "version_v0_lite" / "src",
     SABER_REPO_ROOT / "version_v0_lite" / "src",
-    EXPERIMENT_ROOT / "code" / "src",
 )
 LITE_SRC = next((path for path in LITE_SRC_CANDIDATES if path.exists()), LITE_SRC_CANDIDATES[0])
 if str(LITE_SRC) not in sys.path:
@@ -74,31 +76,73 @@ DEFAULT_THRESHOLDS = (0.25, 0.50, 0.75, 0.90, 1.00)
 RUNTIME_OPT_METHOD = "b3_critic_only_runtime_optimization"
 RUNTIME_OPT_V4_METHOD = "b3_critic_only_runtime_opt_v4"
 RUNTIME_OPT_V5_METHOD = "b3_critic_only_runtime_opt_v5"
+RUNTIME_OPT_V5_XY_V1_METHOD = "b3_critic_only_runtime_opt_v5_xy_v1"
 RUNTIME_OPT_V6_METHOD = "b3_critic_only_runtime_opt_v6_anneal_300k"
 RUNTIME_OPT_V7_POS_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_positive_huber"
 RUNTIME_OPT_V7_POS_MSE_METHOD = "b3_critic_only_runtime_opt_v7_positive_mse"
 RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_batch_norm_huber"
 TD3_METHOD = "td3"
 TD3_SABER_METHOD = "td3_saber"
+TD3_SABER_RUNTIME_OPT_METHOD = "td3_saber_runtime_opt"
+TD3_SABER_V4_LS512_METHOD = "td3_saber_critic_only_v4_ls512"
 TD3_PER_STYLE_METHOD = "td3_per_style"
 SAC_METHOD = "sac"
 SAC_SABER_METHOD = "sac_saber"
+SAC_SABER_V4_LS512_METHOD = "sac_saber_critic_only_v4_ls512"
+TD3_SABER_RUNTIME_METHODS = {
+    TD3_SABER_METHOD,
+    TD3_SABER_RUNTIME_OPT_METHOD,
+    TD3_SABER_V4_LS512_METHOD,
+}
+SAC_SABER_RUNTIME_METHODS = {
+    SAC_SABER_METHOD,
+    SAC_SABER_V4_LS512_METHOD,
+}
 RUNTIME_OPT_METHODS = {
     RUNTIME_OPT_METHOD,
     RUNTIME_OPT_V4_METHOD,
     RUNTIME_OPT_V5_METHOD,
+    RUNTIME_OPT_V5_XY_V1_METHOD,
     RUNTIME_OPT_V6_METHOD,
     RUNTIME_OPT_V7_POS_HUBER_METHOD,
     RUNTIME_OPT_V7_POS_MSE_METHOD,
     RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
-    TD3_SABER_METHOD,
-    SAC_SABER_METHOD,
+    *TD3_SABER_RUNTIME_METHODS,
+    *SAC_SABER_RUNTIME_METHODS,
 }
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
 RUNTIME_PREDICATE_AUDIT_INTERVAL = 100
 RUNTIME_V6_ANNEAL_START_STEP = 300_000
 RUNTIME_V6_ANNEAL_END_STEP = 500_000
+
+
+def collect_machine_metadata() -> Dict[str, Any]:
+    cuda_devices = []
+    if torch.cuda.is_available():
+        for idx in range(torch.cuda.device_count()):
+            props = torch.cuda.get_device_properties(idx)
+            cuda_devices.append(
+                {
+                    "index": idx,
+                    "name": props.name,
+                    "total_memory_gb": round(props.total_memory / (1024**3), 3),
+                    "major": props.major,
+                    "minor": props.minor,
+                }
+            )
+    return {
+        "label": os.environ.get("SABER_MACHINE_LABEL") or socket.gethostname(),
+        "hostname": socket.gethostname(),
+        "fqdn": socket.getfqdn(),
+        "platform": platform.platform(),
+        "python": sys.version.split()[0],
+        "torch": torch.__version__,
+        "cuda_available": torch.cuda.is_available(),
+        "cuda_version": torch.version.cuda,
+        "cuda_device_count": torch.cuda.device_count() if torch.cuda.is_available() else 0,
+        "cuda_devices": cuda_devices,
+    }
 
 
 @dataclass(frozen=True)
@@ -158,6 +202,12 @@ METHODS: Dict[str, MethodSpec] = {
     ),
     "b3_critic_only_runtime_opt_v5": MethodSpec(
         "b3_critic_only_runtime_opt_v5",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v5_xy_v1": MethodSpec(
+        "b3_critic_only_runtime_opt_v5_xy_v1",
         "b3_support_only",
         "critic_only",
         FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
@@ -233,6 +283,20 @@ METHODS: Dict[str, MethodSpec] = {
         512,
         agent_kind="td3",
     ),
+    "td3_saber_runtime_opt": MethodSpec(
+        TD3_SABER_RUNTIME_OPT_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="td3",
+    ),
+    "td3_saber_critic_only_v4_ls512": MethodSpec(
+        TD3_SABER_V4_LS512_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="td3",
+    ),
     "td3_per_style": MethodSpec(
         TD3_PER_STYLE_METHOD,
         "b0_ddpg_her",
@@ -250,6 +314,13 @@ METHODS: Dict[str, MethodSpec] = {
     ),
     "sac_saber": MethodSpec(
         SAC_SABER_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="sac",
+    ),
+    "sac_saber_critic_only_v4_ls512": MethodSpec(
+        SAC_SABER_V4_LS512_METHOD,
         "b3_support_only",
         "critic_only",
         512,
@@ -905,6 +976,7 @@ class RuntimeOptimizedSupportComputer:
         numba_support_queries = 0
         numba_support_fallbacks = 0
         numba_support_scan_time = 0.0
+        predicate_lookup_entries = 0
         predicate_candidates_examined = 0
         predicate_selected_candidates = 0
         predicate_early_exits = 0
@@ -944,6 +1016,8 @@ class RuntimeOptimizedSupportComputer:
             numba_support_scan_time += float(numba_time)
             if self.support_quality_enabled:
                 support_quality_scan_time += float(numba_time)
+            if self.predicate_early_exit_enabled and use_numba_scan:
+                predicate_lookup_entries += 1
             predicate_candidates_examined += int(entry.predicate_candidates_examined)
             predicate_selected_candidates += int(entry.num_scanned_candidates)
             predicate_early_exits += int(entry.predicate_early_exit)
@@ -1010,7 +1084,7 @@ class RuntimeOptimizedSupportComputer:
         unique_count = len(unique_items)
         support_queries = max(1, support_hits + support_misses)
         scan_queries = max(1, scan_hits + scan_misses)
-        predicate_den = max(1, numba_support_queries)
+        predicate_den = max(1, predicate_lookup_entries)
         scan_fraction_den = max(1, predicate_selected_candidates)
         extra_metrics = {
             "runtime/support_cache_hit_rate": float(support_hits / support_queries),
@@ -1763,24 +1837,26 @@ class SaberWeightComputer:
                 in {
                     RUNTIME_OPT_V4_METHOD,
                     RUNTIME_OPT_V5_METHOD,
+                    RUNTIME_OPT_V5_XY_V1_METHOD,
                     RUNTIME_OPT_V6_METHOD,
                     RUNTIME_OPT_V7_POS_HUBER_METHOD,
                     RUNTIME_OPT_V7_POS_MSE_METHOD,
                     RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
-                    TD3_SABER_METHOD,
-                    SAC_SABER_METHOD,
+                    *TD3_SABER_RUNTIME_METHODS,
+                    *SAC_SABER_RUNTIME_METHODS,
                 },
                 enable_predicate_early_exit=spec.public_name
                 in {
                     RUNTIME_OPT_V5_METHOD,
+                    RUNTIME_OPT_V5_XY_V1_METHOD,
                     RUNTIME_OPT_V6_METHOD,
                     RUNTIME_OPT_V7_POS_HUBER_METHOD,
                     RUNTIME_OPT_V7_POS_MSE_METHOD,
                     RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
-                    TD3_SABER_METHOD,
-                    SAC_SABER_METHOD,
+                    *TD3_SABER_RUNTIME_METHODS,
+                    *SAC_SABER_RUNTIME_METHODS,
                 },
-                enable_periodic_predicate_audit=spec.public_name == RUNTIME_OPT_V5_METHOD,
+                enable_periodic_predicate_audit=spec.public_name in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V5_XY_V1_METHOD},
             )
             if spec.public_name in RUNTIME_OPT_METHODS
             else None
@@ -1968,6 +2044,9 @@ def run(args: argparse.Namespace) -> Path:
     logger = setup_logger(run_dir / "run.log")
     set_all_seeds(cfg.seeds.torch_seed, cfg.seeds.numpy_seed)
     device = select_device(cfg.device)
+    machine_metadata = collect_machine_metadata()
+    logger.info("machine=%s hostname=%s cuda_devices=%s", machine_metadata["label"], machine_metadata["hostname"], machine_metadata["cuda_devices"])
+    logger.info("lite_src=%s", LITE_SRC)
     logger.info(
         "method=%s lite_method=%s effective_weight_scope=%s config_weight_scope=%s support_lookup=%s device=%s",
         args.method,
@@ -2083,14 +2162,15 @@ def run(args: argparse.Namespace) -> Path:
             "runtime_predicate_early_exit_enabled": args.method
             in {
                 RUNTIME_OPT_V5_METHOD,
+                RUNTIME_OPT_V5_XY_V1_METHOD,
                 RUNTIME_OPT_V6_METHOD,
                 RUNTIME_OPT_V7_POS_HUBER_METHOD,
                 RUNTIME_OPT_V7_POS_MSE_METHOD,
                 RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
-                TD3_SABER_METHOD,
-                SAC_SABER_METHOD,
+                *TD3_SABER_RUNTIME_METHODS,
+                *SAC_SABER_RUNTIME_METHODS,
             },
-            "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
+            "runtime_periodic_predicate_audit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V5_XY_V1_METHOD},
             "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
             "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
             "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
@@ -2127,6 +2207,8 @@ def run(args: argparse.Namespace) -> Path:
             "per_full_enabled": bool(per_full_sampler is not None),
             "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
+            "lite_src": str(LITE_SRC),
+            "machine": machine_metadata,
             "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
         },
     )
@@ -2136,6 +2218,8 @@ def run(args: argparse.Namespace) -> Path:
             "train_env": train_env.snapshot(),
             "eval_env": eval_env.snapshot(),
             "task_spec": task.metadata(),
+            "lite_src": str(LITE_SRC),
+            "machine": machine_metadata,
         },
     )
 
@@ -2522,6 +2606,7 @@ def run(args: argparse.Namespace) -> Path:
         eval_rows=eval_rows,
         runtime_total_sec=runtime_total_sec,
     )
+    summary["machine"] = machine_metadata
     write_json(run_dir / "summary.json", summary)
     csv_writer.close()
     jsonl_writer.close()
@@ -3070,14 +3155,15 @@ def build_summary(
         "runtime_predicate_early_exit_enabled": args.method
         in {
             RUNTIME_OPT_V5_METHOD,
+            RUNTIME_OPT_V5_XY_V1_METHOD,
             RUNTIME_OPT_V6_METHOD,
             RUNTIME_OPT_V7_POS_HUBER_METHOD,
             RUNTIME_OPT_V7_POS_MSE_METHOD,
             RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
-            TD3_SABER_METHOD,
-            SAC_SABER_METHOD,
+            *TD3_SABER_RUNTIME_METHODS,
+            *SAC_SABER_RUNTIME_METHODS,
         },
-        "runtime_periodic_predicate_audit_enabled": args.method == RUNTIME_OPT_V5_METHOD,
+        "runtime_periodic_predicate_audit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V5_XY_V1_METHOD},
         "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
         "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
         "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
@@ -3173,7 +3259,9 @@ def auc(history: list[tuple[int, float]], total_steps: int | None = None) -> flo
     values = np.asarray([v for _, v in history], dtype=np.float64)
     span = float(total_steps) if total_steps is not None else float(steps[-1] - steps[0])
     span = max(1.0, span)
-    trapezoid = getattr(np, "trapezoid", np.trapz)
+    trapezoid = getattr(np, "trapezoid", None)
+    if trapezoid is None:
+        trapezoid = getattr(np, "trapz")
     return float(trapezoid(values, steps) / span)
 
 

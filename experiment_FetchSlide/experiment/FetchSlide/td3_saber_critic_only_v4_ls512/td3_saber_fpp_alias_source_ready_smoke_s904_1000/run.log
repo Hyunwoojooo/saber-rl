@@ -1,0 +1,7 @@
+2026-06-05 22:39:58,085 | INFO | machine=edgexpert-d530 hostname=edgexpert-d530 cuda_devices=[{'index': 0, 'name': 'NVIDIA GB10', 'total_memory_gb': 121.628, 'major': 12, 'minor': 1}]
+2026-06-05 22:39:58,085 | INFO | lite_src=/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/code/src
+2026-06-05 22:39:58,085 | INFO | method=td3_saber_critic_only_v4_ls512 lite_method=b3_support_only effective_weight_scope=critic_only config_weight_scope=critic_only support_lookup=True device=cpu
+2026-06-05 22:40:16,146 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.266 psi=0.266 fallback=0.734
+2026-06-05 22:40:44,388 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=1.188 psi=0.188 fallback=0.812
+2026-06-05 22:40:44,438 | INFO | step=1000 replay=1000 updates=801 loss_q=0.1192 loss_pi=0.6626
+2026-06-05 22:40:44,439 | INFO | finished run at /home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/experiment/FetchSlide/td3_saber_critic_only_v4_ls512/td3_saber_fpp_alias_source_ready_smoke_s904_1000

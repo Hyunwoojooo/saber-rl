@@ -1,0 +1,7 @@
+2026-06-05 15:22:42,410 | INFO | machine=edgexpert-d530 hostname=edgexpert-d530 cuda_devices=[{'index': 0, 'name': 'NVIDIA GB10', 'total_memory_gb': 121.628, 'major': 12, 'minor': 1}]
+2026-06-05 15:22:42,410 | INFO | lite_src=/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/code/src
+2026-06-05 15:22:42,410 | INFO | method=b3_critic_only_runtime_opt_v5_xy_v1 lite_method=b3_support_only effective_weight_scope=critic_only config_weight_scope=critic_only support_lookup=True device=cuda
+2026-06-05 15:22:47,717 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.219 psi=0.219 fallback=0.781
+2026-06-05 15:22:53,387 | INFO | step=1000 episode=20 replay=1000 eval=0.000 ret=-50.00 wP=1.438 psi=0.438 fallback=0.562
+2026-06-05 15:22:53,416 | INFO | step=1000 replay=1000 updates=801 loss_q=0.0134 loss_pi=1.0093
+2026-06-05 15:22:53,417 | INFO | finished run at /home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/experiment/FetchSlide/b3_critic_only_runtime_opt_v5_xy_v1/fetch_slide_b3_critic_only_runtime_opt_v5_xy_v1_s901_1000_ls512

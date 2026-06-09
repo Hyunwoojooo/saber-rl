@@ -1,0 +1,17 @@
+2026-06-05 23:05:50 KST queue started; waiting for dependency sessions: saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s1_1000000 saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s2_1000000 saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s3_1000000 saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s4_1000000 saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s5_1000000
+2026-06-05 23:05:50 KST waiting; still active: saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s1_1000000
+2026-06-05 23:06:50 KST waiting; still active: saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s4_1000000
+2026-06-05 23:07:50 KST waiting; still active: saber_fs_b3_critic_only_runtime_opt_v5_xy_v1_s4_1000000
+2026-06-05 23:08:50 KST launching FetchSlide TD3+SABER main: methods=td3_saber_critic_only_v4_ls512 seeds=1 2 3 4 5 steps=1000000 device=cuda
+started saber_fs_td3_saber_critic_only_v4_ls512_s1_1000000
+started saber_fs_td3_saber_critic_only_v4_ls512_s2_1000000
+started saber_fs_td3_saber_critic_only_v4_ls512_s3_1000000
+started saber_fs_td3_saber_critic_only_v4_ls512_s4_1000000
+started saber_fs_td3_saber_critic_only_v4_ls512_s5_1000000
+saber_fs_queue_td3_saber_v4_ls512_after_xy_v1: 1 windows (created Fri Jun  5 23:05:50 2026)
+saber_fs_td3_saber_critic_only_v4_ls512_s1_1000000: 1 windows (created Fri Jun  5 23:08:50 2026)
+saber_fs_td3_saber_critic_only_v4_ls512_s2_1000000: 1 windows (created Fri Jun  5 23:08:50 2026)
+saber_fs_td3_saber_critic_only_v4_ls512_s3_1000000: 1 windows (created Fri Jun  5 23:08:50 2026)
+saber_fs_td3_saber_critic_only_v4_ls512_s4_1000000: 1 windows (created Fri Jun  5 23:08:50 2026)
+saber_fs_td3_saber_critic_only_v4_ls512_s5_1000000: 1 windows (created Fri Jun  5 23:08:50 2026)
+2026-06-05 23:08:50 KST queue finished

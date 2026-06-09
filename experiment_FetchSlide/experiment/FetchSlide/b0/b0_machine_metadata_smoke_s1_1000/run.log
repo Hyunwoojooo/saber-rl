@@ -1,0 +1,3 @@
+2026-06-04 11:39:48,058 | INFO | machine=edgexpert-d530 hostname=edgexpert-d530 cuda_devices=[{'index': 0, 'name': 'NVIDIA GB10', 'total_memory_gb': 121.628, 'major': 12, 'minor': 1}]
+2026-06-04 11:39:48,058 | INFO | method=b0 lite_method=b0_ddpg_her effective_weight_scope=none config_weight_scope=critic_only support_lookup=False device=cuda
+2026-06-04 11:39:51,126 | INFO | step=500 episode=10 replay=500 eval=0.000 ret=-50.00 wP=1.000 psi=0.000 fallback=1.000

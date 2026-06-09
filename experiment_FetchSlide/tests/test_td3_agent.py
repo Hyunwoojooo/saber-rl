@@ -11,9 +11,11 @@ import torch
 EXPERIMENT_ROOT = Path(__file__).resolve().parents[1]
 SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
 WORKSPACE_ROOT = SABER_REPO_ROOT.parent
-sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 sys.path.insert(0, str(WORKSPACE_ROOT / "version_v0_lite" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "code" / "src"))
+sys.path.insert(0, str(EXPERIMENT_ROOT / "src"))
 
+from saber_fetch_slide.experiment import METHODS, RUNTIME_OPT_METHODS  # noqa: E402
 from saber_fetch_slide.td3_agent import TD3Agent  # noqa: E402
 
 
@@ -81,7 +83,32 @@ def test_td3_priority_td_errors_are_finite_batch_values() -> None:
     assert (td >= 0.0).all()
 
 
+def test_td3_fpp_compatible_td_error_abs_is_finite() -> None:
+    agent = _make_agent(policy_delay=2)
+    state = torch.randn(7, 3)
+    action = torch.randn(7, 2).clamp(-1.0, 1.0)
+    reward = torch.randn(7)
+    next_state = torch.randn(7, 3)
+    nonterminal = torch.ones(7)
+    td = agent.td_error_abs(state, action, reward, next_state, nonterminal)
+    assert td.shape == reward.shape
+    assert torch.isfinite(td).all()
+    assert (td >= 0.0).all()
+
+
+def test_td3_saber_runtime_aliases_match_fpp_contract() -> None:
+    for method in ("td3_saber", "td3_saber_runtime_opt", "td3_saber_critic_only_v4_ls512"):
+        spec = METHODS[method]
+        assert spec.lite_method == "b3_support_only"
+        assert spec.weight_scope == "critic_only"
+        assert spec.local_search_max == 512
+        assert spec.agent_kind == "td3"
+        assert spec.public_name in RUNTIME_OPT_METHODS
+
+
 if __name__ == "__main__":
     test_td3_actor_update_is_delayed()
     test_td3_q_values_use_conservative_minimum()
     test_td3_priority_td_errors_are_finite_batch_values()
+    test_td3_fpp_compatible_td_error_abs_is_finite()
+    test_td3_saber_runtime_aliases_match_fpp_contract()

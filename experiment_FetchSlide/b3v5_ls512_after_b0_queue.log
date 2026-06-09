@@ -1,0 +1,26 @@
+2026-06-04 15:51:17 KST queue started: wait for B0 sessions and 5 summaries
+2026-06-04 15:51:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:52:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:53:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:54:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:55:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:56:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:57:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:58:17 KST waiting active=1 summaries=1/5
+2026-06-04 15:59:17 KST waiting active=1 summaries=1/5
+2026-06-04 16:00:17 KST waiting active=1 summaries=1/5
+2026-06-04 16:01:17 KST waiting active=1 summaries=2/5
+2026-06-04 16:02:17 KST waiting active=1 summaries=4/5
+2026-06-04 16:03:17 KST launching b3_critic_only_runtime_opt_v5 ls512 no-quality
+started saber_fs_b3_critic_only_runtime_opt_v5_s1_1000000
+started saber_fs_b3_critic_only_runtime_opt_v5_s2_1000000
+started saber_fs_b3_critic_only_runtime_opt_v5_s3_1000000
+started saber_fs_b3_critic_only_runtime_opt_v5_s4_1000000
+started saber_fs_b3_critic_only_runtime_opt_v5_s5_1000000
+saber_fs_b3_critic_only_runtime_opt_v5_s1_1000000: 1 windows (created Thu Jun  4 16:03:17 2026)
+saber_fs_b3_critic_only_runtime_opt_v5_s2_1000000: 1 windows (created Thu Jun  4 16:03:17 2026)
+saber_fs_b3_critic_only_runtime_opt_v5_s3_1000000: 1 windows (created Thu Jun  4 16:03:17 2026)
+saber_fs_b3_critic_only_runtime_opt_v5_s4_1000000: 1 windows (created Thu Jun  4 16:03:17 2026)
+saber_fs_b3_critic_only_runtime_opt_v5_s5_1000000: 1 windows (created Thu Jun  4 16:03:17 2026)
+saber_fs_queue_b3v5_ls512_after_b0: 1 windows (created Thu Jun  4 15:51:17 2026)
+2026-06-04 16:03:17 KST queue finished
