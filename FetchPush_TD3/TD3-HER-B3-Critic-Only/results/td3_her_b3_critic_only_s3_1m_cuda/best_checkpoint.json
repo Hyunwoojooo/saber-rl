@@ -1,0 +1,8 @@
+{
+  "checkpoint": "/home/mimiclab_asus/SABER/FetchPush_TD3/TD3-HER-B3-Critic-Only/results/td3_her_b3_critic_only_s3_1m_cuda/best_checkpoint.pt",
+  "eval_env_success_mean": 1.0,
+  "eval_goal_success_mean": 1.0,
+  "eval_return_mean": -7.65,
+  "eval_success_mean": 1.0,
+  "step": 960000
+}
