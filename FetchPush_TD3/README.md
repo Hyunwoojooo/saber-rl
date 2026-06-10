@@ -73,3 +73,20 @@ B3-Critic-Only improves over the TD3+HER baseline while preserving final
 success, although PER-style prioritization achieves the strongest
 sample-efficiency on FetchPush under TD3.
 ```
+
+## TD3 Random-Support Negative Control
+
+The Random-Support ablation preserves the number of B3 high-weight samples in
+each batch, but randomly reassigns those high weights across the batch. This is
+therefore a support-density matched random control rather than a pure random
+baseline.
+
+| Method | Final success | Best success | Success AUC | Hit90 step | Speed | Runtime |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only-Random-Support | 1.000 +/- 0.000 | 1.000 +/- 0.000 | 0.654 +/- 0.041 | 450k +/- 32k | 34.65 steps/s | 8.02 h |
+
+Random-Support performs strongly, which suggests that part of the FetchPush TD3
+gain comes from support-conditioned reweighting density and stochastic critic
+reweighting. The aligned B3-Critic-Only result remains slightly better in AUC
+and Hit90, but the negative control shows that semantic support alignment is not
+the only contributor to the improvement.
