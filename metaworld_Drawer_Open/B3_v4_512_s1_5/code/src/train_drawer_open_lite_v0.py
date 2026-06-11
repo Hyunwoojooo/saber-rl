@@ -32,6 +32,7 @@ def parse_args() -> argparse.Namespace:
             "b2_unrestricted_gap",
             "b3_support_only",
             "b3_support_random",
+            "b3_support_random_runtime_opt",
             "b3_support_shuffled",
             "b3_support_runtime_opt",
             "b4_lite",

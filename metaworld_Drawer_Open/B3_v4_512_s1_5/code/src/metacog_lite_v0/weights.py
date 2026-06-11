@@ -150,7 +150,7 @@ class LiteWeightComputer:
             query_coarse = np.zeros(b, dtype=np.int64)
             local_lookup: Dict[int, LocalScan] = {}
             local_lookup_time = time.perf_counter() - t_lookup0
-        elif self.cfg.method == "b3_support_runtime_opt":
+        elif self.cfg.method in {"b3_support_runtime_opt", "b3_support_random_runtime_opt"}:
             query_coarse, runtime_opt_contexts, runtime_metrics, local_lookup_time = self._prepare_runtime_opt_contexts(
                 batch, replay, a_policy
             )
@@ -249,6 +249,7 @@ class LiteWeightComputer:
                 if self.cfg.method in {
                     "b3_support_only",
                     "b3_support_random",
+                    "b3_support_random_runtime_opt",
                     "b3_support_shuffled",
                     "b3_support_runtime_opt",
                 }:
@@ -269,6 +270,7 @@ class LiteWeightComputer:
         if self.cfg.method not in {
             "b3_support_only",
             "b3_support_random",
+            "b3_support_random_runtime_opt",
             "b3_support_shuffled",
             "b3_support_runtime_opt",
         }:
@@ -320,7 +322,7 @@ class LiteWeightComputer:
 
         reference_w_raw = w_raw.astype(np.float32, copy=True)
         assigned_w_raw = reference_w_raw.copy()
-        if self.cfg.method == "b3_support_random":
+        if self.cfg.method in {"b3_support_random", "b3_support_random_runtime_opt"}:
             k_positive = int(np.sum(psi_q_rank > 0.5))
             assigned_w_raw = np.ones(b, dtype=np.float32)
             if k_positive > 0:
@@ -329,7 +331,7 @@ class LiteWeightComputer:
         elif self.cfg.method == "b3_support_shuffled":
             assigned_w_raw = rng.permutation(reference_w_raw).astype(np.float32)
 
-        if self.cfg.method in {"b3_support_random", "b3_support_shuffled"}:
+        if self.cfg.method in {"b3_support_random", "b3_support_random_runtime_opt", "b3_support_shuffled"}:
             reference_high = reference_w_raw > (1.0 + 0.5 * self.cfg.lambda_support)
             assigned_high = assigned_w_raw > (1.0 + 0.5 * self.cfg.lambda_support)
             if np.any(assigned_high):
@@ -349,7 +351,7 @@ class LiteWeightComputer:
                 }
             )
 
-        if self.cfg.method == "b3_support_runtime_opt":
+        if self.cfg.method in {"b3_support_runtime_opt", "b3_support_random_runtime_opt"}:
             cache_hit_rate = float(extra_metrics.get("runtime/support_cache_hit_rate", 0.0))
             extra_metrics.setdefault("support_cache_hit_rate", cache_hit_rate)
             extra_metrics.setdefault("short_circuit_rate", 0.0)
