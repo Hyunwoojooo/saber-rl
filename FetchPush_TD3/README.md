@@ -6,6 +6,8 @@ This directory contains TD3 versions of the FetchPush comparison matrix.
 
 - `TD3-HER-B0`: TD3 + HER baseline.
 - `TD3-HER-B3-Critic-Only`: TD3 + HER + SABER/B3 critic-only local support weighting.
+- `TD3-HER-B3-Actor-Only`: TD3 + HER + SABER/B3 actor-only local support weighting.
+- `TD3-HER-B3-Actor-Critic`: TD3 + HER + SABER/B3 actor+critic local support weighting.
 - `TD3-HER-PER-Style`: TD3 + HER + PER-style batch-local TD-error critic loss weighting.
 - `TD3-HER-PER-Full`: TD3 + HER + full prioritized replay sampling with IS critic weighting.
 
@@ -90,3 +92,38 @@ gain comes from support-conditioned reweighting density and stochastic critic
 reweighting. The aligned B3-Critic-Only result remains slightly better in AUC
 and Hit90, but the negative control shows that semantic support alignment is not
 the only contributor to the improvement.
+
+## TD3 Actor-Scope Ablation
+
+The Actor-Only and Actor+Critic ablations keep the same FetchPush TD3+HER+B3
+configuration as the final B3-Critic-Only run and change only `weight_scope`.
+Runs used 5 seeds, 1M steps, sparse rewards, HER, CUDA, and 20-episode
+evaluations every 10k environment steps.
+
+| Method | Weight scope | Final success | Best success | Success AUC | Hit90 step | Speed | Runtime |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only | `critic_only` | 1.000 +/- 0.000 | 1.000 +/- 0.000 | 0.662 +/- 0.039 | 438k +/- 35k | 37.79 steps/s | 7.35 h |
+| TD3+HER+B3-Actor-Only | `actor_only` | 1.000 +/- 0.000 | 1.000 +/- 0.000 | 0.626 +/- 0.032 | 472k +/- 38k | 37.88 steps/s | 7.35 h |
+| TD3+HER+B3-Actor+Critic | `actor_critic` | 0.980 +/- 0.027 | 1.000 +/- 0.000 | 0.664 +/- 0.028 | 446k +/- 29k | 37.79 steps/s | 7.37 h |
+
+Seed-level summary:
+
+| Method | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Actor-Only final success | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 |
+| Actor-Only AUC | 0.593 | 0.662 | 0.646 | 0.638 | 0.592 |
+| Actor-Only Hit90 | 510k | 430k | 470k | 440k | 510k |
+| Actor+Critic final success | 0.95 | 1.00 | 1.00 | 0.95 | 1.00 |
+| Actor+Critic AUC | 0.680 | 0.664 | 0.691 | 0.665 | 0.618 |
+| Actor+Critic Hit90 | 430k | 440k | 470k | 410k | 480k |
+
+Interpretation:
+
+- Actor-Only reaches perfect final success on FetchPush, but it is weaker than
+  Critic-Only in sample efficiency: lower AUC and later Hit90.
+- Actor+Critic nearly matches Critic-Only sample efficiency, but its final
+  success is slightly lower due to two seeds ending at 0.95.
+- Together with DrawerOpen, this supports the actor-scope ablation conclusion
+  that applying B3 support weights on the critic side is the more reliable core
+  mechanism, while actor-only weighting is not sufficient to explain the gains.
+
