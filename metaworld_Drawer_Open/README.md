@@ -141,13 +141,12 @@ Interpretation:
 
 ## 2M Actor-Scope Ablation Results
 
-Status as of 2026-06-14 19:37 KST:
+Status as of 2026-06-17 17:15 KST:
 
 - `TD3+HER+B3-Actor-Only` completed 5 seeds at 2M steps.
+- `TD3+HER+B3-Actor+Critic` completed 5 seeds at 2M steps.
 - `TD3+HER+B3-Critic-Only` is repeated from the completed 2M follow-up above
   for the direct critic-vs-actor scope comparison.
-- `TD3+HER+B3-Actor+Critic` is still running and is intentionally excluded
-  from this completed-result summary.
 
 Aggregate metrics use 5 seeds:
 
@@ -155,6 +154,7 @@ Aggregate metrics use 5 seeds:
 | --- | ---: | ---: | ---: | ---: | ---: |
 | TD3+HER+B3-Critic-Only 2M | 0.590 +/- 0.539 | 0.620 +/- 0.522 | 0.361 +/- 0.338 | 803k +/- 256k, 3/5 seeds | 21.57 steps/s |
 | TD3+HER+B3-Actor-Only 2M | 0.400 +/- 0.548 | 0.410 +/- 0.539 | 0.249 +/- 0.341 | 780k, 2/5 seeds | 21.48 steps/s |
+| TD3+HER+B3-Actor+Critic 2M | 0.600 +/- 0.548 | 0.610 +/- 0.534 | 0.432 +/- 0.395 | 603k +/- 55k, 3/5 seeds | 21.75 steps/s |
 
 Seed-level final success:
 
@@ -162,6 +162,7 @@ Seed-level final success:
 | --- | ---: | ---: | ---: | ---: | ---: |
 | TD3+HER+B3-Critic-Only 2M | 0.95 | 0.00 | 0.00 | 1.00 | 1.00 |
 | TD3+HER+B3-Actor-Only 2M | 1.00 | 1.00 | 0.00 | 0.00 | 0.00 |
+| TD3+HER+B3-Actor+Critic 2M | 1.00 | 1.00 | 0.00 | 1.00 | 0.00 |
 
 Seed-level best success:
 
@@ -169,13 +170,17 @@ Seed-level best success:
 | --- | ---: | ---: | ---: | ---: | ---: |
 | TD3+HER+B3-Critic-Only 2M | 1.00 | 0.00 | 0.10 | 1.00 | 1.00 |
 | TD3+HER+B3-Actor-Only 2M | 1.00 | 1.00 | 0.00 | 0.05 | 0.00 |
+| TD3+HER+B3-Actor+Critic 2M | 1.00 | 1.00 | 0.05 | 1.00 | 0.00 |
 
 Interpretation:
 
 - Actor-Only can solve some seeds, but it is weaker than Critic-Only on this
   DrawerOpen 2M run: fewer Hit90 seeds, lower final success, lower best
   success, and lower AUC.
-- The current completed ablation evidence supports the view that applying B3
-  support weights to critic learning is the more reliable scope than applying
-  them only to actor updates.
+- Actor+Critic is competitive with Critic-Only in aggregate final success and
+  AUC, but it does not cleanly dominate: both reach Hit90 on 3/5 seeds and the
+  best-success difference is negligible under high seed variance.
+- The completed ablation evidence supports using Critic-Only as the cleaner
+  primary SABER/B3 scope, with Actor+Critic reported as a competitive but less
+  isolated variant.
 
