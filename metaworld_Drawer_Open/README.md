@@ -104,8 +104,7 @@ Status as of 2026-06-12 13:21 KST:
 - `TD3+HER` and `TD3+HER+B3-Critic-Only` completed 5 seeds at 2M steps.
 - The follow-up used the same sparse DrawerOpen goal wrapper, TD3+HER backbone,
   `drawer-open-v3`, `reward_function_version=v2`, and 20 evaluation episodes.
-- Random/actor-scope ablations are running separately and are not included in
-  this completed-result summary.
+- Random/actor-scope ablations are reported separately below.
 
 Aggregate metrics use 5 seeds:
 
@@ -184,3 +183,46 @@ Interpretation:
   primary SABER/B3 scope, with Actor+Critic reported as a competitive but less
   isolated variant.
 
+
+## 2M Random-Support Negative Control Results
+
+Status as of 2026-06-17 17:15 KST:
+
+- `TD3+HER+B3-Random-Support` completed 5 seeds at 2M steps.
+- The variant keeps the B3-style weighted critic update path but replaces the
+  structured support assignment with random support weights.
+- `TD3+HER+B3-Critic-Only` is repeated from the completed 2M follow-up above
+  for the direct structured-vs-random support comparison.
+
+Aggregate metrics use 5 seeds:
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 0.590 +/- 0.539 | 0.620 +/- 0.522 | 0.361 +/- 0.338 | 803k +/- 256k, 3/5 seeds | 21.57 steps/s |
+| TD3+HER+B3-Random-Support 2M | 0.600 +/- 0.548 | 0.600 +/- 0.548 | 0.426 +/- 0.392 | 570k +/- 141k, 3/5 seeds | 20.84 steps/s |
+
+Seed-level final success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 0.95 | 0.00 | 0.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Support 2M | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 |
+
+Seed-level best success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 1.00 | 0.00 | 0.10 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Support 2M | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 |
+
+Interpretation:
+
+- Random-Support performs unexpectedly strongly on this DrawerOpen 2M run:
+  it matches Critic-Only on Hit90 count and mean final success, and has a
+  higher AUC in this seed set.
+- The result suggests that part of the gain may come from support-conditioned
+  critic reweighting and exploration stabilization rather than only from the
+  exact structured support rule.
+- Because the successful seeds differ from Critic-Only, this should be reported
+  as an important negative-control result rather than folded into the main
+  structured-support claim.
