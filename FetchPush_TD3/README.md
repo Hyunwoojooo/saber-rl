@@ -76,22 +76,42 @@ success, although PER-style prioritization achieves the strongest
 sample-efficiency on FetchPush under TD3.
 ```
 
-## TD3 Random-Support Negative Control
+## TD3 Support-Control Negative Controls
 
-The Random-Support ablation preserves the number of B3 high-weight samples in
-each batch, but randomly reassigns those high weights across the batch. This is
-therefore a support-density matched random control rather than a pure random
-baseline.
+The support-control ablations keep the FetchPush TD3+HER+B3 critic-only update
+path and perturb the mapping between support information and sample weights.
+Random-Support preserves the number of B3 high-weight samples in each batch but
+randomly reassigns those high weights. Shuffled-Weight preserves the weight
+distribution but breaks the original sample-to-weight alignment.
 
 | Method | Final success | Best success | Success AUC | Hit90 step | Speed | Runtime |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only | 1.000 +/- 0.000 | 1.000 +/- 0.000 | 0.662 +/- 0.039 | 438k +/- 35k | 37.79 steps/s | 7.35 h |
 | TD3+HER+B3-Critic-Only-Random-Support | 1.000 +/- 0.000 | 1.000 +/- 0.000 | 0.654 +/- 0.041 | 450k +/- 32k | 34.65 steps/s | 8.02 h |
+| TD3+HER+B3-Critic-Only-Shuffled-Weight | 0.970 +/- 0.067 | 1.000 +/- 0.000 | 0.679 +/- 0.053 | 428k +/- 79k | 34.70 steps/s | 8.01 h |
 
-Random-Support performs strongly, which suggests that part of the FetchPush TD3
-gain comes from support-conditioned reweighting density and stochastic critic
-reweighting. The aligned B3-Critic-Only result remains slightly better in AUC
-and Hit90, but the negative control shows that semantic support alignment is not
-the only contributor to the improvement.
+Shuffled-Weight seed-level summary:
+
+| Metric | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Final success | 1.00 | 1.00 | 1.00 | 1.00 | 0.85 |
+| Success AUC | 0.585 | 0.715 | 0.694 | 0.700 | 0.700 |
+| Hit90 step | 560k | 410k | 360k | 380k | 430k |
+
+Interpretation:
+
+- Random-Support performs strongly, which suggests that part of the FetchPush
+  TD3 gain comes from support-conditioned reweighting density and stochastic
+  critic reweighting. The aligned B3-Critic-Only result remains slightly better
+  than Random-Support in AUC and Hit90.
+- Shuffled-Weight reaches the best AUC and Hit90 among these FetchPush
+  support-control runs, but final success drops to 0.970 because seed 5 ends at
+  0.85. This makes it a strong negative control, not a clean replacement for
+  aligned B3-Critic-Only.
+- Because FetchPush is close to saturated, these controls should be used to
+  qualify the claim: FetchPush alone does not isolate semantic support
+  alignment; harder tasks such as DrawerOpen are needed to separate the
+  mechanism more clearly.
 
 ## TD3 Actor-Scope Ablation
 
