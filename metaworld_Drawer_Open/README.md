@@ -226,8 +226,60 @@ Interpretation:
 - Because the successful seeds differ from Critic-Only, this should be reported
   as an important negative-control result rather than folded into the main
   structured-support claim.
-- A fully random fixed-count control is prepared but not yet run:
-  `bash metaworld_Drawer_Open/run_td3_drawer_open_random_fixed_count_2m_5parallel.sh`.
-  It uses `k=122`, fixed before training from the completed DrawerOpen
-  B3-Critic-Only mean high-weight rate, and does not call the SABER support
-  scanner or use support-positive counts.
+
+## 2M Fully Random Fixed-Count Negative Control Results
+
+Status as of 2026-06-18 08:09 KST:
+
+- `TD3+HER+B3-Random-Fixed-Count` completed 5 seeds at 2M steps.
+- This control keeps critic-only loss reweighting, `lambda_support=1.0`,
+  batch-normalized weights, and a fixed high-weight count of `k=122` per
+  256-sample batch.
+- It does not call the SABER support scanner, does not perform local support
+  lookup, and does not use support-positive counts. High-weight samples are
+  chosen uniformly at random each batch.
+
+Aggregate metrics use 5 seeds:
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 0.590 +/- 0.539 | 0.620 +/- 0.522 | 0.361 +/- 0.338 | 803k +/- 256k, 3/5 seeds | 21.57 steps/s |
+| TD3+HER+B3-Random-Support 2M | 0.600 +/- 0.548 | 0.600 +/- 0.548 | 0.426 +/- 0.392 | 570k +/- 141k, 3/5 seeds | 20.84 steps/s |
+| TD3+HER+B3-Random-Fixed-Count 2M | 0.200 +/- 0.447 | 0.200 +/- 0.447 | 0.144 +/- 0.322 | 520k, 1/5 seeds | 41.60 steps/s |
+
+Seed-level final success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 0.95 | 0.00 | 0.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Support 2M | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Fixed-Count 2M | 0.00 | 0.00 | 0.00 | 1.00 | 0.00 |
+
+Seed-level best success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 1.00 | 0.00 | 0.10 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Support 2M | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Fixed-Count 2M | 0.00 | 0.00 | 0.00 | 1.00 | 0.00 |
+
+Implementation diagnostics:
+
+| Metric | Value |
+| --- | ---: |
+| `random_fixed_count_k` | 122 |
+| `assigned_high_weight_rate` | 0.4766 |
+| `mean_w_P` | 1.4766 |
+| `psi_q_rank_rate` | 0.0000 |
+| support lookup used | no |
+
+Interpretation:
+
+- Fully Random Fixed-Count succeeds on only 1/5 seeds, while Random-Support and
+  Critic-Only each solve 3/5 seeds in this DrawerOpen 2M setting.
+- This weakens the explanation that the gains come only from random critic loss
+  reweighting. A fixed amount of random high weighting is not sufficient to
+  reproduce the support-aware controls.
+- The result supports the importance of support-conditioned weighting. The
+  running Shuffled-Weight control will further separate support-density effects
+  from exact sample-level support alignment.
