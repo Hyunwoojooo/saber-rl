@@ -204,6 +204,7 @@ class LiteConfig:
     eps_G: float = 1e-6
     lambda_P: float = 1.0
     lambda_support: float = 1.0
+    random_fixed_count_k: int = 0
     U_P_max: float = 1.0
 
     # SABER document baselines: critic-only TD-error and PER-style loss weighting.
@@ -247,7 +248,9 @@ class LiteConfig:
             "b3_support_random",
             "b3_support_random_runtime_opt",
             "b3_support_shuffled",
+            "b3_support_shuffled_runtime_opt",
             "b3_support_runtime_opt",
+            "b3_fully_random_fixed_count",
             "b4_lite",
             "td_error",
             "per_style_loss_weighting",
@@ -379,6 +382,7 @@ class LiteConfig:
         self.support_cache_max_entries = max(0, int(self.support_cache_max_entries))
         self.local_scan_cache_max_entries = max(0, int(self.local_scan_cache_max_entries))
         self.N_gap_min = max(1, int(self.N_gap_min))
+        self.random_fixed_count_k = max(0, int(self.random_fixed_count_k))
         self.gap_window = max(self.N_gap_min, int(self.gap_window))
         if self.smoke:
             if self.task_name in {"unitree_apple", "pick_cube", "push_t", "drawer_open"}:

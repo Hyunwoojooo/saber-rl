@@ -10,6 +10,7 @@ This directory contains TD3 versions of the FetchPush comparison matrix.
 - `TD3-HER-B3-Actor-Critic`: TD3 + HER + SABER/B3 actor+critic local support weighting.
 - `TD3-HER-PER-Style`: TD3 + HER + PER-style batch-local TD-error critic loss weighting.
 - `TD3-HER-PER-Full`: TD3 + HER + full prioritized replay sampling with IS critic weighting.
+- `TD3-HER-B3-Critic-Only-Random-Fixed-Count`: TD3 + HER + fully random fixed-count critic reweighting; no SABER support lookup.
 
 All variants keep the FetchPush task, HER relabeling, sparse reward, replay size, batch size, evaluation protocol, and 1M-step training budget aligned with the DDPG FetchPush experiments.
 
@@ -112,6 +113,16 @@ Interpretation:
   qualify the claim: FetchPush alone does not isolate semantic support
   alignment; harder tasks such as DrawerOpen are needed to separate the
   mechanism more clearly.
+
+Prepared but not yet run:
+
+```bash
+bash FetchPush_TD3/FetchPush_Random_Shuffled_Uniform_Ablation/run_td3_random_fixed_count_5parallel.sh
+```
+
+The prepared `Random Fixed-Count` control uses `k=60`, fixed before training
+from the completed FetchPush B3-Critic-Only mean high-weight rate. It does not
+perform SABER support lookup and does not use support-positive counts.
 
 ## TD3 Actor-Scope Ablation
 

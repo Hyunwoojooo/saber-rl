@@ -226,3 +226,8 @@ Interpretation:
 - Because the successful seeds differ from Critic-Only, this should be reported
   as an important negative-control result rather than folded into the main
   structured-support claim.
+- A fully random fixed-count control is prepared but not yet run:
+  `bash metaworld_Drawer_Open/run_td3_drawer_open_random_fixed_count_2m_5parallel.sh`.
+  It uses `k=122`, fixed before training from the completed DrawerOpen
+  B3-Critic-Only mean high-weight rate, and does not call the SABER support
+  scanner or use support-positive counts.

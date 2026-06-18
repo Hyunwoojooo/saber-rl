@@ -137,6 +137,8 @@ class LiteWeightComputer:
         phase, extra_metrics = self._task_batch_diagnostics(batch, b)
         if self.cfg.method in {"b0_ddpg_her", "td_error", "per_style_loss_weighting"}:
             return self._constant_batch(b, t0, t0, phase=phase, extra_metrics=extra_metrics)
+        if self.cfg.method == "b3_fully_random_fixed_count":
+            return self._fully_random_fixed_count_batch(b, t0, rng, phase=phase, extra_metrics=extra_metrics)
 
         state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
         state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
@@ -150,7 +152,11 @@ class LiteWeightComputer:
             query_coarse = np.zeros(b, dtype=np.int64)
             local_lookup: Dict[int, LocalScan] = {}
             local_lookup_time = time.perf_counter() - t_lookup0
-        elif self.cfg.method in {"b3_support_runtime_opt", "b3_support_random_runtime_opt"}:
+        elif self.cfg.method in {
+            "b3_support_runtime_opt",
+            "b3_support_random_runtime_opt",
+            "b3_support_shuffled_runtime_opt",
+        }:
             query_coarse, runtime_opt_contexts, runtime_metrics, local_lookup_time = self._prepare_runtime_opt_contexts(
                 batch, replay, a_policy
             )
@@ -251,6 +257,7 @@ class LiteWeightComputer:
                     "b3_support_random",
                     "b3_support_random_runtime_opt",
                     "b3_support_shuffled",
+                    "b3_support_shuffled_runtime_opt",
                     "b3_support_runtime_opt",
                 }:
                     w_raw[i] = 1.0 + self.cfg.lambda_support
@@ -272,6 +279,7 @@ class LiteWeightComputer:
             "b3_support_random",
             "b3_support_random_runtime_opt",
             "b3_support_shuffled",
+            "b3_support_shuffled_runtime_opt",
             "b3_support_runtime_opt",
         }:
             q_rows = np.logical_and(psi_q_rank > 0.5, np.any(candidate_mask, axis=1))
@@ -328,30 +336,42 @@ class LiteWeightComputer:
             if k_positive > 0:
                 random_idx = rng.choice(b, size=k_positive, replace=False)
                 assigned_w_raw[random_idx] = 1.0 + self.cfg.lambda_support
-        elif self.cfg.method == "b3_support_shuffled":
+        elif self.cfg.method in {"b3_support_shuffled", "b3_support_shuffled_runtime_opt"}:
             assigned_w_raw = rng.permutation(reference_w_raw).astype(np.float32)
 
-        if self.cfg.method in {"b3_support_random", "b3_support_random_runtime_opt", "b3_support_shuffled"}:
+        if self.cfg.method in {
+            "b3_support_random",
+            "b3_support_random_runtime_opt",
+            "b3_support_shuffled",
+            "b3_support_shuffled_runtime_opt",
+        }:
             reference_high = reference_w_raw > (1.0 + 0.5 * self.cfg.lambda_support)
             assigned_high = assigned_w_raw > (1.0 + 0.5 * self.cfg.lambda_support)
             if np.any(assigned_high):
                 alignment = float(np.mean(reference_high[assigned_high]))
             else:
                 alignment = 0.0
+            overlap = float(np.mean(np.logical_and(reference_high, assigned_high))) if b else 0.0
             extra_metrics.update(
                 {
                     "mean_w_P_reference": float(np.mean(reference_w_raw)) if b else 1.0,
                     "reference_high_weight_rate": float(np.mean(reference_high)) if b else 0.0,
                     "assigned_high_weight_rate": float(np.mean(assigned_high)) if b else 0.0,
                     "support_weight_alignment_rate": alignment,
+                    "support_weight_overlap_rate": overlap,
                     "lite/mean_w_P_reference": float(np.mean(reference_w_raw)) if b else 1.0,
                     "lite/reference_high_weight_rate": float(np.mean(reference_high)) if b else 0.0,
                     "lite/assigned_high_weight_rate": float(np.mean(assigned_high)) if b else 0.0,
                     "lite/support_weight_alignment_rate": alignment,
+                    "lite/support_weight_overlap_rate": overlap,
                 }
             )
 
-        if self.cfg.method in {"b3_support_runtime_opt", "b3_support_random_runtime_opt"}:
+        if self.cfg.method in {
+            "b3_support_runtime_opt",
+            "b3_support_random_runtime_opt",
+            "b3_support_shuffled_runtime_opt",
+        }:
             cache_hit_rate = float(extra_metrics.get("runtime/support_cache_hit_rate", 0.0))
             extra_metrics.setdefault("support_cache_hit_rate", cache_hit_rate)
             extra_metrics.setdefault("short_circuit_rate", 0.0)
@@ -419,6 +439,96 @@ class LiteWeightComputer:
             gap_tau=tau_g,
             gap_max=g_max,
             extra_metrics=extra_metrics,
+        )
+
+    def _fully_random_fixed_count_batch(
+        self,
+        b: int,
+        t0: float,
+        rng: np.random.Generator,
+        phase: np.ndarray | None = None,
+        extra_metrics: Dict[str, float] | None = None,
+    ) -> WeightBatch:
+        k_cfg = int(getattr(self.cfg, "random_fixed_count_k", 0))
+        if k_cfg <= 0:
+            raise ValueError("random_fixed_count_k must be positive for b3_fully_random_fixed_count")
+        k = min(k_cfg, b)
+        ones = np.ones(b, dtype=np.float32)
+        zeros = np.zeros(b, dtype=np.float32)
+        w_raw = ones.copy()
+        if k > 0:
+            chosen = rng.choice(b, size=k, replace=False)
+            w_raw[chosen] = 1.0 + float(self.cfg.lambda_support)
+        if self.cfg.weighting_mode == "raw":
+            omega = w_raw.astype(np.float32)
+        else:
+            omega = (w_raw / max(self.cfg.eps, float(np.mean(w_raw)))).astype(np.float32)
+        if self.cfg.weight_scope == "actor_critic":
+            omega_critic = omega
+            omega_actor = omega
+        elif self.cfg.weight_scope == "critic_only":
+            omega_critic = omega
+            omega_actor = ones.copy()
+        elif self.cfg.weight_scope == "actor_only":
+            omega_critic = ones.copy()
+            omega_actor = omega
+        else:
+            omega_critic = ones.copy()
+            omega_actor = ones.copy()
+        if phase is None:
+            phase = zeros.astype(np.int64)
+        metrics = dict(extra_metrics or {})
+        high = (w_raw > (1.0 + self.cfg.eps)).astype(np.float32)
+        high_rate = float(np.mean(high)) if b else 0.0
+        metrics.update(
+            {
+                "fully_random_fixed_count_k": float(k),
+                "fully_random_fixed_count_config_k": float(k_cfg),
+                "fully_random_high_weight_rate": high_rate,
+                "fully_random_support_lookup_used": 0.0,
+                "assigned_high_weight_rate": high_rate,
+                "support_weight_alignment_rate": 0.0,
+                "lite/fully_random_fixed_count_k": float(k),
+                "lite/fully_random_fixed_count_config_k": float(k_cfg),
+                "lite/fully_random_high_weight_rate": high_rate,
+                "lite/fully_random_support_lookup_used": 0.0,
+                "lite/assigned_high_weight_rate": high_rate,
+                "lite/support_weight_alignment_rate": 0.0,
+            }
+        )
+        return WeightBatch(
+            omega_critic=omega_critic.astype(np.float32),
+            omega_actor=omega_actor.astype(np.float32),
+            w_p_raw=w_raw.astype(np.float32),
+            g_sup=zeros.copy(),
+            kappa=zeros.copy(),
+            psi_q_rank=zeros.copy(),
+            q_candidate_fallback=ones.copy(),
+            psi_a_policy=zeros.copy(),
+            len_a_q_sup=zeros.copy(),
+            len_a_q_local=zeros.copy(),
+            num_coarse_candidates=zeros.copy(),
+            num_scanned_candidates=zeros.copy(),
+            local_scan_truncated=zeros.copy(),
+            q_imp_minus_q_policy=zeros.copy(),
+            unrestricted_gap=zeros.copy(),
+            phase=phase.astype(np.int64, copy=False),
+            timing={
+                "actor": 0.0,
+                "local_context_lookup": 0.0,
+                "candidate_construction": 0.0,
+                "local_context": 0.0,
+                "q_policy_eval": 0.0,
+                "q_candidate_eval": 0.0,
+                "weight_compute": time.perf_counter() - t0,
+                "weight_computation": time.perf_counter() - t0,
+                "numba_support_scan": 0.0,
+                "time/numba_support_scan": 0.0,
+            },
+            gap_ready=False,
+            gap_tau=0.0,
+            gap_max=0.0,
+            extra_metrics=metrics,
         )
 
     def _task_batch_diagnostics(self, batch: SampleBatch, b: int) -> tuple[np.ndarray, Dict[str, float]]:

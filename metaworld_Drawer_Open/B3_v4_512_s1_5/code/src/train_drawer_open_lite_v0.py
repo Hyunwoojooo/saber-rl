@@ -34,7 +34,9 @@ def parse_args() -> argparse.Namespace:
             "b3_support_random",
             "b3_support_random_runtime_opt",
             "b3_support_shuffled",
+            "b3_support_shuffled_runtime_opt",
             "b3_support_runtime_opt",
+            "b3_fully_random_fixed_count",
             "b4_lite",
             "td_error",
             "per_style_loss_weighting",
@@ -111,6 +113,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gap_window", type=int, default=50_000)
     parser.add_argument("--lambda_P", type=float, default=1.0)
     parser.add_argument("--lambda_support", type=float, default=1.0)
+    parser.add_argument("--random_fixed_count_k", type=int, default=0)
     parser.add_argument("--U_P_max", type=float, default=1.0)
     parser.add_argument("--lambda_TD", type=float, default=1.0)
     parser.add_argument("--U_TD_max", type=float, default=1.0)
@@ -196,6 +199,7 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         gap_window=args.gap_window,
         lambda_P=args.lambda_P,
         lambda_support=args.lambda_support,
+        random_fixed_count_k=args.random_fixed_count_k,
         U_P_max=args.U_P_max,
         lambda_TD=args.lambda_TD,
         U_TD_max=args.U_TD_max,
