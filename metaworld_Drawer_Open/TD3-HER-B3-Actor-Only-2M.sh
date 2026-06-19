@@ -16,7 +16,7 @@ CUDA_DEVICE="${CUDA_DEVICE:-0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m}"
 LOG_ROOT="${LOG_ROOT:-$ROOT/logs_2m}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
-ORCH_LOG="$ORCH_LOG_DIR/run_td3_drawer_open_actor_only_${STEP_TAG}_5parallel_$(date +%Y%m%d_%H%M%S).log"
+ORCH_LOG="$ORCH_LOG_DIR/TD3-HER-B3-Actor-Only-2M_$(date +%Y%m%d_%H%M%S).log"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
 
 log() {

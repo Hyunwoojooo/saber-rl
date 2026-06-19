@@ -15,15 +15,15 @@ MetaCog-Lite code path, but the actual agent backend is TD3.
 ## Code Layout
 
 Most TD3 DrawerOpen variants share the same implementation under
-`B3_v4_512_s1_5/`; individual experiments are selected by runner arguments:
+`B3_v4_512_s1_5/`; each top-level runner maps to exactly one experiment:
 
-- `run_td3_drawer_open_b0_b3_2m_5parallel.sh`: B0, B3-Critic-Only
-- `run_td3_drawer_open_actor_only_2m_5parallel.sh`: B3-Actor-Only
-- `run_td3_drawer_open_actor_critic_2m_5parallel.sh`: B3-Actor+Critic
-- `run_td3_drawer_open_random_support_2m_5parallel.sh`: Random-Support
-- `run_td3_drawer_open_random_fixed_count_2m_5parallel.sh`: Random-Fixed-Count
-- `run_td3_drawer_open_shuffled_weight_2m_5parallel.sh`: Shuffled-Weight
-- `run_td3_drawer_open_ablation_2m_5parallel.sh`: Random-Support -> Actor-Only -> Actor+Critic
+- `TD3-HER-B0-2M.sh`
+- `TD3-HER-B3-Critic-Only-2M.sh`
+- `TD3-HER-B3-Actor-Only-2M.sh`
+- `TD3-HER-B3-Actor-Critic-2M.sh`
+- `TD3-HER-B3-Random-Support-2M.sh`
+- `TD3-HER-B3-Random-Fixed-Count-2M.sh`
+- `TD3-HER-B3-Shuffled-Weight-2M.sh`
 
 The support-rate cap variant is intentionally isolated in
 `TD3-HER-B3-Critic-Only-SupportRateCap-04/` so that its cap-specific code does
@@ -31,48 +31,44 @@ not overwrite the completed baseline B3 implementation.
 
 ## Run
 
-From the repository root:
+From the repository root, run one experiment by calling its script directly:
 
 ```bash
-bash metaworld_Drawer_Open/run_all_td3_drawer_open_5parallel.sh
+bash metaworld_Drawer_Open/TD3-HER-B0-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Only-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Critic-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Random-Support-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Random-Fixed-Count-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Shuffled-Weight-2M.sh
 ```
 
 Defaults:
 
 - seeds: 1-5
-- parallelism: 5 seeds per variant
-- sequence: B0 -> B3-Critic-Only -> PER-Style
-- steps: 1,000,000 per seed
+- parallelism: 5 seeds per experiment
+- steps: 2,000,000 per seed
 - device: CUDA, using `CUDA_VISIBLE_DEVICES=0` by default
 
 Useful overrides:
 
 ```bash
-CUDA_DEVICE=0 STEPS=1000000 bash metaworld_Drawer_Open/run_all_td3_drawer_open_5parallel.sh
+CUDA_DEVICE=0 STEPS=2000000 bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M.sh
 ```
-
-## Smoke Test
-
-```bash
-bash metaworld_Drawer_Open/run_td3_drawer_open_1000_smoke.sh
-```
-
-The smoke script runs a validate-only gate first, then short 1000-step runs for
-all three variants.
 
 ## Output Layout
 
 Training outputs are written under:
 
 ```text
-metaworld_Drawer_Open/results/<variant>/
+metaworld_Drawer_Open/results_2m/<variant>/
 ```
 
 Runner logs are written under:
 
 ```text
 metaworld_Drawer_Open/orchestrator_logs/
-metaworld_Drawer_Open/logs/<variant>/
+metaworld_Drawer_Open/logs_2m/<variant>/
 ```
 
 ## Dependency

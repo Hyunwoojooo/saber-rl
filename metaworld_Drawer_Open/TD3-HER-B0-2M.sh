@@ -16,7 +16,7 @@ CUDA_DEVICE="${CUDA_DEVICE:-0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m}"
 LOG_ROOT="${LOG_ROOT:-$ROOT/logs_2m}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
-ORCH_LOG="$ORCH_LOG_DIR/run_td3_drawer_open_shuffled_weight_${STEP_TAG}_5parallel_$(date +%Y%m%d_%H%M%S).log"
+ORCH_LOG="$ORCH_LOG_DIR/TD3-HER-B0-2M_$(date +%Y%m%d_%H%M%S).log"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
 
 log() {
@@ -61,31 +61,6 @@ common_args() {
     --no_save_step_checkpoints
 }
 
-b3_args() {
-  printf "%s\0" \
-    --M_B 16 \
-    --M_Q_min 4 \
-    --N_local_min 4 \
-    --N_gap_min 128 \
-    --local_search_max 512 \
-    --lambda_support 1.0 \
-    --drawer_success_threshold 0.05 \
-    --drawer_d_reach 0.08 \
-    --drawer_d_goal_near 0.05 \
-    --drawer_d_opening_mid 0.12 \
-    --weighting_mode batch_norm \
-    --policy_support_mode bin \
-    --support_scan_mode deterministic_tail_v1 \
-    --support_cache_enabled \
-    --support_cache_max_entries 200000 \
-    --local_scan_cache_enabled \
-    --local_scan_cache_max_entries 50000 \
-    --support_short_circuit \
-    --numba_support_scan \
-    --support_predicate_early_exit \
-    --support_diagnostic_audit_interval 100
-}
-
 run_variant() {
   local label="$1"
   local slug="$2"
@@ -104,9 +79,6 @@ run_variant() {
     while IFS= read -r -d "" arg; do
       args+=("$arg")
     done < <(common_args "$seed")
-    while IFS= read -r -d "" arg; do
-      args+=("$arg")
-    done < <(b3_args)
 
     log "START $label seed=$seed run=$run_name log=$log_file"
     (
@@ -136,7 +108,7 @@ run_variant() {
   log "END $label"
 }
 
-log "BEGIN MetaWorld DrawerOpen TD3 Shuffled-Weight 2M sequence"
+log "BEGIN MetaWorld DrawerOpen TD3-HER-B0-2M"
 log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE"
-run_variant "TD3+HER+B3-Shuffled-Weight 2M" "TD3-HER-B3-Shuffled-Weight-2M" "b3_support_shuffled_runtime_opt" "critic_only"
-log "ALL MetaWorld DrawerOpen TD3 Shuffled-Weight 2M variants completed successfully"
+run_variant "TD3+HER B0 2M" "TD3-HER-B0-2M" "b0_ddpg_her" "none"
+log "TD3-HER-B0-2M completed successfully"

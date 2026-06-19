@@ -33,22 +33,17 @@ Phases: `approach`, `contact`, `opening`, `open`.
 
 ## Final Variants
 
-Use the top-level runner from the repository root:
+Use the top-level runners from the repository root. Each script runs one
+experiment with 5 parallel seeds:
 
 ```bash
-bash metaworld_Drawer_Open/run_all_td3_drawer_open_5parallel.sh
-```
-
-That runner executes the final three variants in order with 5 parallel seeds:
-
-1. `TD3+HER`
-2. `TD3+HER+B3-Critic-Only`
-3. `TD3+HER+PER-Style`
-
-A short wiring check is available with:
-
-```bash
-bash metaworld_Drawer_Open/run_td3_drawer_open_1000_smoke.sh
+bash metaworld_Drawer_Open/TD3-HER-B0-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Only-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Critic-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Random-Support-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Random-Fixed-Count-2M.sh
+bash metaworld_Drawer_Open/TD3-HER-B3-Shuffled-Weight-2M.sh
 ```
 
 ## Required Dependency

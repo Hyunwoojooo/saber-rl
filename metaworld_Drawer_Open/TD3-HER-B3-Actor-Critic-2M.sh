@@ -10,12 +10,14 @@ if [[ ! -x "$PYTHON" ]]; then
   PYTHON="$(command -v python3)"
 fi
 
-STEPS="${STEPS:-1000000}"
+STEPS="${STEPS:-2000000}"
+STEP_TAG="${STEP_TAG:-2m}"
 CUDA_DEVICE="${CUDA_DEVICE:-0}"
-OUTPUT_ROOT="$ROOT/results"
+OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m}"
+LOG_ROOT="${LOG_ROOT:-$ROOT/logs_2m}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
-ORCH_LOG="$ORCH_LOG_DIR/run_all_td3_drawer_open_5parallel_$(date +%Y%m%d_%H%M%S).log"
-mkdir -p "$OUTPUT_ROOT" "$ORCH_LOG_DIR"
+ORCH_LOG="$ORCH_LOG_DIR/TD3-HER-B3-Actor-Critic-2M_$(date +%Y%m%d_%H%M%S).log"
+mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
 
 log() {
   printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S %Z')" "$*" | tee -a "$ORCH_LOG"
@@ -90,13 +92,13 @@ run_variant() {
   local method="$3"
   local weight_scope="$4"
   local output_dir="$OUTPUT_ROOT/$slug"
-  local log_dir="$ROOT/logs/$slug"
+  local log_dir="$LOG_ROOT/$slug"
   mkdir -p "$output_dir" "$log_dir"
 
-  log "BEGIN $label: method=$method seeds=1..5 steps=$STEPS output=$output_dir"
+  log "BEGIN $label: method=$method weight_scope=$weight_scope seeds=1..5 steps=$STEPS output=$output_dir"
   local pids=()
   for seed in 1 2 3 4 5; do
-    local run_name="drawer_open_${slug}_s${seed}_1m_cuda"
+    local run_name="drawer_open_${slug}_s${seed}_${STEP_TAG}_cuda"
     local log_file="$log_dir/${run_name}.log"
     local args=()
     while IFS= read -r -d "" arg; do
@@ -134,9 +136,7 @@ run_variant() {
   log "END $label"
 }
 
-log "BEGIN MetaWorld DrawerOpen TD3 sequence: B0 -> B3-Critic-Only -> PER-Style"
+log "BEGIN MetaWorld DrawerOpen TD3 Actor+Critic 2M sequence"
 log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE"
-run_variant "TD3+HER" "TD3-HER-B0" "b0_ddpg_her" "none"
-run_variant "TD3+HER+B3-Critic-Only" "TD3-HER-B3-Critic-Only" "b3_support_runtime_opt" "critic_only"
-run_variant "TD3+HER+PER-Style" "TD3-HER-PER-Style" "per_style_loss_weighting" "critic_only"
-log "ALL MetaWorld DrawerOpen TD3 variants completed successfully"
+run_variant "TD3+HER+B3-Actor+Critic 2M" "TD3-HER-B3-Actor-Critic-2M" "b3_support_runtime_opt" "actor_critic"
+log "ALL MetaWorld DrawerOpen TD3 Actor+Critic 2M variants completed successfully"

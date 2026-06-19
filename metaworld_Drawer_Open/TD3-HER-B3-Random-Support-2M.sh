@@ -16,7 +16,7 @@ CUDA_DEVICE="${CUDA_DEVICE:-0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m}"
 LOG_ROOT="${LOG_ROOT:-$ROOT/logs_2m}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
-ORCH_LOG="$ORCH_LOG_DIR/run_td3_drawer_open_b0_b3_${STEP_TAG}_5parallel_$(date +%Y%m%d_%H%M%S).log"
+ORCH_LOG="$ORCH_LOG_DIR/TD3-HER-B3-Random-Support-2M_$(date +%Y%m%d_%H%M%S).log"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
 
 log() {
@@ -95,7 +95,7 @@ run_variant() {
   local log_dir="$LOG_ROOT/$slug"
   mkdir -p "$output_dir" "$log_dir"
 
-  log "BEGIN $label: method=$method seeds=1..5 steps=$STEPS output=$output_dir"
+  log "BEGIN $label: method=$method weight_scope=$weight_scope seeds=1..5 steps=$STEPS output=$output_dir"
   local pids=()
   for seed in 1 2 3 4 5; do
     local run_name="drawer_open_${slug}_s${seed}_${STEP_TAG}_cuda"
@@ -136,8 +136,7 @@ run_variant() {
   log "END $label"
 }
 
-log "BEGIN MetaWorld DrawerOpen TD3 2M sequence: B0 -> B3-Critic-Only"
+log "BEGIN MetaWorld DrawerOpen TD3 Random-Support 2M sequence"
 log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE"
-run_variant "TD3+HER 2M" "TD3-HER-B0-2M" "b0_ddpg_her" "none"
-run_variant "TD3+HER+B3-Critic-Only 2M" "TD3-HER-B3-Critic-Only-2M" "b3_support_runtime_opt" "critic_only"
-log "ALL MetaWorld DrawerOpen TD3 2M variants completed successfully"
+run_variant "TD3+HER+B3-Random-Support 2M" "TD3-HER-B3-Random-Support-2M" "b3_support_random_runtime_opt" "critic_only"
+log "ALL MetaWorld DrawerOpen TD3 Random-Support 2M variants completed successfully"
