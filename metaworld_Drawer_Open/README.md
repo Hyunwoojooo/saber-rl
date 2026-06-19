@@ -281,5 +281,68 @@ Interpretation:
   reweighting. A fixed amount of random high weighting is not sufficient to
   reproduce the support-aware controls.
 - The result supports the importance of support-conditioned weighting. The
-  running Shuffled-Weight control will further separate support-density effects
-  from exact sample-level support alignment.
+  completed Shuffled-Weight control below further separates support-density
+  effects from exact sample-level support alignment.
+
+## 2M Shuffled-Weight Negative Control Results
+
+Status as of 2026-06-19 13:39 KST:
+
+- `TD3+HER+B3-Shuffled-Weight` completed 5 seeds at 2M steps.
+- This control computes the same SABER/B3 raw support weight vector as
+  Critic-Only, then shuffles the raw weights across the batch before applying
+  critic-only loss weighting.
+- It preserves support lookup, support-density information, batch-normalized
+  weight scale, cache/JIT runtime optimization, and the critic-only update
+  path, but breaks exact sample-to-weight alignment.
+
+Aggregate metrics use 5 seeds:
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 0.590 +/- 0.539 | 0.620 +/- 0.522 | 0.361 +/- 0.338 | 803k +/- 256k, 3/5 seeds | 21.57 steps/s |
+| TD3+HER+B3-Random-Support 2M | 0.600 +/- 0.548 | 0.600 +/- 0.548 | 0.426 +/- 0.392 | 570k +/- 141k, 3/5 seeds | 20.84 steps/s |
+| TD3+HER+B3-Random-Fixed-Count 2M | 0.200 +/- 0.447 | 0.200 +/- 0.447 | 0.144 +/- 0.322 | 520k, 1/5 seeds | 41.60 steps/s |
+| TD3+HER+B3-Shuffled-Weight 2M | 0.000 +/- 0.000 | 0.010 +/- 0.022 | 0.00005 +/- 0.00011 | none, 0/5 seeds | 20.03 steps/s |
+
+Seed-level final success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 0.95 | 0.00 | 0.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Support 2M | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Fixed-Count 2M | 0.00 | 0.00 | 0.00 | 1.00 | 0.00 |
+| TD3+HER+B3-Shuffled-Weight 2M | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+Seed-level best success:
+
+| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+B3-Critic-Only 2M | 1.00 | 0.00 | 0.10 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Support 2M | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 |
+| TD3+HER+B3-Random-Fixed-Count 2M | 0.00 | 0.00 | 0.00 | 1.00 | 0.00 |
+| TD3+HER+B3-Shuffled-Weight 2M | 0.05 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+Implementation diagnostics:
+
+| Metric | Value |
+| --- | ---: |
+| `mean_w_P_reference` | 1.8789 +/- 0.2343 |
+| `reference_high_weight_rate` | 0.8789 +/- 0.2343 |
+| `assigned_high_weight_rate` | 0.8789 +/- 0.2343 |
+| `support_weight_alignment_rate` | 0.8846 +/- 0.2204 |
+| `support_weight_overlap_rate` | 0.8188 +/- 0.3328 |
+| `support_cache_hit_rate` | 0.5595 +/- 0.0529 |
+| support lookup used | yes |
+
+Interpretation:
+
+- Shuffled-Weight fails on all 5 seeds despite preserving the SABER-generated
+  weight distribution and support lookup path.
+- This is a strong negative control against the explanation that support
+  density alone is sufficient. In this DrawerOpen run, assigning the
+  SABER-generated weights to the correct samples appears important.
+- Together with Fully Random Fixed-Count, this supports the claim that the
+  performance gain is not merely random critic reweighting; the support signal
+  and its sample-level alignment both matter.
+
