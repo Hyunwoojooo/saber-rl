@@ -12,6 +12,23 @@ This directory contains the prepared TD3 experiment code for MetaWorld
 The internal B0 method name is kept for compatibility with the existing
 MetaCog-Lite code path, but the actual agent backend is TD3.
 
+## Code Layout
+
+Most TD3 DrawerOpen variants share the same implementation under
+`B3_v4_512_s1_5/`; individual experiments are selected by runner arguments:
+
+- `run_td3_drawer_open_b0_b3_2m_5parallel.sh`: B0, B3-Critic-Only
+- `run_td3_drawer_open_actor_only_2m_5parallel.sh`: B3-Actor-Only
+- `run_td3_drawer_open_actor_critic_2m_5parallel.sh`: B3-Actor+Critic
+- `run_td3_drawer_open_random_support_2m_5parallel.sh`: Random-Support
+- `run_td3_drawer_open_random_fixed_count_2m_5parallel.sh`: Random-Fixed-Count
+- `run_td3_drawer_open_shuffled_weight_2m_5parallel.sh`: Shuffled-Weight
+- `run_td3_drawer_open_ablation_2m_5parallel.sh`: Random-Support -> Actor-Only -> Actor+Critic
+
+The support-rate cap variant is intentionally isolated in
+`TD3-HER-B3-Critic-Only-SupportRateCap-04/` so that its cap-specific code does
+not overwrite the completed baseline B3 implementation.
+
 ## Run
 
 From the repository root:
