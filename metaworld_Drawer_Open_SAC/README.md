@@ -37,3 +37,38 @@ CUDA_DEVICE=0 STEPS=2000000 bash metaworld_Drawer_Open_SAC/run_all_sac_drawer_op
 - DrawerOpen env/task/HER/B3 support scanner logic is copied from the TD3 DrawerOpen implementation.
 - The agent backend is SAC: stochastic Gaussian actor, twin critics, entropy-regularized target, fixed `entropy_alpha=0.2`.
 - `PER-Full` uses priority replay sampling plus IS critic weights and updates priorities from SAC TD-error after each update.
+
+## SAC-HER-B0-2M Results
+
+Status as of 2026-06-20 07:08 KST:
+
+- `SAC-HER-B0-2M` completed 5 seeds at 2M steps.
+- All seeds used the sparse DrawerOpen goal wrapper, SAC+HER backbone,
+  `drawer-open-v3`, `reward_function_version=v2`, and 20 evaluation episodes.
+- The run did not solve the task in any seed.
+
+Aggregate metrics use 5 seeds:
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| SAC-HER-B0-2M | 0.000 +/- 0.000 | 0.000 +/- 0.000 | 0.000 +/- 0.000 | none, 0/5 seeds | 31.72 +/- 0.25 steps/s |
+
+Seed-level final success:
+
+| seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+Seed-level best success:
+
+| seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+Interpretation:
+
+- SAC-HER B0 failed to learn DrawerOpen under this 2M sparse-reward setting.
+- The mean wall-clock runtime was about 17.5 hours per seed group with 5 seeds
+  running in parallel on CUDA.
+- These results make SAC-HER B0 a weak backbone on DrawerOpen compared with the
+  completed TD3 DrawerOpen runs.
