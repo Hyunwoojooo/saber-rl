@@ -60,3 +60,56 @@ bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-SupportRateCap-04/run_td3_draw
 ```
 
 The runner writes results under this folder's `results_2m/` directory and logs under `logs_2m/`.
+
+## 2M Results
+
+Status as of 2026-06-21 10:32 KST:
+
+- `TD3-HER-B3-Critic-Only-SupportRateCap-04-2M` completed 5 seeds at 2M steps.
+- The run used the same sparse DrawerOpen goal wrapper, TD3+HER backbone,
+  `drawer-open-v3`, `reward_function_version=v2`, and 20 evaluation episodes as
+  the completed DrawerOpen TD3 experiments.
+- The cap was active with `support_rate_cap=0.4` and critic-only weighting.
+
+Aggregate metrics use 5 seeds:
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3-HER-B3-Critic-Only-SupportRateCap-04-2M | 0.190 +/- 0.425 | 0.210 +/- 0.442 | 0.126 +/- 0.282 | 800k, 1/5 seeds | 20.92 +/- 0.75 steps/s |
+
+Seed-level final success:
+
+| seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 0.95 | 0.00 | 0.00 | 0.00 |
+
+Seed-level best success:
+
+| seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
+| ---: | ---: | ---: | ---: | ---: |
+| 0.00 | 1.00 | 0.00 | 0.00 | 0.05 |
+
+Implementation diagnostics, averaged over the final logged window of each seed:
+
+| Metric | Value |
+| --- | ---: |
+| `support_rate_cap` | 0.400 +/- 0.000 |
+| `assigned_high_weight_rate` | 0.326 +/- 0.099 |
+| `reference_high_weight_rate` | 0.576 +/- 0.389 |
+| `support_rate_cap_applied` | 0.584 +/- 0.534 |
+| `support_weight_alignment_rate` | 1.000 +/- 0.000 |
+| `support_weight_overlap_rate` | 0.326 +/- 0.099 |
+| `support_cache_hit_rate` | 0.323 +/- 0.274 |
+
+Interpretation:
+
+- The 40% support-rate cap did not improve DrawerOpen performance. It solved
+  only 1/5 seeds and underperformed the completed uncapped TD3-HER+B3-Critic-Only
+  2M result.
+- The cap preserved sample-level support alignment for retained high-weight
+  samples, but it discarded part of the original SABER-positive set whenever the
+  support-positive rate exceeded the cap.
+- This suggests the main B3 effect is not explained by a fixed high-weight
+  density such as 30-50%. The more important factor is computing the support
+  signal accurately and assigning the resulting critic weights to the correct
+  support-positive samples.
