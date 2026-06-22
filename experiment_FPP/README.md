@@ -14,6 +14,11 @@ This source tree is generated from `SABER/SABER.md` for the FetchPickAndPlace be
 - `B3-critic-only-fast-2048`: FetchPickAndPlace local_search_max sensitivity run at 2048.
 - `TD-error`: Critic-only TD-error loss-weighting baseline.
 - `PER-style`: PER-style TD-error priority-derived critic loss weighting with uniform replay sampling.
+- `td3_her_baseline_ls512`: TD3+HER baseline matched to SABER v4 ls512.
+- `td3_saber_critic_only_v4_ls512`: TD3+SABER critic-only runtime optimized ls512.
+- `td3_her_per_style_loss_weighting_ls512`: TD3+HER with PER-style TD-error priority-derived critic loss weighting and uniform replay sampling.
+- `sac_her_baseline_ls512`: SAC+HER baseline with uniform critic weighting.
+- `sac_saber_critic_only_v4_ls512`: SAC+HER+SABER critic-only support weighting with v4 exact Numba lookup.
 
 Generate every command without running:
 
