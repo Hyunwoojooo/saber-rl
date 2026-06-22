@@ -6,7 +6,10 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 
 - `DDPG-HER-B0-2M.sh`: DDPG + HER baseline with unit actor/critic weights.
 - `DDPG-HER-B3-Critic-Only-2M.sh`: DDPG + HER + SABER/B3 support weighting applied to critic loss only.
+- `DDPG-HER-B3-Random-Fixed-Count-2M.sh`: DDPG + HER + fixed-count random critic reweighting with no SABER support lookup.
+- `DDPG-HER-B3-Shuffled-Weight-2M.sh`: DDPG + HER + SABER/B3 support weights shuffled across the batch before critic-only assignment.
 - `run_all_ddpg_drawer_open_2m_5parallel.sh`: convenience runner for B0 followed by B3-Critic-Only.
+- `run_ddpg_drawer_open_ablation_2m_5parallel.sh`: convenience runner for Random-Fixed-Count followed by Shuffled-Weight.
 
 ## Shared Settings
 
@@ -34,17 +37,43 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 - `weighting_mode=batch_norm`
 - Numba DrawerOpen support scanner enabled
 
+## Ablation Settings
+
+`DDPG-HER-B3-Random-Fixed-Count-2M.sh` matches the TD3 fixed-count control:
+
+- Method: `b3_fully_random_fixed_count`
+- Weight scope: `critic_only`
+- `random_fixed_count_k=122`
+- `lambda_support=1.0`
+- `weighting_mode=batch_norm`
+- No SABER support lookup is used for selecting weighted samples.
+
+`DDPG-HER-B3-Shuffled-Weight-2M.sh` matches the TD3 shuffled-weight control:
+
+- Method: `b3_support_shuffled_runtime_opt`
+- Weight scope: `critic_only`
+- Same B3 support lookup, support cache, Numba scanner, and local-search settings as B3-Critic-Only.
+- SABER raw support weights are computed first, then shuffled across the batch before loss weighting.
+
 ## Run
 
 ```bash
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B0-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
 ```
 
-Run both sequentially:
+Run B0 and B3-Critic-Only sequentially:
 
 ```bash
 bash metaworld_Drawer_Open_DDPG/run_all_ddpg_drawer_open_2m_5parallel.sh
+```
+
+Run the ablations sequentially:
+
+```bash
+bash metaworld_Drawer_Open_DDPG/run_ddpg_drawer_open_ablation_2m_5parallel.sh
 ```
 
 To override the budget for smoke checks:
