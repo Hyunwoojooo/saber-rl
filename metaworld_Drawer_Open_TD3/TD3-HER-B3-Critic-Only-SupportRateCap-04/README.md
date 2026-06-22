@@ -56,7 +56,7 @@ Expected behavior for this variant:
 From the repository root:
 
 ```bash
-bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-SupportRateCap-04/run_td3_drawer_open_b3_support_rate_cap_04_2m_5parallel.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Critic-Only-SupportRateCap-04/run_td3_drawer_open_b3_support_rate_cap_04_2m_5parallel.sh
 ```
 
 The runner writes results under this folder's `results_2m/` directory and logs under `logs_2m/`.

@@ -1,6 +1,6 @@
 # MetaWorld DrawerOpen SAC Experiments
 
-Independent SAC+HER DrawerOpen experiment snapshot. This folder is intentionally separate from `metaworld_Drawer_Open` so SAC code changes do not mutate the TD3 DrawerOpen code path.
+Independent SAC+HER DrawerOpen experiment snapshot. This folder is intentionally separate from `metaworld_Drawer_Open_TD3` so SAC code changes do not mutate the TD3 DrawerOpen code path.
 
 ## Variants
 

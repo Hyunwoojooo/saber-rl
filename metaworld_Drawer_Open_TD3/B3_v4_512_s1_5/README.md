@@ -37,13 +37,13 @@ Use the top-level runners from the repository root. Each script runs one
 experiment with 5 parallel seeds:
 
 ```bash
-bash metaworld_Drawer_Open/TD3-HER-B0-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Only-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Critic-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Random-Support-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Random-Fixed-Count-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Shuffled-Weight-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B0-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Actor-Only-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Actor-Critic-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Random-Support-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Random-Fixed-Count-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Shuffled-Weight-2M.sh
 ```
 
 ## Required Dependency

@@ -14,7 +14,7 @@ def repo_root_from(path: Path) -> Path:
     for parent in [path, *path.parents]:
         if (parent / "version_v0_lite").exists():
             return parent
-        if (parent / "experiment_FetchPush").exists() and (parent / "metaworld_Drawer_Open").exists():
+        if (parent / "experiment_FetchPush").exists() and (parent / "metaworld_Drawer_Open_TD3").exists():
             return parent
     raise RuntimeError(f"Could not find repo root from {path}")
 

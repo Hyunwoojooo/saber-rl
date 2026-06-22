@@ -34,13 +34,13 @@ not overwrite the completed baseline B3 implementation.
 From the repository root, run one experiment by calling its script directly:
 
 ```bash
-bash metaworld_Drawer_Open/TD3-HER-B0-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Only-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Actor-Critic-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Random-Support-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Random-Fixed-Count-2M.sh
-bash metaworld_Drawer_Open/TD3-HER-B3-Shuffled-Weight-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B0-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Actor-Only-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Actor-Critic-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Random-Support-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Random-Fixed-Count-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Shuffled-Weight-2M.sh
 ```
 
 Defaults:
@@ -53,7 +53,7 @@ Defaults:
 Useful overrides:
 
 ```bash
-CUDA_DEVICE=0 STEPS=2000000 bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M.sh
+CUDA_DEVICE=0 STEPS=2000000 bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Critic-Only-2M.sh
 ```
 
 ## Output Layout
@@ -61,14 +61,14 @@ CUDA_DEVICE=0 STEPS=2000000 bash metaworld_Drawer_Open/TD3-HER-B3-Critic-Only-2M
 Training outputs are written under:
 
 ```text
-metaworld_Drawer_Open/results_2m/<variant>/
+metaworld_Drawer_Open_TD3/results_2m/<variant>/
 ```
 
 Runner logs are written under:
 
 ```text
-metaworld_Drawer_Open/orchestrator_logs/
-metaworld_Drawer_Open/logs_2m/<variant>/
+metaworld_Drawer_Open_TD3/orchestrator_logs/
+metaworld_Drawer_Open_TD3/logs_2m/<variant>/
 ```
 
 ## Dependency
