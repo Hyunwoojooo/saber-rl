@@ -1,0 +1,8 @@
+{
+  "checkpoint": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER-FetchSldie-fetchslide-runtime-artifacts/experiment_FetchSlide/experiment/FetchSlide/td3_saber_critic_only_v4_ls512/fetch_slide_td3_saber_critic_only_v4_ls512_s3_1000000_ls512/best_checkpoint.pt",
+  "eval_env_success_mean": 0.8500000238418579,
+  "eval_goal_success_mean": 0.8500000238418579,
+  "eval_return_mean": -30.799999237060547,
+  "eval_success_mean": 0.8500000238418579,
+  "step": 950000
+}

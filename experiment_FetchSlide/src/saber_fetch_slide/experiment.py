@@ -6,6 +6,8 @@ import csv
 import json
 import math
 import os
+import platform
+import socket
 import sys
 import time
 from collections import OrderedDict
@@ -20,10 +22,13 @@ import torch
 EXPERIMENT_ROOT = Path(__file__).resolve().parents[2]
 SABER_REPO_ROOT = EXPERIMENT_ROOT.parent
 WORKSPACE_ROOT = SABER_REPO_ROOT.parent
+EXPERIMENT_SRC = EXPERIMENT_ROOT / "src"
+if str(EXPERIMENT_SRC) not in sys.path:
+    sys.path.insert(0, str(EXPERIMENT_SRC))
 LITE_SRC_CANDIDATES = (
+    EXPERIMENT_ROOT / "code" / "src",
     WORKSPACE_ROOT / "version_v0_lite" / "src",
     SABER_REPO_ROOT / "version_v0_lite" / "src",
-    EXPERIMENT_ROOT / "code" / "src",
 )
 LITE_SRC = next((path for path in LITE_SRC_CANDIDATES if path.exists()), LITE_SRC_CANDIDATES[0])
 if str(LITE_SRC) not in sys.path:
@@ -44,13 +49,100 @@ from metacog_lite_v0.replay import HERReplayBuffer, SampleBatch
 from metacog_lite_v0.trainer import load_checkpoint, make_env, make_task_spec, save_checkpoint
 from metacog_lite_v0.weights import GapStats, LiteWeightComputer, WeightBatch
 
+from saber_fetch_slide.numba_support_scan import (
+    NUMBA_AVAILABLE,
+    can_scan_fetch_slide_support_exact,
+    make_fetch_slide_support_scan_constants,
+    scan_fetch_slide_support_exact_with_constants,
+    scan_fetch_slide_support_predicate_with_constants,
+    scan_fetch_slide_support_quality_with_constants,
+    warmup_fetch_slide_support_exact,
+    warmup_fetch_slide_support_predicate,
+    warmup_fetch_slide_support_quality,
+)
+from saber_fetch_slide.per_full_sampler import FullPERSampler
+from saber_fetch_slide.positive_huber_loss import (
+    reliability_metrics,
+    reliability_score_from_weight_batch,
+    update_ddpg_with_saber_loss,
+)
+from saber_fetch_slide.sac_agent import SACAgent
+from saber_fetch_slide.td3_agent import TD3Agent
+
 
 FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX = 1024
 FETCH_SLIDE_FAST_SWEEP = (512, 2048)
 DEFAULT_THRESHOLDS = (0.25, 0.50, 0.75, 0.90, 1.00)
 RUNTIME_OPT_METHOD = "b3_critic_only_runtime_optimization"
+RUNTIME_OPT_V4_METHOD = "b3_critic_only_runtime_opt_v4"
+RUNTIME_OPT_V5_METHOD = "b3_critic_only_runtime_opt_v5"
+RUNTIME_OPT_V5_XY_V1_METHOD = "b3_critic_only_runtime_opt_v5_xy_v1"
+RUNTIME_OPT_V6_METHOD = "b3_critic_only_runtime_opt_v6_anneal_300k"
+RUNTIME_OPT_V7_POS_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_positive_huber"
+RUNTIME_OPT_V7_POS_MSE_METHOD = "b3_critic_only_runtime_opt_v7_positive_mse"
+RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD = "b3_critic_only_runtime_opt_v7_batch_norm_huber"
+TD3_METHOD = "td3"
+TD3_SABER_METHOD = "td3_saber"
+TD3_SABER_RUNTIME_OPT_METHOD = "td3_saber_runtime_opt"
+TD3_SABER_V4_LS512_METHOD = "td3_saber_critic_only_v4_ls512"
+TD3_PER_STYLE_METHOD = "td3_per_style"
+SAC_METHOD = "sac"
+SAC_SABER_METHOD = "sac_saber"
+SAC_SABER_V4_LS512_METHOD = "sac_saber_critic_only_v4_ls512"
+TD3_SABER_RUNTIME_METHODS = {
+    TD3_SABER_METHOD,
+    TD3_SABER_RUNTIME_OPT_METHOD,
+    TD3_SABER_V4_LS512_METHOD,
+}
+SAC_SABER_RUNTIME_METHODS = {
+    SAC_SABER_METHOD,
+    SAC_SABER_V4_LS512_METHOD,
+}
+RUNTIME_OPT_METHODS = {
+    RUNTIME_OPT_METHOD,
+    RUNTIME_OPT_V4_METHOD,
+    RUNTIME_OPT_V5_METHOD,
+    RUNTIME_OPT_V5_XY_V1_METHOD,
+    RUNTIME_OPT_V6_METHOD,
+    RUNTIME_OPT_V7_POS_HUBER_METHOD,
+    RUNTIME_OPT_V7_POS_MSE_METHOD,
+    RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+    *TD3_SABER_RUNTIME_METHODS,
+    *SAC_SABER_RUNTIME_METHODS,
+}
 RUNTIME_SUPPORT_CACHE_MAX = 200_000
 RUNTIME_LOCAL_SCAN_CACHE_MAX = 50_000
+RUNTIME_PREDICATE_AUDIT_INTERVAL = 100
+RUNTIME_V6_ANNEAL_START_STEP = 300_000
+RUNTIME_V6_ANNEAL_END_STEP = 500_000
+
+
+def collect_machine_metadata() -> Dict[str, Any]:
+    cuda_devices = []
+    if torch.cuda.is_available():
+        for idx in range(torch.cuda.device_count()):
+            props = torch.cuda.get_device_properties(idx)
+            cuda_devices.append(
+                {
+                    "index": idx,
+                    "name": props.name,
+                    "total_memory_gb": round(props.total_memory / (1024**3), 3),
+                    "major": props.major,
+                    "minor": props.minor,
+                }
+            )
+    return {
+        "label": os.environ.get("SABER_MACHINE_LABEL") or socket.gethostname(),
+        "hostname": socket.gethostname(),
+        "fqdn": socket.getfqdn(),
+        "platform": platform.platform(),
+        "python": sys.version.split()[0],
+        "torch": torch.__version__,
+        "cuda_available": torch.cuda.is_available(),
+        "cuda_version": torch.version.cuda,
+        "cuda_device_count": torch.cuda.device_count() if torch.cuda.is_available() else 0,
+        "cuda_devices": cuda_devices,
+    }
 
 
 @dataclass(frozen=True)
@@ -59,6 +151,7 @@ class MethodSpec:
     lite_method: str
     weight_scope: str
     local_search_max: int | None
+    agent_kind: str = "ddpg"
     control_mode: str = "none"
     lambda_td: float = 1.0
     u_td_max: float = 1.0
@@ -101,6 +194,48 @@ METHODS: Dict[str, MethodSpec] = {
         "critic_only",
         FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
     ),
+    "b3_critic_only_runtime_opt_v4": MethodSpec(
+        "b3_critic_only_runtime_opt_v4",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v5": MethodSpec(
+        "b3_critic_only_runtime_opt_v5",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v5_xy_v1": MethodSpec(
+        "b3_critic_only_runtime_opt_v5_xy_v1",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v6_anneal_300k": MethodSpec(
+        "b3_critic_only_runtime_opt_v6_anneal_300k",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v7_positive_huber": MethodSpec(
+        "b3_critic_only_runtime_opt_v7_positive_huber",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v7_positive_mse": MethodSpec(
+        "b3_critic_only_runtime_opt_v7_positive_mse",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
+    "b3_critic_only_runtime_opt_v7_batch_norm_huber": MethodSpec(
+        "b3_critic_only_runtime_opt_v7_batch_norm_huber",
+        "b3_support_only",
+        "critic_only",
+        FETCH_SLIDE_DEFAULT_LOCAL_SEARCH_MAX,
+    ),
     "b3_critic_only_fast_512": MethodSpec(
         "b3_critic_only_fast_512",
         "b3_support_only",
@@ -126,6 +261,70 @@ METHODS: Dict[str, MethodSpec] = {
         "critic_only",
         None,
         control_mode="per_style",
+    ),
+    "per_full": MethodSpec(
+        "per_full",
+        "b0_ddpg_her",
+        "critic_only",
+        None,
+        control_mode="per_full",
+    ),
+    "td3": MethodSpec(
+        TD3_METHOD,
+        "b0_ddpg_her",
+        "none",
+        None,
+        agent_kind="td3",
+    ),
+    "td3_saber": MethodSpec(
+        TD3_SABER_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="td3",
+    ),
+    "td3_saber_runtime_opt": MethodSpec(
+        TD3_SABER_RUNTIME_OPT_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="td3",
+    ),
+    "td3_saber_critic_only_v4_ls512": MethodSpec(
+        TD3_SABER_V4_LS512_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="td3",
+    ),
+    "td3_per_style": MethodSpec(
+        TD3_PER_STYLE_METHOD,
+        "b0_ddpg_her",
+        "critic_only",
+        None,
+        agent_kind="td3",
+        control_mode="per_style",
+    ),
+    "sac": MethodSpec(
+        SAC_METHOD,
+        "b0_ddpg_her",
+        "none",
+        None,
+        agent_kind="sac",
+    ),
+    "sac_saber": MethodSpec(
+        SAC_SABER_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="sac",
+    ),
+    "sac_saber_critic_only_v4_ls512": MethodSpec(
+        SAC_SABER_V4_LS512_METHOD,
+        "b3_support_only",
+        "critic_only",
+        512,
+        agent_kind="sac",
     ),
 }
 
@@ -160,6 +359,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--M_Q_min", type=int, default=4)
     parser.add_argument("--N_local_min", type=int, default=4)
     parser.add_argument("--lambda_support", type=float, default=1.0)
+    parser.add_argument("--support_anneal_start_step", type=int, default=RUNTIME_V6_ANNEAL_START_STEP)
+    parser.add_argument("--support_anneal_end_step", type=int, default=RUNTIME_V6_ANNEAL_END_STEP)
+    parser.add_argument("--support_quality_mode", choices=["none", "fetch_slide_phase_soft"], default="none")
+    parser.add_argument("--support_quality_apply_to_weight", action="store_true")
+    parser.add_argument("--support_quality_floor", type=float, default=0.25)
+    parser.add_argument("--support_quality_approach_scale", type=float, default=0.02)
+    parser.add_argument("--support_quality_goal_progress_scale", type=float, default=0.03)
+    parser.add_argument("--support_quality_align_min", type=float, default=0.0)
+    parser.add_argument("--support_quality_strike_speed_scale_mult", type=float, default=2.0)
+    parser.add_argument("--support_quality_near_margin_mult", type=float, default=0.25)
+    parser.add_argument("--support_quality_near_speed_mult", type=float, default=1.0)
+    parser.add_argument("--critic_td_loss", choices=["mse", "huber"], default="mse")
+    parser.add_argument("--huber_delta", type=float, default=1.0)
+    parser.add_argument("--saber_loss_mode", choices=["batch_norm", "positive_huber_bonus"], default="batch_norm")
+    parser.add_argument("--support_bonus_beta", type=float, default=1.0)
+    parser.add_argument("--support_bonus_score_source", choices=["auto", "psi", "support_score"], default="auto")
+    parser.add_argument("--support_bonus_detach_score", dest="support_bonus_detach_score", action="store_true", default=True)
+    parser.add_argument("--no_support_bonus_detach_score", dest="support_bonus_detach_score", action="store_false")
     parser.add_argument("--action_bins_per_dim", type=int, default=5)
     parser.add_argument("--policy_support_mode", choices=["bin", "radius", "auto"], default="bin")
     parser.add_argument("--policy_action_radius", type=float, default=0.35)
@@ -169,6 +386,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--per_alpha", type=float, default=0.6)
     parser.add_argument("--eps_PER", type=float, default=1e-6)
     parser.add_argument("--U_PER_max", type=float, default=2.0)
+    parser.add_argument("--per_beta_start", type=float, default=0.4)
+    parser.add_argument("--per_beta_final", type=float, default=1.0)
+    parser.add_argument("--per_beta_anneal_steps", type=int, default=1_000_000)
+    parser.add_argument("--per_initial_priority", type=float, default=1.0)
+    parser.add_argument("--per_min_priority", type=float, default=1e-6)
 
     parser.add_argument("--gamma", type=float, default=0.98)
     parser.add_argument("--tau", type=float, default=0.005)
@@ -177,6 +399,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hidden_dim", type=int, default=256)
     parser.add_argument("--noise_std", type=float, default=0.2)
     parser.add_argument("--l2_action_penalty", type=float, default=0.0)
+    parser.add_argument("--td3_policy_delay", type=int, default=2)
+    parser.add_argument("--td3_target_policy_noise", type=float, default=0.2)
+    parser.add_argument("--td3_target_noise_clip", type=float, default=0.5)
+    parser.add_argument("--sac_alpha", type=float, default=0.2)
+    parser.add_argument("--sac_alpha_lr", type=float, default=3e-4)
+    parser.add_argument("--sac_auto_alpha", dest="sac_auto_alpha", action="store_true", default=True)
+    parser.add_argument("--no_sac_auto_alpha", dest="sac_auto_alpha", action="store_false")
+    parser.add_argument("--sac_target_entropy", type=float, default=None)
     return parser.parse_args()
 
 
@@ -235,6 +465,71 @@ def build_config(args: argparse.Namespace, spec: MethodSpec, run_name: str, outp
     )
     cfg.normalize()
     cfg.verify_runtime_optimization = bool(args.verify_runtime_optimization)
+    cfg.support_anneal_start_step = int(args.support_anneal_start_step)
+    cfg.support_anneal_end_step = int(args.support_anneal_end_step)
+    cfg.support_quality_mode = str(args.support_quality_mode)
+    cfg.support_quality_apply_to_weight = bool(args.support_quality_apply_to_weight)
+    cfg.support_quality_floor = float(args.support_quality_floor)
+    cfg.support_quality_approach_scale = float(args.support_quality_approach_scale)
+    cfg.support_quality_goal_progress_scale = float(args.support_quality_goal_progress_scale)
+    cfg.support_quality_align_min = float(args.support_quality_align_min)
+    cfg.support_quality_strike_speed_scale_mult = float(args.support_quality_strike_speed_scale_mult)
+    cfg.support_quality_near_margin_mult = float(args.support_quality_near_margin_mult)
+    cfg.support_quality_near_speed_mult = float(args.support_quality_near_speed_mult)
+    cfg.critic_td_loss = str(args.critic_td_loss)
+    cfg.huber_delta = float(args.huber_delta)
+    cfg.saber_loss_mode = str(args.saber_loss_mode)
+    cfg.support_bonus_beta = float(args.support_bonus_beta)
+    cfg.support_bonus_score_source = str(args.support_bonus_score_source)
+    cfg.support_bonus_detach_score = bool(args.support_bonus_detach_score)
+    cfg.lambda_td = float(args.lambda_td)
+    cfg.u_td_max = float(args.U_TD_max)
+    cfg.per_alpha = float(args.per_alpha)
+    cfg.per_eps = float(args.eps_PER)
+    cfg.u_per_max = float(args.U_PER_max)
+    cfg.per_beta_start = float(args.per_beta_start)
+    cfg.per_beta_final = float(args.per_beta_final)
+    cfg.per_beta_anneal_steps = int(args.per_beta_anneal_steps)
+    cfg.per_initial_priority = float(args.per_initial_priority)
+    cfg.per_min_priority = float(args.per_min_priority)
+    cfg.agent_kind = str(spec.agent_kind)
+    cfg.td3_policy_delay = int(args.td3_policy_delay)
+    cfg.td3_target_policy_noise = float(args.td3_target_policy_noise)
+    cfg.td3_target_noise_clip = float(args.td3_target_noise_clip)
+    cfg.sac_alpha = float(args.sac_alpha)
+    cfg.sac_alpha_lr = float(args.sac_alpha_lr)
+    cfg.sac_auto_alpha = bool(args.sac_auto_alpha)
+    cfg.sac_target_entropy = None if args.sac_target_entropy is None else float(args.sac_target_entropy)
+    if cfg.huber_delta <= 0.0:
+        raise ValueError("huber_delta must be positive")
+    if spec.agent_kind == "td3" and (
+        str(cfg.saber_loss_mode) != "batch_norm" or str(cfg.critic_td_loss) != "mse"
+    ):
+        raise ValueError("TD3 FetchSlide methods currently support only saber_loss_mode=batch_norm and critic_td_loss=mse")
+    if spec.agent_kind == "sac" and (
+        str(cfg.saber_loss_mode) != "batch_norm" or str(cfg.critic_td_loss) != "mse"
+    ):
+        raise ValueError("SAC FetchSlide methods currently support only saber_loss_mode=batch_norm and critic_td_loss=mse")
+    if cfg.td3_policy_delay < 1:
+        raise ValueError("td3_policy_delay must be >= 1")
+    if cfg.td3_target_policy_noise < 0.0:
+        raise ValueError("td3_target_policy_noise must be non-negative")
+    if cfg.td3_target_noise_clip < 0.0:
+        raise ValueError("td3_target_noise_clip must be non-negative")
+    if cfg.sac_alpha <= 0.0:
+        raise ValueError("sac_alpha must be positive")
+    if cfg.sac_alpha_lr <= 0.0:
+        raise ValueError("sac_alpha_lr must be positive")
+    if cfg.saber_loss_mode == "positive_huber_bonus" and spec.weight_scope != "critic_only":
+        raise ValueError("positive_huber_bonus is currently supported only for critic_only SABER methods")
+    if cfg.per_alpha < 0.0:
+        raise ValueError("per_alpha must be non-negative")
+    if cfg.per_beta_start < 0.0 or cfg.per_beta_final < 0.0:
+        raise ValueError("PER beta values must be non-negative")
+    if cfg.per_beta_anneal_steps < 1:
+        raise ValueError("per_beta_anneal_steps must be >= 1")
+    if cfg.per_initial_priority <= 0.0 or cfg.per_min_priority <= 0.0:
+        raise ValueError("PER priority values must be positive")
     if args.smoke:
         cfg.total_steps = min(cfg.total_steps, 1_000)
         cfg.start_steps = min(cfg.start_steps, 200)
@@ -295,6 +590,60 @@ class RuntimeSupportEntry:
     num_coarse_candidates: int
     num_scanned_candidates: int
     local_scan_truncated: bool
+    psi_a_policy: float | None = None
+    psi_q_rank: float | None = None
+    q_candidate_fallback: float | None = None
+    predicate_candidates_examined: int = 0
+    predicate_early_exit: bool = False
+    predicate_positive_early_exit: bool = False
+    predicate_negative_early_exit: bool = False
+    diagnostics_exact: bool = True
+    support_quality: float = 1.0
+    support_score: float = 0.0
+    same_bin_match_count: int = 0
+    quality_speed: float = 0.0
+    quality_alignment: float = 0.0
+    quality_progress: float = 0.0
+    quality_near_stability: float = 0.0
+
+
+def scheduled_support_lambda(
+    public_name: str,
+    base_lambda: float,
+    global_step: int | None,
+    anneal_start_step: int = RUNTIME_V6_ANNEAL_START_STEP,
+    anneal_end_step: int = RUNTIME_V6_ANNEAL_END_STEP,
+) -> float:
+    if public_name != RUNTIME_OPT_V6_METHOD:
+        return float(base_lambda)
+    step = 0 if global_step is None else int(global_step)
+    start = int(anneal_start_step)
+    end = max(start + 1, int(anneal_end_step))
+    if step < start:
+        return float(base_lambda)
+    if step >= end:
+        return 0.0
+    span = max(1, end - start)
+    scale = (end - step) / float(span)
+    return float(base_lambda) * max(0.0, min(1.0, scale))
+
+
+@torch.no_grad()
+def td_errors_for_priority(
+    agent: Any,
+    state: torch.Tensor,
+    action: torch.Tensor,
+    reward: torch.Tensor,
+    next_state: torch.Tensor,
+    nonterminal: torch.Tensor,
+    gamma: float,
+) -> torch.Tensor:
+    if hasattr(agent, "td_errors_for_priority"):
+        return agent.td_errors_for_priority(state, action, reward, next_state, nonterminal)
+    target_action = agent.actor_target(next_state)
+    target = reward + float(gamma) * nonterminal * agent.critic_target(next_state, target_action)
+    q = agent.critic(state, action)
+    return torch.abs(q - target)
 
 
 class RuntimeOptimizedSupportComputer:
@@ -304,12 +653,52 @@ class RuntimeOptimizedSupportComputer:
     support context, not actor/critic values or any loss-side quantity.
     """
 
-    def __init__(self, cfg: LiteConfig, task: Any, gap_stats: GapStats) -> None:
+    def __init__(
+        self,
+        cfg: LiteConfig,
+        task: Any,
+        gap_stats: GapStats,
+        enable_numba_scan: bool = True,
+        enable_predicate_early_exit: bool = False,
+        enable_periodic_predicate_audit: bool = True,
+    ) -> None:
         self.cfg = cfg
         self.task = task
         self.gap_stats = gap_stats
         self.support_cache: OrderedDict[tuple[Any, ...], RuntimeSupportEntry] = OrderedDict()
         self.local_scan_cache: OrderedDict[tuple[Any, ...], RuntimeScanResult] = OrderedDict()
+        self.support_quality_mode = str(getattr(cfg, "support_quality_mode", "none"))
+        if self.support_quality_mode not in {"none", "fetch_slide_phase_soft"}:
+            raise ValueError(f"Unsupported support_quality_mode={self.support_quality_mode!r}")
+        self.support_quality_enabled = self.support_quality_mode != "none"
+        self.support_quality_apply_to_weight = bool(getattr(cfg, "support_quality_apply_to_weight", False))
+        self.numba_scan_enabled = bool(enable_numba_scan and can_scan_fetch_slide_support_exact(task))
+        self.predicate_early_exit_enabled = bool(enable_predicate_early_exit and not self.support_quality_enabled)
+        self.periodic_predicate_audit_enabled = bool(enable_periodic_predicate_audit)
+        self.numba_scanner_warmed = False
+        self.support_quality_numba_enabled = False
+        self.numba_scan_constants = None
+        self.compute_calls = 0
+        self.predicate_audit_age_updates = 0
+        self.last_predicate_audit_metrics: Dict[str, float] = {}
+        if self.numba_scan_enabled:
+            try:
+                self.numba_scan_constants = make_fetch_slide_support_scan_constants(task)
+                action_dim = int(np.asarray(task.action_low).shape[0])
+                obs_dim = int(max(task.ee_velocity_slice[1], task.object_velocity_slice[1], task.object_slice[1]))
+                if self.support_quality_enabled:
+                    self.numba_scanner_warmed = warmup_fetch_slide_support_quality(task, action_dim, obs_dim)
+                    self.support_quality_numba_enabled = bool(self.numba_scanner_warmed)
+                elif self.predicate_early_exit_enabled:
+                    self.numba_scanner_warmed = warmup_fetch_slide_support_predicate(task, action_dim, obs_dim)
+                else:
+                    self.numba_scanner_warmed = warmup_fetch_slide_support_exact(task, action_dim, obs_dim)
+                self.numba_scan_enabled = bool(self.numba_scanner_warmed)
+            except Exception:
+                self.numba_scan_enabled = False
+                self.numba_scanner_warmed = False
+                self.support_quality_numba_enabled = False
+                self.numba_scan_constants = None
 
     @torch.no_grad()
     def compute(
@@ -319,16 +708,43 @@ class RuntimeOptimizedSupportComputer:
         agent: DDPGAgent,
         rng: np.random.Generator,
         device: torch.device,
+        lambda_support: float | None = None,
+        support_lookup_enabled: bool = True,
+        schedule_metrics: Dict[str, float] | None = None,
     ) -> WeightBatch:
         del rng
         t0 = time.perf_counter()
         b = int(batch.observation.shape[0])
         phase, extra_metrics = self._task_batch_diagnostics(batch, b)
+        effective_lambda = self.cfg.lambda_support if lambda_support is None else float(lambda_support)
+        if schedule_metrics:
+            extra_metrics.update(schedule_metrics)
+        extra_metrics.update(
+            {
+                "runtime/support_lambda_effective": float(effective_lambda),
+                "runtime/support_lookup_enabled": float(bool(support_lookup_enabled and effective_lambda > 0.0)),
+                "runtime/support_lookup_skipped": float(not bool(support_lookup_enabled and effective_lambda > 0.0)),
+                "runtime/support_quality_enabled": float(self.support_quality_enabled),
+                "runtime/support_quality_apply_to_weight": float(
+                    self.support_quality_enabled and self.support_quality_apply_to_weight
+                ),
+                "runtime/support_quality_numba_enabled": float(
+                    self.support_quality_enabled and self.support_quality_numba_enabled
+                ),
+            }
+        )
+        if (not support_lookup_enabled) or effective_lambda <= 0.0:
+            return self._uniform_weight_batch(
+                batch=batch,
+                phase=phase,
+                extra_metrics=extra_metrics,
+            )
 
         state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
         state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
         a_policy = agent.policy_actions(state_t).detach().cpu().numpy().astype(np.float32)
         t_actor = time.perf_counter()
+        self.compute_calls += 1
 
         support = self._support_arrays(
             batch=batch,
@@ -336,21 +752,72 @@ class RuntimeOptimizedSupportComputer:
             a_policy=a_policy,
             use_caches=True,
             coalesce=True,
+            lambda_support=effective_lambda,
+            phase=phase,
         )
         extra_metrics.update(support["extra_metrics"])
+        extra_metrics["runtime/support_lambda_effective"] = float(effective_lambda)
+        extra_metrics["runtime/support_lookup_enabled"] = 1.0
+        extra_metrics["runtime/support_lookup_skipped"] = 0.0
 
         w_raw = support["w_raw"]
         omega_critic, omega_actor = self._omegas(w_raw)
-        if getattr(self.cfg, "verify_runtime_optimization", False):
+        verify_runtime = bool(getattr(self.cfg, "verify_runtime_optimization", False))
+        predicate_audit_due = bool(
+            self.predicate_early_exit_enabled
+            and self.periodic_predicate_audit_enabled
+            and self.compute_calls % RUNTIME_PREDICATE_AUDIT_INTERVAL == 0
+        )
+        predicate_audit_ran = False
+        if verify_runtime or predicate_audit_due:
             reference = self._support_arrays(
                 batch=batch,
                 replay=replay,
                 a_policy=a_policy,
                 use_caches=False,
                 coalesce=False,
+                lambda_support=effective_lambda,
+                phase=phase,
             )
             ref_critic, ref_actor = self._omegas(reference["w_raw"])
-            self._assert_equivalent(support, reference, omega_critic, omega_actor, ref_critic, ref_actor)
+            if self.support_quality_enabled:
+                self._assert_quality_equivalent(
+                    support,
+                    reference,
+                    omega_critic,
+                    omega_actor,
+                    ref_critic,
+                    ref_actor,
+                )
+            elif self.predicate_early_exit_enabled:
+                self._assert_semantic_equivalent(
+                    support,
+                    reference,
+                    omega_critic,
+                    omega_actor,
+                    ref_critic,
+                    ref_actor,
+                )
+                predicate_audit_ran = True
+                self.predicate_audit_age_updates = 0
+                self.last_predicate_audit_metrics = self._predicate_audit_metrics(
+                    support,
+                    reference,
+                    ran=True,
+                )
+            else:
+                self._assert_equivalent(support, reference, omega_critic, omega_actor, ref_critic, ref_actor)
+        if self.predicate_early_exit_enabled:
+            if not predicate_audit_ran:
+                self.predicate_audit_age_updates += 1
+            audit_metrics = dict(
+                self.last_predicate_audit_metrics
+                or self._predicate_audit_metrics(support, support, ran=False)
+            )
+            audit_metrics["runtime/predicate_audit_ran"] = float(predicate_audit_ran)
+            audit_metrics["runtime/predicate_audit_has_run"] = float(bool(self.last_predicate_audit_metrics))
+            audit_metrics["runtime/predicate_audit_age_updates"] = float(self.predicate_audit_age_updates)
+            extra_metrics.update(audit_metrics)
 
         t_weight0 = time.perf_counter()
         self.gap_stats.update(support["g_sup"], support["psi_q_rank"])
@@ -358,7 +825,7 @@ class RuntimeOptimizedSupportComputer:
         weight_computation_time += support["weight_compute_time"]
 
         local_context_time = support["local_context_lookup_time"] + support["candidate_construction_time"]
-        return WeightBatch(
+        wb = WeightBatch(
             omega_critic=omega_critic.astype(np.float32),
             omega_actor=omega_actor.astype(np.float32),
             w_p_raw=w_raw.astype(np.float32),
@@ -384,6 +851,56 @@ class RuntimeOptimizedSupportComputer:
                 "q_candidate_eval": 0.0,
                 "weight_compute": weight_computation_time,
                 "weight_computation": weight_computation_time,
+                "numba_support_scan": support.get("numba_support_scan_time", 0.0),
+                "support_quality_scan": support["extra_metrics"].get("time/support_quality_scan", 0.0),
+            },
+            gap_ready=False,
+            gap_tau=0.0,
+            gap_max=0.0,
+            extra_metrics=extra_metrics,
+        )
+        setattr(wb, "support_score", support["support_score"].astype(np.float32, copy=False))
+        setattr(wb, "reliability_score", support["support_score"].astype(np.float32, copy=False))
+        return wb
+
+    def _uniform_weight_batch(
+        self,
+        batch: SampleBatch,
+        phase: np.ndarray,
+        extra_metrics: Dict[str, float],
+    ) -> WeightBatch:
+        b = int(batch.observation.shape[0])
+        ones = np.ones(b, dtype=np.float32)
+        zeros = np.zeros(b, dtype=np.float32)
+        fallback = np.ones(b, dtype=np.float32)
+        return WeightBatch(
+            omega_critic=ones.copy(),
+            omega_actor=ones.copy(),
+            w_p_raw=ones.copy(),
+            g_sup=zeros.copy(),
+            kappa=zeros.copy(),
+            psi_q_rank=zeros.copy(),
+            q_candidate_fallback=fallback,
+            psi_a_policy=zeros.copy(),
+            len_a_q_sup=zeros.copy(),
+            len_a_q_local=zeros.copy(),
+            num_coarse_candidates=zeros.copy(),
+            num_scanned_candidates=zeros.copy(),
+            local_scan_truncated=zeros.copy(),
+            q_imp_minus_q_policy=zeros.copy(),
+            unrestricted_gap=zeros.copy(),
+            phase=phase,
+            timing={
+                "actor": 0.0,
+                "local_context_lookup": 0.0,
+                "candidate_construction": 0.0,
+                "local_context": 0.0,
+                "q_policy_eval": 0.0,
+                "q_candidate_eval": 0.0,
+                "weight_compute": 0.0,
+                "weight_computation": 0.0,
+                "numba_support_scan": 0.0,
+                "support_quality_scan": 0.0,
             },
             gap_ready=False,
             gap_tau=0.0,
@@ -398,9 +915,12 @@ class RuntimeOptimizedSupportComputer:
         a_policy: np.ndarray,
         use_caches: bool,
         coalesce: bool,
+        lambda_support: float | None = None,
+        phase: np.ndarray | None = None,
     ) -> Dict[str, Any]:
         t_lookup0 = time.perf_counter()
         b = int(batch.observation.shape[0])
+        effective_lambda = self.cfg.lambda_support if lambda_support is None else float(lambda_support)
         w_raw = np.ones(b, dtype=np.float32)
         g_sup = np.zeros(b, dtype=np.float32)
         kappa = np.zeros(b, dtype=np.float32)
@@ -414,6 +934,15 @@ class RuntimeOptimizedSupportComputer:
         scan_truncated = np.zeros(b, dtype=np.float32)
         q_delta = np.zeros(b, dtype=np.float32)
         unrestricted_gap = np.zeros(b, dtype=np.float32)
+        support_quality = np.zeros(b, dtype=np.float32)
+        support_score = np.zeros(b, dtype=np.float32)
+        same_bin_match_count = np.zeros(b, dtype=np.float32)
+        quality_speed = np.zeros(b, dtype=np.float32)
+        quality_alignment = np.zeros(b, dtype=np.float32)
+        quality_progress = np.zeros(b, dtype=np.float32)
+        quality_near_stability = np.zeros(b, dtype=np.float32)
+        if phase is None:
+            phase = np.zeros(b, dtype=np.int64)
 
         query_coarse = self.task.coarse_hash_batch(batch.observation, batch.h)
         full_keys = self.task.full_context_hash_batch(
@@ -427,6 +956,7 @@ class RuntimeOptimizedSupportComputer:
                 f"got policy_support_mode={self.cfg.policy_support_mode!r}"
             )
         policy_bins = self.task.action_bin_batch(a_policy, self.cfg.action_bins_per_dim)
+        use_numba_scan = bool(use_caches and self.numba_scan_enabled)
         support_keys = [
             self._support_cache_key(
                 coarse_key=int(query_coarse[i]),
@@ -434,6 +964,7 @@ class RuntimeOptimizedSupportComputer:
                 goal=batch.desired_goal_train[i],
                 h=int(batch.h[i]),
                 replay=replay,
+                policy_bin=int(policy_bins[i]) if (use_numba_scan or self.support_quality_enabled) else None,
             )
             for i in range(b)
         ]
@@ -442,6 +973,17 @@ class RuntimeOptimizedSupportComputer:
         support_misses = 0
         scan_hits = 0
         scan_misses = 0
+        numba_support_queries = 0
+        numba_support_fallbacks = 0
+        numba_support_scan_time = 0.0
+        predicate_lookup_entries = 0
+        predicate_candidates_examined = 0
+        predicate_selected_candidates = 0
+        predicate_early_exits = 0
+        predicate_positive_early_exits = 0
+        predicate_negative_early_exits = 0
+        diagnostics_exact_count = 0
+        support_quality_scan_time = 0.0
         if coalesce:
             first_index: Dict[tuple[Any, ...], int] = {}
             for i, key in enumerate(support_keys):
@@ -454,19 +996,34 @@ class RuntimeOptimizedSupportComputer:
         lookup_results: Dict[Any, RuntimeSupportEntry] = {}
         for key, i in unique_items:
             cache_key = key if coalesce else key[1]
-            entry, hit, scan_hit, scan_miss = self._lookup_support_entry(
+            entry, hit, scan_hit, scan_miss, numba_query, numba_fallback, numba_time = self._lookup_support_entry(
                 cache_key=cache_key,
                 coarse_key=int(query_coarse[i]),
                 full_key=int(full_keys[i]),
                 goal=batch.desired_goal_train[i],
+                policy_bin=int(policy_bins[i]),
                 replay=replay,
                 use_caches=use_caches,
+                use_numba_scan=use_numba_scan,
             )
             if use_caches:
                 support_hits += int(hit)
                 support_misses += int(not hit)
                 scan_hits += scan_hit
                 scan_misses += scan_miss
+            numba_support_queries += int(numba_query)
+            numba_support_fallbacks += int(numba_fallback)
+            numba_support_scan_time += float(numba_time)
+            if self.support_quality_enabled:
+                support_quality_scan_time += float(numba_time)
+            if self.predicate_early_exit_enabled and use_numba_scan:
+                predicate_lookup_entries += 1
+            predicate_candidates_examined += int(entry.predicate_candidates_examined)
+            predicate_selected_candidates += int(entry.num_scanned_candidates)
+            predicate_early_exits += int(entry.predicate_early_exit)
+            predicate_positive_early_exits += int(entry.predicate_positive_early_exit)
+            predicate_negative_early_exits += int(entry.predicate_negative_early_exit)
+            diagnostics_exact_count += int(entry.diagnostics_exact)
             lookup_results[key] = entry
 
         local_context_lookup_time = time.perf_counter() - t_lookup0
@@ -479,21 +1036,56 @@ class RuntimeOptimizedSupportComputer:
             scan_truncated[i] = float(entry.local_scan_truncated)
             local_count = int(entry.local_pool_size)
             len_local[i] = float(local_count)
+            support_quality[i] = float(entry.support_quality) if self.support_quality_enabled else 0.0
+            same_bin_match_count[i] = float(entry.same_bin_match_count)
+            quality_speed[i] = float(entry.quality_speed)
+            quality_alignment[i] = float(entry.quality_alignment)
+            quality_progress[i] = float(entry.quality_progress)
+            quality_near_stability[i] = float(entry.quality_near_stability)
+            if entry.psi_q_rank is not None:
+                if local_count < self.cfg.N_local_min:
+                    continue
+                len_sup[i] = float(entry.available_support_size)
+                psi_a_policy[i] = float(entry.psi_a_policy or 0.0)
+                if entry.available_support_size < self.cfg.M_Q_min or psi_a_policy[i] < 0.5:
+                    continue
+                psi_q_rank[i] = float(entry.psi_q_rank)
+                fallback[i] = float(entry.q_candidate_fallback or 0.0)
+                support_score[i] = (
+                    float(entry.support_score)
+                    if self.support_quality_enabled
+                    else float(entry.psi_q_rank)
+                )
+                if psi_q_rank[i] >= 0.5:
+                    if self.support_quality_enabled and self.support_quality_apply_to_weight:
+                        w_raw[i] = 1.0 + effective_lambda * support_score[i]
+                    else:
+                        w_raw[i] = 1.0 + effective_lambda
+                continue
             if local_count < self.cfg.N_local_min:
                 continue
             n_sup = int(entry.available_support_size)
             len_sup[i] = float(n_sup)
-            psi_a_policy[i] = self._bin_supported(entry.action_bins, int(policy_bins[i]))
+            if entry.psi_a_policy is None:
+                psi_a_policy[i] = self._bin_supported(entry.action_bins, int(policy_bins[i]))
+            else:
+                psi_a_policy[i] = float(entry.psi_a_policy)
             if n_sup < self.cfg.M_Q_min or psi_a_policy[i] < 0.5:
                 continue
             psi_q_rank[i] = 1.0
             fallback[i] = 0.0
-            w_raw[i] = 1.0 + self.cfg.lambda_support
+            support_score[i] = float(entry.support_score) if self.support_quality_enabled else 1.0
+            if self.support_quality_enabled and self.support_quality_apply_to_weight:
+                w_raw[i] = 1.0 + effective_lambda * support_score[i]
+            else:
+                w_raw[i] = 1.0 + effective_lambda
         candidate_construction_time = time.perf_counter() - t_support0
 
         unique_count = len(unique_items)
         support_queries = max(1, support_hits + support_misses)
         scan_queries = max(1, scan_hits + scan_misses)
+        predicate_den = max(1, predicate_lookup_entries)
+        scan_fraction_den = max(1, predicate_selected_candidates)
         extra_metrics = {
             "runtime/support_cache_hit_rate": float(support_hits / support_queries),
             "runtime/support_cache_miss_rate": float(support_misses / support_queries),
@@ -501,7 +1093,65 @@ class RuntimeOptimizedSupportComputer:
             "runtime/batch_query_coalescing_saving_rate": float(1.0 - unique_count / max(1, b)),
             "runtime/local_scan_cache_hit_rate": float(scan_hits / scan_queries),
             "runtime/local_scan_cache_miss_rate": float(scan_misses / scan_queries),
+            "runtime/numba_support_scan_enabled": float(use_numba_scan),
+            "runtime/numba_support_scan_fallback_rate": float(
+                numba_support_fallbacks / max(1, numba_support_queries + numba_support_fallbacks)
+            ),
+            "runtime/numba_support_queries": float(numba_support_queries),
+            "runtime/numba_scanner_warmed": float(self.numba_scanner_warmed),
+            "runtime/predicate_early_exit_enabled": float(self.predicate_early_exit_enabled and use_numba_scan),
+            "runtime/predicate_early_exit_rate": float(predicate_early_exits / predicate_den),
+            "runtime/predicate_positive_early_exit_rate": float(predicate_positive_early_exits / predicate_den),
+            "runtime/predicate_negative_early_exit_rate": float(predicate_negative_early_exits / predicate_den),
+            "runtime/predicate_candidates_examined_mean": float(predicate_candidates_examined / predicate_den),
+            "runtime/predicate_scan_fraction_mean": float(predicate_candidates_examined / scan_fraction_den),
+            "runtime/support_diagnostics_exact_rate": float(diagnostics_exact_count / max(1, unique_count)),
+            "runtime/support_diagnostics_approx_rate": float(
+                1.0 - diagnostics_exact_count / max(1, unique_count)
+            ),
+            "runtime/predicate_audit_interval": float(RUNTIME_PREDICATE_AUDIT_INTERVAL),
+            "time/numba_support_scan": float(numba_support_scan_time),
+            "runtime/support_quality_enabled": float(self.support_quality_enabled),
+            "runtime/support_quality_apply_to_weight": float(
+                self.support_quality_enabled and self.support_quality_apply_to_weight
+            ),
+            "runtime/support_quality_numba_enabled": float(
+                self.support_quality_enabled and use_numba_scan and self.support_quality_numba_enabled
+            ),
+            "runtime/support_quality_numba_fallback_rate": float(
+                numba_support_fallbacks / max(1, numba_support_queries + numba_support_fallbacks)
+            )
+            if self.support_quality_enabled
+            else 0.0,
+            "time/support_quality_scan": float(support_quality_scan_time),
+            "lite/support_quality_mean": float(np.mean(support_quality)) if support_quality.size else 0.0,
+            "lite/support_quality_p50": _percentile(support_quality, 50.0),
+            "lite/support_quality_p90": _percentile(support_quality, 90.0),
+            "lite/support_quality_positive_rate": float(np.mean(support_quality > 0.0)) if support_quality.size else 0.0,
+            "lite/support_score_mean": float(np.mean(support_score)) if support_score.size else 0.0,
+            "lite/support_score_p50": _percentile(support_score, 50.0),
+            "lite/support_score_p90": _percentile(support_score, 90.0),
+            "lite/same_bin_match_count_mean": float(np.mean(same_bin_match_count)) if same_bin_match_count.size else 0.0,
+            "fetch_slide/quality_speed_mean": float(np.mean(quality_speed)) if quality_speed.size else 0.0,
+            "fetch_slide/quality_alignment_mean": float(np.mean(quality_alignment)) if quality_alignment.size else 0.0,
+            "fetch_slide/quality_progress_mean": float(np.mean(quality_progress)) if quality_progress.size else 0.0,
+            "fetch_slide/quality_near_stability_mean": float(np.mean(quality_near_stability))
+            if quality_near_stability.size
+            else 0.0,
         }
+        phase_names = tuple(getattr(self.task, "phase_names", ("approach", "strike", "slide", "near_goal")))
+        for phase_id, phase_name in enumerate(phase_names):
+            mask = phase == phase_id
+            if np.any(mask):
+                extra_metrics[f"phase/{phase_name}/support_quality_mean"] = float(np.mean(support_quality[mask]))
+                extra_metrics[f"phase/{phase_name}/support_score_mean"] = float(np.mean(support_score[mask]))
+                extra_metrics[f"phase/{phase_name}/same_bin_match_count_mean"] = float(
+                    np.mean(same_bin_match_count[mask])
+                )
+            else:
+                extra_metrics[f"phase/{phase_name}/support_quality_mean"] = 0.0
+                extra_metrics[f"phase/{phase_name}/support_score_mean"] = 0.0
+                extra_metrics[f"phase/{phase_name}/same_bin_match_count_mean"] = 0.0
         return {
             "w_raw": w_raw,
             "g_sup": g_sup,
@@ -514,11 +1164,19 @@ class RuntimeOptimizedSupportComputer:
             "num_coarse_candidates": coarse_count,
             "num_scanned_candidates": scanned_count,
             "local_scan_truncated": scan_truncated,
+            "support_quality": support_quality,
+            "support_score": support_score,
+            "same_bin_match_count": same_bin_match_count,
+            "quality_speed": quality_speed,
+            "quality_alignment": quality_alignment,
+            "quality_progress": quality_progress,
+            "quality_near_stability": quality_near_stability,
             "q_imp_minus_q_policy": q_delta,
             "unrestricted_gap": unrestricted_gap,
             "local_context_lookup_time": local_context_lookup_time,
             "candidate_construction_time": candidate_construction_time,
             "weight_compute_time": 0.0,
+            "numba_support_scan_time": float(numba_support_scan_time),
             "extra_metrics": extra_metrics,
         }
 
@@ -528,13 +1186,15 @@ class RuntimeOptimizedSupportComputer:
         coarse_key: int,
         full_key: int,
         goal: np.ndarray,
+        policy_bin: int,
         replay: HERReplayBuffer,
         use_caches: bool,
-    ) -> tuple[RuntimeSupportEntry, bool, int, int]:
+        use_numba_scan: bool,
+    ) -> tuple[RuntimeSupportEntry, bool, int, int, int, int, float]:
         if use_caches:
             cached = self._lru_get(self.support_cache, cache_key)
             if cached is not None:
-                return cached, True, 0, 0
+                return cached, True, 0, 0, 0, 0, 0.0
 
         scan, scan_hit, scan_miss = self._scan_for_key(coarse_key, replay, use_caches)
         if scan.indices.size == 0:
@@ -545,10 +1205,174 @@ class RuntimeOptimizedSupportComputer:
                 num_coarse_candidates=scan.num_coarse_candidates,
                 num_scanned_candidates=0,
                 local_scan_truncated=scan.local_scan_truncated,
+                support_quality=0.0 if self.support_quality_enabled else 1.0,
             )
             if use_caches:
                 self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
-            return entry, False, scan_hit, scan_miss
+            return entry, False, scan_hit, scan_miss, 0, 0, 0.0
+
+        numba_fallback = 0
+        if self.support_quality_enabled:
+            if use_numba_scan and self.support_quality_numba_enabled:
+                t_numba = time.perf_counter()
+                try:
+                    if self.numba_scan_constants is None:
+                        raise RuntimeError("FetchSlide Numba scan constants are not initialized")
+                    (
+                        local_pool_size,
+                        available_support_size,
+                        psi_a_policy,
+                        psi_q_rank,
+                        fallback,
+                        support_quality,
+                        support_score,
+                        same_bin_match_count,
+                        quality_progress,
+                        quality_speed,
+                        quality_alignment,
+                        quality_near_stability,
+                    ) = scan_fetch_slide_support_quality_with_constants(
+                        replay_obs=replay.observation,
+                        replay_next_obs=replay.next_observation,
+                        replay_h=replay.h,
+                        replay_action_bin=replay.action_bin,
+                        replay_action_exec=replay.action_exec,
+                        scanned_indices=scan.indices,
+                        query_goal=goal,
+                        query_full_key=int(full_key),
+                        query_policy_bin=int(policy_bin),
+                        constants=self.numba_scan_constants,
+                        n_local_min=int(self.cfg.N_local_min),
+                        m_q_min=int(self.cfg.M_Q_min),
+                        m_b=int(self.cfg.M_B),
+                        action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                        quality_floor=float(getattr(self.cfg, "support_quality_floor", 0.25)),
+                        approach_scale=float(getattr(self.cfg, "support_quality_approach_scale", 0.02)),
+                        goal_progress_scale=float(getattr(self.cfg, "support_quality_goal_progress_scale", 0.03)),
+                        align_min=float(getattr(self.cfg, "support_quality_align_min", 0.0)),
+                        strike_speed_scale_mult=float(
+                            getattr(self.cfg, "support_quality_strike_speed_scale_mult", 2.0)
+                        ),
+                        near_margin_mult=float(getattr(self.cfg, "support_quality_near_margin_mult", 0.25)),
+                        near_speed_mult=float(getattr(self.cfg, "support_quality_near_speed_mult", 1.0)),
+                    )
+                    numba_time = time.perf_counter() - t_numba
+                    entry = RuntimeSupportEntry(
+                        local_pool_size=int(local_pool_size),
+                        available_support_size=int(available_support_size),
+                        action_bins=np.zeros((0,), dtype=np.int64),
+                        num_coarse_candidates=scan.num_coarse_candidates,
+                        num_scanned_candidates=int(scan.indices.size),
+                        local_scan_truncated=scan.local_scan_truncated,
+                        psi_a_policy=float(psi_a_policy),
+                        psi_q_rank=float(psi_q_rank),
+                        q_candidate_fallback=float(fallback),
+                        predicate_candidates_examined=int(scan.indices.size),
+                        diagnostics_exact=True,
+                        support_quality=float(support_quality),
+                        support_score=float(support_score),
+                        same_bin_match_count=int(same_bin_match_count),
+                        quality_speed=float(quality_speed),
+                        quality_alignment=float(quality_alignment),
+                        quality_progress=float(quality_progress),
+                        quality_near_stability=float(quality_near_stability),
+                    )
+                    if use_caches:
+                        self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
+                    return entry, False, scan_hit, scan_miss, 1, 0, float(numba_time)
+                except Exception:
+                    if bool(getattr(self.cfg, "verify_runtime_optimization", False)) and self.support_quality_apply_to_weight:
+                        raise
+                    self.support_quality_numba_enabled = False
+                    numba_fallback = 1
+                    use_numba_scan = False
+
+            entry = self._quality_reference_entry(
+                scan=scan,
+                full_key=int(full_key),
+                goal=goal,
+                policy_bin=int(policy_bin),
+                replay=replay,
+            )
+            if use_caches:
+                self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
+            return entry, False, scan_hit, scan_miss, 0, numba_fallback, 0.0
+
+        if use_numba_scan:
+            t_numba = time.perf_counter()
+            try:
+                if self.numba_scan_constants is None:
+                    raise RuntimeError("FetchSlide Numba scan constants are not initialized")
+                if self.predicate_early_exit_enabled:
+                    (
+                        local_pool_size,
+                        available_support_size,
+                        psi_a_policy,
+                        psi_q_rank,
+                        fallback,
+                        predicate_examined,
+                        early_exit_code,
+                    ) = scan_fetch_slide_support_predicate_with_constants(
+                        replay_obs=replay.observation,
+                        replay_h=replay.h,
+                        replay_action_bin=replay.action_bin,
+                        replay_action_exec=replay.action_exec,
+                        scanned_indices=scan.indices,
+                        query_goal=goal,
+                        query_full_key=int(full_key),
+                        query_policy_bin=int(policy_bin),
+                        constants=self.numba_scan_constants,
+                        n_local_min=int(self.cfg.N_local_min),
+                        m_q_min=int(self.cfg.M_Q_min),
+                        m_b=int(self.cfg.M_B),
+                        action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                    )
+                    diagnostics_exact = int(early_exit_code) == 0
+                else:
+                    local_pool_size, available_support_size, psi_a_policy, psi_q_rank, fallback = (
+                        scan_fetch_slide_support_exact_with_constants(
+                            replay_obs=replay.observation,
+                            replay_h=replay.h,
+                            replay_action_bin=replay.action_bin,
+                            replay_action_exec=replay.action_exec,
+                            scanned_indices=scan.indices,
+                            query_goal=goal,
+                            query_full_key=int(full_key),
+                            query_policy_bin=int(policy_bin),
+                            constants=self.numba_scan_constants,
+                            n_local_min=int(self.cfg.N_local_min),
+                            m_q_min=int(self.cfg.M_Q_min),
+                            m_b=int(self.cfg.M_B),
+                            action_bins_per_dim=int(self.cfg.action_bins_per_dim),
+                        )
+                    )
+                    predicate_examined = int(scan.indices.size)
+                    early_exit_code = 0
+                    diagnostics_exact = True
+                numba_time = time.perf_counter() - t_numba
+                entry = RuntimeSupportEntry(
+                    local_pool_size=int(local_pool_size),
+                    available_support_size=int(available_support_size),
+                    action_bins=np.zeros((0,), dtype=np.int64),
+                    num_coarse_candidates=scan.num_coarse_candidates,
+                    num_scanned_candidates=int(scan.indices.size),
+                    local_scan_truncated=scan.local_scan_truncated,
+                    psi_a_policy=float(psi_a_policy),
+                    psi_q_rank=float(psi_q_rank) if self.predicate_early_exit_enabled else None,
+                    q_candidate_fallback=float(fallback) if self.predicate_early_exit_enabled else None,
+                    predicate_candidates_examined=int(predicate_examined),
+                    predicate_early_exit=bool(early_exit_code),
+                    predicate_positive_early_exit=int(early_exit_code) == 1,
+                    predicate_negative_early_exit=int(early_exit_code) == 2,
+                    diagnostics_exact=bool(diagnostics_exact),
+                )
+                if use_caches:
+                    self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
+                return entry, False, scan_hit, scan_miss, 1, 0, float(numba_time)
+            except Exception:
+                self.numba_scan_enabled = False
+                numba_fallback = 1
+                use_numba_scan = False
 
         ref_obs = replay.observation[scan.indices]
         ref_goal = np.repeat(np.asarray(goal, dtype=np.float32)[None, :], scan.indices.size, axis=0)
@@ -576,7 +1400,162 @@ class RuntimeOptimizedSupportComputer:
         )
         if use_caches:
             self._lru_put(self.support_cache, cache_key, entry, RUNTIME_SUPPORT_CACHE_MAX)
-        return entry, False, scan_hit, scan_miss
+        return entry, False, scan_hit, scan_miss, 0, numba_fallback, 0.0
+
+    def _quality_reference_entry(
+        self,
+        scan: RuntimeScanResult,
+        full_key: int,
+        goal: np.ndarray,
+        policy_bin: int,
+        replay: HERReplayBuffer,
+    ) -> RuntimeSupportEntry:
+        ref_obs = replay.observation[scan.indices]
+        ref_goal = np.repeat(np.asarray(goal, dtype=np.float32)[None, :], scan.indices.size, axis=0)
+        ref_h = replay.h[scan.indices]
+        ref_hash = self.task.full_context_hash_batch(ref_obs, ref_goal, ref_h)
+        local_idx = scan.indices[ref_hash == int(full_key)]
+        if local_idx.size > 0:
+            local_bins = replay.action_bin[local_idx].copy()
+            if local_bins.shape[0] != local_idx.size or np.any(local_bins < 0):
+                local_bins = self.task.action_bin_batch(
+                    replay.action_exec[local_idx],
+                    self.cfg.action_bins_per_dim,
+                )
+            local_bins = local_bins.astype(np.int64, copy=False)
+        else:
+            local_bins = np.zeros((0,), dtype=np.int64)
+
+        same_bin_idx = local_idx[local_bins == int(policy_bin)]
+        best_quality = 0.0
+        best_progress = 0.0
+        best_speed = 0.0
+        best_alignment = 0.0
+        best_near_stability = 0.0
+        for idx in same_bin_idx:
+            quality, q_progress, q_speed, q_alignment, q_near = self._candidate_quality_reference(
+                int(idx),
+                np.asarray(goal, dtype=np.float32),
+                replay,
+            )
+            if quality > best_quality:
+                best_quality = float(quality)
+                best_progress = float(q_progress)
+                best_speed = float(q_speed)
+                best_alignment = float(q_alignment)
+                best_near_stability = float(q_near)
+
+        local_pool_size = int(local_idx.size)
+        available_support_size = min(local_pool_size, int(self.cfg.M_B))
+        psi_a_policy = int(same_bin_idx.size > 0)
+        support_positive = int(
+            local_pool_size >= int(self.cfg.N_local_min)
+            and available_support_size >= int(self.cfg.M_Q_min)
+            and psi_a_policy == 1
+        )
+        support_score = 0.0
+        if support_positive:
+            floor = self._clip01(float(getattr(self.cfg, "support_quality_floor", 0.25)))
+            support_score = floor + (1.0 - floor) * float(best_quality)
+        return RuntimeSupportEntry(
+            local_pool_size=local_pool_size,
+            available_support_size=available_support_size,
+            action_bins=np.zeros((0,), dtype=np.int64),
+            num_coarse_candidates=scan.num_coarse_candidates,
+            num_scanned_candidates=int(scan.indices.size),
+            local_scan_truncated=scan.local_scan_truncated,
+            psi_a_policy=float(psi_a_policy),
+            psi_q_rank=float(support_positive),
+            q_candidate_fallback=float(0 if support_positive else 1),
+            predicate_candidates_examined=int(scan.indices.size),
+            diagnostics_exact=True,
+            support_quality=float(best_quality),
+            support_score=float(support_score),
+            same_bin_match_count=int(same_bin_idx.size),
+            quality_speed=float(best_speed),
+            quality_alignment=float(best_alignment),
+            quality_progress=float(best_progress),
+            quality_near_stability=float(best_near_stability),
+        )
+
+    def _candidate_quality_reference(
+        self,
+        idx: int,
+        goal: np.ndarray,
+        replay: HERReplayBuffer,
+    ) -> tuple[float, float, float, float, float]:
+        obs = replay.observation[int(idx)]
+        next_obs = replay.next_observation[int(idx)]
+        phase = int(self.task.phase_batch(obs[None, :], goal[None, :])[0])
+        ee_start = int(self.task.ee_slice[0])
+        obj_start = int(self.task.object_slice[0])
+        vel_start = int(self.task.object_velocity_slice[0])
+
+        ee = obs[ee_start : ee_start + 3].astype(np.float32, copy=False)
+        obj = obs[obj_start : obj_start + 3].astype(np.float32, copy=False)
+        next_ee = next_obs[ee_start : ee_start + 3].astype(np.float32, copy=False)
+        next_obj = next_obs[obj_start : obj_start + 3].astype(np.float32, copy=False)
+        next_vel = next_obs[vel_start : vel_start + 3].astype(np.float32, copy=False)
+
+        d_obj_goal_before = float(np.linalg.norm(obj - goal))
+        d_obj_goal_after = float(np.linalg.norm(next_obj - goal))
+        speed_next = float(np.linalg.norm(next_vel[:2]))
+        align_next = self._goal_alignment_xy(next_vel[:2], obj[:2], goal[:2])
+        align_min = float(getattr(self.cfg, "support_quality_align_min", 0.0))
+        align_denom = max(1e-6, 1.0 - align_min)
+        q_align = self._clip01((align_next - align_min) / align_denom)
+        speed_denom = max(
+            1e-6,
+            float(getattr(self.cfg, "support_quality_strike_speed_scale_mult", 2.0))
+            * float(self.task.v_slide_min),
+        )
+        q_speed = self._clip01(speed_next / speed_denom)
+
+        if phase == int(getattr(self.task, "PHASE_APPROACH", 0)):
+            d_ee_obj_before = float(np.linalg.norm(ee - obj))
+            d_ee_obj_after = float(np.linalg.norm(next_ee - next_obj))
+            denom = max(1e-6, float(getattr(self.cfg, "support_quality_approach_scale", 0.02)))
+            q_progress = self._clip01((d_ee_obj_before - d_ee_obj_after) / denom)
+            return q_progress, q_progress, 0.0, 0.0, 0.0
+
+        if phase == int(getattr(self.task, "PHASE_STRIKE", 1)):
+            quality = q_speed * q_align
+            return quality, 0.0, q_speed, q_align, 0.0
+
+        if phase == int(getattr(self.task, "PHASE_SLIDE", 2)):
+            denom = max(1e-6, float(getattr(self.cfg, "support_quality_goal_progress_scale", 0.03)))
+            q_progress = self._clip01((d_obj_goal_before - d_obj_goal_after) / denom)
+            quality = max(q_progress, q_align)
+            return quality, q_progress, q_speed, q_align, 0.0
+
+        distance_delta = d_obj_goal_after - d_obj_goal_before
+        near_margin = max(
+            1e-6,
+            float(getattr(self.cfg, "support_quality_near_margin_mult", 0.25)) * float(self.task.d_goal_near),
+        )
+        near_speed_limit = max(
+            1e-6,
+            float(getattr(self.cfg, "support_quality_near_speed_mult", 1.0)) * float(self.task.v_slide_min),
+        )
+        q_no_overshoot = self._clip01((near_margin - max(0.0, distance_delta)) / near_margin)
+        q_slow = self._clip01((near_speed_limit - speed_next) / near_speed_limit)
+        q_near = q_no_overshoot * q_slow
+        return q_near, 0.0, q_slow, 0.0, q_near
+
+    @staticmethod
+    def _clip01(value: float) -> float:
+        return float(min(1.0, max(0.0, value)))
+
+    @staticmethod
+    def _goal_alignment_xy(vel_xy: np.ndarray, obj_xy: np.ndarray, goal_xy: np.ndarray) -> float:
+        speed = float(np.linalg.norm(vel_xy))
+        if speed < 1e-8:
+            return 0.0
+        goal_vec = goal_xy - obj_xy
+        goal_norm = float(np.linalg.norm(goal_vec))
+        if goal_norm < 1e-8:
+            return 0.0
+        return float(np.clip(np.dot(vel_xy, goal_vec) / (speed * goal_norm), -1.0, 1.0))
 
     def _scan_for_key(
         self,
@@ -615,8 +1594,9 @@ class RuntimeOptimizedSupportComputer:
         goal: np.ndarray,
         h: int,
         replay: HERReplayBuffer,
+        policy_bin: int | None = None,
     ) -> tuple[Any, ...]:
-        return (
+        key = (
             int(coarse_key),
             int(full_key),
             np.asarray(goal, dtype=np.float32).tobytes(),
@@ -624,6 +1604,24 @@ class RuntimeOptimizedSupportComputer:
             int(self.cfg.local_search_max),
             self._replay_version_for_key(replay, int(coarse_key)),
         )
+        if policy_bin is not None:
+            if self.support_quality_enabled:
+                mode = (
+                    "quality_v1",
+                    str(self.support_quality_mode),
+                    float(getattr(self.cfg, "support_quality_floor", 0.25)),
+                    float(getattr(self.cfg, "support_quality_approach_scale", 0.02)),
+                    float(getattr(self.cfg, "support_quality_goal_progress_scale", 0.03)),
+                    float(getattr(self.cfg, "support_quality_align_min", 0.0)),
+                    float(getattr(self.cfg, "support_quality_strike_speed_scale_mult", 2.0)),
+                    float(getattr(self.cfg, "support_quality_near_margin_mult", 0.25)),
+                    float(getattr(self.cfg, "support_quality_near_speed_mult", 1.0)),
+                    bool(self.support_quality_apply_to_weight),
+                )
+            else:
+                mode = "predicate_v1" if self.predicate_early_exit_enabled else "exact_v1"
+            return (*key, int(policy_bin), mode)
+        return key
 
     def _scan_cache_key(self, coarse_key: int, replay: HERReplayBuffer) -> tuple[int, int, int]:
         return (
@@ -709,6 +1707,120 @@ class RuntimeOptimizedSupportComputer:
         if not np.allclose(opt_actor, ref_actor, rtol=0.0, atol=0.0):
             raise AssertionError("runtime optimization mismatch in Omega_actor")
 
+    @staticmethod
+    def _assert_quality_equivalent(
+        optimized: Dict[str, Any],
+        reference: Dict[str, Any],
+        opt_critic: np.ndarray,
+        opt_actor: np.ndarray,
+        ref_critic: np.ndarray,
+        ref_actor: np.ndarray,
+    ) -> None:
+        exact_fields = [
+            "psi_q_rank",
+            "psi_a_policy",
+            "q_candidate_fallback",
+            "len_a_q_local",
+            "len_a_q_sup",
+            "num_coarse_candidates",
+            "num_scanned_candidates",
+            "local_scan_truncated",
+            "same_bin_match_count",
+        ]
+        for field in exact_fields:
+            if not np.array_equal(optimized[field], reference[field]):
+                raise AssertionError(f"runtime quality support mismatch in {field}")
+        float_fields = [
+            "support_quality",
+            "support_score",
+            "quality_speed",
+            "quality_alignment",
+            "quality_progress",
+            "quality_near_stability",
+            "w_raw",
+        ]
+        for field in float_fields:
+            if not np.allclose(optimized[field], reference[field], rtol=1e-6, atol=1e-6):
+                raise AssertionError(f"runtime quality support mismatch in {field}")
+        if not np.allclose(opt_critic, ref_critic, rtol=1e-6, atol=1e-6):
+            raise AssertionError("runtime quality support mismatch in Omega_critic")
+        if not np.allclose(opt_actor, ref_actor, rtol=1e-6, atol=1e-6):
+            raise AssertionError("runtime quality support mismatch in Omega_actor")
+
+    @staticmethod
+    def _assert_semantic_equivalent(
+        optimized: Dict[str, Any],
+        reference: Dict[str, Any],
+        opt_critic: np.ndarray,
+        opt_actor: np.ndarray,
+        ref_critic: np.ndarray,
+        ref_actor: np.ndarray,
+    ) -> None:
+        semantic_fields = [
+            "psi_q_rank",
+            "psi_a_policy",
+            "q_candidate_fallback",
+            "w_raw",
+        ]
+        for field in semantic_fields:
+            if not np.array_equal(optimized[field], reference[field]):
+                raise AssertionError(f"runtime optimization semantic mismatch in {field}")
+        if not np.allclose(opt_critic, ref_critic, rtol=0.0, atol=0.0):
+            raise AssertionError("runtime optimization semantic mismatch in Omega_critic")
+        if not np.allclose(opt_actor, ref_actor, rtol=0.0, atol=0.0):
+            raise AssertionError("runtime optimization semantic mismatch in Omega_actor")
+
+    @staticmethod
+    def _predicate_audit_metrics(
+        optimized: Dict[str, Any],
+        reference: Dict[str, Any],
+        ran: bool,
+    ) -> Dict[str, float]:
+        if not ran:
+            return {
+                "runtime/predicate_audit_ran": 0.0,
+                "audit/support_semantic_match_rate": 1.0,
+                "audit/local_count_exact_match_rate": 0.0,
+                "audit/local_count_abs_delta_mean": 0.0,
+                "audit/psi_q_rank_rate": 0.0,
+                "audit/psi_A_policy_rate": 0.0,
+                "audit/q_candidate_fallback_rate": 0.0,
+                "audit/mean_len_A_Q_replay_local": 0.0,
+                "audit/mean_len_A_Q_sup": 0.0,
+                "audit/mean_num_scanned_candidates": 0.0,
+                "audit/local_scan_truncated_rate": 0.0,
+            }
+        semantic_match = (
+            (optimized["psi_q_rank"] == reference["psi_q_rank"])
+            & (optimized["psi_a_policy"] == reference["psi_a_policy"])
+            & (optimized["q_candidate_fallback"] == reference["q_candidate_fallback"])
+            & (optimized["w_raw"] == reference["w_raw"])
+        )
+        local_delta = np.abs(optimized["len_a_q_local"] - reference["len_a_q_local"])
+        return {
+            "runtime/predicate_audit_ran": 1.0,
+            "audit/support_semantic_match_rate": float(np.mean(semantic_match)) if semantic_match.size else 1.0,
+            "audit/local_count_exact_match_rate": float(np.mean(local_delta == 0.0)) if local_delta.size else 1.0,
+            "audit/local_count_abs_delta_mean": float(np.mean(local_delta)) if local_delta.size else 0.0,
+            "audit/psi_q_rank_rate": float(np.mean(reference["psi_q_rank"])) if reference["psi_q_rank"].size else 0.0,
+            "audit/psi_A_policy_rate": float(np.mean(reference["psi_a_policy"])) if reference["psi_a_policy"].size else 0.0,
+            "audit/q_candidate_fallback_rate": float(np.mean(reference["q_candidate_fallback"]))
+            if reference["q_candidate_fallback"].size
+            else 1.0,
+            "audit/mean_len_A_Q_replay_local": float(np.mean(reference["len_a_q_local"]))
+            if reference["len_a_q_local"].size
+            else 0.0,
+            "audit/mean_len_A_Q_sup": float(np.mean(reference["len_a_q_sup"]))
+            if reference["len_a_q_sup"].size
+            else 0.0,
+            "audit/mean_num_scanned_candidates": float(np.mean(reference["num_scanned_candidates"]))
+            if reference["num_scanned_candidates"].size
+            else 0.0,
+            "audit/local_scan_truncated_rate": float(np.mean(reference["local_scan_truncated"]))
+            if reference["local_scan_truncated"].size
+            else 0.0,
+        }
+
 
 class SaberWeightComputer:
     def __init__(self, cfg: LiteConfig, spec: MethodSpec, task: Any, gap_stats: GapStats) -> None:
@@ -717,8 +1829,36 @@ class SaberWeightComputer:
         self.task = task
         self.base = LiteWeightComputer(cfg, task, gap_stats)
         self.runtime_optimized = (
-            RuntimeOptimizedSupportComputer(cfg, task, gap_stats)
-            if spec.public_name == RUNTIME_OPT_METHOD
+            RuntimeOptimizedSupportComputer(
+                cfg,
+                task,
+                gap_stats,
+                enable_numba_scan=spec.public_name
+                in {
+                    RUNTIME_OPT_V4_METHOD,
+                    RUNTIME_OPT_V5_METHOD,
+                    RUNTIME_OPT_V5_XY_V1_METHOD,
+                    RUNTIME_OPT_V6_METHOD,
+                    RUNTIME_OPT_V7_POS_HUBER_METHOD,
+                    RUNTIME_OPT_V7_POS_MSE_METHOD,
+                    RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                    *TD3_SABER_RUNTIME_METHODS,
+                    *SAC_SABER_RUNTIME_METHODS,
+                },
+                enable_predicate_early_exit=spec.public_name
+                in {
+                    RUNTIME_OPT_V5_METHOD,
+                    RUNTIME_OPT_V5_XY_V1_METHOD,
+                    RUNTIME_OPT_V6_METHOD,
+                    RUNTIME_OPT_V7_POS_HUBER_METHOD,
+                    RUNTIME_OPT_V7_POS_MSE_METHOD,
+                    RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                    *TD3_SABER_RUNTIME_METHODS,
+                    *SAC_SABER_RUNTIME_METHODS,
+                },
+                enable_periodic_predicate_audit=spec.public_name in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V5_XY_V1_METHOD},
+            )
+            if spec.public_name in RUNTIME_OPT_METHODS
             else None
         )
 
@@ -731,9 +1871,54 @@ class SaberWeightComputer:
         device: torch.device,
         reward_train: np.ndarray,
         nonterminal: np.ndarray,
+        global_step: int | None = None,
     ) -> WeightBatch:
         if self.runtime_optimized is not None:
-            return self.runtime_optimized.compute(batch, replay, agent, rng, device)
+            anneal_start = int(getattr(self.cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP))
+            anneal_end = int(getattr(self.cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP))
+            effective_lambda = scheduled_support_lambda(
+                self.spec.public_name,
+                self.cfg.lambda_support,
+                global_step,
+                anneal_start,
+                anneal_end,
+            )
+            schedule_metrics: Dict[str, float] = {}
+            if self.spec.public_name == RUNTIME_OPT_V6_METHOD:
+                step = 0 if global_step is None else int(global_step)
+                span = max(1, anneal_end - anneal_start)
+                if step < anneal_start:
+                    progress = 0.0
+                elif step >= anneal_end:
+                    progress = 1.0
+                else:
+                    progress = (step - anneal_start) / float(span)
+                schedule_metrics = {
+                    "runtime/support_anneal_start_step": float(anneal_start),
+                    "runtime/support_anneal_end_step": float(anneal_end),
+                    "runtime/support_anneal_progress": float(max(0.0, min(1.0, progress))),
+                }
+            return self.runtime_optimized.compute(
+                batch,
+                replay,
+                agent,
+                rng,
+                device,
+                lambda_support=effective_lambda,
+                support_lookup_enabled=effective_lambda > 0.0,
+                schedule_metrics=schedule_metrics,
+            )
+
+        if self.spec.control_mode == "per_full":
+            wb = self.base.compute(batch, replay, agent, rng, device)
+            weights = np.asarray(getattr(batch, "per_full_is_weight", np.ones_like(wb.w_p_raw)), dtype=np.float32)
+            if weights.shape != wb.w_p_raw.shape:
+                weights = np.ones_like(wb.w_p_raw, dtype=np.float32)
+            wb.w_p_raw[:] = weights
+            wb.omega_critic[:] = weights
+            wb.omega_actor[:] = 1.0
+            wb.extra_metrics.update(getattr(batch, "per_full_sample_metrics", {}))
+            return wb
 
         if self.spec.control_mode in {"td_error", "per_style"}:
             wb = self.base.compute(batch, replay, agent, rng, device)
@@ -804,20 +1989,29 @@ class SaberWeightComputer:
         reward = torch.as_tensor(reward_train, dtype=torch.float32, device=device)
         nt = torch.as_tensor(nonterminal, dtype=torch.float32, device=device)
         with torch.no_grad():
-            target_action = agent.actor_target(next_state)
-            target = reward + self.cfg.gamma * nt * agent.critic_target(next_state, target_action)
-            q = agent.critic(state, action)
-            td = torch.abs(q - target).detach().cpu().numpy().astype(np.float32)
+            td_tensor = td_errors_for_priority(
+                agent=agent,
+                state=state,
+                action=action,
+                reward=reward,
+                next_state=next_state,
+                nonterminal=nt,
+                gamma=self.cfg.gamma,
+            )
+            td = td_tensor.detach().cpu().numpy().astype(np.float32)
 
         if self.spec.control_mode == "td_error":
             td_norm = td / max(float(np.mean(td)), self.cfg.eps)
-            u = np.clip(td_norm, 0.0, self.spec.u_td_max).astype(np.float32)
-            weights = (1.0 + self.spec.lambda_td * u).astype(np.float32)
+            u = np.clip(td_norm, 0.0, float(getattr(self.cfg, "u_td_max", self.spec.u_td_max))).astype(np.float32)
+            weights = (1.0 + float(getattr(self.cfg, "lambda_td", self.spec.lambda_td)) * u).astype(np.float32)
             prefix = "td_error"
         else:
-            priority = np.power(td + self.spec.per_eps, self.spec.per_alpha).astype(np.float32)
+            priority = np.power(
+                td + float(getattr(self.cfg, "per_eps", self.spec.per_eps)),
+                float(getattr(self.cfg, "per_alpha", self.spec.per_alpha)),
+            ).astype(np.float32)
             p_norm = priority / max(float(np.mean(priority)), self.cfg.eps)
-            weights = np.clip(p_norm, 0.0, self.spec.u_per_max).astype(np.float32)
+            weights = np.clip(p_norm, 0.0, float(getattr(self.cfg, "u_per_max", self.spec.u_per_max))).astype(np.float32)
             prefix = "per"
 
         extras = {
@@ -840,7 +2034,7 @@ def run(args: argparse.Namespace) -> Path:
     run_name = args.run_name or default_run_name(args.method, args.seed, args.total_steps, effective_ls)
     output_root = Path(args.output_root)
     if not output_root.is_absolute():
-        output_root = REPO_ROOT / output_root
+        output_root = SABER_REPO_ROOT / output_root
     cfg = build_config(args, spec, run_name, output_root / args.method)
     run_dir = make_run_dir(output_root, args.method, run_name, args.resume)
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -850,6 +2044,9 @@ def run(args: argparse.Namespace) -> Path:
     logger = setup_logger(run_dir / "run.log")
     set_all_seeds(cfg.seeds.torch_seed, cfg.seeds.numpy_seed)
     device = select_device(cfg.device)
+    machine_metadata = collect_machine_metadata()
+    logger.info("machine=%s hostname=%s cuda_devices=%s", machine_metadata["label"], machine_metadata["hostname"], machine_metadata["cuda_devices"])
+    logger.info("lite_src=%s", LITE_SRC)
     logger.info(
         "method=%s lite_method=%s effective_weight_scope=%s config_weight_scope=%s support_lookup=%s device=%s",
         args.method,
@@ -865,24 +2062,74 @@ def run(args: argparse.Namespace) -> Path:
     task = make_task_spec(cfg, train_env)
     phase_names = tuple(getattr(task, "phase_names", ("approach", "strike", "slide", "near_goal")))
 
-    agent = DDPGAgent(
-        state_dim=train_env.state_dim,
-        action_dim=train_env.action_dim,
-        hidden_dim=cfg.hidden_dim,
-        actor_lr=cfg.actor_lr,
-        critic_lr=cfg.critic_lr,
-        gamma=cfg.gamma,
-        tau=cfg.tau,
-        action_low=train_env.action_low,
-        action_high=train_env.action_high,
-        device=device,
-        l2_action_penalty=cfg.l2_action_penalty,
-    )
+    if spec.agent_kind == "td3":
+        agent = TD3Agent(
+            state_dim=train_env.state_dim,
+            action_dim=train_env.action_dim,
+            hidden_dim=cfg.hidden_dim,
+            actor_lr=cfg.actor_lr,
+            critic_lr=cfg.critic_lr,
+            gamma=cfg.gamma,
+            tau=cfg.tau,
+            action_low=train_env.action_low,
+            action_high=train_env.action_high,
+            device=device,
+            l2_action_penalty=cfg.l2_action_penalty,
+            policy_delay=int(getattr(cfg, "td3_policy_delay", 2)),
+            target_policy_noise=float(getattr(cfg, "td3_target_policy_noise", 0.2)),
+            target_noise_clip=float(getattr(cfg, "td3_target_noise_clip", 0.5)),
+        )
+    elif spec.agent_kind == "sac":
+        agent = SACAgent(
+            state_dim=train_env.state_dim,
+            action_dim=train_env.action_dim,
+            hidden_dim=cfg.hidden_dim,
+            actor_lr=cfg.actor_lr,
+            critic_lr=cfg.critic_lr,
+            gamma=cfg.gamma,
+            tau=cfg.tau,
+            action_low=train_env.action_low,
+            action_high=train_env.action_high,
+            device=device,
+            l2_action_penalty=cfg.l2_action_penalty,
+            alpha=float(getattr(cfg, "sac_alpha", 0.2)),
+            auto_alpha=bool(getattr(cfg, "sac_auto_alpha", True)),
+            alpha_lr=float(getattr(cfg, "sac_alpha_lr", 3e-4)),
+            target_entropy=getattr(cfg, "sac_target_entropy", None),
+        )
+    else:
+        agent = DDPGAgent(
+            state_dim=train_env.state_dim,
+            action_dim=train_env.action_dim,
+            hidden_dim=cfg.hidden_dim,
+            actor_lr=cfg.actor_lr,
+            critic_lr=cfg.critic_lr,
+            gamma=cfg.gamma,
+            tau=cfg.tau,
+            action_low=train_env.action_low,
+            action_high=train_env.action_high,
+            device=device,
+            l2_action_penalty=cfg.l2_action_penalty,
+        )
     replay = HERReplayBuffer(
         capacity=cfg.buffer_capacity,
         obs_dim=train_env.obs_dim,
         goal_dim=train_env.goal_dim,
         action_dim=train_env.action_dim,
+    )
+    per_full_sampler = (
+        FullPERSampler(
+            capacity=cfg.buffer_capacity,
+            alpha=float(getattr(cfg, "per_alpha", 0.6)),
+            beta_start=float(getattr(cfg, "per_beta_start", 0.4)),
+            beta_final=float(getattr(cfg, "per_beta_final", 1.0)),
+            beta_anneal_steps=int(getattr(cfg, "per_beta_anneal_steps", cfg.total_steps)),
+            eps=float(getattr(cfg, "per_eps", 1e-6)),
+            initial_priority=float(getattr(cfg, "per_initial_priority", 1.0)),
+            min_priority=float(getattr(cfg, "per_min_priority", 1e-6)),
+        )
+        if spec.control_mode == "per_full"
+        else None
     )
     gap_stats = GapStats(
         maxlen=cfg.gap_window,
@@ -898,12 +2145,70 @@ def run(args: argparse.Namespace) -> Path:
         {
             **cfg.as_dict(),
             "saber_method": args.method,
+            "seed": int(args.seed),
+            "seed_config": cfg.seeds.__dict__,
             "method_spec": spec.__dict__,
+            "agent_kind": str(spec.agent_kind),
+            "td3_policy_delay": int(getattr(cfg, "td3_policy_delay", 2)),
+            "td3_target_policy_noise": float(getattr(cfg, "td3_target_policy_noise", 0.2)),
+            "td3_target_noise_clip": float(getattr(cfg, "td3_target_noise_clip", 0.5)),
+            "sac_alpha": float(getattr(cfg, "sac_alpha", 0.2)),
+            "sac_alpha_lr": float(getattr(cfg, "sac_alpha_lr", 3e-4)),
+            "sac_auto_alpha": bool(getattr(cfg, "sac_auto_alpha", True)),
+            "sac_target_entropy": getattr(cfg, "sac_target_entropy", None),
             "effective_weight_scope": spec.weight_scope,
             "support_lookup_enabled": uses_support_lookup(spec),
-            "runtime_optimization_enabled": args.method == RUNTIME_OPT_METHOD,
+            "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
+            "runtime_predicate_early_exit_enabled": args.method
+            in {
+                RUNTIME_OPT_V5_METHOD,
+                RUNTIME_OPT_V5_XY_V1_METHOD,
+                RUNTIME_OPT_V6_METHOD,
+                RUNTIME_OPT_V7_POS_HUBER_METHOD,
+                RUNTIME_OPT_V7_POS_MSE_METHOD,
+                RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+                *TD3_SABER_RUNTIME_METHODS,
+                *SAC_SABER_RUNTIME_METHODS,
+            },
+            "runtime_periodic_predicate_audit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V5_XY_V1_METHOD},
+            "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
+            "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
+            "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
             "runtime_optimization_verify": bool(args.verify_runtime_optimization),
+            "support_quality_mode": str(getattr(cfg, "support_quality_mode", "none")),
+            "support_quality_apply_to_weight": bool(getattr(cfg, "support_quality_apply_to_weight", False)),
+            "support_quality_floor": float(getattr(cfg, "support_quality_floor", 0.25)),
+            "support_quality_approach_scale": float(getattr(cfg, "support_quality_approach_scale", 0.02)),
+            "support_quality_goal_progress_scale": float(
+                getattr(cfg, "support_quality_goal_progress_scale", 0.03)
+            ),
+            "support_quality_align_min": float(getattr(cfg, "support_quality_align_min", 0.0)),
+            "support_quality_strike_speed_scale_mult": float(
+                getattr(cfg, "support_quality_strike_speed_scale_mult", 2.0)
+            ),
+            "support_quality_near_margin_mult": float(getattr(cfg, "support_quality_near_margin_mult", 0.25)),
+            "support_quality_near_speed_mult": float(getattr(cfg, "support_quality_near_speed_mult", 1.0)),
+            "critic_td_loss": str(getattr(cfg, "critic_td_loss", "mse")),
+            "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
+            "saber_loss_mode": str(getattr(cfg, "saber_loss_mode", "batch_norm")),
+            "support_bonus_beta": float(getattr(cfg, "support_bonus_beta", 1.0)),
+            "support_bonus_score_source": str(getattr(cfg, "support_bonus_score_source", "auto")),
+            "support_bonus_detach_score": bool(getattr(cfg, "support_bonus_detach_score", True)),
+            "lambda_td": float(getattr(cfg, "lambda_td", args.lambda_td)),
+            "u_td_max": float(getattr(cfg, "u_td_max", args.U_TD_max)),
+            "per_alpha": float(getattr(cfg, "per_alpha", args.per_alpha)),
+            "per_eps": float(getattr(cfg, "per_eps", args.eps_PER)),
+            "u_per_max": float(getattr(cfg, "u_per_max", args.U_PER_max)),
+            "per_beta_start": float(getattr(cfg, "per_beta_start", args.per_beta_start)),
+            "per_beta_final": float(getattr(cfg, "per_beta_final", args.per_beta_final)),
+            "per_beta_anneal_steps": int(getattr(cfg, "per_beta_anneal_steps", args.per_beta_anneal_steps)),
+            "per_initial_priority": float(getattr(cfg, "per_initial_priority", args.per_initial_priority)),
+            "per_min_priority": float(getattr(cfg, "per_min_priority", args.per_min_priority)),
+            "per_full_enabled": bool(per_full_sampler is not None),
+            "numba_available": bool(NUMBA_AVAILABLE),
             "thread_hint": env_thread_hint(),
+            "lite_src": str(LITE_SRC),
+            "machine": machine_metadata,
             "result_layout": "experiment_FetchSlide/experiment/FetchSlide/{method}/{run_name}",
         },
     )
@@ -913,6 +2218,8 @@ def run(args: argparse.Namespace) -> Path:
             "train_env": train_env.snapshot(),
             "eval_env": eval_env.snapshot(),
             "task_spec": task.metadata(),
+            "lite_src": str(LITE_SRC),
+            "machine": machine_metadata,
         },
     )
 
@@ -933,7 +2240,30 @@ def run(args: argparse.Namespace) -> Path:
     eval_history: list[tuple[int, float]] = []
     eval_rows: list[Dict[str, Any]] = []
     last_eval_metrics: Dict[str, float] = {}
-    last_loss = {"critic": 0.0, "actor": 0.0, "q_mean": 0.0, "target_mean": 0.0}
+    last_loss = {
+        "critic": 0.0,
+        "actor": 0.0,
+        "q_mean": 0.0,
+        "target_mean": 0.0,
+        "critic_base": 0.0,
+        "support_bonus": 0.0,
+        "critic_total": 0.0,
+        "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
+        "td_loss_mode_huber": float(str(getattr(cfg, "critic_td_loss", "mse")) == "huber"),
+        "q1_mean": 0.0,
+        "q2_mean": 0.0,
+        "critic_q1_loss": 0.0,
+        "critic_q2_loss": 0.0,
+        "td3_actor_updated": 0.0,
+        "td3_policy_delay": float(getattr(cfg, "td3_policy_delay", 0)),
+        "td3_target_policy_noise": float(getattr(cfg, "td3_target_policy_noise", 0.0)),
+        "td3_target_noise_clip": float(getattr(cfg, "td3_target_noise_clip", 0.0)),
+        "sac_alpha": float(getattr(cfg, "sac_alpha", 0.0)),
+        "sac_alpha_loss": 0.0,
+        "sac_log_prob_mean": 0.0,
+        "sac_target_entropy": float(getattr(cfg, "sac_target_entropy", 0.0) or 0.0),
+        "sac_auto_alpha": float(bool(getattr(cfg, "sac_auto_alpha", False))),
+    }
     last_lite = empty_metrics(phase_names, spec.control_mode)
     last_her_ratio = 0.0
 
@@ -946,6 +2276,8 @@ def run(args: argparse.Namespace) -> Path:
             replay.rebuild_action_index(task.coarse_hash_batch(replay.observation[: replay.size], replay.h[: replay.size]))
         if uses_support_lookup(spec):
             replay.rebuild_action_bins(task.action_bin_batch(replay.action_exec[: replay.size], cfg.action_bins_per_dim))
+        if per_full_sampler is not None and "per_full_sampler" in payload:
+            per_full_sampler.load_state_dict(payload["per_full_sampler"])
         gap_stats.load_state_dict(payload.get("gap_stats", {}))
         start_step = int(payload["global_step"]) + 1
         episode_idx = int(payload["episode_idx"])
@@ -978,6 +2310,7 @@ def run(args: argparse.Namespace) -> Path:
             "best_eval_step": best_eval_step,
             "agent": agent.state_dict(),
             "replay": replay.state_dict(),
+            "per_full_sampler": per_full_sampler.state_dict() if per_full_sampler is not None else None,
             "gap_stats": gap_stats.state_dict(),
             "noise_rng_state": noise_rng.bit_generator.state,
             "sample_rng_state": sample_rng.bit_generator.state,
@@ -1004,6 +2337,7 @@ def run(args: argparse.Namespace) -> Path:
             coarse_key = None
             action_bin = None
 
+        replay_slot = int(replay.ptr)
         replay.add_transition(
             observation=obs.observation,
             achieved_goal=obs.achieved_goal,
@@ -1020,6 +2354,8 @@ def run(args: argparse.Namespace) -> Path:
             coarse_key=coarse_key,
             action_bin=action_bin,
         )
+        if per_full_sampler is not None:
+            per_full_sampler.on_transition_added(replay_slot)
 
         obs = obs_next
         ep_step += 1
@@ -1027,35 +2363,125 @@ def run(args: argparse.Namespace) -> Path:
 
         if replay.size >= cfg.batch_size and global_step >= cfg.warmup_steps:
             for _ in range(cfg.updates_per_step):
-                batch = replay.sample(cfg.batch_size, cfg.her_ratio, sample_rng)
+                if per_full_sampler is not None:
+                    batch = per_full_sampler.sample(replay, cfg.batch_size, cfg.her_ratio, sample_rng, global_step)
+                else:
+                    batch = replay.sample(cfg.batch_size, cfg.her_ratio, sample_rng)
                 last_her_ratio = batch.her_relabel_ratio
                 reward_train = train_env.compute_reward(batch.next_achieved_goal, batch.desired_goal_train, {})
                 success_train = train_env.success_from_goal(batch.next_achieved_goal, batch.desired_goal_train)
                 env_terminal = batch.done.astype(np.float32) * (1.0 - batch.timeout.astype(np.float32))
                 nonterminal = (1.0 - np.maximum(env_terminal, success_train.astype(np.float32) * 0.0)).astype(np.float32)
 
-                wb = weight_computer.compute(batch, replay, agent, weight_rng, device, reward_train, nonterminal)
+                wb = weight_computer.compute(
+                    batch,
+                    replay,
+                    agent,
+                    weight_rng,
+                    device,
+                    reward_train,
+                    nonterminal,
+                    global_step=global_step,
+                )
                 state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
                 next_state_np = np.concatenate([batch.next_observation, batch.desired_goal_train], axis=1).astype(np.float32)
 
                 t_update = time.perf_counter()
-                update = agent.update(
-                    state=torch.as_tensor(state_np, dtype=torch.float32, device=device),
-                    action_exec=torch.as_tensor(batch.action_exec, dtype=torch.float32, device=device),
-                    reward=torch.as_tensor(reward_train, dtype=torch.float32, device=device),
-                    next_state=torch.as_tensor(next_state_np, dtype=torch.float32, device=device),
-                    nonterminal=torch.as_tensor(nonterminal, dtype=torch.float32, device=device),
-                    omega_critic=torch.as_tensor(wb.omega_critic, dtype=torch.float32, device=device),
-                    omega_actor=torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device),
+                state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
+                action_t = torch.as_tensor(batch.action_exec, dtype=torch.float32, device=device)
+                reward_t = torch.as_tensor(reward_train, dtype=torch.float32, device=device)
+                next_state_t = torch.as_tensor(next_state_np, dtype=torch.float32, device=device)
+                nonterminal_t = torch.as_tensor(nonterminal, dtype=torch.float32, device=device)
+                omega_critic_t = torch.as_tensor(wb.omega_critic, dtype=torch.float32, device=device)
+                omega_actor_t = torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device)
+                reliability_score = reliability_score_from_weight_batch(
+                    wb,
+                    str(getattr(cfg, "support_bonus_score_source", "auto")),
                 )
+                support_bonus_beta_eff = float(
+                    wb.extra_metrics.get("runtime/support_lambda_effective", cfg.lambda_support)
+                ) * float(getattr(cfg, "support_bonus_beta", 1.0))
+                use_saber_loss_helper = (
+                    str(getattr(cfg, "saber_loss_mode", "batch_norm")) != "batch_norm"
+                    or str(getattr(cfg, "critic_td_loss", "mse")) != "mse"
+                )
+                if use_saber_loss_helper:
+                    update = update_ddpg_with_saber_loss(
+                        agent=agent,
+                        state=state_t,
+                        action_exec=action_t,
+                        reward=reward_t,
+                        next_state=next_state_t,
+                        nonterminal=nonterminal_t,
+                        omega_critic=omega_critic_t,
+                        omega_actor=omega_actor_t,
+                        reliability_score=torch.as_tensor(reliability_score, dtype=torch.float32, device=device),
+                        critic_td_loss=str(getattr(cfg, "critic_td_loss", "mse")),
+                        huber_delta=float(getattr(cfg, "huber_delta", 1.0)),
+                        saber_loss_mode=str(getattr(cfg, "saber_loss_mode", "batch_norm")),
+                        support_bonus_beta_eff=support_bonus_beta_eff,
+                        support_bonus_detach_score=bool(getattr(cfg, "support_bonus_detach_score", True)),
+                    )
+                else:
+                    update = agent.update(
+                        state=state_t,
+                        action_exec=action_t,
+                        reward=reward_t,
+                        next_state=next_state_t,
+                        nonterminal=nonterminal_t,
+                        omega_critic=omega_critic_t,
+                        omega_actor=omega_actor_t,
+                    )
+                per_update_metrics: Dict[str, float] = {}
+                if per_full_sampler is not None:
+                    td_after = td_errors_for_priority(
+                        agent=agent,
+                        state=state_t,
+                        action=action_t,
+                        reward=reward_t,
+                        next_state=next_state_t,
+                        nonterminal=nonterminal_t,
+                        gamma=cfg.gamma,
+                    )
+                    per_update_metrics = per_full_sampler.update_priorities(
+                        batch.indices,
+                        td_after.detach().cpu().numpy().astype(np.float32),
+                    )
                 actor_critic_time = time.perf_counter() - t_update
                 last_loss = {
                     "critic": update.critic_loss,
                     "actor": update.actor_loss,
                     "q_mean": update.q_mean,
                     "target_mean": update.target_mean,
+                    "critic_base": getattr(update, "critic_base_loss", update.critic_loss),
+                    "support_bonus": getattr(update, "support_bonus_loss", 0.0),
+                    "critic_total": getattr(update, "critic_total_loss", update.critic_loss),
+                    "huber_delta": getattr(update, "huber_delta", float(getattr(cfg, "huber_delta", 1.0))),
+                    "td_loss_mode_huber": getattr(
+                        update,
+                        "td_loss_mode_huber",
+                        float(str(getattr(cfg, "critic_td_loss", "mse")) == "huber"),
+                    ),
+                    "q1_mean": getattr(update, "q1_mean", update.q_mean),
+                    "q2_mean": getattr(update, "q2_mean", update.q_mean),
+                    "critic_q1_loss": getattr(update, "critic_q1_loss", update.critic_loss),
+                    "critic_q2_loss": getattr(update, "critic_q2_loss", 0.0),
+                    "td3_actor_updated": getattr(update, "actor_updated", 1.0),
+                    "td3_policy_delay": getattr(update, "policy_delay", 0.0),
+                    "td3_target_policy_noise": getattr(update, "target_policy_noise", 0.0),
+                    "td3_target_noise_clip": getattr(update, "target_noise_clip", 0.0),
+                    "sac_alpha": getattr(update, "alpha", 0.0),
+                    "sac_alpha_loss": getattr(update, "alpha_loss", 0.0),
+                    "sac_log_prob_mean": getattr(update, "log_prob_mean", 0.0),
+                    "sac_target_entropy": getattr(update, "target_entropy", 0.0),
+                    "sac_auto_alpha": getattr(update, "auto_alpha", 0.0),
                 }
                 last_lite = metrics_from_weight_batch(wb, phase_names, spec.control_mode)
+                last_lite.update(per_update_metrics)
+                last_lite.update(reliability_metrics(reliability_score, support_bonus_beta_eff))
+                last_lite["runtime/saber_loss_mode_positive_huber_bonus"] = float(
+                    str(getattr(cfg, "saber_loss_mode", "batch_norm")) == "positive_huber_bonus"
+                )
                 last_lite["time/actor_critic_update"] = actor_critic_time
                 total_updates += 1
 
@@ -1180,6 +2606,7 @@ def run(args: argparse.Namespace) -> Path:
         eval_rows=eval_rows,
         runtime_total_sec=runtime_total_sec,
     )
+    summary["machine"] = machine_metadata
     write_json(run_dir / "summary.json", summary)
     csv_writer.close()
     jsonl_writer.close()
@@ -1200,8 +2627,26 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "train/her_relabel_ratio",
         "loss/critic",
         "loss/actor",
+        "loss/critic_base",
+        "loss/support_bonus",
+        "loss/critic_total",
+        "loss/huber_delta",
+        "loss/td_loss_mode_huber",
         "critic/q_policy_mean",
         "critic/q_target_mean",
+        "critic/q1_mean",
+        "critic/q2_mean",
+        "critic/q1_loss",
+        "critic/q2_loss",
+        "td3/actor_updated",
+        "td3/policy_delay",
+        "td3/target_policy_noise",
+        "td3/target_noise_clip",
+        "sac/alpha",
+        "sac/alpha_loss",
+        "sac/log_prob_mean",
+        "sac/target_entropy",
+        "sac/auto_alpha",
         "lite/mean_w_P",
         "lite/max_w_P",
         "lite/std_w_P",
@@ -1225,12 +2670,63 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "time/actor_critic_update",
         "time/q_candidate_eval",
         "time/q_policy_eval",
+        "time/numba_support_scan",
+        "time/support_quality_scan",
         "runtime/support_cache_hit_rate",
         "runtime/support_cache_miss_rate",
         "runtime/batch_query_unique_rate",
         "runtime/batch_query_coalescing_saving_rate",
         "runtime/local_scan_cache_hit_rate",
         "runtime/local_scan_cache_miss_rate",
+        "runtime/numba_support_scan_enabled",
+        "runtime/numba_support_scan_fallback_rate",
+        "runtime/numba_support_queries",
+        "runtime/numba_scanner_warmed",
+        "runtime/support_lambda_effective",
+        "runtime/support_lookup_enabled",
+        "runtime/support_lookup_skipped",
+        "runtime/support_quality_enabled",
+        "runtime/support_quality_apply_to_weight",
+        "runtime/support_quality_numba_enabled",
+        "runtime/support_quality_numba_fallback_rate",
+        "runtime/saber_loss_mode_positive_huber_bonus",
+        "lite/reliability_score_mean",
+        "lite/reliability_score_p50",
+        "lite/reliability_score_p90",
+        "lite/support_bonus_beta_eff",
+        "runtime/support_anneal_start_step",
+        "runtime/support_anneal_end_step",
+        "runtime/support_anneal_progress",
+        "runtime/predicate_early_exit_enabled",
+        "runtime/predicate_early_exit_rate",
+        "runtime/predicate_positive_early_exit_rate",
+        "runtime/predicate_negative_early_exit_rate",
+        "runtime/predicate_candidates_examined_mean",
+        "runtime/predicate_scan_fraction_mean",
+        "runtime/support_diagnostics_exact_rate",
+        "runtime/support_diagnostics_approx_rate",
+        "runtime/predicate_audit_interval",
+        "runtime/predicate_audit_ran",
+        "runtime/predicate_audit_has_run",
+        "runtime/predicate_audit_age_updates",
+        "audit/support_semantic_match_rate",
+        "audit/local_count_exact_match_rate",
+        "audit/local_count_abs_delta_mean",
+        "audit/psi_q_rank_rate",
+        "audit/psi_A_policy_rate",
+        "audit/q_candidate_fallback_rate",
+        "audit/mean_len_A_Q_replay_local",
+        "audit/mean_len_A_Q_sup",
+        "audit/mean_num_scanned_candidates",
+        "audit/local_scan_truncated_rate",
+        "lite/support_quality_mean",
+        "lite/support_quality_p50",
+        "lite/support_quality_p90",
+        "lite/support_quality_positive_rate",
+        "lite/support_score_mean",
+        "lite/support_score_p50",
+        "lite/support_score_p90",
+        "lite/same_bin_match_count_mean",
         "runtime/steps_per_sec",
         "runtime/total_sec",
         "eval/success_mean",
@@ -1249,6 +2745,10 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
         "fetch_slide/strike_contact_like_rate",
         "fetch_slide/progress_rate",
         "fetch_slide/overshoot_rate",
+        "fetch_slide/quality_speed_mean",
+        "fetch_slide/quality_alignment_mean",
+        "fetch_slide/quality_progress_mean",
+        "fetch_slide/quality_near_stability_mean",
     ]
     for threshold in DEFAULT_THRESHOLDS:
         fields.append(f"eval/first_hit_{threshold:.2f}")
@@ -1261,6 +2761,9 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
                 f"phase/{phase}/fallback_rate",
                 f"phase/{phase}/local_scan_truncated_rate",
                 f"phase/{phase}/td_error_abs_mean",
+                f"phase/{phase}/support_quality_mean",
+                f"phase/{phase}/support_score_mean",
+                f"phase/{phase}/same_bin_match_count_mean",
                 f"fetch_slide/phase_distribution_{phase}",
             ]
         )
@@ -1304,6 +2807,25 @@ def metric_fields(phase_names: Iterable[str], control_mode: str) -> list[str]:
                 "per/weight_ESS",
             ]
         )
+    if control_mode == "per_full":
+        fields.extend(
+            [
+                "per_full/alpha",
+                "per_full/beta",
+                "per_full/replay_size",
+                "per_full/priority_mean",
+                "per_full/priority_max",
+                "per_full/sample_prob_mean",
+                "per_full/sample_prob_max",
+                "per_full/is_weight_mean",
+                "per_full/is_weight_min",
+                "per_full/is_weight_max",
+                "per_full/priority_ESS",
+                "per_full/priority_update_abs_mean",
+                "per_full/priority_update_abs_p90",
+                "per_full/priority_update_count",
+            ]
+        )
     return list(dict.fromkeys(fields))
 
 
@@ -1333,6 +2855,8 @@ def empty_metrics(phase_names: Iterable[str], control_mode: str) -> Dict[str, fl
         "time/actor_critic_update": 0.0,
         "time/q_candidate_eval": 0.0,
         "time/q_policy_eval": 0.0,
+        "time/numba_support_scan": 0.0,
+        "time/support_quality_scan": 0.0,
     }
     for phase in phase_names:
         metrics[f"phase/{phase}/count_rate"] = 0.0
@@ -1342,7 +2866,14 @@ def empty_metrics(phase_names: Iterable[str], control_mode: str) -> Dict[str, fl
         metrics[f"phase/{phase}/local_scan_truncated_rate"] = 0.0
         metrics[f"phase/{phase}/td_error_abs_mean"] = 0.0
         metrics[f"fetch_slide/phase_distribution_{phase}"] = 0.0
-    metrics.update({key: 0.0 for key in metric_fields(phase_names, control_mode) if "/" in key and key not in metrics})
+    row_owned_prefixes = ("train/", "loss/", "critic/", "eval/")
+    metrics.update(
+        {
+            key: 0.0
+            for key in metric_fields(phase_names, control_mode)
+            if "/" in key and key not in metrics and not key.startswith(row_owned_prefixes)
+        }
+    )
     metrics["lite/ESS_w"] = _ess(wb, 1e-8)
     return metrics
 
@@ -1374,6 +2905,8 @@ def metrics_from_weight_batch(wb: WeightBatch, phase_names: Iterable[str], contr
             "time/weight_compute": float(wb.timing.get("weight_compute", 0.0)),
             "time/q_candidate_eval": float(wb.timing.get("q_candidate_eval", 0.0)),
             "time/q_policy_eval": float(wb.timing.get("q_policy_eval", 0.0)),
+            "time/numba_support_scan": float(wb.timing.get("numba_support_scan", 0.0)),
+            "time/support_quality_scan": float(wb.timing.get("support_quality_scan", 0.0)),
         }
     )
     phases = getattr(wb, "phase", np.zeros_like(w, dtype=np.int64))
@@ -1413,8 +2946,26 @@ def metric_row(
         "train/her_relabel_ratio": float(her_ratio),
         "loss/critic": loss["critic"],
         "loss/actor": loss["actor"],
+        "loss/critic_base": loss.get("critic_base", 0.0),
+        "loss/support_bonus": loss.get("support_bonus", 0.0),
+        "loss/critic_total": loss.get("critic_total", loss["critic"]),
+        "loss/huber_delta": loss.get("huber_delta", 1.0),
+        "loss/td_loss_mode_huber": loss.get("td_loss_mode_huber", 0.0),
         "critic/q_policy_mean": loss["q_mean"],
         "critic/q_target_mean": loss["target_mean"],
+        "critic/q1_mean": loss.get("q1_mean", loss["q_mean"]),
+        "critic/q2_mean": loss.get("q2_mean", loss["q_mean"]),
+        "critic/q1_loss": loss.get("critic_q1_loss", loss["critic"]),
+        "critic/q2_loss": loss.get("critic_q2_loss", 0.0),
+        "td3/actor_updated": loss.get("td3_actor_updated", 1.0),
+        "td3/policy_delay": loss.get("td3_policy_delay", 0.0),
+        "td3/target_policy_noise": loss.get("td3_target_policy_noise", 0.0),
+        "td3/target_noise_clip": loss.get("td3_target_noise_clip", 0.0),
+        "sac/alpha": loss.get("sac_alpha", 0.0),
+        "sac/alpha_loss": loss.get("sac_alpha_loss", 0.0),
+        "sac/log_prob_mean": loss.get("sac_log_prob_mean", 0.0),
+        "sac/target_entropy": loss.get("sac_target_entropy", 0.0),
+        "sac/auto_alpha": loss.get("sac_auto_alpha", 0.0),
         **lite,
         "runtime/total_sec": total_sec,
         "runtime/steps_per_sec": float(step) / max(total_sec, 1e-8),
@@ -1588,11 +3139,44 @@ def build_summary(
         "task": "FetchSlide",
         "method": args.method,
         "lite_method": cfg.method,
+        "agent_kind": str(getattr(cfg, "agent_kind", spec.agent_kind)),
+        "td3_policy_delay": int(getattr(cfg, "td3_policy_delay", 0)),
+        "td3_target_policy_noise": float(getattr(cfg, "td3_target_policy_noise", 0.0)),
+        "td3_target_noise_clip": float(getattr(cfg, "td3_target_noise_clip", 0.0)),
+        "sac_alpha": float(getattr(cfg, "sac_alpha", 0.2)),
+        "sac_alpha_lr": float(getattr(cfg, "sac_alpha_lr", 3e-4)),
+        "sac_auto_alpha": bool(getattr(cfg, "sac_auto_alpha", True)),
+        "sac_target_entropy": getattr(cfg, "sac_target_entropy", None),
         "weight_scope": spec.weight_scope,
         "config_weight_scope": cfg.weight_scope,
         "control_mode": spec.control_mode,
         "support_lookup_enabled": uses_support_lookup(spec),
-        "runtime_optimization_enabled": args.method == RUNTIME_OPT_METHOD,
+        "runtime_optimization_enabled": args.method in RUNTIME_OPT_METHODS,
+        "runtime_predicate_early_exit_enabled": args.method
+        in {
+            RUNTIME_OPT_V5_METHOD,
+            RUNTIME_OPT_V5_XY_V1_METHOD,
+            RUNTIME_OPT_V6_METHOD,
+            RUNTIME_OPT_V7_POS_HUBER_METHOD,
+            RUNTIME_OPT_V7_POS_MSE_METHOD,
+            RUNTIME_OPT_V7_BATCH_NORM_HUBER_METHOD,
+            *TD3_SABER_RUNTIME_METHODS,
+            *SAC_SABER_RUNTIME_METHODS,
+        },
+        "runtime_periodic_predicate_audit_enabled": args.method in {RUNTIME_OPT_V5_METHOD, RUNTIME_OPT_V5_XY_V1_METHOD},
+        "runtime_support_anneal_enabled": args.method == RUNTIME_OPT_V6_METHOD,
+        "runtime_support_anneal_start_step": int(getattr(cfg, "support_anneal_start_step", RUNTIME_V6_ANNEAL_START_STEP)),
+        "runtime_support_anneal_end_step": int(getattr(cfg, "support_anneal_end_step", RUNTIME_V6_ANNEAL_END_STEP)),
+        "support_quality_mode": str(getattr(cfg, "support_quality_mode", "none")),
+        "support_quality_apply_to_weight": bool(getattr(cfg, "support_quality_apply_to_weight", False)),
+        "support_quality_floor": float(getattr(cfg, "support_quality_floor", 0.25)),
+        "critic_td_loss": str(getattr(cfg, "critic_td_loss", "mse")),
+        "huber_delta": float(getattr(cfg, "huber_delta", 1.0)),
+        "saber_loss_mode": str(getattr(cfg, "saber_loss_mode", "batch_norm")),
+        "support_bonus_beta": float(getattr(cfg, "support_bonus_beta", 1.0)),
+        "support_bonus_score_source": str(getattr(cfg, "support_bonus_score_source", "auto")),
+        "support_bonus_detach_score": bool(getattr(cfg, "support_bonus_detach_score", True)),
+        "numba_available": bool(NUMBA_AVAILABLE),
         "seed": int(args.seed),
         "total_steps": total_steps,
         "local_search_max": int(cfg.local_search_max) if uses_support_lookup(spec) else None,
@@ -1675,7 +3259,9 @@ def auc(history: list[tuple[int, float]], total_steps: int | None = None) -> flo
     values = np.asarray([v for _, v in history], dtype=np.float64)
     span = float(total_steps) if total_steps is not None else float(steps[-1] - steps[0])
     span = max(1.0, span)
-    trapezoid = getattr(np, "trapezoid", np.trapz)
+    trapezoid = getattr(np, "trapezoid", None)
+    if trapezoid is None:
+        trapezoid = getattr(np, "trapz")
     return float(trapezoid(values, steps) / span)
 
 

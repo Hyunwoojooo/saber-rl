@@ -22,6 +22,7 @@ COMPARATORS = [
     "b3_critic_only_shuffled",
     "td_error",
     "per_style",
+    "per_full",
 ]
 
 
