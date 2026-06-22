@@ -6,9 +6,12 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 
 - `DDPG-HER-B0-2M.sh`: DDPG + HER baseline with unit actor/critic weights.
 - `DDPG-HER-B3-Critic-Only-2M.sh`: DDPG + HER + SABER/B3 support weighting applied to critic loss only.
+- `DDPG-HER-B3-Actor-Only-2M.sh`: DDPG + HER + SABER/B3 support weighting applied to actor loss only.
+- `DDPG-HER-B3-Actor-Critic-2M.sh`: DDPG + HER + SABER/B3 support weighting applied to both actor and critic losses.
 - `DDPG-HER-B3-Random-Fixed-Count-2M.sh`: DDPG + HER + fixed-count random critic reweighting with no SABER support lookup.
 - `DDPG-HER-B3-Shuffled-Weight-2M.sh`: DDPG + HER + SABER/B3 support weights shuffled across the batch before critic-only assignment.
 - `run_all_ddpg_drawer_open_2m_5parallel.sh`: convenience runner for B0 followed by B3-Critic-Only.
+- `run_ddpg_drawer_open_actor_ablation_2m_5parallel.sh`: convenience runner for Actor-Only followed by Actor+Critic.
 - `run_ddpg_drawer_open_ablation_2m_5parallel.sh`: convenience runner for Random-Fixed-Count followed by Shuffled-Weight.
 
 ## Shared Settings
@@ -37,7 +40,16 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 - `weighting_mode=batch_norm`
 - Numba DrawerOpen support scanner enabled
 
-## Ablation Settings
+## Actor-Scope Ablation Settings
+
+`DDPG-HER-B3-Actor-Only-2M.sh` and `DDPG-HER-B3-Actor-Critic-2M.sh` match the TD3 actor-scope ablations:
+
+- Method: `b3_support_runtime_opt`
+- `DDPG-HER-B3-Actor-Only-2M.sh` uses `weight_scope=actor_only`
+- `DDPG-HER-B3-Actor-Critic-2M.sh` uses `weight_scope=actor_critic`
+- Same B3 support lookup, support cache, Numba scanner, and local-search settings as B3-Critic-Only.
+
+## Random/Shuffled Ablation Settings
 
 `DDPG-HER-B3-Random-Fixed-Count-2M.sh` matches the TD3 fixed-count control:
 
@@ -60,6 +72,8 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 ```bash
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B0-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Actor-Only-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Actor-Critic-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
 ```
@@ -70,7 +84,13 @@ Run B0 and B3-Critic-Only sequentially:
 bash metaworld_Drawer_Open_DDPG/run_all_ddpg_drawer_open_2m_5parallel.sh
 ```
 
-Run the ablations sequentially:
+Run the actor-scope ablations sequentially:
+
+```bash
+bash metaworld_Drawer_Open_DDPG/run_ddpg_drawer_open_actor_ablation_2m_5parallel.sh
+```
+
+Run the random/shuffled ablations sequentially:
 
 ```bash
 bash metaworld_Drawer_Open_DDPG/run_ddpg_drawer_open_ablation_2m_5parallel.sh
