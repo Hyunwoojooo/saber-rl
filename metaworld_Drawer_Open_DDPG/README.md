@@ -40,6 +40,23 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 - `weighting_mode=batch_norm`
 - Numba DrawerOpen support scanner enabled
 
+## Results
+
+### DDPG-HER-B0-2M
+
+Completed on 2026-06-23 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and 20 evaluation episodes every 10k steps.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.460 | 1090k |
+| 2 | 0.00 | 0.00 | 0.000 | - |
+| 3 | 0.00 | 0.00 | 0.000 | - |
+| 4 | 0.00 | 0.00 | 0.000 | - |
+| 5 | 0.95 | 1.00 | 0.576 | 830k |
+| Mean | 0.39 | 0.40 | 0.207 | - |
+
+DDPG+HER B0 learned in 2 of 5 seeds and failed to acquire success in seeds 2-4 under the sparse DrawerOpen setting.
+
 ## Actor-Scope Ablation Settings
 
 `DDPG-HER-B3-Actor-Only-2M.sh` and `DDPG-HER-B3-Actor-Critic-2M.sh` match the TD3 actor-scope ablations:
