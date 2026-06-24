@@ -57,6 +57,21 @@ Completed on 2026-06-23 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 
 DDPG+HER B0 learned in 2 of 5 seeds and failed to acquire success in seeds 2-4 under the sparse DrawerOpen setting.
 
+### DDPG-HER-B3-Critic-Only-2M
+
+Completed on 2026-06-24 KST with the same 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and 20 evaluation episodes every 10k steps.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.757 | 510k |
+| 2 | 1.00 | 1.00 | 0.787 | 420k |
+| 3 | 1.00 | 1.00 | 0.705 | 580k |
+| 4 | 1.00 | 1.00 | 0.713 | 500k |
+| 5 | 1.00 | 1.00 | 0.806 | 400k |
+| Mean | 1.00 | 1.00 | 0.754 | 482k |
+
+DDPG+HER+B3-Critic-Only solved all 5 seeds and reached 90% success between 400k and 580k steps, substantially improving both seed reliability and AUC over DDPG+HER B0.
+
 ## Actor-Scope Ablation Settings
 
 `DDPG-HER-B3-Actor-Only-2M.sh` and `DDPG-HER-B3-Actor-Critic-2M.sh` match the TD3 actor-scope ablations:
