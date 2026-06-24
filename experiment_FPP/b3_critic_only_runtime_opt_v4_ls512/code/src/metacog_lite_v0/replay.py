@@ -21,6 +21,7 @@ class SampleBatch:
     timeout: np.ndarray
     h: np.ndarray
     her_relabel_ratio: float
+    her_relabel_mask: np.ndarray | None = None
 
 
 class ReplayActionIndex:
@@ -330,6 +331,7 @@ class HERReplayBuffer:
         indices = rng.integers(0, self.size, size=batch_size, endpoint=False, dtype=np.int64)
         desired_goal_train = self.desired_goal[indices].copy()
         relabel_mask = rng.random(batch_size) < float(her_ratio)
+        actual_relabel_mask = np.zeros(batch_size, dtype=np.bool_)
         relabeled = 0
         for out_i, slot in enumerate(indices):
             if not relabel_mask[out_i]:
@@ -338,6 +340,7 @@ class HERReplayBuffer:
             if goal is None:
                 continue
             desired_goal_train[out_i] = goal
+            actual_relabel_mask[out_i] = True
             relabeled += 1
         return SampleBatch(
             indices=indices,
@@ -352,6 +355,7 @@ class HERReplayBuffer:
             timeout=self.timeout[indices].copy(),
             h=self.h[indices].copy(),
             her_relabel_ratio=float(relabeled / max(1, batch_size)),
+            her_relabel_mask=actual_relabel_mask,
         )
 
     def reference_indices(self, max_n: int, rng: np.random.Generator) -> np.ndarray:

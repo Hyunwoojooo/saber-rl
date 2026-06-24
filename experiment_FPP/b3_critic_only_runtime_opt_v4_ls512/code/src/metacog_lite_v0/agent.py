@@ -22,6 +22,11 @@ class UpdateMetrics:
     q_abs_max: float
     td_error_abs_mean: float
     td_error_abs_p90: float
+    td_error_abs_before: np.ndarray | None = None
+    td_error_abs_after: np.ndarray | None = None
+    q_before: np.ndarray | None = None
+    q_after: np.ndarray | None = None
+    target: np.ndarray | None = None
 
 
 class DDPGAgent:
@@ -73,6 +78,7 @@ class DDPGAgent:
         nonterminal: torch.Tensor,
         omega_critic: torch.Tensor,
         omega_actor: torch.Tensor,
+        collect_diagnostics: bool = False,
     ) -> UpdateMetrics:
         with torch.no_grad():
             next_action = self.actor_target(next_state)
@@ -85,6 +91,21 @@ class DDPGAgent:
         critic_loss.backward()
         nn.utils.clip_grad_norm_(self.critic.parameters(), max_norm=10.0)
         self.critic_opt.step()
+        if collect_diagnostics:
+            with torch.no_grad():
+                q_after_t = self.critic(state, action_exec)
+                td_after = (q_after_t - target).abs()
+                td_before_np = td_abs.detach().cpu().numpy().astype(np.float32)
+                td_after_np = td_after.detach().cpu().numpy().astype(np.float32)
+                q_before_np = q.detach().cpu().numpy().astype(np.float32)
+                q_after_np = q_after_t.detach().cpu().numpy().astype(np.float32)
+                target_np = target.detach().cpu().numpy().astype(np.float32)
+        else:
+            td_before_np = None
+            td_after_np = None
+            q_before_np = None
+            q_after_np = None
+            target_np = None
 
         pred_action = self.actor(state)
         actor_loss = -(omega_actor * self.critic(state, pred_action)).mean()
@@ -109,6 +130,11 @@ class DDPGAgent:
             q_abs_max=float(q.detach().abs().max().item()),
             td_error_abs_mean=float(td_abs.mean().item()),
             td_error_abs_p90=float(torch.quantile(td_abs, 0.90).item()),
+            td_error_abs_before=td_before_np,
+            td_error_abs_after=td_after_np,
+            q_before=q_before_np,
+            q_after=q_after_np,
+            target=target_np,
         )
 
     @torch.no_grad()

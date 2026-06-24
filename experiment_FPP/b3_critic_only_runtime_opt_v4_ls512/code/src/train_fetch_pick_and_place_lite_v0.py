@@ -69,6 +69,9 @@ def parse_args() -> argparse.Namespace:
     parser.set_defaults(save_step_checkpoints=True)
     parser.add_argument("--log_every_steps", type=int, default=1_000)
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--diagnostic_log_samples", action="store_true")
+    parser.add_argument("--diagnostic_freq", type=int, default=10_000)
+    parser.add_argument("--diagnostic_samples_per_log", type=int, default=128)
 
     parser.add_argument("--M_B", type=int, default=16)
     parser.add_argument("--M_Q_min", type=int, default=4)
@@ -155,6 +158,9 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         save_step_checkpoints=args.save_step_checkpoints,
         log_every_steps=args.log_every_steps,
         smoke=args.smoke,
+        diagnostic_log_samples=args.diagnostic_log_samples,
+        diagnostic_freq=args.diagnostic_freq,
+        diagnostic_samples_per_log=args.diagnostic_samples_per_log,
         M_B=args.M_B,
         M_Q_min=args.M_Q_min,
         N_local_min=args.N_local_min,

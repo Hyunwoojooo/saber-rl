@@ -752,10 +752,28 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     fields = list(dict.fromkeys(fields))
     csv_writer = MetricsCSVWriter(run_dir / "metrics.csv", fields)
     jsonl_writer = MetricsJSONLWriter(run_dir / "metrics.jsonl")
+    diagnostic_writer = None
+    if config.diagnostic_log_samples:
+        diagnostic_writer = MetricsCSVWriter(run_dir / "diagnostic_samples.csv", _diagnostic_sample_fields())
+        write_json(
+            run_dir / "diagnostic_config.json",
+            {
+                "enabled": True,
+                "diagnostic_freq": config.diagnostic_freq,
+                "diagnostic_samples_per_log": config.diagnostic_samples_per_log,
+                "description": "Sample-level SABER support and fixed-target TD residual diagnostics.",
+            },
+        )
+        logger.info(
+            "sample diagnostics enabled freq=%d samples_per_log=%d",
+            config.diagnostic_freq,
+            config.diagnostic_samples_per_log,
+        )
 
     noise_rng = np.random.default_rng(config.seeds.action_noise_seed)
     sample_rng = np.random.default_rng(config.seeds.numpy_seed + 17)
     weight_rng = np.random.default_rng(config.seeds.weight_seed)
+    diagnostic_rng = np.random.default_rng(config.seeds.numpy_seed + 1907)
     start_step = 0
     episode_idx = 0
     total_updates = 0
@@ -904,6 +922,21 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                         nonterminal=nonterminal_t,
                     )
 
+                collect_diagnostics = (
+                    diagnostic_writer is not None
+                    and global_step > 0
+                    and (global_step % config.diagnostic_freq == 0)
+                )
+                policy_action_bins = None
+                replay_action_bins = None
+                if collect_diagnostics:
+                    with torch.no_grad():
+                        policy_actions_np = (
+                            agent.policy_actions(state_t).detach().cpu().numpy().astype(np.float32)
+                        )
+                    policy_action_bins = task.action_bin_batch(policy_actions_np, config.action_bins_per_dim)
+                    replay_action_bins = task.action_bin_batch(batch.action_exec, config.action_bins_per_dim)
+
                 t_update0 = time.perf_counter()
                 update = agent.update(
                     state=state_t,
@@ -913,8 +946,26 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                     nonterminal=nonterminal_t,
                     omega_critic=torch.as_tensor(wb.omega_critic, dtype=torch.float32, device=device),
                     omega_actor=torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device),
+                    collect_diagnostics=collect_diagnostics,
                 )
                 t_update1 = time.perf_counter()
+                if collect_diagnostics and diagnostic_writer is not None:
+                    _write_sample_diagnostics(
+                        writer=diagnostic_writer,
+                        config=config,
+                        batch=batch,
+                        wb=wb,
+                        update=update,
+                        replay=replay,
+                        global_step=global_step,
+                        episode_idx=episode_idx,
+                        update_idx=total_updates + 1,
+                        reward_train=reward_train,
+                        nonterminal=nonterminal,
+                        policy_action_bins=policy_action_bins,
+                        replay_action_bins=replay_action_bins,
+                        rng=diagnostic_rng,
+                    )
                 last_loss = {
                     "critic": update.critic_loss,
                     "actor": update.actor_loss,
@@ -1119,6 +1170,8 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     write_json(run_dir / "summary.json", summary)
     csv_writer.close()
     jsonl_writer.close()
+    if diagnostic_writer is not None:
+        diagnostic_writer.close()
     train_env.close()
     eval_env.close()
     logger.info("finished run at %s", run_dir)
@@ -1365,6 +1418,157 @@ def _lite_metrics_from_weight_batch(
     for key, value in getattr(wb, "extra_metrics", {}).items():
         metrics[key] = float(value)
     return metrics
+
+
+def _diagnostic_sample_fields() -> list[str]:
+    return [
+        "step",
+        "update",
+        "episode",
+        "task_name",
+        "method",
+        "env_seed",
+        "torch_seed",
+        "numpy_seed",
+        "sample_rank",
+        "replay_index",
+        "replay_episode_id",
+        "replay_episode_step",
+        "horizon_h",
+        "phase",
+        "her_relabel",
+        "batch_her_relabel_ratio",
+        "psi_q_rank",
+        "psi_a_policy",
+        "local_pool_size",
+        "support_candidate_count",
+        "num_coarse_candidates",
+        "num_scanned_candidates",
+        "local_scan_truncated",
+        "w_raw",
+        "omega_critic",
+        "omega_actor",
+        "td_abs_before",
+        "td_abs_after",
+        "td_abs_reduction",
+        "q_before",
+        "q_after",
+        "target",
+        "reward_train",
+        "nonterminal",
+        "done",
+        "timeout",
+        "replay_action_bin",
+        "policy_action_bin",
+    ]
+
+
+def _flat_optional(values: np.ndarray | None, size: int, default: float = np.nan) -> np.ndarray:
+    if values is None:
+        return np.full(size, default, dtype=np.float32)
+    arr = np.asarray(values, dtype=np.float32).reshape(-1)
+    if arr.shape[0] >= size:
+        return arr[:size]
+    out = np.full(size, default, dtype=np.float32)
+    out[: arr.shape[0]] = arr
+    return out
+
+
+def _write_sample_diagnostics(
+    writer: MetricsCSVWriter,
+    config: LiteConfig,
+    batch: Any,
+    wb: Any,
+    update: Any,
+    replay: HERReplayBuffer,
+    global_step: int,
+    episode_idx: int,
+    update_idx: int,
+    reward_train: np.ndarray,
+    nonterminal: np.ndarray,
+    policy_action_bins: np.ndarray | None,
+    replay_action_bins: np.ndarray | None,
+    rng: np.random.Generator,
+) -> None:
+    b = int(batch.observation.shape[0])
+    if b <= 0:
+        return
+    td_before = _flat_optional(getattr(update, "td_error_abs_before", None), b)
+    td_after = _flat_optional(getattr(update, "td_error_abs_after", None), b)
+    q_before = _flat_optional(getattr(update, "q_before", None), b)
+    q_after = _flat_optional(getattr(update, "q_after", None), b)
+    target = _flat_optional(getattr(update, "target", None), b)
+
+    limit = min(int(config.diagnostic_samples_per_log), b)
+    if limit < b:
+        sample_rows = np.sort(rng.choice(b, size=limit, replace=False).astype(np.int64))
+    else:
+        sample_rows = np.arange(b, dtype=np.int64)
+
+    her_mask = getattr(batch, "her_relabel_mask", None)
+    if her_mask is None:
+        her_mask = np.zeros(b, dtype=np.bool_)
+    else:
+        her_mask = np.asarray(her_mask, dtype=np.bool_).reshape(-1)
+    if policy_action_bins is None:
+        policy_action_bins = np.full(b, -1, dtype=np.int64)
+    if replay_action_bins is None:
+        replay_action_bins = np.full(b, -1, dtype=np.int64)
+
+    replay_indices = np.asarray(batch.indices, dtype=np.int64).reshape(-1)
+    for row_i in sample_rows:
+        i = int(row_i)
+        replay_index = int(replay_indices[i])
+        if 0 <= replay_index < replay.capacity:
+            replay_episode_id = int(replay.episode_id[replay_index])
+            replay_episode_step = int(replay.episode_step[replay_index])
+        else:
+            replay_episode_id = -1
+            replay_episode_step = -1
+        before = float(td_before[i])
+        after = float(td_after[i])
+        writer.write(
+            {
+                "step": int(global_step),
+                "update": int(update_idx),
+                "episode": int(episode_idx),
+                "task_name": config.task_name,
+                "method": config.method,
+                "env_seed": int(config.seeds.env_seed),
+                "torch_seed": int(config.seeds.torch_seed),
+                "numpy_seed": int(config.seeds.numpy_seed),
+                "sample_rank": i,
+                "replay_index": replay_index,
+                "replay_episode_id": replay_episode_id,
+                "replay_episode_step": replay_episode_step,
+                "horizon_h": int(batch.h[i]),
+                "phase": int(wb.phase[i]),
+                "her_relabel": int(bool(her_mask[i])) if i < int(her_mask.shape[0]) else 0,
+                "batch_her_relabel_ratio": float(batch.her_relabel_ratio),
+                "psi_q_rank": float(wb.psi_q_rank[i]),
+                "psi_a_policy": float(wb.psi_a_policy[i]),
+                "local_pool_size": float(wb.len_a_q_local[i]),
+                "support_candidate_count": float(wb.len_a_q_sup[i]),
+                "num_coarse_candidates": float(wb.num_coarse_candidates[i]),
+                "num_scanned_candidates": float(wb.num_scanned_candidates[i]),
+                "local_scan_truncated": float(wb.local_scan_truncated[i]),
+                "w_raw": float(wb.w_p_raw[i]),
+                "omega_critic": float(wb.omega_critic[i]),
+                "omega_actor": float(wb.omega_actor[i]),
+                "td_abs_before": before,
+                "td_abs_after": after,
+                "td_abs_reduction": before - after,
+                "q_before": float(q_before[i]),
+                "q_after": float(q_after[i]),
+                "target": float(target[i]),
+                "reward_train": float(np.asarray(reward_train, dtype=np.float32).reshape(-1)[i]),
+                "nonterminal": float(np.asarray(nonterminal, dtype=np.float32).reshape(-1)[i]),
+                "done": int(bool(batch.done[i])),
+                "timeout": int(bool(batch.timeout[i])),
+                "replay_action_bin": int(np.asarray(replay_action_bins, dtype=np.int64).reshape(-1)[i]),
+                "policy_action_bin": int(np.asarray(policy_action_bins, dtype=np.int64).reshape(-1)[i]),
+            }
+        )
 
 
 def _add_runtime(row: Dict[str, Any], wall_start: float, step: int) -> None:

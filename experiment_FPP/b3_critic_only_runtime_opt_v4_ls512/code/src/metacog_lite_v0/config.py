@@ -107,6 +107,9 @@ class LiteConfig:
     smoke: bool = False
     validate_steps: int = 200
     validate_random_policy_steps: int = 200
+    diagnostic_log_samples: bool = False
+    diagnostic_freq: int = 10_000
+    diagnostic_samples_per_log: int = 128
 
     # MetaCog-Lite v0 local replay-action support.
     M_B: int = 32
@@ -253,6 +256,8 @@ class LiteConfig:
             raise ValueError(
                 "support_scan_mode must be deterministic_tail_v1|deterministic_head_v1|deterministic_stride_v1"
             )
+        self.diagnostic_freq = max(1, int(self.diagnostic_freq))
+        self.diagnostic_samples_per_log = max(1, int(self.diagnostic_samples_per_log))
         if self.task_name == "unitree_apple":
             if self.max_episode_steps == 50:
                 self.max_episode_steps = 100

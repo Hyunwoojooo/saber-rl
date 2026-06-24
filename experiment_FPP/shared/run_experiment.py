@@ -9,6 +9,38 @@ from pathlib import Path
 from experiment_registry import EXPERIMENTS, load_folder_config, repo_root_from_shared, run_name
 
 
+def workspace_root_from_shared() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def resolve_trainer(repo_root: Path, workspace_root: Path) -> Path:
+    candidates = [
+        repo_root / "version_v0_lite" / "src" / "train_fetch_pick_and_place_lite_v0.py",
+        workspace_root
+        / "experiment_FPP"
+        / "b3_critic_only_runtime_opt_v4_ls512"
+        / "code"
+        / "src"
+        / "train_fetch_pick_and_place_lite_v0.py",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    searched = "\n".join(str(candidate) for candidate in candidates)
+    raise FileNotFoundError(f"Could not find FPP trainer. Searched:\n{searched}")
+
+
+def resolve_python(repo_root: Path, workspace_root: Path) -> Path:
+    candidates = [
+        repo_root / ".venv" / "bin" / "python",
+        workspace_root / ".venv" / "bin" / "python",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return Path(sys.executable)
+
+
 def build_command(experiment: str, seed: int, steps: int | None, device: str, output_root: str | None, smoke: bool) -> list[str]:
     if experiment not in EXPERIMENTS:
         known = ", ".join(EXPERIMENTS)
@@ -16,12 +48,11 @@ def build_command(experiment: str, seed: int, steps: int | None, device: str, ou
     spec = EXPERIMENTS[experiment]
     folder_cfg = load_folder_config(experiment)
     repo_root = repo_root_from_shared()
-    trainer = repo_root / "version_v0_lite" / "src" / "train_fetch_pick_and_place_lite_v0.py"
-    python_bin = repo_root / ".venv" / "bin" / "python"
-    if not python_bin.exists():
-        python_bin = Path(sys.executable)
+    workspace_root = workspace_root_from_shared()
+    trainer = resolve_trainer(repo_root, workspace_root)
+    python_bin = resolve_python(repo_root, workspace_root)
     n_steps = int(spec.total_steps if steps is None else steps)
-    out_root = output_root or str(repo_root / "SABER" / "FetchPickAndPlace" / "runs" / experiment)
+    out_root = output_root or str(workspace_root / "experiment_FPP" / "runs" / experiment)
     cmd = [
         str(python_bin),
         str(trainer),
