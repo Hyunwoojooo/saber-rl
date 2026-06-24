@@ -1,0 +1,80 @@
+{
+  "artifact_root": "experiment_FPP/runs/b3_support_shuffled_critic_only_ls512",
+  "backbone": "DDPG",
+  "display_method": "Shuffled-weight",
+  "excluded_large_files": [
+    "checkpoint.pt",
+    "best_checkpoint.pt",
+    "best_checkpoint.json",
+    "metrics.csv",
+    "metrics.jsonl"
+  ],
+  "id": "fpp_ddpg_shuffled_weight",
+  "included_files_per_seed": [
+    "summary.json",
+    "config.json",
+    "env_snapshot.json",
+    "run.log",
+    "metrics_selected_10k.csv"
+  ],
+  "local_search_max": 512,
+  "method": "b3_support_shuffled",
+  "runs": [
+    {
+      "artifact_run_dir": "fetch_pick_and_place_b3_support_shuffled_critic_only_ls512_s1_1000000_ls512",
+      "best_eval_step": 800000,
+      "best_eval_success": 1.0,
+      "eval_AUC_success": 0.5593434343434344,
+      "final_eval_success": 0.9,
+      "seed": 1,
+      "source_run_dir": "fetch_pick_and_place_b3_support_shuffled_ls512_s1_1000000_ls512"
+    },
+    {
+      "artifact_run_dir": "fetch_pick_and_place_b3_support_shuffled_critic_only_ls512_s2_1000000_ls512",
+      "best_eval_step": 960000,
+      "best_eval_success": 1.0,
+      "eval_AUC_success": 0.581060606060606,
+      "final_eval_success": 1.0,
+      "seed": 2,
+      "source_run_dir": "fetch_pick_and_place_b3_support_shuffled_ls512_s2_1000000_ls512"
+    },
+    {
+      "artifact_run_dir": "fetch_pick_and_place_b3_support_shuffled_critic_only_ls512_s3_1000000_ls512",
+      "best_eval_step": 960000,
+      "best_eval_success": 1.0,
+      "eval_AUC_success": 0.5694444444444444,
+      "final_eval_success": 1.0,
+      "seed": 3,
+      "source_run_dir": "fetch_pick_and_place_b3_support_shuffled_ls512_s3_1000000_ls512"
+    },
+    {
+      "artifact_run_dir": "fetch_pick_and_place_b3_support_shuffled_critic_only_ls512_s4_1000000_ls512",
+      "best_eval_step": 800000,
+      "best_eval_success": 1.0,
+      "eval_AUC_success": 0.6363636363636364,
+      "final_eval_success": 1.0,
+      "seed": 4,
+      "source_run_dir": "fetch_pick_and_place_b3_support_shuffled_ls512_s4_1000000_ls512"
+    },
+    {
+      "artifact_run_dir": "fetch_pick_and_place_b3_support_shuffled_critic_only_ls512_s5_1000000_ls512",
+      "best_eval_step": 930000,
+      "best_eval_success": 1.0,
+      "eval_AUC_success": 0.5487373737373737,
+      "final_eval_success": 0.9,
+      "seed": 5,
+      "source_run_dir": "fetch_pick_and_place_b3_support_shuffled_ls512_s5_1000000_ls512"
+    }
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_root": "experiment_FPP/runs/fpp_ddpg_shuffled_weight_ls512_1m",
+  "task": "FetchPickAndPlace",
+  "total_steps": 1000000,
+  "weight_scope": "critic_only"
+}
