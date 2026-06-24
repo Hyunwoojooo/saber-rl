@@ -1,0 +1,493 @@
+% SABER AAAI-27 Korean drafting source.
+% DRAFT ONLY: This file keeps Korean prose for authoring and revision.
+% For final AAAI submission, translate the paper to English, remove kotex,
+% compile with PDFLaTeX, and submit a single .tex file plus .bib/figures.
+
+\documentclass[letterpaper]{article}
+\usepackage[submission]{aaai2027}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\urlstyle{rm}
+\def\UrlFont{\rm}
+\usepackage{natbib}
+\usepackage{caption}
+\frenchspacing
+
+% Draft-only Korean support. Remove for final AAAI submission.
+\usepackage{kotex}
+
+% Standard math/table packages used by the draft.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\pdfinfo{
+/TemplateVersion (2027.1)
+}
+
+\setcounter{secnumdepth}{0}
+
+\title{SABER: Support-Aware Bellman Error Reweighting for Sparse Goal-Conditioned Reinforcement Learning}
+\author{Anonymous Submission}
+\affiliations{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Sparse-reward goal-conditioned reinforcement learning은 성공 reward가 드물기 때문에 off-policy actor-critic 방법만으로는 효율적인 학습이 어렵다. Hindsight Experience Replay (HER)는 실패 trajectory를 다른 goal의 성공 경험으로 relabel하여 학습 가능한 Bellman target을 늘리는 강력한 방법이다. 그러나 HER는 어떤 goal로 relabel할지를 정할 뿐, relabeled Bellman update가 현재 policy action 근방에서 얼마나 reliable한지는 보장하지 않는다. 본 논문은 이 문제를 hindsight Bellman target reliability gap으로 정의한다.
+
+우리는 이 gap을 줄이기 위해 SABER (Support-Aware Bellman Error Reweighting)를 제안한다. SABER는 각 HER training sample에 대해 local state-goal-horizon context를 구성하고, replay buffer 안에서 현재 policy action이 local replay-action support를 갖는지를 판정한다. Support-positive sample에는 더 큰 critic weight를 부여하고, batch-normalized weight를 critic Bellman error에만 곱한다. Actor objective와 replay sampling distribution은 baseline과 동일하게 유지하여 support signal의 효과를 critic fitting으로 분리한다.
+
+FetchPickAndPlace에서 SABER는 DDPG+HER, TD3+HER, SAC+HER 모두에서 final success와 success AUC를 개선했다. FetchSlide에서는 TD3와 SAC에서 개선을 보였지만 DDPG에서는 개선하지 못해 task/backbone-dependent limitation을 드러냈다. MetaWorld DrawerOpen에서는 critic-only SABER가 TD3+HER보다 더 많은 seed를 성공시켰지만, random-support control도 강하게 나타나 support-aware weighting과 reweighting-induced regularization의 경계를 추가로 분석해야 함을 보여준다. 이 결과들은 SABER가 HER의 대체물이 아니라, HER가 만든 Bellman targets 중 critic이 더 신뢰할 supervision을 구분하는 간단한 critic-side objective임을 보여준다.
+\end{abstract}
+
+\section{Introduction}
+
+Goal-conditioned reinforcement learning은 agent가 하나의 고정된 reward가 아니라 다양한 goal을 달성하도록 학습하는 문제를 다룬다. 특히 robotic manipulation에서는 pushing, sliding, pick-and-place처럼 성공 조건이 명확하지만 reward가 sparse한 task가 많다. 이러한 setting에서는 대부분의 trajectory가 실패로 끝나기 때문에, naive off-policy actor-critic은 critic이 충분한 positive signal을 얻기 어렵다.
+
+Hindsight Experience Replay (HER)는 이 문제를 해결하는 대표적인 방법이다~\citep{andrychowicz2017her}. HER는 agent가 원래 목표를 달성하지 못했더라도, 실제로 도달한 상태를 새로운 goal로 relabel하여 실패 경험을 학습 가능한 transition으로 바꾼다. 이 방식은 sparse reward에서도 goal-conditioned Bellman target을 대량으로 만들 수 있게 해준다.
+
+그러나 HER가 해결하지 않는 문제가 있다. HER는 relabeled goal을 만들어 Bellman target의 quantity를 늘리지만, 그 target이 현재 policy action 근방에서 얼마나 reliable한지는 판단하지 않는다. Off-policy actor-critic에서 critic은 replay action을 중심으로 Bellman regression을 수행하고, actor는 critic이 높게 평가하는 current policy action을 따라간다. 이때 현재 policy action이 local replay action support 바깥에 있다면, critic은 그 action region에서 extrapolation에 의존할 수 있다. HER로 relabel된 transition이라고 해서 이 문제가 자동으로 사라지지는 않는다.
+
+본 논문의 핵심 관찰은 다음이다.
+
+\begin{quote}
+HER creates useful training goals, but it does not guarantee that every relabeled Bellman update is equally reliable for the current policy.
+\end{quote}
+
+우리는 이 문제를 hindsight Bellman target reliability gap으로 부른다. 같은 HER batch 안에서도 어떤 sample은 local state-goal-horizon context에서 현재 policy action이 replay buffer에 충분히 support되어 있어 critic fitting target으로 더 신뢰할 수 있고, 어떤 sample은 그렇지 않다. 따라서 모든 relabeled Bellman error를 동일한 weight로 fitting하는 것은 critic에게 불균일한 reliability의 supervision을 같은 강도로 주는 셈이다.
+
+이를 해결하기 위해 우리는 SABER: Support-Aware Bellman Error Reweighting을 제안한다. SABER는 각 training sample에 대해 local replay-action support를 계산하고, support-positive sample의 critic Bellman error를 더 크게 반영한다. 중요한 점은 SABER가 HER를 대체하지 않는다는 것이다. HER는 training goal을 만들고, SABER는 그 goal-conditioned Bellman update 중 critic이 더 신뢰할 update를 구분한다.
+
+SABER의 main variant는 critic-only이다. 즉, support-derived weight는 critic TD loss에만 적용되며 actor objective와 replay sampling distribution은 baseline과 동일하게 유지된다. 이 설계는 SABER의 효과를 actor distribution bias나 prioritized replay effect가 아니라 critic Bellman fitting의 reliability weighting으로 해석할 수 있게 한다.
+
+본 논문의 contribution은 다음과 같다.
+\begin{itemize}
+    \item Sparse-reward goal-conditioned HER setting에서 relabeled Bellman target의 quantity와 reliability가 다르다는 문제를 제기하고, 이를 hindsight Bellman target reliability gap으로 정식화한다.
+    \item Local replay-action support를 critic-side Bellman fitting reliability signal로 사용하는 SABER objective를 제안한다.
+    \item SABER를 DDPG, TD3, SAC와 결합 가능한 backbone-compatible critic reweighting method로 정의하고, actor update와 replay sampling을 유지하는 critic-only 설계의 장점을 보인다.
+    \item FetchPickAndPlace, FetchSlide, MetaWorld DrawerOpen 실험을 통해 SABER의 장점과 한계를 함께 제시한다.
+    \item PER-style weighting, full PER, actor-scope variants, random/shuffled controls와 비교하여 SABER가 단순 TD-error prioritization과 다른 신호를 사용함을 분석한다.
+\end{itemize}
+
+\section{Related Work}
+
+\subsection{Goal-Conditioned RL and HER}
+
+Goal-conditioned RL은 policy와 value function이 상태뿐 아니라 goal을 조건으로 받도록 학습한다. Sparse reward manipulation에서는 성공 signal이 드물기 때문에 goal relabeling이 특히 중요하다. HER는 실패 trajectory에서 실제로 달성된 state를 hindsight goal로 사용하여 sparse reward 문제를 완화한다~\citep{andrychowicz2017her}. HER의 핵심 역할은 training target을 늘리는 것이다.
+
+SABER는 HER와 경쟁하는 방법이 아니다. HER가 ``어떤 goal로 Bellman target을 만들 것인가''를 다룬다면, SABER는 ``그렇게 만들어진 Bellman error를 critic이 얼마나 강하게 fitting할 것인가''를 다룬다. 따라서 SABER는 HER의 relabeling distribution을 바꾸는 방법이 아니라, HER 이후 critic update의 reliability weighting을 조정하는 방법이다.
+
+\subsection{Off-Policy Actor-Critic and Critic Error}
+
+DDPG, TD3, SAC와 같은 off-policy actor-critic 방법은 continuous control에서 널리 사용된다~\citep{lillicrap2015ddpg,fujimoto2018td3,haarnoja2018sac}. 이 방법들은 replay buffer를 사용해 sample efficiency를 높이지만, critic approximation error와 actor exploitation 문제가 함께 발생할 수 있다. TD3는 twin critics, target policy smoothing, delayed policy update를 통해 overestimation과 function approximation error를 줄인다. SAC는 entropy-regularized objective를 통해 exploration과 robustness를 높인다.
+
+SABER는 backbone 자체를 바꾸지 않는다. DDPG, TD3, SAC의 Bellman target 계산은 유지하되, critic regression loss에 sample-wise support-derived weight를 곱한다. 따라서 SABER는 새로운 actor-critic algorithm이라기보다, off-policy actor-critic에 부착되는 critic-side Bellman error reweighting layer로 보는 것이 정확하다.
+
+\subsection{Prioritized Replay and TD-Error Weighting}
+
+Prioritized Experience Replay (PER)는 TD-error가 큰 transition을 더 자주 sampling하여 learning progress가 클 것으로 예상되는 sample을 재사용한다~\citep{schaul2015per}. PER-style loss weighting도 TD-error magnitude를 기준으로 critic loss를 조정한다.
+
+SABER는 TD-error가 큰 sample을 우선시하지 않는다. SABER의 기준 신호는 local replay-action support이다. 즉, TD-error magnitude가 아니라 현재 policy action이 해당 state-goal-horizon context의 replay action support 안에 있는지를 본다. 또한 main SABER는 replay sampling distribution을 바꾸지 않고, critic loss weight만 바꾼다.
+
+\begin{quote}
+SABER does not prioritize surprise; it prioritizes supported Bellman supervision.
+\end{quote}
+
+\subsection{Dataset Support and Extrapolation}
+
+Offline RL에서는 learned policy가 dataset support 밖의 action을 선택할 때 critic extrapolation error가 커질 수 있다는 문제가 잘 알려져 있다. BCQ와 CQL 등은 이러한 distribution shift와 OOD action overestimation을 줄이기 위해 policy constraint나 conservative value learning을 사용한다~\citep{fujimoto2019bcq,kumar2020cql}.
+
+SABER는 offline RL 방법이 아니다. SABER는 online off-policy HER setting에서 action을 제한하지 않으며, policy를 dataset support 안으로 강제로 묶지도 않는다. 대신 replay support가 충분한 Bellman update를 critic이 더 강하게 fitting하도록 weight를 조정한다. 따라서 SABER는 offline RL의 support mismatch 문제와 개념적으로 연결되지만, 알고리즘적 개입은 훨씬 좁다.
+
+\subsection{MetaCog-RL Lineage}
+
+SABER는 MetaCog-RL의 full diagnosis framework를 구현한 것이 아니다. 원래 MetaCog-RL은 RL 실패 원인을 ignorance, incompetence, impossibility로 나누고, world model ensemble과 competence gap을 통해 EXPLORE/PRACTICE/ROBUST 개입을 선택하는 프레임워크다.
+
+SABER로 이어진 부분은 그중 PRACTICE/incompetence 축이다. 원래 PRACTICE는 모델이 어느 정도 알고 있고 정책이 아직 못하는 영역을 더 연습시키는 개입이다. SABER는 이를 sparse HER actor-critic setting으로 축소하여, world model 기반 competence gap 대신 replay local support predicate를 사용하고, focused practice 대신 critic Bellman loss reweighting을 적용한다.
+
+\section{Preliminaries}
+
+\subsection{Goal-Conditioned MDP}
+
+Goal-conditioned MDP를 다음과 같이 둔다.
+\begin{equation}
+\mathcal M = (\mathcal S, \mathcal A, \mathcal G, P, r_g, \gamma).
+\end{equation}
+
+Replay buffer에는 transition이 다음 형태로 저장된다.
+\begin{equation}
+\tau_i = (o_i, a_i, o'_i, g_i^{env}, d_i, h_i),
+\end{equation}
+여기서 \(o_i\)는 observation, \(a_i\)는 replay action, \(o'_i\)는 next observation, \(g_i^{env}\)는 original environment goal, \(d_i\)는 termination indicator, \(h_i\)는 horizon 또는 time-to-goal context다.
+
+HER를 사용할 때 training goal은 original goal이 아니라 relabeling distribution에서 샘플링된다.
+\begin{equation}
+g_i^{tr} \sim \mathcal H(\tau_i).
+\end{equation}
+HER를 사용하지 않는 경우에는 \(g_i^{tr}=g_i^{env}\)이다. 따라서 SABER는 HER 자체를 필수로 가정하기보다, training goal \(g_i^{tr}\)이 주어진 상태에서 작동하는 critic weighting method로 정의할 수 있다.
+
+Goal-conditioned input을 다음처럼 둔다.
+\begin{equation}
+x_i = (o_i, g_i^{tr}).
+\end{equation}
+Actor와 critic은 각각 다음과 같다.
+\begin{equation}
+\pi_\theta(x_i)=\pi_\theta(o_i,g_i^{tr}),
+\end{equation}
+\begin{equation}
+Q_\phi(x_i,a_i)=Q_\phi(o_i,g_i^{tr},a_i).
+\end{equation}
+
+\subsection{Bellman Regression}
+
+DDPG-style deterministic actor-critic의 Bellman target은 다음과 같이 쓸 수 있다.
+\begin{equation}
+\begin{aligned}
+y_i ={}& r(o_i,a_i,o'_i,g_i^{tr}) \\
+&+ \gamma(1-d_i)
+Q_{\bar\phi}(o'_i,g_i^{tr},\pi_{\bar\theta}(o'_i,g_i^{tr})).
+\end{aligned}
+\end{equation}
+
+Baseline critic loss는 모든 sample을 동일 weight로 fitting한다.
+\begin{equation}
+\mathcal L_Q^{base}(\phi)
+=
+\frac{1}{B}\sum_{i=1}^{B}
+\left(Q_\phi(x_i,a_i)-y_i\right)^2.
+\end{equation}
+
+TD3와 SAC에서는 target 계산 방식이 backbone에 맞게 달라지지만, critic이 Bellman target을 regression한다는 구조는 같다. SABER는 이 regression loss의 sample weight만 바꾼다.
+
+\section{Motivation: Target Quantity Is Not Target Reliability}
+
+HER는 sparse reward에서 target quantity를 늘린다. 하지만 target quantity와 target reliability는 같은 개념이 아니다.
+
+같은 mini-batch 안의 두 HER-relabeled transition을 생각하자. 두 transition 모두 reward를 재계산할 수 있고 Bellman target \(y_i\)를 만들 수 있다. 그러나 첫 번째 transition에서는 현재 actor action \(\pi_\theta(o_i,g_i^{tr})\)이 같은 local state-goal-horizon context 안에서 replay buffer에 여러 번 관측된 action family에 속할 수 있다. 두 번째 transition에서는 현재 actor action이 그 local context의 replay action support 바깥에 있을 수 있다.
+
+두 경우 모두 Bellman target은 존재한다. 그러나 critic이 해당 target을 현재 policy improvement에 유용한 supervision으로 fitting할 때의 reliability는 다를 수 있다. 첫 번째 경우는 local interpolation에 가깝고, 두 번째 경우는 extrapolation risk가 크다.
+
+SABER의 기본 가설은 다음이다.
+\begin{quote}
+Replay support가 충분한 transition은 critic Bellman fitting에 더 reliable한 supervision을 제공한다. 따라서 support-positive transition의 critic TD loss를 더 크게 반영하면 sparse manipulation에서 value learning이 안정화되고 sample efficiency가 좋아질 수 있다.
+\end{quote}
+
+이 가설은 theorem으로 주장하지 않는다. 본 논문에서는 이를 reliability-weighted Bellman regression interpretation으로 제시하고, 실험적으로 검증한다.
+
+\section{SABER}
+
+\subsection{Overview}
+
+SABER는 각 training sample마다 local replay-action support를 계산하고, support-positive sample의 critic Bellman error에 더 큰 weight를 준다. Main variant는 critic-only이다. 절차는 다음과 같다.
+\begin{enumerate}
+    \item HER 또는 baseline replay sampling으로 mini-batch를 가져온다.
+    \item 각 sample \(i\)에 대해 local context \(c_i\)를 만든다.
+    \item Replay buffer에서 같은 또는 유사한 context의 transition set \(\mathcal L_i\)를 찾는다.
+    \item Current policy action \(a_i^\pi=\pi_\theta(o_i,g_i^{tr})\)이 local replay action support 안에 있는지 확인한다.
+    \item Support-positive이면 \(w_i=1+\lambda_S\), 아니면 \(w_i=1\)을 부여한다.
+    \item Batch normalization으로 평균 weight를 1로 맞춘다.
+    \item Normalized weight를 critic Bellman error에만 곱한다.
+\end{enumerate}
+
+\subsection{Local Context}
+
+각 train item \(i\)에 대해 task-specific local context를 정의한다.
+\begin{equation}
+c_i = C(o_i, g_i^{tr}, h_i).
+\end{equation}
+
+이 context는 observation, training goal, horizon information을 coarse bin 또는 hash로 변환한 것이다. 예를 들어 FetchPickAndPlace에서는 hand-object distance, object-goal distance, object height, gripper gap, horizon bin 등이 context에 들어갈 수 있다. FetchSlide/FetchPush에서는 object-goal alignment, contact/slide phase, velocity-related bin 등이 사용될 수 있다. DrawerOpen에서는 hand-handle distance, handle-goal distance, handle position, gripper state, phase, horizon bin 등이 사용된다.
+
+\subsection{Local Replay-Action Support}
+
+Sample \(i\)에 대한 local replay pool을 다음과 같이 둔다.
+\begin{equation}
+\mathcal L_i =
+\{j \in \mathcal D:
+C(o_j,g_i^{tr},h_j) \approx C(o_i,g_i^{tr},h_i)\}.
+\end{equation}
+
+같은 local context에서 관측된 replay action들을 action bin으로 변환한다.
+\begin{equation}
+\mathcal B_i = \{b(a_j): j\in \mathcal L_i\}.
+\end{equation}
+
+Current policy action과 그 bin은 다음과 같다.
+\begin{equation}
+a_i^\pi = \pi_\theta(o_i,g_i^{tr}),
+\end{equation}
+\begin{equation}
+b_i^\pi = b(a_i^\pi).
+\end{equation}
+
+SABER는 \(b_i^\pi\)가 \(\mathcal B_i\)에 포함되는지를 통해 current policy action이 local replay support 안에 있는지 판정한다.
+
+\subsection{Support Indicator}
+
+Support-positive indicator는 다음과 같이 정의한다.
+\begin{equation}
+\psi_i =
+\mathbf 1
+\left[
+|\mathcal L_i|\ge N_{\min}
+\land
+|\mathcal A_i^{sup}|\ge M_{\min}
+\land
+b_i^\pi \in \mathcal B_i
+\right].
+\end{equation}
+
+구현상 주요 실험에서 사용한 조건은 local pool size, available support size, policy action bin existence를 함께 확인한다. 대표 threshold는 \(M_B=16\), \(M_{Q\_min}=4\), \(N_{\text{local\_min}}=4\), \(N_{\text{gap\_min}}=128\), \(\lambda_S=1.0\), \texttt{weighting\_mode=batch\_norm}, \texttt{weight\_scope=critic\_only}이다.
+
+\subsection{Weight Construction}
+
+Raw weight는 다음과 같다.
+\begin{equation}
+w_i^{raw} = 1 + \lambda_S \psi_i.
+\end{equation}
+
+Batch-normalized weight는 다음과 같다.
+\begin{equation}
+\Omega_i =
+\frac{w_i^{raw}}
+{\frac{1}{B}\sum_{j=1}^{B} w_j^{raw} + \epsilon}.
+\end{equation}
+
+Critic-only SABER에서는 다음과 같이 둔다.
+\begin{equation}
+\Omega_i^{critic} = \Omega_i,
+\qquad
+\Omega_i^{actor} = 1.
+\end{equation}
+
+\subsection{Critic Objective}
+
+SABER critic loss는 다음이다.
+\begin{equation}
+\mathcal L_Q^{SABER}(\phi)
+=
+\frac{1}{B}\sum_{i=1}^{B}
+\Omega_i
+\left(Q_\phi(x_i,a_i)-y_i\right)^2.
+\end{equation}
+
+Actor objective는 backbone의 baseline actor objective를 유지한다. DDPG/TD3에서는 deterministic policy gradient 형태를 유지하고, SAC에서는 entropy-regularized actor objective를 유지한다.
+
+\begin{algorithm}[tb]
+\caption{SABER Critic Update}
+\label{alg:saber}
+\begin{algorithmic}[1]
+\STATE Sample a mini-batch from replay buffer \(\mathcal D\).
+\STATE Assign training goals \(g_i^{tr}\) using HER or the original goals.
+\STATE Compute backbone Bellman targets \(y_i\).
+\FOR{each sample \(i\)}
+    \STATE Construct local context \(c_i=C(o_i,g_i^{tr},h_i)\).
+    \STATE Retrieve local replay pool \(\mathcal L_i\).
+    \STATE Compute current policy action \(a_i^\pi=\pi_\theta(o_i,g_i^{tr})\).
+    \STATE Set \(\psi_i=1\) if \(a_i^\pi\) is locally supported; otherwise \(\psi_i=0\).
+    \STATE Set \(w_i^{raw}=1+\lambda_S\psi_i\).
+\ENDFOR
+\STATE Normalize weights within the batch to obtain \(\Omega_i\).
+\STATE Update the critic with weighted Bellman regression.
+\STATE Update the actor using the unchanged baseline actor objective.
+\end{algorithmic}
+\end{algorithm}
+
+\section{Theoretical Interpretation}
+
+SABER can be interpreted as reliability-weighted Bellman regression. Suppose the observed Bellman target can be decomposed as
+\begin{equation}
+y_i = y_i^\star + \epsilon_i,
+\end{equation}
+where \(y_i^\star\) is the ideal target and \(\epsilon_i\) is target or approximation noise induced by off-policy bootstrapping, function approximation, and support mismatch. SABER assumes that support-positive samples tend to have lower effective fitting risk than support-negative samples:
+\begin{equation}
+\operatorname{Var}(\epsilon_i \mid \psi_i=1)
+<
+\operatorname{Var}(\epsilon_i \mid \psi_i=0).
+\end{equation}
+
+This is not a theorem in the current paper. It is an interpretation and empirical hypothesis. Under this view, SABER does not claim that unsupported samples are useless. It only assigns stronger critic fitting weight to samples whose current policy action is locally supported by replay actions.
+
+This interpretation also explains why critic-only is the cleanest main variant. If support weights are applied to the actor loss, the method may change which state-goal regions the actor is encouraged to exploit, making it harder to separate critic reliability from actor distribution bias. Critic-only SABER isolates the mechanism: support affects Bellman regression, not direct policy optimization.
+
+\section{Experiments}
+
+\subsection{Research Questions}
+
+본 실험은 다음 질문에 답하기 위해 설계한다.
+\begin{itemize}
+    \item RQ1. SABER는 sparse-reward HER manipulation에서 baseline HER보다 sample efficiency와 final success를 개선하는가?
+    \item RQ2. SABER는 DDPG, TD3, SAC와 같은 여러 off-policy actor-critic backbone에 호환되는가?
+    \item RQ3. SABER의 이득은 TD-error/PER-style weighting으로 설명될 수 있는가?
+    \item RQ4. Critic-only weighting이 actor-only 또는 actor+critic weighting보다 더 깨끗한 mechanism을 제공하는가?
+    \item RQ5. SABER의 한계는 무엇이며, runtime overhead와 task/backbone-dependent failure는 어떻게 나타나는가?
+\end{itemize}
+
+\subsection{Tasks and Metrics}
+
+주요 benchmark는 sparse-reward goal-conditioned manipulation tasks다. FetchPickAndPlace는 primary evidence로 사용하고, FetchSlide는 secondary evidence로 사용한다. FetchPush는 complete rows만 appendix 또는 보조 evidence로 제한한다. MetaWorld DrawerOpen은 external stress-test와 actor/random/shuffled ablation 분석에 사용한다~\citep{yu2020metaworld}.
+
+주요 metric은 final success, best success, success AUC, first hit threshold, runtime steps/sec, drop best-final이다. Sample efficiency와 wall-clock efficiency는 분리해서 해석한다. SABER는 support lookup 때문에 runtime overhead가 있으므로, success AUC가 개선되더라도 wall-clock 기준으로 항상 유리하다고 주장하지 않는다.
+
+\subsection{Main Result: FetchPickAndPlace}
+
+FetchPickAndPlace는 현재 가장 강한 main evidence다. 모든 결과는 1M environment steps, seeds 1--5 기준이다.
+
+\begin{table*}[t]
+\centering
+\caption{FetchPickAndPlace main results at 1M environment steps.}
+\label{tab:fpp-main}
+\begin{tabular}{llccccc}
+\toprule
+Backbone & Method & Final Success & Best Success & Success AUC & First Hit \(\geq 0.90\) & Steps/sec \\
+\midrule
+DDPG & HER & \(0.940 \pm 0.042\) & \(1.000 \pm 0.000\) & \(0.539 \pm 0.125\) & 600k & \(65.03 \pm 0.10\) \\
+DDPG & HER+SABER & \(0.960 \pm 0.042\) & \(1.000 \pm 0.000\) & \(0.609 \pm 0.038\) & 540k & \(41.72 \pm 0.20\) \\
+TD3 & HER & \(0.840 \pm 0.188\) & \(0.880 \pm 0.144\) & \(0.372 \pm 0.032\) & 980k & \(65.33 \pm 0.13\) \\
+TD3 & HER+SABER & \(0.970 \pm 0.045\) & \(0.990 \pm 0.022\) & \(0.442 \pm 0.035\) & 840k & \(41.25 \pm 0.59\) \\
+SAC & HER & \(0.790 \pm 0.288\) & \(0.910 \pm 0.124\) & \(0.463 \pm 0.077\) & 800k & \(38.93 \pm 0.07\) \\
+SAC & HER+SABER & \(0.990 \pm 0.022\) & \(1.000 \pm 0.000\) & \(0.565 \pm 0.030\) & 750k & \(29.10 \pm 0.12\) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+FPP에서는 SABER가 세 backbone 모두에서 final success와 success AUC를 개선한다. DDPG에서는 final success가 0.940에서 0.960으로 소폭 상승하고 AUC가 0.539에서 0.609로 오른다. TD3에서는 final success가 0.840에서 0.970으로, AUC가 0.372에서 0.442로 개선된다. SAC에서는 final success가 0.790에서 0.990으로, AUC가 0.463에서 0.565로 개선된다.
+
+이 결과는 SABER가 하나의 특정 actor-critic implementation에만 붙는 trick이 아니라, 여러 off-policy actor-critic backbone에 호환되는 critic-side objective임을 보여준다. 다만 runtime은 감소한다. 따라서 FPP 결과는 sample efficiency 관점에서는 강하지만, wall-clock cost를 함께 보고해야 한다.
+
+\subsection{Comparison with PER-Style Weighting}
+
+\begin{table}[t]
+\centering
+\caption{FPP DDPG comparison with TD-error/PER baselines.}
+\label{tab:fpp-per}
+\begin{tabular}{lccc}
+\toprule
+Method & Final & AUC & Steps/sec \\
+\midrule
+DDPG+HER & \(0.940 \pm 0.042\) & \(0.539 \pm 0.125\) & \(65.03 \pm 0.10\) \\
+DDPG+HER+SABER & \(0.960 \pm 0.042\) & \(0.609 \pm 0.038\) & \(41.72 \pm 0.20\) \\
+DDPG+HER+PER-style & \(0.930 \pm 0.104\) & \(0.568 \pm 0.069\) & \(61.08 \pm 0.09\) \\
+DDPG+HER+PER-full & \(0.780 \pm 0.438\) & \(0.460 \pm 0.238\) & \(58.02 \pm 0.14\) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+PER-style weighting은 AUC에서 HER보다 높지만 SABER보다 낮고, final success는 HER보다도 낮다. Full PER는 한 seed collapse 때문에 평균 final success가 크게 낮아진다. 이 결과는 SABER의 이득이 단순히 TD-error 기반 weighting이나 prioritized replay로 설명되기 어렵다는 근거가 된다.
+
+다만 이 주장을 더 강하게 만들려면 support-positive sample과 high TD-error sample의 overlap/correlation 분석이 필요하다. 최종본에서는 \(\operatorname{corr}(\psi_i,|\delta_i|)\), top-\(k\) overlap, support bin별 update 전후 TD-error 감소량을 추가하는 것이 좋다.
+
+\subsection{Secondary Result: FetchSlide}
+
+FetchSlide는 SABER의 장점과 한계를 동시에 보여주는 중요한 secondary result다. 모든 결과는 1M steps, seeds 1--5 기준이다.
+
+\begin{table*}[t]
+\centering
+\caption{FetchSlide agent-family results at 1M environment steps.}
+\label{tab:fetchslide-main}
+\begin{tabular}{llccccc}
+\toprule
+Backbone & Method & Final Success & Best Success & Success AUC & Last-Quarter AUC & Steps/sec \\
+\midrule
+DDPG & HER & \(0.600 \pm 0.138\) & \(0.740 \pm 0.037\) & \(0.313 \pm 0.012\) & \(0.519 \pm 0.023\) & \(119.08 \pm 0.13\) \\
+DDPG & HER+SABER & \(0.520 \pm 0.093\) & \(0.740 \pm 0.097\) & \(0.313 \pm 0.030\) & \(0.476 \pm 0.060\) & \(26.85 \pm 0.29\) \\
+TD3 & HER & \(0.630 \pm 0.163\) & \(0.770 \pm 0.112\) & \(0.281 \pm 0.059\) & \(0.594 \pm 0.108\) & \(111.43 \pm 0.29\) \\
+TD3 & SABER & \(0.690 \pm 0.073\) & \(0.830 \pm 0.068\) & \(0.323 \pm 0.039\) & \(0.627 \pm 0.064\) & \(36.43 \pm 0.26\) \\
+SAC & HER & \(0.820 \pm 0.103\) & \(0.950 \pm 0.045\) & \(0.500 \pm 0.027\) & \(0.775 \pm 0.044\) & \(66.78 \pm 0.06\) \\
+SAC & SABER & \(0.840 \pm 0.073\) & \(0.950 \pm 0.032\) & \(0.535 \pm 0.020\) & \(0.806 \pm 0.023\) & \(30.57 \pm 0.17\) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+FetchSlide에서 TD3+SABER는 TD3+HER보다 final success, best success, success AUC, last-quarter AUC를 모두 개선한다. SAC+SABER도 SAC+HER보다 final success와 AUC가 소폭 개선된다. 그러나 DDPG+SABER는 DDPG+HER보다 final success와 last-quarter AUC가 낮고, success AUC는 거의 같다.
+
+이 결과는 SABER가 모든 task/backbone 조합에서 항상 개선된다는 주장을 피해야 함을 보여준다. 더 정확한 해석은 다음이다: SABER is compatible with multiple off-policy actor-critic backbones and shows consistent gains on FetchPickAndPlace, while FetchSlide reveals task/backbone-dependent limitations.
+
+\subsection{External Stress-Test: MetaWorld DrawerOpen}
+
+MetaWorld DrawerOpen은 Fetch tasks와 다른 dynamics와 success structure를 가진 stress-test로 사용한다. 여기서는 TD3+HER와 TD3+HER+SABER를 2M steps, seeds 1--5로 비교한다.
+
+\begin{table}[t]
+\centering
+\caption{MetaWorld DrawerOpen TD3 stress-test at 2M steps.}
+\label{tab:drawer-main}
+\begin{tabular}{lcccc}
+\toprule
+Method & Final & Best & AUC & Hit90 \\
+\midrule
+TD3+HER & \(0.190 \pm 0.425\) & \(0.210 \pm 0.442\) & \(0.127 \pm 0.283\) & 1/5 \\
+TD3+HER+SABER & \(0.590 \pm 0.539\) & \(0.620 \pm 0.522\) & \(0.362 \pm 0.338\) & 3/5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+DrawerOpen에서 SABER는 TD3+HER보다 final success, best success, AUC, Hit90 seed count를 개선한다. 그러나 variance가 매우 크다. 따라서 DrawerOpen은 main proof라기보다 외부 stress-test로 해석해야 한다.
+
+\subsection{Actor-Scope and Random Controls}
+
+\begin{table*}[t]
+\centering
+\caption{DrawerOpen actor-scope and random-control results at 2M steps.}
+\label{tab:drawer-controls}
+\begin{tabular}{lcccc}
+\toprule
+Method & Final Success & Best Success & Success AUC & Hit90 \\
+\midrule
+B3-Critic-Only & \(0.590 \pm 0.539\) & \(0.620 \pm 0.522\) & \(0.361 \pm 0.338\) & 3/5 \\
+B3-Actor-Only & \(0.400 \pm 0.548\) & \(0.410 \pm 0.539\) & \(0.249 \pm 0.341\) & 2/5 \\
+B3-Actor+Critic & \(0.600 \pm 0.548\) & \(0.610 \pm 0.534\) & \(0.432 \pm 0.395\) & 3/5 \\
+B3-Random-Support & \(0.600 \pm 0.548\) & \(0.600 \pm 0.548\) & \(0.426 \pm 0.392\) & 3/5 \\
+B3-Random-Fixed-Count & \(0.200 \pm 0.447\) & \(0.200 \pm 0.447\) & \(0.144 \pm 0.322\) & 1/5 \\
+B3-Shuffled-Weight & \(0.000 \pm 0.000\) & \(0.010 \pm 0.022\) & \(0.00005 \pm 0.00011\) & 0/5 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Actor+Critic은 aggregate AUC에서 critic-only보다 높지만, high variance 아래에서 clean dominance를 보이지 않는다. Actor-only는 더 약하다. Critic-only는 actor update를 바꾸지 않기 때문에, 논문의 main mechanism인 Bellman fitting reliability를 가장 깨끗하게 보여준다.
+
+Random-Support가 Critic-Only와 비슷하거나 더 높은 AUC를 보였다는 점은 exact structured support rule만이 유일한 원인이라는 강한 claim을 약화시킨다. 반면 Shuffled-Weight가 모든 seed에서 실패했다는 점은 sample-weight alignment가 중요할 수 있음을 보여준다. 따라서 DrawerOpen 결과는 숨기지 말고 limitation/discussion에 넣어야 한다.
+
+\section{Discussion}
+
+\subsection{What SABER Is}
+
+SABER는 HER의 대체물이 아니다. HER는 sparse reward에서 학습 가능한 goal-conditioned targets를 만든다. SABER는 HER가 만든 target 중 어떤 Bellman error를 critic이 더 강하게 fitting할지 정한다.
+
+SABER는 PER의 변형도 아니다. PER는 TD-error priority를 기반으로 sampling distribution을 바꾼다. SABER는 sampling distribution을 유지하고, TD-error magnitude가 아니라 local replay-action support를 기준으로 critic loss weight를 조정한다.
+
+SABER는 full MetaCog-RL 구현도 아니다. SABER는 MetaCog-RL의 PRACTICE/incompetence idea를 sparse HER actor-critic에 맞게 축소한 critic-side instantiation이다.
+
+\subsection{Why Critic-Only}
+
+Critic-only design은 논문적으로 중요하다. Actor loss까지 support weight를 적용하면, support signal이 critic fitting reliability를 반영하는지 actor objective shaping을 반영하는지 분리하기 어렵다. Critic-only SABER는 actor objective와 replay sampling을 baseline과 동일하게 유지하므로, support signal의 역할을 Bellman regression reliability로 해석하기 쉽다.
+
+\subsection{Runtime Cost}
+
+SABER는 local support lookup 때문에 runtime overhead가 있다. FPP에서는 performance gain과 함께 moderate slowdown이 나타났고, FetchSlide에서는 slowdown이 훨씬 크다. 따라서 SABER를 항상 더 efficient하다고 주장하면 안 된다.
+
+정확한 claim은 다음이다.
+\begin{quote}
+SABER can improve sample efficiency, but its current local support implementation is not always wall-clock efficient.
+\end{quote}
+
+\subsection{Limitations}
+
+본 논문의 주요 limitation은 다음이다. 첫째, SABER는 모든 task/backbone에서 개선되지 않는다. FetchSlide DDPG에서는 HER baseline보다 낮은 final success와 late success를 보였다. 둘째, support predicate는 task-specific context design에 의존한다. 셋째, runtime overhead가 크다. 넷째, DrawerOpen Random-Support 결과는 structured support claim을 약화시킨다. 다섯째, support와 TD-error의 독립성 분석이 아직 필요하다.
+
+\section{Conclusion}
+
+본 논문은 sparse-reward goal-conditioned HER setting에서 relabeled Bellman target의 quantity와 reliability가 다르다는 문제를 제기했다. HER는 실패 경험을 relabel하여 학습 가능한 targets를 늘리지만, 모든 relabeled Bellman update가 현재 policy action 근방에서 equally reliable한 것은 아니다.
+
+우리는 이 문제를 해결하기 위해 SABER, Support-Aware Bellman Error Reweighting을 제안했다. SABER는 local state-goal-horizon context에서 current policy action이 replay-action support를 갖는지를 확인하고, support-positive sample의 critic Bellman error를 더 강하게 fitting한다. Main variant는 critic-only이며, actor objective와 replay sampling distribution은 baseline과 동일하게 유지한다.
+
+FetchPickAndPlace에서 SABER는 DDPG, TD3, SAC 모두에서 HER baseline보다 높은 final success와 success AUC를 달성했다. FetchSlide에서는 TD3와 SAC에서 개선을 보였지만 DDPG에서는 실패하여 task/backbone-dependent limitation을 드러냈다. DrawerOpen은 SABER가 harder external setting에서도 유용할 수 있음을 보였지만, Random-Support와 Shuffled-Weight controls는 support-aware weighting의 mechanism을 더 정교하게 분석해야 함을 보여준다.
+
+결론적으로 SABER는 새로운 general-purpose RL algorithm이 아니라, HER 기반 off-policy actor-critic에서 critic이 어떤 Bellman supervision을 더 신뢰해야 하는지를 다루는 간단한 support-aware objective다. 이 좁은 claim이 SABER의 강점이다.
+
+\bibliography{saber_refs}
+
+\end{document}
