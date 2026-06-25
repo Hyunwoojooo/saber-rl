@@ -72,6 +72,21 @@ Completed on 2026-06-24 KST with the same 5 seeds, 2M steps per seed, sparse Dra
 
 DDPG+HER+B3-Critic-Only solved all 5 seeds and reached 90% success between 400k and 580k steps, substantially improving both seed reliability and AUC over DDPG+HER B0.
 
+### DDPG-HER-B3-Random-Fixed-Count-2M
+
+Completed on 2026-06-24 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and fixed-count random critic reweighting. This control uses `random_fixed_count_k=122`, applies critic-only batch-normalized weights, and does not use SABER support lookup for selecting weighted samples.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 0.00 | 0.00 | 0.000 | - |
+| 2 | 1.00 | 1.00 | 0.818 | 370k |
+| 3 | 1.00 | 1.00 | 0.689 | 610k |
+| 4 | 1.00 | 1.00 | 0.839 | 280k |
+| 5 | 1.00 | 1.00 | 0.760 | 430k |
+| Mean | 0.80 | 0.80 | 0.621 | 423k* |
+
+`*` The mean first-hit value is computed over the four successful seeds. Random-Fixed-Count improved over DDPG+HER B0, but remained below SABER/B3-Critic-Only in seed reliability and AUC.
+
 ## Actor-Scope Ablation Settings
 
 `DDPG-HER-B3-Actor-Only-2M.sh` and `DDPG-HER-B3-Actor-Critic-2M.sh` match the TD3 actor-scope ablations:
