@@ -42,6 +42,16 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 
 ## Results
 
+### Completed Result Summary
+
+| Experiment | Reweighting Signal | Scope | Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| DDPG-HER-B0-2M | None | - | 2/5 | 0.39 | 0.40 | 0.207 | 960k* | 41.05 steps/s |
+| DDPG-HER-B3-Critic-Only-2M | SABER support | Critic only | 5/5 | 1.00 | 1.00 | 0.754 | 482k | 23.33 steps/s |
+| DDPG-HER-B3-Random-Fixed-Count-2M | Fixed-count random | Critic only | 4/5 | 0.80 | 0.80 | 0.621 | 423k* | 41.00 steps/s |
+
+`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only is the only completed DDPG DrawerOpen variant that solved all 5 seeds and has the highest AUC, while Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-aligned SABER weighting.
+
 ### DDPG-HER-B0-2M
 
 Completed on 2026-06-23 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and 20 evaluation episodes every 10k steps.
