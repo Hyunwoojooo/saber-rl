@@ -1,0 +1,142 @@
+method_id,task,backbone,method,metric,n,mean,ci_low,ci_high,ci,bootstrap_iterations
+drawer_ddpg_her_2m,DrawerOpen,DDPG,HER,final_success,5,0.39,0.0,0.79,0.95,10000
+drawer_ddpg_her_2m,DrawerOpen,DDPG,HER,best_success,5,0.4,0.0,0.8,0.95,10000
+drawer_ddpg_her_2m,DrawerOpen,DDPG,HER,success_auc,5,0.20731155778894472,0.0,0.43781407035175884,0.95,10000
+drawer_ddpg_her_2m,DrawerOpen,DDPG,HER,steps_per_sec,5,41.05181093154964,40.77229731697614,41.2894890389842,0.95,10000
+drawer_ddpg_her_2m,DrawerOpen,DDPG,HER,runtime_total_sec,5,48721.41701919539,48439.770544221814,49053.63859499265,0.95,10000
+drawer_ddpg_random_fixed_count_2m,DrawerOpen,DDPG,Random-fixed-count,final_success,5,0.8,0.4,1.0,0.95,10000
+drawer_ddpg_random_fixed_count_2m,DrawerOpen,DDPG,Random-fixed-count,best_success,5,0.8,0.4,1.0,0.95,10000
+drawer_ddpg_random_fixed_count_2m,DrawerOpen,DDPG,Random-fixed-count,success_auc,5,0.6210552763819095,0.30135678391959797,0.8144723618090451,0.95,10000
+drawer_ddpg_random_fixed_count_2m,DrawerOpen,DDPG,Random-fixed-count,steps_per_sec,5,41.000547520932024,40.71165120934922,41.2816768531344,0.95,10000
+drawer_ddpg_random_fixed_count_2m,DrawerOpen,DDPG,Random-fixed-count,runtime_total_sec,5,48783.01229747785,48448.14089714307,49117.883697812635,0.95,10000
+drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,final_success,5,1.0,1.0,1.0,0.95,10000
+drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,best_success,5,1.0,1.0,1.0,0.95,10000
+drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,success_auc,5,0.7536683417085427,0.7203015075376884,0.788643216080402,0.95,10000
+drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,steps_per_sec,5,23.3329625243684,22.51430554349162,24.040455335873986,0.95,10000
+drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,runtime_total_sec,5,85836.20635696928,83195.01420817999,88933.01921343702,0.95,10000
+drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,final_success,5,0.6,0.2,1.0,0.95,10000
+drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,best_success,5,0.61,0.20999999999999996,1.0,0.95,10000
+drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,success_auc,5,0.43155778894472363,0.13819095477386936,0.7249246231155779,0.95,10000
+drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,steps_per_sec,5,21.75348101667954,20.243026744327782,23.33810373454402,0.95,10000
+drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,runtime_total_sec,5,92549.7723339858,86123.2025652444,98691.58657188938,0.95,10000
+drawer_td3_actor_only_2m,DrawerOpen,TD3,Actor-only weighting,final_success,5,0.4,0.0,0.8,0.95,10000
+drawer_td3_actor_only_2m,DrawerOpen,TD3,Actor-only weighting,best_success,5,0.41,0.01,0.81,0.95,10000
+drawer_td3_actor_only_2m,DrawerOpen,TD3,Actor-only weighting,success_auc,5,0.24909547738693466,0.00010050251256281409,0.5038693467336683,0.95,10000
+drawer_td3_actor_only_2m,DrawerOpen,TD3,Actor-only weighting,steps_per_sec,5,21.483652428615425,20.27016944456658,22.93661478431713,0.95,10000
+drawer_td3_actor_only_2m,DrawerOpen,TD3,Actor-only weighting,runtime_total_sec,5,93535.09680355061,87612.55203346121,98681.15994369164,0.95,10000
+drawer_td3_her_2m,DrawerOpen,TD3,HER,final_success,5,0.19,0.0,0.57,0.95,10000
+drawer_td3_her_2m,DrawerOpen,TD3,HER,best_success,5,0.21,0.0,0.61,0.95,10000
+drawer_td3_her_2m,DrawerOpen,TD3,HER,success_auc,5,0.12650753768844222,0.0,0.3794221105527638,0.95,10000
+drawer_td3_her_2m,DrawerOpen,TD3,HER,steps_per_sec,5,41.547330485479264,41.12878862819564,42.11731866241,0.95,10000
+drawer_td3_her_2m,DrawerOpen,TD3,HER,runtime_total_sec,5,48147.02013591644,47497.447723223086,48627.85919601303,0.95,10000
+drawer_td3_random_fixed_count_2m,DrawerOpen,TD3,Random-fixed-count,final_success,5,0.2,0.0,0.6,0.95,10000
+drawer_td3_random_fixed_count_2m,DrawerOpen,TD3,Random-fixed-count,best_success,5,0.2,0.0,0.6,0.95,10000
+drawer_td3_random_fixed_count_2m,DrawerOpen,TD3,Random-fixed-count,success_auc,5,0.14386934673366833,0.0,0.431608040201005,0.95,10000
+drawer_td3_random_fixed_count_2m,DrawerOpen,TD3,Random-fixed-count,steps_per_sec,5,41.5973901329018,41.15860589933501,42.12858556841876,0.95,10000
+drawer_td3_random_fixed_count_2m,DrawerOpen,TD3,Random-fixed-count,runtime_total_sec,5,48088.15647277799,47480.41472309995,48593.54374998617,0.95,10000
+drawer_td3_random_support_2m,DrawerOpen,TD3,Random-support,final_success,5,0.6,0.2,1.0,0.95,10000
+drawer_td3_random_support_2m,DrawerOpen,TD3,Random-support,best_success,5,0.6,0.2,1.0,0.95,10000
+drawer_td3_random_support_2m,DrawerOpen,TD3,Random-support,success_auc,5,0.42643216080402013,0.12743718592964823,0.725427135678392,0.95,10000
+drawer_td3_random_support_2m,DrawerOpen,TD3,Random-support,steps_per_sec,5,20.837679793859603,20.168901957729002,21.608363507141863,0.95,10000
+drawer_td3_random_support_2m,DrawerOpen,TD3,Random-support,runtime_total_sec,5,96129.10178321335,92364.27100765528,99231.84435221678,0.95,10000
+drawer_td3_saber_2m,DrawerOpen,TD3,HER+SABER,final_success,5,0.59,0.19,0.99,0.95,10000
+drawer_td3_saber_2m,DrawerOpen,TD3,HER+SABER,best_success,5,0.62,0.22,1.0,0.95,10000
+drawer_td3_saber_2m,DrawerOpen,TD3,HER+SABER,success_auc,5,0.3618341708542714,0.09751256281407035,0.6261557788944724,0.95,10000
+drawer_td3_saber_2m,DrawerOpen,TD3,HER+SABER,steps_per_sec,5,21.569593914336327,20.39410854297573,22.81179178651346,0.95,10000
+drawer_td3_saber_2m,DrawerOpen,TD3,HER+SABER,runtime_total_sec,5,93097.01421876559,87930.23389063361,98113.18444364503,0.95,10000
+drawer_td3_shuffled_weight_2m,DrawerOpen,TD3,Shuffled-weight,final_success,5,0.0,0.0,0.0,0.95,10000
+drawer_td3_shuffled_weight_2m,DrawerOpen,TD3,Shuffled-weight,best_success,5,0.01,0.0,0.030000000000000002,0.95,10000
+drawer_td3_shuffled_weight_2m,DrawerOpen,TD3,Shuffled-weight,success_auc,5,5.025125628140704e-05,0.0,0.00015075376884422112,0.95,10000
+drawer_td3_shuffled_weight_2m,DrawerOpen,TD3,Shuffled-weight,steps_per_sec,5,20.033909265067358,19.44785194579205,20.481412790250968,0.95,10000
+drawer_td3_shuffled_weight_2m,DrawerOpen,TD3,Shuffled-weight,runtime_total_sec,5,99915.8491305185,97638.3842248227,102906.65028625498,0.95,10000
+fetchslide_ddpg_her,FetchSlide,DDPG,HER,final_success,5,0.6299999952316284,0.55,0.7099999904632568,0.95,10000
+fetchslide_ddpg_her,FetchSlide,DDPG,HER,best_success,5,0.7199999928474426,0.6799999833106994,0.7700000047683716,0.95,10000
+fetchslide_ddpg_her,FetchSlide,DDPG,HER,success_auc,5,0.32435897637445193,0.30935897693420067,0.34384615548337116,0.95,10000
+fetchslide_ddpg_her,FetchSlide,DDPG,HER,last_quarter_auc,5,0.5364999994635582,0.4984999987483025,0.5880000001192093,0.95,10000
+fetchslide_ddpg_her,FetchSlide,DDPG,HER,steps_per_sec,5,65.12884380800688,65.0250266571184,65.25220404423207,0.95,10000
+fetchslide_ddpg_her,FetchSlide,DDPG,HER,runtime_total_sec,5,15354.240197552019,15325.21069752262,15378.694939579396,0.95,10000
+fetchslide_ddpg_saber,FetchSlide,DDPG,HER+SABER,final_success,5,0.5899999976158142,0.5,0.6799999952316285,0.95,10000
+fetchslide_ddpg_saber,FetchSlide,DDPG,HER+SABER,best_success,5,0.7299999952316284,0.699999988079071,0.7700000047683716,0.95,10000
+fetchslide_ddpg_saber,FetchSlide,DDPG,HER+SABER,success_auc,5,0.3010256428653613,0.2797435924792901,0.3238461547650588,0.95,10000
+fetchslide_ddpg_saber,FetchSlide,DDPG,HER+SABER,last_quarter_auc,5,0.46349999979138373,0.42649999737739563,0.5005000013113021,0.95,10000
+fetchslide_ddpg_saber,FetchSlide,DDPG,HER+SABER,steps_per_sec,5,22.90088239692612,22.74053336782628,23.057693098717827,0.95,10000
+fetchslide_ddpg_saber,FetchSlide,DDPG,HER+SABER,runtime_total_sec,5,43669.1003458022,43371.356547285606,43978.32735989321,0.95,10000
+fetchslide_sac_her,FetchSlide,SAC,HER,final_success,5,0.8199999809265137,0.7199999809265136,0.8999999761581421,0.95,10000
+fetchslide_sac_her,FetchSlide,SAC,HER,best_success,5,0.949999988079071,0.9099999785423278,0.9899999976158143,0.95,10000
+fetchslide_sac_her,FetchSlide,SAC,HER,success_auc,5,0.5002564113682662,0.47910256408728086,0.5270512837247971,0.95,10000
+fetchslide_sac_her,FetchSlide,SAC,HER,last_quarter_auc,5,0.7754999977350235,0.7349999994039536,0.8109999990463257,0.95,10000
+fetchslide_sac_her,FetchSlide,SAC,HER,steps_per_sec,5,66.7847606551088,66.72895557815569,66.8405657320619,0.95,10000
+fetchslide_sac_her,FetchSlide,SAC,HER,runtime_total_sec,5,14973.489401842002,14960.97598321177,14986.002820472233,0.95,10000
+fetchslide_sac_saber,FetchSlide,SAC,HER+SABER,final_success,5,0.8399999976158142,0.7699999928474426,0.8899999856948853,0.95,10000
+fetchslide_sac_saber,FetchSlide,SAC,HER+SABER,best_success,5,0.949999988079071,0.9199999809265137,0.9799999952316284,0.95,10000
+fetchslide_sac_saber,FetchSlide,SAC,HER+SABER,success_auc,5,0.5353846170963386,0.51987179527298,0.5538461549350848,0.95,10000
+fetchslide_sac_saber,FetchSlide,SAC,HER+SABER,last_quarter_auc,5,0.8060000002384186,0.783499999642372,0.8215000009536743,0.95,10000
+fetchslide_sac_saber,FetchSlide,SAC,HER+SABER,steps_per_sec,5,30.57287081763527,30.444734165754006,30.738208308459388,0.95,10000
+fetchslide_sac_saber,FetchSlide,SAC,HER+SABER,runtime_total_sec,5,32709.701071317006,32546.000621870997,32846.4672871802,0.95,10000
+fetchslide_td3_her,FetchSlide,TD3,HER,final_success,5,0.6300000011920929,0.4899999976158142,0.7700000047683716,0.95,10000
+fetchslide_td3_her,FetchSlide,TD3,HER,best_success,5,0.7700000166893005,0.6600000143051148,0.8400000214576722,0.95,10000
+fetchslide_td3_her,FetchSlide,TD3,HER,success_auc,5,0.28141025774754014,0.22615384828203766,0.3291025644502579,0.95,10000
+fetchslide_td3_her,FetchSlide,TD3,HER,last_quarter_auc,5,0.5940000014007092,0.4925000025331974,0.6825,0.95,10000
+fetchslide_td3_her,FetchSlide,TD3,HER,steps_per_sec,5,111.43250396255499,111.19439149991584,111.69652894139438,0.95,10000
+fetchslide_td3_her,FetchSlide,TD3,HER,runtime_total_sec,5,8974.101302672341,8952.879329207539,8993.260612438131,0.95,10000
+fetchslide_td3_saber,FetchSlide,TD3,HER+SABER,final_success,5,0.7299999952316284,0.5899999856948852,0.8399999976158142,0.95,10000
+fetchslide_td3_saber,FetchSlide,TD3,HER+SABER,best_success,5,0.8799999952316284,0.8300000190734863,0.9199999928474426,0.95,10000
+fetchslide_td3_saber,FetchSlide,TD3,HER+SABER,success_auc,5,0.33730769359912627,0.3283333338510532,0.3462820533471994,0.95,10000
+fetchslide_td3_saber,FetchSlide,TD3,HER+SABER,last_quarter_auc,5,0.6770000007748604,0.638000003695488,0.718999996483326,0.95,10000
+fetchslide_td3_saber,FetchSlide,TD3,HER+SABER,steps_per_sec,5,40.242655309709974,40.095195522400026,40.39118830077949,0.95,10000
+fetchslide_td3_saber,FetchSlide,TD3,HER+SABER,runtime_total_sec,5,24849.75108761501,24758.19780089159,24953.098248207458,0.95,10000
+fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,final_success,5,0.94,0.9100000000000001,0.97,0.95,10000
+fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,best_success,5,1.0,1.0,1.0,0.95,10000
+fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,success_auc,5,0.5387878787878788,0.42666666666666664,0.6167676767676767,0.95,10000
+fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,steps_per_sec,5,65.0231940108951,64.94724046903058,65.0991475527596,0.95,10000
+fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,runtime_total_sec,5,15379.154725057602,15361.188876909402,15397.120573205804,0.95,10000
+fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,final_success,5,0.78,0.38,1.0,0.95,10000
+fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,best_success,5,0.84,0.52,1.0,0.95,10000
+fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,success_auc,5,0.4603030303030303,0.24722222222222223,0.6037373737373738,0.95,10000
+fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,steps_per_sec,5,58.0162207576618,57.913972952905866,58.13143962520854,0.95,10000
+fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,runtime_total_sec,5,17236.640068259418,17202.45802064403,17268.27709053862,0.95,10000
+fpp_ddpg_per_style,FetchPickAndPlace,DDPG,HER+PER-style,final_success,5,0.9299999999999999,0.8399999999999999,0.99,0.95,10000
+fpp_ddpg_per_style,FetchPickAndPlace,DDPG,HER+PER-style,best_success,5,0.99,0.97,1.0,0.95,10000
+fpp_ddpg_per_style,FetchPickAndPlace,DDPG,HER+PER-style,success_auc,5,0.5683838383838384,0.5109090909090909,0.6155050505050506,0.95,10000
+fpp_ddpg_per_style,FetchPickAndPlace,DDPG,HER+PER-style,steps_per_sec,5,61.06972379862464,61.014756474904466,61.1530741196569,0.95,10000
+fpp_ddpg_per_style,FetchPickAndPlace,DDPG,HER+PER-style,runtime_total_sec,5,16374.755091299769,16352.274714457151,16389.47786884296,0.95,10000
+fpp_ddpg_random_fixed_count_k94,FetchPickAndPlace,DDPG,Random-fixed-count k94,final_success,5,0.96,0.9299999999999999,0.99,0.95,10000
+fpp_ddpg_random_fixed_count_k94,FetchPickAndPlace,DDPG,Random-fixed-count k94,best_success,5,1.0,1.0,1.0,0.95,10000
+fpp_ddpg_random_fixed_count_k94,FetchPickAndPlace,DDPG,Random-fixed-count k94,success_auc,5,0.5402020202020202,0.5264646464646464,0.5531313131313131,0.95,10000
+fpp_ddpg_random_fixed_count_k94,FetchPickAndPlace,DDPG,Random-fixed-count k94,steps_per_sec,5,64.51685890051462,64.4787482387338,64.55338858420473,0.95,10000
+fpp_ddpg_random_fixed_count_k94,FetchPickAndPlace,DDPG,Random-fixed-count k94,runtime_total_sec,5,15499.831484698505,15491.02678410057,15508.991049045046,0.95,10000
+fpp_ddpg_random_support,FetchPickAndPlace,DDPG,Random-support,final_success,5,0.95,0.9100000000000001,0.99,0.95,10000
+fpp_ddpg_random_support,FetchPickAndPlace,DDPG,Random-support,best_success,5,1.0,1.0,1.0,0.95,10000
+fpp_ddpg_random_support,FetchPickAndPlace,DDPG,Random-support,success_auc,5,0.6040909090909091,0.5915151515151515,0.6166666666666667,0.95,10000
+fpp_ddpg_random_support,FetchPickAndPlace,DDPG,Random-support,steps_per_sec,5,41.63462467984661,41.4532856416899,41.86113323253458,0.95,10000
+fpp_ddpg_random_support,FetchPickAndPlace,DDPG,Random-support,runtime_total_sec,5,24019.22642869968,23889.333064520917,24123.611826481858,0.95,10000
+fpp_ddpg_saber,FetchPickAndPlace,DDPG,HER+SABER,final_success,5,0.96,0.9299999999999999,0.99,0.95,10000
+fpp_ddpg_saber,FetchPickAndPlace,DDPG,HER+SABER,best_success,5,1.0,1.0,1.0,0.95,10000
+fpp_ddpg_saber,FetchPickAndPlace,DDPG,HER+SABER,success_auc,5,0.6090909090909091,0.58,0.6381818181818182,0.95,10000
+fpp_ddpg_saber,FetchPickAndPlace,DDPG,HER+SABER,steps_per_sec,5,41.7169975099453,41.572593944934766,41.87340829626556,0.95,10000
+fpp_ddpg_saber,FetchPickAndPlace,DDPG,HER+SABER,runtime_total_sec,5,23971.498528704396,23882.026262329193,24054.4067245082,0.95,10000
+fpp_ddpg_shuffled_weight,FetchPickAndPlace,DDPG,Shuffled-weight,final_success,5,0.96,0.92,1.0,0.95,10000
+fpp_ddpg_shuffled_weight,FetchPickAndPlace,DDPG,Shuffled-weight,best_success,5,1.0,1.0,1.0,0.95,10000
+fpp_ddpg_shuffled_weight,FetchPickAndPlace,DDPG,Shuffled-weight,success_auc,5,0.5789898989898989,0.5571212121212121,0.6095959595959596,0.95,10000
+fpp_ddpg_shuffled_weight,FetchPickAndPlace,DDPG,Shuffled-weight,steps_per_sec,5,41.58421850766707,41.51395311182245,41.67162924809038,0.95,10000
+fpp_ddpg_shuffled_weight,FetchPickAndPlace,DDPG,Shuffled-weight,runtime_total_sec,5,24047.692515859846,24003.17086783033,24088.297020087764,0.95,10000
+fpp_sac_her,FetchPickAndPlace,SAC,HER,final_success,5,0.79,0.5700000000000001,1.0,0.95,10000
+fpp_sac_her,FetchPickAndPlace,SAC,HER,best_success,5,0.91,0.81,1.0,0.95,10000
+fpp_sac_her,FetchPickAndPlace,SAC,HER,success_auc,5,0.46294871794871795,0.4024358974358974,0.5234615384615384,0.95,10000
+fpp_sac_her,FetchPickAndPlace,SAC,HER,steps_per_sec,5,38.92663684622851,38.867971331990425,38.9853023604666,0.95,10000
+fpp_sac_her,FetchPickAndPlace,SAC,HER,runtime_total_sec,5,25689.424688392017,25650.706102146207,25728.143274637823,0.95,10000
+fpp_sac_saber,FetchPickAndPlace,SAC,HER+SABER,final_success,5,0.99,0.97,1.0,0.95,10000
+fpp_sac_saber,FetchPickAndPlace,SAC,HER+SABER,best_success,5,1.0,1.0,1.0,0.95,10000
+fpp_sac_saber,FetchPickAndPlace,SAC,HER+SABER,success_auc,5,0.5653846153846154,0.5482051282051282,0.5932051282051283,0.95,10000
+fpp_sac_saber,FetchPickAndPlace,SAC,HER+SABER,steps_per_sec,5,29.094268376803466,29.007903661828276,29.198937432683426,0.95,10000
+fpp_sac_saber,FetchPickAndPlace,SAC,HER+SABER,runtime_total_sec,5,34371.53626919903,34254.72661407003,34479.30571910385,0.95,10000
+fpp_td3_her,FetchPickAndPlace,TD3,HER,final_success,5,0.84,0.67,0.97,0.95,10000
+fpp_td3_her,FetchPickAndPlace,TD3,HER,best_success,5,0.88,0.77,0.99,0.95,10000
+fpp_td3_her,FetchPickAndPlace,TD3,HER,success_auc,5,0.3716161616161616,0.3466666666666667,0.39656565656565657,0.95,10000
+fpp_td3_her,FetchPickAndPlace,TD3,HER,steps_per_sec,5,65.32113861352877,65.21953466315686,65.42274256390068,0.95,10000
+fpp_td3_her,FetchPickAndPlace,TD3,HER,runtime_total_sec,5,15309.02757056041,15285.212335327593,15332.842805793229,0.95,10000
+fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,final_success,5,0.97,0.93,1.0,0.95,10000
+fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,best_success,5,0.99,0.97,1.0,0.95,10000
+fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,success_auc,5,0.44237373737373736,0.4176262626262626,0.4724747474747475,0.95,10000
+fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,steps_per_sec,5,41.245340788114945,40.793388706788896,41.71900934919009,0.95,10000
+fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,runtime_total_sec,5,24249.14713494724,23973.471408027854,24514.092512910043,0.95,10000

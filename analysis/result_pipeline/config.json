@@ -1,0 +1,357 @@
+{
+  "bootstrap": {
+    "iterations": 10000,
+    "ci": 0.95,
+    "seed": 27027
+  },
+  "rows": [
+    {
+      "id": "fpp_ddpg_her",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "HER",
+      "plot_group": "fpp_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s*_1000000_ls1024/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_ddpg_saber",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "HER+SABER",
+      "plot_group": "fpp_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_td3_her",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "HER",
+      "plot_group": "fpp_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_td3_saber",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "HER+SABER",
+      "plot_group": "fpp_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_sac_her",
+      "task": "FetchPickAndPlace",
+      "backbone": "SAC",
+      "method": "HER",
+      "plot_group": "fpp_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_sac_saber",
+      "task": "FetchPickAndPlace",
+      "backbone": "SAC",
+      "method": "HER+SABER",
+      "plot_group": "fpp_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_ddpg_per_style",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "HER+PER-style",
+      "plot_group": "fpp_ddpg_per",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_ddpg_per_full",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "HER+PER-full",
+      "plot_group": "fpp_ddpg_per",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_ddpg_shuffled_weight",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "Shuffled-weight",
+      "plot_group": "fpp_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/b3_support_shuffled_critic_only_ls512/fetch_pick_and_place_b3_support_shuffled_critic_only_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_ddpg_random_support",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "Random-support",
+      "plot_group": "fpp_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/b3_support_random_critic_only_ls512/fetch_pick_and_place_b3_support_random_critic_only_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_ddpg_random_fixed_count_k94",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "Random-fixed-count k94",
+      "plot_group": "fpp_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/b3_random_fixed_count_k94_critic_only_ls512/fetch_pick_and_place_b3_random_fixed_count_k94_critic_only_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fetchslide_ddpg_her",
+      "task": "FetchSlide",
+      "backbone": "DDPG",
+      "method": "HER",
+      "plot_group": "fetchslide_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FetchSlide/experiment/FetchSlide/b0/fetch_slide_b0_s*_1000000_lsnone/summary.json"
+      ]
+    },
+    {
+      "id": "fetchslide_ddpg_saber",
+      "task": "FetchSlide",
+      "backbone": "DDPG",
+      "method": "HER+SABER",
+      "plot_group": "fetchslide_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FetchSlide/experiment/FetchSlideRuntimeOptV5Main/b3_critic_only_runtime_opt_v5/fetch_slide_b3_critic_only_runtime_opt_v5_s*_1000000_ls1024/summary.json"
+      ]
+    },
+    {
+      "id": "fetchslide_td3_her",
+      "task": "FetchSlide",
+      "backbone": "TD3",
+      "method": "HER",
+      "plot_group": "fetchslide_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FetchSlide/experiment/FetchSlide/td3/fetch_slide_td3_s*_1000000_lsnone/summary.json"
+      ]
+    },
+    {
+      "id": "fetchslide_td3_saber",
+      "task": "FetchSlide",
+      "backbone": "TD3",
+      "method": "HER+SABER",
+      "plot_group": "fetchslide_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FetchSlide/experiment/FetchSlide/td3_saber_critic_only_v4_ls512/fetch_slide_td3_saber_critic_only_v4_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fetchslide_sac_her",
+      "task": "FetchSlide",
+      "backbone": "SAC",
+      "method": "HER",
+      "plot_group": "fetchslide_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FetchSlide/experiment/FetchSlide/sac/fetch_slide_sac_s*_1000000_lsnone/summary.json"
+      ]
+    },
+    {
+      "id": "fetchslide_sac_saber",
+      "task": "FetchSlide",
+      "backbone": "SAC",
+      "method": "HER+SABER",
+      "plot_group": "fetchslide_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FetchSlide/experiment/FetchSlide/sac_saber/fetch_slide_sac_saber_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_ddpg_her_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "HER",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_ddpg_saber_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "HER+SABER",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_ddpg_random_fixed_count_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "Random-fixed-count",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Fixed-Count-2M/drawer_open_DDPG-HER-B3-Random-Fixed-Count-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_her_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "HER",
+      "plot_group": "drawer_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_saber_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "HER+SABER",
+      "plot_group": "drawer_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_open_TD3-HER-B3-Critic-Only-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_actor_only_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "Actor-only weighting",
+      "plot_group": "drawer_controls",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Actor-Only-2M/drawer_open_TD3-HER-B3-Actor-Only-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_actor_critic_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "Actor+critic weighting",
+      "plot_group": "drawer_controls",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Actor-Critic-2M/drawer_open_TD3-HER-B3-Actor-Critic-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_random_support_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "Random-support",
+      "plot_group": "drawer_controls",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Random-Support-2M/drawer_open_TD3-HER-B3-Random-Support-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_random_fixed_count_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "Random-fixed-count",
+      "plot_group": "drawer_controls",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Random-Fixed-Count-2M/drawer_open_TD3-HER-B3-Random-Fixed-Count-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_td3_shuffled_weight_2m",
+      "task": "DrawerOpen",
+      "backbone": "TD3",
+      "method": "Shuffled-weight",
+      "plot_group": "drawer_controls",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Shuffled-Weight-2M/drawer_open_TD3-HER-B3-Shuffled-Weight-2M_s*_2m_cuda/summary.json"
+      ]
+    }
+  ],
+  "pairs": [
+    {"id": "fpp_ddpg_saber_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_saber"},
+    {"id": "fpp_td3_saber_minus_her", "baseline": "fpp_td3_her", "treatment": "fpp_td3_saber"},
+    {"id": "fpp_sac_saber_minus_her", "baseline": "fpp_sac_her", "treatment": "fpp_sac_saber"},
+    {"id": "fpp_ddpg_saber_minus_per_style", "baseline": "fpp_ddpg_per_style", "treatment": "fpp_ddpg_saber"},
+    {"id": "fpp_ddpg_shuffled_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_shuffled_weight"},
+    {"id": "fpp_ddpg_saber_minus_shuffled", "baseline": "fpp_ddpg_shuffled_weight", "treatment": "fpp_ddpg_saber"},
+    {"id": "fpp_ddpg_shuffled_minus_per_style", "baseline": "fpp_ddpg_per_style", "treatment": "fpp_ddpg_shuffled_weight"},
+    {"id": "fpp_ddpg_random_support_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_random_support"},
+    {"id": "fpp_ddpg_saber_minus_random_support", "baseline": "fpp_ddpg_random_support", "treatment": "fpp_ddpg_saber"},
+    {"id": "fpp_ddpg_random_support_minus_shuffled", "baseline": "fpp_ddpg_shuffled_weight", "treatment": "fpp_ddpg_random_support"},
+    {"id": "fpp_ddpg_random_fixed_count_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_random_fixed_count_k94"},
+    {"id": "fpp_ddpg_saber_minus_random_fixed_count", "baseline": "fpp_ddpg_random_fixed_count_k94", "treatment": "fpp_ddpg_saber"},
+    {"id": "fpp_ddpg_random_support_minus_random_fixed_count", "baseline": "fpp_ddpg_random_fixed_count_k94", "treatment": "fpp_ddpg_random_support"},
+    {"id": "fetchslide_ddpg_saber_minus_her", "baseline": "fetchslide_ddpg_her", "treatment": "fetchslide_ddpg_saber"},
+    {"id": "fetchslide_td3_saber_minus_her", "baseline": "fetchslide_td3_her", "treatment": "fetchslide_td3_saber"},
+    {"id": "fetchslide_sac_saber_minus_her", "baseline": "fetchslide_sac_her", "treatment": "fetchslide_sac_saber"},
+    {"id": "drawer_ddpg_saber_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_ddpg_random_fixed_count_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_random_fixed_count_2m"},
+    {"id": "drawer_ddpg_saber_minus_random_fixed_count", "baseline": "drawer_ddpg_random_fixed_count_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_saber_minus_her", "baseline": "drawer_td3_her_2m", "treatment": "drawer_td3_saber_2m"},
+    {"id": "drawer_random_support_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_random_support_2m"},
+    {"id": "drawer_shuffled_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_shuffled_weight_2m"}
+  ]
+}

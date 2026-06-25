@@ -46,7 +46,7 @@ SABER의 technical definition을 재현 가능하고 논리적으로 닫힌 형�
 
 ## 2. Metric 및 Table 오류 정리
 
-상태: 2차 완료. `AAAI27_METRIC_DEFINITIONS_KR.md`를 만들고, `paper/saber_aaai27_draft_kr.tex`의 metric 정의, FPP Hit90 표기, FetchSlide method naming, DrawerOpen Hit90/AUC/method naming을 정리했다. 이후 success curve notation, final/best 수식, normalized trapezoidal AUC 식, last-quarter AUC denominator, Hit90 first-hit/unreached 처리, seeds 1--5 sample standard deviation, steps/sec 해석을 본문과 `AAAI27_REPRODUCIBILITY_APPENDIX_KR.md`에 반영했다.
+상태: 3차 완료. `AAAI27_METRIC_DEFINITIONS_KR.md`를 만들고, `paper/saber_aaai27_draft_kr.tex`의 metric 정의, FPP Hit90 표기, FetchSlide method naming, DrawerOpen Hit90/AUC/method naming을 정리했다. 이후 success curve notation, final/best 수식, normalized trapezoidal AUC 식, last-quarter AUC denominator, Hit90 first-hit/unreached 처리, seeds 1--5 sample standard deviation, steps/sec 해석을 본문과 `AAAI27_REPRODUCIBILITY_APPENDIX_KR.md`에 반영했다. Round 3 error check에서 지적된 FetchSlide Table과 result pipeline 불일치는 `analysis/result_pipeline/output/aggregate_metrics.csv`를 source-of-truth로 고정해 원고 Table과 해석 문장을 재생성했다.
 
 ### 목적
 
@@ -218,7 +218,7 @@ SABER가 PER/TD-error weighting의 변형이 아니라는 점과 support가 reli
 
 ## 6. Random-Support 문제 닫기
 
-상태: 실험 계획 및 실행 경로 검증 완료. `AAAI27_RANDOM_CONTROL_PLAN_KR.md`에 FPP DDPG Random-Support/Shuffled-Weight 1M seeds 1--5 계획을 정리했다. 현재 FPP random/shuffled artifact는 1k smoke 수준이라 main evidence로 사용할 수 없고, Random-Fixed-Count는 FPP trainer에 아직 없다. `experiment_FPP/shared/run_experiment.py`는 현재 checkout 안의 FPP trainer로 fallback하도록 수정했고 dry-run을 확인했다. 다만 기존 wrapper registry의 random/shuffled 기본 `local_search_max`는 1024이므로, main SABER row와 공정하게 비교하려면 문서의 direct trainer command처럼 `local_search_max=512`로 실행해야 한다.
+상태: FPP DDPG Shuffled-Weight, Random-Support, Random-Fixed-Count k94 1M seeds 1--5 결과를 모두 반영했다. `experiment_FPP/runs/b3_support_shuffled_critic_only_ls512/`, `experiment_FPP/runs/b3_support_random_critic_only_ls512/`, `experiment_FPP/runs/b3_random_fixed_count_k94_critic_only_ls512/` artifact를 result pipeline에 연결했고, `paper/saber_aaai27_draft_kr.tex`에는 FPP DDPG control table과 updated learning curve를 반영했다. Random-Fixed-Count는 AUC가 HER와 거의 같아 fixed-count random weighting만으로는 SABER의 early/mid gain을 설명하지 못한다. 반면 Random-Support는 SABER와 거의 같은 AUC를 보여 exact sample-level support alignment가 유일한 원인이라는 claim은 배제한다. 현재 claim은 "support-conditioned critic reweighting + generic reweighting regularization"으로 낮춘다.
 
 ### 목적
 
@@ -226,9 +226,9 @@ structured support가 아니라 random reweighting regularization 때문이라�
 
 ### 해야 할 일
 
-- FPP에서 Random-Support 결과가 이미 있는지 확인한다.
-- FPP에서 Shuffled-Weight 결과가 이미 있는지 확인한다.
-- FPP에서 Random-Fixed-Count 결과가 이미 있는지 확인한다.
+- 완료: FPP에서 Random-Support 결과를 반영한다.
+- 완료: FPP에서 Shuffled-Weight 결과를 반영한다.
+- 완료: FPP에서 Random-Fixed-Count 결과를 반영한다.
 - FetchSlide에서 random/shuffled/fixed-count 결과가 있는지 확인한다.
 - 없으면 최소 새 실험 목록을 작성한다.
 
@@ -281,7 +281,7 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 
 ## 8. Claim 축소 및 Abstract/Introduction 재작성
 
-상태: 1차 완료. `AAAI27_CLAIM_REVISION_KR.md`를 만들고, `paper/saber_aaai27_draft_kr.tex`의 title, abstract, introduction, contribution list, limitations, conclusion을 현재 evidence 범위에 맞게 수정했다. 핵심 claim은 "SABER is a critic-side Bellman error reweighting objective that can improve environment-step sample efficiency in support-aligned sparse HER actor-critic settings"로 좁혔다. Universal improvement, HER replacement, general-purpose RL, wall-clock efficiency, structured support unique cause claim은 제거하거나 caveat로 낮췄다.
+상태: 2차 완료. `AAAI27_CLAIM_REVISION_KR.md`를 만들고, `paper/saber_aaai27_draft_kr.tex`의 title, abstract, introduction, contribution list, limitations, conclusion을 현재 evidence 범위에 맞게 수정했다. 이후 round-3 review와 FPP Shuffled-Weight 결과를 반영해 FPP claim을 "mean final success / mean AUC가 높다"로 낮추고, paired CI가 0을 포함하는 row를 명시했다. 핵심 claim은 "SABER is a critic-side Bellman error reweighting objective that can improve environment-step sample efficiency in support-aligned sparse HER actor-critic settings"로 좁혔다. Universal improvement, HER replacement, general-purpose RL, wall-clock efficiency, structured support unique cause claim은 제거하거나 caveat로 낮췄다.
 
 ### 목적
 
@@ -318,12 +318,15 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 
 ### 완료 기준
 
-- 완료: Abstract와 Conclusion이 Random-Support 결과와 충돌하지 않는다.
+- 완료: Abstract와 Conclusion이 Random-Support 및 FPP Shuffled-Weight 결과와 충돌하지 않는다.
 - 완료: main claim이 FPP/FetchSlide/DrawerOpen evidence 범위 안에 있다.
 - 남음: #7 related work framing을 원고 Related Work에 압축 반영한다.
-- 남음: FPP random/shuffled 및 sample-level diagnostic 결과가 나오면 Abstract/Conclusion caveat를 다시 업데이트한다.
+- 완료: FPP Random-Support/Random-Fixed-Count 및 DrawerOpen DDPG Random-Fixed-Count 결과를 Abstract/Conclusion caveat에 반영했다.
+- 남음: sample-level diagnostic 결과가 나오면 support-vs-TD-error 및 reliability wording을 다시 업데이트한다.
 
 ## 9. Figure/Table 재구성
+
+상태: 통계/그림 파이프라인 3차 완료. `analysis/result_pipeline/`에 FPP DDPG Shuffled-Weight, Random-Support, Random-Fixed-Count k94와 DrawerOpen DDPG HER/SABER/Random-Fixed-Count rows를 추가했다. 현재 입력 기준 per-seed table 135 rows, aggregate table 27 rows, paired seed-difference 565 rows, learning curve points 115300개, learning curve PNG 10개를 생성했다. 새 `drawer_ddpg_success_curve.png`와 updated `fpp_ddpg_success_curve.png`를 원고에 연결했다. 새 실험 결과가 나오면 `analysis/result_pipeline/config.json`의 `rows`/`pairs`에 summary glob만 추가해서 같은 table/figure를 다시 만들 수 있다.
 
 ### 목적
 
@@ -343,8 +346,28 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 
 - Table 3-5의 float 공백 문제를 줄인다.
 - DrawerOpen control은 main text에서 compact하게 정리하거나 appendix로 이동한다.
-- learning curve figure를 추가한다.
+- 완료: 기존 결과와 FPP DDPG Shuffled-Weight 결과 기반 per-seed table, paired seed difference, bootstrap CI, learning curve aggregate CSV를 생성한다.
+- 완료: 기존 결과 기반 learning curve figure를 자동 생성한다.
+- 완료: bootstrap resampling seed를 고정해 같은 artifact에서는 같은 CI가 나오게 한다.
+- 완료: FPP DDPG Shuffled-Weight row/pair를 config에 추가하고 main draft에 반영했다.
+- 완료: FPP Random-Support/Random-Fixed-Count 결과를 config row/pair와 main draft에 반영했다.
+- 완료: Figure 1--2를 review용 publication-readable style로 재생성했다. 내부 파일명 title을 제거하고, 큰 axis/legend, seed별 thin lines, mean/std band, PDF+PNG export를 지원한다.
 - diagnostic plot을 추가한다.
+
+### 산출물
+
+- `analysis/result_pipeline/config.json`
+- `analysis/result_pipeline/build_result_artifacts.py`
+- `analysis/result_pipeline/README.md`
+- `analysis/result_pipeline/output/per_seed_metrics.csv`
+- `analysis/result_pipeline/output/aggregate_metrics.csv`
+- `analysis/result_pipeline/output/aggregate_bootstrap_ci.csv`
+- `analysis/result_pipeline/output/paired_seed_differences.csv`
+- `analysis/result_pipeline/output/paired_bootstrap_ci.csv`
+- `analysis/result_pipeline/output/learning_curves_long.csv`
+- `analysis/result_pipeline/output/learning_curves_aggregate.csv`
+- `analysis/result_pipeline/output/figures/*.png`
+- `analysis/result_pipeline/output/report.md`
 
 ### 완료 기준
 
