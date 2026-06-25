@@ -76,6 +76,26 @@ metaworld_Drawer_Open_TD3/logs_2m/<variant>/
 MetaWorld must be installed in the Python environment selected by the runner.
 The runner prefers `.venv/bin/python`; otherwise it falls back to `python3`.
 
+## Results
+
+### Completed Result Summary
+
+| Experiment | Reweighting Signal | Scope | Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| TD3-HER-B0-2M | None | - | 1/5 | 0.19 | 0.21 | 0.127 | 740k* | 41.55 steps/s |
+| TD3-HER-B3-Critic-Only-2M | SABER support | Critic only | 3/5 | 0.59 | 0.62 | 0.362 | 803k | 21.57 steps/s |
+| TD3-HER-B3-Random-Support-2M | Support-count random | Critic only | 3/5 | 0.60 | 0.60 | 0.426 | 570k | 20.84 steps/s |
+| TD3-HER-B3-Random-Fixed-Count-2M | Fixed-count random | Critic only | 1/5 | 0.20 | 0.20 | 0.144 | 520k* | 41.60 steps/s |
+| TD3-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 0/5 | 0.00 | 0.01 | 0.00005 | - | 20.03 steps/s |
+| TD3-HER-B3-Actor-Only-2M | SABER support | Actor only | 2/5 | 0.40 | 0.41 | 0.249 | 780k* | 21.48 steps/s |
+| TD3-HER-B3-Actor-Critic-2M | SABER support | Actor + critic | 3/5 | 0.60 | 0.61 | 0.432 | 603k | 21.75 steps/s |
+
+`*` Mean Hit90 is computed over successful seeds only. The core paper
+comparison set is B0, B3-Critic-Only, Random-Support, Random-Fixed-Count, and
+Shuffled-Weight; Actor-Only and Actor+Critic are scope ablations. PER-Style is
+reported in the 1M preliminary section because the completed TD3 summary table
+uses the 2M DrawerOpen runs.
+
 ## Preliminary Results
 
 Status as of 2026-06-10 11:17 KST:
