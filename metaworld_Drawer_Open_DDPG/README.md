@@ -49,8 +49,9 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 | DDPG-HER-B0-2M | None | - | 2/5 | 0.39 | 0.40 | 0.207 | 960k* | 41.05 steps/s |
 | DDPG-HER-B3-Critic-Only-2M | SABER support | Critic only | 5/5 | 1.00 | 1.00 | 0.754 | 482k | 23.33 steps/s |
 | DDPG-HER-B3-Random-Fixed-Count-2M | Fixed-count random | Critic only | 4/5 | 0.80 | 0.80 | 0.621 | 423k* | 41.00 steps/s |
+| DDPG-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 2/5 | 0.40 | 0.42 | 0.400 | 1735k* | 22.95 steps/s |
 
-`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only is the only completed DDPG DrawerOpen variant that solved all 5 seeds and has the highest AUC, while Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-aligned SABER weighting.
+`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only is the only completed DDPG DrawerOpen variant that solved all 5 seeds and has the highest AUC, while Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-aligned SABER weighting. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only.
 
 ### DDPG-HER-B0-2M
 
@@ -96,6 +97,21 @@ Completed on 2026-06-24 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 | Mean | 0.80 | 0.80 | 0.621 | 423k* |
 
 `*` The mean first-hit value is computed over the four successful seeds. Random-Fixed-Count improved over DDPG+HER B0, but remained below SABER/B3-Critic-Only in seed reliability and AUC.
+
+### DDPG-HER-B3-Shuffled-Weight-2M
+
+Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and SABER/B3 support weights shuffled across the batch before critic-only loss weighting. This control preserves the SABER support-weight distribution while breaking the original support-positive sample assignment.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 0.00 | 0.10 | 0.000 | - |
+| 2 | 0.00 | 0.00 | 0.000 | - |
+| 3 | 1.00 | 1.00 | 1.000 | 1760k |
+| 4 | 1.00 | 1.00 | 0.998 | 1710k |
+| 5 | 0.00 | 0.00 | 0.000 | - |
+| Mean | 0.40 | 0.42 | 0.400 | 1735k* |
+
+`*` The mean first-hit value is computed over the two successful seeds. Shuffled-Weight solved fewer seeds and had lower AUC than B3-Critic-Only, supporting the interpretation that support-weight alignment to the correct samples matters beyond preserving the weight distribution alone.
 
 ## Actor-Scope Ablation Settings
 
