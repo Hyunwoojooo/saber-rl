@@ -11,6 +11,7 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 - `DDPG-HER-B3-Random-Fixed-Count-2M.sh`: DDPG + HER + fixed-count random critic reweighting with no SABER support lookup.
 - `DDPG-HER-B3-Random-Support-2M.sh`: DDPG + HER + density-matched random critic reweighting using SABER support-positive count but random sample assignment.
 - `DDPG-HER-B3-Shuffled-Weight-2M.sh`: DDPG + HER + SABER/B3 support weights shuffled across the batch before critic-only assignment.
+- `DDPG-HER-PER-Style-2M.sh`: DDPG + HER + TD-error-based PER-style critic loss weighting.
 - `run_all_ddpg_drawer_open_2m_5parallel.sh`: convenience runner for B0 followed by B3-Critic-Only.
 - `run_ddpg_drawer_open_actor_ablation_2m_5parallel.sh`: convenience runner for Actor-Only followed by Actor+Critic.
 - `run_ddpg_drawer_open_ablation_2m_5parallel.sh`: convenience runner for Random-Fixed-Count followed by Shuffled-Weight.
@@ -52,8 +53,9 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 | DDPG-HER-B3-Random-Fixed-Count-2M | Fixed-count random | Critic only | 4/5 | 0.80 | 0.80 | 0.621 | 423k* | 41.00 steps/s |
 | DDPG-HER-B3-Random-Support-2M | SABER density, random assignment | Critic only | 5/5 | 1.00 | 1.00 | 0.706 | 594k | 22.61 steps/s |
 | DDPG-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 2/5 | 0.40 | 0.42 | 0.400 | 1735k* | 22.95 steps/s |
+| DDPG-HER-PER-Style-2M | TD-error PER-style | Critic only | 4/5 | 0.80 | 1.00 | 0.715 | 578k* | 39.02 steps/s |
 
-`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only and Random-Support both solved all 5 seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only.
+`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only and Random-Support both solved all 5 seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. PER-Style reached the second-highest AUC among the completed DDPG controls, but its final success was less stable because seed 2 regressed to 0.00 by the end. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only.
 
 ### DDPG-HER-B0-2M
 
@@ -130,6 +132,21 @@ Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 
 `*` The mean first-hit value is computed over the two successful seeds. Shuffled-Weight solved fewer seeds and had lower AUC than B3-Critic-Only, supporting the interpretation that support-weight alignment to the correct samples matters beyond preserving the weight distribution alone.
 
+### DDPG-HER-PER-Style-2M
+
+Completed on 2026-06-27 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and TD-error-based PER-style critic loss weighting.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.760 | 510k |
+| 2 | 0.00 | 1.00 | 0.842 | 300k |
+| 3 | 1.00 | 1.00 | 0.664 | 670k |
+| 4 | 1.00 | 1.00 | 0.607 | 800k |
+| 5 | 1.00 | 1.00 | 0.704 | 610k |
+| Mean | 0.80 | 1.00 | 0.715 | 578k* |
+
+`*` The mean first-hit value is computed over the five seeds that reached 90% at least once. PER-Style produced strong AUC but weaker final stability than B3-Critic-Only, because seed 2 reached 90% early and later collapsed by the final evaluation.
+
 ## Actor-Scope Ablation Settings
 
 `DDPG-HER-B3-Actor-Only-2M.sh` and `DDPG-HER-B3-Actor-Critic-2M.sh` match the TD3 actor-scope ablations:
@@ -164,6 +181,17 @@ Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 - Same B3 support lookup, support cache, Numba scanner, and local-search settings as B3-Critic-Only.
 - SABER raw support weights are computed first, then shuffled across the batch before loss weighting.
 
+## PER-Style Settings
+
+`DDPG-HER-PER-Style-2M.sh` uses TD-error-based critic loss weighting:
+
+- Method: `per_style_loss_weighting`
+- Weight scope: `critic_only`
+- `per_alpha=0.6`
+- `eps_PER=1e-6`
+- `U_PER_max=2.0`
+- `weighting_mode=batch_norm`
+
 ## Run
 
 ```bash
@@ -174,6 +202,7 @@ bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Actor-Critic-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Support-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-PER-Style-2M.sh
 ```
 
 Run B0 and B3-Critic-Only sequentially:
