@@ -9,6 +9,7 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 - `DDPG-HER-B3-Actor-Only-2M.sh`: DDPG + HER + SABER/B3 support weighting applied to actor loss only.
 - `DDPG-HER-B3-Actor-Critic-2M.sh`: DDPG + HER + SABER/B3 support weighting applied to both actor and critic losses.
 - `DDPG-HER-B3-Random-Fixed-Count-2M.sh`: DDPG + HER + fixed-count random critic reweighting with no SABER support lookup.
+- `DDPG-HER-B3-Random-Support-2M.sh`: DDPG + HER + density-matched random critic reweighting using SABER support-positive count but random sample assignment.
 - `DDPG-HER-B3-Shuffled-Weight-2M.sh`: DDPG + HER + SABER/B3 support weights shuffled across the batch before critic-only assignment.
 - `run_all_ddpg_drawer_open_2m_5parallel.sh`: convenience runner for B0 followed by B3-Critic-Only.
 - `run_ddpg_drawer_open_actor_ablation_2m_5parallel.sh`: convenience runner for Actor-Only followed by Actor+Critic.
@@ -49,9 +50,10 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 | DDPG-HER-B0-2M | None | - | 2/5 | 0.39 | 0.40 | 0.207 | 960k* | 41.05 steps/s |
 | DDPG-HER-B3-Critic-Only-2M | SABER support | Critic only | 5/5 | 1.00 | 1.00 | 0.754 | 482k | 23.33 steps/s |
 | DDPG-HER-B3-Random-Fixed-Count-2M | Fixed-count random | Critic only | 4/5 | 0.80 | 0.80 | 0.621 | 423k* | 41.00 steps/s |
+| DDPG-HER-B3-Random-Support-2M | SABER density, random assignment | Critic only | 5/5 | 1.00 | 1.00 | 0.706 | 594k | 22.61 steps/s |
 | DDPG-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 2/5 | 0.40 | 0.42 | 0.400 | 1735k* | 22.95 steps/s |
 
-`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only is the only completed DDPG DrawerOpen variant that solved all 5 seeds and has the highest AUC, while Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-aligned SABER weighting. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only.
+`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only and Random-Support both solved all 5 seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only.
 
 ### DDPG-HER-B0-2M
 
@@ -98,6 +100,21 @@ Completed on 2026-06-24 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 
 `*` The mean first-hit value is computed over the four successful seeds. Random-Fixed-Count improved over DDPG+HER B0, but remained below SABER/B3-Critic-Only in seed reliability and AUC.
 
+### DDPG-HER-B3-Random-Support-2M
+
+Completed on 2026-06-26 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and density-matched random critic reweighting. This control computes SABER support-positive samples to determine the high-weight count, but assigns the high weights to random batch samples instead of the original support-positive samples.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% | Final High-Weight Rate |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.791 | 460k | 0.477 |
+| 2 | 1.00 | 1.00 | 0.666 | 680k | 0.496 |
+| 3 | 1.00 | 1.00 | 0.513 | 970k | 0.527 |
+| 4 | 1.00 | 1.00 | 0.812 | 350k | 0.449 |
+| 5 | 1.00 | 1.00 | 0.751 | 510k | 0.355 |
+| Mean | 1.00 | 1.00 | 0.706 | 594k | 0.461 |
+
+Random-Support solved all 5 seeds, indicating that SABER-derived support density can provide a useful curriculum-like critic reweighting signal even when exact sample assignment is randomized. It still remained below B3-Critic-Only on AUC and mean Hit90.
+
 ### DDPG-HER-B3-Shuffled-Weight-2M
 
 Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, and SABER/B3 support weights shuffled across the batch before critic-only loss weighting. This control preserves the SABER support-weight distribution while breaking the original support-positive sample assignment.
@@ -133,6 +150,13 @@ Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 - `weighting_mode=batch_norm`
 - No SABER support lookup is used for selecting weighted samples.
 
+`DDPG-HER-B3-Random-Support-2M.sh` matches the density-matched random support control:
+
+- Method: `b3_support_random_runtime_opt`
+- Weight scope: `critic_only`
+- Same B3 support lookup, support cache, Numba scanner, and local-search settings as B3-Critic-Only.
+- SABER support-positive count is computed first, then the same number of high weights is randomly assigned across the batch.
+
 `DDPG-HER-B3-Shuffled-Weight-2M.sh` matches the TD3 shuffled-weight control:
 
 - Method: `b3_support_shuffled_runtime_opt`
@@ -148,6 +172,7 @@ bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Critic-Only-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Actor-Only-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Actor-Critic-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Support-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
 ```
 
