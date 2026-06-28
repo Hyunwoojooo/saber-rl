@@ -38,3 +38,29 @@ Outputs are written to `metaworld_Drawer_Close_TD3/results_2m/`, logs to `metawo
 - Steps: 2,000,000
 - HER ratio: 0.8
 - CUDA parallelism: 5 processes on `CUDA_DEVICE=0` by default
+
+## Results
+
+### Completed Result Summary
+
+| Experiment | Status | Final Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
+|---|---|---:|---:|---:|---:|---:|---:|
+| TD3-HER-B0-2M | Completed | 1/5 | 0.35 | 1.00 | 0.329 | 76k | 41.70 steps/s |
+
+`TD3-HER-B0-2M` finished on 2026-06-28 KST. All five seeds reached 90% success at least once, but only one seed remained at or above 90% success in the final evaluation. Wall-clock runtime was about 13h 26m 37s for five parallel seeds, corresponding to roughly 206-208 aggregate environment steps/s.
+
+### TD3-HER-B0-2M
+
+Completed on 2026-06-28 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and 20 evaluation episodes every 10k steps.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.85 | 1.00 | 0.451 | 80k |
+| 2 | 0.00 | 1.00 | 0.058 | 120k |
+| 3 | 0.90 | 1.00 | 0.886 | 50k |
+| 4 | 0.00 | 1.00 | 0.097 | 60k |
+| 5 | 0.00 | 1.00 | 0.151 | 70k |
+| Mean | 0.35 | 1.00 | 0.329 | 76k |
+
+The baseline quickly found successful behavior in every seed, but final performance was unstable: seed 3 ended at 0.90, seed 1 ended at 0.85, and seeds 2, 4, and 5 ended at 0.00.
+
