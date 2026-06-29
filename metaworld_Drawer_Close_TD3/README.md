@@ -46,8 +46,11 @@ Outputs are written to `metaworld_Drawer_Close_TD3/results_2m/`, logs to `metawo
 | Experiment | Status | Final Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
 |---|---|---:|---:|---:|---:|---:|---:|
 | TD3-HER-B0-2M | Completed | 1/5 | 0.35 | 1.00 | 0.329 | 76k | 41.70 steps/s |
+| TD3-HER-B3-Critic-Only-2M | Completed | 3/5 | 0.59 | 1.00 | 0.549 | 86k | 22.49 steps/s |
 
 `TD3-HER-B0-2M` finished on 2026-06-28 KST. All five seeds reached 90% success at least once, but only one seed remained at or above 90% success in the final evaluation. Wall-clock runtime was about 13h 26m 37s for five parallel seeds, corresponding to roughly 206-208 aggregate environment steps/s.
+
+`TD3-HER-B3-Critic-Only-2M` finished on 2026-06-29 KST. It improved final success from 0.35 to 0.59 and AUC from 0.329 to 0.549 over B0, but still showed seed instability: seeds 2, 3, and 4 finished successfully while seeds 1 and 5 collapsed by the final evaluation.
 
 ### TD3-HER-B0-2M
 
@@ -63,4 +66,19 @@ Completed on 2026-06-28 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.35 | 1.00 | 0.329 | 76k |
 
 The baseline quickly found successful behavior in every seed, but final performance was unstable: seed 3 ended at 0.90, seed 1 ended at 0.85, and seeds 2, 4, and 5 ended at 0.00.
+
+### TD3-HER-B3-Critic-Only-2M
+
+Completed on 2026-06-29 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and SABER/B3 support weighting applied to critic loss only.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.00 | 1.00 | 0.081 | 80k |
+| 2 | 1.00 | 1.00 | 0.908 | 90k |
+| 3 | 1.00 | 1.00 | 0.740 | 200k |
+| 4 | 0.95 | 1.00 | 0.909 | 10k |
+| 5 | 0.00 | 1.00 | 0.106 | 50k |
+| Mean | 0.59 | 1.00 | 0.549 | 86k |
+
+B3-Critic-Only improved the DrawerClose baseline on final success, final successful seed count, and AUC. The result still has high seed variance, but the successful seeds maintain much stronger learning curves than B0.
 
