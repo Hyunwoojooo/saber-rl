@@ -57,7 +57,7 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 
 `*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only and Random-Support both solved all 5 seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. PER-Style reached the second-highest AUC among the completed DDPG controls, but its final success was less stable because seed 2 regressed to 0.00 by the end. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only.
 
-Runtime note: `DDPG-HER-B3-Shuffled-Weight-2M` was interrupted and resumed from checkpoints. Its per-seed `summary.json` `final_steps_per_sec` and `metrics.csv` `runtime/steps_per_sec` values are inflated because resume-time runtime counters restart while `global_step` continues from the checkpoint. The `22.95 steps/s` value in the summary table is therefore recomputed from the original plus resume log timestamps.
+Runtime note: `DDPG-HER-B3-Shuffled-Weight-2M` was interrupted and resumed from checkpoints. The committed per-seed `summary.json` and `metrics.csv` files have been corrected by combining original and resumed logs, dropping original rows after each resume checkpoint, and recomputing runtime from original-start to resumed-finish timestamps. The corrected mean speed is `22.95 steps/s`.
 
 ### DDPG-HER-B0-2M
 
@@ -125,7 +125,7 @@ Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 
 | Seed | Final Success | Best Success | AUC Success | First Hit 90% |
 | --- | ---: | ---: | ---: | ---: |
-| 1 | 0.00 | 0.10 | 0.000 | - |
+| 1 | 0.00 | 0.10 | 0.001 | - |
 | 2 | 0.00 | 0.00 | 0.000 | - |
 | 3 | 1.00 | 1.00 | 0.781 | 370k |
 | 4 | 1.00 | 1.00 | 0.752 | 550k |
@@ -134,7 +134,7 @@ Completed on 2026-06-25 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 
 `*` The mean first-hit value is computed over the two successful seeds. The AUC and first-hit values above are recomputed from the combined original and resumed logs, dropping original log entries after each resume checkpoint. Shuffled-Weight solved fewer seeds and had lower mean AUC than B3-Critic-Only, supporting the interpretation that support-weight alignment to the correct samples matters beyond preserving the weight distribution alone. Among the two successful seeds, learning occurred early, but the method failed in the other three seeds.
 
-Runtime caveat: this experiment was resumed after interruption. The raw per-seed runtime fields in `summary.json` and `metrics.csv` should not be used for speed comparison; they report 90-218 steps/s because they divide the full 2M step count by resume-only elapsed time. Log timestamp reconstruction gives the corrected mean speed of 22.95 steps/s.
+Runtime correction: this experiment was resumed after interruption. The committed `summary.json` and `metrics.csv` files now store corrected AUC, first-hit, and final runtime values reconstructed from the original plus resumed logs. Pre-correction runtime counters reported 90-218 steps/s because they divided the full 2M step count by resume-only elapsed time; the corrected mean speed is 22.95 steps/s.
 
 ### DDPG-HER-PER-Style-2M
 
