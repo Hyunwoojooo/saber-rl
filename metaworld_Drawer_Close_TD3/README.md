@@ -47,6 +47,7 @@ Outputs are written to `metaworld_Drawer_Close_TD3/results_2m/`, logs to `metawo
 |---|---|---:|---:|---:|---:|---:|---:|
 | TD3-HER-B0-2M | Completed | 1/5 | 0.35 | 1.00 | 0.329 | 76k | 41.70 steps/s |
 | TD3-HER-B3-Critic-Only-2M | Completed | 3/5 | 0.59 | 1.00 | 0.549 | 86k | 22.49 steps/s |
+| TD3-HER-B3-Random-Fixed-Count-2M | Completed | 0/5 | 0.00 | 1.00 | 0.133 | 110k | 41.48 steps/s |
 
 `TD3-HER-B0-2M` finished on 2026-06-28 KST. All five seeds reached 90% success at least once, but only one seed remained at or above 90% success in the final evaluation. Wall-clock runtime was about 13h 26m 37s for five parallel seeds, corresponding to roughly 206-208 aggregate environment steps/s.
 
@@ -81,4 +82,20 @@ Completed on 2026-06-29 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.59 | 1.00 | 0.549 | 86k |
 
 B3-Critic-Only improved the DrawerClose baseline on final success, final successful seed count, and AUC. The result still has high seed variance, but the successful seeds maintain much stronger learning curves than B0.
+
+
+### TD3-HER-B3-Random-Fixed-Count-2M
+
+Completed on 2026-06-29 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only fixed-count random weighting. This control does not use support lookup; it applies the same number of high-weight samples per batch by random assignment.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.00 | 1.00 | 0.135 | 70k |
+| 2 | 0.00 | 1.00 | 0.103 | 110k |
+| 3 | 0.00 | 1.00 | 0.125 | 200k |
+| 4 | 0.00 | 1.00 | 0.129 | 100k |
+| 5 | 0.00 | 1.00 | 0.175 | 70k |
+| Mean | 0.00 | 1.00 | 0.133 | 110k |
+
+Random-Fixed-Count reached high success transiently in every seed, but all five seeds collapsed to 0.00 final success. Compared with B3-Critic-Only, this control has similar speed to B0 but much lower AUC and no stable final success, suggesting that DrawerClose gains are not explained by fixed-count random critic reweighting alone.
 
