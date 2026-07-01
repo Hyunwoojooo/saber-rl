@@ -48,6 +48,7 @@ Outputs are written to `metaworld_Drawer_Close_TD3/results_2m/`, logs to `metawo
 | TD3-HER-B0-2M | Completed | 1/5 | 0.35 | 1.00 | 0.329 | 76k | 41.70 steps/s |
 | TD3-HER-B3-Critic-Only-2M | Completed | 3/5 | 0.59 | 1.00 | 0.549 | 86k | 22.49 steps/s |
 | TD3-HER-B3-Random-Fixed-Count-2M | Completed | 0/5 | 0.00 | 1.00 | 0.133 | 110k | 41.48 steps/s |
+| TD3-HER-B3-Random-Support-2M | Completed | 1/5 | 0.20 | 1.00 | 0.296 | 118k | 22.41 steps/s |
 
 `TD3-HER-B0-2M` finished on 2026-06-28 KST. All five seeds reached 90% success at least once, but only one seed remained at or above 90% success in the final evaluation. Wall-clock runtime was about 13h 26m 37s for five parallel seeds, corresponding to roughly 206-208 aggregate environment steps/s.
 
@@ -99,3 +100,17 @@ Completed on 2026-06-29 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 
 Random-Fixed-Count reached high success transiently in every seed, but all five seeds collapsed to 0.00 final success. Compared with B3-Critic-Only, this control has similar speed to B0 but much lower AUC and no stable final success, suggesting that DrawerClose gains are not explained by fixed-count random critic reweighting alone.
 
+### TD3-HER-B3-Random-Support-2M
+
+Completed on 2026-06-30 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only density-matched random support weighting. This control computes the SABER support-positive count, but assigns the high weights to random batch samples rather than the support-positive samples themselves.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 1.00 | 1.00 | 0.924 | 80k |
+| 2 | 0.00 | 1.00 | 0.239 | 60k |
+| 3 | 0.00 | 1.00 | 0.119 | 220k |
+| 4 | 0.00 | 1.00 | 0.105 | 50k |
+| 5 | 0.00 | 1.00 | 0.091 | 180k |
+| Mean | 0.20 | 1.00 | 0.296 | 118k |
+
+Random-Support reached 90% success at least once in all seeds, but only seed 1 maintained high final performance. The mean AUC is below both B3-Critic-Only and B0, suggesting that preserving the support-derived density alone is not sufficient on DrawerClose; assigning critic weights to the aligned support-positive samples is more important for stable learning.
