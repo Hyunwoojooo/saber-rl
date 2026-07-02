@@ -49,6 +49,7 @@ Outputs are written to `metaworld_Drawer_Close_TD3/results_2m/`, logs to `metawo
 | TD3-HER-B3-Critic-Only-2M | Completed | 3/5 | 0.59 | 1.00 | 0.549 | 86k | 22.49 steps/s |
 | TD3-HER-B3-Random-Fixed-Count-2M | Completed | 0/5 | 0.00 | 1.00 | 0.133 | 110k | 41.48 steps/s |
 | TD3-HER-B3-Random-Support-2M | Completed | 1/5 | 0.20 | 1.00 | 0.296 | 118k | 22.41 steps/s |
+| TD3-HER-B3-Shuffled-Weight-2M | Completed | 3/5 | 0.59 | 1.00 | 0.586 | 38k | 23.52 steps/s |
 
 `TD3-HER-B0-2M` finished on 2026-06-28 KST. All five seeds reached 90% success at least once, but only one seed remained at or above 90% success in the final evaluation. Wall-clock runtime was about 13h 26m 37s for five parallel seeds, corresponding to roughly 206-208 aggregate environment steps/s.
 
@@ -114,3 +115,21 @@ Completed on 2026-06-30 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.20 | 1.00 | 0.296 | 118k |
 
 Random-Support reached 90% success at least once in all seeds, but only seed 1 maintained high final performance. The mean AUC is below both B3-Critic-Only and B0, suggesting that preserving the support-derived density alone is not sufficient on DrawerClose; assigning critic weights to the aligned support-positive samples is more important for stable learning.
+
+### TD3-HER-B3-Shuffled-Weight-2M
+
+Completed on 2026-07-02 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only shuffled SABER weighting. This control computes the same support-derived raw weight vector as B3-Critic-Only, but permutes the weight assignments across the batch before applying them to the critic loss.
+
+This run was resumed after an interruption. The AUC, first-hit, best-success, and runtime values below were recomputed posthoc from the full `metrics.csv` history rather than using the resume-local final-row summary fields.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.00 | 1.00 | 0.452 | 10k |
+| 2 | 0.95 | 1.00 | 0.774 | 100k |
+| 3 | 1.00 | 1.00 | 0.758 | 30k |
+| 4 | 1.00 | 1.00 | 0.819 | 30k |
+| 5 | 0.00 | 1.00 | 0.127 | 20k |
+| Mean | 0.59 | 1.00 | 0.586 | 38k |
+
+Shuffled-Weight matched B3-Critic-Only on final success and produced a slightly higher mean AUC on this DrawerClose TD3 run. Because Shuffled still uses the SABER support lookup and preserves the support-derived weight distribution, this result should be interpreted as evidence that support-conditioned weight density/distribution can matter in addition to exact sample-level alignment. It does not support treating shuffled weighting as a fully random control.
+
