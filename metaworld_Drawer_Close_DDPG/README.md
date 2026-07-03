@@ -63,3 +63,27 @@ STEPS=1000 STEP_TAG=smoke CUDA_DEVICE=0 bash metaworld_Drawer_Close_DDPG/DDPG-HE
 ```
 
 Outputs are written to `metaworld_Drawer_Close_DDPG/results_2m/`, logs to `metaworld_Drawer_Close_DDPG/logs_2m/`, and orchestrator logs to `metaworld_Drawer_Close_DDPG/orchestrator_logs/`.
+
+## Results
+
+### Completed Result Summary
+
+| Experiment | Status | Final Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
+|---|---|---:|---:|---:|---:|---:|---:|
+| DDPG-HER-B0-2M | Completed | 0/5 | 0.16 | 1.00 | 0.251 | 74k | 41.22 steps/s |
+
+### DDPG-HER-B0-2M
+
+Completed on 2026-07-03 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and 20 evaluation episodes every 10k steps.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.30 | 1.00 | 0.282 | 90k |
+| 2 | 0.10 | 1.00 | 0.269 | 150k |
+| 3 | 0.40 | 1.00 | 0.204 | 40k |
+| 4 | 0.00 | 1.00 | 0.249 | 70k |
+| 5 | 0.00 | 1.00 | 0.252 | 20k |
+| Mean | 0.16 | 1.00 | 0.251 | 74k |
+
+DDPG-HER B0 reached 90% success at least once in every seed, but none of the seeds maintained at least 90% success in the final evaluation. This confirms that DrawerClose-v3 sparse remains unstable for the plain DDPG+HER baseline even though transient successful policies appear early in training.
+
