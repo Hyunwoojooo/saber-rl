@@ -71,6 +71,7 @@ Outputs are written to `metaworld_Drawer_Close_DDPG/results_2m/`, logs to `metaw
 | Experiment | Status | Final Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
 |---|---|---:|---:|---:|---:|---:|---:|
 | DDPG-HER-B0-2M | Completed | 0/5 | 0.16 | 1.00 | 0.251 | 74k | 41.22 steps/s |
+| DDPG-HER-B3-Critic-Only-2M | Completed | 0/5 | 0.28 | 1.00 | 0.324 | 30k | 23.96 steps/s |
 
 ### DDPG-HER-B0-2M
 
@@ -86,4 +87,19 @@ Completed on 2026-07-03 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.16 | 1.00 | 0.251 | 74k |
 
 DDPG-HER B0 reached 90% success at least once in every seed, but none of the seeds maintained at least 90% success in the final evaluation. This confirms that DrawerClose-v3 sparse remains unstable for the plain DDPG+HER baseline even though transient successful policies appear early in training.
+
+### DDPG-HER-B3-Critic-Only-2M
+
+Completed on 2026-07-04 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and SABER/B3 support weighting applied to critic loss only.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.65 | 1.00 | 0.288 | 10k |
+| 2 | 0.20 | 1.00 | 0.337 | 60k |
+| 3 | 0.15 | 1.00 | 0.284 | 50k |
+| 4 | 0.00 | 1.00 | 0.461 | 20k |
+| 5 | 0.40 | 1.00 | 0.252 | 10k |
+| Mean | 0.28 | 1.00 | 0.324 | 30k |
+
+B3-Critic-Only improved over DDPG-HER B0 on final success and AUC, but no seed maintained at least 90% success in the final evaluation. The early hit90 values show that support-weighted critic learning finds successful behavior quickly, while final policy stability remains weak on sparse DrawerClose-v3.
 
