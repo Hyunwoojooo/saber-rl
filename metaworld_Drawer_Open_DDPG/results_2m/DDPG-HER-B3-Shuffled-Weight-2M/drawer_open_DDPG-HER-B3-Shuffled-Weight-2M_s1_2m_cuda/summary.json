@@ -191,14 +191,21 @@
   "selection_metric": "eval_env_success_mean",
   "total_steps": 2000000,
   "total_updates": 1995000,
-  "resume_only_eval_AUC_success": 0.0,
   "resume_only_first_hit_0.25": "",
   "resume_only_first_hit_0.50": "",
   "resume_only_first_hit_0.75": "",
   "resume_only_first_hit_0.90": "",
-  "resume_only_runtime_total_sec": 16651.709369657096,
-  "resume_only_final_steps_per_sec": 120.10778927263883,
   "resume_checkpoint_step": 1550001,
   "corrected_eval_points": 200,
-  "correction_note": "Corrected after interrupted/resumed run by combining original and resume logs, dropping original log entries at or after the resume checkpoint, and computing runtime from original start to resumed finish timestamps."
+  "correction_note": "Corrected after interrupted/resumed run by combining original and resume logs, dropping original log entries at or after the resume checkpoint, and computing runtime from original start to resumed finish timestamps. Top-level resume-only speed fields were moved under resume_only_diagnostics to prevent accidental reporting.",
+  "resume_only_diagnostics": {
+    "eval_AUC_success": 0.0,
+    "runtime_total_sec": 16651.709369657096,
+    "final_steps_per_sec": 120.10778927263883,
+    "reporting_warning": "Diagnostic values from the resumed segment only. Do not use these values for paper tables or aggregate runtime reporting. Use reported_steps_per_sec or final_steps_per_sec instead."
+  },
+  "runtime_correction_applied": true,
+  "reported_steps_per_sec": 22.63665946560574,
+  "reported_runtime_total_sec": 88352.259,
+  "runtime_reporting_note": "Primary reporting fields are reported_steps_per_sec/final_steps_per_sec and reported_runtime_total_sec/runtime_total_sec. Resume-only diagnostics are retained only for audit and must not be used in paper tables."
 }
