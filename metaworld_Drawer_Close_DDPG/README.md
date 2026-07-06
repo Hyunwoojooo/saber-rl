@@ -72,6 +72,7 @@ Outputs are written to `metaworld_Drawer_Close_DDPG/results_2m/`, logs to `metaw
 |---|---|---:|---:|---:|---:|---:|---:|
 | DDPG-HER-B0-2M | Completed | 0/5 | 0.16 | 1.00 | 0.251 | 74k | 41.22 steps/s |
 | DDPG-HER-B3-Critic-Only-2M | Completed | 0/5 | 0.28 | 1.00 | 0.324 | 30k | 23.96 steps/s |
+| DDPG-HER-B3-Random-Fixed-Count-2M | Completed | 1/5 | 0.48 | 1.00 | 0.319 | 100k | 41.09 steps/s |
 | DDPG-HER-B3-Random-Support-2M | Completed | 1/5 | 0.24 | 1.00 | 0.277 | 68k | 23.84 steps/s |
 
 ### DDPG-HER-B0-2M
@@ -103,6 +104,21 @@ Completed on 2026-07-04 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.28 | 1.00 | 0.324 | 30k |
 
 B3-Critic-Only improved over DDPG-HER B0 on final success and AUC, but no seed maintained at least 90% success in the final evaluation. The early hit90 values show that support-weighted critic learning finds successful behavior quickly, while final policy stability remains weak on sparse DrawerClose-v3.
+
+### DDPG-HER-B3-Random-Fixed-Count-2M
+
+Completed on 2026-07-05 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only fully random fixed-count weighting. This control does not perform SABER support lookup; it assigns high critic weights to a fixed random subset of 122 samples per batch.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.30 | 1.00 | 0.295 | 70k |
+| 2 | 0.35 | 1.00 | 0.349 | 170k |
+| 3 | 1.00 | 1.00 | 0.330 | 190k |
+| 4 | 0.45 | 1.00 | 0.278 | 40k |
+| 5 | 0.30 | 1.00 | 0.344 | 30k |
+| Mean | 0.48 | 1.00 | 0.319 | 100k |
+
+Random-Fixed-Count produced a strong final snapshot, but its mean AUC remained slightly below B3-Critic-Only. This indicates that generic critic-side stochastic reweighting can be a strong control on sparse DrawerClose-v3, while support-conditioned critic weighting remains at least competitive on the primary AUC metric.
 
 ### DDPG-HER-B3-Random-Support-2M
 
