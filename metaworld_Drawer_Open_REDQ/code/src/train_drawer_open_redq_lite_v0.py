@@ -71,6 +71,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--target_q_bounding", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--target_q_min", type=float, default=None)
     parser.add_argument("--target_q_max", type=float, default=None)
+    parser.add_argument("--entropy_alpha", type=float, default=0.2)
+    parser.add_argument("--sac_auto_alpha", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--target_entropy", type=float, default=None)
+    parser.add_argument("--alpha_lr", type=float, default=None)
+    parser.add_argument("--redq_ensemble_size", type=int, default=5)
+    parser.add_argument("--target_subset_size", type=int, default=2)
 
     parser.add_argument("--eval_freq", type=int, default=10_000)
     parser.add_argument("--eval_episodes", type=int, default=20)
@@ -173,6 +179,12 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         target_q_bounding=args.target_q_bounding,
         target_q_min=args.target_q_min,
         target_q_max=args.target_q_max,
+        entropy_alpha=args.entropy_alpha,
+        sac_auto_alpha=args.sac_auto_alpha,
+        target_entropy=args.target_entropy,
+        alpha_lr=args.alpha_lr,
+        redq_ensemble_size=args.redq_ensemble_size,
+        target_subset_size=args.target_subset_size,
         eval_freq=args.eval_freq,
         eval_episodes=args.eval_episodes,
         checkpoint_every_steps=args.checkpoint_every_steps,
@@ -325,6 +337,12 @@ def validate_drawer_open_setup(config: LiteConfig) -> None:
         target_q_bounding=config.target_q_bounding,
         target_q_min=config.target_q_min,
         target_q_max=config.target_q_max,
+        entropy_alpha=config.entropy_alpha,
+        sac_auto_alpha=config.sac_auto_alpha,
+        target_entropy=config.target_entropy,
+        alpha_lr=config.alpha_lr,
+        ensemble_size=config.redq_ensemble_size,
+        target_subset_size=config.target_subset_size,
     )
     gap_stats = GapStats(
         maxlen=config.gap_window,

@@ -13,8 +13,14 @@ fi
 STEPS="${STEPS:-2000000}"
 STEP_TAG="${STEP_TAG:-2m}"
 CUDA_DEVICE="${CUDA_DEVICE:-0}"
-UPDATES_PER_STEP="${UPDATES_PER_STEP:-5}"
+UPDATES_PER_STEP="${UPDATES_PER_STEP:-4}"
 GAMMA="${GAMMA:-0.98}"
+REDQ_ENSEMBLE_SIZE="${REDQ_ENSEMBLE_SIZE:-10}"
+TARGET_SUBSET_SIZE="${TARGET_SUBSET_SIZE:-2}"
+ENTROPY_ALPHA="${ENTROPY_ALPHA:-0.2}"
+SAC_AUTO_ALPHA="${SAC_AUTO_ALPHA:-true}"
+TARGET_ENTROPY="${TARGET_ENTROPY:--4.0}"
+ALPHA_LR="${ALPHA_LR:-0.0003}"
 TARGET_Q_MIN="${TARGET_Q_MIN:--50.0}"
 TARGET_Q_MAX="${TARGET_Q_MAX:-0.0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m}"
@@ -48,6 +54,11 @@ build_common_args() {
     --actor_lr 0.0003
     --critic_lr 0.0003
     --hidden_dim 256
+    --redq_ensemble_size "$REDQ_ENSEMBLE_SIZE"
+    --target_subset_size "$TARGET_SUBSET_SIZE"
+    --entropy_alpha "$ENTROPY_ALPHA"
+    --target_entropy "$TARGET_ENTROPY"
+    --alpha_lr "$ALPHA_LR"
     --noise_std 0.2
     --policy_delay 2
     --target_policy_noise 0.2
@@ -68,6 +79,11 @@ build_common_args() {
     --eval_seed "$((10000 + seed))"
     --no_save_step_checkpoints
   )
+  if [[ "$SAC_AUTO_ALPHA" == "true" || "$SAC_AUTO_ALPHA" == "1" ]]; then
+    COMMON_ARGS+=(--sac_auto_alpha)
+  else
+    COMMON_ARGS+=(--no-sac_auto_alpha)
+  fi
 }
 
 run_variant() {
@@ -79,7 +95,7 @@ run_variant() {
   local log_dir="$LOG_ROOT/$slug"
   mkdir -p "$output_dir" "$log_dir"
 
-  log "BEGIN $label: method=$method weight_scope=$weight_scope seeds=1..5 steps=$STEPS updates_per_step=$UPDATES_PER_STEP target_q=[$TARGET_Q_MIN,$TARGET_Q_MAX] output=$output_dir"
+  log "BEGIN $label: method=$method weight_scope=$weight_scope seeds=1..5 steps=$STEPS updates_per_step=$UPDATES_PER_STEP ensemble=$REDQ_ENSEMBLE_SIZE target_subset=$TARGET_SUBSET_SIZE sac_auto_alpha=$SAC_AUTO_ALPHA entropy_alpha=$ENTROPY_ALPHA target_entropy=$TARGET_ENTROPY target_q=[$TARGET_Q_MIN,$TARGET_Q_MAX] output=$output_dir"
   local pids=()
   for seed in 1 2 3 4 5; do
     local run_name="drawer_open_${slug}_s${seed}_${STEP_TAG}_cuda"
@@ -108,6 +124,6 @@ run_variant() {
 }
 
 log "BEGIN MetaWorld DrawerOpen REDQ-HER-TQB-B0-2M"
-log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE updates_per_step=$UPDATES_PER_STEP gamma=$GAMMA target_q=[$TARGET_Q_MIN,$TARGET_Q_MAX]"
+log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE updates_per_step=$UPDATES_PER_STEP gamma=$GAMMA ensemble=$REDQ_ENSEMBLE_SIZE target_subset=$TARGET_SUBSET_SIZE sac_auto_alpha=$SAC_AUTO_ALPHA entropy_alpha=$ENTROPY_ALPHA target_entropy=$TARGET_ENTROPY target_q=[$TARGET_Q_MIN,$TARGET_Q_MAX]"
 run_variant "REDQ+HER+Target-Q-Bounding B0 2M" "REDQ-HER-TQB-B0-2M" "b0_ddpg_her" "none"
 log "REDQ-HER-TQB-B0-2M completed successfully"

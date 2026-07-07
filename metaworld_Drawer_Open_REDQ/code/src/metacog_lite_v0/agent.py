@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from typing import Dict, Tuple
 
 import numpy as np
@@ -29,6 +30,8 @@ class UpdateMetrics:
     q_target_std: float
     q_abs_mean: float
     q_abs_max: float
+    alpha_loss: float
+    entropy_alpha: float
     td_error_abs_values: np.ndarray
 
 
@@ -76,6 +79,9 @@ class REDQAgent:
         target_policy_noise: float = 0.2,
         target_noise_clip: float = 0.5,
         entropy_alpha: float = 0.2,
+        sac_auto_alpha: bool = False,
+        target_entropy: float | None = None,
+        alpha_lr: float | None = None,
         ensemble_size: int = 5,
         target_subset_size: int = 2,
         target_q_bounding: bool = False,
@@ -88,6 +94,9 @@ class REDQAgent:
         self.tau = float(tau)
         self.l2_action_penalty = float(l2_action_penalty)
         self.entropy_alpha = float(entropy_alpha)
+        self.sac_auto_alpha = bool(sac_auto_alpha)
+        self.target_entropy = float(target_entropy) if target_entropy is not None else -float(action_dim)
+        self.alpha_lr = float(alpha_lr) if alpha_lr is not None else float(actor_lr)
         self.ensemble_size = int(ensemble_size)
         self.target_subset_size = int(target_subset_size)
         if self.ensemble_size < 2:
@@ -116,6 +125,15 @@ class REDQAgent:
 
         self.actor_opt = torch.optim.Adam(self.actor.parameters(), lr=actor_lr)
         self.critic_opt = torch.optim.Adam(self.critics.parameters(), lr=critic_lr)
+        self.log_entropy_alpha = torch.tensor(
+            math.log(max(self.entropy_alpha, 1e-8)),
+            dtype=torch.float32,
+            device=device,
+            requires_grad=True,
+        )
+        self.alpha_opt = (
+            torch.optim.Adam([self.log_entropy_alpha], lr=self.alpha_lr) if self.sac_auto_alpha else None
+        )
 
     @torch.no_grad()
     def act(self, state: np.ndarray, noise_std: float, noise_rng: np.random.Generator) -> np.ndarray:
@@ -129,6 +147,11 @@ class REDQAgent:
 
     def _sample_target_indices(self) -> list[int]:
         return torch.randperm(self.ensemble_size)[: self.target_subset_size].tolist()
+
+    def _alpha(self) -> torch.Tensor:
+        if self.sac_auto_alpha:
+            return self.log_entropy_alpha.exp()
+        return torch.as_tensor(self.entropy_alpha, dtype=torch.float32, device=self.device)
 
     def _bound_target_q(self, target_q: torch.Tensor) -> torch.Tensor:
         if not self.target_q_bounding:
@@ -153,7 +176,7 @@ class REDQAgent:
                 [self.critic_targets[idx](next_state, next_action) for idx in subset],
                 dim=0,
             )
-            target_q = q_next_stack.min(dim=0).values - self.entropy_alpha * next_log_prob
+            target_q = q_next_stack.min(dim=0).values - self._alpha().detach() * next_log_prob
             target_q = self._bound_target_q(target_q)
             target = reward + self.gamma * nonterminal * target_q
 
@@ -170,13 +193,22 @@ class REDQAgent:
         pi_action, log_pi = self.actor.sample(state)
         q_pi_stack = torch.stack([critic(state, pi_action) for critic in self.critics], dim=0)
         q_pi = q_pi_stack.mean(dim=0)
-        actor_loss = (omega_actor * (self.entropy_alpha * log_pi - q_pi)).mean()
+        actor_loss = (omega_actor * (self._alpha().detach() * log_pi - q_pi)).mean()
         if self.l2_action_penalty > 0:
             actor_loss = actor_loss + self.l2_action_penalty * pi_action.pow(2).mean()
         self.actor_opt.zero_grad(set_to_none=True)
         actor_loss.backward()
         actor_grad_norm_t = nn.utils.clip_grad_norm_(self.actor.parameters(), max_norm=10.0)
         self.actor_opt.step()
+
+        alpha_loss = torch.zeros((), dtype=torch.float32, device=self.device)
+        if self.sac_auto_alpha:
+            alpha_loss = -(self.log_entropy_alpha * (log_pi.detach() + self.target_entropy)).mean()
+            assert self.alpha_opt is not None
+            self.alpha_opt.zero_grad(set_to_none=True)
+            alpha_loss.backward()
+            self.alpha_opt.step()
+            self.entropy_alpha = float(self._alpha().detach().cpu().item())
 
         for source, target_net in zip(self.critics, self.critic_targets):
             self._soft_update(source, target_net)
@@ -202,6 +234,8 @@ class REDQAgent:
             q_target_std=float(target.detach().std(unbiased=False).item()),
             q_abs_mean=float(q_eval.detach().abs().mean().item()),
             q_abs_max=float(q_eval.detach().abs().max().item()),
+            alpha_loss=float(alpha_loss.detach().cpu().item()),
+            entropy_alpha=float(self.entropy_alpha),
             td_error_abs_values=td_abs.detach().cpu().numpy().astype(np.float32),
         )
 
@@ -219,7 +253,7 @@ class REDQAgent:
             [target(next_state, next_action) for target in self.critic_targets],
             dim=0,
         )
-        target_q = q_next_stack.min(dim=0).values - self.entropy_alpha * next_log_prob
+        target_q = q_next_stack.min(dim=0).values - self._alpha().detach() * next_log_prob
         target_q = self._bound_target_q(target_q)
         target = reward + self.gamma * nonterminal * target_q
         q_stack = torch.stack([critic(state, action_exec) for critic in self.critics], dim=0)
@@ -229,7 +263,7 @@ class REDQAgent:
     def target_q_values(self, next_state: torch.Tensor) -> torch.Tensor:
         next_action, next_log_prob = self.actor.sample(next_state)
         q_stack = torch.stack([target(next_state, next_action) for target in self.critic_targets], dim=0)
-        target_q = q_stack.min(dim=0).values - self.entropy_alpha * next_log_prob
+        target_q = q_stack.min(dim=0).values - self._alpha().detach() * next_log_prob
         return self._bound_target_q(target_q)
 
     @torch.no_grad()
@@ -258,9 +292,14 @@ class REDQAgent:
             "critic_targets": self.critic_targets.state_dict(),
             "actor_opt": self.actor_opt.state_dict(),
             "critic_opt": self.critic_opt.state_dict(),
+            "alpha_opt": self.alpha_opt.state_dict() if self.alpha_opt is not None else None,
             "gamma": self.gamma,
             "tau": self.tau,
             "entropy_alpha": self.entropy_alpha,
+            "sac_auto_alpha": self.sac_auto_alpha,
+            "target_entropy": self.target_entropy,
+            "alpha_lr": self.alpha_lr,
+            "log_entropy_alpha": self.log_entropy_alpha.detach().cpu(),
             "ensemble_size": self.ensemble_size,
             "target_subset_size": self.target_subset_size,
             "target_q_bounding": self.target_q_bounding,
@@ -278,6 +317,19 @@ class REDQAgent:
         self.gamma = float(payload.get("gamma", self.gamma))
         self.tau = float(payload.get("tau", self.tau))
         self.entropy_alpha = float(payload.get("entropy_alpha", self.entropy_alpha))
+        self.sac_auto_alpha = bool(payload.get("sac_auto_alpha", self.sac_auto_alpha))
+        self.target_entropy = float(payload.get("target_entropy", self.target_entropy))
+        self.alpha_lr = float(payload.get("alpha_lr", self.alpha_lr))
+        log_alpha_payload = payload.get("log_entropy_alpha")
+        with torch.no_grad():
+            if log_alpha_payload is not None:
+                self.log_entropy_alpha.copy_(torch.as_tensor(log_alpha_payload, dtype=torch.float32, device=self.device))
+            else:
+                self.log_entropy_alpha.fill_(math.log(max(self.entropy_alpha, 1e-8)))
+        if self.sac_auto_alpha and self.alpha_opt is None:
+            self.alpha_opt = torch.optim.Adam([self.log_entropy_alpha], lr=self.alpha_lr)
+        if self.alpha_opt is not None and payload.get("alpha_opt") is not None:
+            self.alpha_opt.load_state_dict(payload["alpha_opt"])
         self.ensemble_size = int(payload.get("ensemble_size", self.ensemble_size))
         self.target_subset_size = int(payload.get("target_subset_size", self.target_subset_size))
         self.target_q_bounding = bool(payload.get("target_q_bounding", self.target_q_bounding))

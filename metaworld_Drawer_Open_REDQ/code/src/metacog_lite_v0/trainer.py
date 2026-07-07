@@ -521,6 +521,12 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         target_q_bounding=getattr(config, "target_q_bounding", False),
         target_q_min=getattr(config, "target_q_min", None),
         target_q_max=getattr(config, "target_q_max", None),
+        entropy_alpha=getattr(config, "entropy_alpha", 0.2),
+        sac_auto_alpha=getattr(config, "sac_auto_alpha", False),
+        target_entropy=getattr(config, "target_entropy", None),
+        alpha_lr=getattr(config, "alpha_lr", None),
+        ensemble_size=getattr(config, "redq_ensemble_size", 5),
+        target_subset_size=getattr(config, "target_subset_size", 2),
     )
     replay = HERReplayBuffer(
         capacity=config.buffer_capacity,
@@ -585,8 +591,15 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "train/her_relabel_ratio",
         "config/lambda_support",
         "config/weight_scope",
+        "config/updates_per_step",
+        "config/redq_ensemble_size",
+        "config/target_subset_size",
+        "config/sac_auto_alpha",
         "loss/critic",
         "loss/actor",
+        "loss/alpha",
+        "sac/entropy_alpha",
+        "sac/target_entropy",
         "loss/td_error_abs_mean",
         "loss/td_error_abs_p90",
         "value/q_mean",
@@ -858,6 +871,8 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "q_abs_max": 0.0,
         "td_error_abs_mean": 0.0,
         "td_error_abs_p90": 0.0,
+        "alpha_loss": 0.0,
+        "entropy_alpha": config.entropy_alpha,
     }
     last_lite = _empty_lite_metrics(phase_names)
     last_her_ratio = 0.0
@@ -1007,6 +1022,8 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                     "q_abs_max": update.q_abs_max,
                     "td_error_abs_mean": update.td_error_abs_mean,
                     "td_error_abs_p90": update.td_error_abs_p90,
+                    "alpha_loss": update.alpha_loss,
+                    "entropy_alpha": update.entropy_alpha,
                 }
                 last_lite = _lite_metrics_from_weight_batch(wb, phase_names)
                 last_lite["time/actor_critic_update"] = float(t_update1 - t_update0)
@@ -1491,8 +1508,15 @@ def _metric_row(
         "train/her_relabel_ratio": her_ratio,
         "config/lambda_support": config.lambda_support,
         "config/weight_scope": config.weight_scope,
+        "config/updates_per_step": config.updates_per_step,
+        "config/redq_ensemble_size": config.redq_ensemble_size,
+        "config/target_subset_size": config.target_subset_size,
+        "config/sac_auto_alpha": config.sac_auto_alpha,
         "loss/critic": loss["critic"],
         "loss/actor": loss["actor"],
+        "loss/alpha": loss.get("alpha_loss", 0.0),
+        "sac/entropy_alpha": loss.get("entropy_alpha", config.entropy_alpha),
+        "sac/target_entropy": config.target_entropy if config.target_entropy is not None else "",
         "loss/td_error_abs_mean": loss.get("td_error_abs_mean", 0.0),
         "loss/td_error_abs_p90": loss.get("td_error_abs_p90", 0.0),
         "value/q_mean": loss["q_mean"],

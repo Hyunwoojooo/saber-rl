@@ -108,6 +108,12 @@ class LiteConfig:
     target_q_bounding: bool = False
     target_q_min: Optional[float] = None
     target_q_max: Optional[float] = None
+    entropy_alpha: float = 0.2
+    sac_auto_alpha: bool = False
+    target_entropy: Optional[float] = None
+    alpha_lr: Optional[float] = None
+    redq_ensemble_size: int = 5
+    target_subset_size: int = 2
 
     eval_freq: int = 10_000
     eval_episodes: int = 20
@@ -272,6 +278,16 @@ class LiteConfig:
         self.weight_scope = self.weight_scope.lower()
         if self.weight_scope not in {"actor_critic", "critic_only", "actor_only", "none"}:
             raise ValueError("weight_scope must be actor_critic|critic_only|actor_only|none")
+        if self.entropy_alpha <= 0.0:
+            raise ValueError("entropy_alpha must be positive")
+        if self.alpha_lr is None:
+            self.alpha_lr = self.actor_lr
+        elif self.alpha_lr <= 0.0:
+            raise ValueError("alpha_lr must be positive")
+        if self.redq_ensemble_size < 2:
+            raise ValueError("redq_ensemble_size must be >= 2")
+        if not 1 <= self.target_subset_size <= self.redq_ensemble_size:
+            raise ValueError("target_subset_size must be in [1, redq_ensemble_size]")
         self.policy_support_mode = self.policy_support_mode.lower()
         if self.policy_support_mode not in {"bin", "radius", "auto"}:
             raise ValueError("policy_support_mode must be bin|radius|auto")
