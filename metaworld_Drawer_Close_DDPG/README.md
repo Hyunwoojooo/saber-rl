@@ -74,6 +74,7 @@ Outputs are written to `metaworld_Drawer_Close_DDPG/results_2m/`, logs to `metaw
 | DDPG-HER-B3-Critic-Only-2M | Completed | 0/5 | 0.28 | 1.00 | 0.324 | 30k | 23.96 steps/s |
 | DDPG-HER-B3-Random-Fixed-Count-2M | Completed | 1/5 | 0.48 | 1.00 | 0.319 | 100k | 41.09 steps/s |
 | DDPG-HER-B3-Random-Support-2M | Completed | 1/5 | 0.24 | 1.00 | 0.277 | 68k | 23.84 steps/s |
+| DDPG-HER-B3-Shuffled-Weight-2M | Completed | 0/5 | 0.07 | 1.00 | 0.328 | 108k | 24.00 steps/s |
 
 ### DDPG-HER-B0-2M
 
@@ -135,3 +136,17 @@ Completed on 2026-07-05 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 
 Random-Support improved over B0 on final success and AUC, but did not match B3-Critic-Only. This suggests that support-derived density alone is not sufficient on DrawerClose DDPG; assigning the critic weights to the aligned support-positive samples still contributes to performance.
 
+### DDPG-HER-B3-Shuffled-Weight-2M
+
+Completed on 2026-07-06 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only shuffled SABER weighting. This control computes the SABER support-derived raw weight vector, preserves its weight distribution, and shuffles the assignment across batch samples before applying the weights to the critic loss.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.35 | 1.00 | 0.352 | 130k |
+| 2 | 0.00 | 1.00 | 0.227 | 240k |
+| 3 | 0.00 | 1.00 | 0.389 | 100k |
+| 4 | 0.00 | 1.00 | 0.308 | 60k |
+| 5 | 0.00 | 1.00 | 0.365 | 10k |
+| Mean | 0.07 | 1.00 | 0.328 | 108k |
+
+Shuffled-Weight produced a mean AUC comparable to B3-Critic-Only, but its final success and late-training stability were much weaker. This indicates that support-derived reweighting distribution alone can create transient learning gains, while preserving the support-to-sample assignment is still important for stable final policies on this DrawerClose DDPG setting.
