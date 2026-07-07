@@ -75,6 +75,7 @@ Outputs are written to `metaworld_Drawer_Close_DDPG/results_2m/`, logs to `metaw
 | DDPG-HER-B3-Random-Fixed-Count-2M | Completed | 1/5 | 0.48 | 1.00 | 0.319 | 100k | 41.09 steps/s |
 | DDPG-HER-B3-Random-Support-2M | Completed | 1/5 | 0.24 | 1.00 | 0.277 | 68k | 23.84 steps/s |
 | DDPG-HER-B3-Shuffled-Weight-2M | Completed | 0/5 | 0.07 | 1.00 | 0.328 | 108k | 24.00 steps/s |
+| DDPG-HER-PER-Style-2M | Completed | 0/5 | 0.40 | 1.00 | 0.313 | 108k | 38.94 steps/s |
 
 ### DDPG-HER-B0-2M
 
@@ -150,3 +151,18 @@ Completed on 2026-07-06 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.07 | 1.00 | 0.328 | 108k |
 
 Shuffled-Weight produced a mean AUC comparable to B3-Critic-Only, but its final success and late-training stability were much weaker. This indicates that support-derived reweighting distribution alone can create transient learning gains, while preserving the support-to-sample assignment is still important for stable final policies on this DrawerClose DDPG setting.
+
+### DDPG-HER-PER-Style-2M
+
+Completed on 2026-07-07 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only PER-style TD-error loss weighting.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.60 | 1.00 | 0.448 | 50k |
+| 2 | 0.55 | 1.00 | 0.321 | 130k |
+| 3 | 0.25 | 1.00 | 0.241 | 130k |
+| 4 | 0.35 | 1.00 | 0.358 | 130k |
+| 5 | 0.25 | 1.00 | 0.199 | 100k |
+| Mean | 0.40 | 1.00 | 0.313 | 108k |
+
+PER-Style produced the strongest mean final success among the completed DrawerClose DDPG controls so far, but its mean AUC remained below B3-Critic-Only and Shuffled-Weight. This makes it a strong final-snapshot baseline/control while preserving the need to report AUC and late stability separately.
