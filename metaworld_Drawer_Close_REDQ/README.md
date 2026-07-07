@@ -1,12 +1,14 @@
 # MetaWorld DrawerClose REDQ Baselines
 
-This folder contains independent REDQ+HER strong baselines for `drawer-close-v3`.
+This folder contains the independent REDQ+HER strong baseline for `drawer-close-v3`.
 
-## Experiments
+The planned REDQ baseline for the SABER comparison is `REDQ-HER-TQB-B0-2M`.
+The plain `REDQ-HER-B0-2M.sh` script is kept only as a legacy/reference launcher and is not part of the planned DrawerClose REDQ result set.
+
+## Planned Experiment
 
 | Variant | Backbone | HER | Reward | Steps | Seeds | Parallelism | Target Q Bounding |
 |---|---|---:|---|---:|---:|---:|---|
-| REDQ-HER-B0-2M | REDQ | 0.8 | sparse / v2 | 2,000,000 | 1-5 | 5 CUDA workers | off |
 | REDQ-HER-TQB-B0-2M | REDQ | 0.8 | sparse / v2 | 2,000,000 | 1-5 | 5 CUDA workers | [-50, 0] |
 
 ## REDQ Settings
@@ -33,7 +35,6 @@ The drawer sparse reward convention is `failure = -1` and `success = 0`. With `g
 ## Run
 
 ```bash
-bash REDQ-HER-B0-2M.sh
 bash REDQ-HER-TQB-B0-2M.sh
 ```
 
