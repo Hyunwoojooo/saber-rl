@@ -7,3 +7,6 @@ results/
 results_*/
 orchestrator_logs/
 *.pt
+runs/
+runs_*/
+*.bak
