@@ -128,36 +128,61 @@ class HGRSampler:
         selected_ranks: list[float] = []
         candidate_td_means: list[float] = []
         candidate_td_maxes: list[float] = []
+        query_out_indices: list[int] = []
+        query_slots: list[int] = []
+        query_futures: list[np.ndarray] = []
 
         for out_i in range(b):
             if relabel_requested[out_i] and episode_dist is not None:
-                sampled = self._sample_ranked_future_goal(
-                    replay=replay,
-                    episode_dist=episode_dist,
-                    rng=rng,
-                    agent=agent,
-                    env=env,
-                    device=device,
-                    success_terminates=success_terminates,
-                    timeout_bootstrap=timeout_bootstrap,
-                )
+                sampled = self._sample_future_query(replay=replay, episode_dist=episode_dist, rng=rng)
                 if sampled is not None:
-                    slot, future_slot, goal, metrics = sampled
+                    slot, future_slots = sampled
                     indices[out_i] = int(slot)
-                    desired_goal_train[out_i] = goal
-                    selected_future_slots[out_i] = int(future_slot)
-                    relabel_mask[out_i] = True
-                    relabeled += 1
-                    goal_entropies.append(float(metrics["goal_priority_entropy"]))
-                    selected_ranks.append(float(metrics["goal_selected_rank"]))
-                    candidate_td_means.append(float(metrics["candidate_td_error_mean"]))
-                    candidate_td_maxes.append(float(metrics["candidate_td_error_max"]))
+                    desired_goal_train[out_i] = replay.desired_goal[int(slot)]
+                    query_out_indices.append(out_i)
+                    query_slots.append(int(slot))
+                    query_futures.append(future_slots)
                     continue
                 hgr_fallbacks += 1
 
             slot = int(rng.integers(0, replay.size, endpoint=False))
             indices[out_i] = slot
             desired_goal_train[out_i] = replay.desired_goal[slot]
+
+        if query_slots:
+            td_by_query = self._candidate_td_errors_batch(
+                replay=replay,
+                slots=query_slots,
+                futures_by_query=query_futures,
+                agent=agent,
+                env=env,
+                device=device,
+                success_terminates=success_terminates,
+                timeout_bootstrap=timeout_bootstrap,
+            )
+        else:
+            td_by_query = []
+
+        for out_i, slot, future_slots, td_abs in zip(query_out_indices, query_slots, query_futures, td_by_query):
+            choice = self._choose_ranked_future_goal(
+                replay=replay,
+                future_slots=future_slots,
+                td_abs=td_abs,
+                rng=rng,
+            )
+            if choice is None:
+                hgr_fallbacks += 1
+                desired_goal_train[out_i] = replay.desired_goal[int(slot)]
+                continue
+            future_slot, goal, metrics = choice
+            desired_goal_train[out_i] = goal
+            selected_future_slots[out_i] = int(future_slot)
+            relabel_mask[out_i] = True
+            relabeled += 1
+            goal_entropies.append(float(metrics["goal_priority_entropy"]))
+            selected_ranks.append(float(metrics["goal_selected_rank"]))
+            candidate_td_means.append(float(metrics["candidate_td_error_mean"]))
+            candidate_td_maxes.append(float(metrics["candidate_td_error_max"]))
 
         sample_sec = float(time.perf_counter() - t0)
         episode_priorities = (
@@ -304,6 +329,29 @@ class HGRSampler:
             "slots_by_episode": slots_by_episode,
         }
 
+    def _sample_future_query(
+        self,
+        replay: HERReplayBuffer,
+        episode_dist: Dict[str, Any],
+        rng: np.random.Generator,
+    ) -> Optional[tuple[int, np.ndarray]]:
+        episodes = episode_dist["episodes"]
+        probs = episode_dist["probs"]
+        slots_by_episode = episode_dist["slots_by_episode"]
+        ep = int(episodes[int(rng.choice(episodes.size, p=probs))])
+        slots = np.asarray(slots_by_episode[ep], dtype=np.int64)
+        if slots.size < 2:
+            return None
+        base_slot = int(slots[int(rng.integers(0, slots.size - 1, endpoint=False))])
+        step = int(replay.episode_step[base_slot])
+        future_slots = slots[replay.episode_step[slots] > step]
+        if future_slots.size == 0:
+            return None
+        if self.max_future_candidates > 0 and future_slots.size > self.max_future_candidates:
+            positions = np.linspace(0, future_slots.size - 1, num=self.max_future_candidates, dtype=np.int64)
+            future_slots = future_slots[positions].astype(np.int64)
+        return base_slot, future_slots.astype(np.int64, copy=False)
+
     @torch.no_grad()
     def _sample_ranked_future_goal(
         self,
@@ -344,24 +392,11 @@ class HGRSampler:
         )
         if td_abs.size == 0:
             return None
-        clipped_td = np.clip(td_abs.astype(np.float64), self.priority_eps, self.priority_clip_max)
-        goal_weights = np.power(clipped_td + self.priority_eps, self.alpha_goal)
-        if not np.all(np.isfinite(goal_weights)) or float(goal_weights.sum()) <= 0.0:
-            goal_weights = np.ones_like(clipped_td, dtype=np.float64)
-        goal_probs = goal_weights / float(goal_weights.sum())
-        selected_pos = int(rng.choice(goal_probs.size, p=goal_probs))
-        selected_future_slot = int(future_slots[selected_pos])
-        selected_goal = replay.next_achieved_goal[selected_future_slot].copy()
-        selected_td = float(td_abs[selected_pos])
-        rank = 1 + int(np.count_nonzero(td_abs > selected_td))
-        entropy = float(-(goal_probs * np.log(goal_probs + self.priority_eps)).sum())
-        metrics = {
-            "goal_priority_entropy": entropy,
-            "goal_selected_rank": float(rank),
-            "candidate_td_error_mean": float(np.mean(td_abs)),
-            "candidate_td_error_max": float(np.max(td_abs)),
-        }
-        return base_slot, selected_future_slot, selected_goal.astype(np.float32), metrics
+        choice = self._choose_ranked_future_goal(replay=replay, future_slots=future_slots, td_abs=td_abs, rng=rng)
+        if choice is None:
+            return None
+        selected_future_slot, selected_goal, metrics = choice
+        return base_slot, selected_future_slot, selected_goal, metrics
 
     @torch.no_grad()
     def _candidate_td_errors(
@@ -375,38 +410,120 @@ class HGRSampler:
         success_terminates: bool,
         timeout_bootstrap: bool,
     ) -> np.ndarray:
-        candidate_slots = np.asarray(future_slots, dtype=np.int64)
-        n = int(candidate_slots.size)
-        if n <= 0:
-            return np.zeros((0,), dtype=np.float32)
-        goals = replay.next_achieved_goal[candidate_slots].astype(np.float32, copy=True)
-        obs = np.repeat(replay.observation[int(base_slot)][None, :], n, axis=0)
-        next_obs = np.repeat(replay.next_observation[int(base_slot)][None, :], n, axis=0)
-        action = np.repeat(replay.action_exec[int(base_slot)][None, :], n, axis=0)
-        next_achieved = np.repeat(replay.next_achieved_goal[int(base_slot)][None, :], n, axis=0)
+        return self._candidate_td_errors_batch(
+            replay=replay,
+            slots=[int(base_slot)],
+            futures_by_query=[np.asarray(future_slots, dtype=np.int64)],
+            agent=agent,
+            env=env,
+            device=device,
+            success_terminates=success_terminates,
+            timeout_bootstrap=timeout_bootstrap,
+        )[0]
+
+    @torch.no_grad()
+    def _candidate_td_errors_batch(
+        self,
+        replay: HERReplayBuffer,
+        slots: list[int],
+        futures_by_query: list[np.ndarray],
+        agent: Any,
+        env: Any,
+        device: torch.device,
+        success_terminates: bool,
+        timeout_bootstrap: bool,
+    ) -> list[np.ndarray]:
+        counts = [int(np.asarray(futures, dtype=np.int64).size) for futures in futures_by_query]
+        total = int(sum(counts))
+        if total <= 0:
+            return [np.zeros((0,), dtype=np.float32) for _ in slots]
+
+        slot_rep = np.empty(total, dtype=np.int64)
+        future_cat = np.empty(total, dtype=np.int64)
+        cursor = 0
+        for slot, futures in zip(slots, futures_by_query):
+            futures_arr = np.asarray(futures, dtype=np.int64).reshape(-1)
+            n = int(futures_arr.size)
+            slot_rep[cursor : cursor + n] = int(slot)
+            future_cat[cursor : cursor + n] = futures_arr
+            cursor += n
+
+        goals = replay.next_achieved_goal[future_cat].astype(np.float32, copy=False)
+        next_achieved = replay.next_achieved_goal[slot_rep].astype(np.float32, copy=False)
         reward = np.asarray(env.compute_reward(next_achieved, goals, {}), dtype=np.float32).reshape(-1)
         if hasattr(env, "success_from_goal"):
             success = np.asarray(env.success_from_goal(next_achieved, goals), dtype=np.float32).reshape(-1)
         else:
-            success = np.zeros(n, dtype=np.float32)
-        env_terminal = float(bool(replay.done[int(base_slot)])) * (1.0 - float(bool(replay.timeout[int(base_slot)])))
+            success = np.zeros(total, dtype=np.float32)
+
+        env_terminal = replay.done[slot_rep].astype(np.float32) * (1.0 - replay.timeout[slot_rep].astype(np.float32))
         if not timeout_bootstrap:
-            env_terminal = max(env_terminal, float(bool(replay.timeout[int(base_slot)])))
-        terminal = np.full(n, env_terminal, dtype=np.float32)
+            env_terminal = np.maximum(env_terminal, replay.timeout[slot_rep].astype(np.float32))
+        terminal = env_terminal.astype(np.float32, copy=True)
         if success_terminates:
             terminal = np.maximum(terminal, success.astype(np.float32))
         nonterminal = (1.0 - terminal).astype(np.float32)
 
-        state_np = np.concatenate([obs, goals], axis=1).astype(np.float32)
-        next_state_np = np.concatenate([next_obs, goals], axis=1).astype(np.float32)
+        state_np = np.concatenate([replay.observation[slot_rep], goals], axis=1).astype(np.float32, copy=False)
+        next_state_np = np.concatenate([replay.next_observation[slot_rep], goals], axis=1).astype(np.float32, copy=False)
+        action_np = replay.action_exec[slot_rep].astype(np.float32, copy=False)
         td_abs = agent.td_error_abs(
             torch.as_tensor(state_np, dtype=torch.float32, device=device),
-            torch.as_tensor(action, dtype=torch.float32, device=device),
+            torch.as_tensor(action_np, dtype=torch.float32, device=device),
             torch.as_tensor(reward, dtype=torch.float32, device=device),
             torch.as_tensor(next_state_np, dtype=torch.float32, device=device),
             torch.as_tensor(nonterminal, dtype=torch.float32, device=device),
         )
-        return td_abs.detach().cpu().numpy().astype(np.float32).reshape(-1)
+        td_flat = td_abs.detach().cpu().numpy().astype(np.float32).reshape(-1)
+
+        out: list[np.ndarray] = []
+        cursor = 0
+        for count in counts:
+            out.append(td_flat[cursor : cursor + int(count)].copy())
+            cursor += int(count)
+        return out
+
+    def _choose_ranked_future_goal(
+        self,
+        replay: HERReplayBuffer,
+        future_slots: np.ndarray,
+        td_abs: np.ndarray,
+        rng: np.random.Generator,
+    ) -> Optional[tuple[int, np.ndarray, Dict[str, float]]]:
+        future_arr = np.asarray(future_slots, dtype=np.int64).reshape(-1)
+        td_arr = np.asarray(td_abs, dtype=np.float32).reshape(-1)
+        if future_arr.size == 0:
+            return None
+        if td_arr.size != future_arr.size or not np.any(np.isfinite(td_arr)):
+            td_arr = np.ones(future_arr.size, dtype=np.float32)
+        else:
+            td_arr = np.nan_to_num(
+                td_arr,
+                nan=0.0,
+                posinf=float(self.priority_clip_max),
+                neginf=0.0,
+            ).astype(np.float32, copy=False)
+
+        clipped_td = np.clip(td_arr.astype(np.float64), self.priority_eps, self.priority_clip_max)
+        goal_weights = np.power(clipped_td + self.priority_eps, self.alpha_goal)
+        if not np.all(np.isfinite(goal_weights)) or float(goal_weights.sum()) <= 0.0:
+            goal_weights = np.ones_like(clipped_td, dtype=np.float64)
+        goal_probs = goal_weights / float(goal_weights.sum())
+        goal_probs[-1] += 1.0 - float(goal_probs.sum())
+
+        selected_pos = int(rng.choice(goal_probs.size, p=goal_probs))
+        selected_future_slot = int(future_arr[selected_pos])
+        selected_goal = replay.next_achieved_goal[selected_future_slot].copy().astype(np.float32)
+        selected_td = float(td_arr[selected_pos])
+        rank = 1 + int(np.count_nonzero(td_arr > selected_td))
+        entropy = float(-(goal_probs * np.log(goal_probs + self.priority_eps)).sum())
+        metrics = {
+            "goal_priority_entropy": entropy,
+            "goal_selected_rank": float(rank),
+            "candidate_td_error_mean": float(np.mean(td_arr)),
+            "candidate_td_error_max": float(np.max(td_arr)),
+        }
+        return selected_future_slot, selected_goal, metrics
 
     def _valid_episode_slots(self, replay: HERReplayBuffer, episode_id: int) -> np.ndarray:
         slots = replay._episode_to_slots.get(int(episode_id), [])
