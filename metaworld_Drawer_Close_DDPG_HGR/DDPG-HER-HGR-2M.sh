@@ -16,6 +16,7 @@ CUDA_DEVICE="${CUDA_DEVICE:-0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/runs/ddpg_hgr_tdpriority_${STEP_TAG}}"
 LOG_ROOT="${LOG_ROOT:-$ROOT/logs/ddpg_hgr_tdpriority_${STEP_TAG}}"
 DRY_RUN="${DRY_RUN:-0}"
+RESUME="${RESUME:-0}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
 ORCH_LOG="$ORCH_LOG_DIR/DDPG-HER-HGR-${STEP_TAG}_$(date +%Y%m%d_%H%M%S).log"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
@@ -86,12 +87,16 @@ run_variant() {
     while IFS= read -r -d "" arg; do
       args+=("$arg")
     done < <(common_args "$seed")
+    local resume_args=()
+    if [[ "$RESUME" == "1" ]]; then
+      resume_args+=(--resume)
+    fi
 
     if [[ "$DRY_RUN" == "1" ]]; then
       log "DRY_RUN seed=$seed run=$run_name"
       printf 'cd %q && PYTHONPATH=%q CUDA_VISIBLE_DEVICES=%q %q %q' \
         "$EXP_DIR" "$EXP_DIR/code/src:${PYTHONPATH:-}" "$CUDA_DEVICE" "$PYTHON" "$TRAIN"
-      printf ' %q' "${args[@]}" --method hgr --weight_scope none --run_name "$run_name" --output_root "$output_dir"
+      printf ' %q' "${args[@]}" "${resume_args[@]}" --method hgr --weight_scope none --run_name "$run_name" --output_root "$output_dir"
       printf '\n'
       continue
     fi
@@ -103,6 +108,7 @@ run_variant() {
       CUDA_VISIBLE_DEVICES="$CUDA_DEVICE" \
       "$PYTHON" "$TRAIN" \
         "${args[@]}" \
+        "${resume_args[@]}" \
         --method hgr \
         --weight_scope none \
         --run_name "$run_name" \
@@ -130,6 +136,6 @@ run_variant() {
 }
 
 log "BEGIN MetaWorld DrawerClose DDPG-HER-HGR-${STEP_TAG}"
-log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE DRY_RUN=$DRY_RUN"
+log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE DRY_RUN=$DRY_RUN RESUME=$RESUME"
 run_variant "DDPG+HER+HGR ${STEP_TAG}" "DDPG-HER-HGR-${STEP_TAG}"
 log "DDPG-HER-HGR-${STEP_TAG} completed successfully"

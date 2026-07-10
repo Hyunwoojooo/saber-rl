@@ -1,0 +1,738 @@
+{
+  "accounted_component_sec": 1838.5546403470041,
+  "actor_updates": 40000,
+  "checkpoint_sec": 0.660193652001908,
+  "component_accounting_ratio": 1.0,
+  "component_accounting_ratio_with_other": 1.0,
+  "components": {
+    "Actor + target update": {
+      "count": 40000,
+      "estimated_from_sampled_updates": true,
+      "mean_ms": 2.584665560331196,
+      "median_ms": 2.593344025313854,
+      "ms_per_env_step": 1.292332780165598,
+      "ms_per_update": 1.292332780165598,
+      "p90_ms": 3.57366723716259,
+      "sample_count": 800,
+      "total_sec": 103.38662241324784,
+      "training_share": 0.0535495235922116
+    },
+    "Batch preparation": {
+      "count": 80000,
+      "estimated_from_sampled_updates": false,
+      "mean_ms": 0.10810860504388985,
+      "median_ms": 0.10852800915017724,
+      "ms_per_env_step": 0.10810860504388983,
+      "ms_per_update": 0.10810860504388983,
+      "p90_ms": 0.1216571341501549,
+      "sample_count": 80000,
+      "total_sec": 8.648688403511187,
+      "training_share": 0.00447962350345787
+    },
+    "Critic update": {
+      "count": 80000,
+      "estimated_from_sampled_updates": true,
+      "mean_ms": 2.8319363190792504,
+      "median_ms": 2.7707039788365364,
+      "ms_per_env_step": 2.83193631907925,
+      "ms_per_update": 2.83193631907925,
+      "p90_ms": 3.977302307635546,
+      "sample_count": 800,
+      "total_sec": 226.55490552634,
+      "training_share": 0.11734503918622499
+    },
+    "Eval/logging amortized": {
+      "count": 1705,
+      "estimated_from_sampled_updates": false,
+      "mean_ms": 3.9910295912470186,
+      "median_ms": 0.28399701113812625,
+      "ms_per_env_step": 0.0850588181634521,
+      "ms_per_update": 0.0850588181634521,
+      "p90_ms": 0.304745597532019,
+      "sample_count": 1705,
+      "total_sec": 6.804705453076167,
+      "training_share": 0.0035245249984185655
+    },
+    "Interaction": {
+      "count": 80000,
+      "estimated_from_sampled_updates": false,
+      "mean_ms": 1.0705476582967095,
+      "median_ms": 1.0630965261952952,
+      "ms_per_env_step": 1.0705476582967095,
+      "ms_per_update": 1.0705476582967095,
+      "p90_ms": 1.2055472878273579,
+      "sample_count": 80000,
+      "total_sec": 85.64381266373675,
+      "training_share": 0.04435956277236942
+    },
+    "Other/unaccounted": {
+      "count": 80000,
+      "estimated_from_sampled_updates": false,
+      "mean_ms": 1.1514802078307553,
+      "median_ms": 1.1514802078307553,
+      "ms_per_env_step": 1.1514802078307553,
+      "ms_per_update": 1.1514802078307553,
+      "p90_ms": 1.1514802078307553,
+      "sample_count": 1,
+      "total_sec": 92.11841662646043,
+      "training_share": 0.047713110354824055
+    },
+    "Replay + HER": {
+      "count": 80000,
+      "estimated_from_sampled_updates": false,
+      "mean_ms": 2.651372014397202,
+      "median_ms": 2.6771459815790877,
+      "ms_per_env_step": 2.6513720143972024,
+      "ms_per_update": 2.6513720143972024,
+      "p90_ms": 2.895235695177689,
+      "sample_count": 80000,
+      "total_sec": 212.10976115177618,
+      "training_share": 0.10986311762400662
+    },
+    "Support and weighting": {
+      "count": 80000,
+      "estimated_from_sampled_updates": false,
+      "mean_ms": 15.027635627354904,
+      "median_ms": 15.226162518956698,
+      "ms_per_env_step": 15.027635627354902,
+      "ms_per_update": 15.027635627354902,
+      "p90_ms": 17.61063616722822,
+      "sample_count": 80000,
+      "total_sec": 1202.2108501883922,
+      "training_share": 0.6226900229669055
+    }
+  },
+  "device": "cuda",
+  "eval_sec": 5.45657033205498,
+  "hardware_metadata": {
+    "cpu_count": 20,
+    "cuda_capability": [
+      12,
+      1
+    ],
+    "cuda_device_index": 0,
+    "cuda_device_name": "NVIDIA GB10",
+    "cuda_runtime": "13.0",
+    "cuda_total_memory_bytes": 130660872192,
+    "cudnn_version": 92000,
+    "device": "cuda",
+    "platform": "Linux-6.17.0-1026-nvidia-aarch64-with-glibc2.39",
+    "processor": "aarch64",
+    "python": "3.12.3",
+    "torch_version": "2.12.1+cu130"
+  },
+  "local_scan_cache_hit_rate": 0.9950548553783745,
+  "logging_sec": 0.6879414690192789,
+  "measured_component_accounting_ratio": 0.9522868896451759,
+  "method": "td3_saber_runtime_opt",
+  "numba_support_scan_enabled": false,
+  "profile_elapsed_sec": 1937.4777624265407,
+  "profile_end_step": 100000,
+  "profile_events_jsonl": true,
+  "profile_sample_every_updates": 100,
+  "profile_schema_version": "1.0",
+  "profile_start_step": 20000,
+  "profile_sync_cuda": true,
+  "profiled_actor_updates": 40000,
+  "profiled_critic_updates": 80000,
+  "profiled_cuda_sync_wait_sec": 0.010998824815033004,
+  "profiled_env_steps": 80000,
+  "profiled_updates": 80000,
+  "profiler_administrative_sec": 0.20694837925839238,
+  "profiler_event_logging_sec": 0.17389774456387386,
+  "raw_components": {
+    "action_selection": {
+      "count": 80000,
+      "mean_ms": 0.18998850422176475,
+      "median_ms": 0.19619900558609515,
+      "p90_ms": 0.2169439976569265,
+      "total_sec": 15.19908033774118
+    },
+    "actor_backward": {
+      "count": 800,
+      "mean_ms": 1.7961924405395986,
+      "median_ms": 1.8291839957237241,
+      "p90_ms": 2.7770751476287843,
+      "total_sec": 1.4369539524316814
+    },
+    "actor_forward_loss": {
+      "count": 800,
+      "mean_ms": 0.2662028802931309,
+      "median_ms": 0.27779199182987213,
+      "p90_ms": 0.3059360057115555,
+      "total_sec": 0.21296230423450463
+    },
+    "actor_optimizer_step": {
+      "count": 800,
+      "mean_ms": 0.24623963955789804,
+      "median_ms": 0.24348799884319305,
+      "p90_ms": 0.28974078595638275,
+      "total_sec": 0.19699171164631835
+    },
+    "agent_update_wall": {
+      "count": 80000,
+      "mean_ms": 4.377491759768599,
+      "median_ms": 4.050168005051091,
+      "p90_ms": 6.972348398994654,
+      "total_sec": 350.199340781488
+    },
+    "cpu_to_device_tensor_preparation": {
+      "count": 80000,
+      "mean_ms": 0.09483312565789674,
+      "median_ms": 0.09514999692328274,
+      "p90_ms": 0.10686300811357796,
+      "total_sec": 7.5866500526317395
+    },
+    "critic_backward": {
+      "count": 800,
+      "mean_ms": 1.9325862792134285,
+      "median_ms": 1.8804320096969604,
+      "p90_ms": 3.094003248214722,
+      "total_sec": 1.5460690233707433
+    },
+    "critic_loss": {
+      "count": 800,
+      "mean_ms": 0.10122803996317088,
+      "median_ms": 0.10366399958729744,
+      "p90_ms": 0.11126399785280228,
+      "total_sec": 0.08098243197053671
+    },
+    "critic_optimizer_step": {
+      "count": 800,
+      "mean_ms": 0.2968569996580481,
+      "median_ms": 0.3033279925584793,
+      "p90_ms": 0.3278784066438674,
+      "total_sec": 0.23748559972643862
+    },
+    "critic_target_construction": {
+      "count": 800,
+      "mean_ms": 0.35385488022118805,
+      "median_ms": 0.36372800171375275,
+      "p90_ms": 0.3929311960935593,
+      "total_sec": 0.2830839041769508
+    },
+    "critic_twin_forward": {
+      "count": 800,
+      "mean_ms": 0.1474101200234145,
+      "median_ms": 0.14892800152301788,
+      "p90_ms": 0.15795519649982454,
+      "total_sec": 0.11792809601873162
+    },
+    "env_step": {
+      "count": 80000,
+      "mean_ms": 0.81388389374697,
+      "median_ms": 0.800085996161215,
+      "p90_ms": 0.9314691880717875,
+      "total_sec": 65.1107114997576
+    },
+    "episode_metric_writing": {
+      "count": 1600,
+      "mean_ms": 0.42307727182560484,
+      "median_ms": 0.28503299108706415,
+      "p90_ms": 0.3049807099159807,
+      "total_sec": 0.6769236349209677
+    },
+    "eval_log_writing": {
+      "count": 8,
+      "mean_ms": 0.10066787581308745,
+      "median_ms": 0.0991755077848211,
+      "p90_ms": 0.10663059365469962,
+      "total_sec": 0.0008053430065046996
+    },
+    "eval_metric_writing": {
+      "count": 8,
+      "mean_ms": 0.27846050215885043,
+      "median_ms": 0.27454250084701926,
+      "p90_ms": 0.29641438741236925,
+      "total_sec": 0.0022276840172708035
+    },
+    "evaluation": {
+      "count": 8,
+      "mean_ms": 682.0712915068725,
+      "median_ms": 680.8434184931684,
+      "p90_ms": 710.7420820102561,
+      "total_sec": 5.45657033205498
+    },
+    "her_future_goal_relabel": {
+      "count": 80000,
+      "mean_ms": 2.513011926842955,
+      "median_ms": 2.5383964966749772,
+      "p90_ms": 2.7496321068610996,
+      "total_sec": 201.04095414743642
+    },
+    "numpy_batch_preparation": {
+      "count": 80000,
+      "mean_ms": 0.013275479385993095,
+      "median_ms": 0.013008015230298042,
+      "p90_ms": 0.015744008123874664,
+      "total_sec": 1.0620383508794475
+    },
+    "periodic_checkpoint_writing": {
+      "count": 1,
+      "mean_ms": 660.193652001908,
+      "median_ms": 660.193652001908,
+      "p90_ms": 660.193652001908,
+      "total_sec": 0.660193652001908
+    },
+    "periodic_log_writing": {
+      "count": 80,
+      "mean_ms": 0.09981008843169548,
+      "median_ms": 0.10565100819803774,
+      "p90_ms": 0.11433120234869419,
+      "total_sec": 0.007984807074535638
+    },
+    "replay_add_transition": {
+      "count": 80000,
+      "mean_ms": 0.06667526032797468,
+      "median_ms": 0.06625399691984057,
+      "p90_ms": 0.07532801828347147,
+      "total_sec": 5.334020826237975
+    },
+    "replay_batch_materialize": {
+      "count": 80000,
+      "mean_ms": 0.07801826132163114,
+      "median_ms": 0.07711499347351491,
+      "p90_ms": 0.08585600880905986,
+      "total_sec": 6.2414609057304915
+    },
+    "replay_sample_base": {
+      "count": 80000,
+      "mean_ms": 0.032153124308388216,
+      "median_ms": 0.03268802538514137,
+      "p90_ms": 0.03475198172964156,
+      "total_sec": 2.572249944671057
+    },
+    "reward_recomputation": {
+      "count": 80000,
+      "mean_ms": 0.016985939164806042,
+      "median_ms": 0.01683199661783874,
+      "p90_ms": 0.020256004063412547,
+      "total_sec": 1.3588751331844833
+    },
+    "success_terminal_preparation": {
+      "count": 80000,
+      "mean_ms": 0.011202762759421602,
+      "median_ms": 0.011311989510431886,
+      "p90_ms": 0.012398988474160433,
+      "total_sec": 0.8962210207537282
+    },
+    "support_batch_normalization": {
+      "count": 80000,
+      "mean_ms": 0.013284779740206433,
+      "median_ms": 0.013518991181626916,
+      "p90_ms": 0.01615998917259276,
+      "total_sec": 1.0627823792165145
+    },
+    "support_candidate_construction": {
+      "count": 80000,
+      "mean_ms": 2.0533921692669534,
+      "median_ms": 2.0627348421839997,
+      "p90_ms": 2.219621741096489,
+      "total_sec": 164.2713735413563
+    },
+    "support_context_hash": {
+      "count": 80000,
+      "mean_ms": 0.1145593800691131,
+      "median_ms": 0.11435200576670468,
+      "p90_ms": 0.12190299457870424,
+      "total_sec": 9.164750405529048
+    },
+    "support_local_replay_lookup": {
+      "count": 80000,
+      "mean_ms": 12.650736773993776,
+      "median_ms": 12.837840491556562,
+      "p90_ms": 15.158105691079983,
+      "total_sec": 1012.0589419195021
+    },
+    "support_policy_action_query": {
+      "count": 80000,
+      "mean_ms": 0.18966708264415502,
+      "median_ms": 0.19180699018761516,
+      "p90_ms": 0.2168089878978208,
+      "total_sec": 15.173366611532401
+    },
+    "support_predicate_evaluation": {
+      "count": 80000,
+      "mean_ms": 0.0,
+      "median_ms": 0.0,
+      "p90_ms": 0.0,
+      "total_sec": 0.0
+    },
+    "support_q_evaluation": {
+      "count": 80000,
+      "mean_ms": 0.0,
+      "median_ms": 0.0,
+      "p90_ms": 0.0,
+      "total_sec": 0.0
+    },
+    "support_weight_construction": {
+      "count": 80000,
+      "mean_ms": 0.0059954416406981185,
+      "median_ms": 0.006032001692801714,
+      "p90_ms": 0.006880000000819564,
+      "total_sec": 0.47963533125584945
+    },
+    "target_soft_update": {
+      "count": 800,
+      "mean_ms": 0.2760305999405682,
+      "median_ms": 0.2777120023965835,
+      "p90_ms": 0.29840001463890076,
+      "total_sec": 0.2208244799524546
+    }
+  },
+  "sampled_actor_updates": 800,
+  "sampled_gpu_updates": 800,
+  "seed": 1,
+  "steps_per_sec_excluding_eval": 41.43632693844525,
+  "steps_per_sec_including_eval": 41.29079649399754,
+  "subwindows": {
+    "20000-40000": {
+      "accounted_component_sec": 414.4400088574388,
+      "accounting_ratio": 0.9476263054428804,
+      "accounting_ratio_with_other": 1.0,
+      "checkpoint_sec": 0.0,
+      "components": {
+        "Actor + target update": {
+          "count": 10000,
+          "estimated_from_sampled_updates": true,
+          "mean_ms": 3.0065455988794567,
+          "median_ms": 2.9678079709410667,
+          "ms_per_env_step": 1.5032727994397284,
+          "ms_per_update": 1.5032727994397284,
+          "p90_ms": 4.048531122505665,
+          "sample_count": 200,
+          "total_sec": 30.065455988794568,
+          "training_share": 0.06874533435770999
+        },
+        "Batch preparation": {
+          "count": 20000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 0.10232476683304412,
+          "median_ms": 0.10247000318486243,
+          "ms_per_env_step": 0.10232476683304412,
+          "ms_per_update": 0.10232476683304412,
+          "p90_ms": 0.11250598181504756,
+          "sample_count": 20000,
+          "total_sec": 2.0464953366608825,
+          "training_share": 0.004679357141055198
+        },
+        "Critic update": {
+          "count": 20000,
+          "estimated_from_sampled_updates": true,
+          "mean_ms": 3.3189900827035306,
+          "median_ms": 3.463775921612978,
+          "ms_per_env_step": 3.3189900827035306,
+          "ms_per_update": 3.3189900827035306,
+          "p90_ms": 4.139283327013254,
+          "sample_count": 200,
+          "total_sec": 66.37980165407062,
+          "training_share": 0.1517788940572963
+        },
+        "Eval/logging amortized": {
+          "count": 426,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 3.4696283812952737,
+          "median_ms": 0.27970450173597783,
+          "ms_per_env_step": 0.07390308452158934,
+          "ms_per_update": 0.07390308452158934,
+          "p90_ms": 0.2958429977297783,
+          "sample_count": 426,
+          "total_sec": 1.4780616904317867,
+          "training_share": 0.0033796209559544123
+        },
+        "Interaction": {
+          "count": 20000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 1.042976748541696,
+          "median_ms": 1.0445745137985796,
+          "ms_per_env_step": 1.042976748541696,
+          "ms_per_update": 1.042976748541696,
+          "p90_ms": 1.186175527982414,
+          "sample_count": 20000,
+          "total_sec": 20.85953497083392,
+          "training_share": 0.047695791031766625
+        },
+        "Other/unaccounted": {
+          "count": 20000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 1.1452697287674538,
+          "median_ms": 1.1452697287674538,
+          "ms_per_env_step": 1.1452697287674538,
+          "ms_per_update": 1.1452697287674538,
+          "p90_ms": 1.1452697287674538,
+          "sample_count": 1,
+          "total_sec": 22.905394575349078,
+          "training_share": 0.0523736945571196
+        },
+        "Replay + HER": {
+          "count": 20000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 2.4123542214758342,
+          "median_ms": 2.4325854901690036,
+          "ms_per_env_step": 2.4123542214758347,
+          "ms_per_update": 2.4123542214758347,
+          "p90_ms": 2.6136554981349036,
+          "sample_count": 20000,
+          "total_sec": 48.24708442951669,
+          "training_share": 0.11031803249975486
+        },
+        "Support and weighting": {
+          "count": 20000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 12.342081823878106,
+          "median_ms": 12.303267227252945,
+          "ms_per_env_step": 12.342081823878107,
+          "ms_per_update": 12.342081823878107,
+          "p90_ms": 14.152523101074621,
+          "sample_count": 20000,
+          "total_sec": 246.84163647756213,
+          "training_share": 0.5644088963552975
+        }
+      },
+      "end_step": 40000,
+      "eval_sec": 1.283999183040578,
+      "logging_sec": 0.19406250739120878,
+      "other_sec": 22.905394575349078,
+      "profile_elapsed_sec": 438.82346512321965,
+      "profiled_actor_updates": 10000,
+      "profiled_env_steps": 20000,
+      "profiled_updates": 20000,
+      "start_step": 20000,
+      "training_excluding_eval_sec": 437.34540343278786
+    },
+    "40000-70000": {
+      "accounted_component_sec": 694.1694620265508,
+      "accounting_ratio": 0.9531871588037548,
+      "accounting_ratio_with_other": 1.0,
+      "checkpoint_sec": 0.0,
+      "components": {
+        "Actor + target update": {
+          "count": 15000,
+          "estimated_from_sampled_updates": true,
+          "mean_ms": 2.277966935882966,
+          "median_ms": 2.114399984478951,
+          "ms_per_env_step": 1.1389834679414832,
+          "ms_per_update": 1.1389834679414832,
+          "p90_ms": 3.084828686714172,
+          "sample_count": 300,
+          "total_sec": 34.16950403824449,
+          "training_share": 0.04691928160720782
+        },
+        "Batch preparation": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 0.10904050578343838,
+          "median_ms": 0.11026998981833458,
+          "ms_per_env_step": 0.10904050578343837,
+          "ms_per_update": 0.10904050578343837,
+          "p90_ms": 0.11966197344008833,
+          "sample_count": 30000,
+          "total_sec": 3.271215173503151,
+          "training_share": 0.004491814272503879
+        },
+        "Critic update": {
+          "count": 30000,
+          "estimated_from_sampled_updates": true,
+          "mean_ms": 2.47883647809426,
+          "median_ms": 2.411567986011505,
+          "ms_per_env_step": 2.4788364780942596,
+          "ms_per_update": 2.4788364780942596,
+          "p90_ms": 3.16678079366684,
+          "sample_count": 300,
+          "total_sec": 74.36509434282779,
+          "training_share": 0.10211318254173217
+        },
+        "Eval/logging amortized": {
+          "count": 639,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 3.7582131126911578,
+          "median_ms": 0.2826609998010099,
+          "ms_per_env_step": 0.08004993930032166,
+          "ms_per_update": 0.08004993930032166,
+          "p90_ms": 0.3006306011229753,
+          "sample_count": 639,
+          "total_sec": 2.40149817900965,
+          "training_share": 0.003297576962604912
+        },
+        "Interaction": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 1.067521994957739,
+          "median_ms": 1.0524424724280834,
+          "ms_per_env_step": 1.0675219949577393,
+          "ms_per_update": 1.0675219949577393,
+          "p90_ms": 1.2130969145800918,
+          "sample_count": 30000,
+          "total_sec": 32.025659848732175,
+          "training_share": 0.0439754979006278
+        },
+        "Other/unaccounted": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 1.136399586341967,
+          "median_ms": 1.136399586341967,
+          "ms_per_env_step": 1.136399586341967,
+          "ms_per_update": 1.136399586341967,
+          "p90_ms": 1.136399586341967,
+          "sample_count": 1,
+          "total_sec": 34.09198759025901,
+          "training_share": 0.04681284119624515
+        },
+        "Replay + HER": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 2.654912021982212,
+          "median_ms": 2.662124010385014,
+          "ms_per_env_step": 2.654912021982212,
+          "ms_per_update": 2.654912021982212,
+          "p90_ms": 2.828766411403194,
+          "sample_count": 30000,
+          "total_sec": 79.64736065946636,
+          "training_share": 0.10936643797550248
+        },
+        "Support and weighting": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 15.689687598792565,
+          "median_ms": 15.595475430018269,
+          "ms_per_env_step": 15.689687598792565,
+          "ms_per_update": 15.689687598792565,
+          "p90_ms": 17.46867988840677,
+          "sample_count": 30000,
+          "total_sec": 470.69062796377693,
+          "training_share": 0.6463209445061808
+        }
+      },
+      "end_step": 70000,
+      "eval_sec": 2.1169511219777633,
+      "logging_sec": 0.28454705703188665,
+      "other_sec": 34.09198759025901,
+      "profile_elapsed_sec": 730.6629477958195,
+      "profiled_actor_updates": 15000,
+      "profiled_env_steps": 30000,
+      "profiled_updates": 30000,
+      "start_step": 40000,
+      "training_excluding_eval_sec": 728.2614496168098
+    },
+    "70000-100000": {
+      "accounted_component_sec": 729.9451694630144,
+      "accounting_ratio": 0.9540941237755323,
+      "accounting_ratio_with_other": 1.0,
+      "checkpoint_sec": 0.660193652001908,
+      "components": {
+        "Actor + target update": {
+          "count": 15000,
+          "estimated_from_sampled_updates": true,
+          "mean_ms": 2.6101108257472516,
+          "median_ms": 2.5752800107002254,
+          "ms_per_env_step": 1.3050554128736258,
+          "ms_per_update": 1.3050554128736258,
+          "p90_ms": 3.6256031394004817,
+          "sample_count": 300,
+          "total_sec": 39.15166238620877,
+          "training_share": 0.05117421497042735
+        },
+        "Batch preparation": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 0.11103259644490512,
+          "median_ms": 0.11195197294000536,
+          "ms_per_env_step": 0.11103259644490511,
+          "ms_per_update": 0.11103259644490511,
+          "p90_ms": 0.12569501996040344,
+          "sample_count": 30000,
+          "total_sec": 3.3309778933471534,
+          "training_share": 0.0043538426821930635
+        },
+        "Critic update": {
+          "count": 30000,
+          "estimated_from_sampled_updates": true,
+          "mean_ms": 2.8603336509813864,
+          "median_ms": 2.732367966324091,
+          "ms_per_env_step": 2.8603336509813864,
+          "ms_per_update": 2.8603336509813864,
+          "p90_ms": 4.099443151801825,
+          "sample_count": 300,
+          "total_sec": 85.8100095294416,
+          "training_share": 0.11216024062929424
+        },
+        "Eval/logging amortized": {
+          "count": 640,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 4.570539974429266,
+          "median_ms": 0.2902954875025898,
+          "ms_per_env_step": 0.09750485278782435,
+          "ms_per_update": 0.09750485278782435,
+          "p90_ms": 0.3117755986750126,
+          "sample_count": 640,
+          "total_sec": 2.9251455836347304,
+          "training_share": 0.0038233888369820306
+        },
+        "Interaction": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 1.0919539281390218,
+          "median_ms": 1.0906875104410574,
+          "ms_per_env_step": 1.091953928139022,
+          "ms_per_update": 1.091953928139022,
+          "p90_ms": 1.208604805287905,
+          "sample_count": 30000,
+          "total_sec": 32.75861784417066,
+          "training_share": 0.04281801715480106
+        },
+        "Other/unaccounted": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 1.170701148695082,
+          "median_ms": 1.170701148695082,
+          "ms_per_env_step": 1.1707011486950818,
+          "ms_per_update": 1.1707011486950818,
+          "p90_ms": 1.170701148695082,
+          "sample_count": 1,
+          "total_sec": 35.12103446085246,
+          "training_share": 0.045905876224467776
+        },
+        "Replay + HER": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 2.8071772020931047,
+          "median_ms": 2.8219930100021884,
+          "ms_per_env_step": 2.8071772020931047,
+          "ms_per_update": 2.8071772020931047,
+          "p90_ms": 2.949881416861899,
+          "sample_count": 30000,
+          "total_sec": 84.21531606279314,
+          "training_share": 0.11007585439125417
+        },
+        "Support and weighting": {
+          "count": 30000,
+          "estimated_from_sampled_updates": false,
+          "mean_ms": 16.155952858235107,
+          "median_ms": 16.164039538125508,
+          "ms_per_env_step": 16.155952858235104,
+          "ms_per_update": 16.155952858235104,
+          "p90_ms": 18.11679956736043,
+          "sample_count": 30000,
+          "total_sec": 484.67858574705315,
+          "training_share": 0.6335119539475624
+        }
+      },
+      "end_step": 100000,
+      "eval_sec": 2.055620027036639,
+      "logging_sec": 0.20933190459618345,
+      "other_sec": 35.12103446085246,
+      "profile_elapsed_sec": 767.9913495075016,
+      "profiled_actor_updates": 15000,
+      "profiled_env_steps": 30000,
+      "profiled_updates": 30000,
+      "start_step": 70000,
+      "training_excluding_eval_sec": 765.0662039238669
+    }
+  },
+  "support_cache_hit_rate": 0.22440268346944992,
+  "total_steps": 100000,
+  "total_updates": 95001,
+  "total_wall_sec": 2194.57272890702,
+  "training_excluding_eval_sec": 1930.6730569734646,
+  "unaccounted_other_sec": 92.11841662646043
+}

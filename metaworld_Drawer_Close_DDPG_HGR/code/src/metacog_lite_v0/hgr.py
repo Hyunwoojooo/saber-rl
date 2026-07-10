@@ -50,10 +50,9 @@ class HGRSampler:
         self.slot_priority = np.full(self.capacity, self.priority_init, dtype=np.float32)
         self.slot_episode_id = np.full(self.capacity, -1, dtype=np.int64)
         self.slot_episode_step = np.full(self.capacity, -1, dtype=np.int32)
+        self._episode_slots: Dict[int, list[int]] = {}
         self._episode_priority_sum: Dict[int, float] = {}
         self._episode_priority_count: Dict[int, int] = {}
-        self._episode_slots: Dict[int, list[int]] = {}
-        self._episode_slot_arrays: Dict[int, np.ndarray] = {}
         self._last_update_clip_rate = 0.0
         self._last_update_mean_priority = float(self.priority_init)
 
@@ -77,24 +76,23 @@ class HGRSampler:
             raise IndexError(f"HGR slot out of range: {slot_i}")
         old_ep = int(self.slot_episode_id[slot_i])
         if old_ep >= 0:
-            self._remove_episode_slot(old_ep, slot_i)
             self._remove_episode_priority(old_ep, float(self.slot_priority[slot_i]))
+            self._remove_episode_slot(old_ep, slot_i)
 
         priority = float(np.clip(self.priority_init, self.priority_eps, self.priority_clip_max))
         self.slot_priority[slot_i] = priority
         self.slot_episode_id[slot_i] = int(episode_id)
         self.slot_episode_step[slot_i] = int(episode_step)
         self._add_episode_priority(int(episode_id), priority)
-        self._add_episode_slot(int(episode_id), slot_i)
+        self._add_episode_slot(int(episode_id), slot_i, int(episode_step))
 
     def rebuild_from_replay(self, replay: HERReplayBuffer) -> None:
         self.slot_priority.fill(float(np.clip(self.priority_init, self.priority_eps, self.priority_clip_max)))
         self.slot_episode_id.fill(-1)
         self.slot_episode_step.fill(-1)
+        self._episode_slots.clear()
         self._episode_priority_sum.clear()
         self._episode_priority_count.clear()
-        self._episode_slots.clear()
-        self._episode_slot_arrays.clear()
         for slot in range(int(replay.size)):
             ep = int(replay.episode_id[slot])
             if ep < 0:
@@ -102,8 +100,7 @@ class HGRSampler:
             self.slot_episode_id[slot] = ep
             self.slot_episode_step[slot] = int(replay.episode_step[slot])
             self._add_episode_priority(ep, float(self.slot_priority[slot]))
-            self._add_episode_slot(ep, int(slot))
-        self._sort_episode_slots()
+            self._add_episode_slot(ep, int(slot), int(replay.episode_step[slot]))
 
     @torch.no_grad()
     def sample(
@@ -123,8 +120,8 @@ class HGRSampler:
 
         t0 = time.perf_counter()
         b = int(batch_size)
-        indices = rng.integers(0, replay.size, size=b, endpoint=False, dtype=np.int64)
-        desired_goal_train = replay.desired_goal[indices].copy()
+        indices = np.empty(b, dtype=np.int64)
+        desired_goal_train = np.empty((b, replay.goal_dim), dtype=np.float32)
         relabel_mask = np.zeros(b, dtype=np.bool_)
         selected_future_slots = np.full(b, -1, dtype=np.int64)
 
@@ -140,25 +137,35 @@ class HGRSampler:
         query_slots: list[int] = []
         query_futures: list[np.ndarray] = []
 
-        hgr_out_indices = np.flatnonzero(relabel_requested)
-        if episode_dist is not None and hgr_out_indices.size > 0:
+        fallback_slots = rng.integers(0, replay.size, size=b, endpoint=False, dtype=np.int64)
+        indices[:] = fallback_slots
+        desired_goal_train[:] = replay.desired_goal[fallback_slots]
+
+        relabel_indices = np.flatnonzero(relabel_requested)
+        if episode_dist is not None and relabel_indices.size:
             episodes = episode_dist["episodes"]
             probs = episode_dist["probs"]
-            episode_positions = rng.choice(episodes.size, size=int(hgr_out_indices.size), p=probs)
-            for out_i, ep_pos in zip(hgr_out_indices, episode_positions):
-                sampled = self._sample_future_query_from_episode(
-                    episode_id=int(episodes[int(ep_pos)]),
-                    rng=rng,
-                )
-                if sampled is not None:
-                    slot, future_slots = sampled
-                    indices[out_i] = int(slot)
-                    desired_goal_train[out_i] = replay.desired_goal[int(slot)]
-                    query_out_indices.append(out_i)
-                    query_slots.append(int(slot))
-                    query_futures.append(future_slots)
-                    continue
-                hgr_fallbacks += 1
+            sampled_episode_pos = rng.choice(episodes.size, size=int(relabel_indices.size), p=probs)
+            sampled_episodes = episodes[np.asarray(sampled_episode_pos, dtype=np.int64)]
+        else:
+            sampled_episodes = np.zeros((0,), dtype=np.int64)
+
+        for out_i, ep in zip(relabel_indices, sampled_episodes):
+            sampled = self._sample_future_query_for_episode(
+                replay=replay,
+                episode_dist=episode_dist,
+                episode_id=int(ep),
+                rng=rng,
+            )
+            if sampled is not None:
+                slot, future_slots = sampled
+                indices[out_i] = int(slot)
+                desired_goal_train[out_i] = replay.desired_goal[int(slot)]
+                query_out_indices.append(int(out_i))
+                query_slots.append(int(slot))
+                query_futures.append(future_slots)
+                continue
+            hgr_fallbacks += 1
 
         if query_slots:
             td_by_query = self._candidate_td_errors_batch(
@@ -286,6 +293,7 @@ class HGRSampler:
             "slot_priority": self.slot_priority,
             "slot_episode_id": self.slot_episode_id,
             "slot_episode_step": self.slot_episode_step,
+            "episode_slots": self._episode_slots,
             "episode_priority_sum": self._episode_priority_sum,
             "episode_priority_count": self._episode_priority_count,
             "last_update_clip_rate": self._last_update_clip_rate,
@@ -302,25 +310,32 @@ class HGRSampler:
         self._episode_priority_count = {
             int(k): int(v) for k, v in payload.get("episode_priority_count", {}).items()
         }
+        self._episode_slots = {
+            int(k): [int(slot) for slot in v]
+            for k, v in payload.get("episode_slots", {}).items()
+        }
         self._last_update_clip_rate = float(payload.get("last_update_clip_rate", 0.0))
         self._last_update_mean_priority = float(payload.get("last_update_mean_priority", self.priority_init))
+        if not self._episode_slots:
+            self._rebuild_episode_slots_from_slot_cache(replay)
         self._drop_stale_slots(replay)
 
     def _eligible_episode_distribution(self, replay: HERReplayBuffer) -> Optional[Dict[str, Any]]:
-        del replay
         episodes: list[int] = []
         priorities: list[float] = []
+        slots_by_episode: Dict[int, np.ndarray] = {}
         for ep, count in self._episode_priority_count.items():
             if int(count) < 2:
                 continue
-            slots = self._episode_slots.get(int(ep))
-            if not slots or len(slots) < 2:
+            slots = self._valid_episode_slots(replay, int(ep))
+            if slots.size < 2:
                 continue
             ep_priority = self._episode_priority(int(ep))
             if not np.isfinite(ep_priority):
                 ep_priority = float(self.priority_init)
             episodes.append(int(ep))
             priorities.append(float(np.clip(ep_priority, self.priority_eps, self.priority_clip_max)))
+            slots_by_episode[int(ep)] = slots
 
         if not episodes:
             return None
@@ -336,6 +351,7 @@ class HGRSampler:
             "episodes": np.asarray(episodes, dtype=np.int64),
             "probs": probs.astype(np.float64),
             "episode_priorities": priority_arr.astype(np.float32),
+            "slots_by_episode": slots_by_episode,
         }
 
     def _sample_future_query(
@@ -344,23 +360,37 @@ class HGRSampler:
         episode_dist: Dict[str, Any],
         rng: np.random.Generator,
     ) -> Optional[tuple[int, np.ndarray]]:
-        del replay
         episodes = episode_dist["episodes"]
         probs = episode_dist["probs"]
+        slots_by_episode = episode_dist["slots_by_episode"]
         ep = int(episodes[int(rng.choice(episodes.size, p=probs))])
-        return self._sample_future_query_from_episode(ep, rng)
+        slots = np.asarray(slots_by_episode[ep], dtype=np.int64)
+        if slots.size < 2:
+            return None
+        base_slot = int(slots[int(rng.integers(0, slots.size - 1, endpoint=False))])
+        step = int(replay.episode_step[base_slot])
+        future_slots = slots[replay.episode_step[slots] > step]
+        if future_slots.size == 0:
+            return None
+        if self.max_future_candidates > 0 and future_slots.size > self.max_future_candidates:
+            positions = np.linspace(0, future_slots.size - 1, num=self.max_future_candidates, dtype=np.int64)
+            future_slots = future_slots[positions].astype(np.int64)
+        return base_slot, future_slots.astype(np.int64, copy=False)
 
-    def _sample_future_query_from_episode(
+    def _sample_future_query_for_episode(
         self,
+        replay: HERReplayBuffer,
+        episode_dist: Dict[str, Any],
         episode_id: int,
         rng: np.random.Generator,
     ) -> Optional[tuple[int, np.ndarray]]:
-        slots = self._episode_slots_array(int(episode_id))
+        slots_by_episode = episode_dist["slots_by_episode"]
+        slots = np.asarray(slots_by_episode.get(int(episode_id), np.zeros((0,), dtype=np.int64)), dtype=np.int64)
         if slots.size < 2:
             return None
-        base_pos = int(rng.integers(0, slots.size - 1, endpoint=False))
-        base_slot = int(slots[base_pos])
-        future_slots = slots[base_pos + 1 :]
+        base_slot = int(slots[int(rng.integers(0, slots.size - 1, endpoint=False))])
+        step = int(self.slot_episode_step[base_slot])
+        future_slots = slots[self.slot_episode_step[slots] > step]
         if future_slots.size == 0:
             return None
         if self.max_future_candidates > 0 and future_slots.size > self.max_future_candidates:
@@ -380,10 +410,21 @@ class HGRSampler:
         success_terminates: bool,
         timeout_bootstrap: bool,
     ) -> Optional[tuple[int, int, np.ndarray, Dict[str, float]]]:
-        sampled = self._sample_future_query(replay=replay, episode_dist=episode_dist, rng=rng)
-        if sampled is None:
+        episodes = episode_dist["episodes"]
+        probs = episode_dist["probs"]
+        slots_by_episode = episode_dist["slots_by_episode"]
+        ep = int(episodes[int(rng.choice(episodes.size, p=probs))])
+        slots = np.asarray(slots_by_episode[ep], dtype=np.int64)
+        if slots.size < 2:
             return None
-        base_slot, future_slots = sampled
+        base_slot = int(slots[int(rng.integers(0, slots.size - 1, endpoint=False))])
+        step = int(replay.episode_step[base_slot])
+        future_slots = slots[replay.episode_step[slots] > step]
+        if future_slots.size == 0:
+            return None
+        if self.max_future_candidates > 0 and future_slots.size > self.max_future_candidates:
+            positions = np.linspace(0, future_slots.size - 1, num=self.max_future_candidates, dtype=np.int64)
+            future_slots = future_slots[positions].astype(np.int64)
 
         td_abs = self._candidate_td_errors(
             replay=replay,
@@ -532,67 +573,10 @@ class HGRSampler:
 
     def _valid_episode_slots(self, replay: HERReplayBuffer, episode_id: int) -> np.ndarray:
         del replay
-        return self._episode_slots_array(int(episode_id)).copy()
-
-    def _episode_slots_array(self, episode_id: int) -> np.ndarray:
-        ep = int(episode_id)
-        cached = self._episode_slot_arrays.get(ep)
-        if cached is not None:
-            return cached
-        slots = [
-            int(slot)
-            for slot in self._episode_slots.get(ep, [])
-            if 0 <= int(slot) < self.capacity and int(self.slot_episode_id[int(slot)]) == ep
-        ]
+        slots = self._episode_slots.get(int(episode_id), [])
         if not slots:
-            self._episode_slots.pop(ep, None)
-            arr = np.zeros((0,), dtype=np.int64)
-            self._episode_slot_arrays[ep] = arr
-            return arr
-        slots.sort(key=lambda slot: int(self.slot_episode_step[slot]))
-        self._episode_slots[ep] = slots
-        arr = np.asarray(slots, dtype=np.int64)
-        self._episode_slot_arrays[ep] = arr
-        return arr
-
-    def _add_episode_slot(self, episode_id: int, slot: int) -> None:
-        ep = int(episode_id)
-        slot_i = int(slot)
-        slots = self._episode_slots.setdefault(ep, [])
-        if slot_i not in slots:
-            slots.append(slot_i)
-        self._episode_slot_arrays.pop(ep, None)
-
-    def _remove_episode_slot(self, episode_id: int, slot: int) -> None:
-        ep = int(episode_id)
-        slot_i = int(slot)
-        slots = self._episode_slots.get(ep)
-        if not slots:
-            self._episode_slot_arrays.pop(ep, None)
-            return
-        try:
-            slots.remove(slot_i)
-        except ValueError:
-            pass
-        if slots:
-            self._episode_slot_arrays.pop(ep, None)
-        else:
-            self._episode_slots.pop(ep, None)
-            self._episode_slot_arrays.pop(ep, None)
-
-    def _sort_episode_slots(self) -> None:
-        for ep, slots in list(self._episode_slots.items()):
-            valid = [
-                int(slot)
-                for slot in slots
-                if 0 <= int(slot) < self.capacity and int(self.slot_episode_id[int(slot)]) == int(ep)
-            ]
-            if not valid:
-                self._episode_slots.pop(int(ep), None)
-                continue
-            valid.sort(key=lambda slot: int(self.slot_episode_step[slot]))
-            self._episode_slots[int(ep)] = valid
-        self._episode_slot_arrays.clear()
+            return np.zeros((0,), dtype=np.int64)
+        return np.asarray(slots, dtype=np.int64)
 
     def _episode_priority(self, episode_id: int) -> float:
         count = int(self._episode_priority_count.get(int(episode_id), 0))
@@ -615,11 +599,43 @@ class HGRSampler:
         self._episode_priority_sum[ep] = float(self._episode_priority_sum.get(ep, 0.0) - float(priority))
         self._episode_priority_count[ep] = count - 1
 
+    def _add_episode_slot(self, episode_id: int, slot: int, episode_step: int) -> None:
+        ep = int(episode_id)
+        slot_i = int(slot)
+        slots = self._episode_slots.setdefault(ep, [])
+        if slot_i in slots:
+            slots.remove(slot_i)
+        if not slots or int(self.slot_episode_step[slots[-1]]) <= int(episode_step):
+            slots.append(slot_i)
+            return
+        steps = self.slot_episode_step[np.asarray(slots, dtype=np.int64)]
+        insert_at = int(np.searchsorted(steps, int(episode_step), side="right"))
+        slots.insert(insert_at, slot_i)
+
+    def _remove_episode_slot(self, episode_id: int, slot: int) -> None:
+        ep = int(episode_id)
+        slots = self._episode_slots.get(ep)
+        if not slots:
+            return
+        try:
+            slots.remove(int(slot))
+        except ValueError:
+            pass
+        if not slots:
+            self._episode_slots.pop(ep, None)
+
+    def _rebuild_episode_slots_from_slot_cache(self, replay: HERReplayBuffer) -> None:
+        self._episode_slots.clear()
+        for slot in range(self.capacity):
+            ep = int(self.slot_episode_id[slot])
+            if ep < 0 or slot >= replay.size or int(replay.episode_id[slot]) != ep:
+                continue
+            self._add_episode_slot(ep, int(slot), int(self.slot_episode_step[slot]))
+
     def _drop_stale_slots(self, replay: HERReplayBuffer) -> None:
+        self._episode_slots.clear()
         self._episode_priority_sum.clear()
         self._episode_priority_count.clear()
-        self._episode_slots.clear()
-        self._episode_slot_arrays.clear()
         for slot in range(self.capacity):
             ep = int(self.slot_episode_id[slot])
             is_stale = ep < 0 or slot >= replay.size or int(replay.episode_id[slot]) != ep
@@ -628,8 +644,7 @@ class HGRSampler:
                 self.slot_episode_step[slot] = -1
                 continue
             self._add_episode_priority(ep, float(self.slot_priority[slot]))
-            self._add_episode_slot(ep, int(slot))
-        self._sort_episode_slots()
+            self._add_episode_slot(ep, int(slot), int(self.slot_episode_step[slot]))
 
 
 def _mean(values: np.ndarray, default: float = 0.0) -> float:
