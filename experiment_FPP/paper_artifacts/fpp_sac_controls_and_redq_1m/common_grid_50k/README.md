@@ -77,6 +77,8 @@ significance claim.
 From the repository root:
 
 ~~~bash
+python -m pip install -r experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/requirements.txt
+
 python experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/code/test_analyze_sac_common_grid.py -v
 
 python experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/code/analyze_sac_common_grid.py \
@@ -95,6 +97,7 @@ repo-relative paths are recorded in "input_manifest.json".
 
 - "code/": analyzer and seven CPU-only tests.
 - "results/": four CSV tables, grid validation JSON, and Markdown report.
+- "requirements.txt": pinned NumPy dependency used for the packaged analysis.
 - "input_manifest.json": source paths and SHA256 for all 70 input files.
 - "artifact_manifest.json": package settings, coverage, and packaged-file hashes.
 

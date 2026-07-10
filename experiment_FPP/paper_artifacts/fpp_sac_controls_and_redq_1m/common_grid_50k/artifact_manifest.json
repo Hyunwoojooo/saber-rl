@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "artifact_id": "fpp_sac_common_grid_50k",
-  "generated_at_utc": "2026-07-10T09:00:02Z",
+  "generated_at_utc": "2026-07-10T09:52:21Z",
   "generation_script": "code/analyze_sac_common_grid.py",
   "python_version": "3.12.3",
   "source_repository": {
@@ -100,12 +100,12 @@
       5
     ]
   },
-  "packaged_file_count": 11,
+  "packaged_file_count": 12,
   "packaged_files": [
     {
       "path": "README.md",
-      "sha256": "41f95e5047efac0f10a0413300281db1f7c8d122919847676033f5d4c40fc0e1",
-      "bytes": 4648
+      "sha256": "6885ebd12827a5538047c297b2be4bab6e00d4182230cc4405cae0fc88b7ca5c",
+      "bytes": 4845
     },
     {
       "path": "code/analyze_sac_common_grid.py",
@@ -121,6 +121,11 @@
       "path": "input_manifest.json",
       "sha256": "326a78ae87178dc7d9c35bbcaf616ed9f77c3308f6c68d85dcbb7a43b802053d",
       "bytes": 34921
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "fb2a203f80ce37499ff60f11ccfea4145a9e4b0ad4c9e6e84d571e82135ecca7",
+      "bytes": 13
     },
     {
       "path": "results/aggregate_common_grid.csv",
@@ -167,5 +172,15 @@
       "path": "results/sac_common_grid_curve.png",
       "reason": "matplotlib was not installed in the packaging environment"
     }
-  ]
+  ],
+  "dependencies": {
+    "requirements_file": "requirements.txt",
+    "packages": [
+      {
+        "name": "numpy",
+        "version": "2.5.1",
+        "requirement": "numpy==2.5.1"
+      }
+    ]
+  }
 }
