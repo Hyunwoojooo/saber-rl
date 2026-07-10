@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_2m_opt/DDPG-HER-HGR-2m_opt/drawer_open_ddpg_hgr_tdpriority_s3_2m_opt_cuda/best_checkpoint.pt",
+  "eval_env_success_ever_mean": 1.0,
+  "eval_env_success_final_mean": 0.7,
+  "eval_env_success_mean": 1.0,
+  "eval_goal_success_ever_mean": 1.0,
+  "eval_goal_success_final_mean": 1.0,
+  "eval_goal_success_mean": 1.0,
+  "eval_return_mean": -32.75,
+  "eval_success_mean": 1.0,
+  "selection_metric": "eval_env_success_mean",
+  "step": 1280000
+}
