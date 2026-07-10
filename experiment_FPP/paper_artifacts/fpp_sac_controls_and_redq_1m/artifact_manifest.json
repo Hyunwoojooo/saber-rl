@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "collection_id": "fpp_sac_controls_and_redq_1m",
+  "benchmark": "FetchPickAndPlace-v4",
+  "reward_type": "sparse",
+  "total_steps": 1000000,
+  "seeds": [1, 2, 3, 4, 5],
+  "files_per_seed": [
+    "metrics_selected_10k.csv",
+    "summary.json",
+    "config.json"
+  ],
+  "excluded_file_classes": [
+    "source_code",
+    "checkpoints",
+    "model_weights",
+    "replay_buffers",
+    "raw_metrics",
+    "run_logs",
+    "environment_snapshots",
+    "diagnostic_samples"
+  ],
+  "variants": [
+    {
+      "id": "sac_her",
+      "folder": "sac_her_baseline_ls512",
+      "method": "sac",
+      "updates_per_step": 1,
+      "source_repository": "Hyunwoojooo/saber-rl",
+      "source_commit": "368a76686dc092e1fc676af2c6a6b79d9d7a6bdb"
+    },
+    {
+      "id": "sac_saber_critic_only",
+      "folder": "sac_saber_critic_only_v4_ls512",
+      "method": "sac_saber",
+      "updates_per_step": 1,
+      "weight_scope": "critic_only",
+      "source_repository": "Hyunwoojooo/saber-rl",
+      "source_commit": "368a76686dc092e1fc676af2c6a6b79d9d7a6bdb"
+    },
+    {
+      "id": "sac_random_support_critic_only",
+      "folder": "sac_support_random_critic_only_ls512",
+      "method": "sac_support_random",
+      "updates_per_step": 1,
+      "weight_scope": "critic_only",
+      "source_repository": "Hyunwoojooo/metacog-rl",
+      "source_commit": "d5439b2e4512492850f746b322fc19a8727d479f"
+    },
+    {
+      "id": "sac_random_fixed_count_k76_critic_only",
+      "folder": "sac_random_fixed_count_k76_critic_only_ls512",
+      "method": "sac_random_fixed_count",
+      "updates_per_step": 1,
+      "weight_scope": "critic_only",
+      "random_fixed_count_k": 76,
+      "source_repository": "Hyunwoojooo/metacog-rl",
+      "source_commit": "d5439b2e4512492850f746b322fc19a8727d479f"
+    },
+    {
+      "id": "sac_her_high_replay_ratio_x4",
+      "folder": "sac_her_high_replay_ratio_x4",
+      "method": "sac_her_high_rr_x4",
+      "updates_per_step": 4,
+      "source_repository": "Hyunwoojooo/metacog-rl",
+      "source_commit": "62de0f7c2f1c03a273fe7808d8092a3c9b598327"
+    },
+    {
+      "id": "redq_her_utd4_n10_m2_tqbound",
+      "folder": "redq_her_utd4_n10_m2_tqbound_ls512_1m",
+      "method": "redq_her",
+      "updates_per_step": 4,
+      "num_critics": 10,
+      "target_min_subset": 2,
+      "target_q_bound": true,
+      "source_repository": "Hyunwoojooo/metacog-rl",
+      "source_commit": "8fd6f8e96a67cf4e5f3dd311c64b2999013d513c"
+    }
+  ]
+}
