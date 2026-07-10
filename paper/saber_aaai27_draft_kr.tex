@@ -1,5 +1,8 @@
 % SABER AAAI-27 Korean drafting source.
 % DRAFT ONLY: This file keeps Korean prose for authoring and revision.
+% Source of truth: edit this file for the current Korean draft. Files under
+% gpt_review_upload/ are review snapshots, not authoring sources.
+% Numeric source of truth: analysis/result_pipeline/output/*.csv and report.md.
 % For final AAAI submission, translate the paper to English, remove kotex,
 % compile with PDFLaTeX, and submit a single .tex file plus .bib/figures.
 
@@ -32,7 +35,7 @@
 
 \setcounter{secnumdepth}{0}
 
-\title{SABER: Support-Aware Bellman Error Reweighting for Sparse HER Actor-Critic}
+\title{SABER: Support-Conditioned Adaptive Bellman Error Reweighting for Sparse HER Actor-Critic}
 \author{Anonymous Submission}
 \affiliations{}
 
@@ -40,11 +43,11 @@
 \maketitle
 
 \begin{abstract}
-Sparse-reward goal-conditioned reinforcement learning에서는 success signal 또는 non-failure reward가 드물기 때문에 HER와 같은 goal relabeling이 off-policy actor-critic 학습의 핵심 요소가 된다. Hindsight Experience Replay (HER)는 실패 trajectory를 hindsight goal 아래의 학습 가능한 transition으로 바꾸어 Bellman target의 수를 늘린다. 그러나 HER는 어떤 goal을 만들지 결정할 뿐, 같은 mini-batch 안의 relabeled Bellman update들이 현재 policy action 근방에서 동일하게 신뢰할 수 있는지는 판단하지 않는다. 본 논문은 이 차이를 hindsight Bellman target reliability gap으로 정의한다.
+Hindsight Experience Replay (HER)는 sparse goal-conditioned reinforcement learning에서 실패 trajectory를 relabeled Bellman targets로 바꾸지만, 그 residual들이 current-policy action 근방의 critic fitting에 얼마나 유용한지는 결정하지 않는다. 본 논문은 이 차이를 hindsight Bellman critic-fit usefulness gap으로 제기한다.
 
-우리는 SABER (Support-Aware Bellman Error Reweighting)를 제안한다. SABER는 각 HER training sample에 대해 local state-goal-horizon context를 구성하고, 현재 policy action이 해당 context의 replay-action support 안에 있는지를 판정한다. Support-positive sample에는 더 큰 batch-normalized weight를 주되, 이 weight를 critic Bellman residual에만 적용한다. Actor objective와 replay sampling distribution은 baseline과 동일하게 유지한다. 따라서 SABER는 새로운 HER relabeling method나 general-purpose RL algorithm이 아니라, sparse HER actor-critic에 부착되는 critic-side loss reweighting objective다.
+SABER (Support-Conditioned Adaptive Bellman Error Reweighting)는 current policy action의 local replay-action support를 이용해 sample-wise weight를 만들고, 이를 critic Bellman residual에만 적용한다. HER relabeling, replay sampling, actor objective, backbone target construction, and critic architecture는 유지된다. Support predicate는 target noise의 직접 측정치가 아니라 critic fitting pressure를 배정하기 위한 local-support proxy다.
 
-실험은 두 축으로 구성한다. FetchPickAndPlace에서는 SABER가 DDPG+HER, TD3+HER, SAC+HER 모두에서 environment-step 기준 mean final success와 mean success AUC를 높여 backbone compatibility evidence를 제공한다. Meta-World DrawerOpen DDPG에서는 HER 대비 큰 효과 크기와 seed consistency를 보인다. 그러나 FPP Random-Support는 SABER와 거의 같은 AUC를 보이고, DrawerOpen Random-Fixed-Count control도 HER보다 크게 개선된다. 따라서 이 결과는 pure structured support alignment의 causal proof가 아니다. 현재 가장 방어 가능한 해석은 support-conditioned critic reweighting과 broader critic-side reweighting regularization이 함께 작동한다는 것이다. 본 논문의 claim은 의도적으로 좁다. SABER는 support-conditioned sparse HER setting에서 sample efficiency와 seed robustness를 개선할 수 있는 critic-side objective이며, universal improvement나 wall-clock efficiency를 주장하지 않는다.
+FetchPickAndPlace에서 SABER는 one-update-per-step DDPG/TD3/SAC HER baselines보다 mean final success와 mean AUC가 높고, TD3/SAC AUC paired intervals는 0을 제외한다. DrawerOpen DDPG는 HER 대비 large-effect case를 제공한다. Random/PER controls, DDPG/TD3/SAC diagnostics, high replay-ratio HER, REDQ-HER, and an HGR-style sampler-only ablation은 효과가 task/backbone dependent이며 pure support-reliability mechanism으로 환원되지 않음을 보여준다. 특히 compute/backbone-scaled references는 SABER의 environment-step AUC를 match하거나 능가할 수 있다. 따라서 SABER는 SOTA 또는 wall-clock dominance claim이 아니라, standard matched HER actor-critic에서 post-HER critic-loss allocation을 분리하는 lightweight objective로 해석한다.
 \end{abstract}
 
 \section{Introduction}
@@ -53,27 +56,29 @@ Goal-conditioned reinforcement learning은 agent가 하나의 고정된 reward�
 
 Hindsight Experience Replay (HER)는 이 문제를 해결하는 대표적인 방법이다~\citep{andrychowicz2017her}. HER는 agent가 원래 목표를 달성하지 못했더라도, 실제로 도달한 상태를 새로운 goal로 relabel하여 실패 경험을 학습 가능한 transition으로 바꾼다. 이 방식은 sparse reward에서도 goal-conditioned Bellman target을 대량으로 만들 수 있게 해준다.
 
-그러나 HER가 해결하지 않는 문제가 있다. HER는 relabeled goal을 만들어 Bellman target의 quantity를 늘리지만, 그 update가 현재 policy improvement에 얼마나 신뢰할 수 있는 supervision인지는 판단하지 않는다. Off-policy actor-critic에서 critic은 replay action을 중심으로 Bellman regression을 수행하고, actor는 같은 state-goal input에서 critic이 높게 평가하는 current policy action을 따라간다. 이때 현재 policy action이 local replay action support 바깥에 있다면, actor가 exploit하는 action region에 대한 critic estimate는 replay support가 있는 경우보다 더 취약할 수 있다. HER로 relabel된 transition이라고 해서 이 문제가 자동으로 사라지지는 않는다.
+그러나 HER가 해결하지 않는 문제가 있다. HER는 relabeled goal을 만들어 Bellman target의 quantity를 늘리지만, 그 update가 현재 policy improvement에 얼마나 유용한 critic supervision인지는 판단하지 않는다. Off-policy actor-critic에서 critic은 replay action을 중심으로 Bellman regression을 수행하고, actor는 같은 state-goal input에서 critic이 높게 평가하는 current policy action을 따라간다. 이때 현재 policy action이 local replay action support 바깥에 있다면, actor가 exploit하는 action region에 대한 critic estimate는 replay support가 있는 경우보다 더 취약할 수 있다. HER로 relabel된 transition이라고 해서 이 문제가 자동으로 사라지지는 않는다.
 
 본 논문의 핵심 관찰은 다음이다.
 
 \begin{quote}
-HER creates useful training goals, but it does not guarantee that every relabeled Bellman update is equally reliable for the current policy.
+HER creates useful training goals, but it does not guarantee that every relabeled Bellman update is equally useful as critic supervision for the current policy.
 \end{quote}
 
-우리는 이 문제를 hindsight Bellman target reliability gap으로 부른다. 같은 HER batch 안에서도 어떤 sample은 local state-goal-horizon context에서 현재 policy action이 replay buffer에 support되어 있고, 어떤 sample은 그렇지 않다. 본 논문은 이 support predicate가 Bellman target noise를 직접 측정한다고 주장하지 않는다. 대신 이를 policy-improvement-relevant reliability proxy로 사용한다. 즉, actor가 곧 query할 action region이 local replay support를 갖는 sample의 Bellman residual을 critic fitting에서 더 크게 반영한다.
+우리는 이 문제를 hindsight Bellman critic-fit usefulness gap으로 부른다. 같은 HER batch 안에서도 어떤 sample은 local state-goal-horizon context에서 현재 policy action이 replay buffer에 support되어 있고, 어떤 sample은 그렇지 않다. 본 논문은 이 support predicate가 Bellman target noise나 sample-level target quality를 직접 측정한다고 주장하지 않는다. 대신 이를 current policy가 곧 query할 action region에 대한 local-support proxy로 사용한다. 즉, actor가 곧 query할 action region이 local replay support를 갖는 sample의 Bellman residual을 critic fitting에서 더 크게 반영한다.
 
-이를 해결하기 위해 우리는 SABER: Support-Aware Bellman Error Reweighting을 제안한다. SABER는 각 training sample에 대해 local replay-action support를 계산하고, support-positive sample의 critic Bellman error를 더 크게 반영한다. 중요한 점은 SABER가 HER를 대체하지 않는다는 것이다. HER는 training goal을 만들고, SABER는 그 goal-conditioned Bellman update 중 critic이 더 신뢰할 update를 구분한다.
+이를 위해 우리는 SABER를 제안한다. SABER는 각 training sample에 대해 local replay-action support를 계산하고, support-positive sample의 critic Bellman error를 더 크게 반영하는 support-conditioned critic objective다. 중요한 점은 SABER가 HER를 대체하지 않는다는 것이다. HER는 training goal을 만들고, SABER는 그 goal-conditioned Bellman update 중 critic loss에서 더 강하게 반영할 update를 구분한다.
 
 SABER의 main variant는 critic-only이다. 즉, support-derived weight는 critic TD loss에만 적용되며 actor objective와 replay sampling distribution은 baseline과 동일하게 유지된다. 이 설계는 SABER를 HER relabeling, prioritized replay, actor objective shaping과 분리하고, support signal의 효과를 critic Bellman fitting 쪽으로 좁혀 해석할 수 있게 한다.
 
+따라서 본 논문은 architecture-scaled SOTA robotics benchmark가 아니라, standard one-update-per-step HER actor-critic 아래의 matched-backbone critic-loss allocation study다. High replay-ratio HER와 REDQ-HER rows는 compute/backbone-scaling references로 포함하지만, SABER가 REDQ-HER나 goal-selection/prioritization 계열을 압도한다는 claim은 하지 않는다. 더 정확히 말해 SABER는 one-update matched HER baselines를 개선하는 critic-side allocation intervention을 isolate하고, strong random-control 및 compute/backbone-scaling stress tests 아래에서도 이 intervention이 trivial fixed-count rule로 환원되지 않음을 보이는 데 초점을 둔다.
+
+이 관점에서 SABER의 주된 가치는 최고 성능을 내는 별도의 RL algorithm이라는 데 있지 않다. 더 중요한 점은 HER 이후의 Bellman residual을 모두 같은 강도로 fitting하지 않고, current-policy action region과 더 연결된 update에 critic fitting pressure를 더 배정하는 좁고 모듈형인 intervention point를 제공한다는 것이다. 이 intervention은 HER goal generation, replay distribution, actor objective, critic architecture를 유지하므로 effect attribution이 상대적으로 깨끗하다. 또한 random controls, PER-style controls, high replay-ratio controls, and sample-level diagnostics를 함께 제시하면, support-conditioned weighting이 언제 generic reweighting이나 update scaling과 구분되고 언제 구분되지 않는지를 분석할 수 있다. 따라서 SABER는 strong compute-scaled methods의 replacement라기보다, sparse HER actor-critic에서 critic-side allocation을 실험하고 진단하기 위한 lightweight and interpretable layer로 위치시킨다.
+
 본 논문의 contribution은 다음과 같다.
 \begin{itemize}
-    \item Sparse-reward goal-conditioned HER setting에서 relabeled Bellman target의 quantity와 reliability가 다르다는 문제를 제기하고, 이를 hindsight Bellman target reliability gap으로 정식화한다.
-    \item Local replay-action support를 policy-improvement-relevant reliability proxy로 사용해 critic Bellman residual만 재가중하는 SABER objective를 제안한다.
-    \item SABER를 DDPG, TD3, SAC와 결합 가능한 backbone-compatible critic reweighting layer로 정의하고, actor update와 replay sampling을 baseline과 동일하게 유지하는 critic-only 설계를 제시한다.
-    \item FetchPickAndPlace에서 세 actor-critic backbone 모두에 대한 mean environment-step sample-efficiency gain을 보여 breadth evidence를 제공하고, Meta-World DrawerOpen DDPG에서 큰 효과 크기와 seed consistency를 보이는 case를 제시한다.
-    \item PER-style weighting, full PER, actor-scope variants, random/shuffled/fixed-count controls를 통해 TD-error prioritization 및 단순 random reweighting과의 차이를 분석하고, support-conditioned reweighting과 generic reweighting regularization이 분리되지 않는 현재 한계를 명시한다.
+    \item Sparse-reward HER에서 relabeled target quantity와 current-policy action region의 critic-fit usefulness를 구분하는 hindsight Bellman critic-fit usefulness gap을 제기한다.
+    \item Local replay-action support를 proxy로 사용해 critic Bellman residual만 재가중하고 HER relabeling, replay sampling, actor objective, and backbone target construction을 그대로 두는 SABER objective를 제안한다.
+    \item FPP DDPG/TD3/SAC breadth, DrawerOpen large-effect evidence, random/PER controls, high-RR/REDQ scaling references, an HGR-style sampler-only control, and sample-level diagnostics를 함께 보고해 SABER의 효과와 mixed-mechanism boundary를 규정한다.
 \end{itemize}
 
 \section{Related Work}
@@ -82,28 +87,32 @@ SABER의 main variant는 critic-only이다. 즉, support-derived weight는 criti
 
 Goal-conditioned RL은 policy와 value function이 상태뿐 아니라 goal을 조건으로 받도록 학습한다. Sparse reward manipulation에서는 성공 signal이 드물기 때문에 goal relabeling이 특히 중요하다. HER는 실패 trajectory에서 실제로 달성된 state를 hindsight goal로 사용하여 sparse reward 문제를 완화한다~\citep{andrychowicz2017her}. HER의 핵심 역할은 training target을 늘리는 것이다.
 
-SABER는 HER와 경쟁하는 방법이 아니다. HER가 ``어떤 goal로 Bellman target을 만들 것인가''를 다룬다면, SABER는 ``그렇게 만들어진 Bellman error를 critic이 얼마나 강하게 fitting할 것인가''를 다룬다. 따라서 SABER는 HER의 relabeling distribution을 바꾸는 방법이 아니라, HER 이후 critic update의 reliability weighting을 조정하는 방법이다.
+SABER는 HER와 경쟁하는 방법이 아니다. HER가 ``어떤 goal로 Bellman target을 만들 것인가''를 다룬다면, SABER는 ``그렇게 만들어진 Bellman error를 critic이 얼마나 강하게 fitting할 것인가''를 다룬다. 따라서 SABER는 HER의 relabeling distribution을 바꾸는 방법이 아니라, HER 이후 critic loss weighting을 조정하는 방법이다.
 
 \subsection{Hindsight Goal Selection and Prioritization}
 
-HER 이후 많은 연구는 sparse goal-conditioned RL의 sample efficiency를 높이기 위해 어떤 hindsight goal, episode, transition을 더 자주 학습할지 바꾼다. HGG는 단기적으로 달성 가능하면서 장기 goal로 가는 데 유용한 hindsight goals를 생성한다~\citep{ren2019hgg}. CHER는 exploration-exploitation trade-off를 조정하는 curriculum-guided hindsight goal selection으로 제안되었다~\citep{fang2019cher}. EBP는 trajectory energy를 기준으로 hindsight episodes를 우선순위화한다~\citep{zhao2018ebp}. HGR은 episode 평균 TD-error와 future hindsight goal의 TD-error를 사용해 episode와 hindsight goal sampling probability를 바꾼다~\citep{luu2021hgr}. MHER는 one-step HER target 대신 \(n\)-step relabeled returns를 사용하고, MHER(\(\lambda\))와 model-based variants로 off-policy \(n\)-step bias를 줄인다~\citep{yang2021mher}.
+HER 이후 많은 연구는 sparse goal-conditioned RL의 sample efficiency를 높이기 위해 어떤 hindsight goal, episode, transition을 더 자주 학습할지 바꾼다. HGG는 단기적으로 달성 가능하면서 장기 goal로 가는 데 유용한 hindsight goals를 생성한다~\citep{ren2019hgg}. CHER는 exploration-exploitation trade-off를 조정하는 curriculum-guided hindsight goal selection으로 제안되었다~\citep{fang2019cher}. EBP는 trajectory energy를 기준으로 hindsight episodes를 우선순위화한다~\citep{zhao2018ebp}. Canonical HGR은 episode 평균 TD-error와 future hindsight goal의 TD-error를 사용해 두 단계 sampling probability를 바꾸고, 그 non-uniform sampling을 보정하는 episode/goal importance weights를 critic gradient에 적용한다~\citep{luu2021hgr}. MHER는 one-step HER target 대신 \(n\)-step relabeled returns를 사용하고, MHER(\(\lambda\))와 model-based variants로 off-policy \(n\)-step bias를 줄인다~\citep{yang2021mher}.
 
 이 계열과 SABER의 차이는 intervention point에 있다. 위 방법들은 주로 relabeled goal distribution, replay episode/transition sampling, 또는 Bellman target construction을 바꾼다. SABER는 future-goal HER ratio와 uniform replay sampling을 유지하고, one-step HER Bellman target도 유지한다. 바뀌는 것은 critic Bellman residual의 sample-wise loss weight뿐이다.
+
+HER bias를 직접 다루는 weighting methods도 SABER와 구분해야 한다. ARCHER는 real reward와 hindsight reward의 scale을 다르게 두어 HER bias를 완화한다~\citep{lanka2018archer}. USHER는 stochastic transition에서 HER Bellman estimator의 bias를 줄이기 위해 learned future-goal distribution으로 importance ratio를 구성해 Bellman MSE를 재가중한다~\citep{schramm2023usher}. SABER weight는 bias-correcting likelihood ratio나 reward rescaling이 아니라 current-policy action의 local replay support로부터 얻는 heuristic allocation weight이며, unbiasedness를 주장하지 않는다.
 
 \begin{table*}[t]
 \centering
 \small
 \caption{Closest HER-related methods by intervention point. SABER is positioned as critic-side Bellman residual reweighting rather than hindsight goal selection or replay prioritization.}
 \label{tab:related-intervention}
-\begin{tabular}{p{0.14\textwidth}p{0.22\textwidth}p{0.19\textwidth}p{0.17\textwidth}p{0.20\textwidth}}
+\begin{tabular}{@{}p{0.12\textwidth}p{0.20\textwidth}p{0.17\textwidth}p{0.16\textwidth}p{0.23\textwidth}@{}}
 \toprule
 Method & Main intervention & Main signal & Changes target or sampling? & Difference from SABER \\
 \midrule
 HER & relabel failed transitions with achieved goals & future achieved goals & changes training goal distribution & SABER operates after HER relabeling \\
 HGG / CHER & hindsight goal generation or curriculum-guided goal selection & achievability, usefulness, curriculum & changes goal selection & SABER keeps goal selection fixed \\
 EBP & hindsight episode prioritization & trajectory energy & changes replay priority & SABER keeps uniform replay sampling \\
-HGR & episode and hindsight goal ranking & TD-error & changes episode/goal sampling & SABER does not use TD-error as its support signal \\
+HGR & episode/goal ranking with IS correction & TD-error and sampling probability & changes sampling and critic gradient weight & SABER keeps replay sampling fixed and uses no IS ratio \\
 MHER / MHER(\(\lambda\)) & multi-step hindsight target construction & \(n\)-step relabeled returns, \(\lambda\)-return & changes Bellman target & SABER keeps one-step HER target fixed \\
+ARCHER & hindsight reward rescaling & real/hindsight reward identity & changes reward scale & SABER leaves rewards unchanged \\
+USHER & HER bias-correcting Bellman reweighting & learned future-goal likelihood ratio & changes Bellman loss by IS ratio & SABER uses local action support without unbiasedness claim \\
 PER / TD-error weighting & replay or loss prioritization & TD-error magnitude & changes sampling or loss by surprise & SABER weights by local replay-action support \\
 \bottomrule
 \end{tabular}
@@ -113,7 +122,7 @@ PER / TD-error weighting & replay or loss prioritization & TD-error magnitude & 
 
 DDPG, TD3, SAC와 같은 off-policy actor-critic 방법은 continuous control에서 널리 사용된다~\citep{lillicrap2015ddpg,fujimoto2018td3,haarnoja2018sac}. 이 방법들은 replay buffer를 사용해 sample efficiency를 높이지만, critic approximation error와 actor exploitation 문제가 함께 발생할 수 있다. TD3는 twin critics, target policy smoothing, delayed policy update를 통해 overestimation과 function approximation error를 줄인다. SAC는 entropy-regularized objective를 통해 exploration과 robustness를 높인다.
 
-High replay-ratio actor-critic도 중요한 비교 축이다. REDQ는 high update-to-data ratio, Q ensemble, random subset target minimization을 결합해 model-free continuous control의 sample efficiency를 높인다~\citep{chen2021redq}. 최근 sparse goal-conditioned setting에서는 REDQ를 HER와 결합하고 target Q bounding을 추가해 Robotics tasks에서 강한 sample efficiency를 보인 work도 있다~\citep{hiraoka2023sparsegoalredq}. 이러한 방법은 SABER와 보완적이지만, update-to-data ratio와 critic ensemble architecture를 크게 바꾸므로 본 논문의 matched-backbone critic-weighting 분석과는 다른 compute/backbone regime에 속한다.
+High replay-ratio actor-critic도 중요한 비교 축이다. REDQ는 high update-to-data ratio, Q ensemble, random subset target minimization을 결합해 model-free continuous control의 sample efficiency를 높인다~\citep{chen2021redq}. 최근 sparse goal-conditioned setting에서는 REDQ를 HER와 결합하고 target Q bounding을 추가해 Robotics tasks에서 강한 sample efficiency를 보인 work도 있다~\citep{hiraoka2023sparsegoalredq}. 이러한 방법은 SABER와 보완적이지만, update-to-data ratio와 critic ensemble architecture를 크게 바꾸므로 본 논문의 matched-backbone critic-weighting 분석과는 다른 compute/backbone regime에 속한다. 본 논문은 같은 HER backbone에서 updates per environment step만 늘린 high replay-ratio HER baselines를 포함해 update-scaling alternative를 확인하고, 추가로 FetchPickAndPlace에서 REDQ-HER target-Q-bound \(N=10,M=2,\mathrm{UTD}=4\) row를 직접 실행해 architecture/compute-scaled sparse-goal baseline을 보고한다.
 
 SABER는 backbone 자체를 바꾸지 않는다. DDPG, TD3, SAC의 Bellman target 계산은 유지하되, critic regression loss에 sample-wise support-derived weight를 곱한다. 따라서 SABER는 새로운 actor-critic algorithm이라기보다, off-policy actor-critic에 부착되는 critic-side Bellman error reweighting layer로 보는 것이 정확하다.
 
@@ -124,7 +133,7 @@ Prioritized Experience Replay (PER)는 TD-error가 큰 transition을 더 자주 
 SABER는 TD-error가 큰 sample을 우선시하지 않는다. SABER의 기준 신호는 local replay-action support이다. 즉, TD-error magnitude가 아니라 현재 policy action이 해당 state-goal-horizon context의 replay action support 안에 있는지를 본다. 또한 main SABER는 replay sampling distribution을 바꾸지 않고, critic loss weight만 바꾼다.
 
 \begin{quote}
-SABER does not prioritize surprise; it prioritizes supported Bellman supervision.
+SABER does not directly prioritize surprise; it uses local support as the weighting signal, which can still correlate with TD-error in practice.
 \end{quote}
 
 \subsection{Dataset Support and Extrapolation}
@@ -223,29 +232,27 @@ SAC에서는 sampled next action과 entropy term이 target에 들어간다.
 \end{equation}
 \begin{equation}
 \begin{aligned}
-y_i^{SAC}=r_i+\gamma(1-d_i)
-\left[
-\min_{k\in\{1,2\}}Q_{\bar\phi_k}(x'_i,\tilde a'_i)
--\alpha\log\pi_\theta(\tilde a'_i\mid x'_i)
-\right].
+y_i^{SAC}={}&r_i+\gamma(1-d_i)\bigl[
+\min_{k\in\{1,2\}}Q_{\bar\phi_k}(x'_i,\tilde a'_i)\\
+&\hspace{5.5em}-\alpha\log\pi_\theta(\tilde a'_i\mid x'_i)\bigr].
 \end{aligned}
 \end{equation}
 SABER는 DDPG/TD3/SAC의 target construction을 바꾸지 않고, 아래에서 정의하는 sample-wise weight를 critic regression loss에만 곱한다.
 
-\section{Motivation: Target Quantity Is Not Target Reliability}
+\section{Motivation: Target Quantity Is Not Critic-Fit Usefulness}
 
-HER는 sparse reward에서 target quantity를 늘린다. 하지만 target quantity와 target reliability는 같은 개념이 아니다.
+HER는 sparse reward에서 target quantity를 늘린다. 하지만 target quantity와 current-policy action region에서의 critic-fit usefulness는 같은 개념이 아니다.
 
 같은 mini-batch 안의 두 HER-relabeled transition을 생각하자. 두 transition 모두 reward를 재계산할 수 있고 Bellman target \(y_i\)를 만들 수 있다. 그러나 첫 번째 transition에서는 현재 actor action \(\pi_\theta(o_i,g_i^{tr})\)이 같은 local state-goal-horizon context 안에서 replay buffer에 여러 번 관측된 action family에 속할 수 있다. 두 번째 transition에서는 현재 actor action이 그 local context의 replay action support 바깥에 있을 수 있다.
 
-두 경우 모두 Bellman target은 존재한다. 그러나 critic이 해당 target을 현재 policy improvement에 유용한 supervision으로 fitting할 때의 reliability는 다를 수 있다. 첫 번째 경우는 local interpolation에 가깝고, 두 번째 경우는 extrapolation risk가 크다.
+두 경우 모두 Bellman target은 존재한다. 그러나 critic이 해당 target을 현재 policy improvement에 유용한 supervision으로 fitting할 때의 usefulness는 다를 수 있다. 첫 번째 경우는 local interpolation에 가깝고, 두 번째 경우는 extrapolation risk가 크다.
 
 SABER의 기본 가설은 다음이다.
 \begin{quote}
-Replay support가 충분한 transition은 critic Bellman fitting에 더 reliable한 supervision을 제공한다. 따라서 support-positive transition의 critic TD loss를 더 크게 반영하면 sparse manipulation에서 value learning이 안정화되고 sample efficiency가 좋아질 수 있다.
+Replay support가 충분한 transition은 current-policy action region과 더 직접적으로 연결된 critic fitting pressure를 제공한다. 따라서 support-positive transition의 critic TD loss를 더 크게 반영하면 sparse manipulation에서 value learning이 안정화되고 sample efficiency가 좋아질 수 있다.
 \end{quote}
 
-이 가설은 theorem으로 주장하지 않는다. 본 논문에서는 이를 reliability-weighted Bellman regression interpretation으로 제시하고, downstream performance와 ablation으로 간접 평가한다. \(\psi_i\)가 실제 fitting risk를 낮추는지에 대한 sample-level diagnostic은 최종본에서 추가 검증해야 할 대상으로 남긴다.
+이 가설은 theorem으로 주장하지 않는다. 본 논문에서는 이를 support-conditioned Bellman regression interpretation으로 제시하고, downstream performance, random controls, high replay-ratio baselines, and sample-level diagnostics로 평가한다. 현재 diagnostics는 \(\psi_i\)가 TD-error magnitude와 동일한 신호가 아님을 보이지만, support-positive samples가 본질적으로 lower-risk 또는 lower-variance Bellman targets라는 강한 결론까지는 제공하지 않는다. 더 정확한 해석은 support-conditioned rule이 critic-side Bellman error allocation을 바꾸고, 일부 backbone에서는 high-error updates에 대한 correction을 더 강하게 만든다는 것이다.
 
 \section{SABER}
 
@@ -261,6 +268,24 @@ SABER는 각 training sample마다 local replay-action support를 계산하고, 
     \item Batch normalization으로 평균 weight를 1로 맞춘다.
     \item Normalized weight를 critic Bellman error에만 곱한다.
 \end{enumerate}
+
+\begin{figure*}[t]
+\centering
+\setlength{\fboxsep}{5pt}
+\begin{tabular}{c@{\hspace{0.9em}$\rightarrow$\hspace{0.9em}}c@{\hspace{0.9em}$\rightarrow$\hspace{0.9em}}c@{\hspace{0.9em}$\rightarrow$\hspace{0.9em}}c}
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{1. HER batch}\\[-1pt]\(s_i,a_i^r,g_i^{tr},r_i,s'_i\)\\\scriptsize unchanged relabeling}} &
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{2. Policy query}\\[-1pt]\(a_i^\pi=\pi(s_i,g_i^{tr})\)\\\scriptsize build local pool \(\mathcal L_i\)}} &
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{3. Support weight}\\[-1pt]\(\psi_i\rightarrow\omega_i\rightarrow\Omega_i\)\\\scriptsize batch-normalized}} &
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{4. Critic update}\\[-1pt]\(\Omega_i(Q_\theta-y_i)^2\)\\\scriptsize actor loss unchanged}}
+\end{tabular}
+\vspace{0.35em}
+
+\fbox{\parbox{0.91\textwidth}{\centering\scriptsize
+\textbf{Changed:} sample-wise critic TD-loss allocation.\quad
+\textbf{Unchanged:} HER goal generation, replay sampling, Bellman targets, actor objective, and critic architecture.}}
+\caption{SABER intervenes after HER relabeling and before critic-loss aggregation. The current policy action is used only to query local replay-action support; Bellman regression remains at the replay action.}
+\label{fig:saber-method-overview}
+\end{figure*}
 
 \subsection{Local Context}
 
@@ -300,7 +325,7 @@ C_{\mathrm{coarse}}(o,h)=
 \scriptsize
 \caption{Task-specific local context definitions used by SABER. Phase names denote intended control stages rather than verified physical contact states. \(M_{\mathrm{avail}}\) corresponds to the legacy config name \texttt{M\_Q\_min}. All rows use action bins with \(K=5\) bins per action dimension and \(\lambda_S=1.0\).}
 \label{tab:context-definitions}
-\begin{tabular}{p{0.13\linewidth}p{0.23\linewidth}p{0.25\linewidth}p{0.23\linewidth}p{0.12\linewidth}}
+\begin{tabular}{@{}p{0.11\linewidth}p{0.20\linewidth}p{0.23\linewidth}p{0.22\linewidth}p{0.12\linewidth}@{}}
 \toprule
 Task & Full-context features & Phase predicate & Bin boundaries & Support settings \\
 \midrule
@@ -365,7 +390,7 @@ b_i^\pi = b(a_i^\pi).
 SABER는 \(b_i^\pi\)가 \(\mathcal B_i\)에 포함되는지를 통해 current policy action이 local replay support 안에 있는지 판정한다.
 
 \paragraph{Policy-action support as a proxy.}
-SABER weight는 current policy action \(a_i^\pi\)의 support를 보고 결정되지만, critic residual은 replay action \(a_i^r\)에서 계산된다. 따라서 SABER는 \(a_i^\pi\)의 support가 \(Q_\phi(x_i,a_i^r)\) target noise를 직접 측정한다고 주장하지 않는다. 더 정확한 해석은 다음이다. Off-policy actor-critic에서 critic은 replay actions에서 Bellman regression을 수행하지만, actor update는 같은 \(x_i\)에서 current policy action의 value를 exploit한다. 그러므로 SABER의 support predicate는 ``이 state-goal-horizon context가 current policy improvement에 필요한 action region을 replay buffer 안에서 어느 정도 갖고 있는가''를 나타내는 policy-improvement-relevant reliability proxy다. 이 proxy가 positive인 sample의 Bellman residual을 더 강하게 fitting하되, actor objective와 replay sampling은 바꾸지 않는다.
+SABER weight는 current policy action \(a_i^\pi\)의 support를 보고 결정되지만, critic residual은 replay action \(a_i^r\)에서 계산된다. 따라서 SABER는 \(a_i^\pi\)의 support가 \(Q_\phi(x_i,a_i^r)\) target noise를 직접 측정한다고 주장하지 않는다. 더 정확한 해석은 다음이다. Off-policy actor-critic에서 critic은 replay actions에서 Bellman regression을 수행하지만, actor update는 같은 \(x_i\)에서 current policy action의 value를 exploit한다. 그러므로 SABER의 support predicate는 ``이 state-goal-horizon context가 current policy improvement에 필요한 action region을 replay buffer 안에서 어느 정도 갖고 있는가''를 나타내는 local-support proxy다. 이 proxy가 positive인 sample의 Bellman residual을 더 강하게 fitting하되, actor objective와 replay sampling은 바꾸지 않는다.
 
 \subsection{Support Indicator}
 
@@ -373,15 +398,9 @@ Support-positive indicator는 다음과 같이 정의한다.
 \begin{equation}
 \begin{aligned}
 n_i^{avail} &= \min(|\mathcal L_i|, M_B),\\
-\psi_i =
-\mathbf 1
-\left[
-|\mathcal L_i|\ge N_{\mathrm{local}}
-\land
-n_i^{avail}\ge M_{\mathrm{avail}}
-\land
-b_i^\pi \in \mathcal B_i
-\right].
+\psi_i &= \mathbf 1[|\mathcal L_i|\ge N_{\mathrm{local}}]\\
+&\quad\cdot\mathbf 1[n_i^{avail}\ge M_{\mathrm{avail}}]
+\cdot\mathbf 1[b_i^\pi\in\mathcal B_i].
 \end{aligned}
 \end{equation}
 
@@ -485,16 +504,16 @@ U_{PER}
 
 \section{Theoretical Interpretation}
 
-SABER can be interpreted as reliability-weighted Bellman regression, but the reliability claim is deliberately narrow. Let \(\mathcal R_i^{fit}\) denote the effective fitting risk of using transition \(i\)'s replay-action Bellman residual as supervision for a critic that will later be queried by the actor at \(a_i^\pi\). SABER uses the working hypothesis
+SABER can be interpreted as support-conditioned Bellman regression with a deliberately narrow critic-fit allocation hypothesis. Let \(\mathcal U_i^{fit}\) denote the policy-relevant usefulness of using transition \(i\)'s replay-action Bellman residual as supervision for a critic that will later be queried by the actor at \(a_i^\pi\). SABER uses the working hypothesis
 \begin{equation}
-\mathbb E[\mathcal R_i^{fit}\mid \psi_i=1]
-<
-\mathbb E[\mathcal R_i^{fit}\mid \psi_i=0].
+\mathbb E[\mathcal U_i^{fit}\mid \psi_i=1]
+>
+\mathbb E[\mathcal U_i^{fit}\mid \psi_i=0].
 \end{equation}
 
-This is not a theorem in the current paper. It is an interpretation and empirical hypothesis. SABER does not claim that \(\psi_i\) directly measures Bellman target noise at \(a_i^r\), and it does not claim that unsupported samples are useless. It only assigns stronger critic fitting weight to samples whose local context also supports the current policy action.
+This is not a theorem in the current paper. It is an interpretation and empirical hypothesis. SABER does not claim that \(\psi_i\) directly measures Bellman target noise at \(a_i^r\), and it does not claim that unsupported samples are useless or that support-positive samples have lower target variance. It only assigns stronger critic fitting weight to samples whose local context also supports the current policy action. The diagnostics therefore test whether \(\psi_i\) changes critic error allocation and residual correction, not whether it is a complete target-quality oracle.
 
-This interpretation also explains why critic-only is the most isolating main variant. If support weights are applied to the actor loss, the method may change which state-goal regions the actor is encouraged to exploit, making it harder to separate critic reliability from actor distribution bias. Critic-only SABER is used for mechanism isolation: support affects Bellman regression, not direct policy optimization. This does not claim that critic-only is always the best-performing variant.
+This interpretation also explains why critic-only is the most isolating main variant. If support weights are applied to the actor loss, the method may change which state-goal regions the actor is encouraged to exploit, making it harder to separate critic fitting effects from actor distribution bias. Critic-only SABER is used for mechanism isolation: support affects Bellman regression, not direct policy optimization. This does not claim that critic-only is always the best-performing variant.
 
 \section{Experiments}
 
@@ -505,13 +524,16 @@ This interpretation also explains why critic-only is the most isolating main var
     \item RQ1. SABER는 sparse-reward HER manipulation에서 baseline HER보다 mean sample efficiency와 mean final success를 높이는가?
     \item RQ2. SABER는 DDPG, TD3, SAC와 같은 여러 off-policy actor-critic backbone에 호환되는가?
     \item RQ3. SABER는 FetchPickAndPlace보다 다른 dynamics를 갖는 DrawerOpen에서도 큰 효과 크기와 seed consistency를 보이는가?
-    \item RQ4. FPP-DDPG에서 SABER의 이득은 현재 보유한 PER-style, full-PER, shuffled, random-support, random-fixed-count controls로 설명될 수 있는가?
-    \item RQ5. SABER의 한계는 무엇이며, runtime overhead와 task/backbone-dependent failure는 어떻게 나타나는가?
+    \item RQ4. SABER의 이득은 현재 보유한 HGR-style sampler-only, PER-style, full-PER, high replay-ratio HER, REDQ-HER, shuffled, random-support, random-fixed-count controls로 설명될 수 있는가?
+    \item RQ5. Sample-level diagnostics에서 support-positive indicator는 TD-error magnitude, high-error overlap, and residual correction과 어떤 관계를 갖는가?
+    \item RQ6. SABER의 한계는 무엇이며, runtime overhead와 task/backbone-dependent failure는 어떻게 나타나는가?
 \end{itemize}
 
 \subsection{Tasks and Metrics}
 
-주요 benchmark는 sparse-reward goal-conditioned manipulation tasks다. FetchPickAndPlace는 breadth evidence로 사용한다~\citep{plappert2018multigoal}. 즉 DDPG, TD3, SAC 세 actor-critic backbone에서 같은 critic-side objective가 호환되는지 본다. Meta-World DrawerOpen DDPG는 effect-size evidence로 사용한다~\citep{yu2020metaworld}. 이 task에서는 baseline DDPG+HER의 seed failure가 크고, SABER가 큰 mean improvement와 5/5 seed success를 보인다. 그러나 Random-Fixed-Count도 강하므로 DrawerOpen DDPG는 HER 대비 large-effect evidence이지 structured support의 causal proof는 아니다. FetchSlide는 secondary evidence와 failure analysis로 사용한다. FetchPush artifact도 별도로 보유하고 있지만 현재 review-only main draft에는 complete and matched rows가 부족한 항목을 넣지 않는다. DrawerOpen TD3와 actor/random/shuffled controls는 보조 stress-test와 mechanism discussion으로 사용한다.
+주요 benchmark는 sparse-reward goal-conditioned manipulation tasks다. FetchPickAndPlace는 breadth evidence로 사용한다~\citep{plappert2018multigoal}. 즉 DDPG, TD3, SAC 세 actor-critic backbone에서 같은 critic-side objective가 호환되는지 본다. FPP DDPG, TD3, SAC에서는 random-support 및 random-fixed-count controls를 추가해 random reweighting과 support-conditioned assignment의 차이를 비교한다. 또한 FPP DDPG에서는 high replay-ratio HER \(4\times\)와 \(8\times\), FPP TD3와 SAC에서는 high replay-ratio HER \(4\times\)를 추가해 ``critic update를 더 많이 하면 되는 것 아닌가''라는 compute-scaling alternative를 직접 확인한다. FPP에는 REDQ-HER target-Q-bound \(N=10,M=2,\mathrm{UTD}=4\) row도 추가해 stronger architecture/compute-scaled sparse-goal reference를 둔다. Meta-World DrawerOpen DDPG는 effect-size evidence로 사용한다~\citep{yu2020metaworld}. 이 task에서는 baseline DDPG+HER의 seed failure가 크고, SABER가 큰 mean improvement와 5/5 seed success를 보인다. 동일 DDPG, UTD 1, 2M-step budget에서 two-stage TD-error episode/goal ranking만 사용하는 HGR-style sampler-only control도 포함한다. 이 row는 canonical HGR의 episode/goal importance-sampling correction을 사용하지 않으므로 direct canonical-HGR comparison으로 해석하지 않는다. Random-Support, PER-Style, Random-Fixed-Count도 강하므로 DrawerOpen DDPG는 HER 대비 large-effect evidence이지 structured support의 causal proof는 아니다. FetchSlide는 secondary evidence와 failure analysis로 사용한다. FetchPush artifact도 별도로 보유하고 있지만 현재 review-only main draft에는 complete and matched rows가 부족한 항목을 넣지 않는다. DrawerOpen TD3 actor/random controls와 DrawerClose DDPG/TD3 random/shuffled/PER-style controls는 보조 stress-test와 mechanism discussion으로 사용한다.
+
+따라서 본 실험은 SOTA robotics benchmark competition이 아니라 matched-backbone critic-loss reweighting study로 설계한다. 핵심 비교는 같은 HER backbone, 같은 replay sampling, 같은 actor objective 아래에서 critic loss weight만 바꾸었을 때 sample efficiency와 control behavior가 어떻게 달라지는지다. High replay-ratio HER는 이 matched backbone 안에서 update-to-data ratio만 키우는 strong compute baseline으로 추가한다. REDQ-HER는 update-to-data ratio와 critic ensemble architecture까지 바꾸는 stronger architecture/compute-scaled reference로 포함한다. DrawerOpen sampler-only row는 sampling intervention stress control이며 canonical HGR baseline은 아니다; HGG와 MHER 같은 다른 goal-selection/target-construction alternatives도 Related Work에서 위치만 비교한다. 본 draft의 main claim은 이 방법들이나 REDQ-HER를 보편적으로 압도한다는 것이 아니다. 대신 SABER의 역할은 one-update matched HER baselines를 개선하는 critic-side allocation intervention을 분리하고, random-control 및 compute/backbone-scaling stress tests 아래에서 그 intervention의 효과와 한계를 보이는 것이다.
 
 각 evaluation checkpoint의 success는 \(E=20\) evaluation episodes에서 계산한 environment success rate다. Seed \(s\)의 evaluation curve를 \(\{(t_k, q_k^{(s)})\}_{k=1}^{K_s}\)로 둔다. 여기서 \(t_k\)는 environment step이고 \(q_k^{(s)}\in[0,1]\)는 해당 checkpoint의 success rate다. Final success와 best success는 각각
 \begin{equation}
@@ -529,7 +551,7 @@ Success AUC는 evaluation success curve의 normalized trapezoidal area다. 선�
 \frac{q_{j_\ell}^{(s)} + q_{j_{\ell+1}}^{(s)}}{2}
 \left(t_{j_{\ell+1}}-t_{j_\ell}\right).
 \end{equation}
-FPP와 DrawerOpen의 success AUC는 첫 번째와 마지막 selected evaluation checkpoint 사이의 span을 \(Z\)로 사용한다. FetchSlide summary에는 같은 span-normalized AUC와 total-budget-normalized AUC가 모두 저장되어 있으므로, 본문 표는 task analyzer가 선택한 normalized AUC를 사용하고 cross-task AUC 절대값은 직접 비교하지 않는다. Last-quarter AUC는 \(t_k \ge 0.75T\)인 checkpoint만 사용하고 \(Z=T/4\)로 normalize한다.
+FPP DDPG/TD3와 DrawerOpen의 success AUC는 첫 번째와 마지막 selected evaluation checkpoint 사이의 span을 \(Z\)로 사용한다. FPP SAC는 legacy HER/SABER의 25k schedule과 newer controls의 10k schedule을 직접 섞지 않는다. 모든 SAC HER/SABER/random/high-RR/REDQ rows를 exact common grid \(G=\{50\mathrm{k},100\mathrm{k},\ldots,1\mathrm{M}\}\)의 20 checkpoints로 제한하고, interpolation, smoothing, forward filling, and extrapolation 없이 \(Z=950\mathrm{k}\)로 AUC를 재계산한다. FPP SAC final success는 common grid의 1M checkpoint, Hit90은 이 grid에서 처음 0.90에 도달한 checkpoint를 사용한다. FetchSlide summary에는 같은 span-normalized AUC와 total-budget-normalized AUC가 모두 저장되어 있으므로, 본문 표는 task analyzer가 선택한 normalized AUC를 사용하고 cross-task AUC 절대값은 직접 비교하지 않는다. Last-quarter AUC는 \(t_k \ge 0.75T\)인 checkpoint만 사용하고 \(Z=T/4\)로 normalize한다.
 
 Hit90은 threshold 0.90에 대한 first-hit metric이다.
 \begin{equation}
@@ -543,7 +565,7 @@ H_{0.90}^{(s)} = \min \{t_k : q_k^{(s)} \ge 0.90\}.
 
 모든 main Fetch 실험은 uniform replay와 future-goal HER를 사용한다. HER ratio는 0.8이며, relabel된 sample의 reward는 \(r(o_{t+1},g_i^{tr})\)로 다시 계산한다. Success state는 Bellman target에서 terminal로 강제하지 않고, timeout transition에는 bootstrapping을 허용한다. 즉, \texttt{success\_terminates=false}, \texttt{timeout\_bootstrap=true}를 기본 convention으로 둔다.
 
-Actor와 critic은 hidden size 256의 two-layer MLP를 사용하고, optimizer는 Adam이다. 공통 hyperparameters는 \(\gamma=0.98\), \(\tau=0.005\), actor/critic learning rate \(3\times 10^{-4}\), batch size 256, replay buffer size 300k, warmup 5k steps, random start 10k steps, one update per environment step이다. DDPG와 TD3 exploration noise는 0.2다. TD3는 policy delay 2, target policy noise 0.2, target noise clip 0.5를 사용한다. SAC는 twin critics와 tanh Gaussian actor를 사용하며, initial \(\alpha=0.2\), automatic entropy tuning, target entropy \(-|\mathcal A|\)를 사용한다.
+Actor와 critic은 hidden size 256의 two-layer MLP를 사용하고, optimizer는 Adam이다. 공통 hyperparameters는 \(\gamma=0.98\), \(\tau=0.005\), actor/critic learning rate \(3\times 10^{-4}\), batch size 256, replay buffer size 300k, warmup 5k steps, random start 10k steps, one update per environment step이다. High replay-ratio HER baselines만 예외적으로 updates per environment step을 4 또는 8로 늘리며, support lookup이나 SABER weight는 사용하지 않는다. REDQ-HER도 support lookup과 SABER weight를 사용하지 않지만, SAC-style actor에 \(10\)-critic ensemble, target subset \(M=2\), UTD \(4\), and sparse-reward target-Q bound \([-50,0]\)를 사용한다. DDPG와 TD3 exploration noise는 0.2다. TD3는 policy delay 2, target policy noise 0.2, target noise clip 0.5를 사용한다. SAC는 twin critics와 tanh Gaussian actor를 사용하며, initial \(\alpha=0.2\), automatic entropy tuning, target entropy \(-|\mathcal A|\)를 사용한다.
 
 SABER main rows use \(M_B=16\), \(M_{\mathrm{avail}}=4\) (legacy config \texttt{M\_Q\_min=4}), \(N_{\mathrm{local}}=4\), \(K=5\) action bins per dimension, \(\lambda_S=1.0\), task/method-specific \texttt{local\_search\_max}, \texttt{support\_scan\_mode=deterministic\_tail\_v1}, and batch-normalized critic-only weights. Replay sampling and actor objectives are unchanged from the corresponding HER backbone. Full reproducibility details are given in Appendix A.
 
@@ -553,7 +575,7 @@ FetchPickAndPlace는 backbone breadth를 보기 위한 main evidence다. 모든 
 
 \begin{table*}[t]
 \centering
-\caption{FetchPickAndPlace main results at 1M environment steps. Hit90 reports the median first step among seeds that reached 0.90 success, with the reach count in parentheses. Steps/sec is observed training throughput, not a controlled wall-clock benchmark.}
+\caption{FetchPickAndPlace main results at 1M environment steps. SAC AUC and Hit90 use the exact shared 50k--1M grid; DDPG/TD3 use their native common evaluation schedules. Hit90 reports the median first step among seeds that reached 0.90 success, with the reach count in parentheses. Steps/sec is observed training throughput, not a controlled wall-clock benchmark.}
 \label{tab:fpp-main}
 \begin{tabular}{llccccc}
 \toprule
@@ -563,18 +585,26 @@ DDPG & HER & \(0.940 \pm 0.042\) & \(1.000 \pm 0.000\) & \(0.539 \pm 0.125\) & 6
 DDPG & HER+SABER & \(0.960 \pm 0.042\) & \(1.000 \pm 0.000\) & \(0.609 \pm 0.038\) & 540k (5/5) & \(41.72 \pm 0.20\) \\
 TD3 & HER & \(0.840 \pm 0.188\) & \(0.880 \pm 0.144\) & \(0.372 \pm 0.032\) & 980k (3/5) & \(65.33 \pm 0.13\) \\
 TD3 & HER+SABER & \(0.970 \pm 0.045\) & \(0.990 \pm 0.022\) & \(0.442 \pm 0.035\) & 840k (5/5) & \(41.25 \pm 0.59\) \\
-SAC & HER & \(0.790 \pm 0.288\) & \(0.910 \pm 0.124\) & \(0.463 \pm 0.077\) & 800k (3/5) & \(38.93 \pm 0.07\) \\
-SAC & HER+SABER & \(0.990 \pm 0.022\) & \(1.000 \pm 0.000\) & \(0.565 \pm 0.030\) & 750k (5/5) & \(29.10 \pm 0.12\) \\
+SAC & HER & \(0.790 \pm 0.288\) & \(0.910 \pm 0.124\) & \(0.471 \pm 0.079\) & 800k (3/5) & \(38.93 \pm 0.07\) \\
+SAC & HER+SABER & \(0.990 \pm 0.022\) & \(1.000 \pm 0.000\) & \(0.583 \pm 0.030\) & 750k (5/5) & \(29.10 \pm 0.12\) \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-FPP에서는 SABER가 세 backbone 모두에서 mean final success와 mean success AUC를 높인다. DDPG에서는 final success mean이 0.940에서 0.960으로 소폭 상승하고 AUC mean이 0.539에서 0.609로 오른다. TD3에서는 final success mean이 0.840에서 0.970으로, AUC mean이 0.372에서 0.442로 오른다. SAC에서는 final success mean이 0.790에서 0.990으로, AUC mean이 0.463에서 0.565로 오른다. Paired bootstrap CI를 보면 TD3와 SAC의 AUC gain은 더 안정적이지만, DDPG의 SABER--HER AUC CI는 0을 포함한다. 따라서 FPP claim은 ``all backbones show higher mean performance''로 해석하고, 모든 row에서 통계적으로 닫힌 universal gain으로 해석하지 않는다.
-
-이 결과는 SABER가 하나의 특정 actor-critic implementation에만 붙는 trick이 아니라, 여러 off-policy actor-critic backbone에 호환되는 critic-side objective임을 보여준다. 다만 runtime은 감소한다. 따라서 FPP 결과는 environment-step sample efficiency 관점에서는 유리하지만, wall-clock cost와 confidence interval을 함께 보고해야 한다.
-
-\begin{table}[t]
+\begin{figure*}[t]
 \centering
+\includegraphics[width=0.98\textwidth]{output/figures/fpp_saber_main_evidence.png}
+\caption{FetchPickAndPlace evidence across matched one-update-per-step HER backbones. Bars show the seed mean and standard deviation. SABER has higher means on final success and AUC for DDPG, TD3, and SAC; the paired AUC interval includes zero for DDPG and excludes zero for TD3/SAC. Scaling references are reported separately.}
+\label{fig:fpp-main-evidence}
+\end{figure*}
+
+FPP에서는 SABER가 세 backbone 모두에서 mean final success와 mean success AUC를 높인다. DDPG에서는 final success mean이 0.940에서 0.960으로 소폭 상승하고 AUC mean이 0.539에서 0.609로 오른다. TD3에서는 final success mean이 0.840에서 0.970으로, AUC mean이 0.372에서 0.442로 오른다. Exact common-grid SAC에서는 final success mean이 0.790에서 0.990으로, AUC mean이 0.471에서 0.583으로 오른다. Paired bootstrap CI를 보면 TD3와 SAC의 AUC gain은 더 안정적이지만, DDPG의 SABER--HER AUC CI는 0을 포함한다. 따라서 FPP claim은 ``all backbones show higher mean performance''로 해석하고, 모든 row에서 통계적으로 닫힌 universal gain으로 해석하지 않는다.
+
+이 결과는 SABER가 하나의 특정 actor-critic implementation에만 붙는 trick이 아니라, 여러 off-policy actor-critic backbone에 호환되는 critic-side objective임을 보여준다. 다만 runtime은 감소하고, 아래 high replay-ratio baseline처럼 update-to-data ratio를 크게 키운 compute-heavy alternative와의 관계는 별도로 해석해야 한다. 따라서 FPP 결과는 matched one-update-per-step HER baselines 대비 environment-step sample efficiency evidence로 읽고, wall-clock cost, update budget, and confidence interval을 함께 보고해야 한다.
+
+\begin{table*}[t]
+\centering
+\small
 \caption{Paired bootstrap deltas for FPP SABER minus HER. Values report mean delta with 95\% bootstrap confidence interval over seeds 1--5.}
 \label{tab:fpp-paired-ci}
 \begin{tabular}{lcc}
@@ -583,10 +613,50 @@ Backbone & \(\Delta\) Final & \(\Delta\) AUC \\
 \midrule
 DDPG & \(+0.020\,[-0.040,0.070]\) & \(+0.070\,[-0.016,0.193]\) \\
 TD3 & \(+0.130\,[-0.030,0.310]\) & \(+0.071\,[0.032,0.095]\) \\
-SAC & \(+0.200\,[-0.020,0.430]\) & \(+0.102\,[0.057,0.150]\) \\
+SAC & \(+0.200\,[-0.020,0.430]\) & \(+0.112\,[0.064,0.161]\) \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
+
+\subsection{Strong Compute Baselines: High Replay-Ratio HER and REDQ-HER}
+
+SABER는 critic-side loss allocation을 바꾸지만 update-to-data ratio는 baseline과 동일하게 유지한다. 따라서 중요한 반문은 단순하다: 같은 HER backbone에서 critic/actor update를 더 많이 수행하면 SABER의 gain이 사라지는가? 이를 확인하기 위해 support lookup을 끄고, actor/critic architecture와 HER replay를 그대로 둔 채 updates per environment step만 늘린 high replay-ratio HER baselines를 실행했다. DDPG에서는 \(4\times\)와 \(8\times\), TD3와 SAC에서는 \(4\times\)를 평가한다. 또한 stronger external sparse-goal baseline risk를 다루기 위해, SAC-style actor와 HER relabeling을 유지하되 \(10\)-critic REDQ ensemble, random target subset \(M=2\), UTD \(4\), target-Q bound를 사용하는 REDQ-HER row를 FetchPickAndPlace에서 추가한다. REDQ-HER는 SABER와 같은 matched-backbone regime이 아니라 architecture/compute-scaled reference다.
+
+\begin{table*}[t]
+\centering
+\caption{FPP high replay-ratio and REDQ-HER baselines at 1M environment steps. High-RR rows keep the same backbone and replay sampling fixed but increase updates per environment step. REDQ-HER additionally changes the critic architecture to a \(10\)-critic ensemble with target subset \(M=2\) and target-Q bounding. SAC/REDQ AUC and Hit90 use the exact shared 50k--1M grid. Runtime is observed training wall-clock time, not a hardware-normalized benchmark.}
+\label{tab:fpp-high-rr}
+\begin{tabular}{llccccc}
+\toprule
+Backbone & Method & Updates/step & Final & AUC & Hit90 & Runtime h \\
+\midrule
+DDPG & HER & 1 & \(0.940 \pm 0.042\) & \(0.539 \pm 0.125\) & 600k (5/5) & \(4.27\) \\
+DDPG & HER+SABER & 1 & \(0.960 \pm 0.042\) & \(0.609 \pm 0.038\) & 540k (5/5) & \(6.66\) \\
+DDPG & HER high-RR \(4\times\) & 4 & \(0.990 \pm 0.022\) & \(0.618 \pm 0.071\) & 480k (5/5) & \(16.11\) \\
+DDPG & HER high-RR \(8\times\) & 8 & \(0.720 \pm 0.407\) & \(0.443 \pm 0.269\) & 620k (3/5) & \(31.85\) \\
+\addlinespace
+TD3 & HER & 1 & \(0.840 \pm 0.188\) & \(0.372 \pm 0.032\) & 980k (3/5) & \(4.25\) \\
+TD3 & HER+SABER & 1 & \(0.970 \pm 0.045\) & \(0.442 \pm 0.035\) & 840k (5/5) & \(6.74\) \\
+TD3 & HER high-RR \(4\times\) & 4 & \(0.610 \pm 0.243\) & \(0.449 \pm 0.079\) & 630k (1/5) & \(8.76\) \\
+\addlinespace
+SAC & HER & 1 & \(0.790 \pm 0.288\) & \(0.471 \pm 0.079\) & 800k (3/5) & \(7.14\) \\
+SAC & HER+SABER & 1 & \(0.990 \pm 0.022\) & \(0.583 \pm 0.030\) & 750k (5/5) & \(9.55\) \\
+SAC & HER high-RR \(4\times\) & 4 & \(0.960 \pm 0.042\) & \(0.768 \pm 0.097\) & 450k (5/5) & \(47.02\) \\
+\addlinespace
+REDQ-SAC & REDQ-HER TQB & 4 & \(1.000 \pm 0.000\) & \(0.867 \pm 0.052\) & 300k (5/5) & \(89.52\) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+이 baseline은 SABER에 유리한 방향으로만 해석되지 않는다. High-RR \(4\times\)는 DDPG에서 SABER와 비슷한 environment-step AUC를 얻는다. 따라서 ``DDPG SABER의 AUC gain은 어떤 compute scaling으로도 따라갈 수 없다''는 claim은 성립하지 않는다. 그러나 \(4\times\)는 약 3.98M gradient updates와 16.1 recorded training hours를 사용하며, SABER는 같은 1M updates와 약 6.7 hours에서 비슷한 AUC를 얻는다. 즉 DDPG에서 SABER의 위치는 high replay-ratio를 절대적으로 이기는 SOTA baseline이 아니라, far fewer updates로 comparable environment-step learning curve를 얻는 critic-side reweighting alternative다.
+
+TD3에서도 비슷한 tradeoff가 나타난다. TD3 high-RR \(4\times\)는 AUC \(0.449\)로 TD3 SABER의 AUC \(0.442\)와 구분되지 않지만, final success는 \(0.610\)으로 낮고 Hit90은 1/5 seeds에서만 도달한다. Paired bootstrap에서 SABER--high-RR \(4\times\) AUC delta는 \(-0.007\) with CI \([-0.053,0.027]\)로 닫히지 않지만, final success delta는 \(+0.360\) with CI \([0.140,0.530]\)이고 runtime은 약 2.0h 낮다. 따라서 high replay-ratio는 AUC를 높일 수 있는 strong compute baseline이지만, final success, seed consistency, update/runtime budget 측면에서는 SABER와 다른 tradeoff를 갖는다.
+
+SAC에서는 compute scaling의 효과가 더 강하다. Exact common-grid에서 SAC high-RR \(4\times\)는 AUC \(0.768\)로 SAC SABER의 AUC \(0.583\)보다 높고, paired bootstrap의 SABER--high-RR \(4\times\) AUC delta는 \(-0.184\) with CI \([-0.235,-0.123]\)로 음수다. 따라서 SAC에서 ``SABER가 high replay-ratio HER보다 environment-step sample efficient하다''는 claim은 성립하지 않는다. 그러나 SAC high-RR \(4\times\)는 약 47.0 recorded training hours와 steps/sec 5.91을 사용하며, SABER는 약 9.6 hours와 steps/sec 29.1에서 final success \(0.990\)을 얻는다. 이 row는 high replay-ratio가 strong compute-scaled baseline임을 보여주는 동시에, 본 논문의 scope가 compute scaling을 이기는 SOTA claim이 아니라 one-update-per-step matched-backbone critic allocation study임을 분명히 한다.
+
+REDQ-HER target-Q-bound는 더 강한 external reference다. Exact common-grid에서 이 row는 final success \(1.000\), AUC \(0.867\), median Hit90 300k를 보이며, 5개 seed 모두 Hit100에도 도달한다. REDQ-HER--SABER AUC delta는 \(+0.283\) with CI \([0.213,0.329]\)다. 따라서 FPP에서 REDQ-HER는 SABER와 high-RR SAC보다 강한 environment-step learning curve를 제공한다. 그러나 이 결과는 SABER의 matched-backbone claim을 반박하기보다 비교 regime을 분리한다. REDQ-HER는 \(10\)-critic ensemble, target subset \(M=2\), UTD \(4\), target-Q bound를 사용하고, 약 89.5 recorded training hours와 steps/sec 3.10을 기록한다. Target-Q clipping rate는 final summaries에서 거의 0에 가까워 target bound가 지속적으로 target을 누른 결과로만 보기는 어렵다. 즉 REDQ-HER는 strong architecture/compute-scaled baseline이며, SABER는 더 단순한 one-update matched-backbone critic allocation objective다. 본 논문은 SABER가 REDQ-HER를 이긴다고 주장하지 않는다.
+
+DDPG high-RR \(8\times\)는 더 많은 updates가 항상 안정적인 개선으로 이어지지 않음을 보여준다. Mean AUC는 HER보다 낮고, 5개 seed 중 2개가 Hit90에 도달하지 못하며, 한 seed는 final success 0.0으로 collapse한다. 따라서 high update-to-data ratio는 SABER와 보완적인 strong baseline이지만, sparse HER setting에서 단순히 updates를 늘리는 것이 안정적인 해법이라고 보기는 어렵다.
 
 \begin{figure*}[t]
 \centering
@@ -599,7 +669,7 @@ SAC & \(+0.200\,[-0.020,0.430]\) & \(+0.102\,[0.057,0.150]\) \\
 
 \begin{table*}[t]
 \centering
-\caption{FPP DDPG controls at 1M steps. Random-support preserves the number of support-positive samples per batch but randomly assigns high weights. Random-fixed-count assigns high weights to \(k=94\) random samples per batch, matching the approximate mean support-positive count but using no support lookup.}
+\caption{FPP DDPG controls at 1M steps. Random-support preserves the number of support-positive samples per batch but randomly assigns high weights. Random-fixed-count assigns high weights to \(k=94\) random samples per batch, matching the approximate mean support-positive count but using no support lookup. Random-fixed-count rules out a pure fixed-count explanation for the DDPG AUC gain, while Random-support prevents attributing that gain to exact sample-level alignment alone.}
 \label{tab:fpp-per}
 \begin{tabular}{lcccc}
 \toprule
@@ -622,25 +692,240 @@ Random and shuffled controls make the mechanism interpretation more cautious. Ra
 
 Random-support is much stronger. It preserves the number of support-positive samples per batch but randomly assigns the high weights, and reaches AUC 0.604, close to SABER's 0.609. The paired SABER--Random-support AUC delta is only \(+0.005\) with CI \([-0.026,0.036]\). Thus FPP DDPG does not isolate sample-level alignment as an independent mechanism. Shuffled-weight is intermediate: final success mean is SABER와 동일한 0.960이지만, AUC mean은 0.579로 SABER보다 낮고, median Hit90도 620k로 SABER의 540k보다 늦다. Paired bootstrap에서 SABER--Shuffled AUC delta는 \(+0.030\)이고 95\% CI는 \([0.002,0.064]\)이다.
 
-따라서 FPP controls가 닫아주는 결론은 좁다. SABER의 이득은 fixed-count random weighting만으로는 설명되지 않는다. 그러나 support-positive count 또는 support-conditioned reweighting regime 자체가 중요한 regularization으로 작동할 수 있으며, exact sample-level alignment의 독립 기여는 sample-level diagnostic으로 더 확인해야 한다.
+따라서 FPP controls가 닫아주는 결론은 좁다. SABER의 이득은 fixed-count random weighting만으로는 설명되지 않는다. 그러나 support-positive count 또는 support-conditioned reweighting regime 자체가 중요한 regularization으로 작동할 수 있으며, exact sample-level alignment의 독립 기여는 별도 sample-level diagnostic과 함께 해석해야 한다.
 
-다만 이 주장을 더 강하게 만들려면 support-positive sample과 high TD-error sample의 overlap/correlation 분석이 필요하다. 최종본에서는 \(\operatorname{corr}(\psi_i,|\delta_i|)\), top-\(k\) overlap, support bin별 update 전후 TD-error 감소량을 추가하는 것이 좋다.
-
-\subsection{Large-Effect Result: Meta-World DrawerOpen DDPG}
-
-DrawerOpen DDPG는 FPP breadth result와 다른 역할을 한다. FPP가 여러 backbone에 걸친 compatibility를 보여준다면, DrawerOpen DDPG는 sparse manipulation setting에서 critic-side reweighting이 HER 대비 큰 효과 크기와 seed consistency를 만들 수 있음을 보여준다. 다만 Random-Fixed-Count도 강하고 SABER--Random-Fixed AUC CI가 0을 포함하므로, 이 절은 structured support의 causal proof가 아니라 HER 대비 large improvement와 robustness evidence로 읽어야 한다. 모든 결과는 2M environment steps, seeds 1--5 기준이다.
+\paragraph{Internal FPP-DDPG sensitivity.}
+Table~\ref{tab:fpp-ddpg-internal-sensitivity} adds compact internal variants of the DDPG SABER row. These rows are not used as new primary baselines; they are included to show that the reported FPP result is not an artifact of hiding failed nearby variants. A simple lambda schedule is comparable to the main fixed-\(\lambda_S\) row, positive-MSE weighting is also close, while a positive-Huber variant and a 300k annealing variant are weaker. Together with the PER-style and full-PER controls in Table~\ref{tab:fpp-per}, these rows support a cautious sensitivity statement rather than a claim that the current hyperparameters are uniquely optimal.
 
 \begin{table*}[t]
 \centering
-\caption{Meta-World DrawerOpen DDPG large-effect result at 2M steps. Random-fixed-count assigns high critic weights to a fixed number of random samples and does not use support lookup. Hit90 reports the median first-hit step among reached seeds, with reach count in parentheses.}
+\caption{FPP DDPG internal sensitivity rows at 1M steps. All rows use DDPG+HER with critic-only weighting and seeds 1--5. The table is appendix-style evidence for implementation sensitivity; it is not used to claim universal optimality of any single weighting variant.}
+\label{tab:fpp-ddpg-internal-sensitivity}
+\begin{tabular}{lcccc}
+\toprule
+Variant & Final & AUC & Median Hit90 Step & Steps/sec \\
+\midrule
+Main SABER, fixed \(\lambda_S=1.0\) & \(0.960 \pm 0.042\) & \(0.609 \pm 0.038\) & 540k (5/5) & \(41.72 \pm 0.20\) \\
+Lambda schedule & \(0.950 \pm 0.087\) & \(0.611 \pm 0.038\) & 530k (5/5) & \(41.65 \pm 0.18\) \\
+Quality floor 0.25 & \(0.980 \pm 0.045\) & \(0.581 \pm 0.041\) & 590k (5/5) & \(38.82 \pm 0.13\) \\
+Anneal 300k & \(0.930 \pm 0.104\) & \(0.532 \pm 0.134\) & 590k (5/5) & \(41.53 \pm 0.80\) \\
+Positive-Huber weighting & \(0.770 \pm 0.217\) & \(0.327 \pm 0.070\) & 885k (4/5) & \(39.11 \pm 0.37\) \\
+Positive-MSE weighting & \(0.990 \pm 0.022\) & \(0.593 \pm 0.052\) & 550k (5/5) & \(40.37 \pm 0.37\) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+다음 절에서는 이 해석을 보강하기 위해 instrumented FPP DDPG와 TD3 runs에서 support-positive indicator와 TD residual의 sample-level 관계를 직접 분석한다.
+
+\subsection{FPP TD3 Controls: Random Reweighting Does Not Explain the Gain}
+
+FPP DDPG controls만 보면 Random-support가 SABER와 거의 같은 AUC를 보여 exact sample-level alignment claim이 약해진다. 그러나 같은 FPP task에서 TD3 backbone으로 control을 반복하면 다른 양상이 나온다. Table~\ref{tab:fpp-td3-controls}에서 Random-support와 Random-fixed-count는 AUC와 Hit90 seed count 모두 HER와 비슷하거나 낮은 반면, SABER는 AUC와 final success를 모두 높인다.
+
+\begin{table*}[t]
+\centering
+\caption{FPP TD3 random controls at 1M steps. Random-support preserves the number of support-positive samples per batch but randomly assigns high weights. Random-fixed-count assigns high weights to \(k=73\) random samples per batch, matching the approximate mean TD3 SABER support-positive count but using no support lookup. Here both random controls remain near HER, ruling out a random-reweighting-only explanation for the TD3 gain.}
+\label{tab:fpp-td3-controls}
+\begin{tabular}{lcccc}
+\toprule
+Method & Final & AUC & Median Hit90 Step & Steps/sec \\
+\midrule
+TD3+HER & \(0.840 \pm 0.188\) & \(0.372 \pm 0.032\) & 980k (3/5) & \(65.32 \pm 0.13\) \\
+TD3+HER+SABER & \(0.970 \pm 0.045\) & \(0.442 \pm 0.035\) & 840k (5/5) & \(41.25 \pm 0.59\) \\
+TD3+HER+Random-support & \(0.690 \pm 0.284\) & \(0.375 \pm 0.051\) & 925k (2/5) & \(40.81 \pm 0.32\) \\
+TD3+HER+Random-fixed-count & \(0.670 \pm 0.228\) & \(0.370 \pm 0.032\) & 775k (2/5) & \(65.21 \pm 0.08\) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.76\textwidth]{analysis/result_pipeline/output/figures/fpp_td3_success_curve.pdf}
+\caption{FetchPickAndPlace TD3 learning curves for HER, HER+SABER, Random-support, and Random-fixed-count controls. In contrast to FPP DDPG, the random controls remain close to HER while SABER improves AUC and reaches Hit90 in all five seeds.}
+\label{fig:fpp-td3-controls}
+\end{figure*}
+
+Paired bootstrap confirms this separation. SABER--HER AUC delta is \(+0.071\) with 95\% CI \([0.032,0.095]\). Random-support--HER AUC delta is only \(+0.004\) with CI \([-0.042,0.041]\), and Random-fixed-count--HER AUC delta is \(-0.002\) with CI \([-0.034,0.024]\). Directly comparing against controls, SABER--Random-support AUC delta is \(+0.067\) with CI \([0.052,0.078]\), and SABER--Random-fixed-count AUC delta is \(+0.073\) with CI \([0.054,0.091]\). Thus, for FPP TD3, support-conditioned SABER is not interchangeable with fixed-count random reweighting or random assignment of support-count weights.
+
+\subsection{FPP SAC Controls: Final Success Saturation but AUC Separation}
+
+SAC adds a third backbone-level control check. In this setting Random-support remains close to HER in AUC, while Random-fixed-count reaches saturated final success but still lags SABER in AUC. Thus SAC does not support a simple ``random reweighting is always enough'' explanation, but it also cautions against using final success alone as the mechanism metric.
+
+\begin{table*}[t]
+\centering
+\caption{FPP SAC random controls at 1M steps on the exact shared 50k--1M evaluation grid. Random-support preserves the support-positive count per batch but randomly assigns high weights. Random-fixed-count assigns high weights to \(k=76\) random samples per batch, matching the approximate mean SAC SABER support-positive count but using no support lookup. Random-fixed-count saturates final success, but SABER remains higher in AUC.}
+\label{tab:fpp-sac-controls}
+\begin{tabular}{lcccc}
+\toprule
+Method & Final & AUC & Median Hit90 Step & Steps/sec \\
+\midrule
+SAC+HER & \(0.790 \pm 0.288\) & \(0.471 \pm 0.079\) & 800k (3/5) & \(38.93 \pm 0.07\) \\
+SAC+HER+SABER & \(0.990 \pm 0.022\) & \(0.583 \pm 0.030\) & 750k (5/5) & \(29.09 \pm 0.12\) \\
+SAC+HER+Random-support & \(0.690 \pm 0.263\) & \(0.482 \pm 0.069\) & 725k (2/5) & \(28.86 \pm 0.28\) \\
+SAC+HER+Random-fixed-count & \(1.000 \pm 0.000\) & \(0.526 \pm 0.059\) & 900k (5/5) & \(38.67 \pm 0.03\) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.76\textwidth]{analysis/result_pipeline/output/figures/fpp_sac_success_curve.pdf}
+\caption{FetchPickAndPlace SAC learning curves on the exact shared 50k--1M grid. The plot includes HER, HER+SABER, Random-support, Random-fixed-count, high-RR \(4\times\), and REDQ-HER TQB. Scaling references learn faster in environment steps; among one-update random controls, SABER has the highest AUC.}
+\label{fig:fpp-sac-controls}
+\end{figure*}
+
+Paired bootstrap shows the same split. SABER--Random-support has final delta \(+0.300\) with CI \([0.110,0.490]\) and common-grid AUC delta \(+0.101\) with CI \([0.034,0.164]\). Against Random-fixed-count, SABER has slightly lower final success delta \(-0.010\) with CI \([-0.030,0.000]\), but higher common-grid AUC delta \(+0.058\) with CI \([0.003,0.113]\). Therefore SAC provides additional evidence that count-matched random weighting can be a strong regularizer, especially for final success, but it does not fully account for SABER's early/mid-training AUC gain.
+
+The SAC high replay-ratio and REDQ-HER rows change a different claim. They are not random-control rows; they are compute/backbone-scaled HER baselines. SAC high-RR \(4\times\) reaches higher AUC than SABER, and REDQ-HER TQB is stronger still in FPP AUC. These rows should not be used to claim SABER dominance over update or architecture scaling. Instead, the random-control rows support the critic-reweighting mechanism boundary, while the scaling rows show that substantially larger update/backbone budgets can buy better environment-step AUC at much larger observed wall-clock cost.
+
+Taken together, FPP DDPG, TD3, and SAC show task/backbone-dependent mechanism evidence. DDPG suggests that support-conditioned reweighting regime or count-preserving randomization can act as a strong regularizer. TD3 shows a case where the structured support-conditioned assignment separates clearly from random controls. SAC is intermediate for random controls: fixed-count random weighting saturates final success, but SABER remains higher in AUC. At the same time, SAC high-RR \(4\times\) shows that update scaling can outperform SABER in environment-step AUC. Therefore the current evidence supports a cautious mechanism statement: random reweighting contributes in some settings, update scaling can be very strong, but neither random-control evidence nor high-RR evidence reduces SABER to a trivial fixed-count reweighting rule under the standard one-update-per-step matched-backbone setting.
+
+\subsection{FPP Sample-Level Diagnostics: DDPG, TD3, and SAC}
+
+FPP random-control 결과만으로는 support-conditioned weighting과 TD-error/PER-style weighting의 관계를 충분히 닫기 어렵다. 이를 확인하기 위해 FPP DDPG, TD3, and SAC SABER를 1M steps, seeds 1--5로 다시 실행하면서 10k steps마다 현재 training batch의 sample-level diagnostic을 기록했다. 각 checkpoint에서는 full batch 256개 sample에 대해 \(\psi_i\), update 전후 \(|\delta_i|\), top-\(k\) TD-error overlap, target variance를 계산했고, 별도로 128개 sample row를 저장했다. 각 backbone에서 500 diagnostic batches와 64k logged sample rows를 얻었다. SAC diagnostic run is used for mechanism analysis only; on the exact 50k common grid it reaches final success \(0.990 \pm 0.022\), AUC \(0.583 \pm 0.030\), and median Hit90 750k (5/5), matching the main SAC SABER curve on that grid.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{FPP DDPG SABER sample-level diagnostic over 1M steps and seeds 1--5. Values report the mean and across-seed standard deviation of per-seed diagnostic means. Correlations use full diagnostic batches, not only the logged 128-sample subset.}
+\label{tab:fpp-ddpg-diagnostic}
+\begin{tabular}{p{0.34\textwidth}p{0.18\textwidth}p{0.38\textwidth}}
+\toprule
+Metric & Mean \(\pm\) seed std & Interpretation \\
+\midrule
+Support-positive rate & \(0.367 \pm 0.011\) & about 37\% of batch samples receive high raw weight \\
+\(\mathrm{corr}(\psi_i,|\delta_i|)\), Pearson & \(0.116 \pm 0.016\) & weak positive relation with TD-error magnitude \\
+\(\mathrm{corr}(\psi_i,|\delta_i|)\), Spearman & \(0.125 \pm 0.017\) & weak rank relation \\
+Top-10\% TD-error support overlap & \(0.516 \pm 0.022\) & enriched over the 0.367 support base rate \\
+Top-20\% TD-error support overlap & \(0.487 \pm 0.016\) & enriched but not identical to high-TD-error selection \\
+\(|\delta|_{\mathrm{before}}\), support-positive & \(0.686 \pm 0.044\) & support-positive samples tend to have larger residuals \\
+\(|\delta|_{\mathrm{before}}\), support-negative & \(0.484 \pm 0.052\) & lower mean residual than support-positive group \\
+\(\Delta|\delta|\), support-positive & \(0.019 \pm 0.003\) & larger raw residual reduction after weighted update \\
+\(\Delta|\delta|\), support-negative & \(0.008 \pm 0.002\) & smaller raw residual reduction \\
+\(\Delta|\delta|/\Omega\), support-positive & \(0.013 \pm 0.002\) & per-weight reduction close to unsupported group \\
+\(\Delta|\delta|/\Omega\), support-negative & \(0.011 \pm 0.003\) & suggests weight scale contributes to raw reduction \\
+Target variance, support-positive & \(230.4 \pm 28.2\) & support-positive targets are not lower-variance targets \\
+Target variance, support-negative & \(115.6 \pm 16.2\) & lower target variance in this diagnostic \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+This diagnostic gives a more precise claim boundary. The support predicate is not orthogonal to TD-error: support-positive samples are mildly enriched among high-TD-error samples, and they have larger average \(|\delta|\) before the update. However, the relation is weak rather than equivalent: Pearson and Spearman correlations are only about 0.12, and top-10\% overlap is 0.516 rather than close to 1.0. Thus SABER cannot be reduced to selecting the largest TD-error samples, but the FPP DDPG signal also cannot be described as independent of TD-error.
+
+The residual-reduction results are also mixed. Support-positive samples show larger raw \(|\delta|\) reduction, but the per-weight reduction \(\Delta|\delta|/\Omega\) is close between groups. Therefore this diagnostic supports the critic-side reweighting interpretation but does not prove that support-positive samples are intrinsically lower-risk Bellman targets. Combined with the random-control results, the most defensible conclusion is that FPP DDPG SABER uses a weakly TD-error-correlated support-conditioned signal that changes critic fitting pressure; it is not merely PER-style surprise prioritization, but it is also not a pure lower-noise proof.
+
+TD3 provides a cleaner diagnostic target because the FPP TD3 random controls remain near HER while SABER improves AUC. We therefore repeated the same instrumentation for TD3+HER+SABER. The diagnostic run exactly matches the original TD3 SABER aggregate performance within the stored summaries: final success \(0.970 \pm 0.045\), AUC \(0.442 \pm 0.035\), and Hit90 in 5/5 seeds. Thus the instrumentation is observational and does not change the learning result.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{FPP TD3 SABER sample-level diagnostic over 1M steps and seeds 1--5. TD3 uses twin critics; \(|\delta|\) reports the mean absolute residual across the two critics. Values are means and across-seed standard deviations of per-seed diagnostic means.}
+\label{tab:fpp-td3-diagnostic}
+\begin{tabular}{p{0.34\textwidth}p{0.18\textwidth}p{0.38\textwidth}}
+\toprule
+Metric & Mean \(\pm\) seed std & Interpretation \\
+\midrule
+Support-positive rate & \(0.219 \pm 0.008\) & about 22\% of batch samples receive high raw weight \\
+\(\mathrm{corr}(\psi_i,|\delta_i|)\), Pearson & \(0.128 \pm 0.012\) & weak positive relation with TD-error magnitude \\
+\(\mathrm{corr}(\psi_i,|\delta_i|)\), Spearman & \(0.179 \pm 0.019\) & weak-to-moderate rank relation \\
+Top-10\% TD-error support overlap & \(0.360 \pm 0.014\) & enriched over the 0.219 support base rate \\
+Top-10\% TD-error enrichment & \(1.67 \pm 0.07\) & support-positive samples appear 1.67x more often in top-error set \\
+Top-20\% TD-error support overlap & \(0.341 \pm 0.015\) & enriched but not equivalent to TD-error selection \\
+\(|\delta|_{\mathrm{before}}\), support-positive & \(0.741 \pm 0.039\) & larger pre-update residual than support-negative group \\
+\(|\delta|_{\mathrm{before}}\), support-negative & \(0.456 \pm 0.031\) & lower mean residual \\
+\(\Delta|\delta|\), support-positive & \(0.021 \pm 0.001\) & larger raw residual reduction after weighted update \\
+\(\Delta|\delta|\), support-negative & \(0.006 \pm 0.003\) & smaller raw residual reduction \\
+\(\Delta|\delta|/\Omega\), support-positive & \(0.013 \pm 0.001\) & larger correction remains after weight normalization \\
+\(\Delta|\delta|/\Omega\), support-negative & \(0.008 \pm 0.004\) & lower per-weight correction \\
+Target variance, support-positive & \(418.6 \pm 22.9\) & support-positive targets are not lower-variance targets \\
+Target variance, support-negative & \(227.4 \pm 14.3\) & lower target variance in this diagnostic \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The TD3 diagnostic strengthens the claim that SABER is not merely random reweighting. Support-positive samples make up about 22\% of the batch, but 36\% of the top-10\% TD-error samples are support-positive, corresponding to 1.67x enrichment. The signal is still not identical to TD-error: Pearson correlation is only 0.128 and top-error overlap is far from 1.0. However, unlike the DDPG diagnostic, TD3 shows both larger raw residual reduction and larger \(\Delta|\delta|/\Omega\) for support-positive samples. This suggests that in the TD3 setting where random controls fail to match SABER, the support-conditioned assignment identifies a subset that is both high-error enriched and more strongly corrected by the critic update.
+
+At the same time, TD3 target variance is higher for support-positive samples. Thus the diagnostic still does not justify a lower-noise target claim. SAC provides a third-backbone diagnostic with the same broad pattern.
+
+\begin{table*}[t]
+\centering
+\small
+\caption{FPP SAC SABER sample-level diagnostic over 1M steps and seeds 1--5. SAC uses twin critics; \(|\delta|\) reports the mean absolute residual across the two critics. Values are means and across-seed standard deviations of per-seed diagnostic means.}
+\label{tab:fpp-sac-diagnostic}
+\begin{tabular}{p{0.34\textwidth}p{0.18\textwidth}p{0.38\textwidth}}
+\toprule
+Metric & Mean \(\pm\) seed std & Interpretation \\
+\midrule
+Support-positive rate & \(0.197 \pm 0.011\) & about 20\% of batch samples receive high raw weight \\
+\(\mathrm{corr}(\psi_i,|\delta_i|)\), Pearson & \(0.143 \pm 0.011\) & weak positive relation with TD-error magnitude \\
+\(\mathrm{corr}(\psi_i,|\delta_i|)\), Spearman & \(0.209 \pm 0.008\) & weak-to-moderate rank relation \\
+Top-10\% TD-error support overlap & \(0.342 \pm 0.014\) & enriched over the 0.197 support base rate \\
+Top-10\% TD-error enrichment & \(1.83 \pm 0.08\) & support-positive samples appear 1.83x more often in top-error set \\
+Top-20\% TD-error support overlap & \(0.330 \pm 0.015\) & enriched but not equivalent to TD-error selection \\
+\(|\delta|_{\mathrm{before}}\), support-positive & \(0.624 \pm 0.043\) & larger pre-update residual than support-negative group \\
+\(|\delta|_{\mathrm{before}}\), support-negative & \(0.358 \pm 0.020\) & lower mean residual \\
+\(\Delta|\delta|\), support-positive & \(0.022 \pm 0.004\) & larger raw residual reduction after weighted update \\
+\(\Delta|\delta|\), support-negative & \(0.006 \pm 0.001\) & smaller raw residual reduction \\
+\(\Delta|\delta|/\Omega\), support-positive & \(0.013 \pm 0.002\) & larger correction remains after weight normalization \\
+\(\Delta|\delta|/\Omega\), support-negative & \(0.007 \pm 0.001\) & lower per-weight correction \\
+Target variance, support-positive & \(311.9 \pm 29.8\) & support-positive targets are not lower-variance targets \\
+Target variance, support-negative & \(172.0 \pm 15.1\) & lower target variance in this diagnostic \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+SAC strengthens the cross-backbone diagnostic story without changing the claim boundary. Like TD3, SAC shows top-error enrichment and larger immediate residual correction for support-positive samples, including a larger \(\Delta|\delta|/\Omega\). Like DDPG and TD3, the signal is still not equivalent to TD-error ranking: Pearson correlation is only 0.143, and the top-10\% overlap is far from 1.0. Also like the other diagnostics, support-positive target variance is higher, not lower. The safer mechanism statement is therefore: SABER changes critic-side Bellman error allocation toward a support-conditioned subset that is weakly correlated with TD-error, enriched among high-error samples, and in TD3/SAC receives larger immediate residual correction. This is a useful mechanism diagnostic, not a theorem that support-positive samples are intrinsically lower-noise.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Compact control-closure summary for the main claim. SABER is evaluated as a support-conditioned adaptive critic objective in the standard one-update-per-step matched-backbone regime, not as proof that exact structured support is the unique causal mechanism or as a replacement for compute/backbone scaling. Detailed stress-test rows are discussed outside this main closure table.}
+\label{tab:control-closure}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{0.24\textwidth}p{0.30\textwidth}p{0.37\textwidth}}
+\toprule
+Evidence & Ruled out & Remaining interpretation \\
+\midrule
+FPP DDPG controls: Random-fixed-count has AUC 0.540, close to HER's 0.539, while Random-support has AUC 0.604, close to SABER's 0.609. &
+Fixed-count random weighting alone does not explain the gain, but FPP DDPG does not isolate exact sample-level support alignment as an independent cause. &
+Count-preserving randomization can be a strong critic-side regularizer in DDPG. \\
+\addlinespace
+FPP TD3/SAC controls: TD3 random-support/fixed-count stay near HER AUC; on the exact SAC common grid, SABER AUC 0.583 exceeds random-support 0.482 and random-fixed 0.526 despite random-fixed final 1.000. &
+Random reweighting does not explain all SABER gains across backbones, and final success alone can be misleading. &
+TD3/SAC provide cleaner random-control separation than DDPG, with AUC as the safer learning-speed metric. \\
+\addlinespace
+High replay-ratio HER and REDQ-HER: DDPG/TD3 \(4\times\) match SABER's AUC, SAC \(4\times\) exceeds SABER's AUC, and REDQ-HER TQB is strongest in FPP AUC, under larger update/backbone budgets and longer recorded runtimes. &
+SABER does not dominate compute/backbone scaling in environment-step AUC. &
+SABER's scope is standard one-update-per-step critic allocation; high-RR and REDQ-HER rows are scaling references. \\
+\addlinespace
+FPP DDPG/TD3/SAC diagnostics show weak TD-error correlation, high-error enrichment, and larger immediate residual correction in TD3/SAC. &
+SABER is not identical to TD-error ranking or PER-style largest-error selection. &
+The strongest mechanism evidence is support-conditioned error allocation and correction, not lower target variance. \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Additional rows reinforce the same cautious boundary. DDPG high-RR \(8\times\) drops to AUC 0.443 with 3/5 Hit90 seeds and one collapsed seed, so increasing updates is not monotonically stabilizing. DrawerClose DDPG and TD3 are treated as high-variance stress tests rather than primary statistically closed improvement claims; in these stress tests, random/fixed/shuffled controls remain competitive with SABER in at least one metric. FetchSlide DDPG degrades in final success and late AUC, so SABER is not a universal improvement over HER.
+
+\subsection{Large-Effect Result: Meta-World DrawerOpen DDPG}
+
+DrawerOpen DDPG는 FPP breadth result와 다른 역할을 한다. FPP가 여러 backbone에 걸친 compatibility를 보여준다면, DrawerOpen DDPG는 sparse manipulation setting에서 critic-side reweighting이 HER 대비 큰 효과 크기와 seed consistency를 만들 수 있음을 보여준다. 함께 보고하는 HGR-style sampler-only control은 episode mean TD-error와 candidate future-goal TD-error를 이용해 HER sampling을 바꾸지만 critic loss weight는 모두 1로 유지한다. Canonical HGR의 importance-sampling correction을 생략하므로 이 row를 direct HGR baseline으로 부르지 않는다. Random-Support, PER-Style, Random-Fixed-Count도 함께 비교하므로, 이 절은 structured support의 causal proof가 아니라 critic-side allocation의 effect size와 seed robustness를 sampling and reweighting alternatives 아래에서 평가하는 결과로 읽어야 한다. 모든 결과는 2M environment steps, seeds 1--5 기준이다.
+
+\begin{table*}[t]
+\centering
+\caption{Meta-World DrawerOpen DDPG large-effect result at 2M steps. The HGR-style sampler-only row changes episode and future-goal sampling using TD-error ranking while keeping loss weights uniform; it is not canonical HGR because importance-sampling correction is disabled. Random-support preserves the per-batch support-positive count but randomly assigns high weights. PER-style uses TD-error-based loss weighting. Hit90 reports the median first-hit step among reached seeds, with reach count in parentheses.}
 \label{tab:drawer-ddpg-main}
+\small
 \begin{tabular}{lccccc}
 \toprule
 Method & Final & Best & AUC & Median Hit90 Step & Steps/sec \\
 \midrule
 DDPG+HER & \(0.390 \pm 0.534\) & \(0.400 \pm 0.548\) & \(0.207 \pm 0.287\) & 960k (2/5) & \(41.05 \pm 0.33\) \\
+DDPG+HER+HGR-style sampler & \(0.400 \pm 0.548\) & \(0.400 \pm 0.548\) & \(0.311 \pm 0.425\) & 450k (2/5) & \(34.61 \pm 0.06\) \\
 DDPG+HER+SABER & \(1.000 \pm 0.000\) & \(1.000 \pm 0.000\) & \(0.754 \pm 0.044\) & 500k (5/5) & \(23.33 \pm 0.97\) \\
+DDPG+HER+Random-support & \(1.000 \pm 0.000\) & \(1.000 \pm 0.000\) & \(0.706 \pm 0.122\) & 510k (5/5) & \(22.61 \pm 0.61\) \\
+DDPG+HER+PER-style & \(0.800 \pm 0.447\) & \(1.000 \pm 0.000\) & \(0.715 \pm 0.090\) & 610k (5/5) & \(39.02 \pm 0.38\) \\
 DDPG+HER+Random-fixed-count & \(0.800 \pm 0.447\) & \(0.800 \pm 0.447\) & \(0.621 \pm 0.352\) & 400k (4/5) & \(41.00 \pm 0.37\) \\
+DDPG+HER+Shuffled-weight & \(0.400 \pm 0.548\) & \(0.420 \pm 0.531\) & \(0.400 \pm 0.547\) & 1735k (2/5) & \(141.62 \pm 53.69\) \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -648,13 +933,15 @@ DDPG+HER+Random-fixed-count & \(0.800 \pm 0.447\) & \(0.800 \pm 0.447\) & \(0.62
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.76\textwidth]{analysis/result_pipeline/output/figures/drawer_ddpg_success_curve.pdf}
-\caption{Meta-World DrawerOpen DDPG learning curves for HER, HER+SABER, and Random-fixed-count. Thin lines show individual seeds, and shaded regions show across-seed standard deviation. Random-fixed-count reaches Hit90 earlier among reached seeds but reaches only 4/5 seeds and has high variance; SABER's advantage is seed consistency and final reliability over HER, not uniformly earlier first-hit.}
+\caption{Meta-World DrawerOpen DDPG learning curves for HER, HGR-style sampler-only, HER+SABER, Random-support, PER-style, Random-fixed-count, and Shuffled-weight. Thin lines show individual seeds, and shaded regions show across-seed standard deviation. The sampler-only row produces fast successful runs but only 2/5 seeds reach Hit90; random-support and PER-style are also strong controls. DrawerOpen therefore supports a seed-consistent large-effect SABER case, not a canonical-HGR or universal-causality claim.}
 \label{fig:drawer-ddpg-curve}
 \end{figure*}
 
 SABER improves DrawerOpen DDPG by a large margin: final success mean increases from 0.390 to 1.000, and AUC increases from 0.207 to 0.754. Paired bootstrap gives SABER--HER final delta \(+0.610\) with 95\% CI \([0.210,1.000]\), and AUC delta \(+0.546\) with CI \([0.340,0.741]\). Hit90 also changes from 2/5 reached seeds to 5/5 reached seeds.
 
-Random-fixed-count is an important control rather than a result to hide. It also improves over HER, reaching final success 0.800 and AUC 0.621, but remains less consistent than SABER: one seed fails completely and the AUC standard deviation is 0.352. Among reached seeds, Random-fixed-count reaches Hit90 earlier than SABER, so SABER should not be described as uniformly faster in first-hit time. SABER exceeds Random-fixed-count in mean final success and AUC, but the paired SABER--Random-fixed AUC CI \([-0.069,0.451]\) includes zero. Therefore DrawerOpen DDPG supports the practical value of SABER as a critic-side reweighting objective, but it also shows that random reweighting regularization contributes to the gain. The defensible claim is seed-consistent large improvement over HER, not causal superiority over random fixed-count reweighting.
+The HGR-style sampler-only row is a TD-error sampling ablation, not a faithful canonical HGR baseline. It raises mean AUC from HER's 0.207 to 0.311 and, on its two successful seeds, reaches Hit90 at 430k and 470k steps. However, the other three seeds remain at zero through 2M steps, giving final success \(0.400\pm0.548\), AUC \(0.311\pm0.425\), and only 2/5 Hit90 coverage. Its paired AUC delta over HER is \(+0.103\) with CI \([-0.281,0.462]\). SABER minus this sampler-only row gives final-success delta \(+0.600\) with CI \([0.200,1.000]\) and AUC delta \(+0.443\) with CI \([0.106,0.780]\). These numbers characterize the current ablation only and do not support superiority over canonical HGR.
+
+The added controls make the mechanism interpretation stricter. Random-support reaches the same final success as SABER and AUC 0.706; SABER--Random-support AUC delta is \(+0.047\) with CI \([-0.042,0.136]\). PER-style also improves strongly over HER, reaching final success 0.800 and AUC 0.715; SABER--PER-style AUC delta is \(+0.038\) with CI \([-0.015,0.091]\). Random-fixed-count also improves over HER, reaching final success 0.800 and AUC 0.621, but remains less consistent than SABER: one seed fails completely and the AUC standard deviation is 0.352. Among reached seeds, the sampler-only row and Random-fixed-count reach Hit90 earlier than SABER, so SABER should not be described as uniformly faster in first-hit time. Shuffled-weight reaches final success 0.400 and AUC 0.400, with only 2/5 seeds reaching Hit90. Therefore DrawerOpen DDPG supports the practical value and seed consistency of critic-side reweighting over HER, while showing that sampling, random/support-count assignment, and TD-error-style reweighting can contribute. The defensible claim is a seed-consistent large-effect result in this task, not superiority over canonical HGR or every alternative.
 
 \subsection{FetchSlide: TD3/SAC Transfer and DDPG Failure}
 
@@ -722,9 +1009,57 @@ Shuffled-weight & \(0.000 \pm 0.000\) & \(0.010 \pm 0.022\) & \(5.0{\times}10^{-
 \end{tabular}
 \end{table*}
 
-Actor+Critic은 aggregate AUC에서 critic-only보다 높지만, high variance 아래에서 clean dominance를 보이지 않는다. Actor-only는 더 약하다. Critic-only는 actor update를 바꾸지 않기 때문에, 논문의 main mechanism인 Bellman fitting reliability를 가장 깨끗하게 보여준다.
+Actor+Critic은 aggregate AUC에서 critic-only보다 높지만, high variance 아래에서 clean dominance를 보이지 않는다. Actor-only는 더 약하다. Critic-only는 actor update를 바꾸지 않기 때문에, support-conditioned weight가 Bellman regression에 미치는 효과를 가장 깨끗하게 분리한다.
 
 TD3 controls도 mechanism claim을 조심스럽게 만든다. Random-Support가 Critic-Only와 비슷하거나 더 높은 AUC를 보였다는 점은 exact structured support rule만이 유일한 원인이라는 강한 claim을 약화시킨다. DrawerOpen TD3에서는 Shuffled-Weight가 실패하지만, FPP에서는 Shuffled-Weight control이 strong final success를 보이고 DrawerOpen DDPG에서는 Random-fixed-count도 HER보다 높다. 따라서 random/shuffled/fixed-count control의 의미는 task-dependent이며, 현재 결과만으로 structured support를 유일한 mechanism으로 분리할 수 없다. 이 결과들은 mechanism proof가 아니라 limitation/discussion evidence로 해석한다.
+
+\subsection{Additional DrawerClose TD3 Stability Stress-Test}
+
+DrawerClose TD3는 DrawerOpen과 반대 방향의 manipulation dynamics를 갖는 high-variance stress-test다. 이 결과는 main improvement claim이 아니라 stability와 random-control 해석을 보조하기 위해 appendix-style로 제시한다. 모든 methods는 2M steps, seeds 1--5로 실행했다.
+
+\begin{table*}[t]
+\centering
+\caption{Meta-World DrawerClose TD3 stress-test at 2M steps. Best success and Hit90 show that all methods can transiently reach high success, but final success and best-final drop reveal late-training collapse. Paired SABER--HER CIs include zero, and Shuffled-weight matches SABER on final success while slightly exceeding its mean AUC, so this table is not used as a primary improvement or mechanism claim.}
+\label{tab:drawer-close-td3}
+\begin{tabular}{lccccc}
+\toprule
+Method & Final & Best & Best--Final Drop & AUC & Hit90 \\
+\midrule
+TD3+HER & \(0.350 \pm 0.480\) & \(1.000 \pm 0.000\) & \(0.650 \pm 0.480\) & \(0.329 \pm 0.348\) & 70k (5/5) \\
+TD3+HER+SABER & \(0.590 \pm 0.539\) & \(1.000 \pm 0.000\) & \(0.410 \pm 0.539\) & \(0.549 \pm 0.422\) & 80k (5/5) \\
+TD3+HER+Random-fixed-count & \(0.000 \pm 0.000\) & \(1.000 \pm 0.000\) & \(1.000 \pm 0.000\) & \(0.133 \pm 0.026\) & 100k (5/5) \\
+TD3+HER+Random-support & \(0.200 \pm 0.447\) & \(1.000 \pm 0.000\) & \(0.800 \pm 0.447\) & \(0.296 \pm 0.356\) & 80k (5/5) \\
+TD3+HER+Shuffled-weight & \(0.590 \pm 0.539\) & \(1.000 \pm 0.000\) & \(0.410 \pm 0.539\) & \(0.586 \pm 0.295\) & 30k (5/5) \\
+TD3+HER+PER-style & \(0.200 \pm 0.447\) & \(1.000 \pm 0.000\) & \(0.800 \pm 0.447\) & \(0.369 \pm 0.275\) & 30k (5/5) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+DrawerClose TD3의 핵심은 early success가 아니라 final stability다. 모든 methods가 한 번은 Hit90에 도달하지만, several rows collapse late in training. SABER는 HER보다 높은 mean final success와 AUC를 보이지만, SABER--HER final delta \(+0.240\)의 CI \([-0.320,0.800]\), AUC delta \(+0.220\)의 CI \([-0.216,0.656]\)가 모두 0을 포함한다. 또한 Shuffled-weight는 final success \(0.590\)으로 SABER와 같고 AUC \(0.586\)으로 SABER의 \(0.549\)보다 약간 높으며, SABER--Shuffled AUC delta는 \(-0.037\) with CI \([-0.209,0.095]\)다. 따라서 DrawerClose는 primary result가 아니다. 이 table의 역할은 더 좁다: Random-fixed-count는 final success 0.0과 AUC 0.133으로 collapse하고 SABER--Random-fixed AUC delta \(+0.415\) with CI \([0.074,0.757]\)를 보이지만, Shuffled-weight가 SABER를 match한다. 즉 fixed-count random reweighting이 모든 manipulation settings에서 SABER를 대체하지는 못하는 반면, generic shuffled reweighting can still be competitive in this high-variance stress-test. DrawerClose는 support-conditioned mechanism proof가 아니라 mixed-mechanism limitation evidence다.
+
+\subsection{Additional DrawerClose DDPG Control Stress-Test}
+
+DrawerClose DDPG provides the same caution from a second backbone. SABER improves DDPG+HER in mean final success and AUC, but Random-fixed-count, Shuffled-weight, and PER-style controls remain competitive in at least one aggregate metric. This row is therefore useful as transparency and mixed-mechanism evidence, not as an additional main positive claim.
+
+\begin{table*}[t]
+\centering
+\caption{Meta-World DrawerClose DDPG control stress-test at 2M steps. All rows reach best success 1.0 at least once, so final success and AUC reveal late-training stability differences. SABER improves HER in mean AUC, but Random-fixed-count has higher final success and Shuffled-weight has comparable AUC; this table reinforces the mixed-mechanism interpretation rather than a pure structured-support causal claim.}
+\label{tab:drawer-close-ddpg}
+\begin{tabular}{lccccc}
+\toprule
+Method & Final & Best & Best--Final Drop & AUC & Hit90 \\
+\midrule
+DDPG+HER & \(0.160 \pm 0.182\) & \(1.000 \pm 0.000\) & \(0.840 \pm 0.182\) & \(0.251 \pm 0.030\) & 70k (5/5) \\
+DDPG+HER+SABER & \(0.280 \pm 0.251\) & \(1.000 \pm 0.000\) & \(0.720 \pm 0.251\) & \(0.324 \pm 0.082\) & 20k (5/5) \\
+DDPG+HER+Random-fixed-count & \(0.480 \pm 0.297\) & \(1.000 \pm 0.000\) & \(0.520 \pm 0.297\) & \(0.319 \pm 0.031\) & 70k (5/5) \\
+DDPG+HER+Random-support & \(0.240 \pm 0.429\) & \(1.000 \pm 0.000\) & \(0.760 \pm 0.429\) & \(0.277 \pm 0.050\) & 40k (5/5) \\
+DDPG+HER+Shuffled-weight & \(0.070 \pm 0.157\) & \(1.000 \pm 0.000\) & \(0.930 \pm 0.157\) & \(0.328 \pm 0.064\) & 100k (5/5) \\
+DDPG+HER+PER-style & \(0.400 \pm 0.166\) & \(1.000 \pm 0.000\) & \(0.600 \pm 0.166\) & \(0.313 \pm 0.098\) & 130k (5/5) \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+This DDPG stress-test is directionally consistent with the paper's conservative framing. SABER is better than HER in mean AUC, and it reaches Hit90 earlier among all seeds, but it is not cleanly dominant over controls. Random-fixed-count has the highest mean final success, Shuffled-weight has slightly higher mean AUC than SABER, and PER-style is close in AUC. Thus DrawerClose DDPG reduces the risk of cherry-picking only DrawerOpen while also strengthening the limitation: in high-variance manipulation settings, critic-side reweighting can help, but support-conditioned assignment is not isolated as the unique causal mechanism.
 
 \section{Discussion}
 
@@ -736,9 +1071,17 @@ SABER는 PER의 변형도 아니다. PER는 TD-error priority를 기반으로 sa
 
 SABER는 broad RL-failure diagnosis framework 전체도 아니다. SABER는 practice-oriented diagnostic intuition을 sparse HER actor-critic에 맞게 축소한 critic-side instantiation이다.
 
+\subsection{Why SABER Is Still Useful}
+
+SABER의 가장 중요한 장점은 strong compute/backbone-scaled baseline보다 항상 높은 return을 얻는 데 있지 않다. 특히 REDQ-HER TQB는 exact FPP SAC common grid에서 AUC \(0.867\), final success \(1.000\), median Hit90 300k를 보이며, SABER보다 빠른 environment-step learning curve를 제공한다. 그러나 REDQ-HER는 \(10\)-critic ensemble과 UTD \(4\)를 사용하는 다른 architecture/compute regime이다. SABER는 HER relabeling, replay sampling, actor objective, backbone Bellman target을 유지하고, 각 HER Bellman residual이 critic loss에 들어가는 강도만 바꾸는 더 좁은 intervention이다.
+
+이 좁은 설계가 SABER의 장점이다. 기존 sparse HER actor-critic에 붙이기 쉽고, goal selection, replay priority, actor regularization, critic architecture를 동시에 바꾸는 방법보다 effect attribution이 깨끗하다. 또한 random-support, random-fixed-count, shuffled-weight, PER-style, high-RR, REDQ-HER controls와 함께 보면 observed gain이 support-conditioned allocation, generic critic-side regularization, TD-error-like prioritization, update scaling, or backbone scaling 중 어디에 가까운지 진단할 수 있다.
+
+따라서 SABER의 publishable contribution은 ``REDQ-HER를 대체하는 새 SOTA algorithm''이 아니라, HER 이후 critic fitting pressure를 어디에 배정할지 다루는 lightweight, modular, and interpretable objective라는 점이다. FPP across-backbone evidence와 DrawerOpen DDPG large-effect case는 이 좁은 intervention이 실제 성능과 seed consistency를 개선할 수 있음을 보이고, controls/diagnostics는 이 효과의 조건과 한계를 드러낸다.
+
 \subsection{Why Critic-Only}
 
-Critic-only design은 논문적으로 중요하다. Actor loss까지 support weight를 적용하면, support signal이 critic fitting reliability를 반영하는지 actor objective shaping을 반영하는지 분리하기 어렵다. Critic-only SABER는 actor objective와 replay sampling을 baseline과 동일하게 유지하므로, support signal의 역할을 Bellman regression reliability로 해석하기 쉽다.
+Critic-only design은 논문적으로 중요하다. Actor loss까지 support weight를 적용하면, support signal이 critic fitting 효과를 반영하는지 actor objective shaping을 반영하는지 분리하기 어렵다. Critic-only SABER는 actor objective와 replay sampling을 baseline과 동일하게 유지하므로, support signal의 역할을 Bellman regression 쪽으로 좁혀 해석하기 쉽다.
 
 \subsection{Runtime Cost}
 
@@ -749,17 +1092,41 @@ SABER는 local support lookup 때문에 runtime overhead가 있다. FPP에서는
 SABER can improve sample efficiency, but its current local support implementation is not always wall-clock efficient.
 \end{quote}
 
+Existing SABER summaries include coarse per-update timing fields for the final training state. Table~\ref{tab:runtime-breakdown} reports their seed-averaged decomposition for rows where the fields are available. These numbers are not a full profiler trace and do not include all Python overhead, environment stepping, evaluation, logging, or hardware-normalized effects. They are useful only for identifying the dominant training-time support overhead in the current implementation.
+
+\begin{table*}[t]
+\centering
+\caption{Observed final-state timing decomposition from stored SABER \texttt{summary.json} fields. Values are seconds per update, averaged over seeds 1--5. Support overhead is local context lookup + numba support scan + weight/candidate bookkeeping. The share is computed against actor-critic update plus these support-overhead fields, so it is not a full wall-clock fraction.}
+\label{tab:runtime-breakdown}
+\begin{tabular}{lccccc}
+\toprule
+Row & Actor-critic update & Local lookup & Numba scan & Support overhead & Support share \\
+\midrule
+FPP DDPG SABER & 0.0071 & 0.0091 & 0.0030 & 0.0122 & 0.63 \\
+FPP TD3 SABER & 0.0049 & 0.0082 & 0.0028 & 0.0111 & 0.69 \\
+FPP SAC SABER & 0.0123 & 0.0082 & 0.0027 & 0.0111 & 0.47 \\
+DrawerOpen DDPG SABER & 0.0108 & 0.0075 & 0.0021 & 0.0097 & 0.47 \\
+DrawerOpen TD3 SABER & 0.0081 & 0.0078 & 0.0014 & 0.0094 & 0.54 \\
+DrawerClose TD3 SABER & 0.0100 & 0.0067 & 0.0017 & 0.0085 & 0.46 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The decomposition suggests that local context lookup and support scanning, rather than the scalar weight normalization itself, dominate the extra per-update cost. This motivates cached or approximate support lookup as the main engineering path for future work. Because old artifacts do not store a uniform full profiler trace, Table~\ref{tab:runtime-breakdown} is used as overhead diagnosis, not as a controlled latency benchmark.
+
+High replay-ratio HER and REDQ-HER baselines make this tradeoff sharper. In FPP DDPG, HER \(4\times\) reaches a similar AUC to SABER, but requires 4x gradient updates and about 16.1 recorded training hours, compared with SABER's one-update-per-step run and about 6.7 hours. In FPP TD3, HER \(4\times\) also matches SABER's AUC within the paired CI, but has lower final success, fewer Hit90 seeds, and longer runtime. On the exact FPP SAC common grid, HER \(4\times\) reaches AUC \(0.768\) versus SABER's \(0.583\), but takes about 47.0 recorded training hours versus 9.6 hours. REDQ-HER TQB is stronger still, reaching AUC \(0.867\), final success \(1.000\), and median Hit90 300k, but it uses a \(10\)-critic ensemble, UTD \(4\), target-Q bound, about 89.5 recorded training hours, and only 3.10 observed steps/sec. DDPG HER \(8\times\) is even slower and less stable. Therefore runtime discussion compares environment-step AUC, final success/seed consistency, and observed wall-clock/update/backbone budget separately; it does not use AUC/hour as a normalized efficiency claim. SABER is not a wall-clock SOTA claim and does not dominate compute/backbone-scaled HER in environment-step AUC.
+
 \subsection{Limitations}
 
-본 논문의 주요 limitation은 다음이다. 첫째, SABER는 모든 task/backbone에서 개선되지 않는다. FetchSlide DDPG에서는 HER baseline보다 낮은 final success와 late success를 보였다. 둘째, support predicate는 task-specific context design에 의존하고, 현재 main predicate는 local pool count와 action-bin membership을 보지만 unique action-bin diversity나 density를 직접 강제하지 않는다. 셋째, local support lookup 때문에 runtime overhead가 크며, 현재 구현을 wall-clock efficient method로 주장할 수 없다. 넷째, FPP Random-Support, FPP Shuffled-Weight, DrawerOpen DDPG Random-Fixed-Count, DrawerOpen TD3 Random-Support 결과는 structured support alignment가 유일한 원인이라는 강한 claim을 배제한다. 현재 가장 방어 가능한 해석은 support-conditioned critic reweighting과 generic reweighting regularization이 함께 작동한다는 것이다. 다섯째, support signal과 TD-error signal의 sample-level 관계는 instrumented diagnostic run으로 더 닫아야 한다.
+본 논문의 주요 limitation은 다음이다. 첫째, SABER는 모든 task/backbone에서 개선되지 않는다. FetchSlide DDPG에서는 HER baseline보다 낮은 final success와 late success를 보였다. 둘째, support predicate는 task-specific context design에 의존하고, 현재 main predicate는 local pool count와 action-bin membership을 보지만 unique action-bin diversity나 density를 직접 강제하지 않는다. 셋째, local support lookup 때문에 runtime overhead가 크며, 현재 구현을 wall-clock efficient method로 주장할 수 없다. 또한 FPP DDPG와 TD3 high replay-ratio \(4\times\)가 SABER와 comparable AUC를 얻고, FPP SAC high replay-ratio \(4\times\)와 REDQ-HER TQB는 SABER보다 높은 AUC를 얻기 때문에, SABER가 compute/backbone-heavy scaling보다 environment-step AUC에서 우월하다고 주장할 수 없다. 다만 DDPG/SAC high-RR \(4\times\)와 REDQ-HER는 훨씬 많은 updates/runtime 또는 larger critic ensemble을 요구하고, TD3 high-RR \(4\times\)는 final success와 Hit90 seed count가 낮으므로, AUC, final success/seed consistency, update budget, and critic architecture를 분리해서 해석해야 한다. 넷째, FPP DDPG Random-Support, FPP Shuffled-Weight, FPP SAC Random-Fixed-Count, DrawerOpen DDPG Random-Support/PER-Style/Random-Fixed-Count, DrawerOpen TD3 Random-Support, DrawerClose DDPG Random-Fixed/Shuffled/PER-Style, and DrawerClose TD3 Shuffled-Weight 결과는 structured support alignment가 유일한 원인이라는 강한 claim을 배제한다. 반대로 FPP TD3 controls에서는 random-support와 random-fixed-count가 HER 수준에 머물러 SABER의 AUC gain을 설명하지 못하고, FPP SAC에서는 random-fixed-count가 final success를 포화시키지만 SABER보다 낮은 AUC를 보인다. DrawerClose TD3에서는 Random-Fixed-Count가 final collapse를 보지만 Shuffled-Weight가 SABER와 comparable하고, DrawerClose DDPG에서는 Random-Fixed-Count와 PER-style이 final success에서 SABER보다 높으며 Shuffled-weight가 AUC에서 SABER와 comparable하다. 따라서 현재 가장 방어 가능한 해석은 support-conditioned critic reweighting과 generic reweighting regularization이 task/backbone에 따라 다른 비중으로 함께 작동한다는 것이다. 다섯째, FPP DDPG/TD3/SAC sample-level diagnostics는 support signal이 TD-error와 동일하지 않음을 보이고, TD3와 SAC에서는 top-error enrichment와 larger residual correction도 관찰된다. 그러나 support-positive target variance가 더 낮지는 않으므로, diagnostics는 PER-style equivalence를 약화하고 critic-side allocation 해석을 강화하지만 pure lower-noise proof는 아니다.
 
 \section{Conclusion}
 
-본 논문은 sparse-reward HER actor-critic에서 relabeled Bellman target의 quantity와 reliability를 구분해야 한다는 문제를 제기했다. HER는 실패 경험을 relabel하여 학습 가능한 goal-conditioned targets를 늘리지만, 모든 relabeled Bellman residual이 current policy action 근방에서 동일하게 유용한 critic supervision이라고 보장하지는 않는다.
+본 논문은 sparse-reward HER actor-critic에서 relabeled Bellman target의 quantity와 current-policy action region에서의 critic-fit usefulness를 구분해야 한다는 문제를 제기했다. HER는 실패 경험을 relabel하여 학습 가능한 goal-conditioned targets를 늘리지만, 모든 relabeled Bellman residual이 current policy action 근방에서 동일하게 유용한 critic supervision이라고 보장하지는 않는다.
 
 SABER는 이 gap에 대한 좁은 critic-side 접근이다. 각 training sample의 local state-goal-horizon context에서 current policy action이 replay-action support를 갖는지 확인하고, support-positive sample의 critic Bellman residual에 더 큰 batch-normalized weight를 부여한다. Main variant는 actor objective와 replay sampling distribution을 바꾸지 않으므로, SABER는 HER replacement나 prioritized replay algorithm이 아니라 critic loss reweighting objective로 해석된다.
 
-실험적으로 SABER는 두 축의 근거를 제공한다. FetchPickAndPlace에서는 DDPG, TD3, SAC HER baselines의 environment-step mean final success와 mean success AUC를 높여 backbone compatibility evidence를 제공한다. DrawerOpen DDPG에서는 HER 대비 큰 효과 크기와 seed consistency를 보이며, final success 1.0을 5/5 seeds에서 달성한다. 그러나 일부 paired CI는 0을 포함하고, FetchSlide DDPG에서는 실패했으며, FPP와 DrawerOpen random-control 결과는 support-conditioned weighting과 generic critic-side reweighting regularization의 경계를 더 분석해야 함을 보여준다. 따라서 본 논문의 결론은 universal improvement나 pure mechanism proof가 아니다. SABER는 support-conditioned sparse HER settings에서 sample efficiency와 seed robustness를 개선할 수 있는 간단한 critic-side objective이며, 이 support-conditioning은 generic critic-side reweighting regularization과 함께 작동할 수 있다. Task/backbone dependence, runtime overhead, and sample-level mechanism diagnostic은 최종 제출 전 더 보강해야 할 핵심 과제다.
+실험적으로 SABER는 FPP DDPG/TD3/SAC matched HER baselines에서 mean final success와 mean AUC를 높이고, DrawerOpen DDPG에서 HER 대비 large-effect case를 보인다. Exact SAC common-grid 분석에서는 SABER AUC가 HER의 0.471에서 0.583으로 증가하지만, high-RR \(4\times\)는 0.768, REDQ-HER TQB는 0.867을 달성한다. 따라서 SABER는 compute/backbone scaling을 대체하거나 지배하는 방법이 아니다. Random/PER controls와 DDPG/TD3/SAC diagnostics도 support-conditioned assignment가 TD-error ranking과 동일하지 않음을 보이는 동시에, generic reweighting이 일부 setting에서 경쟁적임을 보여준다. DrawerOpen의 HGR-style row는 importance correction이 없는 sampler-only control이므로 canonical HGR superiority claim에 사용하지 않는다. FetchSlide DDPG failure와 DrawerClose high-variance controls까지 고려하면, 가장 방어 가능한 결론은 SABER가 standard one-update-per-step sparse HER actor-critic에서 critic fitting pressure를 배정하는 lightweight modular objective이며 그 효과가 task/backbone dependent하다는 것이다.
 
 \appendix
 \section{Appendix A: Reproducibility Details}
@@ -769,7 +1136,9 @@ SABER는 이 gap에 대한 좁은 critic-side 접근이다. 각 training sample�
 
 \subsection{A.1 Source of Truth and Artifact Scope}
 
-FPP 결과는 \texttt{experiment\_FPP}의 trainer/config, run-level \texttt{config.json}, \texttt{env\_snapshot.json}, \texttt{summary.json}, \texttt{metrics.csv}를 기준으로 한다. FetchSlide 결과는 \texttt{experiment\_FetchSlide/src/saber\_fetch\_slide/experiment.py}와 run-level artifacts를 기준으로 한다. DrawerOpen DDPG 결과는 \texttt{metaworld\_Drawer\_Open\_DDPG}의 runner scripts와 \texttt{results\_2m} summaries를 기준으로 하며, DrawerOpen TD3 stress-test와 controls는 \texttt{metaworld\_Drawer\_Open\_TD3}의 runner scripts, task adapter, run summaries를 기준으로 한다.
+FPP 결과는 anonymized code/data package의 \texttt{experiment\_FPP} trainer/config와 run-level artifacts를 기준으로 한다. FPP SAC HER/SABER/random/high-RR/REDQ rows의 reported AUC, final, and Hit90은 blind artifact ID \texttt{FPP-SAC-COMMON-GRID-50K}의 \path{experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/}를 source of truth로 사용한다. 이 package는 70개 input file의 SHA256 manifest, exact 50k-grid analyzer, seven CPU-only tests, per-seed/aggregate/paired CSVs, NumPy 2.5.1 dependency pin을 포함한다. Native summary metrics는 수정하지 않고 pipeline output의 \texttt{native\_*}와 provenance columns에 보존한다. FPP SAC diagnostic sample files는 blind artifact ID \texttt{FPP-SAC-DIAG-1M}의 \path{experiment_FPP/runs/fpp_sac_saber_diagnostic_ls512_1m/}를 기준으로 한다.
+
+FPP DDPG internal sensitivity rows use blind artifact IDs \texttt{FPP-DDPG-LAMBDA-SCHEDULE}, \texttt{FPP-DDPG-QUALITY-FLOOR025}, \texttt{FPP-DDPG-ANNEAL-300K}, \texttt{FPP-DDPG-POSITIVE-HUBER}, and \texttt{FPP-DDPG-POSITIVE-MSE}. FetchSlide 결과는 \path{experiment_FetchSlide/src/saber_fetch_slide/experiment.py}와 run-level artifacts를 기준으로 한다. DrawerOpen DDPG 결과는 \texttt{metaworld\_Drawer\_Open\_DDPG}의 runner scripts와 \texttt{results\_2m} summaries를 기준으로 한다. HGR-style sampler-only artifact \texttt{DRAWEROPEN-DDPG-HGR-SAMPLER-ONLY-2M}은 seed별 summaries, selected metrics, configs, environment snapshots, and logs를 포함하지만 canonical HGR의 importance correction은 포함하지 않는다. DrawerOpen TD3와 DrawerClose DDPG/TD3 rows는 보조 stress-test artifacts를 기준으로 한다. Public repository URLs, user namespaces, and raw commit hashes are intentionally omitted from the review manuscript and should appear only in a non-anonymous camera-ready or release archive.
 
 기존 artifact는 environment ID, threshold, seed mapping, training hyperparameters, runtime seconds, and steps/sec를 상당 부분 저장한다. 그러나 모든 old run이 Python/PyTorch/Gymnasium Robotics/MuJoCo/Meta-World exact package version, CPU model, GPU model, CUDA driver, and host metadata를 완전하게 저장하지는 않는다. 따라서 본 논문은 steps/sec를 hardware-normalized claim으로 사용하지 않고, final rerun에서는 machine metadata를 run config와 summary에 함께 저장해야 한다.
 
@@ -779,18 +1148,19 @@ FPP 결과는 \texttt{experiment\_FPP}의 trainer/config, run-level \texttt{conf
 \centering
 \caption{Environment and sparse reward conventions.}
 \label{tab:appendix-envs}
-\begin{tabular}{lllll}
+\begin{tabular}{@{}p{0.16\textwidth}p{0.24\textwidth}p{0.20\textwidth}p{0.23\textwidth}p{0.07\textwidth}@{}}
 \toprule
 Task & Environment version & Success condition & Reward convention & Horizon \\
 \midrule
 FetchPickAndPlace & \texttt{FetchPickAndPlace-v4} & \(\|ag-g\|\le 0.05\) & success \(0\), failure \(-1\) & 50 \\
 FetchSlide & \texttt{FetchSlide-v4} & \(\|ag-g\|\le 0.05\) & success \(0\), failure \(-1\) & 50 \\
 DrawerOpen & \texttt{drawer-open-v3} & handle-goal distance \(\le 0.05\) & success \(0\), failure \(-1\) wrapper & 200 \\
+DrawerClose & \texttt{drawer-close-v3} & handle-goal distance \(\le 0.05\) & success \(0\), failure \(-1\) wrapper & 200 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-Fetch tasks use Gymnasium Robotics Fetch environments with sparse reward and action range \([-1,1]^4\). The recorded Fetch snapshots use observation dimension 25, goal dimension 3, and state dimension 28 after concatenating observation and desired goal. DrawerOpen wraps Meta-World \texttt{drawer-open-v3} as a goal-conditioned environment, using drawer handle position as achieved goal and the environment target position as desired goal.
+Fetch tasks use Gymnasium Robotics Fetch environments with sparse reward and action range \([-1,1]^4\). The recorded Fetch snapshots use observation dimension 25, goal dimension 3, and state dimension 28 after concatenating observation and desired goal. DrawerOpen and DrawerClose wrap Meta-World \texttt{drawer-open-v3}/\texttt{drawer-close-v3} as goal-conditioned environments, using drawer handle position as achieved goal and the environment target position as desired goal.
 
 \subsection{A.3 HER, Terminal Handling, and Seeds}
 
@@ -798,8 +1168,10 @@ All main Fetch rows use uniform replay with future-goal HER. The replay buffer s
 
 The terminal convention is:
 \begin{equation}
-\texttt{success\_terminates=false}, \qquad
-\texttt{timeout\_bootstrap=true}.
+\begin{aligned}
+\texttt{success\_terminates}&=\texttt{false},\\
+\texttt{timeout\_bootstrap}&=\texttt{true}.
+\end{aligned}
 \end{equation}
 Thus HER-created success states are not forced to be terminal in the Bellman target, and time-limit transitions allow bootstrapping.
 
@@ -821,7 +1193,7 @@ evaluation seed & \(10000+s\) \\
 \end{tabular}
 \end{table}
 
-Unless otherwise stated, reported tables use seeds \(1,\ldots,5\). FetchPickAndPlace and FetchSlide rows run for 1M environment steps; DrawerOpen stress-test rows use 2M environment steps in the reported table.
+Unless otherwise stated, reported tables use seeds \(1,\ldots,5\). FetchPickAndPlace and FetchSlide rows run for 1M environment steps; DrawerOpen and DrawerClose stress-test rows use 2M environment steps in the reported table.
 
 \subsection{A.4 Model and Optimization Hyperparameters}
 
@@ -829,25 +1201,28 @@ DDPG and TD3 use two-hidden-layer MLP actors and critics with hidden size 256, R
 
 \begin{table*}[h]
 \centering
+\scriptsize
 \caption{Common optimization settings.}
 \label{tab:appendix-optim}
-\begin{tabular}{llll}
+\begin{tabular}{@{}p{0.17\textwidth}p{0.25\textwidth}p{0.17\textwidth}p{0.25\textwidth}@{}}
 \toprule
-Hyperparameter & FetchPickAndPlace & FetchSlide & DrawerOpen \\
+Hyperparameter & FetchPickAndPlace & FetchSlide & DrawerOpen/Close \\
 \midrule
 actor lr / critic lr & \(3\times10^{-4}\) / \(3\times10^{-4}\) & \(3\times10^{-4}\) / \(3\times10^{-4}\) & \(3\times10^{-4}\) / \(3\times10^{-4}\) \\
 \(\gamma\) / \(\tau\) & 0.98 / 0.005 & 0.98 / 0.005 & 0.98 / 0.005 \\
 batch size & 256 & 256 & 256 \\
 replay capacity & 300k & 300k & 300k \\
 warmup / random start & 5k / 10k & 5k / 10k & 5k / 10k \\
-updates per env step & 1 & 1 & 1 \\
+updates per env step & 1; high-RR DDPG uses 4 or 8; high-RR TD3/SAC use 4 & 1 & 1 \\
 eval episodes & 20 & 20 & 20 \\
-eval frequency & 10k for FPP DDPG/TD3, 25k for FPP SAC & 25k & 10k \\
+eval frequency & DDPG/TD3 native 10k; SAC source runs use 25k or 10k but reported metrics use exact shared 50k grid & 25k & 10k \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
 TD3 uses policy delay 2, target policy noise 0.2, and target noise clip 0.5. SAC uses automatic entropy tuning with initial \(\alpha=0.2\), \(\alpha\) learning rate \(3\times10^{-4}\), and target entropy \(-|\mathcal A|\) when unspecified.
+
+The DrawerOpen HGR-style sampler-only control uses the same DDPG backbone, 2M-step budget, batch size 256, HER ratio 0.8, and one update per environment step as the matched DrawerOpen comparison. Episode priority is the mean valid-transition TD-error priority, and candidate future achieved goals are ranked by DDPG TD-error. The row uses \(\alpha_{\mathrm{episode}}=\alpha_{\mathrm{goal}}=1.0\), priority initialization 1.0, \(\epsilon=10^{-6}\), maximum priority 50, and at most 50 future candidates. Critic/actor loss weights are all one. Canonical HGR instead applies episode and goal importance weights to the critic gradient and reports tuned prioritization/correction parameters; therefore this row is explicitly an ablation rather than canonical HGR.
 
 \subsection{A.5 SABER Support Settings}
 
@@ -864,6 +1239,8 @@ FetchSlide DDPG SABER & 4 & 4 & 16 & 1024 & 1.0 \\
 FetchSlide TD3/SAC SABER & 4 & 4 & 16 & 512 & 1.0 \\
 DrawerOpen DDPG SABER & 4 & 4 & 16 & 512 & 1.0 \\
 DrawerOpen TD3 SABER/control & 4 & 4 & 16 & 512 & 1.0 \\
+DrawerClose DDPG SABER/control & 4 & 4 & 16 & 512 & 1.0 \\
+DrawerClose TD3 SABER/control & 4 & 4 & 16 & 512 & 1.0 \\
 \bottomrule
 \end{tabular}
 \end{table*}

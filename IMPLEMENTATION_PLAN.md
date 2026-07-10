@@ -9,7 +9,7 @@
 
 - C3: 실험 프로토콜과 세팅 정의 부족
 - C8: 재현성 appendix 부족
-- C11: support-aware mechanism closure 부족
+- C11: support-conditioned mechanism closure 부족
 - Method gap: current policy action support를 측정하지만 critic loss는 replay action에서 계산됨
 - Random-Support: structured support가 핵심 원인이라는 claim을 약화함
 
@@ -26,7 +26,7 @@ SABER의 technical definition을 재현 가능하고 논리적으로 닫힌 형�
 ### 해야 할 일
 
 - current policy action support를 보지만 critic loss는 replay action에서 계산된다는 점을 명확히 설명한다.
-- 이를 `policy-improvement-relevant reliability proxy`로 정의한다.
+- 이를 `policy-relevant local-support proxy`로 정의한다.
 - `A_i^sup`, `B_i`, `M_B`, `M_{\mathrm{avail}}`/`M_Q_min`, `N_gap_min`을 정의한다.
 - task별 local context와 binning을 정확히 표로 정리한다.
 - TD3 Bellman target 수식을 추가한다.
@@ -166,7 +166,7 @@ SABER의 technical definition을 재현 가능하고 논리적으로 닫힌 형�
 
 ## 5. Support vs TD-error / Reliability Diagnostic 분석
 
-상태: 기존 artifact 기반 1차 진단과 instrumented rerun 준비 완료. `analysis/support_td_error/analyze_existing_fpp_support_td_error.py`로 FPP DDPG/TD3/SAC SABER metrics에서 checkpoint-level support rate와 TD-error aggregate의 상관을 재집계했고, 결과를 `AAAI27_SUPPORT_DIAGNOSTICS_KR.md`와 `analysis/support_td_error/fpp_support_td_error_existing_report.md`에 정리했다. 이후 FPP trainer에 optional sample-level diagnostic logger를 추가하고, `AAAI27_DIAGNOSTIC_RUN_PLAN_KR.md`와 `analysis/support_td_error/analyze_sample_diagnostics.py`를 만들었다. 남은 것은 diagnostic smoke/full run을 실제 실험 환경에서 실행해 `diagnostic_samples.csv`를 생성하고 분석하는 것이다.
+상태: FPP DDPG instrumented diagnostic 1M seeds 1--5 완료 및 원고 반영. 기존 artifact 기반 1차 진단은 `analysis/support_td_error/analyze_existing_fpp_support_td_error.py`로 정리했고, 이후 FPP trainer에 optional sample-level diagnostic logger를 추가했다. `metacog-rl@v0-lite` commit `a306605`의 `experiment_FPP/runs/fpp_ddpg_saber_diagnostic_ls512_1m/` 결과를 로컬 작업트리에 복사했으며, 500 full-batch diagnostic checkpoints와 64k logged sample rows를 확인했다. 결과는 `AAAI27_SUPPORT_DIAGNOSTICS_KR.md`와 `paper/saber_aaai27_draft_kr.tex`의 `FPP DDPG Sample-Level Diagnostic` 절에 반영했다. 핵심 결과는 \(\mathrm{corr}(\psi_i,|\delta_i|)\approx 0.12\), top-10% high-TD-error support overlap 0.516, support-positive raw residual reduction 0.019 vs support-negative 0.008이다. 이는 PER-style equivalence를 약화하지만 pure reliability proof는 아니므로, 남은 과제는 TD3/SAC 또는 DrawerOpen으로 diagnostic을 확장하는 것이다.
 
 ### 목적
 
@@ -194,6 +194,7 @@ SABER가 PER/TD-error weighting의 변형이 아니라는 점과 support가 reli
 - `analysis/support_td_error/analyze_sample_diagnostics.py`
 - `AAAI27_SUPPORT_DIAGNOSTICS_KR.md`
 - `AAAI27_DIAGNOSTIC_RUN_PLAN_KR.md`
+- `experiment_FPP/runs/fpp_ddpg_saber_diagnostic_ls512_1m/`
 - FPP trainer diagnostic logger:
   - `experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py`
   - `experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/trainer.py`
@@ -211,10 +212,11 @@ SABER가 PER/TD-error weighting의 변형이 아니라는 점과 support가 reli
 - 1차 완료: 기존 artifact만으로 가능한 checkpoint-level sanity check를 끝낸다.
 - 준비 완료: sample-level `psi_i`, fixed-target `|delta_i|` before/after, support count, weight, action bin, HER relabel mask를 남기는 optional logger를 구현한다.
 - 준비 완료: `diagnostic_samples.csv`를 읽어 corr, top-k overlap, residual reduction, target variance를 집계하는 분석 스크립트를 작성한다.
-- 남음: smoke run으로 실제 실험 환경에서 logger output을 확인한다.
-- 남음: full diagnostic run 결과로 support-positive가 단순히 high TD-error sample과 같은 집합이 아님을 sample-level로 보인다.
-- 남음: support-positive와 support-negative 사이의 critic fitting behavior 차이를 제시한다.
-- 남음: reliability interpretation을 theorem이 아니라 empirical diagnostic으로 뒷받침한다.
+- 완료: smoke/full diagnostic run으로 logger output을 확인했다.
+- 완료: full diagnostic run 결과로 support-positive가 단순 high TD-error sample과 동일하지 않음을 sample-level로 보였다.
+- 완료: support-positive와 support-negative 사이의 critic fitting behavior 차이를 제시했다.
+- 완료: reliability interpretation을 theorem이 아니라 empirical diagnostic으로 낮춰 원고에 반영했다.
+- 남음: 같은 diagnostic을 FPP TD3/SAC 또는 DrawerOpen으로 확장해 backbone/task dependence를 확인한다.
 
 ## 6. Random-Support 문제 닫기
 
@@ -251,7 +253,7 @@ structured support가 아니라 random reweighting regularization 때문이라�
 
 ## 7. Related Work 보강
 
-상태: 2차 완료. `AAAI27_RELATED_WORK_NOTES_KR.md`를 만들고, HER relabeling, HGG/CHER, EBP/HGR, MHER, PER/TD-error weighting, REDQ+HER/high replay-ratio, offline RL support constraint를 `intervention point` 축으로 비교했다. 핵심 framing은 SABER를 새로운 HER relabeling/prioritization method가 아니라, HER 이후 critic Bellman residual에 적용되는 support-aware loss reweighting objective로 두는 것이다. 이후 `paper/saber_aaai27_draft_kr.tex` Related Work에 `Hindsight Goal Selection and Prioritization` 절, intervention-point 비교표, REDQ+HER/high replay-ratio 논의를 추가했고, `paper/saber_refs.bib`에 HGG, CHER, EBP, HGR, MHER, REDQ, sparse-goal REDQ references를 추가했다. CHER metadata는 MHER arXiv source의 `main.bbl`에서 확인했다.
+상태: 2차 완료. `AAAI27_RELATED_WORK_NOTES_KR.md`를 만들고, HER relabeling, HGG/CHER, EBP/HGR, MHER, PER/TD-error weighting, REDQ+HER/high replay-ratio, offline RL support constraint를 `intervention point` 축으로 비교했다. 핵심 framing은 SABER를 새로운 HER relabeling/prioritization method가 아니라, HER 이후 critic Bellman residual에 적용되는 support-conditioned loss reweighting objective로 두는 것이다. 이후 `paper/saber_aaai27_draft_kr.tex` Related Work에 `Hindsight Goal Selection and Prioritization` 절, intervention-point 비교표, REDQ+HER/high replay-ratio 논의를 추가했고, `paper/saber_refs.bib`에 HGG, CHER, EBP, HGR, MHER, REDQ, sparse-goal REDQ references를 추가했다. CHER metadata는 MHER arXiv source의 `main.bbl`에서 확인했다.
 
 ### 목적
 
@@ -265,7 +267,7 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 - MHER / MHER(lambda)
 - REDQ+HER / high replay ratio HER
 - 최신 sparse goal-conditioned robotics baseline
-- HER prioritization vs TD-error prioritization vs support-aware critic loss weighting 비교
+- HER prioritization vs TD-error prioritization vs support-conditioned critic loss weighting 비교
 
 ### 산출물
 
@@ -321,12 +323,12 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 - 완료: Abstract와 Conclusion이 Random-Support 및 FPP Shuffled-Weight 결과와 충돌하지 않는다.
 - 완료: main claim이 FPP/FetchSlide/DrawerOpen evidence 범위 안에 있다.
 - 남음: #7 related work framing을 원고 Related Work에 압축 반영한다.
-- 완료: FPP Random-Support/Random-Fixed-Count 및 DrawerOpen DDPG Random-Fixed-Count 결과를 Abstract/Conclusion caveat에 반영했다.
-- 남음: sample-level diagnostic 결과가 나오면 support-vs-TD-error 및 reliability wording을 다시 업데이트한다.
+- 완료: FPP DDPG Random-Support/Random-Fixed-Count, FPP TD3 Random-Support/Random-Fixed-Count, FPP SAC Random-Support/Random-Fixed-Count, FPP TD3/SAC high-RR \(4\times\), DrawerOpen DDPG Random-Support/PER-Style/Random-Fixed-Count/Shuffled-Weight, DrawerClose TD3 controls를 Abstract/Conclusion caveat에 반영했다.
+- 완료: FPP DDPG sample-level diagnostic 결과를 반영해 support-vs-TD-error 및 reliability wording을 업데이트했다.
 
 ## 9. Figure/Table 재구성
 
-상태: 통계/그림 파이프라인 3차 완료. `analysis/result_pipeline/`에 FPP DDPG Shuffled-Weight, Random-Support, Random-Fixed-Count k94와 DrawerOpen DDPG HER/SABER/Random-Fixed-Count rows를 추가했다. 현재 입력 기준 per-seed table 135 rows, aggregate table 27 rows, paired seed-difference 565 rows, learning curve points 115300개, learning curve PNG 10개를 생성했다. 새 `drawer_ddpg_success_curve.png`와 updated `fpp_ddpg_success_curve.png`를 원고에 연결했다. 새 실험 결과가 나오면 `analysis/result_pipeline/config.json`의 `rows`/`pairs`에 summary glob만 추가해서 같은 table/figure를 다시 만들 수 있다.
+상태: 통계/그림 파이프라인 9차 완료. `analysis/result_pipeline/`에 FPP DDPG Shuffled-Weight, Random-Support, Random-Fixed-Count k94, FPP TD3 Random-Support/Random-Fixed-Count k73, FPP TD3 high-RR \(4\times\), FPP SAC Random-Support/Random-Fixed-Count k76, FPP SAC high-RR \(4\times\), DrawerOpen DDPG HER/SABER/Random-Support/PER-Style/Random-Fixed-Count/Shuffled-Weight, DrawerClose TD3 HER/SABER/Random-Support/Random-Fixed-Count rows를 추가했다. 현재 입력 기준 per-seed table 200 rows, aggregate table 40 rows, paired seed-difference 1140 rows, learning curve points 125297개를 생성했다. `/opt/homebrew/bin/python3.11`의 Pillow fallback으로 22개 figure PDF/PNG를 재생성했고, 최신 PDF가 이 figure들을 정상 include한다. 새 실험 결과가 나오면 `analysis/result_pipeline/config.json`의 `rows`/`pairs`에 summary glob만 추가해서 같은 table/figure를 다시 만들 수 있다.
 
 ### 목적
 
@@ -351,8 +353,14 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 - 완료: bootstrap resampling seed를 고정해 같은 artifact에서는 같은 CI가 나오게 한다.
 - 완료: FPP DDPG Shuffled-Weight row/pair를 config에 추가하고 main draft에 반영했다.
 - 완료: FPP Random-Support/Random-Fixed-Count 결과를 config row/pair와 main draft에 반영했다.
+- 완료: DrawerOpen DDPG Shuffled-Weight 2M artifact를 `origin/main`에서 가져오고, config row/pair, aggregate table, learning curve, main draft DrawerOpen DDPG table에 반영했다.
+- 완료: FPP TD3 Random-Support/Random-Fixed-Count k73 artifact를 `metacog-rl@v0-lite` commit `51fb99f`에서 가져오고, config row/pair, aggregate table, updated TD3 learning curve, main draft TD3 control table에 반영했다.
+- 완료: FPP SAC Random-Support/Random-Fixed-Count k76 artifact를 `metacog-rl@v0-lite` commit `d5439b2`에서 가져오고, config row/pair, aggregate table, updated SAC learning curve, main draft SAC control table에 반영했다.
+- 완료: FPP TD3 high-RR \(4\times\) artifact를 `metacog-rl@v0-lite` commit `783a34c`에서 가져오고, config row/pair, aggregate table, updated TD3 learning curve, main draft high replay-ratio table에 반영했다.
+- 완료: FPP SAC high-RR \(4\times\) artifact를 `metacog-rl@v0-lite` commit `62de0f7`에서 가져오고, config row/pair, aggregate table, main draft high replay-ratio table과 claim-boundary/limitation 문구에 반영했다.
+- 완료: DrawerOpen DDPG Random-Support/PER-Style과 DrawerClose TD3 HER/SABER/Random-Support/Random-Fixed-Count artifact를 `origin/main`에서 가져오고, config row/pair, aggregate table, DrawerOpen table, DrawerClose stress-test table에 반영했다.
 - 완료: Figure 1--2를 review용 publication-readable style로 재생성했다. 내부 파일명 title을 제거하고, 큰 axis/legend, seed별 thin lines, mean/std band, PDF+PNG export를 지원한다.
-- diagnostic plot을 추가한다.
+- diagnostic table을 원고에 추가했다. 필요하면 diagnostic plot을 추가한다.
 
 ### 산출물
 
@@ -374,6 +382,58 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 - main paper 7-page 제한 안에서 성능, mechanism, limitation이 모두 보인다.
 - appendix/supplement가 없어도 주요 claim을 이해할 수 있다.
 
+## 9.5 Source-of-Truth 관리
+
+상태: 1차 완료. 현재 한국어 authoring source는 `paper/saber_aaai27_draft_kr.tex`로 고정한다. `gpt_review_upload/` 아래 파일들은 GPT 리뷰를 위한 round별 snapshot이며, 이후 수정 원본으로 사용하지 않는다. 최신 PDF는 `output/pdf/saber_aaai27_draft_kr_latest.pdf`이고, 이 PDF는 `paper/build_pdf.sh`로 생성한다.
+
+### 목적
+
+리뷰 round가 늘어나면서 TeX, PDF, result report, upload packet이 서로 다른 상태가 되는 문제를 막는다. 앞으로는 원고, 수치, 리뷰 패킷의 source-of-truth를 분리해서 관리한다.
+
+### Authoring source
+
+- 원고 원본: `paper/saber_aaai27_draft_kr.tex`
+- 빌드 스크립트: `paper/build_pdf.sh`
+- 최신 PDF: `output/pdf/saber_aaai27_draft_kr_latest.pdf`
+- 리뷰 스냅샷: `gpt_review_upload/<round>/`
+
+규칙: 원고 수정은 항상 `paper/saber_aaai27_draft_kr.tex`에서 한다. `gpt_review_upload/<round>/`에 들어간 TeX/PDF/문서는 해당 round의 첨부본이므로 직접 수정하지 않는다.
+
+### Numeric source
+
+- result pipeline 설정: `analysis/result_pipeline/config.json`
+- aggregate metrics: `analysis/result_pipeline/output/aggregate_metrics.csv`
+- paired CI: `analysis/result_pipeline/output/paired_bootstrap_ci.csv`
+- 자동 리포트: `analysis/result_pipeline/output/report.md`
+- 사람이 읽는 해석 matrix: `AAAI27_RESULT_MATRIX_KR.md`
+
+규칙: 논문 표의 숫자는 `aggregate_metrics.csv`와 `paired_bootstrap_ci.csv`를 기준으로 확인한다. `AAAI27_RESULT_MATRIX_KR.md`는 해석과 artifact provenance를 관리하지만, 최종 numeric source는 pipeline output이다.
+
+### Review packet 생성 순서
+
+1. 새 실험 artifact를 로컬 작업트리에 복사하거나 pull한다.
+2. `analysis/result_pipeline/config.json`의 `rows`와 `pairs`를 갱신한다.
+3. `analysis/result_pipeline/build_result_artifacts.py`를 실행해 CSV/report를 재생성한다.
+4. `paper/saber_aaai27_draft_kr.tex`의 표/본문 숫자와 claim boundary를 갱신한다.
+5. `paper/build_pdf.sh`로 최신 PDF를 빌드한다.
+6. PDF에서 table overflow, float warning, undefined citation/reference, 핵심 숫자 노출 여부를 확인한다.
+7. 필요한 최소 파일만 새 `gpt_review_upload/<round>/`에 복사한다.
+
+### 현재 반영 상태
+
+- 반영 완료: FPP DDPG/TD3/SAC main rows, random-support/fixed/shuffled/PER controls, DDPG/TD3/SAC high-RR, REDQ-HER TQB, DDPG/TD3/SAC diagnostics, DrawerOpen DDPG controls, and DrawerClose stress rows.
+- FPP SAC의 cross-method AUC/final/Hit90는 exact 50k common grid로 재계산해 pipeline과 두 원고에 반영했다. Native metrics는 provenance audit용으로 별도 보존한다.
+- 기존 DrawerOpen `HGR` row는 canonical HGR가 아니라 importance correction이 없는 `HGR-style sampler-only` ablation으로만 사용한다.
+- 진행 중이라 본문 수치로 쓰지 않음: FPP DDPG canonical HGR rerun, DrawerOpen/DrawerClose HGR runs, and DrawerOpen/DrawerClose REDQ-TQB runs. Drawer HGR rows는 완료 후 importance correction과 tuning fidelity를 확인하기 전까지 canonical로 부르지 않는다.
+- figure 상태: result pipeline이 22개 curve figures를 만들고, submission용 method overview와 3000x1700 FPP aggregate evidence figure를 별도로 유지한다.
+
+### 완료 기준
+
+- 어떤 파일을 수정해야 최신 원고가 바뀌는지 명확하다.
+- 어떤 CSV/report를 기준으로 표 숫자를 검증하는지 명확하다.
+- 리뷰 업로드 폴더가 authoring source로 오인되지 않는다.
+- 진행 중 실험과 원고 반영 완료 실험이 구분되어 있다.
+
 ## 10. 실행 순서
 
 1. `AAAI27_RESULT_MATRIX_KR.md` 만들기: 기존 결과부터 확인한다.
@@ -387,15 +447,24 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 9. 논문 claim/abstract/introduction을 수정한다.
 10. 영어 LaTeX 초안으로 변환한다.
 
-## 11. 현재 가장 먼저 할 일
+## 11. 현재 8개 작업 체크리스트
 
-가장 먼저 해야 할 일은 기존 artifact inventory다.
+상태: 2026-07-10 기준. Full review draft와 page-limited submission skeleton을 분리해 관리한다.
 
-이유:
+| # | 작업 | 상태 | 증거 / 남은 일 |
+| -: | --- | --- | --- |
+| 1 | Source-of-Truth 정리 | 완료 | 원고 원본은 `paper/saber_aaai27_draft_kr.tex`, numeric source는 `analysis/result_pipeline/output/*.csv`와 `report.md`, 리뷰 폴더는 snapshot으로 명시했다. |
+| 2 | Claim Boundary 고정 | 완료 | Abstract/Conclusion/Limitations에서 support-conditioned critic objective, one-update-per-step matched-backbone regime, mixed mechanism evidence로 제한했다. |
+| 3 | 최신 실험 결과 반영 | 완료 | FPP SAC exact 50k common-grid, REDQ-HER TQB, SAC diagnostic, high-RR, random controls, and Drawer stress rows를 result pipeline과 TeX에 반영했다. |
+| 4 | 표/그림 배치 정리 | 완료 | method overview, FPP aggregate evidence, scaling table, and control-closure table을 submission main body에 배치했다. Dense learning curves는 full review draft/pipeline output에 유지한다. |
+| 5 | Reproducibility Appendix 유지 | 완료 | Appendix A에 source scope, env/reward convention, HER/terminal handling, seeds, optimization, support settings, runtime caveat가 들어 있다. |
+| 6 | Consistency Audit | 완료 | pipeline 재실행 결과 220 per-seed rows, 44 aggregate rows, 1315 paired seed-difference rows, and 127197 curve points를 생성했다. Packaged SAC paired CIs와 aggregate values를 TeX와 대조했다. |
+| 7 | PDF 빌드 검증 | 완료 | Full review draft 25쪽과 submission skeleton 5쪽을 각각 빌드·렌더링했다. LaTeX error, undefined citation/reference, overfull box, clipping, and overlap은 검출되지 않았다. |
+| 8 | 작업 완료 기준 관리 | 진행 중 | Common-grid/REDQ 반영은 완료했다. Canonical HGR와 진행 중 Drawer HGR/REDQ는 fidelity와 5-seed completion을 확인한 뒤 별도 rows로 추가한다. |
 
-- repo에 FPP ablation 결과가 이미 일부 존재한다.
-- 새 실험을 돌리기 전에 기존 결과를 회수해야 한다.
-- main mechanism table을 만들 수 있는지 먼저 판단해야 한다.
-- Random-Support 문제를 실제로 얼마나 닫을 수 있는지 확인해야 한다.
+### 다음 우선순위
 
-즉, 다음 작업은 `AAAI27_RESULT_MATRIX_KR.md` 작성이다.
+1. FPP DDPG canonical HGR 1M, seeds 1--5를 IS correction과 documented tuning으로 완료한다.
+2. DrawerOpen/DrawerClose HGR와 REDQ-TQB가 끝나면 config/IS correction/evaluation grid를 먼저 audit하고, 통과한 rows만 pipeline에 추가한다.
+3. Submission skeleton을 최종 영어 7-page main body로 확장하고, full review draft의 상세 tables/curves를 blind supplement로 이동한다.
+4. 새 review round 전에는 두 PDF를 재빌드하고 anonymization과 source-of-truth manifest를 다시 점검한다.

@@ -1,6 +1,7 @@
 # SABER AAAI-27 Result Matrix / Artifact Inventory
 
 작성일: 2026-06-24
+최근 업데이트: 2026-07-10
 목적: GitHub remote branches와 local working tree에 남아 있는 SABER 관련 실험 결과를 논문 사용 가능성 기준으로 분류한다.
 
 ## 1. 조사 범위
@@ -9,10 +10,15 @@
 
 | Source | Commit | 역할 |
 | --- | --- | --- |
-| `origin/main` | `7a7992b` / `Add DrawerOpen DDPG B3 critic-only results` | FPP, FetchPush, DrawerOpen 결과가 가장 많음 |
+| `origin/main` | `4b84853` / FPP SAC common-grid reanalysis with pinned dependency | FPP, FetchPush, DrawerOpen/DrawerClose 및 common-grid artifact source |
 | `origin/fetchslide-runtime-artifacts` | `2a8d34e` / `Add FetchSlide runtime experiment artifacts` | FetchSlide runtime/control 결과의 primary source |
 | `origin/aaai27-core-artifacts` | `1142c97` / `Add AAAI27 paper draft` | 논문 초안과 core artifact branch |
-| local `aaai27-core-artifacts` | `1142c97` + uncommitted docs | 현재 작업 중인 논문/계획 문서 |
+| `Hyunwoojooo/metacog-rl@v0-lite` | `51fb99f` / `Add FPP TD3 random control results` | FPP TD3 Random-support/Random-fixed-count artifact source |
+| `Hyunwoojooo/metacog-rl@v0-lite` | `d5439b2` / `Add FPP SAC random control results` | FPP SAC Random-support/Random-fixed-count artifact source |
+| `Hyunwoojooo/metacog-rl@v0-lite` | `783a34c` / `Add FPP TD3 high-RR x4 results` | FPP TD3 high replay-ratio \(4\times\) artifact source |
+| `Hyunwoojooo/metacog-rl@v0-lite` | `62de0f7` / `Add FPP SAC high replay-ratio x4 results` | FPP SAC high replay-ratio \(4\times\) artifact source |
+| `Hyunwoojooo/metacog-rl@v0-lite` | `8fd6f8e` / `Add FPP REDQ-HER TQB full results` | FPP REDQ-HER UTD4 N10 M2 target-Q-bound artifact source |
+| local `aaai27-core-artifacts` | `34d7a69` + uncommitted integration | 현재 작업 중인 논문, pipeline, common-grid package |
 
 조사는 dirty worktree를 보호하기 위해 branch checkout 없이 `/private/tmp/saber_wt_origin_main`, `/private/tmp/saber_wt_fetchslide` worktree에서 수행했다.
 
@@ -21,13 +27,21 @@
 가장 중요한 결론은 다음이다.
 
 - FPP main table은 이미 충분하다. DDPG/TD3/SAC HER baseline과 critic-only SABER가 모두 1M, seeds 1--5, summary 기반으로 존재한다.
+- FPP SAC의 legacy 25k main rows와 newer 10k controls는 exact 50k--1M common grid로 정식 재계산됐다. Interpolation/forward-fill 없이 20 checkpoints를 사용하며, 70개 source file hash와 7개 analyzer test가 검증됐다.
 - FPP PER-style/PER-full baseline도 1M, seeds 1--5로 존재한다.
 - FPP TD-error는 log 기반 partial 630k 재집계를 완료했다. Run directory는 1M으로 되어 있으나 실제 모든 seed가 약 633k train steps에서 종료되었고, `metrics_selected_10k.csv`의 evaluation columns는 비어 있어 `run.log`에서 evaluation curve를 복원했다. 따라서 1M main row로 쓰면 안 되고 partial diagnostic 또는 rerun 판단용으로만 쓴다.
-- FPP Random-Support/Shuffled-Weight는 1k smoke만 있고, 1M main-task mechanism control로는 사용할 수 없다.
+- FPP DDPG Random-Support/Shuffled-Weight/Random-Fixed-Count는 1M, seeds 1--5로 완료되어 main mechanism control로 사용할 수 있다.
+- FPP TD3 Random-Support와 Random-Fixed-Count k73도 1M, seeds 1--5로 완료되었다. 이 결과는 Random-Support/Random-Fixed가 HER 수준에 머물고 SABER와 분리된다는 점에서 DDPG보다 강한 mechanism evidence를 제공한다.
+- FPP SAC Random-Support와 Random-Fixed-Count k76도 1M, seeds 1--5로 완료되었다. Random-Support는 HER와 거의 같은 AUC에 머물고, Random-Fixed-Count는 final success를 포화시키지만 SABER보다 낮은 AUC를 보인다.
+- FPP TD3 high replay-ratio \(4\times\)도 1M, seeds 1--5로 완료되었다. AUC는 TD3 SABER와 비슷하지만 final success와 Hit90 seed count는 낮고 runtime/update budget은 더 크다.
+- FPP SAC high replay-ratio \(4\times\)는 common-grid AUC 0.768로 SABER 0.583보다 높지만, recorded runtime은 약 47.0h로 SABER의 약 9.6h보다 훨씬 길다. AUC/hour는 hardware-normalized metric이 아니므로 main claim에서 제거한다.
+- FPP REDQ-HER target-Q-bound \(N=10,M=2,\mathrm{UTD}=4\)는 common-grid final 1.000, AUC 0.867, median Hit90 300k로 가장 강한 FPP learning curve지만, 10-critic ensemble과 약 89.5h recorded runtime을 사용하는 architecture/compute-scaled baseline이다.
 - FetchSlide는 `origin/fetchslide-runtime-artifacts`에 DDPG/TD3/SAC baseline/SABER 및 TD-error/PER-style 1M 결과가 있다.
 - FetchSlide Random/Shuffled는 1M 결과가 없고 1k smoke 수준만 있다.
 - FetchPush는 `origin/main`에 DDPG와 TD3 결과가 생각보다 많다. 다만 main paper가 아니라 appendix evidence로 쓰는 것이 안전하다.
-- DrawerOpen은 TD3 2M controls가 풍부하지만 Random-Support가 강하므로 structured support mechanism의 primary evidence로 쓰면 안 된다.
+- DrawerOpen은 DDPG 2M HER/SABER/Random-Support/PER-Style/Random-Fixed/Shuffled 결과와 TD3 2M controls가 풍부하다. DDPG는 HER 대비 large-effect/seed-consistency evidence로 유용하지만 Random-Support/PER-Style/Random-Fixed도 강하므로 structured support mechanism의 primary proof로만 쓰면 안 된다.
+- 기존 DrawerOpen `HGR` row는 canonical HGR의 importance-sampling correction을 끈 sampler-only ablation이다. 논문과 pipeline에서는 `HGR-style sampler-only`로만 표기하며 canonical HGR direct baseline claim에는 사용하지 않는다.
+- DrawerClose TD3 2M HER/SABER/Random-Support/Random-Fixed/Shuffled/PER-Style results도 `origin/main`에 있다. Shuffled-Weight가 SABER를 match하므로 appendix/stress-test와 mixed-mechanism limitation evidence로 쓰는 것이 안전하다.
 
 ## 3. Main Paper에 바로 쓸 수 있는 결과
 
@@ -41,8 +55,9 @@ Source: `origin/main`, local에도 동일 계열 artifact 존재.
 | DDPG HER+SABER | `experiment_FPP/results/fpp_b3_v4_ls512_1m_summary.json` | 1M | 1--5 | ready | main |
 | TD3 HER | `experiment_FPP/runs/td3_her_baseline_ls512` | 1M | 1--5 | ready | main |
 | TD3 HER+SABER | `experiment_FPP/runs/td3_saber_critic_only_v4_ls512` | 1M | 1--5 | ready | main |
-| SAC HER | `experiment_FPP/runs/sac_her_baseline_ls512` | 1M | 1--5 | ready | main |
-| SAC HER+SABER | `experiment_FPP/runs/sac_saber_critic_only_v4_ls512` | 1M | 1--5 | ready | main |
+| SAC HER | `experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m` | 1M | 1--5 | common-grid ready | main |
+| SAC HER+SABER | `experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m` | 1M | 1--5 | common-grid ready | main |
+| REDQ-HER TQB | `experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m` | 1M | 1--5 | common-grid ready | strong architecture/compute baseline |
 
 주의: `experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512`에는 seeds 1--10와 중간 500k run이 함께 있어 단순 recursive 평균을 내면 논문 값이 틀어진다. DDPG SABER main row는 `experiment_FPP/results/fpp_b3_v4_ls512_1m_summary.json`의 `B3_v4_512` summary를 source of truth로 둔다.
 
@@ -52,6 +67,23 @@ Source: `origin/main`, local에도 동일 계열 artifact 존재.
 | --- | ---: | ---: | ---: | ---: |
 | DDPG HER | `0.940 ± 0.042` | `1.000 ± 0.000` | `0.539 ± 0.125` | `65.02 ± 0.10` |
 | DDPG HER+SABER | `0.960 ± 0.042` | `1.000 ± 0.000` | `0.609 ± 0.038` | `41.72 ± 0.20` |
+
+Strong compute/backbone reference:
+
+| Method | Final | Best | AUC | Hit90 | Runtime h | Steps/sec | 해석 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| REDQ-HER TQB \(N=10,M=2,\mathrm{UTD}=4\) | `1.000 ± 0.000` | `1.000 ± 0.000` | `0.867 ± 0.052` | `300k (5/5)` | `89.52` | `3.10` | Exact 50k common-grid에서 가장 강한 learning curve. Architecture/compute-scaled reference로 사용. |
+
+FPP SAC exact common-grid source of truth:
+
+| Method | Final | AUC | Hit90 | Paired AUC 해석 |
+| --- | ---: | ---: | ---: | --- |
+| HER | `0.790 ± 0.288` | `0.471 ± 0.079` | `800k (3/5)` | reference |
+| HER+SABER | `0.990 ± 0.022` | `0.583 ± 0.030` | `750k (5/5)` | vs HER `+0.112 [0.064, 0.161]` |
+| Random-Support | `0.690 ± 0.263` | `0.482 ± 0.069` | `725k (2/5)` | SABER minus control `+0.101 [0.034, 0.164]` |
+| Random-Fixed-Count | `1.000 ± 0.000` | `0.526 ± 0.059` | `900k (5/5)` | SABER minus control `+0.058 [0.003, 0.113]` |
+| HER high-RR \(4\times\) | `0.960 ± 0.042` | `0.768 ± 0.097` | `450k (5/5)` | SABER minus high-RR `-0.184 [-0.235, -0.123]` |
+| REDQ-HER TQB | `1.000 ± 0.000` | `0.867 ± 0.052` | `300k (5/5)` | REDQ minus SABER `+0.283 [0.213, 0.329]` |
 
 ### 3.2 FPP PER / weighting comparison
 
@@ -148,6 +180,11 @@ Source: `origin/main`.
 | TD3 | Shuffled-Weight | `metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Shuffled-Weight-2M` | 2M | 1--5 | ready | control |
 | DDPG | HER baseline | `metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M` | 2M | 1--5 | ready | appendix only |
 | DDPG | Critic-only SABER | `metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M` | 2M | 1--5 | ready | appendix only |
+| DDPG | HGR-style sampler-only | `metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_2m_opt` | 2M | 1--5 | ready ablation | sampling control only; not canonical HGR |
+| DDPG | Random-Support | `metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M` | 2M | 1--5 | ready | control/limitation |
+| DDPG | PER-Style | `metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M` | 2M | 1--5 | ready | control/limitation |
+| DDPG | Random-Fixed-Count | `metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Fixed-Count-2M` | 2M | 1--5 | ready | control/limitation |
+| DDPG | Shuffled-Weight | `metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Shuffled-Weight-2M` | 2M | 1--5 | ready | control/limitation |
 | SAC | HER baseline | `metaworld_Drawer_Open_SAC/results_2m/SAC-HER-B0-2M` | 2M | 1--5 | ready | negative appendix |
 
 Important DrawerOpen numbers:
@@ -161,9 +198,40 @@ Important DrawerOpen numbers:
 | TD3 Shuffled-Weight | `0.000 ± 0.000` | `0.010 ± 0.022` | `0.000 ± 0.000` |
 | DDPG HER | `0.390 ± 0.534` | `0.400 ± 0.548` | `0.207 ± 0.287` |
 | DDPG Critic-only SABER | `1.000 ± 0.000` | `1.000 ± 0.000` | `0.754 ± 0.044` |
+| DDPG HGR-style sampler-only | `0.400 ± 0.548` | `0.400 ± 0.548` | `0.311 ± 0.425` |
+| DDPG Random-Support | `1.000 ± 0.000` | `1.000 ± 0.000` | `0.706 ± 0.122` |
+| DDPG PER-Style | `0.800 ± 0.447` | `1.000 ± 0.000` | `0.715 ± 0.090` |
+| DDPG Random-Fixed-Count | `0.800 ± 0.447` | `0.800 ± 0.447` | `0.621 ± 0.352` |
+| DDPG Shuffled-Weight | `0.400 ± 0.548` | `0.420 ± 0.531` | `0.400 ± 0.547` |
 | SAC HER | `0.000 ± 0.000` | `0.000 ± 0.000` | `0.000 ± 0.000` |
 
-해석: DrawerOpen TD3는 Random-Support가 Critic-only와 비슷하거나 더 높다. 따라서 structured support mechanism의 주증거가 아니라 limitation/stress-test로만 써야 한다. DDPG DrawerOpen은 매우 강한 positive result지만 FPP/FetchSlide와 다른 implementation branch이므로 appendix-only가 안전하다.
+해석: DrawerOpen TD3는 Random-Support가 Critic-only와 비슷하거나 더 높다. 따라서 structured support mechanism의 주증거가 아니라 limitation/stress-test로만 써야 한다. DDPG DrawerOpen은 매우 강한 positive result지만 Random-Support/PER-Style/Random-Fixed도 강하므로 HER 대비 large-effect evidence로 쓰고 causal mechanism proof로 쓰면 안 된다.
+
+### 4.3 DrawerClose
+
+Source: `origin/main`.
+
+| Family | Row | Path | Steps | Seeds | 상태 | 권장 사용 |
+| --- | --- | --- | ---: | --- | --- | --- |
+| TD3 | HER baseline | `metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M` | 2M | 1--5 | ready | stress-test |
+| TD3 | Critic-only SABER | `metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M` | 2M | 1--5 | ready | stress-test |
+| TD3 | Random-Fixed-Count | `metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Random-Fixed-Count-2M` | 2M | 1--5 | ready | control |
+| TD3 | Random-Support | `metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Random-Support-2M` | 2M | 1--5 | ready | control |
+| TD3 | Shuffled-Weight | `metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Shuffled-Weight-2M` | 2M | 1--5 | ready | stress/control |
+| TD3 | PER-Style | `metaworld_Drawer_Close_TD3/results_2m/TD3-HER-PER-Style-2M` | 2M | 1--5 | ready | stress/control |
+
+Important DrawerClose numbers:
+
+| Row | Final | Best | AUC | 해석 |
+| --- | ---: | ---: | ---: | --- |
+| TD3 HER | `0.350 ± 0.480` | `1.000 ± 0.000` | `0.329 ± 0.348` | high variance, late collapse |
+| TD3 Critic-only SABER | `0.590 ± 0.539` | `1.000 ± 0.000` | `0.549 ± 0.422` | mean은 높지만 HER 대비 CI가 넓음 |
+| TD3 Random-Fixed-Count | `0.000 ± 0.000` | `1.000 ± 0.000` | `0.133 ± 0.026` | final collapse, SABER가 명확히 높음 |
+| TD3 Random-Support | `0.200 ± 0.447` | `1.000 ± 0.000` | `0.296 ± 0.356` | HER와 유사/낮음 |
+| TD3 Shuffled-Weight | `0.590 ± 0.539` | `1.000 ± 0.000` | `0.586 ± 0.295` | SABER final과 같고 AUC는 약간 높음 |
+| TD3 PER-Style | `0.200 ± 0.447` | `1.000 ± 0.000` | `0.369 ± 0.275` | random-support보다 AUC는 높지만 high variance |
+
+해석: DrawerClose TD3는 main positive result가 아니라 high-variance final-stability stress-test다. 모든 row가 early Hit90에 도달할 수 있으므로 final success와 best-final drop을 함께 봐야 한다. Shuffled-Weight가 SABER를 match하므로 structured support의 causal proof로 쓰면 안 되고, mixed-mechanism limitation evidence로만 사용하는 것이 안전하다.
 
 ## 5. 사용하면 안 되거나 추가 작업이 필요한 결과
 
@@ -171,12 +239,17 @@ Important DrawerOpen numbers:
 
 | Row | 현재 상태 | 판단 |
 | --- | --- | --- |
-| FPP Random-Support | `experiment_FPP/runs/B3-critic-only-random`, 1k smoke only | main/appendix 불가, 새 1M 필요 |
-| FPP Shuffled-Weight | `experiment_FPP/runs/B3-critic-only-shuffled`, 1k smoke only | main/appendix 불가, 새 1M 필요 |
-| FPP Random-Fixed-Count | 발견 못함 | 새 실험 필요 |
+| FPP DDPG Random-Support | `experiment_FPP/runs/b3_support_random_critic_only_ls512` | 1M, seeds 1--5, main control 가능 |
+| FPP DDPG Shuffled-Weight | `experiment_FPP/runs/b3_support_shuffled_critic_only_ls512` | 1M, seeds 1--5, main control 가능 |
+| FPP DDPG Random-Fixed-Count k94 | `experiment_FPP/runs/b3_random_fixed_count_k94_critic_only_ls512` | 1M, seeds 1--5, main control 가능 |
+| FPP TD3 Random-Support | `experiment_FPP/runs/td3_support_random_critic_only_ls512` | 1M, seeds 1--5, main control 가능 |
+| FPP TD3 Random-Fixed-Count k73 | `experiment_FPP/runs/td3_random_fixed_count_k73_critic_only_ls512` | 1M, seeds 1--5, main control 가능 |
+| FPP SAC Random-Support | `experiment_FPP/runs/sac_support_random_critic_only_ls512` | 1M, seeds 1--5, main/appendix control 가능 |
+| FPP SAC Random-Fixed-Count k76 | `experiment_FPP/runs/sac_random_fixed_count_k76_critic_only_ls512` | 1M, seeds 1--5, main/appendix control 가능 |
+| FPP SAC HER high-RR \(4\times\) | `experiment_FPP/runs/sac_her_high_replay_ratio_x4` | 1M, seeds 1--5, compute-scaling control 가능 |
 | FPP TD-error | log 기반 partial 630k summary 생성 완료 | 1M main row 불가, rerun 또는 same-horizon diagnostic 필요 |
 
-AAAI 리뷰 리스크를 닫으려면 FPP DDPG에서 Random-Support, Shuffled-Weight, Random-Fixed-Count는 최소 1M seeds 1--5로 새로 돌리는 것이 좋다.
+FPP DDPG controls는 Random-Support가 SABER와 거의 같아 exact sample-level alignment claim을 약화한다. 반대로 FPP TD3 controls는 Random-Support/Random-Fixed-Count가 HER 수준에 머물고 SABER와 분리되어 random reweighting만으로 모든 gain이 설명되지 않음을 보여준다. FPP SAC random controls는 중간적이다. Random-Support는 HER 수준에 가깝고, Random-Fixed-Count는 final success를 포화시키지만 AUC에서는 SABER보다 낮다. 반면 SAC high-RR \(4\times\)는 AUC에서 SABER보다 높으므로, compute scaling dominance claim은 금지하고 one-update-per-step matched-backbone claim으로 제한해야 한다.
 
 ### 5.2 FetchSlide mechanism controls
 
@@ -218,12 +291,11 @@ FetchPush를 appendix에 넣는다면 DDPG subset과 TD3 ablation subset으로 �
 
 우선순위는 다음이다.
 
-1. FPP DDPG Random-Support 1M seeds 1--5.
-2. FPP DDPG Shuffled-Weight 1M seeds 1--5.
-3. FPP DDPG Random-Fixed-Count 1M seeds 1--5.
-4. FPP TD-error 1M rerun 또는 same-horizon 630k diagnostic table 작성.
-5. 가능하면 FPP TD3 또는 SAC 중 하나에도 Random/Shuffled control 추가.
+1. FPP DDPG canonical HGR 1M, seeds 1--5를 importance correction과 documented tuning으로 완료한다.
+2. 진행 중인 DrawerOpen/DrawerClose HGR와 REDQ rows가 끝나면 HGR importance correction/config fidelity를 먼저 audit한다. Correction이 없으면 canonical이 아니라 sampler-only row로 등록한다.
+3. FPP TD-error 1M rerun 또는 same-horizon 630k diagnostic table 작성 여부를 결정한다.
+4. 최종 원고에서는 DDPG/TD3/SAC control evidence를 main/appendix 배치에 맞춰 압축한다.
 
 ## 7. 다음 액션
 
-FPP TD-error raw metrics는 `run.log` 기반으로 partial 630k 재집계를 완료했다. 다만 1M result가 아니므로 main table에는 넣지 않는다. 다음 작업은 5번 `Support vs TD-error / Reliability Diagnostic 분석`으로 넘어가면서, TD-error partial result를 같은 horizon diagnostic으로 쓸지 아니면 1M rerun 계획으로 넘길지 결정하는 것이다.
+FPP SAC common-grid artifact는 pipeline과 두 manuscript source에 연결됐다. 다음 결과 업데이트는 FPP canonical HGR와 audit를 통과한 Drawer HGR/REDQ runs를 기존 sampler-only rows와 분리해 추가하는 것이다. FPP TD-error partial 630k는 계속 main table에서 제외한다.

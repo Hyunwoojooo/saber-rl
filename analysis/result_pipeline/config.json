@@ -4,6 +4,45 @@
     "ci": 0.95,
     "seed": 27027
   },
+  "metric_overrides": [
+    {
+      "id": "fpp_sac_common_grid_50k",
+      "csv": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/results/per_seed_common_grid.csv",
+      "method_key_to_id": {
+        "her": "fpp_sac_her",
+        "saber": "fpp_sac_saber",
+        "random_support": "fpp_sac_random_support",
+        "random_fixed_count": "fpp_sac_random_fixed_count_k76",
+        "high_rr_x4": "fpp_sac_high_rr_x4",
+        "redq_her_tqb": "fpp_redq_her_tqb"
+      },
+      "metric_columns": {
+        "success_auc": "common_grid_auc",
+        "final_success": "common_grid_final_success",
+        "hit90_step": "common_grid_hit90"
+      },
+      "expected_seeds": [1, 2, 3, 4, 5],
+      "curve_grid": {
+        "start_step": 50000,
+        "stop_step": 1000000,
+        "step_size": 50000
+      }
+    }
+  ],
+  "paired_ci_overrides": [
+    {
+      "id": "fpp_sac_common_grid_50k",
+      "csv": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/results/paired_bootstrap_ci.csv",
+      "metric": "success_auc",
+      "comparison_to_pair_id": {
+        "SABER - HER": "fpp_sac_saber_minus_her",
+        "SABER - Random-Support": "fpp_sac_saber_minus_random_support",
+        "SABER - Random-Fixed-Count": "fpp_sac_saber_minus_random_fixed_count",
+        "SABER - high-RR x4": "fpp_sac_saber_minus_high_rr_x4",
+        "REDQ-HER TQB - SABER": "fpp_redq_her_tqb_minus_saber"
+      }
+    }
+  ],
   "rows": [
     {
       "id": "fpp_ddpg_her",
@@ -54,6 +93,42 @@
       ]
     },
     {
+      "id": "fpp_td3_high_rr_x4",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "HER high-RR x4",
+      "plot_group": "fpp_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/td3_her_high_replay_ratio_x4/fetch_pick_and_place_td3_her_high_rr_x4_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_td3_random_support",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "Random-support",
+      "plot_group": "fpp_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/td3_support_random_critic_only_ls512/fetch_pick_and_place_td3_support_random_critic_only_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_td3_random_fixed_count_k73",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "Random-fixed-count k73",
+      "plot_group": "fpp_td3",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/runs/td3_random_fixed_count_k73_critic_only_ls512/fetch_pick_and_place_td3_random_fixed_count_k73_critic_only_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
       "id": "fpp_sac_her",
       "task": "FetchPickAndPlace",
       "backbone": "SAC",
@@ -62,7 +137,7 @@
       "expected_total_steps": 1000000,
       "seeds": [1, 2, 3, 4, 5],
       "summary_globs": [
-        "experiment_FPP/runs/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s*_1000000_ls512/summary.json"
+        "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s*_1000000_ls512/summary.json"
       ]
     },
     {
@@ -74,7 +149,55 @@
       "expected_total_steps": 1000000,
       "seeds": [1, 2, 3, 4, 5],
       "summary_globs": [
-        "experiment_FPP/runs/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s*_1000000_ls512/summary.json"
+        "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_sac_high_rr_x4",
+      "task": "FetchPickAndPlace",
+      "backbone": "SAC",
+      "method": "HER high-RR x4",
+      "plot_group": "fpp_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_redq_her_tqb",
+      "task": "FetchPickAndPlace",
+      "backbone": "REDQ-SAC",
+      "method": "REDQ-HER TQB",
+      "plot_group": "fpp_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s*_1000000/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_sac_random_support",
+      "task": "FetchPickAndPlace",
+      "backbone": "SAC",
+      "method": "Random-support",
+      "plot_group": "fpp_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_support_random_critic_only_ls512/fetch_pick_and_place_sac_support_random_critic_only_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_sac_random_fixed_count_k76",
+      "task": "FetchPickAndPlace",
+      "backbone": "SAC",
+      "method": "Random-fixed-count k76",
+      "plot_group": "fpp_sac",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_random_fixed_count_k76_critic_only_ls512/fetch_pick_and_place_sac_random_fixed_count_k76_critic_only_ls512_s*_1000000_ls512/summary.json"
       ]
     },
     {
@@ -234,6 +357,18 @@
       ]
     },
     {
+      "id": "drawer_ddpg_hgr_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "HGR-style sampler-only",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_2m_opt/DDPG-HER-HGR-2m_opt/drawer_open_ddpg_hgr_tdpriority_s*_2m_opt_cuda/summary.json"
+      ]
+    },
+    {
       "id": "drawer_ddpg_random_fixed_count_2m",
       "task": "DrawerOpen",
       "backbone": "DDPG",
@@ -243,6 +378,42 @@
       "seeds": [1, 2, 3, 4, 5],
       "summary_globs": [
         "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Fixed-Count-2M/drawer_open_DDPG-HER-B3-Random-Fixed-Count-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_ddpg_shuffled_weight_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "Shuffled-weight",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Shuffled-Weight-2M/drawer_open_DDPG-HER-B3-Shuffled-Weight-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_ddpg_random_support_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "Random-support",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_ddpg_per_style_2m",
+      "task": "DrawerOpen",
+      "backbone": "DDPG",
+      "method": "HER+PER-style",
+      "plot_group": "drawer_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s*_2m_cuda/summary.json"
       ]
     },
     {
@@ -328,6 +499,78 @@
       "summary_globs": [
         "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Shuffled-Weight-2M/drawer_open_TD3-HER-B3-Shuffled-Weight-2M_s*_2m_cuda/summary.json"
       ]
+    },
+    {
+      "id": "drawer_close_td3_her_2m",
+      "task": "DrawerClose",
+      "backbone": "TD3",
+      "method": "HER",
+      "plot_group": "drawer_close_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M/drawer_close_TD3-HER-B0-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_close_td3_saber_2m",
+      "task": "DrawerClose",
+      "backbone": "TD3",
+      "method": "HER+SABER",
+      "plot_group": "drawer_close_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_close_TD3-HER-B3-Critic-Only-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_close_td3_random_fixed_count_2m",
+      "task": "DrawerClose",
+      "backbone": "TD3",
+      "method": "Random-fixed-count",
+      "plot_group": "drawer_close_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Random-Fixed-Count-2M/drawer_close_TD3-HER-B3-Random-Fixed-Count-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_close_td3_random_support_2m",
+      "task": "DrawerClose",
+      "backbone": "TD3",
+      "method": "Random-support",
+      "plot_group": "drawer_close_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Random-Support-2M/drawer_close_TD3-HER-B3-Random-Support-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_close_td3_shuffled_weight_2m",
+      "task": "DrawerClose",
+      "backbone": "TD3",
+      "method": "Shuffled-weight",
+      "plot_group": "drawer_close_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Shuffled-Weight-2M/drawer_close_TD3-HER-B3-Shuffled-Weight-2M_s*_2m_cuda/summary.json"
+      ]
+    },
+    {
+      "id": "drawer_close_td3_per_style_2m",
+      "task": "DrawerClose",
+      "backbone": "TD3",
+      "method": "HER+PER-style",
+      "plot_group": "drawer_close_td3",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-PER-Style-2M/drawer_close_TD3-HER-PER-Style-2M_s*_2m_cuda/summary.json"
+      ]
     }
   ],
   "pairs": [
@@ -347,11 +590,41 @@
     {"id": "fetchslide_ddpg_saber_minus_her", "baseline": "fetchslide_ddpg_her", "treatment": "fetchslide_ddpg_saber"},
     {"id": "fetchslide_td3_saber_minus_her", "baseline": "fetchslide_td3_her", "treatment": "fetchslide_td3_saber"},
     {"id": "fetchslide_sac_saber_minus_her", "baseline": "fetchslide_sac_her", "treatment": "fetchslide_sac_saber"},
+    {"id": "fpp_td3_random_support_minus_her", "baseline": "fpp_td3_her", "treatment": "fpp_td3_random_support"},
+    {"id": "fpp_td3_random_fixed_count_minus_her", "baseline": "fpp_td3_her", "treatment": "fpp_td3_random_fixed_count_k73"},
+    {"id": "fpp_td3_saber_minus_random_support", "baseline": "fpp_td3_random_support", "treatment": "fpp_td3_saber"},
+    {"id": "fpp_td3_saber_minus_random_fixed_count", "baseline": "fpp_td3_random_fixed_count_k73", "treatment": "fpp_td3_saber"},
+    {"id": "fpp_td3_high_rr_x4_minus_her", "baseline": "fpp_td3_her", "treatment": "fpp_td3_high_rr_x4"},
+    {"id": "fpp_td3_saber_minus_high_rr_x4", "baseline": "fpp_td3_high_rr_x4", "treatment": "fpp_td3_saber"},
+    {"id": "fpp_sac_high_rr_x4_minus_her", "baseline": "fpp_sac_her", "treatment": "fpp_sac_high_rr_x4"},
+    {"id": "fpp_sac_saber_minus_high_rr_x4", "baseline": "fpp_sac_high_rr_x4", "treatment": "fpp_sac_saber"},
+    {"id": "fpp_sac_random_support_minus_her", "baseline": "fpp_sac_her", "treatment": "fpp_sac_random_support"},
+    {"id": "fpp_sac_random_fixed_count_minus_her", "baseline": "fpp_sac_her", "treatment": "fpp_sac_random_fixed_count_k76"},
+    {"id": "fpp_sac_saber_minus_random_support", "baseline": "fpp_sac_random_support", "treatment": "fpp_sac_saber"},
+    {"id": "fpp_sac_saber_minus_random_fixed_count", "baseline": "fpp_sac_random_fixed_count_k76", "treatment": "fpp_sac_saber"},
+    {"id": "fpp_redq_her_tqb_minus_saber", "baseline": "fpp_sac_saber", "treatment": "fpp_redq_her_tqb"},
     {"id": "drawer_ddpg_saber_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_ddpg_hgr_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_hgr_2m"},
+    {"id": "drawer_ddpg_saber_minus_hgr", "baseline": "drawer_ddpg_hgr_2m", "treatment": "drawer_ddpg_saber_2m"},
     {"id": "drawer_ddpg_random_fixed_count_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_random_fixed_count_2m"},
     {"id": "drawer_ddpg_saber_minus_random_fixed_count", "baseline": "drawer_ddpg_random_fixed_count_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_ddpg_shuffled_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_shuffled_weight_2m"},
+    {"id": "drawer_ddpg_saber_minus_shuffled", "baseline": "drawer_ddpg_shuffled_weight_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_ddpg_random_support_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_random_support_2m"},
+    {"id": "drawer_ddpg_saber_minus_random_support", "baseline": "drawer_ddpg_random_support_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_ddpg_per_style_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_per_style_2m"},
+    {"id": "drawer_ddpg_saber_minus_per_style", "baseline": "drawer_ddpg_per_style_2m", "treatment": "drawer_ddpg_saber_2m"},
     {"id": "drawer_saber_minus_her", "baseline": "drawer_td3_her_2m", "treatment": "drawer_td3_saber_2m"},
     {"id": "drawer_random_support_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_random_support_2m"},
-    {"id": "drawer_shuffled_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_shuffled_weight_2m"}
+    {"id": "drawer_shuffled_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_shuffled_weight_2m"},
+    {"id": "drawer_close_td3_saber_minus_her", "baseline": "drawer_close_td3_her_2m", "treatment": "drawer_close_td3_saber_2m"},
+    {"id": "drawer_close_td3_random_fixed_count_minus_her", "baseline": "drawer_close_td3_her_2m", "treatment": "drawer_close_td3_random_fixed_count_2m"},
+    {"id": "drawer_close_td3_random_support_minus_her", "baseline": "drawer_close_td3_her_2m", "treatment": "drawer_close_td3_random_support_2m"},
+    {"id": "drawer_close_td3_shuffled_weight_minus_her", "baseline": "drawer_close_td3_her_2m", "treatment": "drawer_close_td3_shuffled_weight_2m"},
+    {"id": "drawer_close_td3_per_style_minus_her", "baseline": "drawer_close_td3_her_2m", "treatment": "drawer_close_td3_per_style_2m"},
+    {"id": "drawer_close_td3_saber_minus_random_fixed_count", "baseline": "drawer_close_td3_random_fixed_count_2m", "treatment": "drawer_close_td3_saber_2m"},
+    {"id": "drawer_close_td3_saber_minus_random_support", "baseline": "drawer_close_td3_random_support_2m", "treatment": "drawer_close_td3_saber_2m"},
+    {"id": "drawer_close_td3_saber_minus_shuffled_weight", "baseline": "drawer_close_td3_shuffled_weight_2m", "treatment": "drawer_close_td3_saber_2m"},
+    {"id": "drawer_close_td3_saber_minus_per_style", "baseline": "drawer_close_td3_per_style_2m", "treatment": "drawer_close_td3_saber_2m"}
   ]
 }

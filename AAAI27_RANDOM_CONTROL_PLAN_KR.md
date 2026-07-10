@@ -1,21 +1,28 @@
 # SABER AAAI-27 Random-Control Experiment Plan
 
 작성일: 2026-06-24
+최근 업데이트: 2026-07-01
 목적: SABER의 성능 향상이 structured local support 때문인지, 아니면 단순 random reweighting regularization 때문인지 구분하기 위한 FPP random-control 실험 계획을 고정한다.
 
 ## 1. 결론
 
-FPP main task에서 random-control은 새 실험이 필요하다.
+FPP DDPG, TD3, SAC random-control은 모두 완료되었다. 원고와 result pipeline에는 DDPG/TD3/SAC random-support 및 random-fixed-count controls를 반영했다. 추가로 DrawerOpen DDPG Random-Support/PER-Style/Random-Fixed/Shuffled controls와 DrawerClose TD3 Random-Support/Random-Fixed controls를 stress-test evidence로 반영했다.
 
 현재 repository 상태:
 
 | Control | Existing FPP artifact | 판단 |
 | --- | --- | --- |
-| Random-Support | `experiment_FPP/runs/B3-critic-only-random` 1k smoke 수준 | 1M main/control evidence로 불가 |
-| Shuffled-Weight | `experiment_FPP/runs/B3-critic-only-shuffled` 1k smoke 수준 | 1M main/control evidence로 불가 |
-| Random-Fixed-Count | FPP artifact 없음 | 새 구현 또는 port 필요 |
+| DDPG Random-Support | `experiment_FPP/runs/b3_support_random_critic_only_ls512` | 1M, seeds 1--5 완료. SABER와 AUC가 거의 같아 exact sample-level alignment claim을 약화함 |
+| DDPG Shuffled-Weight | `experiment_FPP/runs/b3_support_shuffled_critic_only_ls512` | 1M, seeds 1--5 완료. SABER보다 AUC와 Hit90이 낮음 |
+| DDPG Random-Fixed-Count k94 | `experiment_FPP/runs/b3_random_fixed_count_k94_critic_only_ls512` | 1M, seeds 1--5 완료. AUC가 HER와 거의 같아 fixed-count random weighting만으로 SABER gain을 설명하지 못함 |
+| TD3 Random-Support | `experiment_FPP/runs/td3_support_random_critic_only_ls512` | 1M, seeds 1--5 완료. HER 수준에 머물고 SABER보다 낮음 |
+| TD3 Random-Fixed-Count k73 | `experiment_FPP/runs/td3_random_fixed_count_k73_critic_only_ls512` | 1M, seeds 1--5 완료. HER 수준에 머물고 SABER보다 낮음 |
+| SAC Random-Support | `experiment_FPP/runs/sac_support_random_critic_only_ls512` | 1M, seeds 1--5 완료. AUC가 HER와 거의 같고 SABER보다 낮음 |
+| SAC Random-Fixed-Count k76 | `experiment_FPP/runs/sac_random_fixed_count_k76_critic_only_ls512` | 1M, seeds 1--5 완료. final success는 1.0으로 포화되지만 AUC는 SABER보다 낮음 |
 
-DrawerOpen과 FetchPush에는 random/shuffled/fixed-count 계열이 있지만, FPP main claim을 방어하려면 FPP에서 직접 control을 보여야 한다.
+현재 해석은 mixed evidence다. FPP DDPG에서는 support-positive count 또는 support-conditioned reweighting regime 자체가 강한 regularization으로 보인다. FPP TD3에서는 random controls가 SABER의 AUC gain을 설명하지 못한다. FPP SAC에서는 random-fixed-count가 final success를 포화시키지만, AUC에서는 SABER보다 낮다. 따라서 random reweighting만으로 모든 SABER gain을 설명할 수 없지만, structured support alignment가 모든 setting에서 유일한 mechanism이라고도 말하면 안 된다.
+
+DrawerOpen DDPG에서는 Random-Support와 PER-Style도 강하므로 HER 대비 large-effect evidence로만 사용하고 causal mechanism proof로 쓰지 않는다. DrawerClose TD3에서는 Random-Fixed-Count가 final collapse를 보이므로 fixed-count random reweighting이 모든 manipulation settings에서 SABER를 대체하지 못한다는 stress-test로 사용한다.
 
 ## 2. 왜 필요한가
 

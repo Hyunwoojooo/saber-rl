@@ -41,27 +41,38 @@ PLOT_GROUP_LABELS = {
     "drawer_ddpg": "Meta-World DrawerOpen DDPG",
     "drawer_td3": "Meta-World DrawerOpen TD3",
     "drawer_controls": "Meta-World DrawerOpen TD3 Controls",
+    "drawer_close_td3": "Meta-World DrawerClose TD3",
 }
 
 METHOD_ORDER = {
     "HER": 0,
     "HER+SABER": 1,
-    "Random-support": 2,
-    "Shuffled-weight": 3,
-    "Random-fixed-count": 4,
-    "Random-fixed-count k94": 4,
-    "HER+PER-style": 5,
-    "HER+PER-full": 6,
-    "Actor-only weighting": 7,
-    "Actor+critic weighting": 8,
+    "HGR-style sampler-only": 2,
+    "HER high-RR x4": 3,
+    "REDQ-HER TQB": 4,
+    "Random-support": 3,
+    "Shuffled-weight": 4,
+    "Random-fixed-count": 5,
+    "Random-fixed-count k73": 5,
+    "Random-fixed-count k76": 5,
+    "Random-fixed-count k94": 5,
+    "HER+PER-style": 6,
+    "HER+PER-full": 7,
+    "Actor-only weighting": 8,
+    "Actor+critic weighting": 9,
 }
 
 METHOD_COLORS = {
     "HER": "#4C566A",
     "HER+SABER": "#006D77",
+    "HGR-style sampler-only": "#A44A3F",
+    "HER high-RR x4": "#A16207",
+    "REDQ-HER TQB": "#7C3AED",
     "Random-support": "#B56576",
     "Shuffled-weight": "#6D597A",
     "Random-fixed-count": "#D97706",
+    "Random-fixed-count k73": "#D97706",
+    "Random-fixed-count k76": "#D97706",
     "Random-fixed-count k94": "#D97706",
     "HER+PER-style": "#2563EB",
     "HER+PER-full": "#9333EA",
@@ -189,11 +200,25 @@ def per_seed_record(row: MethodRow, summary_path: Path) -> dict[str, Any] | None
         ),
         "best_success": as_float(first_present(summary, ["best_eval_success", "best_success"])),
         "success_auc": as_float(first_present(summary, ["eval_AUC_success", "auc_eval_mean", "auc_trapz_0_to_total"])),
-        "last_quarter_auc": as_float(summary.get("last_quarter_auc")),
+        "last_quarter_auc": as_float(
+            first_present(summary, ["last_quarter_auc", "eval_last_quarter_AUC_success"])
+        ),
         "hit90_step": as_float(summary.get("first_hit_0.90")),
         "runtime_total_sec": as_float(summary.get("runtime_total_sec")),
         "steps_per_sec": as_float(first_present(summary, ["final_steps_per_sec", "steps_per_sec"])),
     }
+    record.update(
+        {
+            "native_final_success": record["final_success"],
+            "native_success_auc": record["success_auc"],
+            "native_hit90_step": record["hit90_step"],
+            "metric_source": "native_summary",
+            "metric_override_path": "",
+            "curve_grid_start_step": "",
+            "curve_grid_stop_step": "",
+            "curve_grid_step_size": "",
+        }
+    )
     return record
 
 
@@ -217,6 +242,79 @@ def collect_per_seed(rows: list[MethodRow]) -> tuple[list[dict[str, Any]], list[
         if missing:
             warnings.append(f"missing seeds for {row.id}: {missing}")
     return sorted(records, key=lambda r: (r["task"], r["backbone"], r["method_id"], int(r["seed"]))), warnings
+
+
+def apply_metric_overrides(
+    config: dict[str, Any],
+    per_seed: list[dict[str, Any]],
+    root: Path = ROOT,
+) -> list[str]:
+    by_method_seed = {(str(r["method_id"]), int(r["seed"])): r for r in per_seed}
+    notes: list[str] = []
+    allowed_metrics = {"final_success", "success_auc", "hit90_step"}
+
+    for raw_override in config.get("metric_overrides", []):
+        override_id = str(raw_override["id"])
+        relative_path = Path(str(raw_override["csv"]))
+        csv_path = root / relative_path
+        if not csv_path.exists():
+            raise FileNotFoundError(f"metric override not found: {relative_path}")
+
+        method_key_to_id = {
+            str(key): str(value) for key, value in raw_override["method_key_to_id"].items()
+        }
+        metric_columns = {
+            str(metric): str(column) for metric, column in raw_override["metric_columns"].items()
+        }
+        unsupported = sorted(set(metric_columns) - allowed_metrics)
+        if unsupported:
+            raise ValueError(f"unsupported metric override columns for {override_id}: {unsupported}")
+
+        expected_seeds = tuple(int(seed) for seed in raw_override.get("expected_seeds", []))
+        curve_grid = raw_override.get("curve_grid", {})
+        seen: set[tuple[str, int]] = set()
+
+        with csv_path.open(newline="") as f:
+            for source_row in csv.DictReader(f):
+                method_id = method_key_to_id.get(str(source_row.get("method_key", "")))
+                if method_id is None:
+                    continue
+                seed_value = as_float(source_row.get("seed"))
+                if seed_value is None:
+                    raise ValueError(f"missing seed in metric override {override_id}")
+                key = (method_id, int(seed_value))
+                if key in seen:
+                    raise ValueError(f"duplicate metric override row: {override_id} {key}")
+                record = by_method_seed.get(key)
+                if record is None:
+                    raise ValueError(f"metric override has no matching pipeline row: {override_id} {key}")
+
+                for metric, source_column in metric_columns.items():
+                    value = as_float(source_row.get(source_column))
+                    if value is None and metric != "hit90_step":
+                        raise ValueError(
+                            f"missing {source_column} for {override_id} method={method_id} seed={key[1]}"
+                        )
+                    record[metric] = value
+
+                record["metric_source"] = override_id
+                record["metric_override_path"] = str(relative_path)
+                record["curve_grid_start_step"] = curve_grid.get("start_step", "")
+                record["curve_grid_stop_step"] = curve_grid.get("stop_step", "")
+                record["curve_grid_step_size"] = curve_grid.get("step_size", "")
+                seen.add(key)
+
+        expected = {
+            (method_id, seed)
+            for method_id in method_key_to_id.values()
+            for seed in expected_seeds
+        }
+        missing = sorted(expected - seen)
+        if missing:
+            raise ValueError(f"incomplete metric override {override_id}; missing {missing}")
+        notes.append(f"metric override applied: {override_id} ({len(seen)} method-seed rows)")
+
+    return notes
 
 
 def numeric_values(records: list[dict[str, Any]], metric: str) -> list[float]:
@@ -399,17 +497,92 @@ def paired_bootstrap(paired: list[dict[str, Any]], iterations: int, ci: float, s
                 "ci_high": hi,
                 "ci": ci,
                 "bootstrap_iterations": iterations,
+                "ci_source": "result_pipeline_bootstrap",
             }
         )
     return out
 
 
+def apply_paired_ci_overrides(
+    config: dict[str, Any],
+    paired_ci: list[dict[str, Any]],
+    root: Path = ROOT,
+) -> list[str]:
+    by_pair_metric = {(str(r["pair_id"]), str(r["metric"])): r for r in paired_ci}
+    notes: list[str] = []
+
+    for raw_override in config.get("paired_ci_overrides", []):
+        override_id = str(raw_override["id"])
+        relative_path = Path(str(raw_override["csv"]))
+        csv_path = root / relative_path
+        if not csv_path.exists():
+            raise FileNotFoundError(f"paired CI override not found: {relative_path}")
+        metric = str(raw_override["metric"])
+        comparison_to_pair_id = {
+            str(key): str(value) for key, value in raw_override["comparison_to_pair_id"].items()
+        }
+        seen: set[str] = set()
+
+        with csv_path.open(newline="") as f:
+            for source_row in csv.DictReader(f):
+                comparison = str(source_row.get("comparison", ""))
+                pair_id = comparison_to_pair_id.get(comparison)
+                if pair_id is None:
+                    continue
+                target = by_pair_metric.get((pair_id, metric))
+                if target is None:
+                    raise ValueError(f"paired CI override has no pipeline row: {override_id} {pair_id} {metric}")
+                if pair_id in seen:
+                    raise ValueError(f"duplicate paired CI override row: {override_id} {pair_id}")
+
+                values = {
+                    "n": as_float(source_row.get("n_seed_pairs")),
+                    "mean_delta": as_float(source_row.get("paired_difference_mean")),
+                    "ci_low": as_float(source_row.get("ci_lower_95")),
+                    "ci_high": as_float(source_row.get("ci_upper_95")),
+                    "bootstrap_iterations": as_float(source_row.get("resamples")),
+                }
+                if any(value is None for value in values.values()):
+                    raise ValueError(f"incomplete paired CI override row: {override_id} {comparison}")
+                target.update(
+                    {
+                        "n": int(values["n"]),
+                        "mean_delta": values["mean_delta"],
+                        "ci_low": values["ci_low"],
+                        "ci_high": values["ci_high"],
+                        "bootstrap_iterations": int(values["bootstrap_iterations"]),
+                    }
+                )
+                target["ci_source"] = override_id
+                seen.add(pair_id)
+
+        expected = set(comparison_to_pair_id.values())
+        missing = sorted(expected - seen)
+        if missing:
+            raise ValueError(f"incomplete paired CI override {override_id}; missing {missing}")
+        notes.append(f"paired CI override applied: {override_id} ({len(seen)} comparisons)")
+
+    return notes
+
+
 def curve_success_value(row: dict[str, str]) -> float | None:
-    for key in ["eval/success_mean", "eval/goal_success_mean", "eval/env_success_mean"]:
+    for key in ["eval/env_success_mean", "eval/success_mean", "eval/goal_success_mean"]:
         value = as_float(row.get(key))
         if value is not None:
             return value
     return None
+
+
+def curve_step_allowed(record: dict[str, Any], step: int) -> bool:
+    start = as_float(record.get("curve_grid_start_step"))
+    stop = as_float(record.get("curve_grid_stop_step"))
+    step_size = as_float(record.get("curve_grid_step_size"))
+    if start is None or stop is None or step_size is None:
+        return True
+    start_int = int(start)
+    stop_int = int(stop)
+    step_int = int(step_size)
+    return start_int <= step <= stop_int and (step - start_int) % step_int == 0
 
 
 LOG_EVAL_RE = re.compile(
@@ -428,6 +601,8 @@ def load_curve_points_from_log(record: dict[str, Any]) -> list[dict[str, Any]]:
         if match is None:
             continue
         step = int(match.group("step"))
+        if not curve_step_allowed(record, step):
+            continue
         success = as_float(match.group("env"))
         if success is None:
             success = as_float(match.group("goal"))
@@ -465,7 +640,10 @@ def load_curve_points(record: dict[str, Any]) -> list[dict[str, Any]]:
             success = curve_success_value(row)
             if step is None or success is None:
                 continue
-            by_step[int(step)] = success
+            step_int = int(step)
+            if not curve_step_allowed(record, step_int):
+                continue
+            by_step[step_int] = success
     points: list[dict[str, Any]] = []
     for step, success in sorted(by_step.items()):
         points.append(
@@ -579,7 +757,7 @@ def write_report(
     else:
         lines.append("- No figures were generated. Install matplotlib or Pillow to enable PNG plots.")
     if warnings:
-        lines.extend(["", "## Warnings", ""])
+        lines.extend(["", "## Pipeline Notes and Warnings", ""])
         lines.extend(f"- {warning}" for warning in warnings)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n")
@@ -821,6 +999,7 @@ def main() -> int:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     per_seed, warnings = collect_per_seed(rows)
+    warnings.extend(apply_metric_overrides(config, per_seed))
     aggregate = aggregate_records(per_seed)
     boot_cfg = config.get("bootstrap", {})
     iterations = int(boot_cfg.get("iterations", 10000))
@@ -829,6 +1008,7 @@ def main() -> int:
     aggregate_ci = aggregate_bootstrap(per_seed, iterations, ci, seed)
     paired = paired_differences(config, per_seed)
     paired_ci = paired_bootstrap(paired, iterations, ci, seed)
+    warnings.extend(apply_paired_ci_overrides(config, paired_ci))
     curves = collect_curves(per_seed)
     curve_aggregate = aggregate_curves(curves)
 

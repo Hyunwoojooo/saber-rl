@@ -1,0 +1,260 @@
+% SABER AAAI-27 Korean submission skeleton.
+% This file is intentionally separated from saber_aaai27_draft_kr.tex.
+% Goal: keep the main submission self-contained and close to AAAI page limits.
+% English page-limited submission skeleton.
+
+\documentclass[letterpaper]{article}
+\usepackage[submission]{aaai2027}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\graphicspath{{./}{../}}
+\urlstyle{rm}
+\def\UrlFont{\rm}
+\usepackage{natbib}
+\usepackage{caption}
+\frenchspacing
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\ifdefined\pdfinfo
+\pdfinfo{
+/TemplateVersion (2027.1)
+}
+\fi
+
+\setcounter{secnumdepth}{0}
+\setcounter{dbltopnumber}{3}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+
+\title{SABER: Support-Conditioned Adaptive Bellman Error Reweighting for Sparse HER Actor-Critic}
+\author{Anonymous Submission}
+\affiliations{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Sparse goal-conditioned reinforcement learning commonly uses Hindsight Experience Replay (HER) to convert failed trajectories into relabeled Bellman targets. HER increases target quantity, but it does not decide which relabeled Bellman residuals are most useful for fitting a critic near the current policy action. We call this the hindsight Bellman critic-fit usefulness gap.
+We propose SABER, a support-conditioned adaptive Bellman error reweighting objective. For each HER sample, SABER checks whether the current policy action lies inside a local replay-action support set for the same state-goal-horizon context, then applies a larger batch-normalized weight only to the critic Bellman residual. HER relabeling, replay sampling, actor objective, critic architecture, and backbone target construction are unchanged.
+On FetchPickAndPlace, SABER improves one-update-per-step matched HER baselines across DDPG, TD3, and SAC in mean final success and success AUC, with statistically clearer AUC gains on TD3 and SAC. DrawerOpen DDPG provides a large-effect case, while an HGR-style sampler-only row and random/PER controls prevent a canonical goal-prioritization or unique-causality claim. High replay-ratio HER and REDQ-HER can match or exceed SABER's environment-step AUC under larger update/backbone budgets, and DDPG/TD3/SAC diagnostics support mixed critic error allocation rather than a lower-noise reliability proof.
+\end{abstract}
+
+\section{Introduction}
+
+Sparse-reward goal-conditioned RL is dominated by the question of how to obtain useful training signal when successes are rare. HER addresses this by relabeling failed trajectories with achieved goals~\citep{andrychowicz2017her}, turning failures into additional goal-conditioned Bellman targets. However, HER chooses \emph{which goals} to train on; it does not decide whether every relabeled Bellman residual is equally useful for fitting the critic near the action currently queried by the actor.
+
+This distinction matters in off-policy actor-critic. The critic regresses Bellman targets at replay actions, while the actor improves by querying the critic at current policy actions. If the current policy action lies outside the local replay-action support for the same state-goal context, critic estimates in the actor-query region may be more fragile. We do not claim that this is a theorem or that support-positive targets are intrinsically lower-noise. Instead, we study local replay-action support as a policy-relevant proxy for allocating critic fitting pressure after HER.
+
+SABER is a narrow intervention: it reweights only the critic Bellman loss. It does not change HER relabeling, replay sampling, actor objective, backbone Bellman targets, or critic architecture. The paper is therefore a matched-backbone study of post-HER critic-loss allocation under the standard one-update-per-step regime, with high replay-ratio HER and REDQ-HER as compute/backbone-scaling references.
+
+Our contributions are:
+\begin{itemize}
+    \item We formulate the hindsight Bellman critic-fit usefulness gap: relabeled target quantity and current-policy critic supervision quality are distinct.
+    \item We introduce SABER, a support-conditioned critic-only Bellman residual reweighting objective that can be attached to DDPG, TD3, and SAC HER backbones.
+    \item We provide FPP cross-backbone evidence, DrawerOpen large-effect evidence, random/PER/scaling controls, an HGR-style sampler-only ablation, and diagnostics that define a cautious mixed-mechanism boundary.
+\end{itemize}
+
+\begin{figure*}[t]
+\centering
+\setlength{\fboxsep}{5pt}
+\begin{tabular}{c@{\hspace{0.9em}$\rightarrow$\hspace{0.9em}}c@{\hspace{0.9em}$\rightarrow$\hspace{0.9em}}c@{\hspace{0.9em}$\rightarrow$\hspace{0.9em}}c}
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{1. HER batch}\\[-1pt]\(s_i,a_i^r,g_i^{tr},r_i,s'_i\)\\\scriptsize unchanged relabeling}} &
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{2. Policy query}\\[-1pt]\(a_i^\pi=\pi(s_i,g_i^{tr})\)\\\scriptsize build local pool \(\mathcal L_i\)}} &
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{3. Support weight}\\[-1pt]\(\psi_i\rightarrow\omega_i\rightarrow\Omega_i\)\\\scriptsize batch-normalized}} &
+\fbox{\parbox[c][1.35cm][c]{0.17\textwidth}{\centering\textbf{4. Critic update}\\[-1pt]\(\Omega_i(Q_\theta-y_i)^2\)\\\scriptsize actor loss unchanged}}
+\end{tabular}
+\vspace{0.35em}
+
+\fbox{\parbox{0.91\textwidth}{\centering\scriptsize
+\textbf{Changed:} sample-wise critic TD-loss allocation.\quad
+\textbf{Unchanged:} HER goal generation, replay sampling, Bellman targets, actor objective, and critic architecture.}}
+\caption{SABER intervenes after HER relabeling and before critic-loss aggregation. The policy action queries local support; Bellman regression remains at the replay action.}
+\label{fig:saber-method-overview-submission}
+\end{figure*}
+
+\section{Related Work and Scope}
+
+HER and later goal-conditioned methods improve sparse reward learning by changing how training goals, episodes, transitions, or targets are produced~\citep{andrychowicz2017her,ren2019hgg,fang2019cher,zhao2018ebp,luu2021hgr,yang2021mher}. Canonical HGR combines TD-error episode/goal sampling with importance correction; our current DrawerOpen row keeps only the sampler and is labeled accordingly. ARCHER rescales hindsight rewards, while USHER uses an importance ratio to correct HER Bellman bias~\citep{lanka2018archer,schramm2023usher}. SABER instead keeps rewards, replay sampling, and one-step targets fixed and applies a local-support allocation weight without an unbiasedness claim.
+
+PER prioritizes large TD-error samples~\citep{schaul2015per}. SABER does not rank by TD-error magnitude; its signal is local support of the current policy action. We nevertheless include PER-style and diagnostic comparisons because support-positive samples can be enriched among high-error samples. REDQ and sparse-goal REDQ-HER use high update-to-data ratios and Q ensembles~\citep{chen2021redq,hiraoka2023sparsegoalredq}; these are important compute/backbone-scaled references but are outside SABER's matched-backbone regime. The actor-critic backbones are DDPG, TD3, and SAC~\citep{lillicrap2015ddpg,fujimoto2018td3,haarnoja2018sac}. Experiments use Fetch and Meta-World manipulation tasks~\citep{plappert2018multigoal,yu2020metaworld}.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{SABER changes only the critic loss allocation.}
+\label{tab:changed-unchanged}
+\begin{tabular}{lll}
+\toprule
+Component & Baseline HER & SABER \\
+\midrule
+HER relabeling & future goals & unchanged \\
+Replay sampling & uniform & unchanged \\
+Actor objective & backbone-specific & unchanged \\
+Bellman target & DDPG/TD3/SAC target & unchanged \\
+Critic architecture & backbone-specific & unchanged \\
+Critic TD loss & unweighted mean & support-weighted \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Method}
+
+For a replay transition \(i\), let \(x_i=(s_i,g_i,h_i)\) denote a local state-goal-horizon context, \(a_i^r\) the replay action, and \(a_i^\pi=\pi(s_i,g_i)\) the current policy action. SABER builds a local pool \(L_i\) of replay actions with similar context and discretizes actions into bins. Let \(B_i\) be the set of occupied action bins in this local pool. The support indicator is
+\begin{align}
+\psi_i={}&\mathbb{1}\{|L_i|\ge N_{\mathrm{local}}\}
+\mathbb{1}\{\min(|L_i|,M_B)\ge M_{\mathrm{avail}}\}\notag\\
+&\cdot \mathbb{1}\{b_i^\pi\in B_i\}.
+\end{align}
+This predicate is a coarse local-support proxy, not a direct target-noise estimator.
+
+SABER maps \(\psi_i\) to a raw weight \(\omega_i=1+\lambda_S\psi_i\), then batch-normalizes it:
+\begin{equation}
+\Omega_i=\frac{\omega_i}{\frac{1}{|\mathcal B|}\sum_{j\in\mathcal B}\omega_j}.
+\end{equation}
+For a one-step HER Bellman target \(y_i\) and critic \(Q_\theta\), the critic objective is
+\begin{equation}
+\mathcal L_Q(\theta)=\frac{1}{|\mathcal B|}\sum_{i\in\mathcal B}\Omega_i\left(Q_\theta(s_i,a_i^r,g_i)-y_i\right)^2.
+\end{equation}
+For TD3 and SAC, the same \(\Omega_i\) is applied to each critic's Bellman residual. Actor updates and target networks remain exactly those of the underlying backbone.
+
+\section{Experimental Setup}
+
+We evaluate sparse FetchPickAndPlace (FPP), FetchSlide, and Meta-World DrawerOpen/DrawerClose wrappers. Main Fetch rows use 1M environment steps, seeds \(1,\ldots,5\), HER ratio 0.8, batch size 256, and 20 evaluation episodes. FPP SAC AUC and Hit90 use the exact shared grid \(\{50\mathrm{k},\ldots,1\mathrm{M}\}\) with no interpolation or filling; this removes the legacy 25k versus newer 10k evaluation-frequency mismatch. Drawer rows use 2M steps. Steps/sec and runtime are observed, not hardware-normalized claims.
+
+The central comparison is matched-backbone one-update-per-step HER versus HER+SABER. Controls include an HGR-style sampler-only row, PER-style/full PER, random-support, shuffled-weight, random-fixed-count, high replay-ratio HER, REDQ-HER target-Q-bound, and sample-level diagnostics. Canonical HGR and HGG/MHER/CHER are not directly compared in this version.
+
+\section{Results}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\textwidth]{output/figures/fpp_saber_main_evidence.png}
+\caption{FetchPickAndPlace evidence across matched one-update-per-step HER backbones. Error bars show seed standard deviation. SABER has higher mean final success and AUC on all three backbones; paired AUC intervals exclude zero for TD3/SAC and include zero for DDPG.}
+\label{fig:fpp-main-evidence-submission}
+\end{figure*}
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{FPP main results at 1M steps. SAC AUC and Hit90 use the exact shared 50k--1M grid. SABER improves means across all backbones; paired AUC CIs are clearer for TD3/SAC than DDPG.}
+\label{tab:fpp-main-submission}
+\begin{tabular}{llcccc}
+\toprule
+Backbone & Method & Final & AUC & Hit90 & Steps/sec \\
+\midrule
+DDPG & HER & \(0.940 \pm 0.042\) & \(0.539 \pm 0.125\) & 600k (5/5) & \(65.03\) \\
+DDPG & HER+SABER & \(0.960 \pm 0.042\) & \(0.609 \pm 0.038\) & 540k (5/5) & \(41.72\) \\
+TD3 & HER & \(0.840 \pm 0.188\) & \(0.372 \pm 0.032\) & 980k (3/5) & \(65.33\) \\
+TD3 & HER+SABER & \(0.970 \pm 0.045\) & \(0.442 \pm 0.035\) & 840k (5/5) & \(41.25\) \\
+SAC & HER & \(0.790 \pm 0.288\) & \(0.471 \pm 0.079\) & 800k (3/5) & \(38.93\) \\
+SAC & HER+SABER & \(0.990 \pm 0.022\) & \(0.583 \pm 0.030\) & 750k (5/5) & \(29.10\) \\
+\midrule
+DDPG & \(\Delta\) SABER--HER & \(+0.020[-0.040,0.070]\) & \(+0.070[-0.016,0.193]\) & -- & -- \\
+TD3 & \(\Delta\) SABER--HER & \(+0.130[-0.030,0.310]\) & \(+0.071[0.032,0.095]\) & -- & -- \\
+SAC & \(\Delta\) SABER--HER & \(+0.200[-0.020,0.430]\) & \(+0.112[0.064,0.161]\) & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:fpp-main-submission} supports a narrow breadth claim: SABER is compatible with DDPG, TD3, and SAC HER and improves mean FPP performance under the one-update matched regime. It does not establish universal statistical improvement; the DDPG AUC CI includes zero.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{FPP scaling references. SAC/REDQ metrics use the exact shared 50k--1M grid. High-RR and REDQ rows expose update/backbone budget tradeoffs.}
+\label{tab:scaling-submission}
+\begin{tabular}{llccccc}
+\toprule
+Backbone & Method & Updates/step & Final & AUC & Hit90 & Runtime h \\
+\midrule
+DDPG & HER+SABER & 1 & \(0.960 \pm 0.042\) & \(0.609 \pm 0.038\) & 540k (5/5) & 6.66 \\
+DDPG & HER high-RR \(4\times\) & 4 & \(0.990 \pm 0.022\) & \(0.618 \pm 0.071\) & 480k (5/5) & 16.11 \\
+DDPG & HER high-RR \(8\times\) & 8 & \(0.720 \pm 0.407\) & \(0.443 \pm 0.269\) & 620k (3/5) & 31.85 \\
+TD3 & HER+SABER & 1 & \(0.970 \pm 0.045\) & \(0.442 \pm 0.035\) & 840k (5/5) & 6.74 \\
+TD3 & HER high-RR \(4\times\) & 4 & \(0.610 \pm 0.243\) & \(0.449 \pm 0.079\) & 630k (1/5) & 8.76 \\
+SAC & HER+SABER & 1 & \(0.990 \pm 0.022\) & \(0.583 \pm 0.030\) & 750k (5/5) & 9.55 \\
+SAC & HER high-RR \(4\times\) & 4 & \(0.960 \pm 0.042\) & \(0.768 \pm 0.097\) & 450k (5/5) & 47.02 \\
+REDQ-SAC & REDQ-HER TQB & 4 & \(1.000 \pm 0.000\) & \(0.867 \pm 0.052\) & 300k (5/5) & 89.52 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:scaling-submission} is deliberately unfavorable to an overbroad SABER claim. DDPG/TD3 high-RR \(4\times\) can match SABER's AUC, SAC high-RR exceeds it, and REDQ-HER TQB is the strongest FPP row. Therefore SABER should be interpreted as a one-update matched-backbone critic allocation objective, not as a replacement for compute or architecture scaling.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Compact control-closure summary.}
+\label{tab:closure-submission}
+\begin{tabular}{p{0.29\textwidth}p{0.31\textwidth}p{0.31\textwidth}}
+\toprule
+Evidence & Ruled out & Remaining interpretation \\
+\midrule
+DDPG controls: Random-fixed AUC 0.540 is close to HER 0.539; Random-support AUC 0.604 is close to SABER 0.609. &
+Fixed-count random weighting alone does not explain the gain. &
+FPP DDPG does not isolate exact sample-level support alignment; count-preserving randomization can regularize. \\
+\addlinespace
+TD3/SAC controls: TD3 random controls stay near HER; exact-grid SAC AUC is 0.583 for SABER, 0.482 for random-support, and 0.526 for random-fixed despite final saturation. &
+Random reweighting does not explain all gains across backbones. &
+TD3/SAC provide cleaner random-control separation; AUC is safer than final-only success. \\
+\addlinespace
+High-RR/REDQ rows match or exceed SABER's AUC under larger budgets. &
+SABER does not dominate compute/backbone scaling. &
+Scaling rows are references outside the one-update matched-backbone target regime. \\
+\addlinespace
+DrawerOpen HGR-style sampler-only raises mean AUC over HER but reaches Hit90 in 2/5 seeds; SABER reaches 5/5. &
+Sampler-only TD-error ranking does not explain SABER's seed coverage. &
+This ablation is not a canonical HGR comparison because importance correction is disabled. \\
+\addlinespace
+DDPG/TD3/SAC diagnostics show weak TD-error correlation, top-error enrichment, and larger immediate correction in TD3/SAC. &
+SABER is not identical to PER-style largest-error selection. &
+Evidence supports support-conditioned error allocation, not lower target variance. \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The strongest mechanism statement is therefore mixed. SABER is not reducible to a trivial fixed-count rule in TD3/SAC, and diagnostics show it is not simply TD-error ranking. At the same time, DDPG Random-support and Drawer controls prevent a unique structured-support causality claim.
+
+\paragraph{DrawerOpen and failure cases.}
+\begin{center}
+\centering
+\scriptsize
+\captionof{table}{DrawerOpen DDPG at 2M steps. The HGR-style row is sampler-only, not canonical HGR. Hit90 shows reached seeds.}
+\label{tab:drawer-hgr-submission}
+\begin{tabular}{lccc}
+\toprule
+Method & Final & AUC & Hit90 \\
+\midrule
+HER & \(0.390\pm0.534\) & \(0.207\pm0.287\) & 2/5 \\
+HGR-style sampler-only & \(0.400\pm0.548\) & \(0.311\pm0.425\) & 2/5 \\
+HER+SABER & \(1.000\pm0.000\) & \(0.754\pm0.044\) & 5/5 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+DrawerOpen DDPG provides a large-effect case. The sampler-only row improves mean AUC over HER but reaches Hit90 in only 2/5 seeds, whereas SABER reaches 5/5. SABER minus this ablation is \(+0.600[0.200,1.000]\) in final success and \(+0.443[0.106,0.780]\) in AUC; these numbers do not establish superiority over canonical HGR. Random-support and PER-style also perform strongly. FetchSlide DDPG degrades from HER final/AUC \(0.630/0.324\) to SABER \(0.590/0.301\), and DrawerClose remains high-variance stress evidence.
+
+\section{Discussion and Limitations}
+
+SABER's contribution is not that it beats the strongest compute-scaled HER variants. Its value is to isolate a simple, attachable, critic-side allocation point after HER: which relabeled Bellman residuals should exert more fitting pressure while the rest of the HER actor-critic system remains fixed. This makes SABER useful both as a method and as a diagnostic lens for understanding when support-conditioned critic fitting differs from random reweighting, PER-style weighting, update scaling, and backbone scaling.
+
+The limitations are substantial. First, the support predicate is task-specific and uses coarse membership, not a density/diversity guarantee. Second, diagnostics do not prove lower-noise targets. Third, support lookup has nontrivial runtime overhead. Fourth, the current HGR-style row omits canonical importance correction, while HGG, MHER, and CHER remain untested. Fifth, results use five seeds and several stress-test CIs are wide.
+
+\paragraph{Diagnostic evidence.}
+Instrumented DDPG, TD3, and SAC runs log 500 full diagnostic batches and 64k sample rows per backbone. Support-positive rates are 0.367, 0.219, and 0.197, while Pearson correlations with \(|\delta|\) are only 0.116, 0.128, and 0.143. Their top-10\% TD-error overlaps are 0.516, 0.360, and 0.342, respectively: enriched over each support base rate but far from TD-error equivalence. TD3/SAC support-positive samples also receive larger immediate residual correction after normalizing by weight. Target variance is higher, not lower, for support-positive samples in all three diagnostics.
+
+\paragraph{Statistical reporting.}
+Primary comparisons use the same public seeds 1--5 and report sample standard deviation. Paired deltas use 10,000 seed bootstrap resamples; final success and Hit90 are reported alongside AUC rather than used to claim universal significance. Native SAC curves remain archived, while all cross-method SAC AUC, final, and Hit90 values are recomputed only at exact shared 50k checkpoints without interpolation or forward filling.
+
+\section{Reproducibility and Anonymity}
+
+The blind package includes a hashed FPP SAC common-grid artifact with 70 inputs, exact-grid code, seven tests, per-seed/aggregate/paired outputs, and a pinned NumPy dependency. Native metrics remain unchanged and are retained for audit. The DrawerOpen sampler-only package contains five seed summaries and configs but is not labeled canonical HGR. Public repository URLs, user namespaces, and raw commit hashes are omitted; observed throughput is not a normalized hardware benchmark.
+
+\makeatletter
+\@ifundefined{isChecklistMainFile}{\bibliographystyle{aaai2027}}{}
+\makeatother
+\bibliography{saber_refs}
+
+\end{document}
