@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0",
+  "artifact_id": "fpp_sac_common_grid_50k",
+  "generated_at_utc": "2026-07-10T09:52:21Z",
+  "generation_script": "code/analyze_sac_common_grid.py",
+  "python_version": "3.12.3",
+  "source_repository": {
+    "blind_id": "ARTIFACT_REPO",
+    "branch": "main",
+    "commit": "71325ee96336a507b4967f992d3ad90fe10cc8e3"
+  },
+  "common_grid": {
+    "start_step": 50000,
+    "stop_step": 1000000,
+    "step_size": 50000,
+    "point_count": 20,
+    "steps": [
+      50000,
+      100000,
+      150000,
+      200000,
+      250000,
+      300000,
+      350000,
+      400000,
+      450000,
+      500000,
+      550000,
+      600000,
+      650000,
+      700000,
+      750000,
+      800000,
+      850000,
+      900000,
+      950000,
+      1000000
+    ],
+    "interpolation": false,
+    "smoothing": false,
+    "forward_fill": false,
+    "extrapolation": false
+  },
+  "bootstrap": {
+    "resamples": 10000,
+    "rng_seed": 27027,
+    "confidence_level": 0.95,
+    "method": "paired percentile bootstrap",
+    "resampling_unit": "paired seed differences"
+  },
+  "input_file_count": 70,
+  "method_seed_coverage": {
+    "her": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "saber": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "random_support": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "random_fixed_count": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "high_rr_x4": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "redq_her_tqb": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "diagnostic": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "packaged_file_count": 12,
+  "packaged_files": [
+    {
+      "path": "README.md",
+      "sha256": "6885ebd12827a5538047c297b2be4bab6e00d4182230cc4405cae0fc88b7ca5c",
+      "bytes": 4845
+    },
+    {
+      "path": "code/analyze_sac_common_grid.py",
+      "sha256": "93e7b0c2765f02c85d728cb6a9c165c39907d3d146e62123e02d2f226f683c66",
+      "bytes": 38661
+    },
+    {
+      "path": "code/test_analyze_sac_common_grid.py",
+      "sha256": "c2b1558907a16c2a90b3c1c4bd66da0490d73dd0fcc0281f8b1bcd749ff60626",
+      "bytes": 8332
+    },
+    {
+      "path": "input_manifest.json",
+      "sha256": "326a78ae87178dc7d9c35bbcaf616ed9f77c3308f6c68d85dcbb7a43b802053d",
+      "bytes": 34921
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "fb2a203f80ce37499ff60f11ccfea4145a9e4b0ad4c9e6e84d571e82135ecca7",
+      "bytes": 13
+    },
+    {
+      "path": "results/aggregate_common_grid.csv",
+      "sha256": "a09050b6a514c549032919653c2b18f4f953ace06c4ad23809c32c8c1203b02b",
+      "bytes": 1835
+    },
+    {
+      "path": "results/grid_validation.json",
+      "sha256": "e9a6237c3b2ab54c5faaaf022a7b748b686ba8e64288ed1b7cc280a677c38cbc",
+      "bytes": 112715
+    },
+    {
+      "path": "results/paired_bootstrap_ci.csv",
+      "sha256": "33b10918ec58f826d0155ed9eb666f21ef828a8601dc43cd890de83b2667ecf5",
+      "bytes": 1115
+    },
+    {
+      "path": "results/paired_seed_differences.csv",
+      "sha256": "ff25d079c4340943e2058982b86cf73540e06995c57c08cedc7bb7f480c723c2",
+      "bytes": 5200
+    },
+    {
+      "path": "results/per_seed_common_grid.csv",
+      "sha256": "a3da614f2b79d6f8e3f37a236bd8d58ece89ef0c9c7078bac0bdcf0b7fda73dc",
+      "bytes": 28678
+    },
+    {
+      "path": "results/report.md",
+      "sha256": "964f8db3100c1ad87e0290895ddccbe967d7852f67980499428018411b026af8",
+      "bytes": 21651
+    }
+  ],
+  "manifest_self_entry": {
+    "path": "artifact_manifest.json",
+    "sha256": null,
+    "reason": "Self-hash omitted because embedding it would be self-referential."
+  },
+  "optional_files_omitted": [
+    {
+      "path": "results/sac_common_grid_curve.pdf",
+      "reason": "matplotlib was not installed in the packaging environment"
+    },
+    {
+      "path": "results/sac_common_grid_curve.png",
+      "reason": "matplotlib was not installed in the packaging environment"
+    }
+  ],
+  "dependencies": {
+    "requirements_file": "requirements.txt",
+    "packages": [
+      {
+        "name": "numpy",
+        "version": "2.5.1",
+        "requirement": "numpy==2.5.1"
+      }
+    ]
+  }
+}
