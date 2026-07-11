@@ -22,7 +22,12 @@ class SampleBatch:
     h: np.ndarray
     her_relabel_ratio: float
     her_relabel: Optional[np.ndarray] = None
-    hgr_future_slot: Optional[np.ndarray] = None
+    hgr_episode_id: Optional[np.ndarray] = None
+    hgr_pair_index: Optional[np.ndarray] = None
+    hgr_goal_slot: Optional[np.ndarray] = None
+    hgr_episode_probability: Optional[np.ndarray] = None
+    hgr_pair_probability: Optional[np.ndarray] = None
+    hgr_is_weight: Optional[np.ndarray] = None
 
 
 class ReplayActionIndex:
@@ -272,8 +277,6 @@ class HERReplayBuffer:
         self.action_bin = np.full(capacity, -1, dtype=np.int64)
         self.episode_id = np.full(capacity, -1, dtype=np.int64)
         self.episode_step = np.full(capacity, -1, dtype=np.int16)
-        self.hgr_priority_init = 1.0
-        self.hgr_priority = np.ones(capacity, dtype=np.float32)
 
         self._episode_to_slots: Dict[int, List[int]] = {}
         self._episode_order = deque()
@@ -296,7 +299,7 @@ class HERReplayBuffer:
         episode_step: int,
         coarse_key: Optional[int] = None,
         action_bin: Optional[int] = None,
-    ) -> None:
+    ) -> int:
         slot = self.ptr
         old_ep = int(self.episode_id[slot])
         if old_ep in self._episode_to_slots:
@@ -317,7 +320,6 @@ class HERReplayBuffer:
         self.action_bin[slot] = -1 if action_bin is None else int(action_bin)
         self.episode_id[slot] = int(episode_id)
         self.episode_step[slot] = int(episode_step)
-        self.hgr_priority[slot] = float(self.hgr_priority_init)
         if coarse_key is None:
             self.action_index.clear_slot(slot)
         else:
@@ -331,6 +333,7 @@ class HERReplayBuffer:
         self.ptr = (self.ptr + 1) % self.capacity
         self.size = min(self.size + 1, self.capacity)
         self.version += 1
+        return int(slot)
 
     def sample(self, batch_size: int, her_ratio: float, rng: np.random.Generator) -> SampleBatch:
         if self.size < batch_size:
@@ -491,66 +494,6 @@ class HERReplayBuffer:
                 arr = np.sort(rng.choice(arr, size=max_i, replace=False).astype(np.int64))
         return arr.astype(np.int64)
 
-    def episode_priority(self, episode_id: int, eps: float, clip_max: float) -> float:
-        slots = self.episode_slots(episode_id)
-        if not slots:
-            return float(eps)
-        values = np.asarray(self.hgr_priority[slots], dtype=np.float32)
-        values = np.nan_to_num(values, nan=1.0, posinf=float(clip_max), neginf=float(eps))
-        values = np.clip(values, float(eps), float(clip_max))
-        return float(np.mean(values))
-
-    def hgr_priority_stats(self, eps: float, clip_max: float) -> Dict[str, float]:
-        if self.size <= 0:
-            return {
-                "hgr/episode_priority_mean": float("nan"),
-                "hgr/episode_priority_std": float("nan"),
-                "hgr/episode_priority_max": float("nan"),
-                "hgr/priority_clip_rate": 0.0,
-            }
-        values = np.asarray(self.hgr_priority[: self.size], dtype=np.float32)
-        finite = np.isfinite(values)
-        if not np.any(finite):
-            return {
-                "hgr/episode_priority_mean": float("nan"),
-                "hgr/episode_priority_std": float("nan"),
-                "hgr/episode_priority_max": float("nan"),
-                "hgr/priority_clip_rate": 0.0,
-            }
-        clean = np.clip(
-            np.nan_to_num(values[finite], nan=1.0, posinf=float(clip_max), neginf=float(eps)),
-            float(eps),
-            float(clip_max),
-        )
-        episode_values = [
-            self.episode_priority(ep, eps=eps, clip_max=clip_max)
-            for ep in self.valid_episode_ids(require_future=False)
-        ]
-        episode_arr = np.asarray(episode_values, dtype=np.float32)
-        return {
-            "hgr/episode_priority_mean": float(np.mean(episode_arr)) if episode_arr.size else float(np.mean(clean)),
-            "hgr/episode_priority_std": float(np.std(episode_arr)) if episode_arr.size else 0.0,
-            "hgr/episode_priority_max": float(np.max(episode_arr)) if episode_arr.size else float(np.max(clean)),
-            "hgr/priority_clip_rate": float(np.mean(values[finite] >= float(clip_max))) if np.any(finite) else 0.0,
-        }
-
-    def update_hgr_priorities(
-        self,
-        indices: np.ndarray,
-        td_abs: np.ndarray,
-        eps: float,
-        clip_max: float,
-    ) -> None:
-        idx = np.asarray(indices, dtype=np.int64).reshape(-1)
-        vals = np.asarray(td_abs, dtype=np.float32).reshape(-1)
-        n = min(idx.size, vals.size)
-        if n <= 0:
-            return
-        clean = np.nan_to_num(vals[:n], nan=1.0, posinf=float(clip_max), neginf=float(eps))
-        clean = np.clip(np.abs(clean), float(eps), float(clip_max)).astype(np.float32)
-        valid = np.logical_and(idx[:n] >= 0, idx[:n] < self.size)
-        self.hgr_priority[idx[:n][valid]] = clean[valid]
-
     def state_dict(self) -> Dict[str, object]:
         return {
             "capacity": self.capacity,
@@ -572,8 +515,6 @@ class HERReplayBuffer:
             "action_bin": self.action_bin,
             "episode_id": self.episode_id,
             "episode_step": self.episode_step,
-            "hgr_priority": self.hgr_priority,
-            "hgr_priority_init": self.hgr_priority_init,
             "episode_to_slots": self._episode_to_slots,
             "episode_order": list(self._episode_order),
             "action_index": self.action_index.state_dict(),
@@ -599,11 +540,6 @@ class HERReplayBuffer:
             self.action_bin.fill(-1)
         self.episode_id[:] = payload["episode_id"]
         self.episode_step[:] = payload["episode_step"]
-        self.hgr_priority_init = float(payload.get("hgr_priority_init", self.hgr_priority_init))
-        if "hgr_priority" in payload:
-            self.hgr_priority[:] = payload["hgr_priority"]
-        else:
-            self.hgr_priority.fill(float(self.hgr_priority_init))
         self._episode_to_slots = {
             int(k): [int(v) for v in vals] for k, vals in payload["episode_to_slots"].items()
         }

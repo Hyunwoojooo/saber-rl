@@ -12,7 +12,7 @@ from .agent import DDPGAgent, TD3Agent
 from .config import LiteConfig
 from .envs import FetchGoalEnv
 from .envs_maniskill import ManiSkillPickCubeGoalEnv, ManiSkillPushTGoalEnv, UnitreeAppleGoalEnv
-from .hgr import HGRSampler
+from .hgr import HGRSampler, HGR_STATE_SCHEMA
 from .io_utils import (
     MetricsCSVWriter,
     MetricsJSONLWriter,
@@ -771,7 +771,6 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         goal_dim=train_env.goal_dim,
         action_dim=train_env.action_dim,
     )
-    replay.hgr_priority_init = float(config.hgr_priority_init)
     hgr_sampler = HGRSampler(config, train_env, device) if config.method == "hgr" else None
     gap_stats = GapStats(
         maxlen=config.gap_window,
@@ -795,8 +794,26 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 "enabled": config.method == "hgr",
                 "two_step_ranking": True,
                 "support_lookup": False,
-                "critic_loss_weight": "all_ones",
-                "priority_table": "transition TD-error priority, episode priority is valid-transition mean",
+                "priority_table": "completed-episode triangular transition/future-goal pair table",
+                "episode_priority": "mean pair priority",
+                "pair_priority": "pre-update absolute TD error plus epsilon",
+                "new_pair_priority": "current global maximum",
+                "episode_alpha": config.hgr_alpha_episode,
+                "pair_alpha": config.hgr_alpha_goal,
+                "episode_beta_initial": config.hgr_beta_episode_initial,
+                "pair_beta_initial": config.hgr_beta_goal_initial,
+                "episode_beta_final": config.hgr_beta_episode_final,
+                "pair_beta_final": config.hgr_beta_goal_final,
+                "beta_schedule": "linear by critic-update progress",
+                "beta_anneal_updates_resolved": (
+                    hgr_sampler.beta_anneal_updates if hgr_sampler is not None else 0
+                ),
+                "uniform_mix": config.hgr_uniform_mix,
+                "priority_clip_max": config.hgr_priority_clip_max,
+                "checkpoint_state_schema": HGR_STATE_SCHEMA,
+                "critic_loss_weight": "normalized product of episode and pair IS weights on relabeled samples",
+                "actor_loss_weight": "all_ones",
+                "original_goal_branch_weight": "one",
             },
         },
     )
@@ -925,13 +942,35 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "hgr/episode_priority_mean",
         "hgr/episode_priority_std",
         "hgr/episode_priority_max",
+        "hgr/eligible_episode_count",
+        "hgr/pair_table_count",
+        "hgr/pair_priority_count",
+        "hgr/pair_priority_memory_mb",
         "hgr/goal_priority_entropy_mean",
         "hgr/goal_selected_rank_mean",
         "hgr/candidate_td_error_mean",
         "hgr/candidate_td_error_max",
         "hgr/relabel_fraction",
-        "hgr/priority_clip_rate",
         "hgr/fallback_fraction",
+        "hgr/episode_probability_mean",
+        "hgr/pair_probability_mean",
+        "hgr/is_weight_raw_mean",
+        "hgr/is_weight_raw_max",
+        "hgr/is_weight_mean",
+        "hgr/is_weight_max",
+        "hgr/is_weight_min",
+        "hgr/actor_weight_mean",
+        "hgr/beta_episode",
+        "hgr/beta_goal",
+        "hgr/beta_progress",
+        "hgr/beta_episode_next",
+        "hgr/beta_goal_next",
+        "hgr/beta_progress_next",
+        "hgr/max_priority",
+        "hgr/priority_clip_enabled",
+        "hgr/priority_clip_rate",
+        "hgr/priority_safety_replacement_rate",
+        "hgr/update_priority_mean",
         "runtime/hgr_sampling_sec_per_update",
         "mean_w_P_reference",
         "reference_high_weight_rate",
@@ -1125,6 +1164,14 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         weight_rng.bit_generator.state = payload["weight_rng_state"]
         if "diagnostic_rng_state" in payload:
             diagnostic_rng.bit_generator.state = payload["diagnostic_rng_state"]
+        if hgr_sampler is not None:
+            hgr_payload = payload.get("hgr_sampler")
+            if hgr_payload:
+                hgr_sampler.load_state_dict(hgr_payload, replay)
+                logger.info("restored HGR priority cache from checkpoint")
+            else:
+                hgr_sampler.rebuild_from_replay(replay)
+                logger.info("rebuilt HGR priority cache from replay")
         last_diagnostic_step = int(payload.get("last_diagnostic_step", -1))
         eval_history_env = restore_eval_history_from_metrics(int(payload["global_step"]))
         logger.info("restored %d eval history points from metrics.csv", len(eval_history_env))
@@ -1167,6 +1214,7 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             "best_eval_step": best_eval_step,
             "agent": agent.state_dict(),
             "replay": replay.state_dict(),
+            "hgr_sampler": hgr_sampler.state_dict() if hgr_sampler is not None else None,
             "gap_stats": gap_stats.state_dict(),
             "noise_rng_state": noise_rng.bit_generator.state,
             "sample_rng_state": sample_rng.bit_generator.state,
@@ -1188,7 +1236,7 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         ep_return += float(reward_ext)
         ep_success = max(ep_success, float(info.get("goal_success", info.get("is_success", 0.0))))
 
-        replay.add_transition(
+        slot_added = replay.add_transition(
             observation=obs.observation,
             achieved_goal=obs.achieved_goal,
             desired_goal=obs.desired_goal,
@@ -1204,6 +1252,14 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             coarse_key=task.coarse_hash(obs.observation, h_t),
             action_bin=int(task.action_bin_batch(action[None, :], config.action_bins_per_dim)[0]),
         )
+        if hgr_sampler is not None:
+            hgr_sampler.on_replay_add(
+                slot_added,
+                episode_idx,
+                ep_step,
+                replay,
+                episode_done=done,
+            )
 
         obs = obs_next
         ep_step += 1
@@ -1212,7 +1268,12 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         if replay.size >= config.batch_size and global_step >= config.warmup_steps:
             for _ in range(config.updates_per_step):
                 if hgr_sampler is not None:
-                    batch = hgr_sampler.sample_batch(replay, agent, config.batch_size, config.her_ratio, sample_rng)
+                    batch = hgr_sampler.sample_batch(
+                        replay,
+                        config.batch_size,
+                        config.her_ratio,
+                        sample_rng,
+                    )
                     hgr_metrics = dict(hgr_sampler.latest_metrics)
                 else:
                     batch = replay.sample(config.batch_size, config.her_ratio, sample_rng)
@@ -1229,6 +1290,10 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 nonterminal = (1.0 - terminal).astype(np.float32)
 
                 wb = weight_computer.compute(batch, replay, agent, weight_rng, device)
+                if hgr_sampler is not None:
+                    hgr_critic_weight, hgr_actor_weight = hgr_sampler.loss_weights(batch)
+                    wb.omega_critic = hgr_critic_weight
+                    wb.omega_actor = hgr_actor_weight
                 state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
                 next_state_np = np.concatenate([batch.next_observation, batch.desired_goal_train], axis=1).astype(np.float32)
                 state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
@@ -1301,10 +1366,11 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 last_lite = _lite_metrics_from_weight_batch(wb, phase_names)
                 last_lite.update(hgr_metrics)
                 if hgr_sampler is not None:
-                    td_after_for_priority = agent.td_error_abs(
-                        state_t, action_t, reward_t, next_state_t, nonterminal_t
-                    ).detach().cpu().numpy().reshape(-1).astype(np.float32)
-                    last_lite.update(hgr_sampler.update_priorities(replay, batch.indices, td_after_for_priority))
+                    if update.td_error_abs_values is None:
+                        raise RuntimeError("DDPG update did not expose pre-update TD errors for HGR")
+                    last_lite.update(
+                        hgr_sampler.update_priorities(batch, update.td_error_abs_values)
+                    )
                 last_lite["time/actor_critic_update"] = float(t_update1 - t_update0)
                 last_lite["time_actor_critic_update"] = float(t_update1 - t_update0)
                 if diagnostic_before is not None:
@@ -1433,18 +1499,40 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                         "eval_return_mean": best_eval_return,
                     },
                 )
-            logger.info(
-                "step=%d episode=%d replay=%d eval_goal=%.3f eval_env=%.3f eval_ret=%.2f wP=%.3f psiQ=%.3f fallback=%.3f",
-                global_step,
-                episode_idx,
-                replay.size,
-                eval_metrics["eval_goal_success_mean"],
-                eval_metrics["eval_env_success_mean"],
-                eval_metrics["eval_return_mean"],
-                last_lite["lite/mean_w_P"],
-                last_lite["lite/psi_q_rank_rate"],
-                last_lite["lite/q_candidate_fallback_rate"],
-            )
+            if hgr_sampler is not None:
+                table_count, pair_count, _memory_mb = hgr_sampler.pair_table_stats()
+                beta_next = hgr_sampler.current_betas()[0]
+                logger.info(
+                    "step=%d episode=%d replay=%d eval_goal=%.3f eval_env=%.3f eval_ret=%.2f "
+                    "hgr_beta_next=%.4f hgr_is=%.4f hgr_relabel=%.3f hgr_fallback=%.3f "
+                    "hgr_tables=%d hgr_pairs=%d hgr_sample_ms=%.3f",
+                    global_step,
+                    episode_idx,
+                    replay.size,
+                    eval_metrics["eval_goal_success_mean"],
+                    eval_metrics["eval_env_success_mean"],
+                    eval_metrics["eval_return_mean"],
+                    beta_next,
+                    last_lite["hgr/is_weight_mean"],
+                    last_lite["hgr/relabel_fraction"],
+                    last_lite["hgr/fallback_fraction"],
+                    table_count,
+                    pair_count,
+                    1_000.0 * last_lite["runtime/hgr_sampling_sec_per_update"],
+                )
+            else:
+                logger.info(
+                    "step=%d episode=%d replay=%d eval_goal=%.3f eval_env=%.3f eval_ret=%.2f wP=%.3f psiQ=%.3f fallback=%.3f",
+                    global_step,
+                    episode_idx,
+                    replay.size,
+                    eval_metrics["eval_goal_success_mean"],
+                    eval_metrics["eval_env_success_mean"],
+                    eval_metrics["eval_return_mean"],
+                    last_lite["lite/mean_w_P"],
+                    last_lite["lite/psi_q_rank_rate"],
+                    last_lite["lite/q_candidate_fallback_rate"],
+                )
 
         do_ckpt = (global_step % config.checkpoint_every_steps == 0 and global_step > 0) or (
             global_step == config.total_steps
@@ -1456,17 +1544,38 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 save_checkpoint(_step_checkpoint_path(run_dir, global_step), payload)
 
         if global_step % config.log_every_steps == 0 and global_step > 0:
-            logger.info(
-                "step=%d replay=%d updates=%d loss_q=%.4f loss_pi=%.4f wP=%.3f psiQ=%.3f fallback=%.3f",
-                global_step,
-                replay.size,
-                total_updates,
-                last_loss["critic"],
-                last_loss["actor"],
-                last_lite["lite/mean_w_P"],
-                last_lite["lite/psi_q_rank_rate"],
-                last_lite["lite/q_candidate_fallback_rate"],
-            )
+            if hgr_sampler is not None:
+                table_count, pair_count, _memory_mb = hgr_sampler.pair_table_stats()
+                beta_next = hgr_sampler.current_betas()[0]
+                logger.info(
+                    "step=%d replay=%d updates=%d loss_q=%.4f loss_pi=%.4f "
+                    "hgr_beta_next=%.4f hgr_is=%.4f hgr_relabel=%.3f hgr_fallback=%.3f "
+                    "hgr_tables=%d hgr_pairs=%d hgr_sample_ms=%.3f",
+                    global_step,
+                    replay.size,
+                    total_updates,
+                    last_loss["critic"],
+                    last_loss["actor"],
+                    beta_next,
+                    last_lite["hgr/is_weight_mean"],
+                    last_lite["hgr/relabel_fraction"],
+                    last_lite["hgr/fallback_fraction"],
+                    table_count,
+                    pair_count,
+                    1_000.0 * last_lite["runtime/hgr_sampling_sec_per_update"],
+                )
+            else:
+                logger.info(
+                    "step=%d replay=%d updates=%d loss_q=%.4f loss_pi=%.4f wP=%.3f psiQ=%.3f fallback=%.3f",
+                    global_step,
+                    replay.size,
+                    total_updates,
+                    last_loss["critic"],
+                    last_loss["actor"],
+                    last_lite["lite/mean_w_P"],
+                    last_lite["lite/psi_q_rank_rate"],
+                    last_lite["lite/q_candidate_fallback_rate"],
+                )
 
     runtime_total_sec = float(time.perf_counter() - wall_start)
     summary = {
@@ -1645,13 +1754,35 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "hgr/episode_priority_mean": np.nan,
         "hgr/episode_priority_std": np.nan,
         "hgr/episode_priority_max": np.nan,
+        "hgr/eligible_episode_count": 0.0,
+        "hgr/pair_table_count": 0.0,
+        "hgr/pair_priority_count": 0.0,
+        "hgr/pair_priority_memory_mb": 0.0,
         "hgr/goal_priority_entropy_mean": np.nan,
         "hgr/goal_selected_rank_mean": np.nan,
         "hgr/candidate_td_error_mean": np.nan,
         "hgr/candidate_td_error_max": np.nan,
         "hgr/relabel_fraction": 0.0,
-        "hgr/priority_clip_rate": 0.0,
         "hgr/fallback_fraction": 0.0,
+        "hgr/episode_probability_mean": np.nan,
+        "hgr/pair_probability_mean": np.nan,
+        "hgr/is_weight_raw_mean": 1.0,
+        "hgr/is_weight_raw_max": 1.0,
+        "hgr/is_weight_mean": 1.0,
+        "hgr/is_weight_max": 1.0,
+        "hgr/is_weight_min": 1.0,
+        "hgr/actor_weight_mean": 1.0,
+        "hgr/beta_episode": np.nan,
+        "hgr/beta_goal": np.nan,
+        "hgr/beta_progress": 0.0,
+        "hgr/beta_episode_next": np.nan,
+        "hgr/beta_goal_next": np.nan,
+        "hgr/beta_progress_next": 0.0,
+        "hgr/max_priority": np.nan,
+        "hgr/priority_clip_enabled": 0.0,
+        "hgr/priority_clip_rate": 0.0,
+        "hgr/priority_safety_replacement_rate": 0.0,
+        "hgr/update_priority_mean": np.nan,
         "runtime/hgr_sampling_sec_per_update": 0.0,
         "b2/unrestricted_gap_mean": 0.0,
         "b2/unrestricted_gap_p95": 0.0,

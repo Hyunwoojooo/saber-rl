@@ -22,6 +22,7 @@ class UpdateMetrics:
     q_abs_max: float
     td_error_abs_mean: float
     td_error_abs_p90: float
+    td_error_abs_values: np.ndarray | None = None
 
 
 class DDPGAgent:
@@ -113,6 +114,7 @@ class DDPGAgent:
             q_abs_max=float(q.detach().abs().max().item()),
             td_error_abs_mean=float(td_abs.mean().item()),
             td_error_abs_p90=float(torch.quantile(td_abs, 0.90).item()),
+            td_error_abs_values=td_abs.cpu().numpy().reshape(-1).astype(np.float32),
         )
 
     @torch.no_grad()

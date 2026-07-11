@@ -53,10 +53,20 @@ def build_command(
         "--output_root", out_root,
         "--method", cfg["trainer_method"],
         "--reward_type", cfg["reward_type"],
+        "--max_episode_steps", str(cfg["max_episode_steps"]),
         "--total_steps", str(n_steps),
+        "--start_steps", str(cfg["start_steps"]),
+        "--warmup_steps", str(cfg["warmup_steps"]),
         "--batch_size", str(cfg["batch_size"]),
+        "--buffer_capacity", str(cfg["buffer_capacity"]),
         "--her_ratio", str(cfg["her_ratio"]),
         "--updates_per_step", str(cfg["updates_per_step"]),
+        "--gamma", str(cfg["gamma"]),
+        "--tau", str(cfg["tau"]),
+        "--actor_lr", str(cfg["actor_lr"]),
+        "--critic_lr", str(cfg["critic_lr"]),
+        "--hidden_dim", str(cfg["hidden_dim"]),
+        "--noise_std", str(cfg["noise_std"]),
         "--eval_freq", str(cfg["eval_freq"]),
         "--eval_episodes", str(cfg["eval_episodes"]),
         "--M_B", str(cfg["M_B"]),
@@ -77,7 +87,12 @@ def build_command(
         "--hgr_priority_clip_max", str(cfg["hgr_priority_clip_max"]),
         "--hgr_alpha_episode", str(cfg["hgr_alpha_episode"]),
         "--hgr_alpha_goal", str(cfg["hgr_alpha_goal"]),
-        "--hgr_max_future_candidates", str(cfg["hgr_max_future_candidates"]),
+        "--hgr_beta_episode_initial", str(cfg["hgr_beta_episode_initial"]),
+        "--hgr_beta_goal_initial", str(cfg["hgr_beta_goal_initial"]),
+        "--hgr_beta_episode_final", str(cfg["hgr_beta_episode_final"]),
+        "--hgr_beta_goal_final", str(cfg["hgr_beta_goal_final"]),
+        "--hgr_beta_anneal_updates", str(cfg["hgr_beta_anneal_updates"]),
+        "--hgr_uniform_mix", str(cfg["hgr_uniform_mix"]),
         "--device", device,
         "--env_seed", str(seed),
         "--torch_seed", str(seed),
@@ -99,6 +114,10 @@ def build_command(
         cmd.extend(["--resume_path", str(resume_path)])
     if not cfg.get("save_step_checkpoints", True):
         cmd.append("--no_save_step_checkpoints")
+    if cfg.get("success_terminates", False):
+        cmd.append("--success_terminates")
+    if not cfg.get("timeout_bootstrap", True):
+        cmd.append("--no_timeout_bootstrap")
     if smoke:
         cmd.append("--smoke")
     if validate_only:

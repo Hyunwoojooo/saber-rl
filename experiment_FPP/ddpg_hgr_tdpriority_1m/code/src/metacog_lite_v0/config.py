@@ -91,13 +91,18 @@ class LiteConfig:
     buffer_capacity: int = 300_000
     her_ratio: float = 0.8
 
-    # Hindsight Goal Ranking: two-step TD-error priority over episodes and future goals.
+    # Hindsight Goal Ranking over completed-episode transition/future-goal pairs.
     hgr_priority_eps: float = 1e-6
     hgr_priority_init: float = 1.0
-    hgr_priority_clip_max: float = 50.0
-    hgr_alpha_episode: float = 1.0
-    hgr_alpha_goal: float = 1.0
-    hgr_max_future_candidates: int = 50
+    hgr_priority_clip_max: float = 0.0
+    hgr_alpha_episode: float = 0.6
+    hgr_alpha_goal: float = 0.6
+    hgr_beta_episode_initial: float = 0.4
+    hgr_beta_goal_initial: float = 0.4
+    hgr_beta_episode_final: float = 1.0
+    hgr_beta_goal_final: float = 1.0
+    hgr_beta_anneal_updates: int = 0
+    hgr_uniform_mix: float = 0.0
 
     gamma: float = 0.98
     tau: float = 0.005
@@ -353,10 +358,19 @@ class LiteConfig:
         self.her_ratio = max(0.0, min(1.0, float(self.her_ratio)))
         self.hgr_priority_eps = max(1e-12, float(self.hgr_priority_eps))
         self.hgr_priority_init = max(self.hgr_priority_eps, float(self.hgr_priority_init))
-        self.hgr_priority_clip_max = max(self.hgr_priority_eps, float(self.hgr_priority_clip_max))
+        self.hgr_priority_clip_max = max(0.0, float(self.hgr_priority_clip_max))
         self.hgr_alpha_episode = max(0.0, float(self.hgr_alpha_episode))
         self.hgr_alpha_goal = max(0.0, float(self.hgr_alpha_goal))
-        self.hgr_max_future_candidates = max(1, int(self.hgr_max_future_candidates))
+        self.hgr_beta_episode_initial = max(0.0, float(self.hgr_beta_episode_initial))
+        self.hgr_beta_goal_initial = max(0.0, float(self.hgr_beta_goal_initial))
+        self.hgr_beta_episode_final = max(
+            self.hgr_beta_episode_initial, float(self.hgr_beta_episode_final)
+        )
+        self.hgr_beta_goal_final = max(
+            self.hgr_beta_goal_initial, float(self.hgr_beta_goal_final)
+        )
+        self.hgr_beta_anneal_updates = max(0, int(self.hgr_beta_anneal_updates))
+        self.hgr_uniform_mix = min(1.0, max(0.0, float(self.hgr_uniform_mix)))
         self.batch_size = max(1, int(self.batch_size))
         self.M_B = max(1, int(self.M_B))
         self.M_Q_min = max(1, int(self.M_Q_min))

@@ -5,8 +5,8 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SEED_LIST="${SEED_LIST:-1 2}"
 STEPS="${STEPS:-200000}"
 DEVICE="${DEVICE:-cuda}"
-OUTPUT_ROOT="${OUTPUT_ROOT:-$REPO_ROOT/experiment_FPP/runs/ddpg_hgr_tdpriority_1m_pilot200k}"
-LOG_DIR="${LOG_DIR:-$REPO_ROOT/experiment_FPP/logs/ddpg_hgr_tdpriority_1m_pilot200k}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-$REPO_ROOT/experiment_FPP/runs/ddpg_hgr_tdpriority_original_pair_is_pilot200k}"
+LOG_DIR="${LOG_DIR:-$REPO_ROOT/experiment_FPP/logs/ddpg_hgr_tdpriority_original_pair_is_pilot200k}"
 mkdir -p "$OUTPUT_ROOT" "$LOG_DIR"
 pids=()
 for seed in $SEED_LIST; do

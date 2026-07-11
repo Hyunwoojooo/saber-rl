@@ -59,10 +59,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--her_ratio", type=float, default=0.8)
     parser.add_argument("--hgr_priority_eps", type=float, default=1e-6)
     parser.add_argument("--hgr_priority_init", type=float, default=1.0)
-    parser.add_argument("--hgr_priority_clip_max", type=float, default=50.0)
-    parser.add_argument("--hgr_alpha_episode", type=float, default=1.0)
-    parser.add_argument("--hgr_alpha_goal", type=float, default=1.0)
-    parser.add_argument("--hgr_max_future_candidates", type=int, default=50)
+    parser.add_argument("--hgr_priority_clip_max", type=float, default=0.0)
+    parser.add_argument("--hgr_alpha_episode", type=float, default=0.6)
+    parser.add_argument("--hgr_alpha_goal", type=float, default=0.6)
+    parser.add_argument("--hgr_beta_episode_initial", type=float, default=0.4)
+    parser.add_argument("--hgr_beta_goal_initial", type=float, default=0.4)
+    parser.add_argument("--hgr_beta_episode_final", type=float, default=1.0)
+    parser.add_argument("--hgr_beta_goal_final", type=float, default=1.0)
+    parser.add_argument("--hgr_beta_anneal_updates", type=int, default=0)
+    parser.add_argument("--hgr_uniform_mix", type=float, default=0.0)
 
     parser.add_argument("--gamma", type=float, default=0.98)
     parser.add_argument("--tau", type=float, default=0.005)
@@ -164,7 +169,12 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         hgr_priority_clip_max=args.hgr_priority_clip_max,
         hgr_alpha_episode=args.hgr_alpha_episode,
         hgr_alpha_goal=args.hgr_alpha_goal,
-        hgr_max_future_candidates=args.hgr_max_future_candidates,
+        hgr_beta_episode_initial=args.hgr_beta_episode_initial,
+        hgr_beta_goal_initial=args.hgr_beta_goal_initial,
+        hgr_beta_episode_final=args.hgr_beta_episode_final,
+        hgr_beta_goal_final=args.hgr_beta_goal_final,
+        hgr_beta_anneal_updates=args.hgr_beta_anneal_updates,
+        hgr_uniform_mix=args.hgr_uniform_mix,
         gamma=args.gamma,
         tau=args.tau,
         actor_lr=args.actor_lr,
@@ -259,18 +269,21 @@ def validate_fetch_pick_and_place_setup(config: LiteConfig) -> None:
         "action_high_finite": bool(np.all(np.isfinite(env.action_high))),
     }
     replay = HERReplayBuffer(
-        capacity=256,
+        capacity=max(256, 3 * int(env.max_episode_steps)),
         obs_dim=env.obs_dim,
         goal_dim=env.goal_dim,
         action_dim=env.action_dim,
     )
+    hgr_sampler = HGRSampler(config, env, device)
     ep_id = 0
     ep_step = 0
-    for _ in range(20):
+    rollout_steps = 0
+    for _ in range(max(64, 2 * int(env.max_episode_steps))):
         h_t = env.max_episode_steps - ep_step
         action = rng.uniform(env.action_low, env.action_high).astype(np.float32)
         obs_next, reward, terminated, truncated, _info = env.step(action)
-        replay.add_transition(
+        done = bool(terminated or truncated)
+        slot = replay.add_transition(
             observation=obs.observation,
             achieved_goal=obs.achieved_goal,
             desired_goal=obs.desired_goal,
@@ -278,7 +291,7 @@ def validate_fetch_pick_and_place_setup(config: LiteConfig) -> None:
             reward_ext=float(reward),
             next_observation=obs_next.observation,
             next_achieved_goal=obs_next.achieved_goal,
-            done=bool(terminated or truncated),
+            done=done,
             timeout=bool(truncated),
             h=h_t,
             episode_id=ep_id,
@@ -286,12 +299,22 @@ def validate_fetch_pick_and_place_setup(config: LiteConfig) -> None:
             coarse_key=task.coarse_hash(obs.observation, h_t),
             action_bin=int(task.action_bin_batch(action[None, :], config.action_bins_per_dim)[0]),
         )
+        hgr_sampler.on_replay_add(
+            slot,
+            ep_id,
+            ep_step,
+            replay,
+            episode_done=done,
+        )
         obs = obs_next
         ep_step += 1
-        if terminated or truncated:
+        rollout_steps += 1
+        if done:
             ep_id += 1
             ep_step = 0
             obs = env.reset(seed=config.seeds.env_seed + ep_id)
+            if hgr_sampler.pair_table_stats()[0] > 0:
+                break
 
     batch_size = min(8, replay.size)
     batch = replay.sample(batch_size, her_ratio=1.0, rng=rng)
@@ -317,19 +340,35 @@ def validate_fetch_pick_and_place_setup(config: LiteConfig) -> None:
     b4_wb = LiteWeightComputer(replace(config, method="b4_lite"), task, gap_stats).compute(
         batch, replay, agent, rng, device
     )
-    hgr_sampler = HGRSampler(config, env, device)
-    hgr_batch = hgr_sampler.sample_batch(replay, agent, batch_size=batch_size, her_ratio=1.0, rng=rng)
+    hgr_batch = hgr_sampler.sample_batch(
+        replay,
+        batch_size=batch_size,
+        her_ratio=1.0,
+        rng=rng,
+    )
     future_ok = True
-    if hgr_batch.hgr_future_slot is not None:
-        for replay_slot, future_slot, relabel_flag in zip(hgr_batch.indices, hgr_batch.hgr_future_slot, hgr_batch.her_relabel):
+    if hgr_batch.hgr_goal_slot is not None:
+        for replay_slot, goal_slot, relabel_flag, desired_goal in zip(
+            hgr_batch.indices,
+            hgr_batch.hgr_goal_slot,
+            hgr_batch.her_relabel,
+            hgr_batch.desired_goal_train,
+        ):
             if float(relabel_flag) <= 0.5:
                 continue
-            future_slots = replay.future_slots(int(replay_slot), max_candidates=config.hgr_max_future_candidates, rng=None)
-            future_ok = future_ok and int(future_slot) in set(int(v) for v in future_slots.tolist())
+            replay_slot_i = int(replay_slot)
+            goal_slot_i = int(goal_slot)
+            future_ok = future_ok and (
+                int(replay.episode_id[replay_slot_i]) == int(replay.episode_id[goal_slot_i])
+                and int(replay.episode_step[replay_slot_i]) <= int(replay.episode_step[goal_slot_i])
+                and np.allclose(desired_goal, replay.next_achieved_goal[goal_slot_i])
+            )
+    hgr_critic_weight, hgr_actor_weight = hgr_sampler.loss_weights(hgr_batch)
+    table_count, pair_count, _memory_mb = hgr_sampler.pair_table_stats()
     hgr_reward = env.compute_reward(hgr_batch.next_achieved_goal, hgr_batch.desired_goal_train, {})
     checks.update(
         {
-            "random_step_20": True,
+            "random_rollout_steps": int(rollout_steps),
             "reward_shape": list(env.compute_reward(batch.next_achieved_goal, batch.desired_goal_train, {}).shape),
             "success_shape": list(env.success_from_goal(batch.next_achieved_goal, batch.desired_goal_train).shape),
             "replay_size": int(replay.size),
@@ -343,8 +382,20 @@ def validate_fetch_pick_and_place_setup(config: LiteConfig) -> None:
             "hgr_batch_shape": list(hgr_batch.observation.shape),
             "hgr_relabel_ratio": float(hgr_batch.her_relabel_ratio),
             "hgr_future_goal_selected_from_future": bool(future_ok),
+            "hgr_pair_table_count": int(table_count),
+            "hgr_pair_priority_count": int(pair_count),
+            "hgr_is_weight_finite_positive": bool(
+                np.all(np.isfinite(hgr_critic_weight)) and np.all(hgr_critic_weight > 0.0)
+            ),
+            "hgr_is_weight_max_at_most_one": bool(np.max(hgr_critic_weight) <= 1.0 + 1e-6),
+            "hgr_actor_weight_all_one": bool(np.allclose(hgr_actor_weight, 1.0)),
+            "hgr_episode_probability_sum_one": bool(
+                np.isclose(np.sum(hgr_sampler.episode_distribution()[1]), 1.0)
+            ),
             "hgr_reward_shape": list(hgr_reward.shape),
             "hgr_reward_finite": bool(np.all(np.isfinite(hgr_reward))),
+            "hgr_reward_min": float(np.min(hgr_reward)),
+            "hgr_reward_max": float(np.max(hgr_reward)),
             "hgr_metrics_finite_sampling_time": bool(np.isfinite(hgr_sampler.latest_metrics["runtime/hgr_sampling_sec_per_update"])),
             "b4_omega_finite": bool(np.all(np.isfinite(b4_wb.omega_critic))),
             "b4_g_sup_finite": bool(np.all(np.isfinite(b4_wb.g_sup))),
