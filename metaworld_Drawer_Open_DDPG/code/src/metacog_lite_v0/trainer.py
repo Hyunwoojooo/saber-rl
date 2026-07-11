@@ -760,6 +760,21 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "b3/support_to_rot_progress_corr",
         "b3/support_to_success_corr",
         "b3/support_to_td_error_corr",
+        "diagnostic/support_positive_rate",
+        "diagnostic/td_error_support_pos_mean",
+        "diagnostic/td_error_support_neg_mean",
+        "diagnostic/td_error_enrichment_ratio",
+        "diagnostic/residual_reduction_support_pos_mean",
+        "diagnostic/residual_reduction_support_neg_mean",
+        "diagnostic/residual_correction_enrichment_ratio",
+        "diagnostic/residual_reduction_support_pos_rate",
+        "diagnostic/residual_reduction_support_neg_rate",
+        "diagnostic/weighted_td_error_mean",
+        "diagnostic/weighted_residual_reduction_mean",
+        "diagnostic/support_to_td_error_corr",
+        "diagnostic/support_to_residual_reduction_corr",
+        "diagnostic/weight_to_td_error_corr",
+        "diagnostic/weight_to_residual_reduction_corr",
         "b4/G_sup_mean",
         "b4/G_sup_positive_rate",
         "b4/support_candidate_count_mean",
@@ -968,6 +983,30 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                     "td_error_abs_p90": update.td_error_abs_p90,
                 }
                 last_lite = _lite_metrics_from_weight_batch(wb, phase_names)
+                if config.method in {
+                    "b3_support_only",
+                    "b3_support_random",
+                    "b3_support_runtime_opt",
+                    "b3_support_random_runtime_opt",
+                    "b3_support_shuffled",
+                    "b3_support_shuffled_runtime_opt",
+                }:
+                    td_before_for_diagnostic = update.td_error_abs_values.astype(np.float32, copy=False)
+                    td_after_for_diagnostic = (
+                        agent.td_error_abs(state_t, action_t, reward_t, next_state_t, nonterminal_t)
+                        .detach()
+                        .cpu()
+                        .numpy()
+                        .reshape(-1)
+                        .astype(np.float32)
+                    )
+                    last_lite.update(
+                        _b3_residual_diagnostic_metrics(
+                            wb=wb,
+                            td_before=td_before_for_diagnostic,
+                            td_after=td_after_for_diagnostic,
+                        )
+                    )
                 last_lite["time/actor_critic_update"] = float(t_update1 - t_update0)
                 last_lite["time_actor_critic_update"] = float(t_update1 - t_update0)
                 total_updates += 1
@@ -1284,6 +1323,21 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "b3/support_to_rot_progress_corr": np.nan,
         "b3/support_to_success_corr": np.nan,
         "b3/support_to_td_error_corr": np.nan,
+        "diagnostic/support_positive_rate": np.nan,
+        "diagnostic/td_error_support_pos_mean": np.nan,
+        "diagnostic/td_error_support_neg_mean": np.nan,
+        "diagnostic/td_error_enrichment_ratio": np.nan,
+        "diagnostic/residual_reduction_support_pos_mean": np.nan,
+        "diagnostic/residual_reduction_support_neg_mean": np.nan,
+        "diagnostic/residual_correction_enrichment_ratio": np.nan,
+        "diagnostic/residual_reduction_support_pos_rate": np.nan,
+        "diagnostic/residual_reduction_support_neg_rate": np.nan,
+        "diagnostic/weighted_td_error_mean": np.nan,
+        "diagnostic/weighted_residual_reduction_mean": np.nan,
+        "diagnostic/support_to_td_error_corr": np.nan,
+        "diagnostic/support_to_residual_reduction_corr": np.nan,
+        "diagnostic/weight_to_td_error_corr": np.nan,
+        "diagnostic/weight_to_residual_reduction_corr": np.nan,
         "b4/G_sup_mean": 0.0,
         "b4/G_sup_positive_rate": 0.0,
         "b4/support_candidate_count_mean": 0.0,
@@ -1366,6 +1420,21 @@ def _lite_metrics_from_weight_batch(
         "b3/support_to_rot_progress_corr": np.nan,
         "b3/support_to_success_corr": np.nan,
         "b3/support_to_td_error_corr": np.nan,
+        "diagnostic/support_positive_rate": np.nan,
+        "diagnostic/td_error_support_pos_mean": np.nan,
+        "diagnostic/td_error_support_neg_mean": np.nan,
+        "diagnostic/td_error_enrichment_ratio": np.nan,
+        "diagnostic/residual_reduction_support_pos_mean": np.nan,
+        "diagnostic/residual_reduction_support_neg_mean": np.nan,
+        "diagnostic/residual_correction_enrichment_ratio": np.nan,
+        "diagnostic/residual_reduction_support_pos_rate": np.nan,
+        "diagnostic/residual_reduction_support_neg_rate": np.nan,
+        "diagnostic/weighted_td_error_mean": np.nan,
+        "diagnostic/weighted_residual_reduction_mean": np.nan,
+        "diagnostic/support_to_td_error_corr": np.nan,
+        "diagnostic/support_to_residual_reduction_corr": np.nan,
+        "diagnostic/weight_to_td_error_corr": np.nan,
+        "diagnostic/weight_to_residual_reduction_corr": np.nan,
         "b4/G_sup_mean": _mean(wb.g_sup),
         "b4/G_sup_positive_rate": float(np.mean(wb.g_sup > 0.0)) if wb.g_sup.size else 0.0,
         "b4/support_candidate_count_mean": _mean(wb.len_a_q_sup),
@@ -1413,6 +1482,73 @@ def _lite_metrics_from_weight_batch(
     for key, value in getattr(wb, "extra_metrics", {}).items():
         metrics[key] = float(value)
     return metrics
+
+
+def _b3_residual_diagnostic_metrics(wb: Any, td_before: np.ndarray, td_after: np.ndarray) -> Dict[str, float]:
+    td_before_arr = np.asarray(td_before, dtype=np.float32).reshape(-1)
+    td_after_arr = np.asarray(td_after, dtype=np.float32).reshape(-1)
+    if td_before_arr.size == 0 or td_after_arr.size != td_before_arr.size:
+        return {}
+    support = np.asarray(getattr(wb, "psi_q_rank", np.zeros_like(td_before_arr)), dtype=np.float32).reshape(-1)
+    weights = np.asarray(getattr(wb, "omega_critic", np.ones_like(td_before_arr)), dtype=np.float32).reshape(-1)
+    if support.size != td_before_arr.size or weights.size != td_before_arr.size:
+        return {}
+
+    support_mask = support > 0.5
+    neg_mask = ~support_mask
+    residual_reduction = td_before_arr - td_after_arr
+    eps = 1e-8
+    pos_td = _safe_mask_mean(td_before_arr, support_mask)
+    neg_td = _safe_mask_mean(td_before_arr, neg_mask)
+    pos_reduction = _safe_mask_mean(residual_reduction, support_mask)
+    neg_reduction = _safe_mask_mean(residual_reduction, neg_mask)
+    return {
+        "diagnostic/support_positive_rate": float(np.mean(support_mask)),
+        "diagnostic/td_error_support_pos_mean": pos_td,
+        "diagnostic/td_error_support_neg_mean": neg_td,
+        "diagnostic/td_error_enrichment_ratio": _safe_ratio(pos_td, neg_td),
+        "diagnostic/residual_reduction_support_pos_mean": pos_reduction,
+        "diagnostic/residual_reduction_support_neg_mean": neg_reduction,
+        "diagnostic/residual_correction_enrichment_ratio": _safe_ratio(pos_reduction, neg_reduction),
+        "diagnostic/residual_reduction_support_pos_rate": _safe_mask_mean(residual_reduction > 0.0, support_mask),
+        "diagnostic/residual_reduction_support_neg_rate": _safe_mask_mean(residual_reduction > 0.0, neg_mask),
+        "diagnostic/weighted_td_error_mean": float(np.average(td_before_arr, weights=np.maximum(weights, eps))),
+        "diagnostic/weighted_residual_reduction_mean": float(np.average(residual_reduction, weights=np.maximum(weights, eps))),
+        "diagnostic/support_to_td_error_corr": _safe_corr(support, td_before_arr),
+        "diagnostic/support_to_residual_reduction_corr": _safe_corr(support, residual_reduction),
+        "diagnostic/weight_to_td_error_corr": _safe_corr(weights, td_before_arr),
+        "diagnostic/weight_to_residual_reduction_corr": _safe_corr(weights, residual_reduction),
+    }
+
+
+def _safe_mask_mean(values: np.ndarray, mask: np.ndarray) -> float:
+    arr = np.asarray(values, dtype=np.float32).reshape(-1)
+    mask_arr = np.asarray(mask, dtype=np.bool_).reshape(-1)
+    if arr.size == 0 or mask_arr.size != arr.size or not np.any(mask_arr):
+        return float("nan")
+    selected = arr[mask_arr]
+    return float(np.mean(selected)) if selected.size else float("nan")
+
+
+def _safe_ratio(numerator: float, denominator: float) -> float:
+    if not np.isfinite(numerator) or not np.isfinite(denominator) or abs(float(denominator)) < 1e-8:
+        return float("nan")
+    return float(numerator / denominator)
+
+
+def _safe_corr(x: np.ndarray, y: np.ndarray) -> float:
+    x_arr = np.asarray(x, dtype=np.float64).reshape(-1)
+    y_arr = np.asarray(y, dtype=np.float64).reshape(-1)
+    if x_arr.size < 2 or y_arr.size != x_arr.size:
+        return float("nan")
+    valid = np.logical_and(np.isfinite(x_arr), np.isfinite(y_arr))
+    if int(np.count_nonzero(valid)) < 2:
+        return float("nan")
+    xv = x_arr[valid]
+    yv = y_arr[valid]
+    if float(np.std(xv)) < 1e-12 or float(np.std(yv)) < 1e-12:
+        return float("nan")
+    return float(np.corrcoef(xv, yv)[0, 1])
 
 
 def _add_runtime(row: Dict[str, Any], wall_start: float, step: int) -> None:
