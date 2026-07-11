@@ -50,13 +50,14 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | DDPG-HER-B0-2M | None | - | 2/5 | 0.39 | 0.40 | 0.207 | 960k* | 41.05 steps/s |
 | DDPG-HER-B3-Critic-Only-2M | SABER support | Critic only | 5/5 | 1.00 | 1.00 | 0.754 | 482k | 23.33 steps/s |
+| DDPG-HER-B3-Critic-Only-2M diagnostic seeds 6-10 | SABER support | Critic only | 4/5 | 0.79 | 0.80 | 0.550 | 623k* | 18.45 steps/s |
 | DDPG-HER-B3-Random-Fixed-Count-2M | Fixed-count random | Critic only | 4/5 | 0.80 | 0.80 | 0.621 | 423k* | 41.00 steps/s |
 | DDPG-HER-B3-Random-Support-2M | SABER density, random assignment | Critic only | 5/5 | 1.00 | 1.00 | 0.706 | 594k | 22.61 steps/s |
 | DDPG-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 2/5 | 0.40 | 0.42 | 0.307 | 460k* | 22.95 steps/s |
 | DDPG-HER-PER-Style-2M | TD-error PER-style | Critic only | 4/5 | 0.80 | 1.00 | 0.715 | 578k* | 39.02 steps/s |
 | DDPG-HER-HGR-2M | TD-error hindsight goal ranking | HER goal selection | 2/5 | 0.40 | 0.40 | 0.311 | 450k* | 34.61 steps/s |
 
-`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only and Random-Support both solved all 5 seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. PER-Style reached the second-highest AUC among the completed DDPG controls, but its final success was less stable because seed 2 regressed to 0.00 by the end. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only. HGR is tracked in `metaworld_Drawer_Open_DDPG_HGR` as a HER goal-prioritization baseline rather than a critic-loss reweighting method; it solved 2 of 5 seeds and remained less stable than B3-Critic-Only.
+`*` Mean Hit90 is computed over successful seeds only. B3-Critic-Only and Random-Support both solved all 5 original seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. The B3-Critic-Only diagnostic seed 6-10 run solved 4 of 5 additional seeds while logging support-positive rate, TD-error enrichment, and one-step residual correction diagnostics without changing replay sampling, loss weights, optimizer steps, or policy updates. PER-Style reached the second-highest AUC among the completed DDPG controls, but its final success was less stable because seed 2 regressed to 0.00 by the end. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only. HGR is tracked in `metaworld_Drawer_Open_DDPG_HGR` as a HER goal-prioritization baseline rather than a critic-loss reweighting method; it solved 2 of 5 seeds and remained less stable than B3-Critic-Only.
 
 Runtime note: `DDPG-HER-B3-Shuffled-Weight-2M` was interrupted and resumed from checkpoints. The committed per-seed `summary.json` and `metrics.csv` files have been corrected by combining original and resumed logs, dropping original rows after each resume checkpoint, and recomputing runtime from original-start to resumed-finish timestamps. The corrected mean speed is `22.95 steps/s`.
 
@@ -89,6 +90,21 @@ Completed on 2026-06-24 KST with the same 5 seeds, 2M steps per seed, sparse Dra
 | Mean | 1.00 | 1.00 | 0.754 | 482k |
 
 DDPG+HER+B3-Critic-Only solved all 5 seeds and reached 90% success between 400k and 580k steps, substantially improving both seed reliability and AUC over DDPG+HER B0.
+
+### DDPG-HER-B3-Critic-Only-2M Diagnostic Seeds 6-10
+
+Completed on 2026-07-11 UTC with additional seeds 6-10, 2M steps per seed, sparse DrawerOpen-v3, 20 evaluation episodes every 10k steps, and online diagnostic logging enabled. The diagnostic logging records support-positive rate, TD-error enrichment, and one-step residual correction metrics; it does not change replay sampling, loss weights, optimizer steps, or policy updates.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 6 | 1.00 | 1.00 | 0.766 | 470k |
+| 7 | 0.00 | 0.00 | 0.000 | - |
+| 8 | 1.00 | 1.00 | 0.576 | 830k |
+| 9 | 0.95 | 1.00 | 0.571 | 850k |
+| 10 | 1.00 | 1.00 | 0.837 | 340k |
+| Mean | 0.79 | 0.80 | 0.550 | 623k* |
+
+`*` The mean first-hit value is computed over the four seeds that reached 90%. The full diagnostic artifact summary is stored at `results_2m/DDPG-HER-B3-Critic-Only-2M/RESULTS_SUMMARY_S6_10_DIAGNOSTIC.md`.
 
 ### DDPG-HER-B3-Random-Fixed-Count-2M
 
