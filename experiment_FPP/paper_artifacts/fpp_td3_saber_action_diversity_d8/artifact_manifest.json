@@ -118,7 +118,8 @@
       1000000
     ]
   },
-  "generated_at_utc": "2026-07-11T08:23:01.050436+00:00",
+  "gate_activity_summary": "results/gate_activity_summary.json",
+  "generated_at_utc": "2026-07-11T11:22:19.701636+00:00",
   "generation_script": "code/package_artifact.py",
   "input_file_count": 85,
   "method_seed_coverage": {
@@ -151,13 +152,13 @@
       5
     ]
   },
-  "package_content_sha256_excluding_manifest": "1cf31ccbae624bba142f16f59c3d385aa791e2532433c4f7116527b757fe37ab",
+  "package_content_sha256_excluding_manifest": "501ae86d3c3afe96c6db2dbfa071f5b186e34b668d1f0c0526af224adeca7a1c",
   "packaged_file_count_excluding_manifest": 124,
   "packaged_files": [
     {
       "path": "README.md",
-      "sha256": "53b199850f21a654d247e6970eac18b878248f07e9c675f5b45d5b54f86e9ab0",
-      "size_bytes": 5613
+      "sha256": "3d3ce10e05528ddc0768f3c1aabb861e261da56edd1033de23cfb1666d0b0b70",
+      "size_bytes": 6573
     },
     {
       "path": "code/analyze_results.py",
@@ -171,8 +172,8 @@
     },
     {
       "path": "code/package_artifact.py",
-      "sha256": "bdcc1ad0482506ff205d324c4c4e71fde03fae588647c17912fbde83fbdb44f4",
-      "size_bytes": 33323
+      "sha256": "55352ec860a3f8965be16ea9e76db775db374bf5491926cd4286ab31c1589a73",
+      "size_bytes": 40276
     },
     {
       "path": "code/requirements-numba.txt",
@@ -186,8 +187,8 @@
     },
     {
       "path": "code/select_diversity_threshold.py",
-      "sha256": "8145ac493c7dbd85978772670b98354df03d3fb16107a3d77b0f9434c2617712",
-      "size_bytes": 5608
+      "sha256": "e66251652eb58169c0401d7402436110dc3a2f1245153e74a68f9aa449532077",
+      "size_bytes": 5696
     },
     {
       "path": "code/src/metacog_lite_v0/__init__.py",
@@ -275,11 +276,6 @@
       "size_bytes": 70243
     },
     {
-      "path": "code/src/test_b3_runtime_opt_lookup.py",
-      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-      "size_bytes": 9355
-    },
-    {
       "path": "code/src/test_numba_runtime_opt_fpp.py",
       "sha256": "17862951acef0fb186f02983827a2c130e92014fd758a6106a609b2327873727",
       "size_bytes": 9972
@@ -300,14 +296,14 @@
       "size_bytes": 5080
     },
     {
-      "path": "code/test_run_config_parity.py",
-      "sha256": "099ce5d75a08dd7f2f24647d9cde43b0ab636ceca6619eb0d235328f8b8676cc",
-      "size_bytes": 8503
+      "path": "code/test_packaged_config_parity.py",
+      "sha256": "226e2aba47fb281f8f0cbbab3c88b90830978fa45f9f0f83b8d6f2f2e9f51194",
+      "size_bytes": 6988
     },
     {
       "path": "code/test_select_diversity_threshold.py",
-      "sha256": "fc00b5ee6aff7ef1eff27e7556c2dcef21bbb7d21b72298fb4ab8af0d4a571d3",
-      "size_bytes": 3215
+      "sha256": "b0c8ff4877707f67c22502e471a952cb897564fe8006978e958206c1e23bb065",
+      "size_bytes": 4406
     },
     {
       "path": "data/diverse_d8/fetch_pick_and_place_td3_saber_diverse_d8_critic_only_v4_s1_1000000_ls512/config.json",
@@ -531,8 +527,8 @@
     },
     {
       "path": "data/probe/selected_threshold.json",
-      "sha256": "daca360176cae6bf505a053b73a49fbfeeb09c3e99e765006f670ab0c2872cb0",
-      "size_bytes": 1299
+      "sha256": "ad269bcc902b95dc26217a3051096780318d15462ea776daef62bf42b4427892",
+      "size_bytes": 1356
     },
     {
       "path": "data/random_count_d8/fetch_pick_and_place_td3_saber_random_diversity_count_d8_critic_only_v4_s1_1000000_ls512/config.json",
@@ -736,8 +732,8 @@
     },
     {
       "path": "input_manifest.json",
-      "sha256": "88561bf6745bc46423eb49db8e821d5ac73ff3842fa10d691938e61de80fa80e",
-      "size_bytes": 51774
+      "sha256": "f6fe545279f1755462cca2546207a89dc4a5b024a19331a90c6cc09340eef421",
+      "size_bytes": 51499
     },
     {
       "path": "requirements.txt",
@@ -748,6 +744,11 @@
       "path": "results/aggregate_results.csv",
       "sha256": "4019058c444dff6ea93edebcd89f0ae9f174f1e46aafddf6f4a9539627196919",
       "size_bytes": 746
+    },
+    {
+      "path": "results/gate_activity_summary.json",
+      "sha256": "20255678a489bd83bcfed97e66143cfe53199dc1cb3e82ca5315681b367b183c",
+      "size_bytes": 2874
     },
     {
       "path": "results/paired_bootstrap_ci.csv",
@@ -771,13 +772,13 @@
     },
     {
       "path": "results/validation.json",
-      "sha256": "84cc75171740330aaa2e18a909641ceeb5267c548b328aa91f0fd7e0a0c83f69",
-      "size_bytes": 2003
+      "sha256": "e4398e77e991db9e4a0d8cfaa6c74cde3b15e841ac47ad49823b9c7eb59a4719",
+      "size_bytes": 2199
     }
   ],
   "repository": {
     "branch": "main",
-    "commit": "55e620046b44fcce03f8eccb8fb125462a580247",
+    "commit": "8dd19f4dbc29b33f79b68ebe39ccae593ed7807d",
     "id": "ARTIFACT_REPO"
   },
   "runtime": {
@@ -786,5 +787,12 @@
   },
   "schema_version": "1.0",
   "selected_dmin": 8,
-  "self_hash_note": "artifact_manifest.json is excluded to avoid a recursive self-hash."
+  "self_hash_note": "artifact_manifest.json is excluded to avoid a recursive self-hash.",
+  "threshold_metadata": {
+    "fallback_used": true,
+    "selected_dmin": 8,
+    "selected_ratio_to_d1": 0.97253726178278,
+    "selected_ratio_to_d1_6dp": 0.972537,
+    "target_interval_hit": false
+  }
 }

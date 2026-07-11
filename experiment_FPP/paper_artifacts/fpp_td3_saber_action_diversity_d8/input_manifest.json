@@ -13,18 +13,18 @@
       },
       {
         "packaged_path": "code/select_diversity_threshold.py",
-        "sha256": "8145ac493c7dbd85978772670b98354df03d3fb16107a3d77b0f9434c2617712",
+        "sha256": "e66251652eb58169c0401d7402436110dc3a2f1245153e74a68f9aa449532077",
         "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/select_diversity_threshold.py"
       },
       {
         "packaged_path": "code/test_select_diversity_threshold.py",
-        "sha256": "fc00b5ee6aff7ef1eff27e7556c2dcef21bbb7d21b72298fb4ab8af0d4a571d3",
+        "sha256": "b0c8ff4877707f67c22502e471a952cb897564fe8006978e958206c1e23bb065",
         "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/test_select_diversity_threshold.py"
       },
       {
-        "packaged_path": "code/test_run_config_parity.py",
-        "sha256": "099ce5d75a08dd7f2f24647d9cde43b0ab636ceca6619eb0d235328f8b8676cc",
-        "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/test_run_config_parity.py"
+        "packaged_path": "code/test_packaged_config_parity.py",
+        "sha256": "226e2aba47fb281f8f0cbbab3c88b90830978fa45f9f0f83b8d6f2f2e9f51194",
+        "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/test_packaged_config_parity.py"
       },
       {
         "packaged_path": "code/run.py",
@@ -43,7 +43,7 @@
       },
       {
         "packaged_path": "code/package_artifact.py",
-        "sha256": "bdcc1ad0482506ff205d324c4c4e71fde03fae588647c17912fbde83fbdb44f4",
+        "sha256": "55352ec860a3f8965be16ea9e76db775db374bf5491926cd4286ab31c1589a73",
         "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/package_artifact.py"
       },
       {
@@ -132,11 +132,6 @@
         "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/code/src/metacog_lite_v0/weights.py"
       },
       {
-        "packaged_path": "code/src/test_b3_runtime_opt_lookup.py",
-        "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-        "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/code/src/test_b3_runtime_opt_lookup.py"
-      },
-      {
         "packaged_path": "code/src/test_numba_runtime_opt_fpp.py",
         "sha256": "17862951acef0fb186f02983827a2c130e92014fd758a6106a609b2327873727",
         "source_path": "experiment_FPP/td3_saber_action_diversity_ablation/code/src/test_numba_runtime_opt_fpp.py"
@@ -153,7 +148,7 @@
       }
     ],
     "provenance_note": "The experiment implementation was uncommitted at packaging time; exact file SHA256 values follow.",
-    "repository_parent_commit": "55e620046b44fcce03f8eccb8fb125462a580247",
+    "repository_parent_commit": "8dd19f4dbc29b33f79b68ebe39ccae593ed7807d",
     "source_commit": null
   },
   "input_file_count": 85,
@@ -883,7 +878,7 @@
   },
   "repository": {
     "branch": "main",
-    "commit": "55e620046b44fcce03f8eccb8fb125462a580247",
+    "commit": "8dd19f4dbc29b33f79b68ebe39ccae593ed7807d",
     "id": "ARTIFACT_REPO"
   },
   "schema_version": "1.0",

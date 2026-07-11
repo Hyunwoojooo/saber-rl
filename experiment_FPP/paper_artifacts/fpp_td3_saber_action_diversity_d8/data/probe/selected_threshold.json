@@ -16,6 +16,8 @@
     0.7
   ],
   "target_ratio_midpoint": 0.55,
+  "target_interval_hit": false,
+  "fallback_used": true,
   "tie_break": "smallest Dmin",
   "success_metrics_used": false,
   "window_sample_count": 7680000.0,

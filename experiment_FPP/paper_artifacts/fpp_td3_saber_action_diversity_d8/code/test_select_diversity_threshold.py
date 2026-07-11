@@ -42,6 +42,25 @@ def write_probe_csv(path: Path, *, disagree: bool = False) -> None:
         writer.writerows(rows)
 
 
+def write_fallback_probe_csv(path: Path) -> None:
+    fields = [
+        "step",
+        "support/probe_total_count",
+        "support/probe_main_positive_count",
+        "support/probe_d2_positive_count",
+        "support/probe_d4_positive_count",
+        "support/probe_d8_positive_count",
+    ]
+    rows = [
+        [20_000, 2_000, 1_000, 900, 800, 700],
+        [50_000, 3_000, 1_500, 1_350, 1_200, 1_075],
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(fields)
+        writer.writerows(rows)
+
+
 def test_selects_d4_without_success_metrics() -> None:
     module = load_module()
     with tempfile.TemporaryDirectory() as tmp:
@@ -55,6 +74,20 @@ def test_selects_d4_without_success_metrics() -> None:
     assert result["rates"]["4"]["positive_rate"] == 0.275
     assert result["rates"]["4"]["ratio_to_d1"] == 0.55
     assert result["rates"]["8"]["positive_rate"] == 0.02
+    assert result["target_interval_hit"] is True
+    assert result["fallback_used"] is False
+
+
+def test_records_nearest_interval_fallback() -> None:
+    module = load_module()
+    with tempfile.TemporaryDirectory() as tmp:
+        metrics = Path(tmp) / "metrics.csv"
+        write_fallback_probe_csv(metrics)
+        result = module.select_threshold(metrics)
+    assert result["selected_dmin"] == 8
+    assert result["selected_ratio_to_d1"] == 0.75
+    assert result["target_interval_hit"] is False
+    assert result["fallback_used"] is True
 
 
 def test_duplicate_counter_disagreement_raises() -> None:
@@ -87,6 +120,7 @@ def test_missing_exact_checkpoint_raises() -> None:
 
 def main() -> int:
     test_selects_d4_without_success_metrics()
+    test_records_nearest_interval_fallback()
     test_duplicate_counter_disagreement_raises()
     test_missing_exact_checkpoint_raises()
     print("test_select_diversity_threshold.py passed")

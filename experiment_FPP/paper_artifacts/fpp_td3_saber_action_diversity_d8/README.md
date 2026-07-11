@@ -28,6 +28,26 @@ the closest candidate, then the closest midpoint, then the smallest Dmin.
 Selected threshold: `Dmin=8`. The packaged probe input is
 `data/probe/fetch_pick_and_place_td3_saber_diversity_probe_d1_50k_s1_50000_ls512/metrics_selected_10k.csv`.
 
+Threshold metadata records `target_interval_hit=false`
+and `fallback_used=true` with selected ratio
+`0.972537`.
+
+## Gate Activity
+
+The following rates are arithmetic means over seeds 1-5 and the 100 exact 10k
+diagnostic checkpoints per seed. Duplicate train/eval rows at one seed-step are
+required to agree and are counted once.
+
+| Diagnostic | Mean |
+|---|---:|
+| Pre-diversity support rate | 0.199484 |
+| D8-positive rate | 0.195250 |
+| D8 pass given main | 0.984199 |
+
+D8 therefore retained about 98.4% of main-positive samples on these snapshots;
+it was a weak additional gate rather than a highly selective filter. Full values
+and per-seed means are in `results/gate_activity_summary.json`.
+
 ## Evaluation
 
 Methods are TD3+HER, TD3+HER+SABER (legacy Dmin=1),
@@ -76,7 +96,7 @@ action diversity alone.
 
 - `data/`: sanitized configs, environment snapshots, summaries, and compact exact-10k CSVs.
 - `code/`: training implementation snapshot, scanner tests, threshold selector, analyzer, and tests.
-- `results/`: recomputed tables, paired intervals, report, and validation record.
+- `results/`: recomputed tables, gate activity, paired intervals, report, and validation record.
 - `input_manifest.json`: source artifact paths, provenance, sizes, and SHA256 digests.
 - `artifact_manifest.json`: packaged-file hashes, coverage, dependencies, and generation metadata.
 
@@ -91,6 +111,7 @@ From this artifact directory, with NumPy installed from `requirements.txt`:
 ```bash
 python code/test_analyze_results.py
 python code/test_select_diversity_threshold.py
+python code/test_packaged_config_parity.py
 python code/select_diversity_threshold.py \
   --metrics data/probe/fetch_pick_and_place_td3_saber_diversity_probe_d1_50k_s1_50000_ls512/metrics_selected_10k.csv \
   --output /tmp/selected_threshold.json
@@ -111,10 +132,14 @@ python code/src/test_numba_support_scan_fpp.py
 python code/src/test_numba_runtime_opt_fpp.py
 ```
 
+The repository-only `test_run_config_parity.py` is intentionally not packaged
+because it references a sibling baseline source tree. The packaged parity test
+uses only this artifact's `data/` directories.
+
 ## Provenance
 
 - Source repository ID: `ARTIFACT_REPO`
 - Source branch: `main`
-- Source repository commit at packaging: `55e620046b44fcce03f8eccb8fb125462a580247`
+- Source repository commit at packaging: `8dd19f4dbc29b33f79b68ebe39ccae593ed7807d`
 - Evaluation source commit for tracked HER and main-SABER inputs is recorded per method in `input_manifest.json`.
 - Diverse D8, Random-Diversity-Count D8, and probe files were generated from an uncommitted experiment implementation snapshot; their source commit is `null`, with exact source and packaged hashes retained in the manifests.

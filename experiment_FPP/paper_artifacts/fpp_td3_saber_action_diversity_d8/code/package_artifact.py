@@ -65,6 +65,19 @@ RESULT_FILES = (
     "paired_bootstrap_ci.csv",
 )
 RUN_JSON_FILES = ("config.json", "env_snapshot.json", "summary.json")
+GATE_ACTIVITY_FIELDS = (
+    (
+        "pre_diversity_support_rate",
+        "support/pre_diversity_support_rate",
+        0.199484,
+    ),
+    ("d8_positive_rate", "support/diverse_positive_rate", 0.195250),
+    (
+        "d8_pass_given_main",
+        "support/diversity_pass_given_main_rate",
+        0.984199,
+    ),
+)
 
 
 def sha256(path: Path) -> str:
@@ -320,14 +333,20 @@ def copy_code(repo_root: Path, package_root: Path) -> list[dict[str, object]]:
         "test_analyze_results.py",
         "select_diversity_threshold.py",
         "test_select_diversity_threshold.py",
-        "test_run_config_parity.py",
+        "test_packaged_config_parity.py",
         "run.py",
         "config.json",
         "requirements-numba.txt",
         "package_artifact.py",
     )
     sources = [source_root / name for name in root_files]
-    sources.extend(sorted((source_root / "code" / "src").rglob("*.py")))
+    sources.extend(
+        sorted(
+            path
+            for path in (source_root / "code" / "src").rglob("*.py")
+            if path.name != "test_b3_runtime_opt_lookup.py"
+        )
+    )
     records = []
     for source in sources:
         if not source.is_file():
@@ -401,6 +420,102 @@ def random_count_diagnostics(root: Path) -> dict[str, object]:
     }
 
 
+def gate_activity_summary(
+    diverse_root: Path,
+    selected_threshold: Mapping[str, object],
+) -> dict[str, object]:
+    runs = discover_runs(diverse_root, SEEDS)
+    aggregate: dict[str, list[float]] = {
+        key: [] for key, _column, _expected in GATE_ACTIVITY_FIELDS
+    }
+    per_seed: dict[str, dict[str, float]] = {}
+    for seed, run_dir in runs.items():
+        snapshots: dict[str, dict[int, float]] = {
+            key: {} for key, _column, _expected in GATE_ACTIVITY_FIELDS
+        }
+        metrics_path = metrics_path_for(run_dir)
+        with metrics_path.open(newline="", encoding="utf-8") as handle:
+            for row in csv.DictReader(handle):
+                step = row_step(row)
+                if step not in EVAL_STEPS:
+                    continue
+                for key, column, _expected in GATE_ACTIVITY_FIELDS:
+                    value = finite_float(row.get(column))
+                    if value is None:
+                        continue
+                    previous = snapshots[key].get(step)
+                    if previous is not None and not math.isclose(
+                        previous, value, rel_tol=0.0, abs_tol=1e-12
+                    ):
+                        raise ValueError(
+                            f"{metrics_path}: {column} rows disagree at step {step}"
+                        )
+                    snapshots[key][step] = value
+
+        seed_values: dict[str, float] = {}
+        for key, column, _expected in GATE_ACTIVITY_FIELDS:
+            missing = [step for step in EVAL_STEPS if step not in snapshots[key]]
+            if missing:
+                raise ValueError(
+                    f"{metrics_path}: {column} missing exact checkpoints {missing}"
+                )
+            values = [snapshots[key][step] for step in EVAL_STEPS]
+            seed_values[key] = float(sum(values) / len(values))
+            aggregate[key].extend(values)
+        per_seed[str(seed)] = seed_values
+
+    metrics: dict[str, object] = {}
+    for key, column, expected_6dp in GATE_ACTIVITY_FIELDS:
+        values = aggregate[key]
+        mean = float(sum(values) / len(values))
+        rounded = round(mean, 6)
+        if not math.isclose(rounded, expected_6dp, rel_tol=0.0, abs_tol=1e-12):
+            raise ValueError(
+                f"{column}: expected six-decimal audit value {expected_6dp}, "
+                f"computed {rounded}"
+            )
+        metrics[key] = {
+            "source_column": column,
+            "mean": mean,
+            "mean_6dp": rounded,
+            "per_seed_mean": {
+                str(seed): per_seed[str(seed)][key] for seed in SEEDS
+            },
+        }
+
+    return {
+        "schema_version": "1.0",
+        "method": "TD3+HER+SABER-Diverse",
+        "dmin": 8,
+        "grid": list(EVAL_STEPS),
+        "checkpoint_count_per_seed": len(EVAL_STEPS),
+        "seed_count": len(SEEDS),
+        "observation_count": len(SEEDS) * len(EVAL_STEPS),
+        "aggregation": (
+            "Arithmetic mean across seeds 1-5 and exact 10k checkpoints; "
+            "duplicate train/eval rows at one seed-step must agree and count once."
+        ),
+        "metrics": metrics,
+        "threshold_metadata": {
+            "target_interval_hit": bool(
+                selected_threshold["target_interval_hit"]
+            ),
+            "fallback_used": bool(selected_threshold["fallback_used"]),
+            "selected_dmin": int(selected_threshold["selected_dmin"]),
+            "selected_ratio_to_d1": float(
+                selected_threshold["selected_ratio_to_d1"]
+            ),
+            "selected_ratio_to_d1_6dp": round(
+                float(selected_threshold["selected_ratio_to_d1"]), 6
+            ),
+        },
+        "interpretation": (
+            "D8 retained about 98.4% of main-positive samples on the packaged "
+            "exact-10k diagnostic snapshots, so it was a weak additional gate."
+        ),
+    }
+
+
 def assert_condition_configs(package_root: Path) -> None:
     expected = {
         "her": (1, "support"),
@@ -425,6 +540,7 @@ def build_readme(
     aggregate: Sequence[Mapping[str, str]],
     bootstrap: Sequence[Mapping[str, str]],
     probe_metrics_rel: str,
+    gate_activity: Mapping[str, object],
 ) -> str:
     aggregate_lines = []
     native_lines = []
@@ -449,6 +565,9 @@ def build_readme(
     rates = selected["rates"]
     if not isinstance(rates, dict):
         raise TypeError("selected threshold rates must be a mapping")
+    gate_metrics = gate_activity["metrics"]
+    if not isinstance(gate_metrics, dict):
+        raise TypeError("gate activity metrics must be a mapping")
     return f"""# FPP TD3 SABER Action-Diversity D8 Ablation
 
 ## Purpose
@@ -478,6 +597,26 @@ the closest candidate, then the closest midpoint, then the smallest Dmin.
 
 Selected threshold: `Dmin={selected['selected_dmin']}`. The packaged probe input is
 `{probe_metrics_rel}`.
+
+Threshold metadata records `target_interval_hit={str(selected['target_interval_hit']).lower()}`
+and `fallback_used={str(selected['fallback_used']).lower()}` with selected ratio
+`{float(selected['selected_ratio_to_d1']):.6f}`.
+
+## Gate Activity
+
+The following rates are arithmetic means over seeds 1-5 and the 100 exact 10k
+diagnostic checkpoints per seed. Duplicate train/eval rows at one seed-step are
+required to agree and are counted once.
+
+| Diagnostic | Mean |
+|---|---:|
+| Pre-diversity support rate | {float(gate_metrics['pre_diversity_support_rate']['mean']):.6f} |
+| D8-positive rate | {float(gate_metrics['d8_positive_rate']['mean']):.6f} |
+| D8 pass given main | {float(gate_metrics['d8_pass_given_main']['mean']):.6f} |
+
+D8 therefore retained about 98.4% of main-positive samples on these snapshots;
+it was a weak additional gate rather than a highly selective filter. Full values
+and per-seed means are in `results/gate_activity_summary.json`.
 
 ## Evaluation
 
@@ -519,7 +658,7 @@ action diversity alone.
 
 - `data/`: sanitized configs, environment snapshots, summaries, and compact exact-10k CSVs.
 - `code/`: training implementation snapshot, scanner tests, threshold selector, analyzer, and tests.
-- `results/`: recomputed tables, paired intervals, report, and validation record.
+- `results/`: recomputed tables, gate activity, paired intervals, report, and validation record.
 - `input_manifest.json`: source artifact paths, provenance, sizes, and SHA256 digests.
 - `artifact_manifest.json`: packaged-file hashes, coverage, dependencies, and generation metadata.
 
@@ -534,6 +673,7 @@ From this artifact directory, with NumPy installed from `requirements.txt`:
 ```bash
 python code/test_analyze_results.py
 python code/test_select_diversity_threshold.py
+python code/test_packaged_config_parity.py
 python code/select_diversity_threshold.py \\
   --metrics {probe_metrics_rel} \\
   --output /tmp/selected_threshold.json
@@ -553,6 +693,10 @@ Numba scanner tests can be run with the training dependencies in
 python code/src/test_numba_support_scan_fpp.py
 python code/src/test_numba_runtime_opt_fpp.py
 ```
+
+The repository-only `test_run_config_parity.py` is intentionally not packaged
+because it references a sibling baseline source tree. The packaged parity test
+uses only this artifact's `data/` directories.
 
 ## Provenance
 
@@ -724,11 +868,21 @@ def build_package(repo_root: Path, output: Path) -> None:
                 raise ValueError(f"threshold selection field changed: {key}")
         if int(packaged_selected["selected_dmin"]) != 8:
             raise ValueError("packaged probe did not select Dmin=8")
+        if packaged_selected["target_interval_hit"] is not False:
+            raise ValueError("packaged threshold must record target_interval_hit=false")
+        if packaged_selected["fallback_used"] is not True:
+            raise ValueError("packaged threshold must record fallback_used=true")
 
         assert_condition_configs(stage)
         random_validation = random_count_diagnostics(stage / "data/random_count_d8")
 
         results_dir = Path("results")
+        gate_activity = gate_activity_summary(
+            stage / "data/diverse_d8", packaged_selected
+        )
+        write_json(
+            stage / results_dir / "gate_activity_summary.json", gate_activity
+        )
         run_checked(
             (
                 sys.executable,
@@ -771,6 +925,15 @@ def build_package(repo_root: Path, output: Path) -> None:
             "evaluation_checkpoint_count_per_seed": len(EVAL_STEPS),
             "method_seed_coverage": {key: list(SEEDS) for key, *_ in METHODS},
             "random_count_diagnostics": random_validation,
+            "gate_activity_summary": {
+                "path": "results/gate_activity_summary.json",
+                "pre_diversity_support_rate": gate_activity["metrics"]
+                ["pre_diversity_support_rate"]["mean_6dp"],
+                "d8_positive_rate": gate_activity["metrics"]
+                ["d8_positive_rate"]["mean_6dp"],
+                "d8_pass_given_main": gate_activity["metrics"]
+                ["d8_pass_given_main"]["mean_6dp"],
+            },
             "interpolation_used": False,
             "smoothing_used": False,
             "forward_fill_used": False,
@@ -818,6 +981,7 @@ def build_package(repo_root: Path, output: Path) -> None:
                 aggregate,
                 bootstrap,
                 probe_metrics_rel,
+                gate_activity,
             ),
             encoding="utf-8",
         )
@@ -852,6 +1016,8 @@ def build_package(repo_root: Path, output: Path) -> None:
                 "rng_seed": BOOTSTRAP_SEED,
             },
             "selected_dmin": 8,
+            "threshold_metadata": gate_activity["threshold_metadata"],
+            "gate_activity_summary": "results/gate_activity_summary.json",
             "input_file_count": len(input_paths),
             "method_seed_coverage": {key: list(SEEDS) for key, *_ in METHODS},
             "packaged_file_count_excluding_manifest": len(packaged_files),

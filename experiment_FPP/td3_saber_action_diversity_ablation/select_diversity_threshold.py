@@ -152,6 +152,8 @@ def select_threshold(metrics_path: Path) -> dict[str, object]:
         "minimum_positive_rate": MIN_POSITIVE_RATE,
         "target_ratio_interval": [RATIO_LOW, RATIO_HIGH],
         "target_ratio_midpoint": RATIO_TARGET,
+        "target_interval_hit": bool(inside),
+        "fallback_used": not bool(inside),
         "tie_break": "smallest Dmin",
         "success_metrics_used": False,
         "window_sample_count": total,

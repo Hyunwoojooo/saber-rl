@@ -5,6 +5,8 @@ logs/
 logs_*/
 results/
 results_*/
+!experiment_FPP/paper_artifacts/fpp_td3_saber_action_diversity_d8/results/
+!experiment_FPP/paper_artifacts/fpp_td3_saber_action_diversity_d8/results/**
 orchestrator_logs/
 *.pt
 runs/
