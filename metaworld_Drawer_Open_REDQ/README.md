@@ -13,28 +13,27 @@ The plain `REDQ-HER-B0-2M.sh` script is kept only as a legacy/reference launcher
 
 ## Completed Result Summary
 
-`REDQ-HER-TQB-B0-2M` completed on 2026-07-12. The run used 5 parallel CUDA workers, REDQ ensemble size 10, target subset size 2, `updates_per_step=4`, HER ratio 0.8, SAC auto-alpha, and target Q bounding `[-50, 0]`.
+`REDQ-HER-TQB-B0-2M` completed on 2026-07-12. The comparison row for `DDPG-HER-B3-Critic-Only-2M` is copied from `metaworld_Drawer_Open_DDPG` for direct readability.
 
-| Seed | AUC | Hit90 step | Final success | Final env success | Best success | Runtime |
-|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 0.819 | 370k | 1.00 | 0.85 | 1.00 | 112.49h |
-| 2 | 0.897 | 230k | 1.00 | 0.75 | 1.00 | 110.05h |
-| 3 | 0.511 | 980k | 1.00 | 0.80 | 1.00 | 109.40h |
-| 4 | 0.936 | 150k | 1.00 | 0.80 | 1.00 | 110.78h |
-| 5 | 0.196 | 1490k | 1.00 | 1.00 | 1.00 | 112.53h |
+| Experiment | Reweighting Signal | Scope | Success Seeds | Final Success | Best Success | AUC Success | Mean Hit90 | Speed |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| REDQ-HER-TQB-B0-2M | REDQ ensemble + TQB | Actor-critic baseline | 5/5 | 1.00 | 1.00 | 0.672 | 644k | 5.00 steps/s |
+| DDPG-HER-B3-Critic-Only-2M | SABER support | Critic only | 5/5 | 1.00 | 1.00 | 0.754 | 482k | 23.33 steps/s |
 
-Aggregate:
+REDQ+HER+TQB is a strong compute-scaled baseline: all 5 seeds reached Hit90, but it used `updates_per_step=4` and a 10-critic ensemble. In this DrawerOpen run, SABER/B3-Critic-Only reached higher AUC and earlier mean Hit90 with roughly 4.7x higher observed environment-step throughput.
 
-| Metric | Mean +/- Std |
-|---|---:|
-| AUC | 0.672 +/- 0.281 |
-| Final success | 1.000 +/- 0.000 |
-| Final env success | 0.840 +/- 0.086 |
-| Best success | 1.000 +/- 0.000 |
-| Hit90 step | 644k +/- 494k |
-| Runtime | 111.05h +/- 1.23h |
+### REDQ-HER-TQB-B0-2M Per-Seed Results
 
-Interpretation: REDQ+HER+TQB is a strong compute-scaled baseline. All 5 seeds reached Hit90, but the wall-clock cost is very high because this baseline uses 4 updates per environment step and a 10-critic ensemble. This is not a matched one-update-per-step backbone comparison against SABER.
+The run used 5 parallel CUDA workers, REDQ ensemble size 10, target subset size 2, `updates_per_step=4`, HER ratio 0.8, SAC auto-alpha, and target Q bounding `[-50, 0]`.
+
+| Seed | Final Success | Final Env Success | Best Success | AUC Success | First Hit 90% | Runtime |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 0.85 | 1.00 | 0.819 | 370k | 112.49h |
+| 2 | 1.00 | 0.75 | 1.00 | 0.897 | 230k | 110.05h |
+| 3 | 1.00 | 0.80 | 1.00 | 0.511 | 980k | 109.40h |
+| 4 | 1.00 | 0.80 | 1.00 | 0.936 | 150k | 110.78h |
+| 5 | 1.00 | 1.00 | 1.00 | 0.196 | 1490k | 112.53h |
+| Mean | 1.00 | 0.84 | 1.00 | 0.672 | 644k | 111.05h |
 
 ## REDQ Settings
 
