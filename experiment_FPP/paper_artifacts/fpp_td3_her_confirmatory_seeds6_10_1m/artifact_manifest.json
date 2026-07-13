@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "experiment": "fpp_td3_her_confirmatory_seeds6_10_1m",
+  "artifact_scope": "completed TD3+HER arm only; paired SABER comparison pending",
+  "artifact_base_commit": "a2af59b6ec2bdea134d175b3c111a21ce24bf815",
+  "source_snapshot_manifest_sha256": "a0248c1e8b697d288aeb95885ed5a18c688c405a35deb13d40a511ed78d53622",
+  "method": "td3_her",
+  "seeds": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "expected_total_steps": 1000000,
+  "evaluation_grid": {
+    "start": 10000,
+    "end": 1000000,
+    "interval": 10000,
+    "count": 100,
+    "interpolation": false
+  },
+  "excluded_patterns": [
+    "*.pt",
+    "checkpoint*",
+    "metrics.csv",
+    "metrics.jsonl"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 1723,
+      "sha256": "49081bd36b004dfe2a64db838464e309d420ca862aab0ec7addb3bd66a419494"
+    },
+    {
+      "path": "aggregate_results.csv",
+      "size_bytes": 600,
+      "sha256": "580791c5625364f4989713ebc00631c557b7759f1efd8471c6aa46a0870847ce"
+    },
+    {
+      "path": "data/td3_her/10/config.json",
+      "size_bytes": 4848,
+      "sha256": "f6b61b14fb5d5a7b71719c2cefde9e3ab9683067e5684854b96da76a6c4a5f3b"
+    },
+    {
+      "path": "data/td3_her/10/env_snapshot.json",
+      "size_bytes": 2349,
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "path": "data/td3_her/10/metrics_selected_10k.csv",
+      "size_bytes": 201786,
+      "sha256": "125726ea21a0b4a0c7937a36a70d68af98f917f00ed8d52fd4328298392a36d5"
+    },
+    {
+      "path": "data/td3_her/10/run.log",
+      "size_bytes": 153457,
+      "sha256": "356471425b54c25266aeb5c32fd353767569a291c131e3bb325b8f0ca3f806bc"
+    },
+    {
+      "path": "data/td3_her/10/summary.json",
+      "size_bytes": 5324,
+      "sha256": "a6c7c706044602cc8417c74933b34a550fcf1fd7450839d0b63f7f949e9189b6"
+    },
+    {
+      "path": "data/td3_her/6/config.json",
+      "size_bytes": 4843,
+      "sha256": "442432ef63b7cd85625eee0b3cf11262166e6af243b90e62bc20690a1ac2189b"
+    },
+    {
+      "path": "data/td3_her/6/env_snapshot.json",
+      "size_bytes": 2349,
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "path": "data/td3_her/6/metrics_selected_10k.csv",
+      "size_bytes": 201337,
+      "sha256": "3be3a97777109d9c0bee098912819a912eb8c823f5a7eef91e505c5525820a42"
+    },
+    {
+      "path": "data/td3_her/6/run.log",
+      "size_bytes": 153417,
+      "sha256": "8e999cbdd77d185689a14365f92cb268b1a99f781ca3d0b2c073ed08683919a7"
+    },
+    {
+      "path": "data/td3_her/6/summary.json",
+      "size_bytes": 5322,
+      "sha256": "f51c079a6c741a9669886f2cb930dbe35b9b56d4378be8d754b6596eadd99b37"
+    },
+    {
+      "path": "data/td3_her/7/config.json",
+      "size_bytes": 4843,
+      "sha256": "7fae74549f98e1e2e8bbcdd111c219594ad39d3c6eaa29a42e77199cd59815fc"
+    },
+    {
+      "path": "data/td3_her/7/env_snapshot.json",
+      "size_bytes": 2349,
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "path": "data/td3_her/7/metrics_selected_10k.csv",
+      "size_bytes": 201531,
+      "sha256": "a454aa64c3c06b91fceddd818a2062ec736c78668c7607b63bca1e0b13ebe163"
+    },
+    {
+      "path": "data/td3_her/7/run.log",
+      "size_bytes": 153473,
+      "sha256": "f6559dc491e8da013e64ab9802082154c2d2b2b42c0d779e3002342240dd251c"
+    },
+    {
+      "path": "data/td3_her/7/summary.json",
+      "size_bytes": 5326,
+      "sha256": "4bfdadca5acf729d969b67704218ce9e132517da96ad18077c31500d69d965c5"
+    },
+    {
+      "path": "data/td3_her/8/config.json",
+      "size_bytes": 4843,
+      "sha256": "8cc259cfbb514f559563b7241cb88b4bec933f071ed262b31044c976e605d61f"
+    },
+    {
+      "path": "data/td3_her/8/env_snapshot.json",
+      "size_bytes": 2349,
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "path": "data/td3_her/8/metrics_selected_10k.csv",
+      "size_bytes": 201290,
+      "sha256": "dccbc9bf20048523ba2b0622ddf21b32f027b93485f4e8deda7f8a3f4a649336"
+    },
+    {
+      "path": "data/td3_her/8/run.log",
+      "size_bytes": 153495,
+      "sha256": "acff34177e43011ffb7a0c001067f954cdf873167964a686f9415e827786a143"
+    },
+    {
+      "path": "data/td3_her/8/summary.json",
+      "size_bytes": 5307,
+      "sha256": "da58474f3ea9891a7883ce764922d99a6890e6a724acc8ff05f7b31d9379b0f2"
+    },
+    {
+      "path": "data/td3_her/9/config.json",
+      "size_bytes": 4843,
+      "sha256": "090318da372e8e6bbf68f00adfab9789edf40ffb8fb33419af0dba61950cce8a"
+    },
+    {
+      "path": "data/td3_her/9/env_snapshot.json",
+      "size_bytes": 2349,
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "path": "data/td3_her/9/metrics_selected_10k.csv",
+      "size_bytes": 202469,
+      "sha256": "1f9180b7a19e22b57c3ad0c966c8b562b260065194663a08bb17ea7445d7ab9c"
+    },
+    {
+      "path": "data/td3_her/9/run.log",
+      "size_bytes": 153417,
+      "sha256": "f6b6bdcf960492d3aa6eee4265582cd40237ae81082d9a3d1be1c4532fb87479"
+    },
+    {
+      "path": "data/td3_her/9/summary.json",
+      "size_bytes": 5339,
+      "sha256": "d47ecae89f2ca205de775f33eb1c4ddea5139e41f3e2e69f8e67f550c319ceb2"
+    },
+    {
+      "path": "experiment_config.json",
+      "size_bytes": 3399,
+      "sha256": "a1cb563bb94ddcb29441ee2d88784b976c57db27489dafd2daf494438db597d0"
+    },
+    {
+      "path": "per_seed_results.csv",
+      "size_bytes": 723,
+      "sha256": "a59522e45af3327a3514f52d4a5f5131e3bf3e26a53bb19657878b136f1cf0cf"
+    }
+  ]
+}
