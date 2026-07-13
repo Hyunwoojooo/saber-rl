@@ -1,0 +1,401 @@
+method_key,method,seed,metric,mean_over_exact_eval_snapshots,checkpoint_count
+her,TD3+HER,1,query/context_count_eligible_rate,,0
+her,TD3+HER,1,query/support_positive_rate,0.0,100
+her,TD3+HER,1,query/query_bin_present_given_context_rate,,0
+her,TD3+HER,1,query/high_weight_count,,0
+her,TD3+HER,1,query/raw_weight_mean,1.0,100
+her,TD3+HER,1,query/raw_weight_std,0.0,100
+her,TD3+HER,1,query/raw_weight_ESS,256.0,100
+her,TD3+HER,1,query/normalized_weight_mean,,0
+her,TD3+HER,1,query/normalized_weight_std,,0
+her,TD3+HER,1,query/normalized_weight_ESS,,0
+her,TD3+HER,1,query/query_bin_matches_current_policy_rate,,0
+her,TD3+HER,1,query/query_bin_matches_replay_action_rate,,0
+her,TD3+HER,1,query/support_positive_rate_phase_approach,0.0,100
+her,TD3+HER,1,query/support_positive_rate_phase_grasp,0.0,100
+her,TD3+HER,1,query/support_positive_rate_phase_lift,0.0,100
+her,TD3+HER,1,query/support_positive_rate_phase_place,0.0,100
+her,TD3+HER,2,query/context_count_eligible_rate,,0
+her,TD3+HER,2,query/support_positive_rate,0.0,100
+her,TD3+HER,2,query/query_bin_present_given_context_rate,,0
+her,TD3+HER,2,query/high_weight_count,,0
+her,TD3+HER,2,query/raw_weight_mean,1.0,100
+her,TD3+HER,2,query/raw_weight_std,0.0,100
+her,TD3+HER,2,query/raw_weight_ESS,256.0,100
+her,TD3+HER,2,query/normalized_weight_mean,,0
+her,TD3+HER,2,query/normalized_weight_std,,0
+her,TD3+HER,2,query/normalized_weight_ESS,,0
+her,TD3+HER,2,query/query_bin_matches_current_policy_rate,,0
+her,TD3+HER,2,query/query_bin_matches_replay_action_rate,,0
+her,TD3+HER,2,query/support_positive_rate_phase_approach,0.0,100
+her,TD3+HER,2,query/support_positive_rate_phase_grasp,0.0,100
+her,TD3+HER,2,query/support_positive_rate_phase_lift,0.0,100
+her,TD3+HER,2,query/support_positive_rate_phase_place,0.0,100
+her,TD3+HER,3,query/context_count_eligible_rate,,0
+her,TD3+HER,3,query/support_positive_rate,0.0,100
+her,TD3+HER,3,query/query_bin_present_given_context_rate,,0
+her,TD3+HER,3,query/high_weight_count,,0
+her,TD3+HER,3,query/raw_weight_mean,1.0,100
+her,TD3+HER,3,query/raw_weight_std,0.0,100
+her,TD3+HER,3,query/raw_weight_ESS,256.0,100
+her,TD3+HER,3,query/normalized_weight_mean,,0
+her,TD3+HER,3,query/normalized_weight_std,,0
+her,TD3+HER,3,query/normalized_weight_ESS,,0
+her,TD3+HER,3,query/query_bin_matches_current_policy_rate,,0
+her,TD3+HER,3,query/query_bin_matches_replay_action_rate,,0
+her,TD3+HER,3,query/support_positive_rate_phase_approach,0.0,100
+her,TD3+HER,3,query/support_positive_rate_phase_grasp,0.0,100
+her,TD3+HER,3,query/support_positive_rate_phase_lift,0.0,100
+her,TD3+HER,3,query/support_positive_rate_phase_place,0.0,100
+her,TD3+HER,4,query/context_count_eligible_rate,,0
+her,TD3+HER,4,query/support_positive_rate,0.0,100
+her,TD3+HER,4,query/query_bin_present_given_context_rate,,0
+her,TD3+HER,4,query/high_weight_count,,0
+her,TD3+HER,4,query/raw_weight_mean,1.0,100
+her,TD3+HER,4,query/raw_weight_std,0.0,100
+her,TD3+HER,4,query/raw_weight_ESS,256.0,100
+her,TD3+HER,4,query/normalized_weight_mean,,0
+her,TD3+HER,4,query/normalized_weight_std,,0
+her,TD3+HER,4,query/normalized_weight_ESS,,0
+her,TD3+HER,4,query/query_bin_matches_current_policy_rate,,0
+her,TD3+HER,4,query/query_bin_matches_replay_action_rate,,0
+her,TD3+HER,4,query/support_positive_rate_phase_approach,0.0,100
+her,TD3+HER,4,query/support_positive_rate_phase_grasp,0.0,100
+her,TD3+HER,4,query/support_positive_rate_phase_lift,0.0,100
+her,TD3+HER,4,query/support_positive_rate_phase_place,0.0,100
+her,TD3+HER,5,query/context_count_eligible_rate,,0
+her,TD3+HER,5,query/support_positive_rate,0.0,100
+her,TD3+HER,5,query/query_bin_present_given_context_rate,,0
+her,TD3+HER,5,query/high_weight_count,,0
+her,TD3+HER,5,query/raw_weight_mean,1.0,100
+her,TD3+HER,5,query/raw_weight_std,0.0,100
+her,TD3+HER,5,query/raw_weight_ESS,256.0,100
+her,TD3+HER,5,query/normalized_weight_mean,,0
+her,TD3+HER,5,query/normalized_weight_std,,0
+her,TD3+HER,5,query/normalized_weight_ESS,,0
+her,TD3+HER,5,query/query_bin_matches_current_policy_rate,,0
+her,TD3+HER,5,query/query_bin_matches_replay_action_rate,,0
+her,TD3+HER,5,query/support_positive_rate_phase_approach,0.0,100
+her,TD3+HER,5,query/support_positive_rate_phase_grasp,0.0,100
+her,TD3+HER,5,query/support_positive_rate_phase_lift,0.0,100
+her,TD3+HER,5,query/support_positive_rate_phase_place,0.0,100
+saber,TD3+HER+SABER (Main),1,query/context_count_eligible_rate,,0
+saber,TD3+HER+SABER (Main),1,query/support_positive_rate,0.2169140625,100
+saber,TD3+HER+SABER (Main),1,query/query_bin_present_given_context_rate,,0
+saber,TD3+HER+SABER (Main),1,query/high_weight_count,,0
+saber,TD3+HER+SABER (Main),1,query/raw_weight_mean,1.2169140625,100
+saber,TD3+HER+SABER (Main),1,query/raw_weight_std,0.4043298414349556,100
+saber,TD3+HER+SABER (Main),1,query/raw_weight_ESS,230.61613448096682,100
+saber,TD3+HER+SABER (Main),1,query/normalized_weight_mean,,0
+saber,TD3+HER+SABER (Main),1,query/normalized_weight_std,,0
+saber,TD3+HER+SABER (Main),1,query/normalized_weight_ESS,,0
+saber,TD3+HER+SABER (Main),1,query/query_bin_matches_current_policy_rate,,0
+saber,TD3+HER+SABER (Main),1,query/query_bin_matches_replay_action_rate,,0
+saber,TD3+HER+SABER (Main),1,query/support_positive_rate_phase_approach,0.19930844098329545,100
+saber,TD3+HER+SABER (Main),1,query/support_positive_rate_phase_grasp,0.31350005939602854,100
+saber,TD3+HER+SABER (Main),1,query/support_positive_rate_phase_lift,0.18238636679947376,100
+saber,TD3+HER+SABER (Main),1,query/support_positive_rate_phase_place,0.15504703640937806,100
+saber,TD3+HER+SABER (Main),2,query/context_count_eligible_rate,,0
+saber,TD3+HER+SABER (Main),2,query/support_positive_rate,0.2190234375,100
+saber,TD3+HER+SABER (Main),2,query/query_bin_present_given_context_rate,,0
+saber,TD3+HER+SABER (Main),2,query/high_weight_count,,0
+saber,TD3+HER+SABER (Main),2,query/raw_weight_mean,1.2190234375,100
+saber,TD3+HER+SABER (Main),2,query/raw_weight_std,0.4091207607090473,100
+saber,TD3+HER+SABER (Main),2,query/raw_weight_ESS,230.1313110907313,100
+saber,TD3+HER+SABER (Main),2,query/normalized_weight_mean,,0
+saber,TD3+HER+SABER (Main),2,query/normalized_weight_std,,0
+saber,TD3+HER+SABER (Main),2,query/normalized_weight_ESS,,0
+saber,TD3+HER+SABER (Main),2,query/query_bin_matches_current_policy_rate,,0
+saber,TD3+HER+SABER (Main),2,query/query_bin_matches_replay_action_rate,,0
+saber,TD3+HER+SABER (Main),2,query/support_positive_rate_phase_approach,0.18846721172332764,100
+saber,TD3+HER+SABER (Main),2,query/support_positive_rate_phase_grasp,0.3009042379260063,100
+saber,TD3+HER+SABER (Main),2,query/support_positive_rate_phase_lift,0.24583000726997853,100
+saber,TD3+HER+SABER (Main),2,query/support_positive_rate_phase_place,0.11069894544780254,100
+saber,TD3+HER+SABER (Main),3,query/context_count_eligible_rate,,0
+saber,TD3+HER+SABER (Main),3,query/support_positive_rate,0.2332421875,100
+saber,TD3+HER+SABER (Main),3,query/query_bin_present_given_context_rate,,0
+saber,TD3+HER+SABER (Main),3,query/high_weight_count,,0
+saber,TD3+HER+SABER (Main),3,query/raw_weight_mean,1.2332421875,100
+saber,TD3+HER+SABER (Main),3,query/raw_weight_std,0.41707805335521697,100
+saber,TD3+HER+SABER (Main),3,query/raw_weight_ESS,229.7885857635317,100
+saber,TD3+HER+SABER (Main),3,query/normalized_weight_mean,,0
+saber,TD3+HER+SABER (Main),3,query/normalized_weight_std,,0
+saber,TD3+HER+SABER (Main),3,query/normalized_weight_ESS,,0
+saber,TD3+HER+SABER (Main),3,query/query_bin_matches_current_policy_rate,,0
+saber,TD3+HER+SABER (Main),3,query/query_bin_matches_replay_action_rate,,0
+saber,TD3+HER+SABER (Main),3,query/support_positive_rate_phase_approach,0.20244171351194382,100
+saber,TD3+HER+SABER (Main),3,query/support_positive_rate_phase_grasp,0.36221170514822004,100
+saber,TD3+HER+SABER (Main),3,query/support_positive_rate_phase_lift,0.21173412948846818,100
+saber,TD3+HER+SABER (Main),3,query/support_positive_rate_phase_place,0.10150501430034638,100
+saber,TD3+HER+SABER (Main),4,query/context_count_eligible_rate,,0
+saber,TD3+HER+SABER (Main),4,query/support_positive_rate,0.20796875,100
+saber,TD3+HER+SABER (Main),4,query/query_bin_present_given_context_rate,,0
+saber,TD3+HER+SABER (Main),4,query/high_weight_count,,0
+saber,TD3+HER+SABER (Main),4,query/raw_weight_mean,1.20796875,100
+saber,TD3+HER+SABER (Main),4,query/raw_weight_std,0.40088272631168365,100
+saber,TD3+HER+SABER (Main),4,query/raw_weight_ESS,230.64943034417914,100
+saber,TD3+HER+SABER (Main),4,query/normalized_weight_mean,,0
+saber,TD3+HER+SABER (Main),4,query/normalized_weight_std,,0
+saber,TD3+HER+SABER (Main),4,query/normalized_weight_ESS,,0
+saber,TD3+HER+SABER (Main),4,query/query_bin_matches_current_policy_rate,,0
+saber,TD3+HER+SABER (Main),4,query/query_bin_matches_replay_action_rate,,0
+saber,TD3+HER+SABER (Main),4,query/support_positive_rate_phase_approach,0.17929802883416415,100
+saber,TD3+HER+SABER (Main),4,query/support_positive_rate_phase_grasp,0.35735778376460076,100
+saber,TD3+HER+SABER (Main),4,query/support_positive_rate_phase_lift,0.24071970075368881,100
+saber,TD3+HER+SABER (Main),4,query/support_positive_rate_phase_place,0.08203712172806263,100
+saber,TD3+HER+SABER (Main),5,query/context_count_eligible_rate,,0
+saber,TD3+HER+SABER (Main),5,query/support_positive_rate,0.2181640625,100
+saber,TD3+HER+SABER (Main),5,query/query_bin_present_given_context_rate,,0
+saber,TD3+HER+SABER (Main),5,query/high_weight_count,,0
+saber,TD3+HER+SABER (Main),5,query/raw_weight_mean,1.2181640625,100
+saber,TD3+HER+SABER (Main),5,query/raw_weight_std,0.4054864257574081,100
+saber,TD3+HER+SABER (Main),5,query/raw_weight_ESS,230.54421897886533,100
+saber,TD3+HER+SABER (Main),5,query/normalized_weight_mean,,0
+saber,TD3+HER+SABER (Main),5,query/normalized_weight_std,,0
+saber,TD3+HER+SABER (Main),5,query/normalized_weight_ESS,,0
+saber,TD3+HER+SABER (Main),5,query/query_bin_matches_current_policy_rate,,0
+saber,TD3+HER+SABER (Main),5,query/query_bin_matches_replay_action_rate,,0
+saber,TD3+HER+SABER (Main),5,query/support_positive_rate_phase_approach,0.1920251176506281,100
+saber,TD3+HER+SABER (Main),5,query/support_positive_rate_phase_grasp,0.3587868331372738,100
+saber,TD3+HER+SABER (Main),5,query/support_positive_rate_phase_lift,0.2624786326289177,100
+saber,TD3+HER+SABER (Main),5,query/support_positive_rate_phase_place,0.1250014226138592,100
+replay,Replay-query,1,query/context_count_eligible_rate,0.95515625,100
+replay,Replay-query,1,query/support_positive_rate,0.4315625,100
+replay,Replay-query,1,query/query_bin_present_given_context_rate,0.4515836301445961,100
+replay,Replay-query,1,query/high_weight_count,110.48,100
+replay,Replay-query,1,query/raw_weight_mean,1.4315625,100
+replay,Replay-query,1,query/raw_weight_std,0.49052108585834503,100
+replay,Replay-query,1,query/raw_weight_ESS,228.98245282055868,100
+replay,Replay-query,1,query/normalized_weight_mean,0.9999999785423279,100
+replay,Replay-query,1,query/normalized_weight_std,0.3432880313694477,100
+replay,Replay-query,1,query/normalized_weight_ESS,228.9824528205587,100
+replay,Replay-query,1,query/query_bin_matches_current_policy_rate,0.036875,100
+replay,Replay-query,1,query/query_bin_matches_replay_action_rate,1.0,100
+replay,Replay-query,1,query/support_positive_rate_phase_approach,0.3970609390735626,100
+replay,Replay-query,1,query/support_positive_rate_phase_grasp,0.6556736880540848,100
+replay,Replay-query,1,query/support_positive_rate_phase_lift,0.6030357164144516,100
+replay,Replay-query,1,query/support_positive_rate_phase_place,0.043333333432674405,100
+replay,Replay-query,2,query/context_count_eligible_rate,0.958515625,100
+replay,Replay-query,2,query/support_positive_rate,0.4298046875,100
+replay,Replay-query,2,query/query_bin_present_given_context_rate,0.4480802094936371,100
+replay,Replay-query,2,query/high_weight_count,110.03,100
+replay,Replay-query,2,query/raw_weight_mean,1.4298046875,100
+replay,Replay-query,2,query/raw_weight_std,0.4881225892901421,100
+replay,Replay-query,2,query/raw_weight_ESS,229.09711881305572,100
+replay,Replay-query,2,query/normalized_weight_mean,0.9999999886751175,100
+replay,Replay-query,2,query/normalized_weight_std,0.34233183547854423,100
+replay,Replay-query,2,query/normalized_weight_ESS,229.09711881305572,100
+replay,Replay-query,2,query/query_bin_matches_current_policy_rate,0.02875,100
+replay,Replay-query,2,query/query_bin_matches_replay_action_rate,1.0,100
+replay,Replay-query,2,query/support_positive_rate_phase_approach,0.3887073609232903,100
+replay,Replay-query,2,query/support_positive_rate_phase_grasp,0.6738312661647796,100
+replay,Replay-query,2,query/support_positive_rate_phase_lift,0.6586989462375641,100
+replay,Replay-query,2,query/support_positive_rate_phase_place,0.1838333338499069,100
+replay,Replay-query,3,query/context_count_eligible_rate,0.9577734375,100
+replay,Replay-query,3,query/support_positive_rate,0.4223046875,100
+replay,Replay-query,3,query/query_bin_present_given_context_rate,0.44078769385814665,100
+replay,Replay-query,3,query/high_weight_count,108.11,100
+replay,Replay-query,3,query/raw_weight_mean,1.4223046875,100
+replay,Replay-query,3,query/raw_weight_std,0.48996655255556104,100
+replay,Replay-query,3,query/raw_weight_ESS,228.73008738733265,100
+replay,Replay-query,3,query/normalized_weight_mean,0.9999999690055847,100
+replay,Replay-query,3,query/normalized_weight_std,0.34508355960249903,100
+replay,Replay-query,3,query/normalized_weight_ESS,228.73008738733265,100
+replay,Replay-query,3,query/query_bin_matches_current_policy_rate,0.0296875,100
+replay,Replay-query,3,query/query_bin_matches_replay_action_rate,1.0,100
+replay,Replay-query,3,query/support_positive_rate_phase_approach,0.37972649961709976,100
+replay,Replay-query,3,query/support_positive_rate_phase_grasp,0.6288884609937668,100
+replay,Replay-query,3,query/support_positive_rate_phase_lift,0.6051728054881096,100
+replay,Replay-query,3,query/support_positive_rate_phase_place,0.367299442589283,100
+replay,Replay-query,4,query/context_count_eligible_rate,0.96234375,100
+replay,Replay-query,4,query/support_positive_rate,0.42875,100
+replay,Replay-query,4,query/query_bin_present_given_context_rate,0.4453979316353798,100
+replay,Replay-query,4,query/high_weight_count,109.76,100
+replay,Replay-query,4,query/raw_weight_mean,1.42875,100
+replay,Replay-query,4,query/raw_weight_std,0.4887739047408104,100
+replay,Replay-query,4,query/raw_weight_ESS,229.04764186313668,100
+replay,Replay-query,4,query/normalized_weight_mean,0.9999999761581421,100
+replay,Replay-query,4,query/normalized_weight_std,0.3428092494606972,100
+replay,Replay-query,4,query/normalized_weight_ESS,229.04764186313668,100
+replay,Replay-query,4,query/query_bin_matches_current_policy_rate,0.0319921875,100
+replay,Replay-query,4,query/query_bin_matches_replay_action_rate,1.0,100
+replay,Replay-query,4,query/support_positive_rate_phase_approach,0.39564556509256366,100
+replay,Replay-query,4,query/support_positive_rate_phase_grasp,0.6886563885211945,100
+replay,Replay-query,4,query/support_positive_rate_phase_lift,0.6560232137143612,100
+replay,Replay-query,4,query/support_positive_rate_phase_place,0.04,100
+replay,Replay-query,5,query/context_count_eligible_rate,0.9562109375,100
+replay,Replay-query,5,query/support_positive_rate,0.416875,100
+replay,Replay-query,5,query/query_bin_present_given_context_rate,0.43567411363124847,100
+replay,Replay-query,5,query/high_weight_count,106.72,100
+replay,Replay-query,5,query/raw_weight_mean,1.416875,100
+replay,Replay-query,5,query/raw_weight_std,0.4865275877714157,100
+replay,Replay-query,5,query/raw_weight_ESS,228.8627580981405,100
+replay,Replay-query,5,query/normalized_weight_mean,0.9999999779462815,100
+replay,Replay-query,5,query/normalized_weight_std,0.3441168285906315,100
+replay,Replay-query,5,query/normalized_weight_ESS,228.8627580981405,100
+replay,Replay-query,5,query/query_bin_matches_current_policy_rate,0.024921875,100
+replay,Replay-query,5,query/query_bin_matches_replay_action_rate,1.0,100
+replay,Replay-query,5,query/support_positive_rate_phase_approach,0.3785975457727909,100
+replay,Replay-query,5,query/support_positive_rate_phase_grasp,0.6943756473064423,100
+replay,Replay-query,5,query/support_positive_rate_phase_lift,0.5985761219263077,100
+replay,Replay-query,5,query/support_positive_rate_phase_place,0.1366666668653488,100
+shuffled,Shuffled-policy-query,1,query/context_count_eligible_rate,0.9533984375,100
+shuffled,Shuffled-policy-query,1,query/support_positive_rate,0.150859375,100
+shuffled,Shuffled-policy-query,1,query/query_bin_present_given_context_rate,0.15819146402180195,100
+shuffled,Shuffled-policy-query,1,query/high_weight_count,38.62,100
+shuffled,Shuffled-policy-query,1,query/raw_weight_mean,1.150859375,100
+shuffled,Shuffled-policy-query,1,query/raw_weight_std,0.35402550637722013,100
+shuffled,Shuffled-policy-query,1,query/raw_weight_ESS,233.88914904452238,100
+shuffled,Shuffled-policy-query,1,query/normalized_weight_mean,1.0000000059604646,100
+shuffled,Shuffled-policy-query,1,query/normalized_weight_std,0.3069377852976322,100
+shuffled,Shuffled-policy-query,1,query/normalized_weight_ESS,233.88914904452236,100
+shuffled,Shuffled-policy-query,1,query/query_bin_matches_current_policy_rate,0.0259375,100
+shuffled,Shuffled-policy-query,1,query/query_bin_matches_replay_action_rate,0.006796875,100
+shuffled,Shuffled-policy-query,1,query/support_positive_rate_phase_approach,0.13603955589234829,100
+shuffled,Shuffled-policy-query,1,query/support_positive_rate_phase_grasp,0.25740416642278435,100
+shuffled,Shuffled-policy-query,1,query/support_positive_rate_phase_lift,0.19039286017417908,100
+shuffled,Shuffled-policy-query,1,query/support_positive_rate_phase_place,0.03,100
+shuffled,Shuffled-policy-query,2,query/context_count_eligible_rate,0.953515625,100
+shuffled,Shuffled-policy-query,2,query/support_positive_rate,0.1421484375,100
+shuffled,Shuffled-policy-query,2,query/query_bin_present_given_context_rate,0.14911315899342298,100
+shuffled,Shuffled-policy-query,2,query/high_weight_count,36.39,100
+shuffled,Shuffled-policy-query,2,query/raw_weight_mean,1.1421484375,100
+shuffled,Shuffled-policy-query,2,query/raw_weight_std,0.346502967774868,100
+shuffled,Shuffled-policy-query,2,query/raw_weight_ESS,234.4292179472329,100
+shuffled,Shuffled-policy-query,2,query/normalized_weight_mean,1.0000000238418578,100
+shuffled,Shuffled-policy-query,2,query/normalized_weight_std,0.30286428675055505,100
+shuffled,Shuffled-policy-query,2,query/normalized_weight_ESS,234.4292179472329,100
+shuffled,Shuffled-policy-query,2,query/query_bin_matches_current_policy_rate,0.0311328125,100
+shuffled,Shuffled-policy-query,2,query/query_bin_matches_replay_action_rate,0.0057421875,100
+shuffled,Shuffled-policy-query,2,query/support_positive_rate_phase_approach,0.1342212364822626,100
+shuffled,Shuffled-policy-query,2,query/support_positive_rate_phase_grasp,0.1802560805529356,100
+shuffled,Shuffled-policy-query,2,query/support_positive_rate_phase_lift,0.15108153253793716,100
+shuffled,Shuffled-policy-query,2,query/support_positive_rate_phase_place,0.011736994199454785,100
+shuffled,Shuffled-policy-query,3,query/context_count_eligible_rate,0.9581640625,100
+shuffled,Shuffled-policy-query,3,query/support_positive_rate,0.16578125,100
+shuffled,Shuffled-policy-query,3,query/query_bin_present_given_context_rate,0.1728177321702242,100
+shuffled,Shuffled-policy-query,3,query/high_weight_count,42.44,100
+shuffled,Shuffled-policy-query,3,query/raw_weight_mean,1.16578125,100
+shuffled,Shuffled-policy-query,3,query/raw_weight_std,0.3687234717607498,100
+shuffled,Shuffled-policy-query,3,query/raw_weight_ESS,232.7397242549634,100
+shuffled,Shuffled-policy-query,3,query/normalized_weight_mean,1.0000000113248826,100
+shuffled,Shuffled-policy-query,3,query/normalized_weight_std,0.3157088550925255,100
+shuffled,Shuffled-policy-query,3,query/normalized_weight_ESS,232.7397242549634,100
+shuffled,Shuffled-policy-query,3,query/query_bin_matches_current_policy_rate,0.024140625,100
+shuffled,Shuffled-policy-query,3,query/query_bin_matches_replay_action_rate,0.00578125,100
+shuffled,Shuffled-policy-query,3,query/support_positive_rate_phase_approach,0.15227358851581813,100
+shuffled,Shuffled-policy-query,3,query/support_positive_rate_phase_grasp,0.20901202142238617,100
+shuffled,Shuffled-policy-query,3,query/support_positive_rate_phase_lift,0.2530619937181473,100
+shuffled,Shuffled-policy-query,3,query/support_positive_rate_phase_place,0.0,100
+shuffled,Shuffled-policy-query,4,query/context_count_eligible_rate,0.956328125,100
+shuffled,Shuffled-policy-query,4,query/support_positive_rate,0.1594921875,100
+shuffled,Shuffled-policy-query,4,query/query_bin_present_given_context_rate,0.166726243942976,100
+shuffled,Shuffled-policy-query,4,query/high_weight_count,40.83,100
+shuffled,Shuffled-policy-query,4,query/raw_weight_mean,1.1594921875,100
+shuffled,Shuffled-policy-query,4,query/raw_weight_std,0.36057156533002854,100
+shuffled,Shuffled-policy-query,4,query/raw_weight_ESS,233.45955705977417,100
+shuffled,Shuffled-policy-query,4,query/normalized_weight_mean,1.0000000029802323,100
+shuffled,Shuffled-policy-query,4,query/normalized_weight_std,0.31000954121351243,100
+shuffled,Shuffled-policy-query,4,query/normalized_weight_ESS,233.45955705977417,100
+shuffled,Shuffled-policy-query,4,query/query_bin_matches_current_policy_rate,0.0280078125,100
+shuffled,Shuffled-policy-query,4,query/query_bin_matches_replay_action_rate,0.007109375,100
+shuffled,Shuffled-policy-query,4,query/support_positive_rate_phase_approach,0.1461723307520151,100
+shuffled,Shuffled-policy-query,4,query/support_positive_rate_phase_grasp,0.20252582866698504,100
+shuffled,Shuffled-policy-query,4,query/support_positive_rate_phase_lift,0.21892857432365417,100
+shuffled,Shuffled-policy-query,4,query/support_positive_rate_phase_place,0.014000000059604644,100
+shuffled,Shuffled-policy-query,5,query/context_count_eligible_rate,0.95421875,100
+shuffled,Shuffled-policy-query,5,query/support_positive_rate,0.1507421875,100
+shuffled,Shuffled-policy-query,5,query/query_bin_present_given_context_rate,0.1580081122368574,100
+shuffled,Shuffled-policy-query,5,query/high_weight_count,38.59,100
+shuffled,Shuffled-policy-query,5,query/raw_weight_mean,1.1507421875,100
+shuffled,Shuffled-policy-query,5,query/raw_weight_std,0.35577908366918565,100
+shuffled,Shuffled-policy-query,5,query/raw_weight_ESS,233.67490093456482,100
+shuffled,Shuffled-policy-query,5,query/normalized_weight_mean,1.0000000131130218,100
+shuffled,Shuffled-policy-query,5,query/normalized_weight_std,0.3087934148311615,100
+shuffled,Shuffled-policy-query,5,query/normalized_weight_ESS,233.67490093456482,100
+shuffled,Shuffled-policy-query,5,query/query_bin_matches_current_policy_rate,0.0266015625,100
+shuffled,Shuffled-policy-query,5,query/query_bin_matches_replay_action_rate,0.0056640625,100
+shuffled,Shuffled-policy-query,5,query/support_positive_rate_phase_approach,0.13682519719004632,100
+shuffled,Shuffled-policy-query,5,query/support_positive_rate_phase_grasp,0.2050198371708393,100
+shuffled,Shuffled-policy-query,5,query/support_positive_rate_phase_lift,0.2546805649623275,100
+shuffled,Shuffled-policy-query,5,query/support_positive_rate_phase_place,0.01,100
+context_only,Context-count-only,1,query/context_count_eligible_rate,0.9546875,100
+context_only,Context-count-only,1,query/support_positive_rate,0.9546875,100
+context_only,Context-count-only,1,query/query_bin_present_given_context_rate,,0
+context_only,Context-count-only,1,query/high_weight_count,244.4,100
+context_only,Context-count-only,1,query/raw_weight_mean,1.9546875,100
+context_only,Context-count-only,1,query/raw_weight_std,0.2050716011226177,100
+context_only,Context-count-only,1,query/raw_weight_ESS,253.13809019354525,100
+context_only,Context-count-only,1,query/normalized_weight_mean,1.000000057220459,100
+context_only,Context-count-only,1,query/normalized_weight_std,0.10504208691418171,100
+context_only,Context-count-only,1,query/normalized_weight_ESS,253.13809019354525,100
+context_only,Context-count-only,1,query/query_bin_matches_current_policy_rate,,0
+context_only,Context-count-only,1,query/query_bin_matches_replay_action_rate,,0
+context_only,Context-count-only,1,query/support_positive_rate_phase_approach,0.9525642287731171,100
+context_only,Context-count-only,1,query/support_positive_rate_phase_grasp,0.9296196609735489,100
+context_only,Context-count-only,1,query/support_positive_rate_phase_lift,0.8058403360843659,100
+context_only,Context-count-only,1,query/support_positive_rate_phase_place,0.06,100
+context_only,Context-count-only,2,query/context_count_eligible_rate,0.9536328125,100
+context_only,Context-count-only,2,query/support_positive_rate,0.9536328125,100
+context_only,Context-count-only,2,query/query_bin_present_given_context_rate,,0
+context_only,Context-count-only,2,query/high_weight_count,244.13,100
+context_only,Context-count-only,2,query/raw_weight_mean,1.9536328125,100
+context_only,Context-count-only,2,query/raw_weight_std,0.20581311374902725,100
+context_only,Context-count-only,2,query/raw_weight_ESS,253.0735692251953,100
+context_only,Context-count-only,2,query/normalized_weight_mean,1.0000000512599945,100
+context_only,Context-count-only,2,query/normalized_weight_std,0.10553529150784016,100
+context_only,Context-count-only,2,query/normalized_weight_ESS,253.0735692251953,100
+context_only,Context-count-only,2,query/query_bin_matches_current_policy_rate,,0
+context_only,Context-count-only,2,query/query_bin_matches_replay_action_rate,,0
+context_only,Context-count-only,2,query/support_positive_rate_phase_approach,0.9498433029651642,100
+context_only,Context-count-only,2,query/support_positive_rate_phase_grasp,0.9491515415906906,100
+context_only,Context-count-only,2,query/support_positive_rate_phase_lift,0.9014632034301758,100
+context_only,Context-count-only,2,query/support_positive_rate_phase_place,0.39501670479774476,100
+context_only,Context-count-only,3,query/context_count_eligible_rate,0.961171875,100
+context_only,Context-count-only,3,query/support_positive_rate,0.961171875,100
+context_only,Context-count-only,3,query/query_bin_present_given_context_rate,,0
+context_only,Context-count-only,3,query/high_weight_count,246.06,100
+context_only,Context-count-only,3,query/raw_weight_mean,1.961171875,100
+context_only,Context-count-only,3,query/raw_weight_std,0.18875244490802287,100
+context_only,Context-count-only,3,query/raw_weight_ESS,253.54403656011064,100
+context_only,Context-count-only,3,query/normalized_weight_mean,1.0000000339746475,100
+context_only,Context-count-only,3,query/normalized_weight_std,0.09640176791697741,100
+context_only,Context-count-only,3,query/normalized_weight_ESS,253.54403656011064,100
+context_only,Context-count-only,3,query/query_bin_matches_current_policy_rate,,0
+context_only,Context-count-only,3,query/query_bin_matches_replay_action_rate,,0
+context_only,Context-count-only,3,query/support_positive_rate_phase_approach,0.9587602537870407,100
+context_only,Context-count-only,3,query/support_positive_rate_phase_grasp,0.9393582275509834,100
+context_only,Context-count-only,3,query/support_positive_rate_phase_lift,0.791444085240364,100
+context_only,Context-count-only,3,query/support_positive_rate_phase_place,0.11857142865657806,100
+context_only,Context-count-only,4,query/context_count_eligible_rate,0.9558203125,100
+context_only,Context-count-only,4,query/support_positive_rate,0.9558203125,100
+context_only,Context-count-only,4,query/query_bin_present_given_context_rate,,0
+context_only,Context-count-only,4,query/high_weight_count,244.69,100
+context_only,Context-count-only,4,query/raw_weight_mean,1.9558203125,100
+context_only,Context-count-only,4,query/raw_weight_std,0.20256249152123929,100
+context_only,Context-count-only,4,query/raw_weight_ESS,253.20818567262577,100
+context_only,Context-count-only,4,query/normalized_weight_mean,1.0000000602006913,100
+context_only,Context-count-only,4,query/normalized_weight_std,0.10368791773915291,100
+context_only,Context-count-only,4,query/normalized_weight_ESS,253.20818567262577,100
+context_only,Context-count-only,4,query/query_bin_matches_current_policy_rate,,0
+context_only,Context-count-only,4,query/query_bin_matches_replay_action_rate,,0
+context_only,Context-count-only,4,query/support_positive_rate_phase_approach,0.953033938407898,100
+context_only,Context-count-only,4,query/support_positive_rate_phase_grasp,0.9424075031280518,100
+context_only,Context-count-only,4,query/support_positive_rate_phase_lift,0.8671901160478592,100
+context_only,Context-count-only,4,query/support_positive_rate_phase_place,0.41173591613769533,100
+context_only,Context-count-only,5,query/context_count_eligible_rate,0.956171875,100
+context_only,Context-count-only,5,query/support_positive_rate,0.956171875,100
+context_only,Context-count-only,5,query/query_bin_present_given_context_rate,,0
+context_only,Context-count-only,5,query/high_weight_count,244.78,100
+context_only,Context-count-only,5,query/raw_weight_mean,1.956171875,100
+context_only,Context-count-only,5,query/raw_weight_std,0.2009214510768652,100
+context_only,Context-count-only,5,query/raw_weight_ESS,253.2312590825396,100
+context_only,Context-count-only,5,query/normalized_weight_mean,1.0000000512599945,100
+context_only,Context-count-only,5,query/normalized_weight_std,0.10286609977483749,100
+context_only,Context-count-only,5,query/normalized_weight_ESS,253.2312590825396,100
+context_only,Context-count-only,5,query/query_bin_matches_current_policy_rate,,0
+context_only,Context-count-only,5,query/query_bin_matches_replay_action_rate,,0
+context_only,Context-count-only,5,query/support_positive_rate_phase_approach,0.9536824494600296,100
+context_only,Context-count-only,5,query/support_positive_rate_phase_grasp,0.9423229855298996,100
+context_only,Context-count-only,5,query/support_positive_rate_phase_lift,0.8580042186379433,100
+context_only,Context-count-only,5,query/support_positive_rate_phase_place,0.26877976179122925,100

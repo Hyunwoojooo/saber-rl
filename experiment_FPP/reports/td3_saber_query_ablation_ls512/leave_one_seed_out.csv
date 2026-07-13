@@ -1,0 +1,16 @@
+comparison,omitted_seed,retained_seed_count,mean_auc_difference
+Main SABER - Replay-query,1,4,0.07803030303030303
+Main SABER - Replay-query,2,4,0.0715909090909091
+Main SABER - Replay-query,3,4,0.07739898989898991
+Main SABER - Replay-query,4,4,0.0792929292929293
+Main SABER - Replay-query,5,4,0.06666666666666668
+Main SABER - Shuffled-policy,1,4,0.08345959595959596
+Main SABER - Shuffled-policy,2,4,0.11041666666666666
+Main SABER - Shuffled-policy,3,4,0.0888888888888889
+Main SABER - Shuffled-policy,4,4,0.09943181818181819
+Main SABER - Shuffled-policy,5,4,0.0965909090909091
+Main SABER - Context-count-only,1,4,0.02411616161616162
+Main SABER - Context-count-only,2,4,0.054229797979797975
+Main SABER - Context-count-only,3,4,0.024305555555555566
+Main SABER - Context-count-only,4,4,0.08819444444444445
+Main SABER - Context-count-only,5,4,0.04273989898989901

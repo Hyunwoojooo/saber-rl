@@ -1,0 +1,81 @@
+method_key,method,metric,available_seed_count,mean,sample_std
+her,TD3+HER,query/context_count_eligible_rate,0,,
+her,TD3+HER,query/support_positive_rate,5,0.0,0.0
+her,TD3+HER,query/query_bin_present_given_context_rate,0,,
+her,TD3+HER,query/high_weight_count,0,,
+her,TD3+HER,query/raw_weight_mean,5,1.0,0.0
+her,TD3+HER,query/raw_weight_std,5,0.0,0.0
+her,TD3+HER,query/raw_weight_ESS,5,256.0,0.0
+her,TD3+HER,query/normalized_weight_mean,0,,
+her,TD3+HER,query/normalized_weight_std,0,,
+her,TD3+HER,query/normalized_weight_ESS,0,,
+her,TD3+HER,query/query_bin_matches_current_policy_rate,0,,
+her,TD3+HER,query/query_bin_matches_replay_action_rate,0,,
+her,TD3+HER,query/support_positive_rate_phase_approach,5,0.0,0.0
+her,TD3+HER,query/support_positive_rate_phase_grasp,5,0.0,0.0
+her,TD3+HER,query/support_positive_rate_phase_lift,5,0.0,0.0
+her,TD3+HER,query/support_positive_rate_phase_place,5,0.0,0.0
+saber,TD3+HER+SABER (Main),query/context_count_eligible_rate,0,,
+saber,TD3+HER+SABER (Main),query/support_positive_rate,5,0.21906250000000002,0.009076884462356494
+saber,TD3+HER+SABER (Main),query/query_bin_present_given_context_rate,0,,
+saber,TD3+HER+SABER (Main),query/high_weight_count,0,,
+saber,TD3+HER+SABER (Main),query/raw_weight_mean,5,1.2190625000000002,0.009076884462356457
+saber,TD3+HER+SABER (Main),query/raw_weight_std,5,0.4073795615136623,0.0061681873721227
+saber,TD3+HER+SABER (Main),query/raw_weight_ESS,5,230.34593613165484,0.37454482827259755
+saber,TD3+HER+SABER (Main),query/normalized_weight_mean,0,,
+saber,TD3+HER+SABER (Main),query/normalized_weight_std,0,,
+saber,TD3+HER+SABER (Main),query/normalized_weight_ESS,0,,
+saber,TD3+HER+SABER (Main),query/query_bin_matches_current_policy_rate,0,,
+saber,TD3+HER+SABER (Main),query/query_bin_matches_replay_action_rate,0,,
+saber,TD3+HER+SABER (Main),query/support_positive_rate_phase_approach,5,0.19230810254067182,0.00916227796723981
+saber,TD3+HER+SABER (Main),query/support_positive_rate_phase_grasp,5,0.3385521238744259,0.029016552775627796
+saber,TD3+HER+SABER (Main),query/support_positive_rate_phase_lift,5,0.2286297673881054,0.03166889284812942
+saber,TD3+HER+SABER (Main),query/support_positive_rate_phase_place,5,0.11485790809988974,0.02734436725451915
+replay,Replay-query,query/context_count_eligible_rate,5,0.958,0.0027601187683203884
+replay,Replay-query,query/support_positive_rate,5,0.42585937500000004,0.006119673923955996
+replay,Replay-query,query/query_bin_present_given_context_rate,5,0.4443047157526016,0.0062307464373083385
+replay,Replay-query,query/high_weight_count,5,109.02000000000001,1.566636524532735
+replay,Replay-query,query/raw_weight_mean,5,1.425859375,0.006119673923955936
+replay,Replay-query,query/raw_weight_std,5,0.4887823440432548,0.0015767725185993225
+replay,Replay-query,query/raw_weight_ESS,5,228.94401179644484,0.148344597049483
+replay,Replay-query,query/normalized_weight_mean,5,0.9999999780654909,7.044956363511561e-09
+replay,Replay-query,query/normalized_weight_std,5,0.3435259009003639,0.0010921835467038422
+replay,Replay-query,query/normalized_weight_ESS,5,228.94401179644484,0.14834459704948483
+replay,Replay-query,query/query_bin_matches_current_policy_rate,5,0.0304453125,0.004407108737242025
+replay,Replay-query,query/query_bin_matches_replay_action_rate,5,1.0,0.0
+replay,Replay-query,query/support_positive_rate_phase_approach,5,0.38794758209586144,0.008629873374686335
+replay,Replay-query,query/support_positive_rate_phase_grasp,5,0.6682850902080536,0.026634605732708656
+replay,Replay-query,query/support_positive_rate_phase_lift,5,0.6243013607561588,0.030287732709861567
+replay,Replay-query,query/support_positive_rate_phase_place,5,0.15422655534744262,0.1340988244798887
+shuffled,Shuffled-policy-query,query/context_count_eligible_rate,5,0.955125,0.0020661440937203776
+shuffled,Shuffled-policy-query,query/support_positive_rate,5,0.15380468749999998,0.009078926720730294
+shuffled,Shuffled-policy-query,query/query_bin_present_given_context_rate,5,0.16097134227305648,0.009090940722207598
+shuffled,Shuffled-policy-query,query/high_weight_count,5,39.373999999999995,2.3242052405069553
+shuffled,Shuffled-policy-query,query/raw_weight_mean,5,1.1538046874999999,0.00907892672073031
+shuffled,Shuffled-policy-query,query/raw_weight_std,5,0.3571205189824104,0.00822570938339699
+shuffled,Shuffled-policy-query,query/raw_weight_ESS,5,233.63850984821156,0.6183047911166519
+shuffled,Shuffled-policy-query,query/normalized_weight_mean,5,1.0000000114440917,8.034476118436065e-09
+shuffled,Shuffled-policy-query,query/normalized_weight_std,5,0.30886277663707734,0.004687113793361717
+shuffled,Shuffled-policy-query,query/normalized_weight_ESS,5,233.63850984821156,0.618304791116649
+shuffled,Shuffled-policy-query,query/query_bin_matches_current_policy_rate,5,0.027164062500000002,0.0026184406980974623
+shuffled,Shuffled-policy-query,query/query_bin_matches_replay_action_rate,5,0.00621875,0.0006807418187742877
+shuffled,Shuffled-policy-query,query/support_positive_rate_phase_approach,5,0.1411063817664981,0.007774587402356994
+shuffled,Shuffled-policy-query,query/support_positive_rate_phase_grasp,5,0.21084358684718613,0.02832816136399786
+shuffled,Shuffled-policy-query,query/support_positive_rate_phase_lift,5,0.213629105143249,0.043932850315314194
+shuffled,Shuffled-policy-query,query/support_positive_rate_phase_place,5,0.013147398851811886,0.010833819174970602
+context_only,Context-count-only,query/context_count_eligible_rate,5,0.9562968749999999,0.002902398952200473
+context_only,Context-count-only,query/support_positive_rate,5,0.9562968749999999,0.002902398952200473
+context_only,Context-count-only,query/query_bin_present_given_context_rate,0,,
+context_only,Context-count-only,query/high_weight_count,5,244.81199999999998,0.7430141317633211
+context_only,Context-count-only,query/raw_weight_mean,5,1.956296875,0.00290239895220049
+context_only,Context-count-only,query/raw_weight_std,5,0.20062422047555445,0.006918961335093939
+context_only,Context-count-only,query/raw_weight_ESS,5,253.23902814680332,0.18138830854604984
+context_only,Context-count-only,query/normalized_weight_mean,5,1.0000000507831575,1.0162548258585014e-08
+context_only,Context-count-only,query/normalized_weight_std,5,0.10270663277059792,0.003680873776901751
+context_only,Context-count-only,query/normalized_weight_ESS,5,253.23902814680332,0.18138830854604984
+context_only,Context-count-only,query/query_bin_matches_current_policy_rate,0,,
+context_only,Context-count-only,query/query_bin_matches_replay_action_rate,0,,
+context_only,Context-count-only,query/support_positive_rate_phase_approach,5,0.95357683467865,0.003245703092998354
+context_only,Context-count-only,query/support_positive_rate_phase_grasp,5,0.9405719837546348,0.007097015740302256
+context_only,Context-count-only,query/support_positive_rate_phase_lift,5,0.8447883918881416,0.045417770993191914
+context_only,Context-count-only,query/support_positive_rate_phase_place,5,0.2508207622766495,0.15883256262809453

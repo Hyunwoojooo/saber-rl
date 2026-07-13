@@ -1,0 +1,16 @@
+comparison,seed,left_method,right_method,auc_difference,final_success_difference,left_hit90,right_hit90,hit90_difference
+Main SABER - Replay-query,1,TD3+HER+SABER (Main),Replay-query,0.06085858585858589,0.44999999999999996,840000,,
+Main SABER - Replay-query,2,TD3+HER+SABER (Main),Replay-query,0.08661616161616165,0.25,860000,,
+Main SABER - Replay-query,3,TD3+HER+SABER (Main),Replay-query,0.06338383838383838,-0.050000000000000044,630000,920000,-290000
+Main SABER - Replay-query,4,TD3+HER+SABER (Main),Replay-query,0.05580808080808081,0.45,630000,,
+Main SABER - Replay-query,5,TD3+HER+SABER (Main),Replay-query,0.1063131313131313,0.44999999999999996,910000,,
+Main SABER - Shuffled-policy,1,TD3+HER+SABER (Main),Shuffled-policy-query,0.144949494949495,0.5,840000,,
+Main SABER - Shuffled-policy,2,TD3+HER+SABER (Main),Shuffled-policy-query,0.037121212121212166,0.050000000000000044,860000,890000,-30000
+Main SABER - Shuffled-policy,3,TD3+HER+SABER (Main),Shuffled-policy-query,0.1232323232323232,0.49999999999999994,630000,,
+Main SABER - Shuffled-policy,4,TD3+HER+SABER (Main),Shuffled-policy-query,0.08106060606060606,0.45,630000,,
+Main SABER - Shuffled-policy,5,TD3+HER+SABER (Main),Shuffled-policy-query,0.09242424242424241,0.6,910000,,
+Main SABER - Context-count-only,1,TD3+HER+SABER (Main),Context-count-only,0.13712121212121214,0.55,840000,,
+Main SABER - Context-count-only,2,TD3+HER+SABER (Main),Context-count-only,0.01666666666666672,0.0,860000,850000,10000
+Main SABER - Context-count-only,3,TD3+HER+SABER (Main),Context-count-only,0.13636363636363635,0.29999999999999993,630000,,
+Main SABER - Context-count-only,4,TD3+HER+SABER (Main),Context-count-only,-0.11919191919191918,-0.09999999999999998,630000,630000,0
+Main SABER - Context-count-only,5,TD3+HER+SABER (Main),Context-count-only,0.06262626262626259,0.09999999999999998,910000,1000000,-90000
