@@ -1,0 +1,369 @@
+{
+  "artifact_id": "DRAWEROPEN-DDPG-SABER-DIAGNOSTIC-10SEED-2M",
+  "diagnostic_raw_metrics_count": 10,
+  "performance_reference_raw_metrics_count": 5,
+  "schema_version": 1,
+  "source_input_count": 45,
+  "source_inputs": [
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s6_2m_cuda/config.json",
+      "role": "config",
+      "seed": 6,
+      "sha256": "0c37208a01f7908cc071553d7ddac228c069555d641c53c92276d1f58433dd33",
+      "size_bytes": 5377
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s6_2m_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 6,
+      "sha256": "a50d69e150453ece19ab51f9af4a7869c98734009db10fd5ac2d21b7204c66e0",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s6_2m_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 6,
+      "sha256": "e7e1f943a30afe7dc3a6792cfcb18827d3048f5bad45d6ff47949eff4d4fb680",
+      "size_bytes": 21162937
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s6_2m_cuda/summary.json",
+      "role": "summary",
+      "seed": 6,
+      "sha256": "8a8f24e66aaaa13f1ca29a7f418eb41a08f4dbf83662804e7ffaf34bbeea8b41",
+      "size_bytes": 9082
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s7_2m_cuda/config.json",
+      "role": "config",
+      "seed": 7,
+      "sha256": "9975a9cbd2a976d77654591386f09f6aa42e773a65fb8554a748e8e8e1bca7ff",
+      "size_bytes": 5377
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s7_2m_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 7,
+      "sha256": "90422c07e39129cf559d05add51e283a9d042a738178c89a7f706424a3470004",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s7_2m_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 7,
+      "sha256": "20bf1cc3b4080490d67309e612decff5f238858475a007c711cccd6a0a810cab",
+      "size_bytes": 19407013
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s7_2m_cuda/summary.json",
+      "role": "summary",
+      "seed": 7,
+      "sha256": "7096d8b7d1af5e9e56e12a2d91c560ccf08e216fdf7366546dc4b3650b942a19",
+      "size_bytes": 8437
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s8_2m_cuda/config.json",
+      "role": "config",
+      "seed": 8,
+      "sha256": "f5532f7b7b5b0d5f7002a185963a4b943308d6a1d6a0d42d1e65459122b823ac",
+      "size_bytes": 5377
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s8_2m_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 8,
+      "sha256": "d45317e6036c5d422d737436fb4e4bd8e1c61494d71d8a972609e784425b4df7",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s8_2m_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 8,
+      "sha256": "97daee968a4685a452d479e2a1be7749cd7099583f26183a39799f511c667107",
+      "size_bytes": 20921999
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s8_2m_cuda/summary.json",
+      "role": "summary",
+      "seed": 8,
+      "sha256": "a55b37109b9b5c0d0181cbc699d2e217157af5043594de41e7356fb0045953af",
+      "size_bytes": 9056
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s9_2m_cuda/config.json",
+      "role": "config",
+      "seed": 9,
+      "sha256": "9b898ff772558e66525456719393f3fa5125b0c6d888cdcf25167039c5ce3693",
+      "size_bytes": 5377
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s9_2m_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 9,
+      "sha256": "e091d17180717190215cd1b46406ca75238479b095082130c229c2b3f2d4eda5",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s9_2m_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 9,
+      "sha256": "05925b73e0fa16c3cd5a3343742028e1300ed1303b4a4f8c2f5998d3cefc696f",
+      "size_bytes": 20966920
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s9_2m_cuda/summary.json",
+      "role": "summary",
+      "seed": 9,
+      "sha256": "a2a937fe6f9f992f8c6e3676d886cd279ba421c76ecca6ef57f7018314d75565",
+      "size_bytes": 9052
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s10_2m_cuda/config.json",
+      "role": "config",
+      "seed": 10,
+      "sha256": "a35c71f261715412dd4d629da7e6aa1c9799f99a2ca2e967d257af8172048383",
+      "size_bytes": 5382
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s10_2m_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 10,
+      "sha256": "d80cf091e75f6ea9983fd0b239b0709faf9643af227d8f383d6ddc4af5711be5",
+      "size_bytes": 2747
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s10_2m_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 10,
+      "sha256": "d913115824c26b7ea849580208dc91d4a3ca1f0ac8432953d84c901c6029a8e0",
+      "size_bytes": 21284434
+    },
+    {
+      "cohort": "diagnostic_extension_seeds_6_10",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s10_2m_cuda/summary.json",
+      "role": "summary",
+      "seed": 10,
+      "sha256": "7b186261bda1b8b91c3f8e60528030e0c2c1ac9e241d7327dae46253e948354e",
+      "size_bytes": 8994
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s1_2m_diag_cuda/config.json",
+      "role": "config",
+      "seed": 1,
+      "sha256": "888c32626a472c5b002f66c281e1acc556ca2cb023031f8bccf34cc49a01b2fc",
+      "size_bytes": 5414
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s1_2m_diag_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 1,
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s1_2m_diag_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 1,
+      "sha256": "2b87428a79e1098162181b3a16ec244861878fe6979ef6ae6f46d329fce8997c",
+      "size_bytes": 21196282
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s1_2m_diag_cuda/summary.json",
+      "role": "summary",
+      "seed": 1,
+      "sha256": "775bc359f4ba7f403d65caf83b5521e215daa3c823d47c6fce613ba2af1bbc45",
+      "size_bytes": 9090
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s2_2m_diag_cuda/config.json",
+      "role": "config",
+      "seed": 2,
+      "sha256": "1080a8a71da180dcb95ed3f5cec082d81ec5690f6e2a01eadfce6cf9ff57e18e",
+      "size_bytes": 5414
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s2_2m_diag_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 2,
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s2_2m_diag_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 2,
+      "sha256": "156b59ac2064b8c6913e7adaf536f312c58c75afbc08cc9bd851a05f5bbceaa6",
+      "size_bytes": 21171718
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s2_2m_diag_cuda/summary.json",
+      "role": "summary",
+      "seed": 2,
+      "sha256": "231edbc2b6047d6250b0783a10ba28bd44440a5ac2689b499812e3125a217933",
+      "size_bytes": 9145
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s3_2m_diag_cuda/config.json",
+      "role": "config",
+      "seed": 3,
+      "sha256": "0721fde781998007ff35b615765a4934d5ded420d42bbb69b1103f4fccb230ea",
+      "size_bytes": 5414
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s3_2m_diag_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 3,
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s3_2m_diag_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 3,
+      "sha256": "da8cda835485398fb497ae671ab895e36b4a4be232d8ef111cc9556ce5084ee4",
+      "size_bytes": 21205663
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s3_2m_diag_cuda/summary.json",
+      "role": "summary",
+      "seed": 3,
+      "sha256": "dc3492ca6360870219b23ce865ddc3b2ce0a4a2bddb353c1450af7b2370d5d96",
+      "size_bytes": 9042
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s4_2m_diag_cuda/config.json",
+      "role": "config",
+      "seed": 4,
+      "sha256": "ba4746a090be90ff2ae325565c2c3573c5bc9b040242d73cc1821774d97927da",
+      "size_bytes": 5414
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s4_2m_diag_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 4,
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s4_2m_diag_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 4,
+      "sha256": "49016fb7210c382dd2abfe618cd9a60a188419aa38dc9167a8c21c41b7f5eb3e",
+      "size_bytes": 21257115
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s4_2m_diag_cuda/summary.json",
+      "role": "summary",
+      "seed": 4,
+      "sha256": "851cbe429c4b2e43842eee3d73463f441a3bdcda0ec39ca3e171d85df1027b13",
+      "size_bytes": 9022
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s5_2m_diag_cuda/config.json",
+      "role": "config",
+      "seed": 5,
+      "sha256": "56f765ea8d13cb9655f14bdda89d46bc97fef319f4b7467167b925c07a4bd35f",
+      "size_bytes": 5414
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s5_2m_diag_cuda/env_snapshot.json",
+      "role": "env_snapshot",
+      "seed": 5,
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s5_2m_diag_cuda/metrics.csv",
+      "role": "raw_metrics",
+      "seed": 5,
+      "sha256": "cbff29984a50eb6f55252fd149acd881a861c9941b0200fecb8e110f4af651d2",
+      "size_bytes": 21042533
+    },
+    {
+      "cohort": "diagnostic_rerun_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic/drawer_open_DDPG-HER-B3-Critic-Only-2M-diagnostic_diag_s5_2m_diag_cuda/summary.json",
+      "role": "summary",
+      "seed": 5,
+      "sha256": "027e0c7b9c77490051faa1c4f24e213b70b5eaab1638203cb2ea56ce49bd313c",
+      "size_bytes": 9100
+    },
+    {
+      "cohort": "original_non_diagnostic_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "role": "performance_reference_raw_metrics",
+      "seed": 1,
+      "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4",
+      "size_bytes": 18532549
+    },
+    {
+      "cohort": "original_non_diagnostic_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "role": "performance_reference_raw_metrics",
+      "seed": 2,
+      "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80",
+      "size_bytes": 18562822
+    },
+    {
+      "cohort": "original_non_diagnostic_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "role": "performance_reference_raw_metrics",
+      "seed": 3,
+      "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5",
+      "size_bytes": 18492864
+    },
+    {
+      "cohort": "original_non_diagnostic_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "role": "performance_reference_raw_metrics",
+      "seed": 4,
+      "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515",
+      "size_bytes": 18547465
+    },
+    {
+      "cohort": "original_non_diagnostic_seeds_1_5",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "role": "performance_reference_raw_metrics",
+      "seed": 5,
+      "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac",
+      "size_bytes": 18586425
+    }
+  ]
+}
