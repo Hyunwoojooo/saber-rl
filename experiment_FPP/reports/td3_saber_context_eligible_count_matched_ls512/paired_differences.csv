@@ -1,0 +1,6 @@
+comparison,seed,left_method,right_method,auc_difference,final_success_difference,best_success_difference,left_hit90,right_hit90,hit90_difference
+Main SABER - Context-eligible count-matched,1,TD3+HER+SABER (Main),Context-eligible count-matched,0.11843434343434345,0.25,0.15000000000000002,840000,,
+Main SABER - Context-eligible count-matched,2,TD3+HER+SABER (Main),Context-eligible count-matched,0.052272727272727304,0.050000000000000044,0.050000000000000044,860000,990000,-130000
+Main SABER - Context-eligible count-matched,3,TD3+HER+SABER (Main),Context-eligible count-matched,0.07929292929292925,0.0,0.050000000000000044,630000,920000,-290000
+Main SABER - Context-eligible count-matched,4,TD3+HER+SABER (Main),Context-eligible count-matched,-0.08030303030303032,-0.09999999999999998,-0.050000000000000044,630000,630000,0
+Main SABER - Context-eligible count-matched,5,TD3+HER+SABER (Main),Context-eligible count-matched,0.08838383838383834,0.09999999999999998,0.09999999999999998,910000,1000000,-90000

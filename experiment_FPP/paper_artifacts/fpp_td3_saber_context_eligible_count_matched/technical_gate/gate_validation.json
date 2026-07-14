@@ -1,0 +1,27 @@
+{
+  "assignment_diagnostic_windows": 46,
+  "checkpoint_assignment_rng_state_present": true,
+  "checkpoint_diagnostic_state_restored_contract": true,
+  "checkpoint_evaluation_state_present": true,
+  "checkpoint_resume_exercised": false,
+  "crash_or_nan": false,
+  "evaluation_checkpoint_count": 5,
+  "evaluation_steps": [
+    10000,
+    20000,
+    30000,
+    40000,
+    50000
+  ],
+  "exact_k_mismatch_count": 0,
+  "expected_environment_steps": 50000,
+  "invariant_failure_count": 0,
+  "kind": "gate",
+  "normalized_histogram_mismatch_count": 0,
+  "passed": true,
+  "performance_used_for_gate_decision": false,
+  "raw_histogram_mismatch_count": 0,
+  "rng_isolation_test_required": "code/src/test_context_eligible_count_matched.py",
+  "schema_version": 1,
+  "total_updates": 45001
+}

@@ -1,0 +1,2 @@
+comparison,n,resamples,rng_seed,mean_auc_difference,sample_std_auc_difference,bootstrap_mean,ci_lower,ci_upper,exact_sign_flip_pvalue_two_sided,positive_delta_count,zero_delta_count,negative_delta_count,leave_one_seed_out_mean_min,leave_one_seed_out_mean_max
+Main SABER - Context-eligible count-matched,5,10000,27027,0.0516161616161616,0.07743648884810007,0.05178027777777777,-0.016464646464646494,0.09919191919191919,0.25,4,0,1,0.034911616161616144,0.08459595959595959

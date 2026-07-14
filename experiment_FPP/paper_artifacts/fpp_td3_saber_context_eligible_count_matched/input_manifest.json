@@ -1,0 +1,844 @@
+{
+  "implementation_source": {
+    "files": [
+      {
+        "packaged_path": "code/analyze_results.py",
+        "sha256": "c5bbfba2aea3404b39c41cafdadcb4afe5815cf888977fb6c2b2d3c3774ef7b4",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/analyze_results.py"
+      },
+      {
+        "packaged_path": "code/freeze_experiment.py",
+        "sha256": "4910e0ed4b9b655839837b231fa8a1135c105ef9f0e6e8e4ce61aa45f54e63fa",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/freeze_experiment.py"
+      },
+      {
+        "packaged_path": "code/freeze_manifest.json",
+        "sha256": "d6b1cd3006ff273e97519d45b93bc490f51505407bf074edfed4fcdf491e589a",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/freeze_manifest.json"
+      },
+      {
+        "packaged_path": "code/validate_technical_gate.py",
+        "sha256": "dbc43380f59b68113ad50a98c3dd294cda4edcca49b0632223a5074644c40a41",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/validate_technical_gate.py"
+      },
+      {
+        "packaged_path": "code/run_all_seeds.sh",
+        "sha256": "34cfd63ea0b75527e01ef15d27f685b614b881b04fbb389bb85fa22ff263bd3f",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/run_all_seeds.sh"
+      },
+      {
+        "packaged_path": "code/test_analyze_results.py",
+        "sha256": "97b5ee8df5a1436daed186bc3dc4b65166a513f79c2f2d52224c3cfd0c3586cd",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/test_analyze_results.py"
+      },
+      {
+        "packaged_path": "code/test_packaged_config_parity.py",
+        "sha256": "7f1e10b1c65f99ffebb93f8365c6bf870cb74bedb0b50c8dbb0fb1aeff1b8808",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/test_packaged_config_parity.py"
+      },
+      {
+        "packaged_path": "code/run.py",
+        "sha256": "57a7be222d4653062f86f4d9a36ce8575d934778f361e7325f7a1091144b29c9",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/run.py"
+      },
+      {
+        "packaged_path": "code/config.json",
+        "sha256": "49c9b08d80e6839983da9602fb23a4b8b46d46a34e20de733a7d9b76b96ae21e",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/config.json"
+      },
+      {
+        "packaged_path": "code/requirements-numba.txt",
+        "sha256": "c6696f45878defe7be99af88b6421c18f7e38c6356eb2d19305370fe5291a8b9",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/requirements-numba.txt"
+      },
+      {
+        "packaged_path": "code/package_artifact.py",
+        "sha256": "40d8e6294b52af6e4015616e91f6016cb48fabb73b25d90f3f3ce88e4d8a2c3c",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/package_artifact.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/__init__.py",
+        "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/__init__.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/agent.py",
+        "sha256": "b67bf22d5da893a7e7b0f2039e12275dc8a20fd6fcaaa06d43a65a4ae82695c4",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/agent.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/assignment_diagnostics.py",
+        "sha256": "8149e84b05aa37d201a6f7e5e164047b484d272d8ace5fd71f0a908f5d15ebdc",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/assignment_diagnostics.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/config.py",
+        "sha256": "b91170f997b922350a28880843f409c12907d2d4b5c1791c6cf3d2b761df6e93",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/config.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/envs.py",
+        "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/envs.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/envs_maniskill.py",
+        "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/io_utils.py",
+        "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/io_utils.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/networks.py",
+        "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/networks.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+        "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/replay.py",
+        "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/replay.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+        "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/task_fetch_push.py",
+        "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+        "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/task_pick_cube.py",
+        "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/task_push_t.py",
+        "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_push_t.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+        "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/trainer.py",
+        "sha256": "94bdc4c4f5bbe9d7d7ace717001b10750168619bc8a9a8cb611991311637e14b",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/trainer.py"
+      },
+      {
+        "packaged_path": "code/src/metacog_lite_v0/weights.py",
+        "sha256": "90334a6da6e2d6a32ecf53bc7c41f2e5f4e7b06fd33bf964c860d4f5dcfdeba1",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/weights.py"
+      },
+      {
+        "packaged_path": "code/src/test_context_eligible_count_matched.py",
+        "sha256": "4db80ef4b0668a88c658ed6b6315b88fa9638876f385e948455eb90c7b23f306",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/test_context_eligible_count_matched.py"
+      },
+      {
+        "packaged_path": "code/src/test_numba_runtime_opt_fpp.py",
+        "sha256": "0ac74e9f6cd04b6ad04fb5597bb74a15d2c98fb3875e1f87c0ae8fcf8f101c24",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/test_numba_runtime_opt_fpp.py"
+      },
+      {
+        "packaged_path": "code/src/test_numba_support_scan_fpp.py",
+        "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/test_numba_support_scan_fpp.py"
+      },
+      {
+        "packaged_path": "code/src/test_support_query_modes.py",
+        "sha256": "e2b0388f04bd72bb7a20c46eaa3b30022871eb96ae5a34d080dc3362f97a6d9a",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/test_support_query_modes.py"
+      },
+      {
+        "packaged_path": "code/src/train_fetch_pick_and_place_lite_v0.py",
+        "sha256": "2c8269d1f786f24b7bc5a8cfe9033d0bf064b4341b9355c30feedeba7e335505",
+        "source_path": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+      }
+    ],
+    "repository_parent_commit": "19233d5d7af82f6ed95efe31919b1816e918b986",
+    "source_commit": null
+  },
+  "input_file_count": 67,
+  "methods": {
+    "context_only": {
+      "label": "Context-count-only (count-unmatched reference)",
+      "provenance_note": "Run artifacts are untracked; exact source SHA256 values are recorded without inferring a commit.",
+      "runs": [
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/context_only/fetch_pick_and_place_td3_saber_context_count_only_ls512_s1_1000000_ls512",
+          "seed": 1,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "95a5605ddd871ed9b98948b05bac26edee2d22cc22e79bcf05146d24241e3d73",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s1_1000000_ls512/config.json",
+              "sha256": "0043523e410dda5671a42d87ff7b8462c24cdccadbe734c8dcaf93eb4adac80c",
+              "size_bytes": 4925
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s1_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s1_1000000_ls512/metrics.csv",
+              "sha256": "964d02281c81f82bf30ab0ff274b35cfb4bb155045aee6114984889966dd4a7d",
+              "size_bytes": 34943136
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s1_1000000_ls512/summary.json",
+              "sha256": "306ba1ade3d5e9565e3fe9be012d69b977f964590911edf84b20f55a378db19c",
+              "size_bytes": 8477
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s1_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/context_only/fetch_pick_and_place_td3_saber_context_count_only_ls512_s2_1000000_ls512",
+          "seed": 2,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "f3db14c5ecffd925a7f5ac231c6c0ad5793e990f2aaecc292549d07e6792295d",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s2_1000000_ls512/config.json",
+              "sha256": "4ec2f45e3bfdcd9c78f01e7885123a833c4983c86a0a7a4f02ee8bbd7528a8f9",
+              "size_bytes": 4925
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s2_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s2_1000000_ls512/metrics.csv",
+              "sha256": "2b91ed839539dbf40449dab4667c972a0bef84ad9c1d6e482589b2fee2e42656",
+              "size_bytes": 35884829
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s2_1000000_ls512/summary.json",
+              "sha256": "241e30ffcdffbea3bb6a2de1e9ab4b418a47f2d8f7aaa4650f1bf02b4000fd6a",
+              "size_bytes": 8698
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s2_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/context_only/fetch_pick_and_place_td3_saber_context_count_only_ls512_s3_1000000_ls512",
+          "seed": 3,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "2a99a2118ff9b4a768e36b4fee3fd8384a55e9fbb5545cb167bb1d5fcb34cb8e",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s3_1000000_ls512/config.json",
+              "sha256": "987d7423f4ffc357b030046cd9d71bce11b3719965546d1833fd4e7511ea6e97",
+              "size_bytes": 4925
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s3_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s3_1000000_ls512/metrics.csv",
+              "sha256": "81b766a640bf4256b1bf5f26a57f470d66435ffe7f292fb904d5da8d285d2905",
+              "size_bytes": 35143006
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s3_1000000_ls512/summary.json",
+              "sha256": "3e5c84a4e6ffd0ea740ab58688c9e38ce6af6169ba7a989285b5ed15aee9ea59",
+              "size_bytes": 8732
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s3_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/context_only/fetch_pick_and_place_td3_saber_context_count_only_ls512_s4_1000000_ls512",
+          "seed": 4,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "7fbf410aa52fce6563034ec9bcfbe5bc385ec1c457488f52594509224f63711c",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s4_1000000_ls512/config.json",
+              "sha256": "cf51ca14222a82c3419d232bb40f7f8a761dd6ea74f0b905b9c5271cf5143ce5",
+              "size_bytes": 4925
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s4_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s4_1000000_ls512/metrics.csv",
+              "sha256": "6a7aa57b04adad032a33e975042751d57de5e5d26aac6d98e8a1f1c311b756da",
+              "size_bytes": 36040345
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s4_1000000_ls512/summary.json",
+              "sha256": "9a636d386cdc53a94a4d315de097fc461f65773cc4729c61fc3c3b8136bab972",
+              "size_bytes": 8699
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s4_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/context_only/fetch_pick_and_place_td3_saber_context_count_only_ls512_s5_1000000_ls512",
+          "seed": 5,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "9d69dfaa84c6cc3668161bbc523c75fcdd642e568b2676b5902fef57b5e7137f",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s5_1000000_ls512/config.json",
+              "sha256": "ef67035f57fe56536726f7568adca48789d18d94dca75b7a8b3bb26fd2bfae80",
+              "size_bytes": 4925
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s5_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s5_1000000_ls512/metrics.csv",
+              "sha256": "677d8e6a2043be5e257e2908df0507be04a3df5288bb6173f96a76a8f5979b21",
+              "size_bytes": 35433132
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s5_1000000_ls512/summary.json",
+              "sha256": "cf5264f7501e18a706c9adcf75317b62ab24cd5ce9538a90b7befd7f584abc1f",
+              "size_bytes": 8695
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_count_only_ls512/fetch_pick_and_place_td3_saber_context_count_only_ls512_s5_1000000_ls512"
+        }
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "source_commit": null,
+      "source_root": "experiment_FPP/runs/td3_saber_context_count_only_ls512",
+      "support_assignment_mode": "support",
+      "support_query_mode": "context_count_only"
+    },
+    "control": {
+      "label": "Context-eligible count-matched",
+      "provenance_note": "Run artifacts are untracked; exact source SHA256 values are recorded without inferring a commit.",
+      "runs": [
+        {
+          "assignment_diagnostics_copied": true,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/control/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512",
+          "seed": 1,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "72065ce929565a17aae9d06b4d3f642cc825c26bfe7905db0003bdfd68dfe2e6",
+          "source_files": {
+            "assignment_diagnostics_1000.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512/assignment_diagnostics_1000.csv",
+              "sha256": "6cb3b544523c42fadfc049caf472beed427abc8750ccf273b6622b5a09a78074",
+              "size_bytes": 462690
+            },
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512/config.json",
+              "sha256": "2909482fd1d52dae0e4138150d377f9ccb8826edb4eac5e3f09c94360e69a7af",
+              "size_bytes": 5077
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512/metrics.csv",
+              "sha256": "634153399ca2c00c44c28be39aa325806e3ebc0f5319aa8f1e86fc1cf492c31f",
+              "size_bytes": 45721469
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512/summary.json",
+              "sha256": "69c327d37d1f1b581840553a7a6c5fc507e665d71a3f4548895dc62c6b0271f4",
+              "size_bytes": 10724
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s1_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": true,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/control/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512",
+          "seed": 2,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "00e06b8b8f812e78030e97d9843d5514544f237586cb6e3d2efbc52cc365645d",
+          "source_files": {
+            "assignment_diagnostics_1000.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512/assignment_diagnostics_1000.csv",
+              "sha256": "c17b196dab656f190156784e0facb5f236c74ce5d46d2e84d57d4ed5a7833267",
+              "size_bytes": 462132
+            },
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512/config.json",
+              "sha256": "fd7e230fb543c941dd058e1784202d1dba0241344f4b06121d91e5cb25f27b80",
+              "size_bytes": 5077
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512/metrics.csv",
+              "sha256": "af0f2c405a05e042892ed147198cd1eeaeb81c47be7f7de23db598c8e818a2ee",
+              "size_bytes": 46038860
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512/summary.json",
+              "sha256": "2f1c2133f8bf18bddb91ff4fc434a8414cf716d0b0070344865cd3dc607678dc",
+              "size_bytes": 10576
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s2_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": true,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/control/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512",
+          "seed": 3,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "8f13997b6f383a4dc3867fe9a0bb76c6cc34f0e08d5765177ca6338215caf57a",
+          "source_files": {
+            "assignment_diagnostics_1000.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512/assignment_diagnostics_1000.csv",
+              "sha256": "3850c50ec6aeeee08974295f3f9c7d92902c1ac124d5db8d39ef72c665eb86ed",
+              "size_bytes": 462573
+            },
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512/config.json",
+              "sha256": "f58b7e516444c32c5c8106a64e9f11eafc89d082a6cfa434212c0a247e0ade17",
+              "size_bytes": 5077
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512/metrics.csv",
+              "sha256": "a289c7470165337fcd95551605ca76ac03272561c215425f941215488a8651a0",
+              "size_bytes": 46147349
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512/summary.json",
+              "sha256": "5e23e9c5f5f85c93f3ce8ef131b26efa4078a71bcc0b8f0ab216e83c5fc2b638",
+              "size_bytes": 10641
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s3_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": true,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/control/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512",
+          "seed": 4,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "01c040a39430298b53419cfc75ccba6315c67ac0e835c8c73c71df11761c1cae",
+          "source_files": {
+            "assignment_diagnostics_1000.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512/assignment_diagnostics_1000.csv",
+              "sha256": "53d19ffd95e598916b514f785848b32b2036c6f923e5fc0c10dce882ce1140e0",
+              "size_bytes": 462645
+            },
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512/config.json",
+              "sha256": "b14811a049c889d5e151a10661bdbd3e95b0c5edcd986549b992a4b8916fc937",
+              "size_bytes": 5077
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512/metrics.csv",
+              "sha256": "eeb9023104d602689260e531e5b79ba9dc7f29e15d7612b3dba58a77ab5fc910",
+              "size_bytes": 46456275
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512/summary.json",
+              "sha256": "ae012d9f388ecc7c5d1815282bf29999134dccda6931e103d1c18338d011ea8d",
+              "size_bytes": 10673
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s4_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": true,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/control/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512",
+          "seed": 5,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "8952d83aead9c7aa69101c2cd23dfa92e72296009b0b56ff0fcf25ed38f56b18",
+          "source_files": {
+            "assignment_diagnostics_1000.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512/assignment_diagnostics_1000.csv",
+              "sha256": "5134c67480fc7b07f175c5eb40c59e232a8fb4a83f3fbfcc1af07fb9cc94d5d9",
+              "size_bytes": 462451
+            },
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512/config.json",
+              "sha256": "aaa912963f656ca83ba2ebf37f4b0a7d22f03b4524125e511c599d31768c954a",
+              "size_bytes": 5077
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics.csv": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512/metrics.csv",
+              "sha256": "c486d812929fbe5574eb1c2a26ecd1113cd5bcb4c7919fb8f8d0e277b2d77707",
+              "size_bytes": 46066141
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512/summary.json",
+              "sha256": "fc71f5e856cb04eb15e552e7d97e67a073eac548756ea260b39a081f1ec73dbc",
+              "size_bytes": 10602
+            }
+          },
+          "source_metrics_file": "metrics.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512/fetch_pick_and_place_td3_saber_context_eligible_count_matched_s5_1000000_ls512"
+        }
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "source_commit": null,
+      "source_root": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_ls512",
+      "support_assignment_mode": "context_eligible_count_matched",
+      "support_query_mode": "current_policy"
+    },
+    "main": {
+      "label": "TD3+HER+SABER (Main)",
+      "provenance_note": null,
+      "runs": [
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/main/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512",
+          "seed": 1,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "9a50aaff224266f23df73033e6c06b976ff31ccab896a9f80e728776f38442ad",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512/config.json",
+              "sha256": "8eada69a7e7a33d5e780071a588adfacfdc29e9909244bffb501d7d4632c61b9",
+              "size_bytes": 4873
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics_selected_10k.csv": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+              "sha256": "9a50aaff224266f23df73033e6c06b976ff31ccab896a9f80e728776f38442ad",
+              "size_bytes": 358900
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512/summary.json",
+              "sha256": "0717d4ac7ff701936f84eac467e55bd74cb6b2957d034da0abd8e7de2334c898",
+              "size_bytes": 7829
+            }
+          },
+          "source_metrics_file": "metrics_selected_10k.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/main/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512",
+          "seed": 2,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "488e53f1598e29b70a62581ca001955b5d1f2f2e8d4da3ab9dab914956f54fe5",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512/config.json",
+              "sha256": "e87cf4b2776b36356a957992a926cb3dd3df76afeabaec7f42c91f0684e4cea3",
+              "size_bytes": 4873
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics_selected_10k.csv": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+              "sha256": "488e53f1598e29b70a62581ca001955b5d1f2f2e8d4da3ab9dab914956f54fe5",
+              "size_bytes": 359379
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512/summary.json",
+              "sha256": "b04376280fbb2037a27e43d8a7fc41511efc778385c7bd3dff17ef39ff22d7e3",
+              "size_bytes": 7712
+            }
+          },
+          "source_metrics_file": "metrics_selected_10k.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/main/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512",
+          "seed": 3,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "493245554ec93de01ae51c8fc94bac1fa44077b308ccdd361459776833909b14",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512/config.json",
+              "sha256": "44a843a13027d9e21086a73703356cec7c7a42ac15e05955b0832afd740b11b9",
+              "size_bytes": 4873
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics_selected_10k.csv": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+              "sha256": "493245554ec93de01ae51c8fc94bac1fa44077b308ccdd361459776833909b14",
+              "size_bytes": 358750
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512/summary.json",
+              "sha256": "58f46a25e8107d2bc223684120316b363115c61dc888019e7cbce7de1fd7a961",
+              "size_bytes": 7702
+            }
+          },
+          "source_metrics_file": "metrics_selected_10k.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/main/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512",
+          "seed": 4,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "084f9cf6a03848099fc1ad72b6b6ff5b965a2a7ee3526ce90a01e96726380dad",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512/config.json",
+              "sha256": "c47f39cc434798f85b95d632b73247cfad0edc74fa0531ce856472255c5e46c5",
+              "size_bytes": 4873
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics_selected_10k.csv": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+              "sha256": "084f9cf6a03848099fc1ad72b6b6ff5b965a2a7ee3526ce90a01e96726380dad",
+              "size_bytes": 355585
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512/summary.json",
+              "sha256": "1fd9f283950a9dc002627983e6555101ea9787d24f3ae96299544c55e152190c",
+              "size_bytes": 7715
+            }
+          },
+          "source_metrics_file": "metrics_selected_10k.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512"
+        },
+        {
+          "assignment_diagnostics_copied": false,
+          "evaluation_checkpoint_count": 100,
+          "packaged_metrics_file": "metrics_selected_10k.csv",
+          "packaged_metrics_rows": 200,
+          "packaged_run_dir": "data/main/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512",
+          "seed": 5,
+          "selected_metrics_byte_identical": true,
+          "selected_metrics_sha256": "22783c4e5b6c689edeed5753bdff7c9bfbc0b400f2d8d1555952f01971b5282d",
+          "source_files": {
+            "config.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512/config.json",
+              "sha256": "16194b33e82753150900e2dafaa4efddb641495809a6258bc3be17ec96d9d448",
+              "size_bytes": 4873
+            },
+            "env_snapshot.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512/env_snapshot.json",
+              "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+              "size_bytes": 2349
+            },
+            "metrics_selected_10k.csv": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+              "sha256": "22783c4e5b6c689edeed5753bdff7c9bfbc0b400f2d8d1555952f01971b5282d",
+              "size_bytes": 361651
+            },
+            "summary.json": {
+              "path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512/summary.json",
+              "sha256": "9c73124f276cf1af630a6d4616f91230e8c38dd41d43da3d3fe4185fd1159740",
+              "size_bytes": 7728
+            }
+          },
+          "source_metrics_file": "metrics_selected_10k.csv",
+          "source_run_dir": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512"
+        }
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "source_commit": "368a76686dc092e1fc676af2c6a6b79d9d7a6bdb",
+      "source_root": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512",
+      "support_assignment_mode": "support",
+      "support_query_mode": "current_policy"
+    }
+  },
+  "reference_results": [
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/per_seed_results.csv",
+      "sha256": "0c8d8494a3c936465afc68b183945b2cb2e266ca6777a7627aaeffa9acb79f91",
+      "size_bytes": 8716
+    },
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/aggregate_results.csv",
+      "sha256": "80d5571d11b27962b769b33d21ca78486abba3f7a2f95301f71565f624283145",
+      "size_bytes": 782
+    },
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/paired_differences.csv",
+      "sha256": "9fec928b4461cf076a4680bd4917caede2ca370d85e6c4bdccfc2887721aa56b",
+      "size_bytes": 1003
+    },
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/paired_inference.csv",
+      "sha256": "c2ab9e987045ce9bc647988d6d9d9936f0a6ae7a69bca8c1afdd90dfa8dcea7e",
+      "size_bytes": 470
+    },
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/leave_one_seed_out.csv",
+      "sha256": "5d0253bd6835da230fad4e01abd0e3953dfe997caee99f05a7a842cb567a96e9",
+      "size_bytes": 405
+    },
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/assignment_diagnostic_summary.csv",
+      "sha256": "ea91e38baa4f86c5ccdf1b1b10102ed96ec7ac8c1fbc88ecf124a7e6a57b7f23",
+      "size_bytes": 4034
+    },
+    {
+      "path": "experiment_FPP/reports/td3_saber_context_eligible_count_matched_ls512/report.md",
+      "sha256": "ff209b70d88c9451d106baf9a19097984e01ba63d36c7d84877d331adb15c418",
+      "size_bytes": 7163
+    }
+  ],
+  "repository": {
+    "branch": "main",
+    "commit": "19233d5d7af82f6ed95efe31919b1816e918b986",
+    "id": "ARTIFACT_REPO"
+  },
+  "schema_version": "1.0",
+  "source_parity_evidence": {
+    "numba_predicate": false,
+    "passed": true,
+    "stdout": "test_current_policy_legacy_parity.py passed (Python reference)",
+    "test": "experiment_FPP/td3_saber_context_eligible_count_matched_ls512/code/src/test_current_policy_legacy_parity.py"
+  },
+  "technical_gate": {
+    "gate": {
+      "packaged_path": "technical_gate/gate_validation.json",
+      "sha256_after_sanitization": "83d6412f7e96ed9317a8ddb66ad1f64a34bfa19172a5823d1d1634ae34ca827c",
+      "source": {
+        "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_gate_50k/fetch_pick_and_place_td3_saber_context_eligible_count_matched_gate_s1_50000_ls512/gate_validation.json",
+        "sha256": "83d6412f7e96ed9317a8ddb66ad1f64a34bfa19172a5823d1d1634ae34ca827c",
+        "size_bytes": 780
+      }
+    },
+    "smoke": {
+      "packaged_path": "technical_gate/smoke_validation.json",
+      "sha256_after_sanitization": "caec3d56c807bb3c04fb4d5861fbc0754144f6eddf1bde3946d6fe37e71ff9ed",
+      "source": {
+        "path": "experiment_FPP/runs/td3_saber_context_eligible_count_matched_smoke_5k/fetch_pick_and_place_td3_saber_context_eligible_count_matched_smoke_s1_5000_ls512/smoke_validation.json",
+        "sha256": "caec3d56c807bb3c04fb4d5861fbc0754144f6eddf1bde3946d6fe37e71ff9ed",
+        "size_bytes": 772
+      }
+    }
+  },
+  "transform": {
+    "checkpoints_copied": false,
+    "json": "Machine-specific paths and URLs sanitized; numeric values unchanged.",
+    "jsonl_copied": false,
+    "logs_copied": false,
+    "metrics": "Rows at exact positive multiples of 10,000 through 1M only; no numeric value transformation.",
+    "raw_metrics_copied": false
+  }
+}

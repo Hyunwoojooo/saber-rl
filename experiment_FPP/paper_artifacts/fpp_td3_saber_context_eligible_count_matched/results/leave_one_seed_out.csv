@@ -1,0 +1,6 @@
+comparison,omitted_seed,retained_seed_count,mean_auc_difference
+Main SABER - Context-eligible count-matched,1,4,0.034911616161616144
+Main SABER - Context-eligible count-matched,2,4,0.05145202020202018
+Main SABER - Context-eligible count-matched,3,4,0.04469696969696969
+Main SABER - Context-eligible count-matched,4,4,0.08459595959595959
+Main SABER - Context-eligible count-matched,5,4,0.04242424242424242
