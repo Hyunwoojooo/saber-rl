@@ -1,0 +1,12 @@
+metric,n_seeds,mean_of_seed_means,sample_std_of_seed_means,positive_seed_count
+diagnostic/support_positive_rate,5,0.44155078124999997,0.07161176906165387,5
+diagnostic/td_error_support_pos_mean,5,0.24881865214398569,0.13228852683054235,5
+diagnostic/td_error_support_neg_mean,5,0.21294632592775914,0.11269412605022337,5
+diagnostic/support_to_td_error_corr,5,0.09498969194889499,0.006794509349167263,5
+diagnostic/residual_reduction_support_pos_mean,5,0.005280960029947323,0.005007105691013712,5
+diagnostic/residual_reduction_support_neg_mean,5,0.001192656554683423,0.003083098320912978,3
+diagnostic/residual_reduction_support_pos_rate,5,0.5110294776288793,0.011938692293863525,5
+diagnostic/residual_reduction_support_neg_rate,5,0.5093854704417483,0.011993356778206224,5
+diagnostic/support_to_residual_reduction_corr,5,0.0151826642935859,0.017652116486494774,4
+td_error_pos_minus_neg,5,0.035872326216226554,0.020373370021447564,5
+residual_reduction_pos_minus_neg,5,0.004088303475263901,0.0029475671935045122,5

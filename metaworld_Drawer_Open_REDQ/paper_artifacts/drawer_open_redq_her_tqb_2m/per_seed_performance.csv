@@ -1,0 +1,6 @@
+method_key,paper_label,cohort,seed,run_name,final_success,best_success,success_auc,best_final_drop,hit90_reached,first_hit_0.90,runtime_total_sec,runtime_hours,steps_per_sec,numba_support_scan_enabled
+drawer_open_redq_her_tqb,REDQ-HER TQB,seeds_1_5,1,drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda,1.0,1.0,0.8185929648241206,0.0,True,370000,404978.470229867,112.49401950829638,4.938534137048802,
+drawer_open_redq_her_tqb,REDQ-HER TQB,seeds_1_5,2,drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda,1.0,1.0,0.8969849246231156,0.0,True,230000,396194.82161254605,110.05411711459612,5.048021556313716,
+drawer_open_redq_her_tqb,REDQ-HER TQB,seeds_1_5,3,drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda,1.0,1.0,0.5113065326633166,0.0,True,980000,393839.977889455,109.39999385818194,5.078204632038067,
+drawer_open_redq_her_tqb,REDQ-HER TQB,seeds_1_5,4,drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda,1.0,1.0,0.935678391959799,0.0,True,150000,398819.091177502,110.78308088263945,5.014805068872348,
+drawer_open_redq_her_tqb,REDQ-HER TQB,seeds_1_5,5,drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda,1.0,1.0,0.1964824120603015,0.0,True,1490000,405106.59686765604,112.52961024101556,4.936972183282857,

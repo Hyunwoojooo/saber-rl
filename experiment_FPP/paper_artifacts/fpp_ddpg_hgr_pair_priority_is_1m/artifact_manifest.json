@@ -1,0 +1,312 @@
+{
+  "artifact": "fpp_ddpg_hgr_pair_priority_is_1m",
+  "exclusions": [
+    "checkpoint files",
+    "raw metrics.csv",
+    "raw JSONL",
+    "logs"
+  ],
+  "file_count": 31,
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "bd7859acd381281ff3ddb293846205a6e447866f0849ae774b31a9a02526e01c",
+      "size_bytes": 4835
+    },
+    {
+      "path": "aggregate_results.csv",
+      "sha256": "37082d48ea5dfe00d2ed9669d90cc39bd97f8d552e2f2076199e08cb214d77a9",
+      "size_bytes": 2003
+    },
+    {
+      "path": "code/build_artifact.py",
+      "sha256": "af918719bb2bc850e7f0bdc4194bec62fd6791128356f96f5ddbef5d14a62e74",
+      "size_bytes": 37021
+    },
+    {
+      "path": "code/verify_artifact.py",
+      "sha256": "2e800b4241e83f601b63e51409c45be5a1bf77c33e8553aa89feb55f5649dba6",
+      "size_bytes": 12876
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/config.json",
+      "sha256": "b22e694e66576d3d3f0df12f9531e22c0f24b0b6a1eb2fc8487046c874ebde07",
+      "size_bytes": 6237
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/hgr_metrics_selected.csv",
+      "sha256": "6f8a75fdbf6cadca8f685c12a63b41553254e164d1ac83d49f056c1941b74d0b",
+      "size_bytes": 51624
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/metrics_selected_10k.csv",
+      "sha256": "d63015fee8002631573ba9106fd0d6cd689d373baf123fcd0cdc325d89d0990f",
+      "size_bytes": 302135
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/summary.json",
+      "sha256": "9ad2a6c3f2b60390608663af0fb1458035225fb203e3dd37ceb19e1585dd7533",
+      "size_bytes": 7455
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/config.json",
+      "sha256": "b1b16a1d5d1bd0e8e9242a4bdc06e8f2731a064986e178563e3dd9b46ca552b4",
+      "size_bytes": 6237
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/hgr_metrics_selected.csv",
+      "sha256": "cddab470a6c97d13c5fc00afcd0a12bbe1aa8c9b9fe3885cf2733efdbdb37389",
+      "size_bytes": 50972
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/metrics_selected_10k.csv",
+      "sha256": "fbe210f5f04f584d81beccb1e9068a07cdf5a07c5d6e76e93995d008509f0f22",
+      "size_bytes": 297476
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/summary.json",
+      "sha256": "9ceda975123d21acbfaae4b9f49b1175b510a9dcd659e1ba45352986d1650b11",
+      "size_bytes": 7390
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/config.json",
+      "sha256": "b9dc720248fc1a9961e9dbd58f5bfd18e2d2e8a6e446077e981eb02f88c17b6d",
+      "size_bytes": 6237
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/hgr_metrics_selected.csv",
+      "sha256": "1838159df0017545ad67045ec3360bd7b763193f4e289e7144536bb935cad52d",
+      "size_bytes": 51574
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/metrics_selected_10k.csv",
+      "sha256": "58b5be23c63879b6fbf7e826e180813e307d3f76f27cb089f3c662019892cab1",
+      "size_bytes": 301456
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/summary.json",
+      "sha256": "67882ea27af1687f2ce0e1fdeada87ffb2aaa7feaaac0697572f4da4bef2c760",
+      "size_bytes": 7446
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/config.json",
+      "sha256": "eaebbaa131cb7141f97d019ade595fc6be85f09ab18ec5701f558551f4095889",
+      "size_bytes": 6237
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/hgr_metrics_selected.csv",
+      "sha256": "fcb1c0066a5586f2ba9cc52980b7f614b48b6665060701854043977d0d4b09b0",
+      "size_bytes": 51567
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/metrics_selected_10k.csv",
+      "sha256": "113ddabf83fab9e06c68f8c1cce02ebd377262e4ee261ddb337cf9e84d07a028",
+      "size_bytes": 302007
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/summary.json",
+      "sha256": "ea55682188b4396f4e2a14bbde4ccd3dc00e04736f1ae4d6a8007eb8668aafbf",
+      "size_bytes": 7454
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/config.json",
+      "sha256": "30235d42b377f0ea7d42d546f79b527f55553c3eac5917faf41fad27892458ba",
+      "size_bytes": 6237
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/hgr_metrics_selected.csv",
+      "sha256": "5dee9404bf7a4b30c77a0a56ef713918f2b6127c2962a0c9ef3778442b67ed1a",
+      "size_bytes": 51501
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/metrics_selected_10k.csv",
+      "sha256": "f7147a9ad6c0311ad7d48ed696254ce73bb9821c430d982af4c523c800b78d95",
+      "size_bytes": 301043
+    },
+    {
+      "path": "fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/summary.json",
+      "sha256": "80d56a51a4b2bfc8acf1cb3849096ff13078ababb7ec530996a5c0cedf2fa64c",
+      "size_bytes": 7454
+    },
+    {
+      "path": "paired_vs_her_saber.csv",
+      "sha256": "a90b78cb7aac12ff451099518507e6c9f5d1b9461144e22ca47eba5110cfe922",
+      "size_bytes": 3522
+    },
+    {
+      "path": "per_seed_results.csv",
+      "sha256": "a3975d24c240075d27398a224334cc940c2d951b33f941ef184d91092f3b39df",
+      "size_bytes": 5612
+    }
+  ],
+  "generated_at_utc": "2026-07-11T05:36:33.177426+00:00",
+  "manifest_scope": "all artifact payload files except artifact_manifest.json",
+  "manifest_self_excluded": true,
+  "paper_label": "HGR (matched DDPG+HER)",
+  "schema_version": 1,
+  "source_commit": "79d3347",
+  "source_commit_full": "79d3347b0bff0890f6d65c28a04c5c0ca515c846",
+  "source_runs": [
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "DDPG+HER",
+      "run_name": "fetch_pick_and_place_b0_s1_1000000_ls1024",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s1_1000000_ls1024",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "DDPG+HER",
+      "run_name": "fetch_pick_and_place_b0_s2_1000000_ls1024",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s2_1000000_ls1024",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "DDPG+HER",
+      "run_name": "fetch_pick_and_place_b0_s3_1000000_ls1024",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s3_1000000_ls1024",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "DDPG+HER",
+      "run_name": "fetch_pick_and_place_b0_s4_1000000_ls1024",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s4_1000000_ls1024",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "DDPG+HER",
+      "run_name": "fetch_pick_and_place_b0_s5_1000000_ls1024",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s5_1000000_ls1024",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/ddpg_hgr_tdpriority_original_pair_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/ddpg_hgr_tdpriority_original_pair_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/ddpg_hgr_tdpriority_original_pair_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/ddpg_hgr_tdpriority_original_pair_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/ddpg_hgr_tdpriority_original_pair_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched DDPG+HER)",
+      "run_name": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512",
+      "total_steps": 1000000
+    }
+  ],
+  "total_size_bytes": 1907353
+}

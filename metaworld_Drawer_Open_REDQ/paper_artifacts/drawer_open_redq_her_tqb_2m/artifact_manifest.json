@@ -1,0 +1,237 @@
+{
+  "artifact_id": "DRAWEROPEN-REDQ-HER-TQB-2M",
+  "blind_safe": true,
+  "payload": [
+    {
+      "path": "README.md",
+      "sha256": "59719eb647116cac41d10308b781f76d5589ea44dce227331236dba67abcaa8b",
+      "size_bytes": 1235
+    },
+    {
+      "path": "aggregate_performance.csv",
+      "sha256": "a363c2f78bfbf4e7bad36f2ba5f1362ec0a26f977f2218c9f113a50519dec5f5",
+      "size_bytes": 499
+    },
+    {
+      "path": "code/source/REDQ-HER-TQB-B0-2M.sh",
+      "sha256": "49c8dc87688fd9454e617da8fdd15f8344950420a5e558c029632e55ed4f9805",
+      "size_bytes": 4390
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "size_bytes": 49
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/agent.py",
+      "sha256": "eedb48a30a1c0d7abab8ebf2c1db8aae2a05f981e279c760e23072c089d99b69",
+      "size_bytes": 15269
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/config.py",
+      "sha256": "536172c4758040fba53e89db28c53dd1f6307b04d961f4fa0f4f9b0a7d7759c9",
+      "size_bytes": 17706
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/envs.py",
+      "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+      "size_bytes": 12291
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "size_bytes": 4334
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
+      "size_bytes": 14812
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/replay.py",
+      "sha256": "9a473e2ce4a65273afcd31205842d94e077b620882ea829abba485e6356aa93b",
+      "size_bytes": 24475
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size_bytes": 9112
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/trainer.py",
+      "sha256": "73f54187fc970e263d3b227951dadb6b6eaa6319394202a7a4811c3441f4001f",
+      "size_bytes": 70273
+    },
+    {
+      "path": "code/source/src/metacog_lite_v0/weights.py",
+      "sha256": "a0e15dcc06923a4fc6f204476b99f7fd3270ae71297576cfa47e88934e81b2f2",
+      "size_bytes": 66777
+    },
+    {
+      "path": "code/source/src/train_drawer_open_redq_lite_v0.py",
+      "sha256": "085c57fc9d12bcba9d4cda08cddef8f27a4c97f11b936dbf96d954cf1559ebd5",
+      "size_bytes": 20577
+    },
+    {
+      "path": "code/verify_artifact.py",
+      "sha256": "ca6a18a9c4953e534cb86654024955ded1f235a937233a67c714085d7c11a942",
+      "size_bytes": 3582
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/config.json",
+      "sha256": "f273ac474f334106d1298e8e3dd5086d18886334b3ada6e84bba2cb7447bd648",
+      "size_bytes": 5575
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/env_snapshot.json",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/metrics_eval_10k.csv",
+      "sha256": "c331b564c4471dbb29ea94140417c27e381c8672ebd7603152b5346cf3ad5a10",
+      "size_bytes": 244226
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/summary.json",
+      "sha256": "677b1153ce8cb91de06be05edc4e71aff00d8b44b404d0842a709da9893d671d",
+      "size_bytes": 5911
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/config.json",
+      "sha256": "d01641d06356fb37ec985df4583ded85846f7e95dab76d5826befaca285f7df9",
+      "size_bytes": 5575
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/metrics_eval_10k.csv",
+      "sha256": "6cc976baff924f68aaf90da56c564a128360a2a6f8c7f59b58bde7b6c537754d",
+      "size_bytes": 244640
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/summary.json",
+      "sha256": "86b7eb28984759b0f6d4b66356947479ddd6a90569b1ddade859f38e8a1e701b",
+      "size_bytes": 5911
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/config.json",
+      "sha256": "fa4c7bf6c745e5f8f19f9ec43c52cbd5f4621565a27dd7d9c3b2e5f1e3ef2afd",
+      "size_bytes": 5575
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/metrics_eval_10k.csv",
+      "sha256": "ba8010cfd86f159638c66939470d0f44c108a8a6c32f15d29e554ac94267612f",
+      "size_bytes": 241936
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/summary.json",
+      "sha256": "07f47bb04818a2ffaaabcd9f02ef7aaa9e921b7d27d8cf872e9c2e6f48c75309",
+      "size_bytes": 5903
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/config.json",
+      "sha256": "302d987c4bce79b3bc428a3fa5eb93bc128484c9eb1a8ecb153208cbbcd46f08",
+      "size_bytes": 5575
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/env_snapshot.json",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/metrics_eval_10k.csv",
+      "sha256": "a5a3e8077ac7eff09743398ec81477b95ec0937c94c4ef4a7f0cfc5493561a27",
+      "size_bytes": 244962
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/summary.json",
+      "sha256": "0c9ce6596222eace67b2535b2e463bf64060184b6d24ce182b17c635c0ee2626",
+      "size_bytes": 5918
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/config.json",
+      "sha256": "d0be83f0e4681ae538dbc9bdfa5c5375a45cedb880d77223390840445e600357",
+      "size_bytes": 5575
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/env_snapshot.json",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/metrics_eval_10k.csv",
+      "sha256": "8e56d8b58feabe68ac98a0a8594b22b21f64603390d1a1196013c8f8a5127409",
+      "size_bytes": 237884
+    },
+    {
+      "path": "data/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/summary.json",
+      "sha256": "92a5f792b264e2e61f5f7298b17bff7973673c5d58e7fe5930ec144dbd865b0c",
+      "size_bytes": 5906
+    },
+    {
+      "path": "per_seed_performance.csv",
+      "sha256": "18f180c10944113bfbde05caacbe7e0d9481f161cac3ddb759d5d11bba1227c3",
+      "size_bytes": 1161
+    },
+    {
+      "path": "protocol_audit.json",
+      "sha256": "4d1eb85a160f8541f4e876020c09ce1e253a064922ee33e474c5a92a7274ed95",
+      "size_bytes": 1255
+    }
+  ],
+  "payload_file_count": 46
+}

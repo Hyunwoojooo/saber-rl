@@ -1,4 +1,10 @@
 method_id,task,backbone,method,metric,n,mean,ci_low,ci_high,ci,bootstrap_iterations
+drawer_close_ddpg_hgr_style_2m,DrawerClose,DDPG,HGR-style sampler-only,final_success,5,0.53,0.20999999999999996,0.82,0.95,10000
+drawer_close_ddpg_hgr_style_2m,DrawerClose,DDPG,HGR-style sampler-only,best_success,5,1.0,1.0,1.0,0.95,10000
+drawer_close_ddpg_hgr_style_2m,DrawerClose,DDPG,HGR-style sampler-only,success_auc,5,0.26214765100671145,0.22308724832214766,0.3079865771812081,0.95,10000
+drawer_close_ddpg_hgr_style_2m,DrawerClose,DDPG,HGR-style sampler-only,last_quarter_auc,5,0.3505405405405405,0.22418918918918918,0.45472972972972975,0.95,10000
+drawer_close_ddpg_hgr_style_2m,DrawerClose,DDPG,HGR-style sampler-only,steps_per_sec,5,36.661441688854865,36.63169331069743,36.691242364941985,0.95,10000
+drawer_close_ddpg_hgr_style_2m,DrawerClose,DDPG,HGR-style sampler-only,runtime_total_sec,5,54553.276304777595,54508.95834958719,54597.5363250838,0.95,10000
 drawer_close_td3_her_2m,DrawerClose,TD3,HER,final_success,5,0.35,0.0,0.71,0.95,10000
 drawer_close_td3_her_2m,DrawerClose,TD3,HER,best_success,5,1.0,1.0,1.0,0.95,10000
 drawer_close_td3_her_2m,DrawerClose,TD3,HER,success_auc,5,0.3287437185929648,0.09248743718592965,0.6334924623115579,0.95,10000
@@ -62,9 +68,14 @@ drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,steps_per_sec,5,23.3329625243684,
 drawer_ddpg_saber_2m,DrawerOpen,DDPG,HER+SABER,runtime_total_sec,5,85836.20635696928,83195.01420817999,88933.01921343702,0.95,10000
 drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,final_success,5,0.4,0.0,0.8,0.95,10000
 drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,best_success,5,0.42,0.02,0.82,0.95,10000
-drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,success_auc,5,0.3996551724137931,0.0,0.7996551724137931,0.95,10000
-drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,steps_per_sec,5,141.6159294219771,101.69712623260874,184.14657158333725,0.95,10000
-drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,runtime_total_sec,5,15718.110906002205,11552.775147678238,19883.446664326173,0.95,10000
+drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,success_auc,5,0.30673366834170857,0.00010050251256281409,0.6190954773869347,0.95,10000
+drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,steps_per_sec,5,22.948484746436872,21.848767896181926,24.048522966121606,0.95,10000
+drawer_ddpg_shuffled_weight_2m,DrawerOpen,DDPG,Shuffled-weight,runtime_total_sec,5,87418.66100000001,83253.3538,91583.9682,0.95,10000
+drawer_redq_her_tqb_2m,DrawerOpen,REDQ-SAC,REDQ-HER TQB,final_success,5,1.0,1.0,1.0,0.95,10000
+drawer_redq_her_tqb_2m,DrawerOpen,REDQ-SAC,REDQ-HER TQB,best_success,5,1.0,1.0,1.0,0.95,10000
+drawer_redq_her_tqb_2m,DrawerOpen,REDQ-SAC,REDQ-HER TQB,success_auc,5,0.6718090452261306,0.3995477386934674,0.89678391959799,0.95,10000
+drawer_redq_her_tqb_2m,DrawerOpen,REDQ-SAC,REDQ-HER TQB,steps_per_sec,5,5.003307515511158,4.953163541907133,5.053451489115183,0.95,10000
+drawer_redq_her_tqb_2m,DrawerOpen,REDQ-SAC,REDQ-HER TQB,runtime_total_sec,5,399787.7915554052,395777.7380363008,403797.8450745096,0.95,10000
 drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,final_success,5,0.6,0.2,1.0,0.95,10000
 drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,best_success,5,0.61,0.20999999999999996,1.0,0.95,10000
 drawer_td3_actor_critic_2m,DrawerOpen,TD3,Actor+critic weighting,success_auc,5,0.43155778894472363,0.13819095477386936,0.7249246231155779,0.95,10000
@@ -141,6 +152,11 @@ fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,best_success,5,1.0,1.0,1.0,0.95,10000
 fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,success_auc,5,0.5387878787878788,0.42666666666666664,0.6167676767676767,0.95,10000
 fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,steps_per_sec,5,65.0231940108951,64.94724046903058,65.0991475527596,0.95,10000
 fpp_ddpg_her,FetchPickAndPlace,DDPG,HER,runtime_total_sec,5,15379.154725057602,15361.188876909402,15397.120573205804,0.95,10000
+fpp_ddpg_hgr_matched,FetchPickAndPlace,DDPG,HGR (matched DDPG+HER),final_success,5,0.54,0.24,0.82,0.95,10000
+fpp_ddpg_hgr_matched,FetchPickAndPlace,DDPG,HGR (matched DDPG+HER),best_success,5,0.81,0.64,0.94,0.95,10000
+fpp_ddpg_hgr_matched,FetchPickAndPlace,DDPG,HGR (matched DDPG+HER),success_auc,5,0.3381818181818182,0.20555555555555555,0.42343434343434344,0.95,10000
+fpp_ddpg_hgr_matched,FetchPickAndPlace,DDPG,HGR (matched DDPG+HER),steps_per_sec,5,16.932090432068104,16.89916613949249,16.987676359898494,0.95,10000
+fpp_ddpg_hgr_matched,FetchPickAndPlace,DDPG,HGR (matched DDPG+HER),runtime_total_sec,5,59060.08190042442,58866.60751434862,59174.5208388132,0.95,10000
 fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,final_success,5,0.78,0.38,1.0,0.95,10000
 fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,best_success,5,0.84,0.52,1.0,0.95,10000
 fpp_ddpg_per_full,FetchPickAndPlace,DDPG,HER+PER-full,success_auc,5,0.4603030303030303,0.24722222222222223,0.6037373737373738,0.95,10000
@@ -206,6 +222,16 @@ fpp_td3_her,FetchPickAndPlace,TD3,HER,best_success,5,0.88,0.77,0.99,0.95,10000
 fpp_td3_her,FetchPickAndPlace,TD3,HER,success_auc,5,0.3716161616161616,0.3466666666666667,0.39656565656565657,0.95,10000
 fpp_td3_her,FetchPickAndPlace,TD3,HER,steps_per_sec,5,65.32113861352877,65.21953466315686,65.42274256390068,0.95,10000
 fpp_td3_her,FetchPickAndPlace,TD3,HER,runtime_total_sec,5,15309.02757056041,15285.212335327593,15332.842805793229,0.95,10000
+fpp_td3_her_confirmatory_s6_10,FetchPickAndPlace,TD3,HER confirmatory seeds 6-10,final_success,5,0.88,0.69,0.99,0.95,10000
+fpp_td3_her_confirmatory_s6_10,FetchPickAndPlace,TD3,HER confirmatory seeds 6-10,best_success,5,0.9299999999999999,0.8099999999999999,1.0,0.95,10000
+fpp_td3_her_confirmatory_s6_10,FetchPickAndPlace,TD3,HER confirmatory seeds 6-10,success_auc,5,0.3935858585858586,0.34833333333333333,0.4225252525252525,0.95,10000
+fpp_td3_her_confirmatory_s6_10,FetchPickAndPlace,TD3,HER confirmatory seeds 6-10,steps_per_sec,5,22.183139528069482,22.099736616206247,22.253230371901388,0.95,10000
+fpp_td3_her_confirmatory_s6_10,FetchPickAndPlace,TD3,HER confirmatory seeds 6-10,runtime_total_sec,5,45080.029319669586,44937.41877196939,45250.33934095882,0.95,10000
+fpp_td3_her_n10,FetchPickAndPlace,TD3,HER (n=10 confirmatory),final_success,10,0.86,0.74,0.965,0.95,10000
+fpp_td3_her_n10,FetchPickAndPlace,TD3,HER (n=10 confirmatory),best_success,10,0.905,0.825,0.975,0.95,10000
+fpp_td3_her_n10,FetchPickAndPlace,TD3,HER (n=10 confirmatory),success_auc,10,0.3826010101010101,0.3574488636363637,0.4056325757575757,0.95,10000
+fpp_td3_her_n10,FetchPickAndPlace,TD3,HER (n=10 confirmatory),steps_per_sec,10,43.75213907079913,30.792156783445584,56.71084240480851,0.95,10000
+fpp_td3_her_n10,FetchPickAndPlace,TD3,HER (n=10 confirmatory),runtime_total_sec,10,30194.528445115,21246.23516813585,39150.158932658014,0.95,10000
 fpp_td3_high_rr_x4,FetchPickAndPlace,TD3,HER high-RR x4,final_success,5,0.61,0.45,0.83,0.95,10000
 fpp_td3_high_rr_x4,FetchPickAndPlace,TD3,HER high-RR x4,best_success,5,0.84,0.78,0.92,0.95,10000
 fpp_td3_high_rr_x4,FetchPickAndPlace,TD3,HER high-RR x4,success_auc,5,0.4494444444444444,0.40373737373737373,0.5200505050505051,0.95,10000
@@ -226,3 +252,8 @@ fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,best_success,5,0.99,0.97,1.0,0.95,
 fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,success_auc,5,0.44237373737373736,0.4176262626262626,0.4724747474747475,0.95,10000
 fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,steps_per_sec,5,41.245340788114945,40.793388706788896,41.71900934919009,0.95,10000
 fpp_td3_saber,FetchPickAndPlace,TD3,HER+SABER,runtime_total_sec,5,24249.14713494724,23973.471408027854,24514.092512910043,0.95,10000
+fpp_td3_saber_n10,FetchPickAndPlace,TD3,HER+SABER (n=10 confirmatory),final_success,10,0.895,0.77,0.99,0.95,10000
+fpp_td3_saber_n10,FetchPickAndPlace,TD3,HER+SABER (n=10 confirmatory),best_success,10,0.955,0.9,1.0,0.95,10000
+fpp_td3_saber_n10,FetchPickAndPlace,TD3,HER+SABER (n=10 confirmatory),success_auc,10,0.42926767676767674,0.39444444444444443,0.4624520202020202,0.95,10000
+fpp_td3_saber_n10,FetchPickAndPlace,TD3,HER+SABER (n=10 confirmatory),steps_per_sec,10,29.821257142743267,22.918591683185017,36.73731282691895,0.95,10000
+fpp_td3_saber_n10,FetchPickAndPlace,TD3,HER+SABER (n=10 confirmatory),runtime_total_sec,10,39305.52792374254,30203.059211366326,48438.53512711798,0.95,10000

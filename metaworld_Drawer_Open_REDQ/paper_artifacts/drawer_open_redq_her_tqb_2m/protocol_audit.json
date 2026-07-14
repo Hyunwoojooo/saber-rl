@@ -1,0 +1,42 @@
+{
+  "artifact_id": "DRAWEROPEN-REDQ-HER-TQB-2M",
+  "expected_config": {
+    "batch_size": 256,
+    "eval_episodes": 20,
+    "eval_freq": 10000,
+    "gamma": 0.98,
+    "her_ratio": 0.8,
+    "metaworld_env_name": "drawer-open-v3",
+    "metaworld_reward_function_version": "v2",
+    "redq_ensemble_size": 10,
+    "reward_type": "sparse",
+    "sac_auto_alpha": true,
+    "success_terminates": false,
+    "target_entropy": -4.0,
+    "target_q_bounding": true,
+    "target_q_max": 0.0,
+    "target_q_min": -50.0,
+    "target_subset_size": 2,
+    "task_name": "drawer_open",
+    "tau": 0.005,
+    "timeout_bootstrap": true,
+    "total_steps": 2000000,
+    "updates_per_step": 4,
+    "weight_scope": "none"
+  },
+  "run_names": {
+    "1": "drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda",
+    "2": "drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda",
+    "3": "drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda",
+    "4": "drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda",
+    "5": "drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda"
+  },
+  "source_method_field_note": "The legacy config method field is b0_ddpg_her; the REDQ identity is established by the REDQ trainer/source snapshot and the validated ensemble/subset/UTD settings.",
+  "validated_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

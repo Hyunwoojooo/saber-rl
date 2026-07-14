@@ -1,0 +1,6 @@
+method_key,paper_label,cohort,seed,run_name,final_success,best_success,success_auc,best_final_drop,hit90_reached,first_hit_0.90,runtime_total_sec,runtime_hours,steps_per_sec,numba_support_scan_enabled
+drawer_open_ddpg_hgr_sampler_only,HGR-style sampler-only,seeds_1_5,1,drawer_open_ddpg_hgr_tdpriority_s1_2m_opt_cuda,1.0,1.0,0.7826633165829145,0.0,True,430000,57812.222053926,16.058950570535,34.594760916375826,
+drawer_open_ddpg_hgr_sampler_only,HGR-style sampler-only,seeds_1_5,2,drawer_open_ddpg_hgr_tdpriority_s2_2m_opt_cuda,0.0,0.0,0.0,0.0,False,,57797.689355205,16.054913709779168,34.60345945161714,
+drawer_open_ddpg_hgr_sampler_only,HGR-style sampler-only,seeds_1_5,3,drawer_open_ddpg_hgr_tdpriority_s3_2m_opt_cuda,1.0,1.0,0.7706030150753769,0.0,True,470000,57906.07907454402,16.085021965151117,34.53868802661198,
+drawer_open_ddpg_hgr_sampler_only,HGR-style sampler-only,seeds_1_5,4,drawer_open_ddpg_hgr_tdpriority_s4_2m_opt_cuda,0.0,0.0,0.0,0.0,False,,57614.220743198006,16.00395020644389,34.71365184152251,
+drawer_open_ddpg_hgr_sampler_only,HGR-style sampler-only,seeds_1_5,5,drawer_open_ddpg_hgr_tdpriority_s5_2m_opt_cuda,0.0,0.0,0.0,0.0,False,,57784.623321732,16.051284256036666,34.61128385079959,

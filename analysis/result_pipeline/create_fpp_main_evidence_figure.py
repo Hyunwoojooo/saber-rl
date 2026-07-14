@@ -219,17 +219,18 @@ def panel(
     if annotations:
         for idx, ann in enumerate(annotations):
             cx = plot_left + group_w * (idx + 0.5)
-            out.append(
-                text(
-                    cx,
-                    plot_top + 42,
-                    ann,
-                    font_family=FONT,
-                    font_size=38,
-                    fill="#374151",
-                    text_anchor="middle",
+            for line_idx, ann_line in enumerate(ann.split("\n")):
+                out.append(
+                    text(
+                        cx,
+                        plot_top + 30 + 34 * line_idx,
+                        ann_line,
+                        font_family=FONT,
+                        font_size=30,
+                        fill="#374151",
+                        text_anchor="middle",
+                    )
                 )
-            )
 
     return out
 
@@ -288,7 +289,6 @@ def build_svg() -> str:
             0.75,
             [0.0, 0.25, 0.50, 0.75],
             data=AUC,
-            annotations=["CI includes 0", "AUC Δ > 0", "AUC Δ > 0"],
         )
     )
     parts.extend(

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "selection_rule_version": "ratio_interval_midpoint_smallest_d_v1",
+  "source_metrics": "data/probe/fetch_pick_and_place_td3_saber_diversity_probe_d1_50k_s1_50000_ls512/metrics_selected_10k.csv",
+  "source_metrics_sha256": "e3e61a011d499f15d3119fa4d320fb363dd2fb03c3082dadd98d2c22107a5726",
+  "window_start_step": 20000,
+  "window_end_step": 50000,
+  "candidate_thresholds": [
+    2,
+    4,
+    8
+  ],
+  "minimum_positive_rate": 0.03,
+  "target_ratio_interval": [
+    0.4,
+    0.7
+  ],
+  "target_ratio_midpoint": 0.55,
+  "target_interval_hit": false,
+  "fallback_used": true,
+  "tie_break": "smallest Dmin",
+  "success_metrics_used": false,
+  "window_sample_count": 7680000.0,
+  "d1_positive_count": 1479532.0,
+  "rates": {
+    "1": {
+      "positive_count": 1479532.0,
+      "positive_rate": 0.19264739583333335,
+      "ratio_to_d1": 1.0
+    },
+    "2": {
+      "positive_count": 1478752.0,
+      "positive_rate": 0.19254583333333333,
+      "ratio_to_d1": 0.9994728062657651
+    },
+    "4": {
+      "positive_count": 1472533.0,
+      "positive_rate": 0.19173606770833335,
+      "ratio_to_d1": 0.9952694500693463
+    },
+    "8": {
+      "positive_count": 1438900.0,
+      "positive_rate": 0.18735677083333332,
+      "ratio_to_d1": 0.97253726178278
+    }
+  },
+  "selected_dmin": 8,
+  "selected_ratio_to_d1": 0.97253726178278
+}

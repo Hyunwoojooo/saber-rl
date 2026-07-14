@@ -1,0 +1,127 @@
+{
+  "artifact_id": "DRAWEROPEN-DDPG-HGR-SAMPLER-ONLY-2M",
+  "blind_safe": true,
+  "payload": [
+    {
+      "path": "README.md",
+      "sha256": "09a232363458ec9819ab5170c17aaf9fa62aa36a5b750acee9f2de420d8bc605",
+      "size_bytes": 953
+    },
+    {
+      "path": "aggregate_performance.csv",
+      "sha256": "eb2f75a56c96a395eb59aad2e1566fa06cfd6995d79a9a0ee38ad5bbcdd501f7",
+      "size_bytes": 550
+    },
+    {
+      "path": "code/verify_artifact.py",
+      "sha256": "ca6a18a9c4953e534cb86654024955ded1f235a937233a67c714085d7c11a942",
+      "size_bytes": 3582
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s1_2m_opt_cuda/config.json",
+      "sha256": "4aa3afb2326626deb76459ff25faac193086c0af951048157c28ab766691cc95",
+      "size_bytes": 5810
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s1_2m_opt_cuda/env_snapshot.json",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s1_2m_opt_cuda/metrics_eval_10k.csv",
+      "sha256": "e3773854bae30cc7ba4fff420004dac8551bb10e6c1b3d725d5e154325e1ee1f",
+      "size_bytes": 73137
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s1_2m_opt_cuda/summary.json",
+      "sha256": "1caa73a55011ddff55ee4ffcda27d0e1eb12d7c1b760717652f163a6df8c3f36",
+      "size_bytes": 7149
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s2_2m_opt_cuda/config.json",
+      "sha256": "6b21177c9c87cbad97fba5ed550f57bb98687f50230e8f6985db1361f8a3be16",
+      "size_bytes": 5810
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s2_2m_opt_cuda/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s2_2m_opt_cuda/metrics_eval_10k.csv",
+      "sha256": "8fadc4036979725e21f7bdbce76b35bf5893cc76366b317b3515671b915f90af",
+      "size_bytes": 66298
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s2_2m_opt_cuda/summary.json",
+      "sha256": "28472202eacc0ea1a21b011643ba8d77344b89fcb4d023c825c9ee9d910c71d7",
+      "size_bytes": 7058
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s3_2m_opt_cuda/config.json",
+      "sha256": "b6996d253104484246c5d869b50b96c5cef105e11eea3468aa35167a894773c0",
+      "size_bytes": 5810
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s3_2m_opt_cuda/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s3_2m_opt_cuda/metrics_eval_10k.csv",
+      "sha256": "1d0e0f60a596c0e0f16b3729c2368aa150ed8dc8f6b97647749affe42ba1581d",
+      "size_bytes": 73288
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s3_2m_opt_cuda/summary.json",
+      "sha256": "8b5db420ae335300e028deeb9615380bf2e17e79efe9bcaa7c0800a032f24955",
+      "size_bytes": 7141
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s4_2m_opt_cuda/config.json",
+      "sha256": "5e1964efc8fe6e37236e28deb09103dd7d5d410bbed8eed9f1878829a391d9dd",
+      "size_bytes": 5810
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s4_2m_opt_cuda/env_snapshot.json",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s4_2m_opt_cuda/metrics_eval_10k.csv",
+      "sha256": "c7e3a5187bc6a0cc450ac1f039c79c8ac8f6d287b8eb880cb3e9e80e08836522",
+      "size_bytes": 66075
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s4_2m_opt_cuda/summary.json",
+      "sha256": "651d9575d4263055b74781f1709087858f0e4a8284469e222e3c79ee1ec351a0",
+      "size_bytes": 7057
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s5_2m_opt_cuda/config.json",
+      "sha256": "3b5b6d5a78b3421a0bc8988b6a45e3f4650fa79a851ac30d8cdd9cbbd80a2aea",
+      "size_bytes": 5810
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s5_2m_opt_cuda/env_snapshot.json",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s5_2m_opt_cuda/metrics_eval_10k.csv",
+      "sha256": "8a3f3a5f3bb9dc484f8d9397daf2c6701f2eecc5f1410f6112b1d7de74d602d2",
+      "size_bytes": 65753
+    },
+    {
+      "path": "data/drawer_open_ddpg_hgr_tdpriority_s5_2m_opt_cuda/summary.json",
+      "sha256": "e138f7f719381e85184616e4a276a6d4f8aa536b3332ee01d1b30300e41a7954",
+      "size_bytes": 7054
+    },
+    {
+      "path": "per_seed_performance.csv",
+      "sha256": "3fd1afb04760654576a3b3c86dfddff450a2816cfbdd4a6ec35784d7acb9d056",
+      "size_bytes": 1214
+    }
+  ],
+  "payload_file_count": 24
+}

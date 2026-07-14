@@ -328,7 +328,7 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 
 ## 9. Figure/Table 재구성
 
-상태: 통계/그림 파이프라인 9차 완료. `analysis/result_pipeline/`에 FPP DDPG Shuffled-Weight, Random-Support, Random-Fixed-Count k94, FPP TD3 Random-Support/Random-Fixed-Count k73, FPP TD3 high-RR \(4\times\), FPP SAC Random-Support/Random-Fixed-Count k76, FPP SAC high-RR \(4\times\), DrawerOpen DDPG HER/SABER/Random-Support/PER-Style/Random-Fixed-Count/Shuffled-Weight, DrawerClose TD3 HER/SABER/Random-Support/Random-Fixed-Count rows를 추가했다. 현재 입력 기준 per-seed table 200 rows, aggregate table 40 rows, paired seed-difference 1140 rows, learning curve points 125297개를 생성했다. `/opt/homebrew/bin/python3.11`의 Pillow fallback으로 22개 figure PDF/PNG를 재생성했고, 최신 PDF가 이 figure들을 정상 include한다. 새 실험 결과가 나오면 `analysis/result_pipeline/config.json`의 `rows`/`pairs`에 summary glob만 추가해서 같은 table/figure를 다시 만들 수 있다.
+상태: 통계/그림 파이프라인 9차 완료. `analysis/result_pipeline/`에 FPP DDPG Shuffled-Weight, Random-Support, Random-Fixed-Count k94, FPP TD3 Random-Support/Random-Fixed-Count k73, FPP TD3 high-RR \(4\times\), FPP SAC Random-Support/Random-Fixed-Count k76, FPP SAC high-RR \(4\times\), DrawerOpen DDPG HER/SABER/Random-Support/PER-Style/Random-Fixed-Count/Shuffled-Weight, DrawerClose TD3 HER/SABER/Random-Support/Random-Fixed-Count rows를 추가했다. 현재 입력 기준 per-seed table 200 rows, aggregate table 40 rows, paired seed-difference 1140 rows, learning curve points 125297개를 생성했다. `/opt/homebrew/bin/python3.11`의 Pillow fallback으로 14개 plot group의 figure PDF/PNG 28개를 재생성했고, 최신 PDF가 이 figure들을 정상 include한다. 새 실험 결과가 나오면 `analysis/result_pipeline/config.json`의 `rows`/`pairs`에 summary glob만 추가해서 같은 table/figure를 다시 만들 수 있다.
 
 ### 목적
 
@@ -354,6 +354,8 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 - 완료: FPP DDPG Shuffled-Weight row/pair를 config에 추가하고 main draft에 반영했다.
 - 완료: FPP Random-Support/Random-Fixed-Count 결과를 config row/pair와 main draft에 반영했다.
 - 완료: DrawerOpen DDPG Shuffled-Weight 2M artifact를 `origin/main`에서 가져오고, config row/pair, aggregate table, learning curve, main draft DrawerOpen DDPG table에 반영했다.
+- 완료: DrawerOpen DDPG Shuffled-Weight의 interrupted/resumed runtime fields를 corrected full-run fields로 교체했다. AUC/Hit90/throughput은 각각 `0.307 ± 0.420`, `460k (2/5)`, `22.95 ± 1.42 steps/s`이며 파서는 `reported_runtime_total_sec`와 `reported_steps_per_sec`를 우선한다.
+- 완료: `bbcb8ed`의 DrawerOpen 10-seed diagnostic report를 가져와 원래 seeds 1--10 performance summary와 분리해 원고에 반영했다. Diagnostic seeds 1--5 rerun은 원래 aggregate AUC를 재현하고, 성공 9개 seed의 TD-error/residual allocation 및 seed 7 support-saturation failure를 observational evidence로 제한한다.
 - 완료: FPP TD3 Random-Support/Random-Fixed-Count k73 artifact를 `metacog-rl@v0-lite` commit `51fb99f`에서 가져오고, config row/pair, aggregate table, updated TD3 learning curve, main draft TD3 control table에 반영했다.
 - 완료: FPP SAC Random-Support/Random-Fixed-Count k76 artifact를 `metacog-rl@v0-lite` commit `d5439b2`에서 가져오고, config row/pair, aggregate table, updated SAC learning curve, main draft SAC control table에 반영했다.
 - 완료: FPP TD3 high-RR \(4\times\) artifact를 `metacog-rl@v0-lite` commit `783a34c`에서 가져오고, config row/pair, aggregate table, updated TD3 learning curve, main draft high replay-ratio table에 반영했다.
@@ -404,6 +406,7 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 - result pipeline 설정: `analysis/result_pipeline/config.json`
 - aggregate metrics: `analysis/result_pipeline/output/aggregate_metrics.csv`
 - paired CI: `analysis/result_pipeline/output/paired_bootstrap_ci.csv`
+- exact paired checks: `analysis/result_pipeline/output/paired_exact_inference.csv`
 - 자동 리포트: `analysis/result_pipeline/output/report.md`
 - 사람이 읽는 해석 matrix: `AAAI27_RESULT_MATRIX_KR.md`
 
@@ -421,11 +424,21 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 
 ### 현재 반영 상태
 
-- 반영 완료: FPP DDPG/TD3/SAC main rows, random-support/fixed/shuffled/PER controls, DDPG/TD3/SAC high-RR, REDQ-HER TQB, DDPG/TD3/SAC diagnostics, DrawerOpen DDPG controls, and DrawerClose stress rows.
+- 반영 완료: FPP DDPG/TD3/SAC main rows, matched DDPG+HER HGR, random-support/fixed/shuffled/PER controls, DDPG/TD3/SAC high-RR, REDQ-HER TQB, DDPG/TD3/SAC diagnostics, DrawerOpen DDPG controls, and DrawerClose stress rows.
 - FPP SAC의 cross-method AUC/final/Hit90는 exact 50k common grid로 재계산해 pipeline과 두 원고에 반영했다. Native metrics는 provenance audit용으로 별도 보존한다.
 - 기존 DrawerOpen `HGR` row는 canonical HGR가 아니라 importance correction이 없는 `HGR-style sampler-only` ablation으로만 사용한다.
-- 진행 중이라 본문 수치로 쓰지 않음: FPP DDPG canonical HGR rerun, DrawerOpen/DrawerClose HGR runs, and DrawerOpen/DrawerClose REDQ-TQB runs. Drawer HGR rows는 완료 후 importance correction과 tuning fidelity를 확인하기 전까지 canonical로 부르지 않는다.
-- figure 상태: result pipeline이 22개 curve figures를 만들고, submission용 method overview와 3000x1700 FPP aggregate evidence figure를 별도로 유지한다.
+- FPP DDPG HGR pair-priority+IS run은 1M, seeds 1--5 완료 및 artifact audit를 통과해 `HGR (matched DDPG+HER)` direct baseline으로 등록했다. 이는 original HGR paper configuration의 exact reproduction이 아니다. DrawerClose DDPG HGR run은 importance correction이 없으므로 `HGR-style sampler-only` appendix row로만 유지한다. DrawerOpen REDQ-HER TQB는 2M, seeds 1--5 completion과 exact 10k grid를 audit해 scaling reference로 반영했다. DrawerClose REDQ-TQB는 completion audit 전이라 본문 수치로 쓰지 않는다.
+- DrawerOpen의 2M HGR-style sampler-only run은 seeds 1--5 전체를 별도 blind artifact로 패키징했다. 재계산 결과는 final `0.400 ± 0.548`, AUC `0.311 ± 0.425`, Hit90 `2/5`이며 canonical HGR 비교로 사용하지 않는다.
+- DrawerOpen SABER seeds 6--10은 original seeds 1--5와 분리한 unmatched robustness/diagnostic extension으로 패키징했다. Extension은 final `0.790 ± 0.442`, AUC `0.550 ± 0.329`, Hit90 `4/5`; descriptive pooled seeds 1--10은 final `0.895 ± 0.315`, AUC `0.652 ± 0.246`, Hit90 `9/10`이다. Pooled result에는 paired inference를 적용하지 않는다.
+- FPP TD3 D8 action-diversity sensitivity는 main-positive samples의 98.4%를 유지한 weak gate다. AUC `0.357 ± 0.045`는 main SABER `0.442 ± 0.035`보다 낮지만 HER와 count-matched random control 대비 intervals가 0을 포함하므로, diversity의 유해성이나 현 predicate의 최적성을 주장하지 않는다.
+- FPP TD3 paired n=10 confirmatory artifact를 추가했다. HER/SABER AUC는 `0.383 ± 0.041`/`0.429 ± 0.058`, paired delta는 `+0.0467 [0.0085, 0.0783]`, positive seeds는 `8/10`, exact sign-flip은 `p=0.0527`이다. Hit90은 `7/10` (970k)에서 `8/10` (835k)로 바뀐다. Original n=5 cross-backbone rows는 유지하고 이 결과를 별도 confirmatory evidence로 사용한다.
+- DrawerOpen REDQ-HER TQB compact artifact를 추가했다. Five complete 2M seeds의 exact 200-point 10k grid에서 final `1.000 ± 0.000`, AUC `0.672 ± 0.314`, Hit90 `5/5` (median 370k), mean runtime 111.05h/seed다. Raw config의 legacy method label은 packaged ten-critic REDQ trainer와 `N=10,M=2,UTD=4`, auto-alpha, target-Q-bound 설정으로 교차검증했다. 이 row는 matched DDPG baseline이 아니라 architecture/compute-scaled reference이며 SABER--REDQ AUC CI가 0을 포함한다.
+- Existing paired-seed records로 exact two-sided sign-flip과 leave-one-seed-out 분석을 추가했다. FPP DDPG/TD3/SAC AUC의 exact 값은 `0.375/0.125/0.0625`이고 모든 leave-one-out mean delta는 양수다. 이는 bootstrap CI를 대체하는 significance claim이 아니라 five-seed sign/outlier stability check다.
+- Related Work에는 ReF-ER를 추가해 far-policy gradient suppression/policy regularization과 SABER의 critic-only local-support weighting을 구분했다. Figure 1 notation은 `o_i`, `Q_\phi`, `w_i^{raw}`로 통일하고 policy-action bin membership을 명시했다.
+- Page-limited submission의 actor-critic input은 `x_i=(o_i,g_i^{tr})`, support-only context는 `c_i=C(o_i,g_i^{tr},h_i)`로 분리했다. FPP context feature classes, `K=5`, `N_local=M_avail=4`, `M_B=16`, `N_scan=512`, deterministic-tail lookup을 main에 추가했고 horizon은 actor/critic input이 아님을 명시했다. Content Areas는 삽입했으며 OpenReview paper ID는 발급 후 추가한다.
+- Submission DrawerOpen table에는 Random-support와 PER-style rows를 직접 추가하고, 중복 changed/unchanged table은 제거해 Figure 1 strip으로 통합했다. Bounded conclusion도 추가했다.
+- FPP TD3 matched HER/SABER runtime profiler는 seed 1, `(20k,100k]` 구간으로 완료했다. 현재 stack에서 SABER throughput은 124.02에서 41.44 steps/s로 감소했고 support/weighting이 training loop의 62.3%를 차지했다. 이는 hardware-specific implementation diagnosis이며 1M extrapolation이나 wall-clock claim에 사용하지 않는다.
+- figure 상태: result pipeline이 14개 curve plot group(PDF/PNG 총 28개 파일)을 만들고, submission용 method overview와 3000x1700 FPP aggregate evidence figure를 별도로 유지한다.
 
 ### 완료 기준
 
@@ -449,22 +462,23 @@ closest prior coverage 부족과 missing strong baseline 공격을 줄인다.
 
 ## 11. 현재 8개 작업 체크리스트
 
-상태: 2026-07-10 기준. Full review draft와 page-limited submission skeleton을 분리해 관리한다.
+상태: 2026-07-11 기준. Full review draft와 page-limited submission skeleton을 분리해 관리한다.
 
 | # | 작업 | 상태 | 증거 / 남은 일 |
 | -: | --- | --- | --- |
 | 1 | Source-of-Truth 정리 | 완료 | 원고 원본은 `paper/saber_aaai27_draft_kr.tex`, numeric source는 `analysis/result_pipeline/output/*.csv`와 `report.md`, 리뷰 폴더는 snapshot으로 명시했다. |
-| 2 | Claim Boundary 고정 | 완료 | Abstract/Conclusion/Limitations에서 support-conditioned critic objective, one-update-per-step matched-backbone regime, mixed mechanism evidence로 제한했다. |
-| 3 | 최신 실험 결과 반영 | 완료 | FPP SAC exact 50k common-grid, REDQ-HER TQB, SAC diagnostic, high-RR, random controls, and Drawer stress rows를 result pipeline과 TeX에 반영했다. |
+| 2 | Claim Boundary 고정 | 완료 | Abstract/Introduction/Conclusion을 post-HER allocation design axis, architecture/replay/update-budget-preserving intervention, cross-backbone+n=10 evidence, DDPG/TD3 update-budget trade-off 순으로 재구성했다. Boundary는 task dependence, non-wall-clock, non-SOTA, mixed mechanism으로 유지한다. |
+| 3 | 최신 실험 결과 반영 | 완료 | FPP SAC exact 50k common-grid, matched DDPG+HER HGR, FPP/DrawerOpen REDQ-HER TQB, SAC diagnostic, high-RR, random controls, DrawerClose/DrawerOpen HGR-style sampler-only, TD3 runtime profile, TD3 D8 sensitivity, DrawerOpen SABER extension, FPP TD3 paired n=10, and TD3 support-query ablation을 artifact/docs/TeX에 반영했다. Query ablation은 Main-minus-Replay/Shuffled closure와 Context-only uncertainty를 분리해 보고한다. |
 | 4 | 표/그림 배치 정리 | 완료 | method overview, FPP aggregate evidence, scaling table, and control-closure table을 submission main body에 배치했다. Dense learning curves는 full review draft/pipeline output에 유지한다. |
 | 5 | Reproducibility Appendix 유지 | 완료 | Appendix A에 source scope, env/reward convention, HER/terminal handling, seeds, optimization, support settings, runtime caveat가 들어 있다. |
-| 6 | Consistency Audit | 완료 | pipeline 재실행 결과 220 per-seed rows, 44 aggregate rows, 1315 paired seed-difference rows, and 127197 curve points를 생성했다. Packaged SAC paired CIs와 aggregate values를 TeX와 대조했다. |
-| 7 | PDF 빌드 검증 | 완료 | Full review draft 25쪽과 submission skeleton 5쪽을 각각 빌드·렌더링했다. LaTeX error, undefined citation/reference, overfull box, clipping, and overlap은 검출되지 않았다. |
-| 8 | 작업 완료 기준 관리 | 진행 중 | Common-grid/REDQ 반영은 완료했다. Canonical HGR와 진행 중 Drawer HGR/REDQ는 fidelity와 5-seed completion을 확인한 뒤 별도 rows로 추가한다. |
+| 6 | Consistency Audit | 완료 | pipeline 재실행 결과 260 per-seed rows, 50 aggregate rows, 1465 paired seed-difference rows, 288 exact paired-inference rows, and 131197 curve points를 생성했다. Packaged SAC/HGR/DrawerOpen REDQ 및 TD3 n=10 paired CIs와 aggregate values, DrawerClose/DrawerOpen sampler-only aggregates, D8 결과, DrawerOpen seed-extension, and TD3 query-ablation 7 result CSVs를 TeX와 대조했고 source artifact manifests를 검증했다. Query artifact는 exact 10k grid, 25 runs, 140/140 payload hashes, and 100/100 immutable source inputs를 확인했다. |
+| 7 | PDF 빌드 검증 | 완료 | Full review draft 29쪽과 submission 7쪽을 각각 빌드·렌더링했다. Submission conclusion/reproducibility와 references가 7쪽을 공유하며 전체 technical content는 7쪽 한도 안에 있다. LaTeX error, undefined citation/reference, overfull box, clipping, and overlap은 검출되지 않았다. |
+| 8 | 작업 완료 기준 관리 | 진행 중 | FPP common-grid/REDQ, matched HGR, and DrawerOpen REDQ 반영은 완료했다. DrawerClose REDQ는 fidelity와 5-seed completion을 확인한 뒤 별도 row로 추가한다. |
 
 ### 다음 우선순위
 
-1. FPP DDPG canonical HGR 1M, seeds 1--5를 IS correction과 documented tuning으로 완료한다.
-2. DrawerOpen/DrawerClose HGR와 REDQ-TQB가 끝나면 config/IS correction/evaluation grid를 먼저 audit하고, 통과한 rows만 pipeline에 추가한다.
-3. Submission skeleton을 최종 영어 7-page main body로 확장하고, full review draft의 상세 tables/curves를 blind supplement로 이동한다.
-4. 새 review round 전에는 두 PDF를 재빌드하고 anonymization과 source-of-truth manifest를 다시 점검한다.
+1. DrawerOpen REDQ-TQB audit와 반영은 완료했다. DrawerClose REDQ-TQB가 끝나면 config/evaluation grid를 먼저 audit하고, 통과한 row만 pipeline에 추가한다.
+2. FPP TD3 current-policy-query ablation은 완료했다. Main은 Replay-query와 Shuffled-policy보다 모든 paired seed에서 높지만 Context-only 대비 interval은 0을 포함한다. 다음 mechanism 질문은 phase/horizon-free 또는 generic distance-only context ablation이다.
+3. Blind code/data archive를 실제 submission payload로 묶고 clean-environment smoke/table-regeneration test를 수행한다. OpenReview ID가 발급되면 first-page metadata에 추가한다.
+4. D8보다 실질적으로 selective한 diversity gate보다, task-specific context 의존성을 직접 줄이는 phase-free/horizon-free ablation을 우선한다.
+5. 새 review round 전에는 두 PDF를 재빌드하고 anonymization과 source-of-truth manifest를 다시 점검한다.

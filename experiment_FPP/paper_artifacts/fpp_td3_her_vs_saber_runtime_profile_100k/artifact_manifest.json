@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0",
+  "artifact_id": "fpp_td3_her_vs_saber_runtime_profile_100k",
+  "generated_at_utc": "2026-07-10T15:00:36Z",
+  "packaging_repository_parent_commit": "4b84853d1ebbb8464acff0a186ef791e5a6f2e14",
+  "source_commit": "4b84853d1ebbb8464acff0a186ef791e5a6f2e14",
+  "completion": {
+    "seed": 1,
+    "methods": [
+      "td3_her",
+      "td3_saber_runtime_opt"
+    ],
+    "required_final_step": 100000,
+    "all_runs_complete": true,
+    "queue_exit_status": 0
+  },
+  "profile": {
+    "start_step_exclusive": 20000,
+    "end_step_inclusive": 100000,
+    "sample_every_updates": 100,
+    "hardware_specific": true
+  },
+  "source_files": [
+    {
+      "path": "experiment_FPP/td3_runtime_profile_her_vs_saber_100k/run_fpp_td3_runtime_profile_pair_100k.sh",
+      "sha256": "097124b3a16ba740597831ee4d26c996b260306ab6a345cf2fd37cb4bc9a3362"
+    },
+    {
+      "path": "experiment_FPP/td3_runtime_profile_her_vs_saber_100k/analyze_runtime_profile.py",
+      "sha256": "646dcb61f34a3f8dc9cf7b0b7c79653d434b6ebf9450b82576d42d6e65b74ee0"
+    },
+    {
+      "path": "experiment_FPP/td3_runtime_profile_her_vs_saber_100k/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "dc53ff64089ecdcbd0f4f63bd519899dd69a0ca7ab908b3bd72fdd64cfcf69a7"
+    },
+    {
+      "path": "experiment_FPP/td3_runtime_profile_her_vs_saber_100k/code/src/metacog_lite_v0/runtime_profiler.py",
+      "sha256": "25da1b724a30a1a28ef05460c55810e2d41a03c095882f753cd2bf5b31d33d9e"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/config.json",
+      "source_sha256": "4f2164725a2279b3d497cbb8697a23c88af707e9ec8315ab357f42ec82c18a84",
+      "packaged_path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/config.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "packaged_path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/env_snapshot.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/summary.json",
+      "source_sha256": "36cf8017639931a192b97a94707dd2d12e4801ca523e317606c5b12880b4a18e",
+      "packaged_path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/summary.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_summary.json",
+      "source_sha256": "505b9f2c1e72c43cf5d5d85c5dc00c0ef6ae0c6674a181f77c04ac908464cee6",
+      "packaged_path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_summary.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_components.csv",
+      "source_sha256": "e70ec448788d3fa95c70a12ca51b01f70a9cc6edd9125f19b53d6a54d3546d56",
+      "packaged_path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_components.csv",
+      "transformation": "Text copied with LF line endings; numeric/event values unchanged"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_events.jsonl",
+      "source_sha256": "336ee1c13f28e1a52a3c6900ec1fe3d625f8a7bcff4b75d56044bbcf8d5f28e5",
+      "packaged_path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_events.jsonl",
+      "transformation": "Text copied with LF line endings; numeric/event values unchanged"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/config.json",
+      "source_sha256": "aeb8ed7600024baa7ef0dd867bcb7f4e5be19ed4512c2e8063504477951ee8d3",
+      "packaged_path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/config.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "packaged_path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/env_snapshot.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/summary.json",
+      "source_sha256": "bec9055057b9da39572157b994ffe5217b48014a939c3c76e33a9f1a47ff965c",
+      "packaged_path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/summary.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_summary.json",
+      "source_sha256": "710a7abbf30526370eec8e33929c2a53f3808f70f35fe4c7ef8e8d0d066696c4",
+      "packaged_path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_summary.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_components.csv",
+      "source_sha256": "e6e2dacd43746b3aa0a87fa74ed3601ad00c893001086ee4272e00ee5ef98e9d",
+      "packaged_path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_components.csv",
+      "transformation": "Text copied with LF line endings; numeric/event values unchanged"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_events.jsonl",
+      "source_sha256": "894c9669983f8cdd41216f7c74b2ca8e661444cb67990e7d5358dafb961d091f",
+      "packaged_path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_events.jsonl",
+      "transformation": "Text copied with LF line endings; numeric/event values unchanged"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/runtime_profile_comparison.json",
+      "source_sha256": "622b49f81e7386eb63705d597b1fc44827aeeece32df1916a85b8758345ccafc",
+      "packaged_path": "comparison/runtime_profile_comparison.json",
+      "transformation": "JSON parsed; absolute repository prefix removed from string paths"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/runtime_profile_comparison.csv",
+      "source_sha256": "34bd5bca44229b837b0d3fe36276a3cc214e123b0459fc8cb8bd95d2f9ef76b6",
+      "packaged_path": "comparison/runtime_profile_comparison.csv",
+      "transformation": "Text copied with LF line endings; values unchanged"
+    },
+    {
+      "source_path": "experiment_FPP/runs/td3_runtime_profile_her_vs_saber_100k/runtime_profile_comparison.md",
+      "source_sha256": "438bc860a320058db36cfb95a186d27dd512a0efcabe77973b1ce4b15f30e05c",
+      "packaged_path": "comparison/runtime_profile_comparison.md",
+      "transformation": "Text copied with LF line endings and trailing whitespace removed; values unchanged"
+    }
+  ],
+  "excluded": [
+    {
+      "pattern": "checkpoint.pt",
+      "reason": "large model checkpoint"
+    },
+    {
+      "pattern": "best_checkpoint.pt",
+      "reason": "large model checkpoint"
+    },
+    {
+      "pattern": "metrics.csv",
+      "reason": "full training metrics not required for runtime-profile comparison"
+    },
+    {
+      "pattern": "metrics.jsonl",
+      "reason": "large raw training metric event stream"
+    },
+    {
+      "pattern": "run.log",
+      "reason": "runtime log not required for profile comparison"
+    },
+    {
+      "pattern": "best_checkpoint.json",
+      "reason": "references an intentionally omitted model file"
+    },
+    {
+      "pattern": "queue.log",
+      "reason": "contains orchestration logs and local paths; queue exit status is recorded in this manifest"
+    }
+  ],
+  "packaged_file_count": 17,
+  "packaged_files": [
+    {
+      "path": "README.md",
+      "sha256": "289bef1db522c178fb23cec24faae57072044f419561bddf50dcd174969bfbe4",
+      "bytes": 1841
+    },
+    {
+      "path": "comparison/runtime_profile_comparison.csv",
+      "sha256": "110cb76f9b64cda5d64c15ad02fc8e1cf8cc8ca0fb2f1ff1eb54dc4667607d9d",
+      "bytes": 830
+    },
+    {
+      "path": "comparison/runtime_profile_comparison.json",
+      "sha256": "622b49f81e7386eb63705d597b1fc44827aeeece32df1916a85b8758345ccafc",
+      "bytes": 3112
+    },
+    {
+      "path": "comparison/runtime_profile_comparison.md",
+      "sha256": "84209a31b49b2667cd0c72f8d19e4a383bdf863c5264526406c2e93051f540ad",
+      "bytes": 886
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/config.json",
+      "sha256": "8bdc3699bce6aee69c4f6f2244acaf6bbf6932e2abac792707ed1a8c82564dac",
+      "bytes": 4988
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "bytes": 2349
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_components.csv",
+      "sha256": "c1a8317a2cb670304da3e48c450eda10df587395c6cc2147c9bbffd6fbfbbb8b",
+      "bytes": 1376
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_events.jsonl",
+      "sha256": "336ee1c13f28e1a52a3c6900ec1fe3d625f8a7bcff4b75d56044bbcf8d5f28e5",
+      "bytes": 4298912
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/runtime_profile_summary.json",
+      "sha256": "505b9f2c1e72c43cf5d5d85c5dc00c0ef6ae0c6674a181f77c04ac908464cee6",
+      "bytes": 24335
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_her_runtime_profile_s1_100000/summary.json",
+      "sha256": "34b40cc8ae77bcc6abaead38a4adb1e3b6c424eacda483e48f49d5c1006037fa",
+      "bytes": 5881
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/config.json",
+      "sha256": "158e916ab80cbe4d76764bc20a94e055a4112b05307113f84f72b31960a54b82",
+      "bytes": 5012
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "bytes": 2349
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_components.csv",
+      "sha256": "cb516603e1720ea5ad182b5bdd51c4a5d9b550cb202d917fdc664f4a0ed6027c",
+      "bytes": 1470
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_events.jsonl",
+      "sha256": "894c9669983f8cdd41216f7c74b2ca8e661444cb67990e7d5358dafb961d091f",
+      "bytes": 4399811
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/runtime_profile_summary.json",
+      "sha256": "710a7abbf30526370eec8e33929c2a53f3808f70f35fe4c7ef8e8d0d066696c4",
+      "bytes": 25146
+    },
+    {
+      "path": "data/fetch_pick_and_place_td3_saber_runtime_profile_ls512_s1_100000/summary.json",
+      "sha256": "9e9d9e93b611c306c0b25d50652824ef390249c83a3af37ff5c4c2d4ef3fa838",
+      "bytes": 8235
+    }
+  ],
+  "manifest_self_entry": {
+    "path": "artifact_manifest.json",
+    "sha256": null,
+    "reason": "Self-hash omitted because embedding it would be self-referential."
+  }
+}

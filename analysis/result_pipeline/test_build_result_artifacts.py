@@ -14,6 +14,30 @@ import build_result_artifacts as pipeline
 
 
 class MetricOverrideTests(unittest.TestCase):
+    def test_reported_runtime_fields_override_resume_only_compatible_fields(self) -> None:
+        summary = {
+            "reported_runtime_total_sec": 88352.259,
+            "runtime_total_sec": 16651.709,
+            "reported_steps_per_sec": 22.636659,
+            "final_steps_per_sec": 120.107789,
+            "steps_per_sec": 120.107789,
+        }
+
+        self.assertEqual(
+            pipeline.first_present(
+                summary,
+                ["reported_runtime_total_sec", "runtime_total_sec"],
+            ),
+            88352.259,
+        )
+        self.assertEqual(
+            pipeline.first_present(
+                summary,
+                ["reported_steps_per_sec", "final_steps_per_sec", "steps_per_sec"],
+            ),
+            22.636659,
+        )
+
     def test_common_grid_metrics_replace_only_configured_fields(self) -> None:
         records = []
         for method_id in ("method_a", "method_b"):

@@ -41,6 +41,12 @@
         "SABER - high-RR x4": "fpp_sac_saber_minus_high_rr_x4",
         "REDQ-HER TQB - SABER": "fpp_redq_her_tqb_minus_saber"
       }
+    },
+    {
+      "id": "fpp_td3_n10_frozen_analysis",
+      "analysis_json": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/analysis/analysis_results.json",
+      "metric": "success_auc",
+      "pair_id": "fpp_td3_saber_minus_her_n10"
     }
   ],
   "rows": [
@@ -69,6 +75,18 @@
       ]
     },
     {
+      "id": "fpp_ddpg_hgr_matched",
+      "task": "FetchPickAndPlace",
+      "backbone": "DDPG",
+      "method": "HGR (matched DDPG+HER)",
+      "plot_group": "fpp_ddpg",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s*_1000000/summary.json"
+      ]
+    },
+    {
       "id": "fpp_td3_her",
       "task": "FetchPickAndPlace",
       "backbone": "TD3",
@@ -81,6 +99,18 @@
       ]
     },
     {
+      "id": "fpp_td3_her_confirmatory_s6_10",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "HER confirmatory seeds 6-10",
+      "plot_group": "fpp_td3_her_confirmatory",
+      "expected_total_steps": 1000000,
+      "seeds": [6, 7, 8, 9, 10],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_td3_her_confirmatory_seeds6_10_1m/data/td3_her/*/summary.json"
+      ]
+    },
+    {
       "id": "fpp_td3_saber",
       "task": "FetchPickAndPlace",
       "backbone": "TD3",
@@ -90,6 +120,30 @@
       "seeds": [1, 2, 3, 4, 5],
       "summary_globs": [
         "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s*_1000000_ls512/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_td3_her_n10",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "HER (n=10 confirmatory)",
+      "plot_group": "fpp_td3_n10_confirmatory",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/*/summary.json"
+      ]
+    },
+    {
+      "id": "fpp_td3_saber_n10",
+      "task": "FetchPickAndPlace",
+      "backbone": "TD3",
+      "method": "HER+SABER (n=10 confirmatory)",
+      "plot_group": "fpp_td3_n10_confirmatory",
+      "expected_total_steps": 1000000,
+      "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "summary_globs": [
+        "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/*/summary.json"
       ]
     },
     {
@@ -417,6 +471,18 @@
       ]
     },
     {
+      "id": "drawer_redq_her_tqb_2m",
+      "task": "DrawerOpen",
+      "backbone": "REDQ-SAC",
+      "method": "REDQ-HER TQB",
+      "plot_group": "drawer_redq",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Open_REDQ/paper_artifacts/drawer_open_redq_her_tqb_2m/data/*/summary.json"
+      ]
+    },
+    {
       "id": "drawer_td3_her_2m",
       "task": "DrawerOpen",
       "backbone": "TD3",
@@ -571,11 +637,26 @@
       "summary_globs": [
         "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-PER-Style-2M/drawer_close_TD3-HER-PER-Style-2M_s*_2m_cuda/summary.json"
       ]
+    },
+    {
+      "id": "drawer_close_ddpg_hgr_style_2m",
+      "task": "DrawerClose",
+      "backbone": "DDPG",
+      "method": "HGR-style sampler-only",
+      "plot_group": "drawer_close_ddpg",
+      "expected_total_steps": 2000000,
+      "seeds": [1, 2, 3, 4, 5],
+      "summary_globs": [
+        "metaworld_Drawer_Close_DDPG_HGR/paper_artifacts/drawer_close_ddpg_her_hgr_2m/data/drawer_close_ddpg_hgr_tdpriority_s*_2m_github_cuda/summary.json"
+      ]
     }
   ],
   "pairs": [
     {"id": "fpp_ddpg_saber_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_saber"},
+    {"id": "fpp_ddpg_hgr_matched_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_hgr_matched"},
+    {"id": "fpp_ddpg_hgr_matched_minus_saber", "baseline": "fpp_ddpg_saber", "treatment": "fpp_ddpg_hgr_matched"},
     {"id": "fpp_td3_saber_minus_her", "baseline": "fpp_td3_her", "treatment": "fpp_td3_saber"},
+    {"id": "fpp_td3_saber_minus_her_n10", "baseline": "fpp_td3_her_n10", "treatment": "fpp_td3_saber_n10"},
     {"id": "fpp_sac_saber_minus_her", "baseline": "fpp_sac_her", "treatment": "fpp_sac_saber"},
     {"id": "fpp_ddpg_saber_minus_per_style", "baseline": "fpp_ddpg_per_style", "treatment": "fpp_ddpg_saber"},
     {"id": "fpp_ddpg_shuffled_minus_her", "baseline": "fpp_ddpg_her", "treatment": "fpp_ddpg_shuffled_weight"},
@@ -614,6 +695,8 @@
     {"id": "drawer_ddpg_saber_minus_random_support", "baseline": "drawer_ddpg_random_support_2m", "treatment": "drawer_ddpg_saber_2m"},
     {"id": "drawer_ddpg_per_style_minus_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_ddpg_per_style_2m"},
     {"id": "drawer_ddpg_saber_minus_per_style", "baseline": "drawer_ddpg_per_style_2m", "treatment": "drawer_ddpg_saber_2m"},
+    {"id": "drawer_redq_tqb_minus_ddpg_her", "baseline": "drawer_ddpg_her_2m", "treatment": "drawer_redq_her_tqb_2m"},
+    {"id": "drawer_ddpg_saber_minus_redq_tqb", "baseline": "drawer_redq_her_tqb_2m", "treatment": "drawer_ddpg_saber_2m"},
     {"id": "drawer_saber_minus_her", "baseline": "drawer_td3_her_2m", "treatment": "drawer_td3_saber_2m"},
     {"id": "drawer_random_support_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_random_support_2m"},
     {"id": "drawer_shuffled_minus_saber", "baseline": "drawer_td3_saber_2m", "treatment": "drawer_td3_shuffled_weight_2m"},

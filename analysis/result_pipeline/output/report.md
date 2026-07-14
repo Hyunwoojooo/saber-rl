@@ -6,6 +6,7 @@ Generated from configured `summary.json` and metric CSV artifacts.
 
 | method_id | n | final_success_mean | final_success_std | success_auc_mean | success_auc_std | median_hit90_step | hit90_reached | steps_per_sec_mean |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| drawer_close_ddpg_hgr_style_2m | 5 | 0.53 | 0.3899 | 0.2621 | 0.0538 | 590000 | 5 | 36.6614 |
 | drawer_close_td3_her_2m | 5 | 0.35 | 0.4796 | 0.3287 | 0.3478 | 70000 | 5 | 41.6965 |
 | drawer_close_td3_per_style_2m | 5 | 0.2 | 0.4472 | 0.3687 | 0.2747 | 30000 | 5 | 38.6777 |
 | drawer_close_td3_random_fixed_count_2m | 5 | 0 | 0 | 0.1334 | 0.0263 | 100000 | 5 | 41.4771 |
@@ -18,7 +19,8 @@ Generated from configured `summary.json` and metric CSV artifacts.
 | drawer_ddpg_random_fixed_count_2m | 5 | 0.8 | 0.4472 | 0.6211 | 0.352 | 400000 | 4 | 41.0005 |
 | drawer_ddpg_random_support_2m | 5 | 1 | 0 | 0.7065 | 0.1219 | 510000 | 5 | 22.6073 |
 | drawer_ddpg_saber_2m | 5 | 1 | 0 | 0.7537 | 0.0444 | 500000 | 5 | 23.333 |
-| drawer_ddpg_shuffled_weight_2m | 5 | 0.4 | 0.5477 | 0.3997 | 0.5473 | 1735000 | 2 | 141.6159 |
+| drawer_ddpg_shuffled_weight_2m | 5 | 0.4 | 0.5477 | 0.3067 | 0.4199 | 460000 | 2 | 22.9485 |
+| drawer_redq_her_tqb_2m | 5 | 1 | 0 | 0.6718 | 0.3137 | 370000 | 5 | 5.0033 |
 | drawer_td3_actor_critic_2m | 5 | 0.6 | 0.5477 | 0.4316 | 0.3947 | 600000 | 3 | 21.7535 |
 | drawer_td3_actor_only_2m | 5 | 0.4 | 0.5477 | 0.2491 | 0.341 | 780000 | 2 | 21.4837 |
 | drawer_td3_her_2m | 5 | 0.19 | 0.4249 | 0.1265 | 0.2827 | 740000 | 1 | 41.5473 |
@@ -33,6 +35,7 @@ Generated from configured `summary.json` and metric CSV artifacts.
 | fetchslide_td3_her | 5 | 0.63 | 0.1823 | 0.2814 | 0.066 |  | 0 | 111.4325 |
 | fetchslide_td3_saber | 5 | 0.73 | 0.1718 | 0.3373 | 0.0115 | 900000 | 1 | 40.2427 |
 | fpp_ddpg_her | 5 | 0.94 | 0.0418 | 0.5388 | 0.1254 | 600000 | 5 | 65.0232 |
+| fpp_ddpg_hgr_matched | 5 | 0.54 | 0.3647 | 0.3382 | 0.1488 | 930000 | 2 | 16.9321 |
 | fpp_ddpg_per_full | 5 | 0.78 | 0.4382 | 0.4603 | 0.2384 | 640000 | 4 | 58.0162 |
 | fpp_ddpg_per_style | 5 | 0.93 | 0.1037 | 0.5684 | 0.0688 | 630000 | 5 | 61.0697 |
 | fpp_ddpg_random_fixed_count_k94 | 5 | 0.96 | 0.0418 | 0.5402 | 0.0173 | 630000 | 5 | 64.5169 |
@@ -46,10 +49,13 @@ Generated from configured `summary.json` and metric CSV artifacts.
 | fpp_sac_random_support | 5 | 0.69 | 0.2632 | 0.4821 | 0.069 | 725000 | 2 | 28.8557 |
 | fpp_sac_saber | 5 | 0.99 | 0.0224 | 0.5834 | 0.0302 | 750000 | 5 | 29.0943 |
 | fpp_td3_her | 5 | 0.84 | 0.1884 | 0.3716 | 0.0321 | 980000 | 3 | 65.3211 |
+| fpp_td3_her_confirmatory_s6_10 | 5 | 0.88 | 0.2139 | 0.3936 | 0.0498 | 930000 | 4 | 22.1831 |
+| fpp_td3_her_n10 | 10 | 0.86 | 0.1912 | 0.3826 | 0.0412 | 970000 | 7 | 43.7521 |
 | fpp_td3_high_rr_x4 | 5 | 0.61 | 0.2434 | 0.4494 | 0.0794 | 630000 | 1 | 31.8685 |
 | fpp_td3_random_fixed_count_k73 | 5 | 0.67 | 0.228 | 0.3697 | 0.0321 | 775000 | 2 | 65.2073 |
 | fpp_td3_random_support | 5 | 0.69 | 0.2837 | 0.3754 | 0.0511 | 925000 | 2 | 40.81 |
 | fpp_td3_saber | 5 | 0.97 | 0.0447 | 0.4424 | 0.035 | 840000 | 5 | 41.2453 |
+| fpp_td3_saber_n10 | 10 | 0.895 | 0.1863 | 0.4293 | 0.0581 | 835000 | 8 | 29.8213 |
 
 ## Paired Bootstrap CI
 
@@ -91,12 +97,16 @@ Generated from configured `summary.json` and metric CSV artifacts.
 | drawer_ddpg_saber_minus_random_fixed_count | success_auc | 5 | 0.1326 | -0.069 | 0.4514 |
 | drawer_ddpg_saber_minus_random_support | final_success | 5 | 0 | 0 | 0 |
 | drawer_ddpg_saber_minus_random_support | success_auc | 5 | 0.0472 | -0.042 | 0.1364 |
+| drawer_ddpg_saber_minus_redq_tqb | final_success | 5 | 0 | 0 | 0 |
+| drawer_ddpg_saber_minus_redq_tqb | success_auc | 5 | 0.0819 | -0.1453 | 0.3599 |
 | drawer_ddpg_saber_minus_shuffled | final_success | 5 | 0.6 | 0.2 | 1 |
-| drawer_ddpg_saber_minus_shuffled | success_auc | 5 | 0.354 | -0.0806 | 0.7886 |
+| drawer_ddpg_saber_minus_shuffled | success_auc | 5 | 0.4469 | 0.1039 | 0.7885 |
 | drawer_ddpg_shuffled_minus_her | final_success | 5 | 0.01 | -0.78 | 0.8 |
-| drawer_ddpg_shuffled_minus_her | success_auc | 5 | 0.1923 | -0.4146 | 0.7993 |
+| drawer_ddpg_shuffled_minus_her | success_auc | 5 | 0.0994 | -0.4144 | 0.6133 |
 | drawer_random_support_minus_saber | final_success | 5 | 0.01 | -0.57 | 0.6 |
 | drawer_random_support_minus_saber | success_auc | 5 | 0.0646 | -0.2718 | 0.4571 |
+| drawer_redq_tqb_minus_ddpg_her | final_success | 5 | 0.61 | 0.21 | 1 |
+| drawer_redq_tqb_minus_ddpg_her | success_auc | 5 | 0.4645 | 0.0232 | 0.8353 |
 | drawer_saber_minus_her | final_success | 5 | 0.4 | 0 | 0.8 |
 | drawer_saber_minus_her | success_auc | 5 | 0.2353 | -0.0582 | 0.5403 |
 | drawer_shuffled_minus_saber | final_success | 5 | -0.59 | -0.99 | -0.19 |
@@ -110,6 +120,10 @@ Generated from configured `summary.json` and metric CSV artifacts.
 | fetchslide_td3_saber_minus_her | final_success | 5 | 0.1 | -0.03 | 0.26 |
 | fetchslide_td3_saber_minus_her | last_quarter_auc | 5 | 0.083 | 0.0195 | 0.1895 |
 | fetchslide_td3_saber_minus_her | success_auc | 5 | 0.0559 | 0.0042 | 0.1092 |
+| fpp_ddpg_hgr_matched_minus_her | final_success | 5 | -0.4 | -0.7 | -0.1093 |
+| fpp_ddpg_hgr_matched_minus_her | success_auc | 5 | -0.2006 | -0.3582 | -0.0306 |
+| fpp_ddpg_hgr_matched_minus_saber | final_success | 5 | -0.42 | -0.73 | -0.15 |
+| fpp_ddpg_hgr_matched_minus_saber | success_auc | 5 | -0.2709 | -0.4055 | -0.1978 |
 | fpp_ddpg_random_fixed_count_minus_her | final_success | 5 | 0.02 | -0.02 | 0.07 |
 | fpp_ddpg_random_fixed_count_minus_her | success_auc | 5 | 0.0014 | -0.0799 | 0.1134 |
 | fpp_ddpg_random_support_minus_her | final_success | 5 | 0.01 | -0.06 | 0.07 |
@@ -156,6 +170,8 @@ Generated from configured `summary.json` and metric CSV artifacts.
 | fpp_td3_random_support_minus_her | success_auc | 5 | 0.0038 | -0.0422 | 0.0406 |
 | fpp_td3_saber_minus_her | final_success | 5 | 0.13 | -0.03 | 0.31 |
 | fpp_td3_saber_minus_her | success_auc | 5 | 0.0708 | 0.0319 | 0.0946 |
+| fpp_td3_saber_minus_her_n10 | final_success | 10 | 0.035 | -0.11 | 0.17 |
+| fpp_td3_saber_minus_her_n10 | success_auc | 10 | 0.0467 | 0.0085 | 0.0783 |
 | fpp_td3_saber_minus_high_rr_x4 | final_success | 5 | 0.36 | 0.14 | 0.53 |
 | fpp_td3_saber_minus_high_rr_x4 | success_auc | 5 | -0.0071 | -0.0531 | 0.0274 |
 | fpp_td3_saber_minus_random_fixed_count | final_success | 5 | 0.3 | 0.12 | 0.48 |
@@ -165,30 +181,10 @@ Generated from configured `summary.json` and metric CSV artifacts.
 
 ## Figures
 
-- `analysis/result_pipeline/output/figures/drawer_close_td3_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/drawer_close_td3_success_curve.png`
-- `analysis/result_pipeline/output/figures/drawer_controls_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/drawer_controls_success_curve.png`
-- `analysis/result_pipeline/output/figures/drawer_ddpg_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/drawer_ddpg_success_curve.png`
-- `analysis/result_pipeline/output/figures/drawer_td3_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/drawer_td3_success_curve.png`
-- `analysis/result_pipeline/output/figures/fetchslide_ddpg_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fetchslide_ddpg_success_curve.png`
-- `analysis/result_pipeline/output/figures/fetchslide_sac_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fetchslide_sac_success_curve.png`
-- `analysis/result_pipeline/output/figures/fetchslide_td3_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fetchslide_td3_success_curve.png`
-- `analysis/result_pipeline/output/figures/fpp_ddpg_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fpp_ddpg_success_curve.png`
-- `analysis/result_pipeline/output/figures/fpp_ddpg_per_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fpp_ddpg_per_success_curve.png`
-- `analysis/result_pipeline/output/figures/fpp_sac_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fpp_sac_success_curve.png`
-- `analysis/result_pipeline/output/figures/fpp_td3_success_curve.pdf`
-- `analysis/result_pipeline/output/figures/fpp_td3_success_curve.png`
+- No figures were generated. Install matplotlib or Pillow to enable PNG plots.
 
 ## Pipeline Notes and Warnings
 
 - metric override applied: fpp_sac_common_grid_50k (30 method-seed rows)
 - paired CI override applied: fpp_sac_common_grid_50k (5 comparisons)
+- paired CI override applied: fpp_td3_n10_frozen_analysis (1 comparison)

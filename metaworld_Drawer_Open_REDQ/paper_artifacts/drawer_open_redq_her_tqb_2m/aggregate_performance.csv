@@ -1,0 +1,2 @@
+method_key,paper_label,cohort,seeds,n_seeds,final_success_mean,final_success_sample_std,best_success_mean,best_success_sample_std,success_auc_mean,success_auc_sample_std,best_final_drop_mean,best_final_drop_sample_std,hit90_count,hit90_total,hit90_median_step_among_hits,eval_grid_start,eval_grid_end,eval_grid_frequency,eval_grid_points
+drawer_open_redq_her_tqb,REDQ-HER TQB,seeds_1_5,"1,2,3,4,5",5,1.0,0.0,1.0,0.0,0.6718090452261307,0.3136770602849954,0.0,0.0,5,5,370000,10000,2000000,10000,200

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import itertools
 import json
 import math
 import random
@@ -47,6 +48,7 @@ PLOT_GROUP_LABELS = {
 METHOD_ORDER = {
     "HER": 0,
     "HER+SABER": 1,
+    "HGR (matched DDPG+HER)": 2,
     "HGR-style sampler-only": 2,
     "HER high-RR x4": 3,
     "REDQ-HER TQB": 4,
@@ -65,6 +67,7 @@ METHOD_ORDER = {
 METHOD_COLORS = {
     "HER": "#4C566A",
     "HER+SABER": "#006D77",
+    "HGR (matched DDPG+HER)": "#202020",
     "HGR-style sampler-only": "#A44A3F",
     "HER high-RR x4": "#A16207",
     "REDQ-HER TQB": "#7C3AED",
@@ -78,6 +81,10 @@ METHOD_COLORS = {
     "HER+PER-full": "#9333EA",
     "Actor-only weighting": "#2F855A",
     "Actor+critic weighting": "#C2410C",
+}
+
+METHOD_LINESTYLES = {
+    "HGR (matched DDPG+HER)": "--",
 }
 
 
@@ -122,6 +129,14 @@ def extract_seed(path: Path, summary: dict[str, Any]) -> int | None:
         seed = seeds.get("env_seed") or seeds.get("numpy_seed") or seeds.get("torch_seed")
         if seed is not None:
             return int(seed)
+    config_path = path.parent / "config.json"
+    if config_path.exists():
+        config = load_json(config_path)
+        config_seeds = config.get("seeds")
+        if isinstance(config_seeds, dict):
+            seed = config_seeds.get("env_seed") or config_seeds.get("numpy_seed") or config_seeds.get("torch_seed")
+            if seed is not None:
+                return int(seed)
     for pattern in [r"_s(\d+)_", r"_s(\d+)\b"]:
         match = re.search(pattern, str(path))
         if match:
@@ -204,8 +219,15 @@ def per_seed_record(row: MethodRow, summary_path: Path) -> dict[str, Any] | None
             first_present(summary, ["last_quarter_auc", "eval_last_quarter_AUC_success"])
         ),
         "hit90_step": as_float(summary.get("first_hit_0.90")),
-        "runtime_total_sec": as_float(summary.get("runtime_total_sec")),
-        "steps_per_sec": as_float(first_present(summary, ["final_steps_per_sec", "steps_per_sec"])),
+        "runtime_total_sec": as_float(
+            first_present(summary, ["reported_runtime_total_sec", "runtime_total_sec"])
+        ),
+        "steps_per_sec": as_float(
+            first_present(
+                summary,
+                ["reported_steps_per_sec", "final_steps_per_sec", "steps_per_sec"],
+            )
+        ),
     }
     record.update(
         {
@@ -503,6 +525,64 @@ def paired_bootstrap(paired: list[dict[str, Any]], iterations: int, ci: float, s
     return out
 
 
+def exact_paired_inference(paired: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Compute exact two-sided sign-flip p-values and leave-one-out stability.
+
+    The sign-flip test enumerates all Rademacher assignments to paired seed
+    differences. With five nonzero pairs, its smallest attainable two-sided
+    p-value is 2/32 = 0.0625, so this output is reported as a finite-seed
+    robustness diagnostic rather than a universal significance certificate.
+    """
+    grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    for row in paired:
+        grouped[(str(row["pair_id"]), str(row["metric"]))].append(row)
+
+    out: list[dict[str, Any]] = []
+    for (pair_id, metric), rows in sorted(grouped.items()):
+        rows = sorted(rows, key=lambda row: int(row["seed"]))
+        deltas = [float(row["delta"]) for row in rows]
+        n = len(deltas)
+        observed = mean(deltas)
+        threshold = abs(observed) - 1e-15
+        extreme = 0
+        assignments = 0
+        for signs in itertools.product((-1.0, 1.0), repeat=n):
+            permuted = mean(sign * delta for sign, delta in zip(signs, deltas))
+            extreme += abs(permuted) >= threshold
+            assignments += 1
+
+        loo_means = [mean(deltas[:idx] + deltas[idx + 1 :]) for idx in range(n)] if n > 1 else []
+        if observed > 0:
+            loo_same_direction = all(value > 0 for value in loo_means)
+        elif observed < 0:
+            loo_same_direction = all(value < 0 for value in loo_means)
+        else:
+            loo_same_direction = all(value == 0 for value in loo_means)
+
+        meta = rows[0]
+        out.append(
+            {
+                "pair_id": pair_id,
+                "baseline_id": meta["baseline_id"],
+                "treatment_id": meta["treatment_id"],
+                "task": meta["task"],
+                "backbone": meta["backbone"],
+                "metric": metric,
+                "n": n,
+                "mean_delta": observed,
+                "n_positive": sum(delta > 0 for delta in deltas),
+                "n_negative": sum(delta < 0 for delta in deltas),
+                "n_zero": sum(delta == 0 for delta in deltas),
+                "exact_sign_flip_p_two_sided": extreme / assignments,
+                "sign_assignments": assignments,
+                "leave_one_out_mean_min": min(loo_means) if loo_means else None,
+                "leave_one_out_mean_max": max(loo_means) if loo_means else None,
+                "leave_one_out_same_direction": loo_same_direction if loo_means else None,
+            }
+        )
+    return out
+
+
 def apply_paired_ci_overrides(
     config: dict[str, Any],
     paired_ci: list[dict[str, Any]],
@@ -513,11 +593,47 @@ def apply_paired_ci_overrides(
 
     for raw_override in config.get("paired_ci_overrides", []):
         override_id = str(raw_override["id"])
+        metric = str(raw_override["metric"])
+
+        if "analysis_json" in raw_override:
+            relative_path = Path(str(raw_override["analysis_json"]))
+            json_path = root / relative_path
+            if not json_path.exists():
+                raise FileNotFoundError(f"paired CI override not found: {relative_path}")
+            source = json.loads(json_path.read_text())
+            pair_id = str(raw_override["pair_id"])
+            target = by_pair_metric.get((pair_id, metric))
+            if target is None:
+                raise ValueError(f"paired CI override has no pipeline row: {override_id} {pair_id} {metric}")
+            interval = source.get("paired_bootstrap_ci_95")
+            if not isinstance(interval, list) or len(interval) != 2:
+                raise ValueError(f"invalid paired CI interval: {override_id}")
+            values = {
+                "n": as_float(source.get("n_pairs")),
+                "mean_delta": as_float(source.get("paired_auc_difference_mean")),
+                "ci_low": as_float(interval[0]),
+                "ci_high": as_float(interval[1]),
+                "bootstrap_iterations": as_float(source.get("paired_bootstrap_resamples")),
+            }
+            if any(value is None for value in values.values()):
+                raise ValueError(f"incomplete paired CI override: {override_id}")
+            target.update(
+                {
+                    "n": int(values["n"]),
+                    "mean_delta": values["mean_delta"],
+                    "ci_low": values["ci_low"],
+                    "ci_high": values["ci_high"],
+                    "bootstrap_iterations": int(values["bootstrap_iterations"]),
+                    "ci_source": override_id,
+                }
+            )
+            notes.append(f"paired CI override applied: {override_id} (1 comparison)")
+            continue
+
         relative_path = Path(str(raw_override["csv"]))
         csv_path = root / relative_path
         if not csv_path.exists():
             raise FileNotFoundError(f"paired CI override not found: {relative_path}")
-        metric = str(raw_override["metric"])
         comparison_to_pair_id = {
             str(key): str(value) for key, value in raw_override["comparison_to_pair_id"].items()
         }
@@ -821,16 +937,33 @@ def plot_curves(
         for method, rows in sorted(methods.items(), key=lambda item: method_sort_key(item[0])):
             rows = sorted(rows, key=lambda r: int(r["step"]))
             color = METHOD_COLORS.get(method, None)
+            linestyle = METHOD_LINESTYLES.get(method, "-")
             raw_seed_rows = raw_by_group.get(group, {}).get(method, {})
             for seed_rows in raw_seed_rows.values():
                 seed_rows = sorted(seed_rows, key=lambda r: int(r["step"]))
                 seed_xs = [int(r["step"]) for r in seed_rows]
                 seed_ys = [float(r["success"]) for r in seed_rows]
-                ax.plot(seed_xs, seed_ys, color=color, alpha=0.13, linewidth=0.7, zorder=1)
+                ax.plot(
+                    seed_xs,
+                    seed_ys,
+                    color=color,
+                    alpha=0.13,
+                    linewidth=0.7,
+                    linestyle=linestyle,
+                    zorder=1,
+                )
             xs = [int(r["step"]) for r in rows]
             ys = [float(r["success_mean"]) for r in rows]
             stds = [float(r["success_std"]) for r in rows]
-            ax.plot(xs, ys, label=method, color=color, linewidth=2.4, zorder=3)
+            ax.plot(
+                xs,
+                ys,
+                label=method,
+                color=color,
+                linewidth=2.4,
+                linestyle=linestyle,
+                zorder=3,
+            )
             if any(s > 0 for s in stds):
                 lo = [max(0.0, y - s) for y, s in zip(ys, stds)]
                 hi = [min(1.0, y + s) for y, s in zip(ys, stds)]
@@ -1008,6 +1141,7 @@ def main() -> int:
     aggregate_ci = aggregate_bootstrap(per_seed, iterations, ci, seed)
     paired = paired_differences(config, per_seed)
     paired_ci = paired_bootstrap(paired, iterations, ci, seed)
+    paired_exact = exact_paired_inference(paired)
     warnings.extend(apply_paired_ci_overrides(config, paired_ci))
     curves = collect_curves(per_seed)
     curve_aggregate = aggregate_curves(curves)
@@ -1017,6 +1151,7 @@ def main() -> int:
     write_csv(output_dir / "aggregate_bootstrap_ci.csv", aggregate_ci)
     write_csv(output_dir / "paired_seed_differences.csv", paired)
     write_csv(output_dir / "paired_bootstrap_ci.csv", paired_ci)
+    write_csv(output_dir / "paired_exact_inference.csv", paired_exact)
     write_csv(output_dir / "learning_curves_long.csv", curves)
     write_csv(output_dir / "learning_curves_aggregate.csv", curve_aggregate)
     figures = plot_curves(curve_aggregate, output_dir, curves)
@@ -1025,6 +1160,7 @@ def main() -> int:
     print(f"wrote {len(per_seed)} per-seed rows")
     print(f"wrote {len(aggregate)} aggregate rows")
     print(f"wrote {len(paired)} paired seed-difference rows")
+    print(f"wrote {len(paired_exact)} exact paired-inference rows")
     print(f"wrote {len(curves)} learning curve points")
     print(f"wrote {len(figures)} figures")
     if warnings:
