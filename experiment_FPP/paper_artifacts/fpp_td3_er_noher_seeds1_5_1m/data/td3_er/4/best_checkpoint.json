@@ -1,0 +1,13 @@
+{
+  "checkpoint": "${SOURCE_ROOT}/fetch_pick_and_place_td3_er_noher_s4_1000000/best_checkpoint.pt",
+  "eval_env_success_ever_mean": 0.15,
+  "eval_env_success_final_mean": 0.15,
+  "eval_env_success_mean": 0.15,
+  "eval_goal_success_ever_mean": 0.15,
+  "eval_goal_success_final_mean": 0.15,
+  "eval_goal_success_mean": 0.15,
+  "eval_return_mean": -42.5,
+  "eval_success_mean": 0.15,
+  "selection_metric": "eval_goal_success_mean",
+  "step": 200000
+}
