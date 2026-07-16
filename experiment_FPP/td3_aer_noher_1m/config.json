@@ -3,7 +3,7 @@
   "experiment_id": "fpp_td3_aer_noher_1m",
   "purpose": "Paired FetchPickAndPlace comparison of uniform ER, learning-rate-annealed ER, and AER without HER.",
   "source_snapshot": "experiment_FPP/td3_aer_noher_1m/code/src",
-  "protocol_note": "The 20k correctness run and 300k pilot are protocol checks only. The 1M seeds 1-10 runs are the confirmatory experiment.",
+  "protocol_note": "The 20k correctness/smoke runs and 300k pilot are protocol checks only. The independent 1M seeds 1-10 runs are the confirmatory experiment.",
   "common": {
     "task_name": "fetch_pick_and_place",
     "env_id": "FetchPickAndPlace-v4",
@@ -112,6 +112,12 @@
       "seeds": [101],
       "output_root": "experiment_FPP/runs/fpp_td3_aer_noher_correctness20k",
       "results_usage": "implementation_and_runtime_check_only"
+    },
+    "smoke_20k_seeds1_5": {
+      "steps": 20000,
+      "seeds": [1, 2, 3, 4, 5],
+      "output_root": "experiment_FPP/runs/fpp_td3_aer_noher_smoke20k_s1_5",
+      "results_usage": "implementation_and_runtime_check_only_exclude_from_confirmatory"
     },
     "pilot_300k": {
       "steps": 300000,

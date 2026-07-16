@@ -61,10 +61,24 @@ duplicate rate, transition age, sparse-success 비율, approach/grasp/lift/place
 먼저 명령만 확인할 수 있다.
 
 ```bash
+DRY_RUN=1 bash experiment_FPP/td3_aer_noher_1m/run_smoke_20k_seeds1_5_5parallel.sh
 DRY_RUN=1 bash experiment_FPP/td3_aer_noher_1m/run_correctness_20k_seed101.sh
 ```
 
-1. 20k correctness, seed 101, 세 arm:
+1. 20k parallel smoke, seeds 1-5, 세 arm:
+
+```bash
+DEVICE=cuda:0 bash experiment_FPP/td3_aer_noher_1m/run_smoke_20k_seeds1_5_5parallel.sh
+```
+
+seed worker 5개를 병렬 실행하고, 각 worker 안에서는
+`td3_er -> td3_annealing_er -> td3_aer` 순서로 실행한다. 따라서 동시에 실행되는
+trainer는 최대 5개다. 이 smoke 결과는 구현 확인 전용이며 1M confirmatory 분석이나
+checkpoint resume에 사용하지 않는다. 단일 GPU 공유 실행의 처리량은 arm 간 overhead
+비교에도 사용하지 않는다. 20k run에서는 AER lambda schedule이 20k 기준으로
+압축되므로 1M run의 처음 20k prefix와 동일하지 않다.
+
+2. 선택 사항: 20k single-seed correctness, seed 101, 세 arm:
 
 ```bash
 DEVICE=cuda bash experiment_FPP/td3_aer_noher_1m/run_correctness_20k_seed101.sh
@@ -74,7 +88,7 @@ DEVICE=cuda bash experiment_FPP/td3_aer_noher_1m/run_correctness_20k_seed101.sh
 정확히 override하므로 batch size, warmup, replay capacity 같은 frozen 설정이
 축소되지 않는다. 결과는 구현·runtime 검증용이며 성능 결론에 사용하지 않는다.
 
-2. 300k pilot, seeds 101-103, 세 arm:
+3. 300k pilot, seeds 101-103, 세 arm:
 
 ```bash
 DEVICE=cuda bash experiment_FPP/td3_aer_noher_1m/run_pilot_300k_seeds101_103.sh
@@ -83,7 +97,7 @@ DEVICE=cuda bash experiment_FPP/td3_aer_noher_1m/run_pilot_300k_seeds101_103.sh
 pilot은 feasibility 확인용 독립 재시작이며 20k run의 checkpoint를 이어받지
 않는다. pilot 결과로 hyperparameter나 confirmatory seed를 선택하지 않는다.
 
-3. 1M confirmatory, seeds 1-10, 세 arm:
+4. 1M confirmatory, seeds 1-10, 세 arm:
 
 ```bash
 DEVICE=cuda bash experiment_FPP/td3_aer_noher_1m/run_full_1m_seeds1_10.sh
@@ -103,6 +117,44 @@ wait
 같은 output/log root에 같은 seed를 중복 배정하지 않는다. launcher는 기존
 run directory나 log를 발견하면 timestamp가 붙은 중복 run을 만들지 않고
 실행 전에 중단한다.
+
+### TD3-AER-first main queue after the 20k smoke
+
+seed 1-5 smoke의 15개 run이 모두 끝난 뒤 TD3-AER만 우선하여 같은 seed의
+1M run 5개를 병렬로 시작하려면 다음 queue를 별도 tmux session에서 실행한다.
+
+```bash
+tmux new-session -d \
+  -s fpp-td3-aer-noher-main1m-after-smoke \
+  -c "$PWD" \
+  'env CUDA_VISIBLE_DEVICES=0 DEVICE=cuda:0 bash experiment_FPP/td3_aer_noher_1m/queue_main_1m_after_smoke20k_s1_5.sh'
+```
+
+queue는 smoke session 종료만으로 통과시키지 않는다. 각 run의 frozen config,
+10k/20k evaluation grid, final checkpoint, 100-episode fixed evaluation,
+finite final loss/evaluation, summary와 종료 marker를 검사하고 로그에 runtime/CUDA
+오류가 없는지 확인한다. 15개 중 하나라도 실패하면 main을 시작하지 않고 종료한다.
+모두 통과하면 sampler regression과 TD3-AER 1M `validate_only`를 다시 실행한 후
+`run_main_1m_td3_aer_seeds1_5_5parallel.sh`를 시작한다. 이 단계에서는 ER와
+AnnealingER main run을 시작하지 않는다.
+
+### Queue TD3-ER after TD3-AER
+
+TD3-AER 1M seed 1-5가 끝난 뒤 TD3-ER 1M seed 1-5를 자동으로 5병렬
+실행하려면 `queue_td3_er_main_after_td3_aer_s1_5.sh`를 별도 tmux session에서
+실행한다. queue는 AER의 100개 evaluation grid, summary, final checkpoint,
+fixed 100-episode evaluation과 fatal-error-free 종료를 모두 확인한다.
+
+queue를 건 시점의 `config.json`, `run.py`, frozen `code/src`, ER launcher와
+completion validator SHA-256도 저장한다. AER가 실행되는 동안 이 소스 중 하나라도
+바뀌면 ER를 시작하지 않는다.
+
+```bash
+tmux new-session -d \
+  -s fpp-td3-er-main1m-after-aer-s1-5 \
+  -c "$PWD" \
+  'env CUDA_VISIBLE_DEVICES=0 DEVICE=cuda:0 bash experiment_FPP/td3_aer_noher_1m/queue_td3_er_main_after_td3_aer_s1_5.sh'
+```
 
 개별 command 검증은 다음처럼 할 수 있다.
 

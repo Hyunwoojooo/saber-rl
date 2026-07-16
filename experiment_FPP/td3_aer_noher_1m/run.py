@@ -30,15 +30,28 @@ def bool_flag(name: str, enabled: bool) -> str:
     return f"--{name}" if enabled else f"--no-{name}"
 
 
-def phase_for_steps(config: dict[str, Any], steps: int) -> tuple[str, dict[str, Any]]:
+def phase_for_run(
+    config: dict[str, Any], steps: int, seed: int
+) -> tuple[str, dict[str, Any]]:
     matches = [
         (name, phase)
         for name, phase in config["phases"].items()
         if int(phase["steps"]) == steps
+        and seed in [int(value) for value in phase["seeds"]]
     ]
     if len(matches) != 1:
-        allowed = sorted(int(phase["steps"]) for phase in config["phases"].values())
-        raise ValueError(f"steps must be one of the frozen phase lengths {allowed}")
+        allowed = sorted(
+            (
+                name,
+                int(phase["steps"]),
+                [int(value) for value in phase["seeds"]],
+            )
+            for name, phase in config["phases"].items()
+        )
+        raise ValueError(
+            f"No unique frozen phase for steps={steps}, seed={seed}; "
+            f"allowed phases={allowed}"
+        )
     return matches[0]
 
 
@@ -48,7 +61,7 @@ def validate_protocol(
     if arm_name not in ARM_NAMES or arm_name not in config["arms"]:
         raise ValueError(f"Unknown arm: {arm_name}")
 
-    phase_name, phase = phase_for_steps(config, steps)
+    phase_name, phase = phase_for_run(config, steps, seed)
     allowed_seeds = [int(value) for value in phase["seeds"]]
     if seed not in allowed_seeds:
         raise ValueError(
