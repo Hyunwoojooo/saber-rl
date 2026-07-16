@@ -217,12 +217,15 @@ class LiteConfig:
     # Hindsight Goal Ranking baseline.
     hgr_priority_eps: float = 1e-6
     hgr_priority_init: float = 1.0
-    hgr_priority_clip_max: float = 50.0
-    hgr_alpha_episode: float = 1.0
-    hgr_alpha_goal: float = 1.0
+    hgr_priority_clip_max: float = 0.0
+    hgr_alpha_episode: float = 0.6
+    hgr_alpha_goal: float = 0.6
+    hgr_beta_episode_initial: float = 0.4
+    hgr_beta_goal_initial: float = 0.4
+    hgr_beta_episode_final: float = 1.0
+    hgr_beta_goal_final: float = 1.0
+    hgr_beta_anneal_updates: int = 0
     hgr_uniform_mix: float = 0.0
-    hgr_max_future_candidates: int = 50
-    hgr_episode_priority_ema: float = 0.0
 
     weighting_mode: str = "batch_norm"
     weight_scope: str = "actor_critic"
@@ -396,12 +399,19 @@ class LiteConfig:
         self.random_fixed_count_k = max(0, int(self.random_fixed_count_k))
         self.hgr_priority_eps = max(1e-12, float(self.hgr_priority_eps))
         self.hgr_priority_init = max(self.hgr_priority_eps, float(self.hgr_priority_init))
-        self.hgr_priority_clip_max = max(self.hgr_priority_eps, float(self.hgr_priority_clip_max))
+        self.hgr_priority_clip_max = max(0.0, float(self.hgr_priority_clip_max))
         self.hgr_alpha_episode = max(0.0, float(self.hgr_alpha_episode))
         self.hgr_alpha_goal = max(0.0, float(self.hgr_alpha_goal))
+        self.hgr_beta_episode_initial = max(0.0, float(self.hgr_beta_episode_initial))
+        self.hgr_beta_goal_initial = max(0.0, float(self.hgr_beta_goal_initial))
+        self.hgr_beta_episode_final = max(
+            self.hgr_beta_episode_initial, float(self.hgr_beta_episode_final)
+        )
+        self.hgr_beta_goal_final = max(
+            self.hgr_beta_goal_initial, float(self.hgr_beta_goal_final)
+        )
+        self.hgr_beta_anneal_updates = max(0, int(self.hgr_beta_anneal_updates))
         self.hgr_uniform_mix = max(0.0, min(1.0, float(self.hgr_uniform_mix)))
-        self.hgr_max_future_candidates = max(0, int(self.hgr_max_future_candidates))
-        self.hgr_episode_priority_ema = max(0.0, min(1.0, float(self.hgr_episode_priority_ema)))
         self.gap_window = max(self.N_gap_min, int(self.gap_window))
         if self.smoke:
             if self.task_name in {"unitree_apple", "pick_cube", "push_t", "drawer_open"}:
