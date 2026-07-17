@@ -21,23 +21,39 @@ Main settings:
 Dry-run:
 
 ```bash
-python3 SABER/FetchPickAndPlace/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --dry-run
+.venv/bin/python experiment_FPP/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --dry-run
 ```
 
 Validate setup:
 
 ```bash
-python3 SABER/FetchPickAndPlace/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --validate_only --device cuda
+.venv/bin/python experiment_FPP/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --validate_only --device cuda
 ```
 
 Smoke:
 
 ```bash
-python3 SABER/FetchPickAndPlace/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --steps 5000 --device cuda --smoke
+.venv/bin/python experiment_FPP/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --steps 5000 --device cuda --smoke
 ```
 
 Main seed:
 
 ```bash
-python3 SABER/FetchPickAndPlace/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --steps 1000000 --device cuda
+.venv/bin/python experiment_FPP/td3_her_per_style_loss_weighting_ls512/run.py --seed 1 --steps 1000000 --device cuda
 ```
+
+Run seeds 1-5 sequentially:
+
+```bash
+bash experiment_FPP/td3_her_per_style_loss_weighting_ls512/run_all_seeds.sh --steps 1000000 --device cuda
+```
+
+Run seeds 1-5 in parallel with per-seed launcher logs:
+
+```bash
+STEPS=1000000 DEVICE=cuda \
+  bash experiment_FPP/td3_her_per_style_loss_weighting_ls512/run_all_seeds_parallel.sh
+```
+
+Results are written below
+`experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512`.

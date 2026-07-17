@@ -16,7 +16,7 @@
   "local_scan_cache_enabled": false,
   "local_search_max": 512,
   "numba_support_scan": true,
-  "output_root": "SABER/FetchPickAndPlace/runs/td3_her_per_style_loss_weighting_ls512",
+  "output_root": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512",
   "per_alpha": 0.6,
   "policy_support_mode": "bin",
   "purpose": "TD3 + HER baseline with PER-style TD-error priority-derived critic loss weighting. Replay sampling remains uniform.",

@@ -12,7 +12,7 @@ from typing import Any
 
 def repo_root_from(path: Path) -> Path:
     for parent in [path, *path.parents]:
-        if (parent / "version_v0_lite").exists() and (parent / "SABER").exists():
+        if (parent / ".git").exists() and (parent / "experiment_FPP").is_dir():
             return parent
     raise RuntimeError(f"Could not find repo root from {path}")
 
@@ -104,7 +104,9 @@ def build_command(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run FetchPickAndPlace TD3 HER/SABER ls512 experiment.")
+    parser = argparse.ArgumentParser(
+        description="Run FetchPickAndPlace TD3+HER PER-style loss-weighting ls512 experiment."
+    )
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--steps", type=int, default=None)
     parser.add_argument("--device", default="auto")

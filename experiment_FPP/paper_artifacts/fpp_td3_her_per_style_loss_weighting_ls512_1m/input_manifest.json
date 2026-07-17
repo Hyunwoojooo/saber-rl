@@ -1,0 +1,246 @@
+{
+  "inputs": [
+    {
+      "path": "experiment_FPP/package_td3_her_per_style_results.py",
+      "sha256": "8537fdd8b12a1953006ad182e95664368221dfaa9d640e7cc66e2e1ded749a9e",
+      "size_bytes": 26963
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s1_1000000_ls512/config.json",
+      "sha256": "2035234fb91b26ecd0d58d9229df20600ab8cd228bc1e94e8e476a27e99ef94a",
+      "size_bytes": 4924
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s1_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s1_1000000_ls512/metrics.csv",
+      "sha256": "496ca587876853e9c237bb9d27dc3fd28065032ce87a827659e9a4dca0bb43fc",
+      "size_bytes": 22626760
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s1_1000000_ls512/summary.json",
+      "sha256": "f168bc21a8087340ddf13d0cb5b59d8866b3e2932bf3d4b631bdab90178c5113",
+      "size_bytes": 5760
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s2_1000000_ls512/config.json",
+      "sha256": "a937b17e6ccd0e001f73c38b347f4aad5f9bc67c4c7051aeffea6cb511e98d6e",
+      "size_bytes": 4924
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s2_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s2_1000000_ls512/metrics.csv",
+      "sha256": "5ea628be8fcbc07e94e117086960d4e6b33e5b3e947ad230d1f9c3812c7979aa",
+      "size_bytes": 22701340
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s2_1000000_ls512/summary.json",
+      "sha256": "6caf70525ceb9b569dae16a9b80efb518ea8b8df587deb28faa5bf90d4fb3493",
+      "size_bytes": 5754
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s3_1000000_ls512/config.json",
+      "sha256": "0a4bc44eb2b9ed7bd309fac81f128424bf340c0ef69a28150f08a932131d0aea",
+      "size_bytes": 4924
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s3_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s3_1000000_ls512/metrics.csv",
+      "sha256": "1ac5b15d1b2cb2401f6e27d9b2b6052bb8c000935eb697085765f1f669767345",
+      "size_bytes": 22697201
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s3_1000000_ls512/summary.json",
+      "sha256": "0343fcdc610d1cb4708bf8a503ec7a6374dfdedf1cf9a507843c8bdfb35681ef",
+      "size_bytes": 5807
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s4_1000000_ls512/config.json",
+      "sha256": "f92cb97377eaaf8300582626aa057d91d10b6b88655d563393517f931b9dc855",
+      "size_bytes": 4924
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s4_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s4_1000000_ls512/metrics.csv",
+      "sha256": "55963ed14784168331404850227b57d768ad3e175eab61c6943fb938b6138d3a",
+      "size_bytes": 22689431
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s4_1000000_ls512/summary.json",
+      "sha256": "f9998c8a131abc883972842f7b307830fe917d2389a0c89c1b7e27b715c5c7a8",
+      "size_bytes": 5768
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s5_1000000_ls512/config.json",
+      "sha256": "0caf68132955a495a4f5a3f5e59e298b16bb8869763481baa8d401f53c2933d8",
+      "size_bytes": 4924
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s5_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s5_1000000_ls512/metrics.csv",
+      "sha256": "924bc0f02abf7fa38d8da97bace6cc4e177a100f5275d3d48ef43a033039916a",
+      "size_bytes": 22832673
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_style_loss_weighting_ls512/fetch_pick_and_place_td3_her_per_style_loss_weighting_ls512_s5_1000000_ls512/summary.json",
+      "sha256": "90c58fe448353df727511b420146c03f70bb5f49cb57428a6ee5ebcba0755889",
+      "size_bytes": 5799
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/README.md",
+      "sha256": "f2067e824bfd8a0f80ca4412aacabd394568a8ba828bb700152a916341a9aa2f",
+      "size_bytes": 1716
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "size_bytes": 49
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/agent.py",
+      "sha256": "b67bf22d5da893a7e7b0f2039e12275dc8a20fd6fcaaa06d43a65a4ae82695c4",
+      "size_bytes": 15279
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/config.py",
+      "sha256": "e75eae60f743cc6b916f39e9e57f68bf9aa388ee78c9ecdc535ad0bbe1b98d0f",
+      "size_bytes": 15338
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "size_bytes": 3943
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "size_bytes": 4028
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size_bytes": 19844
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "564f195f2c2fa4ff8a9f66c35c678b489f3225704b1edb07f1077e2d42649903",
+      "size_bytes": 66034
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/metacog_lite_v0/weights.py",
+      "sha256": "498bd5b9c79713adff886d176e442a5e904ee7c1c47b61dc80b06192065adccc",
+      "size_bytes": 61644
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/test_b3_runtime_opt_lookup.py",
+      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "size_bytes": 9355
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/test_numba_runtime_opt_fpp.py",
+      "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+      "size_bytes": 6296
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/test_numba_support_scan_fpp.py",
+      "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+      "size_bytes": 9128
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "65f060acc7e894e9822cb6027cf7ad3f25938b68e3630ed10d542b980e4cf644",
+      "size_bytes": 15842
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/config.json",
+      "sha256": "45846a7975a3201ef1fb70273eb1c01c87b20a75b651fc50664cabdaa29d6310",
+      "size_bytes": 1528
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/run.py",
+      "sha256": "204e691173aaa02c1822e81c43ce6fa17ea76cb3541c238dfe79f7e61351a5c9",
+      "size_bytes": 5364
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/run_all_seeds.sh",
+      "sha256": "d35d361b7d126bd1c794cea58699373883d8bb82c1ccebe10d710093fc091597",
+      "size_bytes": 180
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/run_all_seeds_parallel.sh",
+      "sha256": "3c8180e99455e32a4af4460f2ab806a2c6f8252e8847a56bb2f18854eaec0fb8",
+      "size_bytes": 2022
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_style_loss_weighting_ls512/test_run_config_parity.py",
+      "sha256": "20974072afcec0fd286c027a8c5a4dcdf24003648fcee239edf957256114cfeb",
+      "size_bytes": 3679
+    }
+  ],
+  "schema_version": 1,
+  "source_head_at_packaging": "a5436ef2fd107a24deae0d92468f27e17893dddd"
+}

@@ -39,3 +39,6 @@ python3 SABER/FetchPickAndPlace/shared/analyze_results.py
 - `paper_artifacts/fpp_td3_sac_her_per_full_1m`: TD3 and SAC HER+PER(full),
   seeds 1-5 at 1M steps, with sanitized run summaries and compact evaluation
   curves.
+- `paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m`: TD3+HER
+  PER-style, seeds 1-5 at 1M steps, with validated summaries and 10k-step
+  evaluation curves.
