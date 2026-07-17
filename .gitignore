@@ -11,6 +11,8 @@ results_*/
 !experiment_FPP/paper_artifacts/fpp_td3_saber_query_ablation_ls512/results/**
 !experiment_FPP/paper_artifacts/fpp_td3_saber_context_eligible_count_matched/results/
 !experiment_FPP/paper_artifacts/fpp_td3_saber_context_eligible_count_matched/results/**
+!experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/results/
+!experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/results/**
 orchestrator_logs/
 *.pt
 runs/

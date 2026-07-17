@@ -17,7 +17,9 @@ This source tree is generated from `SABER/SABER.md` for the FetchPickAndPlace be
 - `td3_her_baseline_ls512`: TD3+HER baseline matched to SABER v4 ls512.
 - `td3_saber_critic_only_v4_ls512`: TD3+SABER critic-only runtime optimized ls512.
 - `td3_her_per_style_loss_weighting_ls512`: TD3+HER with PER-style TD-error priority-derived critic loss weighting and uniform replay sampling.
+- `td3_her_per_full_ls512`: TD3+HER with slot-level full PER sampling and critic-only importance-sampling correction.
 - `sac_her_baseline_ls512`: SAC+HER baseline with uniform critic weighting.
+- `sac_her_per_full_ls512`: SAC+HER with slot-level full PER sampling and critic-only importance-sampling correction.
 - `sac_saber_critic_only_v4_ls512`: SAC+HER+SABER critic-only support weighting with v4 exact Numba lookup.
 
 Generate every command without running:
@@ -31,3 +33,9 @@ Analyze completed runs:
 ```bash
 python3 SABER/FetchPickAndPlace/shared/analyze_results.py
 ```
+
+## Packaged Results
+
+- `paper_artifacts/fpp_td3_sac_her_per_full_1m`: TD3 and SAC HER+PER(full),
+  seeds 1-5 at 1M steps, with sanitized run summaries and compact evaluation
+  curves.

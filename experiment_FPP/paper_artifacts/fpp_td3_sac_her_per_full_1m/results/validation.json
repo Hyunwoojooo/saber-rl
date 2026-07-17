@@ -1,0 +1,200 @@
+{
+  "expected_replay_size": 300000,
+  "expected_steps": 1000000,
+  "expected_updates": 995001,
+  "methods": [
+    "td3_her_per_full",
+    "sac_her_per_full"
+  ],
+  "passed": true,
+  "runs": [
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 100,
+      "method": "td3_her_per_full",
+      "recomputed_AUC_success": 0.34545454545454546,
+      "run_name": "fetch_pick_and_place_td3_her_per_full_ls512_s1_1000000_ls512",
+      "seed": 1
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 100,
+      "method": "td3_her_per_full",
+      "recomputed_AUC_success": 0.4085858585858586,
+      "run_name": "fetch_pick_and_place_td3_her_per_full_ls512_s2_1000000_ls512",
+      "seed": 2
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 100,
+      "method": "td3_her_per_full",
+      "recomputed_AUC_success": 0.3941919191919192,
+      "run_name": "fetch_pick_and_place_td3_her_per_full_ls512_s3_1000000_ls512",
+      "seed": 3
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 100,
+      "method": "td3_her_per_full",
+      "recomputed_AUC_success": 0.3691919191919192,
+      "run_name": "fetch_pick_and_place_td3_her_per_full_ls512_s4_1000000_ls512",
+      "seed": 4
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 100,
+      "method": "td3_her_per_full",
+      "recomputed_AUC_success": 0.32702020202020204,
+      "run_name": "fetch_pick_and_place_td3_her_per_full_ls512_s5_1000000_ls512",
+      "seed": 5
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 40,
+      "method": "sac_her_per_full",
+      "recomputed_AUC_success": 0.7403846153846154,
+      "run_name": "fetch_pick_and_place_sac_her_per_full_ls512_s1_1000000_ls512",
+      "seed": 1
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 40,
+      "method": "sac_her_per_full",
+      "recomputed_AUC_success": 0.6314102564102564,
+      "run_name": "fetch_pick_and_place_sac_her_per_full_ls512_s2_1000000_ls512",
+      "seed": 2
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 40,
+      "method": "sac_her_per_full",
+      "recomputed_AUC_success": 0.6865384615384615,
+      "run_name": "fetch_pick_and_place_sac_her_per_full_ls512_s3_1000000_ls512",
+      "seed": 3
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 40,
+      "method": "sac_her_per_full",
+      "recomputed_AUC_success": 0.6685897435897435,
+      "run_name": "fetch_pick_and_place_sac_her_per_full_ls512_s4_1000000_ls512",
+      "seed": 4
+    },
+    {
+      "checks": {
+        "best_success": true,
+        "evaluation_count": true,
+        "evaluation_grid": true,
+        "final_success": true,
+        "method": true,
+        "native_auc": true,
+        "replay_size": true,
+        "total_steps": true,
+        "total_updates": true
+      },
+      "evaluation_points": 40,
+      "method": "sac_her_per_full",
+      "recomputed_AUC_success": 0.6474358974358975,
+      "run_name": "fetch_pick_and_place_sac_her_per_full_ls512_s5_1000000_ls512",
+      "seed": 5
+    }
+  ],
+  "schema_version": 1,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

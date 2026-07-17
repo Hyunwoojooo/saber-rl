@@ -1,0 +1,486 @@
+{
+  "inputs": [
+    {
+      "path": "experiment_FPP/package_her_per_full_results.py",
+      "sha256": "6eaa5e43fb15e2fde755b6390032a8731ccdd262c0ae96e6cb84c59c225690f8",
+      "size_bytes": 20453
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s1_1000000_ls512/config.json",
+      "sha256": "1378d9dd20cf761ddca2b9f502bbc79267dc968b592b80b68c82870654ea8c3f",
+      "size_bytes": 5228
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s1_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s1_1000000_ls512/metrics.csv",
+      "sha256": "6340d2b2111b2da308be3eab6deda79ca43c0c834d4e6407c5a8a293d60ea5ab",
+      "size_bytes": 26909599
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s1_1000000_ls512/summary.json",
+      "sha256": "72b49d5ad1ee47c5d19db2e06cc47e54909be41f8fc6fff950edec870b2ea3c4",
+      "size_bytes": 6187
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s2_1000000_ls512/config.json",
+      "sha256": "1059134ee95e40b7502854a8cdbf148e9bddf59d8fde86886ee3fa7dd6d82e9c",
+      "size_bytes": 5228
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s2_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s2_1000000_ls512/metrics.csv",
+      "sha256": "4c4cd56fdb4d9525f3c8b307c3189d905f9165812849a84b7357d2eda59bb4a0",
+      "size_bytes": 26793123
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s2_1000000_ls512/summary.json",
+      "sha256": "910cec85b1b275ae441e0ab10574bd1731bd96ffae6e1bf1b32d68aae15824d2",
+      "size_bytes": 6206
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s3_1000000_ls512/config.json",
+      "sha256": "1fb07de5cc85249d6f2b4c6c40522777cc20759df49d0e333755de83ca7f6aaf",
+      "size_bytes": 5228
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s3_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s3_1000000_ls512/metrics.csv",
+      "sha256": "18641f21c6078ac36fac6626d33d6ac73e4fed96468357e0a9ad6927072b33ff",
+      "size_bytes": 26844719
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s3_1000000_ls512/summary.json",
+      "sha256": "d5dffa9ce3884ff26fb98e9c0512b3d9eb385ebedbaafb585482f64ff622d2f4",
+      "size_bytes": 6190
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s4_1000000_ls512/config.json",
+      "sha256": "92f412d079e50d9c322a95610df3c09b8e21aa9874ba1e4beb39ce4150b97c81",
+      "size_bytes": 5228
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s4_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s4_1000000_ls512/metrics.csv",
+      "sha256": "56db4e213c1298792f0954b0556197bb51ed62a406cd71b04d46aef48a25cff5",
+      "size_bytes": 26794357
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s4_1000000_ls512/summary.json",
+      "sha256": "2372bbd8424f05604c2fd8c525c8a1b786ad8835ce1fcf2d57b84d70b724419d",
+      "size_bytes": 6193
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s5_1000000_ls512/config.json",
+      "sha256": "21cda66b2834b36e13770c6c5d9188284dd34f8090d35a6e3993da3c9dd22b3d",
+      "size_bytes": 5228
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s5_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s5_1000000_ls512/metrics.csv",
+      "sha256": "1a5b127a9704566c904907dcbccd2936259231073f8090071185d46a3bb0b216",
+      "size_bytes": 26788061
+    },
+    {
+      "path": "experiment_FPP/runs/sac_her_per_full_ls512/fetch_pick_and_place_sac_her_per_full_ls512_s5_1000000_ls512/summary.json",
+      "sha256": "05cbff1bcc85cac90da556088db4e7eeecb08578c9b5b98fa740d01e543427fb",
+      "size_bytes": 6193
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s1_1000000_ls512/config.json",
+      "sha256": "5e8ca88b0b15b012ab4248b051af6e0f4bd89b9df86c6bb58f63f6d1b1913e07",
+      "size_bytes": 4953
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s1_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s1_1000000_ls512/metrics.csv",
+      "sha256": "f282794707f4286946fcbdd4a31eee527f312c2e2155c0236180223b489c8ad4",
+      "size_bytes": 25419874
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s1_1000000_ls512/summary.json",
+      "sha256": "c798ecf35f6f24dce5480df041d4cb9e7d536e4667b42a0fde362b677752a1b8",
+      "size_bytes": 6023
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s2_1000000_ls512/config.json",
+      "sha256": "dcd95defd38aed8097a4f5bb84b0a7c90e5fd30e103232938b629c3ce0709494",
+      "size_bytes": 4953
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s2_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s2_1000000_ls512/metrics.csv",
+      "sha256": "2461ce1dac4467796a9288cab2e01ff5d330bbc068654c0de6cf07376e3bae80",
+      "size_bytes": 25684836
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s2_1000000_ls512/summary.json",
+      "sha256": "5092e023333d4e2aab1c9fd37e5a1ab90293acd6edb58560ac3e9573e6ef4d85",
+      "size_bytes": 6072
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s3_1000000_ls512/config.json",
+      "sha256": "d2aa4f12544956163413d239806aa58235e9a59c68d47e8a016cc47b7e70b2ba",
+      "size_bytes": 4953
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s3_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s3_1000000_ls512/metrics.csv",
+      "sha256": "9ac72f17318c15dc439534f33b65ae25c6f65af065c273ed25765d18c35dae27",
+      "size_bytes": 25538670
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s3_1000000_ls512/summary.json",
+      "sha256": "5316ed843e5598f2734887041830739836c07a9b58461529d4df4419e4ddb2f4",
+      "size_bytes": 6065
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s4_1000000_ls512/config.json",
+      "sha256": "1e46f1b69d8abbf69f675d25aeb49771c8363ca9f5df95723071b8b620af0e9f",
+      "size_bytes": 4953
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s4_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s4_1000000_ls512/metrics.csv",
+      "sha256": "1c4531aff66a1c3cd956b7801d717315b1e6d39fe82e0eb3c819a122a33c05a8",
+      "size_bytes": 25462740
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s4_1000000_ls512/summary.json",
+      "sha256": "1773723accafebbd28d810961bca74fab1819b4dd45d99b5ae51c54886c2a260",
+      "size_bytes": 6065
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s5_1000000_ls512/config.json",
+      "sha256": "c9d56c9be9ef4ebceadecc7fff9087a4cccb4b5c68f4d950fccb5c99623efbf4",
+      "size_bytes": 4953
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s5_1000000_ls512/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s5_1000000_ls512/metrics.csv",
+      "sha256": "97d42617e9ad066686aaf9d456f464d5316543896a75aa77decf2fbbb6b41c46",
+      "size_bytes": 25451486
+    },
+    {
+      "path": "experiment_FPP/runs/td3_her_per_full_ls512/fetch_pick_and_place_td3_her_per_full_ls512_s5_1000000_ls512/summary.json",
+      "sha256": "49408816fcd692a756e657e2e4a991fae5c778db1b29d66f7f285808c29d32f7",
+      "size_bytes": 6066
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/README.md",
+      "sha256": "809a40a29470b2db1496fa20f0644d03192e48b2ad40bb5b7878b0750787cd7b",
+      "size_bytes": 3929
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
+      "size_bytes": 48
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/agent.py",
+      "sha256": "91f1068428c2f911e6bf7f87ead0a245a29ec5c4eed9fe7c954fe3205e21b857",
+      "size_bytes": 27500
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/config.py",
+      "sha256": "5e07a6382818bd5a9c9f73ba6beeb9b567e8792339d9ad7bc22ac77fd461e53c",
+      "size_bytes": 15988
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "size_bytes": 3943
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "size_bytes": 4028
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ce98ddf76db7fa5ae8742c36bf8f1aaba3340dcd214bc8ffbf625c8519c80d58",
+      "size_bytes": 25008
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "e6407c907e5a711bc9359ebdfde5fd6b0195cb4e2d7b523fb7c5aef1ff9a74cf",
+      "size_bytes": 71979
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/metacog_lite_v0/weights.py",
+      "sha256": "d927c42c6bb8432954bae6201555fefce838d44d787a7f4ad812cb31d0ba029b",
+      "size_bytes": 61834
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/test_b3_runtime_opt_lookup.py",
+      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "size_bytes": 9355
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/test_numba_runtime_opt_fpp.py",
+      "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+      "size_bytes": 6296
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/test_numba_support_scan_fpp.py",
+      "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+      "size_bytes": 9128
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/test_sac_per_full.py",
+      "sha256": "b0f2ba32cef05561741e752f31b9c406286000b0586b349083f1a0d4893131ae",
+      "size_bytes": 14083
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "dee0683362fd0c01343d56fa68145b1da980fa1b7cb60f849b9997b9cd7c7394",
+      "size_bytes": 17181
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/config.json",
+      "sha256": "0da76fef5ce0d05ecf5f8feccbef4bc3c2c444df1135dfc7b85bb542691cb04d",
+      "size_bytes": 2082
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/queue_after_td3_per_full.sh",
+      "sha256": "2a8a4aed2b0706917e6cd494111e7852d2c414619573c0d1cb3fbb65d406e430",
+      "size_bytes": 3630
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/run.py",
+      "sha256": "ec58c7bf7c7dcd299ed5fc4b2596ec18262c7103675fcc286470958e6ee98e49",
+      "size_bytes": 6668
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/run_all_seeds.sh",
+      "sha256": "d35d361b7d126bd1c794cea58699373883d8bb82c1ccebe10d710093fc091597",
+      "size_bytes": 180
+    },
+    {
+      "path": "experiment_FPP/sac_her_per_full_ls512/test_run_config_parity.py",
+      "sha256": "09473b901143dd1e4b89fd4888a4f76468b90c0760ee8ae65b00990a692e55a1",
+      "size_bytes": 4144
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/README.md",
+      "sha256": "14897926e3d5988a7812f4d474cfb6f3b4cfd06ad00e2b9ce1a61ca8ac2f2cea",
+      "size_bytes": 3111
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
+      "size_bytes": 48
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/agent.py",
+      "sha256": "a48a48b9b845dfbff971a3f0234906f5417e9695f55f5c72d51f2c4db46d3ed7",
+      "size_bytes": 15613
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/config.py",
+      "sha256": "2bef11c7c4613c334ad46997f3f77bc9a125de0b43663676bd4c5edb3a9a0e0f",
+      "size_bytes": 15819
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "size_bytes": 3943
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "size_bytes": 4028
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ce98ddf76db7fa5ae8742c36bf8f1aaba3340dcd214bc8ffbf625c8519c80d58",
+      "size_bytes": 25008
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "f304c521413859db47811ae9b820d75bb09643bd3898e1b60bc27ac3af95c77c",
+      "size_bytes": 70600
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_v0/weights.py",
+      "sha256": "6c0f5452b4a4daf4dbe5637c8e220ccd03c01acddcf7a6bcb77e852a7aac7dad",
+      "size_bytes": 61747
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/test_b3_runtime_opt_lookup.py",
+      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "size_bytes": 9355
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/test_numba_runtime_opt_fpp.py",
+      "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+      "size_bytes": 6296
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/test_numba_support_scan_fpp.py",
+      "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+      "size_bytes": 9128
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/test_td3_per_full.py",
+      "sha256": "ac89fd8568fcb696ea6e184eba829134efdfa9b49f78640cb47e35d0e19fa7b9",
+      "size_bytes": 11269
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "d72527ec6343edd9b6e813cbcafc565b6bd8e7b88c3b7509e3927c1df5cbafde",
+      "size_bytes": 16239
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/config.json",
+      "sha256": "5d42f5d20d111f9c646d35ec6beb48b74efbc8e0fec3863f6deb870f930f821b",
+      "size_bytes": 1597
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/run.py",
+      "sha256": "db90d4e8f89f57bfe289dbd25b0fcb6399f424c42d850d517b0d80d4e4276c3a",
+      "size_bytes": 5868
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/run_all_seeds.sh",
+      "sha256": "d35d361b7d126bd1c794cea58699373883d8bb82c1ccebe10d710093fc091597",
+      "size_bytes": 180
+    },
+    {
+      "path": "experiment_FPP/td3_her_per_full_ls512/test_run_config_parity.py",
+      "sha256": "0dccbe25946d2b2819d4033214ad80f374b8de244b0b840455f782434e2b53bd",
+      "size_bytes": 3972
+    }
+  ],
+  "schema_version": 1,
+  "source_head_at_packaging": "8bbfc57a83b58d143e2604ff155257ebe3f2fb79"
+}
