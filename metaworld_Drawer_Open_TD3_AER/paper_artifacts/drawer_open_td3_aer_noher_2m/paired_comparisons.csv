@@ -1,0 +1,16 @@
+comparison,method_key,reference_key,metric,n_pairs,paired_seeds,mean_delta,sample_std_delta,ci95_low,ci95_high,bootstrap_method,bootstrap_distribution_size,positive_pairs,zero_pairs,negative_pairs,exact_sign_flip_p_two_sided,sign_flip_distribution_size
+AER-minus-ER,td3_aer,td3_er,success_auc,5,1;2;3;4;5,-0.088894472361809043,0.12152162717419424,-0.1808040201005025,-0.00015075376884422109,exact_n_to_n_paired_resampling,3125,0,2,3,0.25,8
+AER-minus-ER,td3_aer,td3_er,final_success,5,1;2;3;4;5,-0.40000000000000002,0.54772255750516607,-0.80000000000000004,0,exact_n_to_n_paired_resampling,3125,0,3,2,0.5,4
+AER-minus-ER,td3_aer,td3_er,best_success,5,1;2;3;4;5,-0.41999999999999998,0.53103672189407014,-0.81999999999999995,-0.02,exact_n_to_n_paired_resampling,3125,0,2,3,0.25,8
+AER-minus-ER,td3_aer,td3_er,last_quarter_auc,5,1;2;3;4;5,-0.33775510204081632,0.46301350704393368,-0.68795918367346931,0,exact_n_to_n_paired_resampling,3125,0,3,2,0.5,4
+AER-minus-ER,td3_aer,td3_er,fixed100_success,5,1;2;3;4;5,-0.40000000000000002,0.54772255750516607,-0.80000000000000004,0,exact_n_to_n_paired_resampling,3125,0,3,2,0.5,4
+AER-minus-AnnealingER,td3_aer,td3_annealing_er,success_auc,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AER-minus-AnnealingER,td3_aer,td3_annealing_er,final_success,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AER-minus-AnnealingER,td3_aer,td3_annealing_er,best_success,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AER-minus-AnnealingER,td3_aer,td3_annealing_er,last_quarter_auc,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AER-minus-AnnealingER,td3_aer,td3_annealing_er,fixed100_success,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AnnealingER-minus-ER,td3_annealing_er,td3_er,success_auc,5,1;2;3;4;5,-0.088894472361809043,0.12152162717419424,-0.1808040201005025,-0.00015075376884422109,exact_n_to_n_paired_resampling,3125,0,2,3,0.25,8
+AnnealingER-minus-ER,td3_annealing_er,td3_er,final_success,5,1;2;3;4;5,-0.40000000000000002,0.54772255750516607,-0.80000000000000004,0,exact_n_to_n_paired_resampling,3125,0,3,2,0.5,4
+AnnealingER-minus-ER,td3_annealing_er,td3_er,best_success,5,1;2;3;4;5,-0.41999999999999998,0.53103672189407014,-0.81999999999999995,-0.02,exact_n_to_n_paired_resampling,3125,0,2,3,0.25,8
+AnnealingER-minus-ER,td3_annealing_er,td3_er,last_quarter_auc,5,1;2;3;4;5,-0.33775510204081632,0.46301350704393368,-0.68795918367346931,0,exact_n_to_n_paired_resampling,3125,0,3,2,0.5,4
+AnnealingER-minus-ER,td3_annealing_er,td3_er,fixed100_success,5,1;2;3;4;5,-0.40000000000000002,0.54772255750516607,-0.80000000000000004,0,exact_n_to_n_paired_resampling,3125,0,3,2,0.5,4
