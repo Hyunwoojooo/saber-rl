@@ -1,0 +1,418 @@
+{
+  "artifact_id": "fpp_td3_annealing_er_noher_seeds1_5_1m_arm",
+  "completion": {
+    "all_runs_complete": true,
+    "evaluation_grid_start": 10000,
+    "evaluation_grid_stop": 1000000,
+    "evaluation_grid_stride": 10000,
+    "required_final_step": 1000000,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "excluded": [
+    {
+      "pattern": "checkpoint*.pt",
+      "reason": "large model checkpoints"
+    },
+    {
+      "pattern": "best_checkpoint.pt",
+      "reason": "large model checkpoint"
+    },
+    {
+      "pattern": "metrics.csv",
+      "reason": "full-resolution metrics"
+    },
+    {
+      "pattern": "metrics.jsonl",
+      "reason": "raw event stream"
+    },
+    {
+      "pattern": "*.log",
+      "reason": "runtime logs"
+    }
+  ],
+  "frozen_source_manifest": "provenance/frozen_source_manifest.sha256",
+  "generated_at_utc": "2026-07-17T06:24:59Z",
+  "packaged_files_before_manifests": [
+    {
+      "bytes": 1503,
+      "path": "README.md",
+      "sha256": "9afd864374eadaa2764c1d892677c0c98e3f2e5726546c9953c6ef539b257564"
+    },
+    {
+      "bytes": 629,
+      "path": "aggregate_results.csv",
+      "sha256": "7116ad391c1713a1d7bf21f77ff28e8323ca333c0b28a4f783fcdaa44d0effcb"
+    },
+    {
+      "bytes": 29158,
+      "path": "code/build_artifact.py",
+      "sha256": "65c9f083e6b42b4dc09949bdaf97cdbe68db6e992d93bd4517e5e208aa8e0bdd"
+    },
+    {
+      "bytes": 25780,
+      "path": "code/verify_artifact.py",
+      "sha256": "069c677370f137ff7b605b44dc4c8d70c24c7374620d019077b749e22aa6fd4b"
+    },
+    {
+      "bytes": 1621,
+      "path": "completion_validation.json",
+      "sha256": "5d7a3669d905d0a46fe96e70767b0de7583dd2a2e809f63e3a060cd339e60649"
+    },
+    {
+      "bytes": 451,
+      "path": "data/td3_annealing_er/1/best_checkpoint.json",
+      "sha256": "6e9b65c1b336e3c5c45c3acd0b1a62916032382f0a014dd0a03fc44193ddfdb2"
+    },
+    {
+      "bytes": 4955,
+      "path": "data/td3_annealing_er/1/config.json",
+      "sha256": "946fbc2a76856b24572536c387318c25dab8cd6c3b94584b67f4d602b0f09ae3"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_annealing_er/1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1407,
+      "path": "data/td3_annealing_er/1/final_evaluation_100.json",
+      "sha256": "a5d518e0e8e662d51d9665470036e7a9a0203c493276dd7f365edf4a1a4c294e"
+    },
+    {
+      "bytes": 42041,
+      "path": "data/td3_annealing_er/1/metrics_selected_10k.csv",
+      "sha256": "22b91eb3b94efebdccc36f8d8d7cbf8231412133530019153405c85731d8b9e6"
+    },
+    {
+      "bytes": 6594,
+      "path": "data/td3_annealing_er/1/summary.json",
+      "sha256": "6a227aab5def918c958fb096e383ffe3a3c1b286778dec1fb6f61c7c203b3fe4"
+    },
+    {
+      "bytes": 451,
+      "path": "data/td3_annealing_er/2/best_checkpoint.json",
+      "sha256": "aa3629e95fbe1a5924e51be10e2809bf21bf2271f5028a0e750695b6522cdee1"
+    },
+    {
+      "bytes": 4955,
+      "path": "data/td3_annealing_er/2/config.json",
+      "sha256": "c6f00c745ac9c59a8ba949a53514f0c95bf08c4f08e91cf8e62c80b59e57141b"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_annealing_er/2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1413,
+      "path": "data/td3_annealing_er/2/final_evaluation_100.json",
+      "sha256": "62ee2723c94662cbbbdc6d8308080676486594b53098de7fb50fe8aa35ce196c"
+    },
+    {
+      "bytes": 42163,
+      "path": "data/td3_annealing_er/2/metrics_selected_10k.csv",
+      "sha256": "77f7fab8a629ab2e27d8cad3f08f87e8756907931ea26795661d12afba4e0072"
+    },
+    {
+      "bytes": 6586,
+      "path": "data/td3_annealing_er/2/summary.json",
+      "sha256": "99a9964aef531b12f5a91c187a9666454e160b296bdacc7302b36cd3c5f5d0e2"
+    },
+    {
+      "bytes": 458,
+      "path": "data/td3_annealing_er/3/best_checkpoint.json",
+      "sha256": "3faf86d56d8d30d3fa2d72fb741e5b3ce74cac74bf32731b49b0ee98c14c5363"
+    },
+    {
+      "bytes": 4955,
+      "path": "data/td3_annealing_er/3/config.json",
+      "sha256": "631aea39590174f515c33ffe25b3dce7475eb3cc551c53cfbf1f36f7ceecb8b9"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_annealing_er/3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1413,
+      "path": "data/td3_annealing_er/3/final_evaluation_100.json",
+      "sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611"
+    },
+    {
+      "bytes": 41730,
+      "path": "data/td3_annealing_er/3/metrics_selected_10k.csv",
+      "sha256": "cdbfecb708b1c9c2b5420bec498c039c80fcf5f5f60486c286c16a1f665daa85"
+    },
+    {
+      "bytes": 6590,
+      "path": "data/td3_annealing_er/3/summary.json",
+      "sha256": "94133c76677153f364b4d077ce14148bffe9f5c4ce42718eb371816d36df07fb"
+    },
+    {
+      "bytes": 458,
+      "path": "data/td3_annealing_er/4/best_checkpoint.json",
+      "sha256": "5995f7727ade2a1c46c634b1ba398e38690c68b863f156a9bb4e809f2ae428eb"
+    },
+    {
+      "bytes": 4955,
+      "path": "data/td3_annealing_er/4/config.json",
+      "sha256": "27df6deaead38959de84cb0361f8745033a81ab229b9adbc1aa6884de05e169d"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_annealing_er/4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1413,
+      "path": "data/td3_annealing_er/4/final_evaluation_100.json",
+      "sha256": "be7e6eb9e0a70bce19552527a6d079d70f28118b3932c45745d7d8306c69a2f1"
+    },
+    {
+      "bytes": 42074,
+      "path": "data/td3_annealing_er/4/metrics_selected_10k.csv",
+      "sha256": "6dc551c1aeeb24b7a013123b8ef1972644bf130dee78758f5689c5c21335bad8"
+    },
+    {
+      "bytes": 6580,
+      "path": "data/td3_annealing_er/4/summary.json",
+      "sha256": "f0fd8bac4cb7437692f5ac8b3a4cb688866b69d935e9ae203b92043efbf68e97"
+    },
+    {
+      "bytes": 458,
+      "path": "data/td3_annealing_er/5/best_checkpoint.json",
+      "sha256": "4a056566f1e1868c6c4e29a0942dc288598fdad04df8454dda68553f6432a234"
+    },
+    {
+      "bytes": 4955,
+      "path": "data/td3_annealing_er/5/config.json",
+      "sha256": "eb58b124c7b2669d6b135fc4ff535773b87a8155b59ee36812054c9bde607688"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_annealing_er/5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1421,
+      "path": "data/td3_annealing_er/5/final_evaluation_100.json",
+      "sha256": "9293db79451a6d0186995453193287c975986d7bc3e6a7f2cb915cb2ffc681a9"
+    },
+    {
+      "bytes": 41875,
+      "path": "data/td3_annealing_er/5/metrics_selected_10k.csv",
+      "sha256": "660dfc500455bb87c9de5009232102ce2da14db3fc05efb8c9ed8f74071a36a7"
+    },
+    {
+      "bytes": 6589,
+      "path": "data/td3_annealing_er/5/summary.json",
+      "sha256": "88a1c9353850315c09fb6349719cb1b2291bcb21db7a2ad88000a93c43b3f441"
+    },
+    {
+      "bytes": 1468,
+      "path": "per_seed_results.csv",
+      "sha256": "9a103cea785820701939df3a2be21524ada16d63468fd673fc2674cbf22b1b1d"
+    },
+    {
+      "bytes": 2790,
+      "path": "provenance/frozen_source_manifest.sha256",
+      "sha256": "4c415f61e763edb1cd9a1acc48791b48de4dcdc1e8a66b4244bd0f5fbacb44f9"
+    },
+    {
+      "bytes": 41,
+      "path": "provenance/source_commit.txt",
+      "sha256": "b632dd70c3049d96643d7f767e8f75bfd8a2afe47d021468af95d13b66070be7"
+    }
+  ],
+  "schema_version": "1.0",
+  "sha256sums_scope": "all artifact files except SHA256SUMS itself",
+  "source_artifacts": [
+    {
+      "packaged_path": "data/td3_annealing_er/1/summary.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s1_1000000/summary.json",
+      "source_sha256": "63275d3390f33dfbd7e83447d5025eeab31b1883056ee1953b1696868b563633",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/1/config.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s1_1000000/config.json",
+      "source_sha256": "493238a0f6cc46eb04908d76198988be5f33fe06c9aa832691b59d0b7c462803",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/1/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s1_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/1/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s1_1000000/final_evaluation_100.json",
+      "source_sha256": "a5d518e0e8e662d51d9665470036e7a9a0203c493276dd7f365edf4a1a4c294e",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/1/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s1_1000000/best_checkpoint.json",
+      "source_sha256": "271373e671f07a48ec6367cc9e33887919a9e67fe91aed6d1a7092974ee9a7d0",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/1/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s1_1000000/metrics.csv",
+      "source_sha256": "b62bad2edf97acab6c8e33d9f0818d30407071d56cce5340b2206fee79333f9d",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/2/summary.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s2_1000000/summary.json",
+      "source_sha256": "e65b2c0f0194067ec82c1fbe65f3b594f6c6131c1442df1783607bf9ee292bb0",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/2/config.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s2_1000000/config.json",
+      "source_sha256": "5ff341c3efa74c3940c635a2b36e0d75c6ad84e942f506d972acb74d7da3d001",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/2/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s2_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/2/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s2_1000000/final_evaluation_100.json",
+      "source_sha256": "62ee2723c94662cbbbdc6d8308080676486594b53098de7fb50fe8aa35ce196c",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/2/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s2_1000000/best_checkpoint.json",
+      "source_sha256": "d372d7a83c46ae9c7579889608ff0dee4924ac8f923f0cc74eff5422b9a291f5",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/2/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s2_1000000/metrics.csv",
+      "source_sha256": "92d098c497daf8582bd87500b69636d7be5b5f86e8d2f9ba2821c2dc358b0fe4",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/3/summary.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s3_1000000/summary.json",
+      "source_sha256": "f4c29d19abbca47db61b68ec2cb9c0dd6f03c6e7a274d2afa6ee45805bd9e0e1",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/3/config.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s3_1000000/config.json",
+      "source_sha256": "c8ebfbd955748ac4e04b79fad096b481da411991019881e63e4dbafc0ba53843",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/3/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s3_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/3/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s3_1000000/final_evaluation_100.json",
+      "source_sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/3/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s3_1000000/best_checkpoint.json",
+      "source_sha256": "2ae218868d03e2ea30d75512ace76f0632053fb7749e8142e0e3f9f5d2529c1f",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/3/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s3_1000000/metrics.csv",
+      "source_sha256": "d0f259aaa0429ed6296892b4c3ba02696c1862a60c507073400a47c0aceb18b1",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/4/summary.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s4_1000000/summary.json",
+      "source_sha256": "087443ad5ac54c6d4e0dcc1b80f44455bb2b5f4134464ec4856f2a2d685d8053",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/4/config.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s4_1000000/config.json",
+      "source_sha256": "601d187face30e11a88b086e47295a4c20be5a90f162efb9fc86761f6bc2184a",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/4/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s4_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/4/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s4_1000000/final_evaluation_100.json",
+      "source_sha256": "be7e6eb9e0a70bce19552527a6d079d70f28118b3932c45745d7d8306c69a2f1",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/4/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s4_1000000/best_checkpoint.json",
+      "source_sha256": "4bec9024ed4bc7afda8f33f2800ed8bdc9483efa5fd1228d90bc339b8384d3e0",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/4/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s4_1000000/metrics.csv",
+      "source_sha256": "4457461e79b161e3af3773abe4afd57c555339edc65641cd83fe5c1f08a63b2c",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/5/summary.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s5_1000000/summary.json",
+      "source_sha256": "7ae813c9f957573ccc5eac1599d650438c77111db077197493eee67fd5ae7d79",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/5/config.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s5_1000000/config.json",
+      "source_sha256": "23dab6291304e9860dbc38c15039aba7a5a69d9ba21c21c9751d7950d1696251",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/5/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s5_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/5/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s5_1000000/final_evaluation_100.json",
+      "source_sha256": "9293db79451a6d0186995453193287c975986d7bc3e6a7f2cb915cb2ffc681a9",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/5/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s5_1000000/best_checkpoint.json",
+      "source_sha256": "ab1b2a914d4993fedfe936809ea1a83304669f4a13884e84b8607a95139317f8",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_annealing_er/5/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_annealing_er_noher_s5_1000000/metrics.csv",
+      "source_sha256": "5763454598957ff87cf777bd6fbde893eb5df4022c0a13d6994e798ae07da963",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    }
+  ],
+  "source_commit_full": "8c53c789f6f5cb6a45beceb4462a209cf6100d7e"
+}

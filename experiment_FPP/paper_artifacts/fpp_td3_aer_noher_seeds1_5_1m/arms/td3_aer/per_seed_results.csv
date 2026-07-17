@@ -1,0 +1,6 @@
+artifact_id,seed,run_name,method,total_steps,episodes,total_updates,best_eval_step,best_eval_success,final_eval_success,eval_AUC_success,first_hit_0.25,first_hit_0.50,first_hit_0.75,first_hit_0.90,fixed_final_eval_return,fixed_final_eval_goal_success,fixed_final_eval_env_success,runtime_total_sec,final_steps_per_sec
+fpp_td3_aer_noher_seeds1_5_1m_arm,1,fetch_pick_and_place_td3_aer_noher_s1_1000000,td3_aer,1000000,20000,995001,960000,0.2,0.0,0.038636363636363635,,,,,-49.0,0.02,0.02,38231.76175569114,26.156262596272875
+fpp_td3_aer_noher_seeds1_5_1m_arm,2,fetch_pick_and_place_td3_aer_noher_s2_1000000,td3_aer,1000000,20000,995001,960000,0.2,0.0,0.037626262626262626,,,,,-48.5,0.03,0.03,38134.76914301189,26.222788874106712
+fpp_td3_aer_noher_seeds1_5_1m_arm,3,fetch_pick_and_place_td3_aer_noher_s3_1000000,td3_aer,1000000,20000,995001,200000,0.15,0.0,0.037626262626262626,,,,,-48.5,0.03,0.03,38298.94006312196,26.110383168616714
+fpp_td3_aer_noher_seeds1_5_1m_arm,4,fetch_pick_and_place_td3_aer_noher_s4_1000000,td3_aer,1000000,20000,995001,200000,0.15,0.0,0.04040404040404041,,,,,-48.5,0.03,0.03,38188.35330715589,26.185994246906056
+fpp_td3_aer_noher_seeds1_5_1m_arm,5,fetch_pick_and_place_td3_aer_noher_s5_1000000,td3_aer,1000000,20000,995001,100000,0.15,0.0,0.04217171717171717,,,,,-48.0,0.04,0.04,37849.20777864102,26.420632258631255

@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "artifact_id": "fpp_td3_aer_noher_seeds1_5_1m",
+  "source_commit_full": "8c53c789f6f5cb6a45beceb4462a209cf6100d7e",
+  "environment": "FetchPickAndPlace-v4",
+  "reward_type": "sparse",
+  "her_ratio": 0.0,
+  "seeds": [1, 2, 3, 4, 5],
+  "total_steps_per_run": 1000000,
+  "all_15_runs_complete": true,
+  "methods": ["td3_er", "td3_annealing_er", "td3_aer"],
+  "evaluation": {
+    "grid_start": 10000,
+    "grid_stop": 1000000,
+    "grid_stride": 10000,
+    "grid_count": 100,
+    "online_episodes": 20,
+    "fixed_final_episodes": 100
+  },
+  "primary_endpoint": "normalized trapezoidal eval/success_mean AUC on exact 10k..1M grid",
+  "paired_inference": {
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed_base": 27012027,
+    "exact_sign_flip": "two-sided exhaustive paired signs"
+  },
+  "excluded": [
+    "checkpoint.pt",
+    "best_checkpoint.pt",
+    "full-resolution metrics.csv",
+    "metrics.jsonl",
+    "run.log",
+    "20k smoke outputs"
+  ]
+}
