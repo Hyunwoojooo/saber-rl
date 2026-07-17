@@ -9,7 +9,7 @@ Paper label: **HGR (pair priority + IS)**
 
 ## Scope
 
-The artifact replaces the earlier DrawerOpen sampler-only HGR result. It covers
+This artifact contains the official DrawerOpen DDPG Full HGR result. It covers
 seeds 1-5, 2,000,000 environment steps, deterministic evaluation every 10,000
 steps with 20 episodes, and the exact recorded evaluation grid. The matched
 DDPG+HER and critic-only SABER rows are recomputed from their same-seed curves.

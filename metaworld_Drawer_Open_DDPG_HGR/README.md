@@ -61,12 +61,9 @@ HGR 설정:
 
 SABER support lookup/loss weighting, PER, high replay ratio는 사용하지 않는다.
 
-## 기존 결과와의 구분
+## 출력 경로
 
-기존 `runs/ddpg_hgr_tdpriority_2m/` 및 `runs/ddpg_hgr_tdpriority_2m_opt/` 결과는
-transition-slot priority와 on-the-fly future-goal ranking을 사용한 legacy 구현이다.
-full pair table과 HGR IS correction이 없으므로 정식 HGR baseline 결과로 사용하거나 새
-체크포인트로 resume하면 안 된다. 새 실험은 별도 경로에 기록한다.
+Full HGR 실험은 다음 경로에 기록한다.
 
 ```text
 runs/ddpg_hgr_tdpriority_original_pair_is_2m/
@@ -161,8 +158,8 @@ SEED_LIST="1 2" STEPS=200000 STEP_TAG=pilot200k \
 
 ## 운영상 주의
 
-- full pair table은 legacy 구현보다 메모리를 더 쓴다. horizon 200, replay 300k가 모두
-  완료 에피소드로 채워지면 seed당 priority array만 약 121 MB이다.
+- full pair table은 horizon 200, replay 300k가 모두 완료 에피소드로 채워지면 seed당
+  priority array만 약 121 MB를 사용한다.
 - replay가 slot을 덮어쓸 때 해당 과거 에피소드의 pair table 전체를 제거한다.
 - `hgr_priority_clip_max=0`이 정식 설정이다. 비정상 TD 값은 safety replacement
   metric으로 감시한다.

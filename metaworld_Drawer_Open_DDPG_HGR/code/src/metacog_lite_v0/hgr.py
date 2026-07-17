@@ -485,8 +485,8 @@ class HGRSampler:
         self._rebuild_slot_index(replay)
         if payload.get("schema") != HGR_STATE_SCHEMA:
             raise ValueError(
-                "Incompatible HGR checkpoint schema; do not resume a legacy "
-                "transition-priority run as the original pair-priority experiment"
+                "Incompatible HGR checkpoint schema; expected "
+                "hgr_episode_pair_priority_v1"
             )
         self._tables.clear()
         self.max_priority = max(self.priority_eps, float(payload.get("max_priority", self.priority_init)))

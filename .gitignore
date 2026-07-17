@@ -18,3 +18,4 @@ orchestrator_logs/
 runs/
 runs_*/
 *.bak
+*.log

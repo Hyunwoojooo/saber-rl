@@ -16,8 +16,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "12fefb8bb1e22086de560599df3a424551b0f6929461f0ee8fa2ea90a9080fa1",
-      "size_bytes": 5736
+      "sha256": "077d538ce1f1f722d41534ec5b565ea2618f41d618435717d8bf707f4e03c7dd",
+      "size_bytes": 5735
     },
     {
       "path": "aggregate_results.csv",
@@ -26,8 +26,8 @@
     },
     {
       "path": "code/build_artifact.py",
-      "sha256": "6782a9f98d17c9376cd1b14c3de241ecc2a3bb92fd438d1fcd5ea7cfad71df77",
-      "size_bytes": 27957
+      "sha256": "48eb2e37ccd89b30e17e07726ea498463da09983611a8e580e39b5392de4d6ab",
+      "size_bytes": 27956
     },
     {
       "path": "code/verify_artifact.py",
@@ -232,5 +232,5 @@
       "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda"
     }
   ],
-  "total_size_bytes": 765693
+  "total_size_bytes": 765691
 }
