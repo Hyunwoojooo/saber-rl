@@ -1,0 +1,60 @@
+{
+  "all_runs_complete": true,
+  "artifact_id": "fpp_td3_er_noher_seeds1_5_1m",
+  "evaluation_grid": {
+    "count": 100,
+    "start": 10000,
+    "stop": 1000000,
+    "stride": 10000
+  },
+  "required_files_per_seed": [
+    "summary.json",
+    "config.json",
+    "env_snapshot.json",
+    "final_evaluation_100.json",
+    "best_checkpoint.json",
+    "metrics_selected_10k.csv"
+  ],
+  "seeds": [
+    {
+      "evaluation_points": 100,
+      "fixed_final_evaluation_parity": true,
+      "run_name": "fetch_pick_and_place_td3_er_noher_s1_1000000",
+      "seed": 1,
+      "summary_parity": true,
+      "total_steps": 1000000
+    },
+    {
+      "evaluation_points": 100,
+      "fixed_final_evaluation_parity": true,
+      "run_name": "fetch_pick_and_place_td3_er_noher_s2_1000000",
+      "seed": 2,
+      "summary_parity": true,
+      "total_steps": 1000000
+    },
+    {
+      "evaluation_points": 100,
+      "fixed_final_evaluation_parity": true,
+      "run_name": "fetch_pick_and_place_td3_er_noher_s3_1000000",
+      "seed": 3,
+      "summary_parity": true,
+      "total_steps": 1000000
+    },
+    {
+      "evaluation_points": 100,
+      "fixed_final_evaluation_parity": true,
+      "run_name": "fetch_pick_and_place_td3_er_noher_s4_1000000",
+      "seed": 4,
+      "summary_parity": true,
+      "total_steps": 1000000
+    },
+    {
+      "evaluation_points": 100,
+      "fixed_final_evaluation_parity": true,
+      "run_name": "fetch_pick_and_place_td3_er_noher_s5_1000000",
+      "seed": 5,
+      "summary_parity": true,
+      "total_steps": 1000000
+    }
+  ]
+}

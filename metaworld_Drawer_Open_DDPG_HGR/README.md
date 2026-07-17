@@ -1,173 +1,169 @@
-# MetaWorld DrawerOpen DDPG+HER+HGR Baseline
+# MetaWorld DrawerOpen DDPG+HER+HGR 정식 baseline
 
-This folder is an independent DrawerOpen DDPG+HGR experiment snapshot. It was copied from `metaworld_Drawer_Open_DDPG/` so the original B0/SABER/PER DrawerOpen code remains unchanged.
+이 디렉터리는 DrawerOpen DDPG+HER에 Hindsight Goal Ranking(HGR)을 적용한 독립 실험
+snapshot이다. `metaworld_Drawer_Open_DDPG/`의 B0/SABER 코드는 변경하지 않는다.
 
-## What HGR Is
+여기서 정식 baseline은
+`experiment_FPP/ddpg_hgr_tdpriority_1m/`과 같은 completed-episode
+pair-priority, importance sampling(IS), beta annealing, replay overwrite, checkpoint
+semantics를 사용한다.
 
-Hindsight Goal Ranking (HGR) is not a backbone RL algorithm. The backbone here is still DDPG, and HER is still the sparse goal relabeling framework. HGR changes only the hindsight replay sampling policy:
+## HGR 개입 정의
 
-1. sample episodes with higher average TD-error priority more often;
-2. inside the selected episode, rank future achieved-goal candidates by current TD error and sample the hindsight goal from that distribution.
+HGR는 DDPG 자체를 바꾸지 않고 HER relabel 샘플의 선택 분포를 바꾼다.
 
-This implementation is the two-step TD-error HGR baseline, not HGR-lite. It implements both episode priority and future-goal priority.
+에피소드 길이가 \(T\)일 때 완료된 에피소드마다 모든 유효한
+\((j, i)\), \(0 \le j < i \le T\) 쌍을 저장한다. 코드에서는 transition slot
+\(j\)와 `next_achieved_goal[k] = g_(k+1)`를 연결하므로 \(k \ge j\)이며, 한
+에피소드의 pair 수는 \(T(T+1)/2\)이다. DrawerOpen의 \(T=200\)에서는 에피소드당
+20,100개이다.
 
-## Held Fixed From DrawerOpen DDPG+HER
+샘플링은 다음 두 단계다.
 
-- Task: `drawer_open`
-- Environment: `drawer-open-v3`
-- Reward: sparse
-- Episode horizon: 200
-- Actor architecture: unchanged DDPG actor
-- Critic architecture: unchanged single-critic DDPG critic
-- Target computation: unchanged DDPG target path
-- Optimizers: Adam, actor/critic lr `3e-4`
-- Gamma/tau: `0.98` / `0.005`
-- Exploration noise: `0.2`
-- Batch size: `256`
-- Replay capacity: `300000`
-- HER ratio: `0.8`
-- Updates per env step: `1`
-- Terminal convention: `success_terminates=false`, `timeout_bootstrap=true`
-- Critic and actor loss weights: all ones
+1. 에피소드 pair priority 평균으로 에피소드를 선택한다.
+2. 선택된 에피소드 안에서 pair priority로 transition/future-goal 쌍을 선택한다.
 
-SABER support lookup, SABER critic loss weighting, PER, and high replay-ratio are off for `method=hgr`.
+확률은 각각 `alpha_episode=0.6`, `alpha_goal=0.6`을 적용한다. 새 pair는 현재 global
+maximum priority로 초기화되며, critic update 직전에 계산된 absolute TD error를
+사용해 실제로 샘플된 relabel pair만 갱신한다.
 
-## HGR-Specific Settings
+critic의 HGR relabel 샘플에는 에피소드와 pair 선택확률의 곱에 대한 IS weight를
+적용하고, relabel 샘플 내 최대값이 1이 되도록 정규화한다. actor weight와 원래
+desired-goal branch의 critic weight는 항상 1이다.
 
-Defaults:
+## 고정된 DrawerOpen 설정
+
+- 환경: MetaWorld `drawer-open-v3`, sparse reward, reward function `v2`
+- horizon: 200
+- backbone: single-critic DDPG
+- batch / replay: 256 / 300,000
+- HER ratio: 0.8
+- total steps: 2,000,000
+- start / warmup steps: 10,000 / 5,000
+- updates per environment step: 1
+- actor / critic learning rate: 각각 3e-4
+- gamma / tau: 0.98 / 0.005
+- exploration noise: 0.2
+- terminal convention: `success_terminates=false`, `timeout_bootstrap=true`
+- seeds: 1, 2, 3, 4, 5
+
+HGR 설정:
 
 - `hgr_priority_eps = 1e-6`
 - `hgr_priority_init = 1.0`
-- `hgr_priority_clip_max = 50.0`
-- `hgr_alpha_episode = 1.0`
-- `hgr_alpha_goal = 1.0`
+- `hgr_priority_clip_max = 0.0` (clipping 비활성)
+- `hgr_alpha_episode = hgr_alpha_goal = 0.6`
+- `hgr_beta_episode_initial = hgr_beta_goal_initial = 0.4`
+- `hgr_beta_episode_final = hgr_beta_goal_final = 1.0`
+- `hgr_beta_anneal_updates = 0`: 첫 critic update부터 마지막 예정 update까지 자동 선형 anneal
 - `hgr_uniform_mix = 0.0`
-- `hgr_max_future_candidates = 50`
-- `hgr_episode_priority_ema = 0.0`
+- checkpoint schema: `hgr_episode_pair_priority_v1`
 
-Priority storage:
+SABER support lookup/loss weighting, PER, high replay ratio는 사용하지 않는다.
 
-- per replay-slot transition priority is stored in `HGRSampler.slot_priority`;
-- episode priority is maintained as the mean of valid transition priorities;
-- future-goal TD errors are computed on the fly and are not stored as a large goal table.
+## 기존 결과와의 구분
 
-Goal relabel convention follows the existing DrawerOpen HER code path and uses future `next_achieved_goal` values from replay.
+기존 `runs/ddpg_hgr_tdpriority_2m/` 및 `runs/ddpg_hgr_tdpriority_2m_opt/` 결과는
+transition-slot priority와 on-the-fly future-goal ranking을 사용한 legacy 구현이다.
+full pair table과 HGR IS correction이 없으므로 정식 HGR baseline 결과로 사용하거나 새
+체크포인트로 resume하면 안 된다. 새 실험은 별도 경로에 기록한다.
 
-## Files
-
-- Source root: `metaworld_Drawer_Open_DDPG_HGR/`
-- Trainer: `code/src/train_drawer_open_lite_v0.py`
-- HGR sampler: `code/src/metacog_lite_v0/hgr.py`
-- Replay change: `code/src/metacog_lite_v0/replay.py` returns the written replay slot from `add_transition()`
-- Fake-batch test: `code/src/test_hgr_fake_batch.py`
-- Launcher: `DDPG-HER-HGR-2M.sh`
-- Default results: `metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_2m/`
-- Default logs: `metaworld_Drawer_Open_DDPG_HGR/logs/ddpg_hgr_tdpriority_2m/`
-
-The repository `.gitignore` already excludes checkpoints (`*.pt`), logs, `results*`, and `logs*`. This folder writes full artifacts under `runs/` by default so they can be excluded or curated separately before pushing.
-
-## Logged Artifacts
-
-Each run writes:
-
-- `config.json`
-- `env_snapshot.json`
-- `run.log`
-- `metrics.csv`
-- `metrics.jsonl`
-- `metrics_selected_10k.csv`
-- `summary.json`
-- `checkpoint.pt` and `best_checkpoint.pt` unless disabled by the launcher
-
-Selected HGR metrics:
-
-- `hgr/episode_priority_mean`
-- `hgr/episode_priority_std`
-- `hgr/episode_priority_max`
-- `hgr/goal_priority_entropy_mean`
-- `hgr/goal_selected_rank_mean`
-- `hgr/candidate_td_error_mean`
-- `hgr/candidate_td_error_max`
-- `hgr/relabel_fraction`
-- `hgr/priority_clip_rate`
-- `runtime/hgr_sampling_sec_per_update`
-
-Selected performance/runtime metrics:
-
-- final success
-- best success
-- AUC success
-- last-quarter AUC success
-- Hit90 reached flag and first Hit90 step
-- steps/sec
-- updates/sec
-- runtime hours
-- AUC/hour
-- critic loss
-- actor loss
-
-## Validation Commands
-
-Compile:
-
-```bash
-PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src python3 -m py_compile   metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/hgr.py   metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/replay.py   metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/trainer.py   metaworld_Drawer_Open_DDPG_HGR/code/src/train_drawer_open_lite_v0.py   metaworld_Drawer_Open_DDPG_HGR/code/src/test_hgr_fake_batch.py
+```text
+runs/ddpg_hgr_tdpriority_original_pair_is_2m/
+  DDPG-HER-HGR-original-pair-is-2m/
+    drawer_open_ddpg_hgr_original_pair_is_s{1..5}_2m_cuda/
 ```
 
-Launcher syntax:
+로그도 `logs/ddpg_hgr_tdpriority_original_pair_is_2m/` 아래에 분리한다.
+
+## 완료 결과: Full HGR 2M
+
+2026-07-15 UTC에 정식 pair-priority + IS 설정으로 seeds 1-5, seed당 2M
+environment steps를 완료했다. 아래 AUC는 정확한 `10k, 20k, ..., 2M` 평가 grid에서
+계산했으며 smoothing, interpolation, carry-forward를 사용하지 않았다.
+
+| Seed | Final success | Best success | AUC | Last-quarter AUC | Hit90 | Steps/s |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 0.50 | 1.00 | 0.800 | 0.995 | 410k | 13.24 |
+| 2 | 1.00 | 1.00 | 0.705 | 0.990 | 530k | 13.24 |
+| 3 | 1.00 | 1.00 | 0.692 | 0.994 | 610k | 13.24 |
+| 4 | 1.00 | 1.00 | 0.795 | 0.998 | 430k | 13.24 |
+| 5 | 1.00 | 1.00 | 0.449 | 0.938 | 1060k | 13.26 |
+| Mean | 0.90 | 1.00 | 0.688 | 0.983 | 608k | 13.24 |
+
+- AUC sample standard deviation: 0.142
+- Hit90 coverage: 5/5, median 530k
+- matched HER 대비 paired AUC 차이: `+0.481`, 95% bootstrap CI
+  `[0.151, 0.738]`
+- critic-only SABER 대비 paired AUC 차이: `-0.065`, 95% bootstrap CI
+  `[-0.219, 0.047]`
+
+Full HGR은 matched DDPG+HER보다 강한 결과를 보였다. SABER의 mean AUC가 더 높지만,
+HGR-minus-SABER paired interval이 0을 포함하므로 이 다섯 seed만으로 어느 한 방법의
+우위를 주장할 수 없다. HGR은 HER sampling과 IS correction을 바꾸고 SABER는 고정된
+HER minibatch의 critic-loss allocation을 바꾸므로, 이는 동일 backbone/budget의 전체
+방법 비교이지 동일한 개입 지점의 mechanism-isolated 비교는 아니다.
+
+원자료, exact-grid curves, seed별 compact payload, aggregate/paired 통계 및 검증 코드는
+[`paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/`](paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/README.md)에 있다.
+
+## 구현과 기록
+
+- sampler: `code/src/metacog_lite_v0/hgr.py`
+- replay metadata: `code/src/metacog_lite_v0/replay.py`
+- training integration: `code/src/metacog_lite_v0/trainer.py`
+- entrypoint: `code/src/train_drawer_open_lite_v0.py`
+- 회귀 테스트: `code/src/test_hgr_fake_batch.py`
+- launcher: `DDPG-HER-HGR-2M.sh`
+
+각 run은 성능 지표와 함께 pair table 수/메모리, episode/pair 확률, raw/normalized IS
+weight, beta와 진행률, clipping/safety replacement, sampling runtime을 기록한다.
+체크포인트에는 replay와 pair table, global max priority, critic update count, beta
+schedule state가 함께 들어간다.
+
+## 검증
 
 ```bash
+PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src \
+  .venv/bin/python -m py_compile \
+  metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/config.py \
+  metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/hgr.py \
+  metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/replay.py \
+  metaworld_Drawer_Open_DDPG_HGR/code/src/metacog_lite_v0/trainer.py \
+  metaworld_Drawer_Open_DDPG_HGR/code/src/train_drawer_open_lite_v0.py \
+  metaworld_Drawer_Open_DDPG_HGR/code/src/test_hgr_fake_batch.py
+
+PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src \
+  .venv/bin/python metaworld_Drawer_Open_DDPG_HGR/code/src/test_hgr_fake_batch.py
+
+PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src \
+  .venv/bin/python metaworld_Drawer_Open_DDPG_HGR/code/src/train_drawer_open_lite_v0.py \
+  --method hgr --weight_scope none --validate_only --device cpu
+
 bash -n metaworld_Drawer_Open_DDPG_HGR/DDPG-HER-HGR-2M.sh
-```
-
-Dry-run command generation:
-
-```bash
 DRY_RUN=1 metaworld_Drawer_Open_DDPG_HGR/DDPG-HER-HGR-2M.sh
 ```
 
-Fake-batch HGR sampler test:
+## 실행
+
+정식 2M, seeds 1–5:
 
 ```bash
-PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src   python3 metaworld_Drawer_Open_DDPG_HGR/code/src/test_hgr_fake_batch.py
+CUDA_DEVICE=0 metaworld_Drawer_Open_DDPG_HGR/DDPG-HER-HGR-2M.sh
 ```
 
-Validate DrawerOpen setup, including HGR sampling:
+일부 seed만 실행할 때는 공백으로 구분한다.
 
 ```bash
-PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src   python3 metaworld_Drawer_Open_DDPG_HGR/code/src/train_drawer_open_lite_v0.py   --method hgr --weight_scope none --validate_only --device cpu
+SEED_LIST="1 2" STEPS=200000 STEP_TAG=pilot200k \
+  CUDA_DEVICE=0 metaworld_Drawer_Open_DDPG_HGR/DDPG-HER-HGR-2M.sh
 ```
 
-## Execution Plan
+## 운영상 주의
 
-1. 1k dry run:
-
-```bash
-PYTHONPATH=metaworld_Drawer_Open_DDPG_HGR/code/src python3 metaworld_Drawer_Open_DDPG_HGR/code/src/train_drawer_open_lite_v0.py   --method hgr --weight_scope none --device cpu   --run_name drawer_open_ddpg_hgr_tdpriority_s1_1k_cpu   --output_root metaworld_Drawer_Open_DDPG_HGR/runs/dry_1k   --total_steps 1000 --start_steps 100 --warmup_steps 100   --batch_size 64 --buffer_capacity 20000 --eval_freq 1000 --eval_episodes 2   --checkpoint_every_steps 1000 --no_save_step_checkpoints
-```
-
-2. 50k smoke seed 1:
-
-```bash
-STEPS=50000 STEP_TAG=50k CUDA_DEVICE=0 metaworld_Drawer_Open_DDPG_HGR/DDPG-HER-HGR-2M.sh
-```
-
-3. 200k pilot seeds 1-2: run the launcher after temporarily limiting the seed loop or launch two explicit commands with `STEPS=200000 STEP_TAG=200k`.
-
-4. 2M full seeds 1-5:
-
-```bash
-STEPS=2000000 STEP_TAG=2m CUDA_DEVICE=0 metaworld_Drawer_Open_DDPG_HGR/DDPG-HER-HGR-2M.sh
-```
-
-## Paper Interpretation
-
-If HGR is stronger than SABER on DrawerOpen DDPG, the interpretation is that TD-error-based hindsight goal prioritization can be stronger in this task, while SABER targets a different intervention point: critic-loss allocation under matched HER relabeling.
-
-If SABER is similar to or stronger than HGR, the interpretation is that SABER remains competitive with a TD-error-based hindsight goal-prioritization baseline while changing only critic loss allocation.
-
-## Remaining Risks
-
-- HGR does extra no-grad critic evaluations during sampling, so runtime can be materially slower than B0.
-- `hgr_max_future_candidates=50` caps DrawerOpen future candidates. Set it to `0` for full future candidate scoring if runtime allows.
-- If priority sharpness is unstable, use `hgr_alpha_goal=0.6` or a small `hgr_uniform_mix` such as `0.05` as fallback ablations.
+- full pair table은 legacy 구현보다 메모리를 더 쓴다. horizon 200, replay 300k가 모두
+  완료 에피소드로 채워지면 seed당 priority array만 약 121 MB이다.
+- replay가 slot을 덮어쓸 때 해당 과거 에피소드의 pair table 전체를 제거한다.
+- `hgr_priority_clip_max=0`이 정식 설정이다. 비정상 TD 값은 safety replacement
+  metric으로 감시한다.
+- 다섯 seed를 한 GPU에서 병렬 실행하므로 GPU 메모리와 처리량을 시작 직후 확인한다.

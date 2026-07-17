@@ -1,0 +1,418 @@
+{
+  "artifact_id": "fpp_td3_er_noher_seeds1_5_1m",
+  "completion": {
+    "all_runs_complete": true,
+    "evaluation_grid_start": 10000,
+    "evaluation_grid_stop": 1000000,
+    "evaluation_grid_stride": 10000,
+    "required_final_step": 1000000,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "excluded": [
+    {
+      "pattern": "checkpoint*.pt",
+      "reason": "large model checkpoints"
+    },
+    {
+      "pattern": "best_checkpoint.pt",
+      "reason": "large model checkpoint"
+    },
+    {
+      "pattern": "metrics.csv",
+      "reason": "full-resolution metrics"
+    },
+    {
+      "pattern": "metrics.jsonl",
+      "reason": "raw event stream"
+    },
+    {
+      "pattern": "*.log",
+      "reason": "runtime logs"
+    }
+  ],
+  "frozen_source_manifest": "provenance/frozen_source_manifest.sha256",
+  "generated_at_utc": "2026-07-16T14:49:22Z",
+  "packaged_files_before_manifests": [
+    {
+      "bytes": 1457,
+      "path": "README.md",
+      "sha256": "adc87c430deaaea5653ce4831c521d711b4fdecebe41e7bf1782c0ffabbc8561"
+    },
+    {
+      "bytes": 676,
+      "path": "aggregate_results.csv",
+      "sha256": "03a496ad7f1624101887f2b399b13adeef64a0f4584c9ce285d73bafdfca8469"
+    },
+    {
+      "bytes": 28092,
+      "path": "code/build_artifact.py",
+      "sha256": "66ad5307d705a1fcc7b3bb7939549fe7b33d4d7d773adca5c7c8092e3c0b3b62"
+    },
+    {
+      "bytes": 24730,
+      "path": "code/verify_artifact.py",
+      "sha256": "d9ad3a26127580a0374e55ecb1d3a8ac9c9a827b8cafe36ef353d431b1729cc1"
+    },
+    {
+      "bytes": 1557,
+      "path": "completion_validation.json",
+      "sha256": "94567c1bf57115038108b05acb232a7eaed1a61e0ddf8907b185036efa8cea43"
+    },
+    {
+      "bytes": 441,
+      "path": "data/td3_er/1/best_checkpoint.json",
+      "sha256": "4dbb46c00a37227806969091ad731bca221fb39b4fc8e3d3b44814b1bd5de744"
+    },
+    {
+      "bytes": 4935,
+      "path": "data/td3_er/1/config.json",
+      "sha256": "98bfdadfc04510d48552523d75a7adfd468d91ae20bd7eb4136c59a55d61cb60"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_er/1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1407,
+      "path": "data/td3_er/1/final_evaluation_100.json",
+      "sha256": "a5d518e0e8e662d51d9665470036e7a9a0203c493276dd7f365edf4a1a4c294e"
+    },
+    {
+      "bytes": 21559,
+      "path": "data/td3_er/1/metrics_selected_10k.csv",
+      "sha256": "6c9ac85529d549859ab9d4d9bf9d2d9b97ebd8a65a47d5f791a2f7562a50244b"
+    },
+    {
+      "bytes": 6598,
+      "path": "data/td3_er/1/summary.json",
+      "sha256": "7d2e3001be89490a83109b74a374cf6ea2afec3413625ce78b7002668711dd3d"
+    },
+    {
+      "bytes": 441,
+      "path": "data/td3_er/2/best_checkpoint.json",
+      "sha256": "836aac5cec2a823fa54823e65c440fad68b44d254889d66ab0bcb156a372782e"
+    },
+    {
+      "bytes": 4935,
+      "path": "data/td3_er/2/config.json",
+      "sha256": "08982ef30c225692df1b4e6b589734b45fa2aec3fb76ea53afa36f353b654a6c"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_er/2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1413,
+      "path": "data/td3_er/2/final_evaluation_100.json",
+      "sha256": "62ee2723c94662cbbbdc6d8308080676486594b53098de7fb50fe8aa35ce196c"
+    },
+    {
+      "bytes": 21473,
+      "path": "data/td3_er/2/metrics_selected_10k.csv",
+      "sha256": "9a2de1789ffe5854a20f05ed33a0ddd2178641d17791218c248d129cc8d8fb9e"
+    },
+    {
+      "bytes": 6593,
+      "path": "data/td3_er/2/summary.json",
+      "sha256": "7972bbeffb459ce85fd96241214bb1a72ef5bb4a3cac8a2623ca23c5bd0790b2"
+    },
+    {
+      "bytes": 448,
+      "path": "data/td3_er/3/best_checkpoint.json",
+      "sha256": "56acb1544f06c8b7dbca52ced8f7deb664b36f143314e71268599a457be7f89d"
+    },
+    {
+      "bytes": 4935,
+      "path": "data/td3_er/3/config.json",
+      "sha256": "ce1c3d00cf1a5b9a49c8670c0d469e4c48207510abf16e863f3d62ce7a161b84"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_er/3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1413,
+      "path": "data/td3_er/3/final_evaluation_100.json",
+      "sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611"
+    },
+    {
+      "bytes": 21540,
+      "path": "data/td3_er/3/metrics_selected_10k.csv",
+      "sha256": "b7bf6f65645a072d2660fa8bbc1fa1b9957602a4759a64c51cb6c9aed868c8fd"
+    },
+    {
+      "bytes": 6575,
+      "path": "data/td3_er/3/summary.json",
+      "sha256": "4789e37feca83b0c46e80d7e521439bb9a1060ed29f297d672b3428a7ea74215"
+    },
+    {
+      "bytes": 448,
+      "path": "data/td3_er/4/best_checkpoint.json",
+      "sha256": "e5cbd551ce3538fbe84d3ec4ddf6943447b544ffe1cd5e91b3e8438bbba84615"
+    },
+    {
+      "bytes": 4935,
+      "path": "data/td3_er/4/config.json",
+      "sha256": "c26e2624a90a87efb6e5cca3afa710345f4aa48e8d88f06ed675630e21766eaf"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_er/4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1413,
+      "path": "data/td3_er/4/final_evaluation_100.json",
+      "sha256": "be7e6eb9e0a70bce19552527a6d079d70f28118b3932c45745d7d8306c69a2f1"
+    },
+    {
+      "bytes": 21537,
+      "path": "data/td3_er/4/metrics_selected_10k.csv",
+      "sha256": "bc5aef6654f5ae3c8ccd6265de76a72952862339e80ebbfa7adaa7f169d88a78"
+    },
+    {
+      "bytes": 6597,
+      "path": "data/td3_er/4/summary.json",
+      "sha256": "580b89d68cf9d28eb95767d304d975b9107541fda871c9e6e6959abbce2282b7"
+    },
+    {
+      "bytes": 448,
+      "path": "data/td3_er/5/best_checkpoint.json",
+      "sha256": "1cf7954862af451412d3822c8537885fb108116c0041b74ac8499ff59b130d80"
+    },
+    {
+      "bytes": 4935,
+      "path": "data/td3_er/5/config.json",
+      "sha256": "1f0f6d26754db6f56fed6a5c6ccdc2bb46b8bc699757982a28f85d8422123b95"
+    },
+    {
+      "bytes": 2349,
+      "path": "data/td3_er/5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 1422,
+      "path": "data/td3_er/5/final_evaluation_100.json",
+      "sha256": "199d90137351db09ea3b1e293fbc84a9fb78e4f24e74308aaaec5a2ef55c34d2"
+    },
+    {
+      "bytes": 21613,
+      "path": "data/td3_er/5/metrics_selected_10k.csv",
+      "sha256": "9f87236f089ef0bbfbf5a5c3ec37810462fe6df890a1c2728b6fc589860d0277"
+    },
+    {
+      "bytes": 6574,
+      "path": "data/td3_er/5/summary.json",
+      "sha256": "15889c05a04af4495fce416d9231511c4533965e6d583d04317dcf6251a7efe5"
+    },
+    {
+      "bytes": 1305,
+      "path": "per_seed_results.csv",
+      "sha256": "640bdbeca4d82ac4ad1ec3d6347c16ae2b51cdf56e7d69698a781f1add0412f7"
+    },
+    {
+      "bytes": 2790,
+      "path": "provenance/frozen_source_manifest.sha256",
+      "sha256": "4c415f61e763edb1cd9a1acc48791b48de4dcdc1e8a66b4244bd0f5fbacb44f9"
+    },
+    {
+      "bytes": 41,
+      "path": "provenance/source_commit.txt",
+      "sha256": "b632dd70c3049d96643d7f767e8f75bfd8a2afe47d021468af95d13b66070be7"
+    }
+  ],
+  "schema_version": "1.0",
+  "sha256sums_scope": "all artifact files except SHA256SUMS itself",
+  "source_artifacts": [
+    {
+      "packaged_path": "data/td3_er/1/summary.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s1_1000000/summary.json",
+      "source_sha256": "af5a97b44200272aff6fe70b42ebcc14d3387eccfa486ddd423c27add8ef635c",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/1/config.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s1_1000000/config.json",
+      "source_sha256": "8af2e3bc63147060bd82793288aca6457c87d79e622b39dbd6bddccae750241b",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/1/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s1_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/1/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s1_1000000/final_evaluation_100.json",
+      "source_sha256": "a5d518e0e8e662d51d9665470036e7a9a0203c493276dd7f365edf4a1a4c294e",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/1/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s1_1000000/best_checkpoint.json",
+      "source_sha256": "dab9f6d397fea05472ac4b643e4bded4d6bd12c0f34063f32a05eaa9c31bdc7f",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/1/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s1_1000000/metrics.csv",
+      "source_sha256": "ed7ff83d6c52a41ab48c8ce51c90e7d5065c19e2ac6d38075ce4ad04b9a9cd37",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_er/2/summary.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s2_1000000/summary.json",
+      "source_sha256": "98297262fdeac657ea4b61e2db7c982e139036475102d20494de9711e57a9233",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/2/config.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s2_1000000/config.json",
+      "source_sha256": "14e9b6a35afd7a8cc250b592e3b2cb9c46403fbb87e88f631c4a1c84be6128ae",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/2/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s2_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/2/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s2_1000000/final_evaluation_100.json",
+      "source_sha256": "62ee2723c94662cbbbdc6d8308080676486594b53098de7fb50fe8aa35ce196c",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/2/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s2_1000000/best_checkpoint.json",
+      "source_sha256": "c5d49d6dbf50738d15973e9650406c21db007e0098c30648b32086b71af84154",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/2/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s2_1000000/metrics.csv",
+      "source_sha256": "72d588c4e761e2cd6a8df6a6090abcbd397c54f5ada5ef3cb5bf6a17e48a93eb",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_er/3/summary.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s3_1000000/summary.json",
+      "source_sha256": "5930b339e5ed2439d67b102bcef88f1addb6a54e402a16109ba5596d86c97fec",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/3/config.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s3_1000000/config.json",
+      "source_sha256": "16e2d705259ff1f3f3bbf33b6a9a93fb129942d19e1c3895f537ee8c699f5126",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/3/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s3_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/3/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s3_1000000/final_evaluation_100.json",
+      "source_sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/3/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s3_1000000/best_checkpoint.json",
+      "source_sha256": "a6fd3fadd2d9df4746a704582537a824015d8d5f0e79744d8570f1c5d1725511",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/3/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s3_1000000/metrics.csv",
+      "source_sha256": "ef5236bdd9086249cdd7799e9612d3e871c74cc3bf68d83e00e5520f3952af3d",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_er/4/summary.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s4_1000000/summary.json",
+      "source_sha256": "43d6afc018d71777e1ee32f4564cad7850775c402902ca2aee2dde13438e72a6",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/4/config.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s4_1000000/config.json",
+      "source_sha256": "cad87944a0175657414dcb4c7949d75e010f4cda4d52d52fa5d3651ab1751e83",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/4/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s4_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/4/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s4_1000000/final_evaluation_100.json",
+      "source_sha256": "be7e6eb9e0a70bce19552527a6d079d70f28118b3932c45745d7d8306c69a2f1",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/4/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s4_1000000/best_checkpoint.json",
+      "source_sha256": "4d1a740849691396f3727b796cd1708b0c71acfc222dd4ffdda0b162529b15fe",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/4/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s4_1000000/metrics.csv",
+      "source_sha256": "ce34f7841389254b9e5e4bf3f5ae465d780ae6fecfc62225592b5fb1e15eb116",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    },
+    {
+      "packaged_path": "data/td3_er/5/summary.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s5_1000000/summary.json",
+      "source_sha256": "ab7bdf71ae21630d2dcc19f4f87b0faa5c7cc2b139f4e8f56d50c0b252c4fba0",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/5/config.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s5_1000000/config.json",
+      "source_sha256": "3df3b005a7f61f584dfdd53c65001dbd0df1bedc125cbef909bece7a9e92c9a8",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/5/env_snapshot.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s5_1000000/env_snapshot.json",
+      "source_sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/5/final_evaluation_100.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s5_1000000/final_evaluation_100.json",
+      "source_sha256": "199d90137351db09ea3b1e293fbc84a9fb78e4f24e74308aaaec5a2ef55c34d2",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/5/best_checkpoint.json",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s5_1000000/best_checkpoint.json",
+      "source_sha256": "6365ed3fc931c2523317bf420f7b290d45172eace2f87f77d21196b6e51aa264",
+      "transformation": "JSON parsed; absolute source-root prefix replaced"
+    },
+    {
+      "packaged_path": "data/td3_er/5/metrics_selected_10k.csv",
+      "source_path": "fetch_pick_and_place_td3_er_noher_s5_1000000/metrics.csv",
+      "source_sha256": "049479e921acc58661e0e98e86ef0fbd5302b07a8bb96dcaa42a4621b269c03a",
+      "transformation": "Exact 10k evaluation rows and selected columns"
+    }
+  ],
+  "source_commit_full": "8c53c789f6f5cb6a45beceb4462a209cf6100d7e"
+}

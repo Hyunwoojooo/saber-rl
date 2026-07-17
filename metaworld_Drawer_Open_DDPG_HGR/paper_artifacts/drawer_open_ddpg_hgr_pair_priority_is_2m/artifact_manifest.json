@@ -1,0 +1,236 @@
+{
+  "artifact": "drawer_open_ddpg_hgr_pair_priority_is_2m",
+  "evaluation_grid": {
+    "end": 2000000,
+    "frequency": 10000,
+    "points": 200,
+    "start": 10000
+  },
+  "excluded": [
+    "checkpoints",
+    "raw metrics.csv",
+    "JSONL",
+    "run logs"
+  ],
+  "file_count": 27,
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "12fefb8bb1e22086de560599df3a424551b0f6929461f0ee8fa2ea90a9080fa1",
+      "size_bytes": 5736
+    },
+    {
+      "path": "aggregate_results.csv",
+      "sha256": "9a64dc5a533f744ba9cb80b0810c94ff5c65e5d37d44663b0bc2fac89754210b",
+      "size_bytes": 972
+    },
+    {
+      "path": "code/build_artifact.py",
+      "sha256": "6782a9f98d17c9376cd1b14c3de241ecc2a3bb92fd438d1fcd5ea7cfad71df77",
+      "size_bytes": 27957
+    },
+    {
+      "path": "code/verify_artifact.py",
+      "sha256": "f50c94b656a84d8d3bb765e32240fd55e855080018c98564cd7cac2e8a6188d0",
+      "size_bytes": 12095
+    },
+    {
+      "path": "evaluation_curves_10k.csv",
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417",
+      "size_bytes": 112210
+    },
+    {
+      "path": "paired_comparisons.csv",
+      "sha256": "100e99b60d7ca5dacc365f28c8ac383fed5330fef12e73adfaed22c3916a3da8",
+      "size_bytes": 2397
+    },
+    {
+      "path": "per_seed_results.csv",
+      "sha256": "d158fcce3831dd71328e9559146cf78bf7f292571e9ac750487a950570ff2ca3",
+      "size_bytes": 4442
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s1_2m_cuda/config.json",
+      "sha256": "0cf2371d3e532a06b16e9dcb1e66856cd8e7299bee9e90d88c9569534579f0cb",
+      "size_bytes": 6135
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s1_2m_cuda/env_snapshot.json",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s1_2m_cuda/metrics_selected_10k.csv",
+      "sha256": "950258bc61c8987906eba59c86003b2bd07f5f043ec3af257a122557cd3575dc",
+      "size_bytes": 102615
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s1_2m_cuda/summary.json",
+      "sha256": "d32920b3c9ed53df7578e7c87def20716df664d0bc4005d8dbfd44aafedd0a17",
+      "size_bytes": 8840
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s2_2m_cuda/config.json",
+      "sha256": "c2d171389a0f31bb38ecbf9ee13889cbf76e4fb003a1baaec6de79e4283b0c80",
+      "size_bytes": 6135
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s2_2m_cuda/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s2_2m_cuda/metrics_selected_10k.csv",
+      "sha256": "c0d7ab4d39567e6e35d1d4e31adf1e51a86efa4f3ad9daf44901163811a0f18b",
+      "size_bytes": 102953
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s2_2m_cuda/summary.json",
+      "sha256": "0fd5a02e1905c398a34461792c339100efa2361841ffa4710c0e2c836fd9e99c",
+      "size_bytes": 8842
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s3_2m_cuda/config.json",
+      "sha256": "a9f19f88850ba41735213bfab10b0c1a18861bb5ea4e2b0746f8ef7a0fd4bc8e",
+      "size_bytes": 6135
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s3_2m_cuda/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s3_2m_cuda/metrics_selected_10k.csv",
+      "sha256": "6980e507859297f2dd099ec748d1a460f9fbfd8d4396e0d3755eb621498f857c",
+      "size_bytes": 102324
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s3_2m_cuda/summary.json",
+      "sha256": "c1aea5b98e508cecb2a463b4272cea7f22a38118604bc90398c71a582f862501",
+      "size_bytes": 8857
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s4_2m_cuda/config.json",
+      "sha256": "48485fb3a78cf92a789e14e470bdbd4d2e1b99362620df1ee30caabc32bb8801",
+      "size_bytes": 6135
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s4_2m_cuda/env_snapshot.json",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s4_2m_cuda/metrics_selected_10k.csv",
+      "sha256": "719dcf68441a48191d381cfd053b3b9f87e6816126c46982adc5ddfb49d6a334",
+      "size_bytes": 102621
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s4_2m_cuda/summary.json",
+      "sha256": "f30d9b015888c40da56eee671ff6ed2a2ea09b72fd78d7ed4d52707e097d0645",
+      "size_bytes": 8865
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s5_2m_cuda/config.json",
+      "sha256": "e38bfebd6be6b0d98611db68aefbbe006c18f3c747a9000489223a4aaa3a4a71",
+      "size_bytes": 6135
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s5_2m_cuda/env_snapshot.json",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s5_2m_cuda/metrics_selected_10k.csv",
+      "sha256": "484e003da646d05eba9b8d20b6abee5b659a9850252fa6fc0b7058015c32c649",
+      "size_bytes": 100698
+    },
+    {
+      "path": "runs/drawer_open_ddpg_hgr_original_pair_is_s5_2m_cuda/summary.json",
+      "sha256": "256e60a51a775a54cd1f2f67cea5ff4cecbc537149885f5ae1429f9fc0f49292",
+      "size_bytes": 8864
+    }
+  ],
+  "manifest_scope": "all payload files except artifact_manifest.json and Python bytecode",
+  "manifest_self_excluded": true,
+  "paper_label": "HGR (pair priority + IS)",
+  "schema_version": 1,
+  "source_revision": "HGR source and artifact are co-committed",
+  "source_runs": [
+    {
+      "method_key": "hgr",
+      "seed": 1,
+      "source_run_path": "metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_original_pair_is_2m/DDPG-HER-HGR-original-pair-is-2m/drawer_open_ddpg_hgr_original_pair_is_s1_2m_cuda"
+    },
+    {
+      "method_key": "hgr",
+      "seed": 2,
+      "source_run_path": "metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_original_pair_is_2m/DDPG-HER-HGR-original-pair-is-2m/drawer_open_ddpg_hgr_original_pair_is_s2_2m_cuda"
+    },
+    {
+      "method_key": "hgr",
+      "seed": 3,
+      "source_run_path": "metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_original_pair_is_2m/DDPG-HER-HGR-original-pair-is-2m/drawer_open_ddpg_hgr_original_pair_is_s3_2m_cuda"
+    },
+    {
+      "method_key": "hgr",
+      "seed": 4,
+      "source_run_path": "metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_original_pair_is_2m/DDPG-HER-HGR-original-pair-is-2m/drawer_open_ddpg_hgr_original_pair_is_s4_2m_cuda"
+    },
+    {
+      "method_key": "hgr",
+      "seed": 5,
+      "source_run_path": "metaworld_Drawer_Open_DDPG_HGR/runs/ddpg_hgr_tdpriority_original_pair_is_2m/DDPG-HER-HGR-original-pair-is-2m/drawer_open_ddpg_hgr_original_pair_is_s5_2m_cuda"
+    },
+    {
+      "method_key": "her",
+      "seed": 1,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda"
+    },
+    {
+      "method_key": "her",
+      "seed": 2,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda"
+    },
+    {
+      "method_key": "her",
+      "seed": 3,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda"
+    },
+    {
+      "method_key": "her",
+      "seed": 4,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda"
+    },
+    {
+      "method_key": "her",
+      "seed": 5,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda"
+    },
+    {
+      "method_key": "saber",
+      "seed": 1,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda"
+    },
+    {
+      "method_key": "saber",
+      "seed": 2,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda"
+    },
+    {
+      "method_key": "saber",
+      "seed": 3,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda"
+    },
+    {
+      "method_key": "saber",
+      "seed": 4,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda"
+    },
+    {
+      "method_key": "saber",
+      "seed": 5,
+      "source_run_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda"
+    }
+  ],
+  "total_size_bytes": 765693
+}

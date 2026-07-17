@@ -21,7 +21,7 @@ from .io_utils import (
     setup_logger,
     write_json,
 )
-from .hgr import HGRSampler
+from .hgr import HGRSampler, HGR_STATE_SCHEMA
 from .replay import HERReplayBuffer
 from .task_fetch_pick_and_place import FetchPickAndPlaceTaskSpec
 from .task_fetch_push import FetchPushTaskSpec
@@ -543,7 +543,7 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         eps_g=config.eps_G,
     )
     weight_computer = LiteWeightComputer(config, task, gap_stats)
-    hgr_sampler = HGRSampler.from_config(config, config.buffer_capacity) if config.method == "hgr" else None
+    hgr_sampler = HGRSampler(config, train_env, device) if config.method == "hgr" else None
 
     write_json(
         run_dir / "config.json",
@@ -556,8 +556,12 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             },
             "hgr_storage": {
                 "enabled": config.method == "hgr",
-                "priority_storage": "per replay slot priority plus episode mean priority",
-                "future_goal_storage": "on-the-fly TD-error scoring; no goal-priority table",
+                "priority_storage": "completed-episode transition/future-goal pair tables",
+                "pair_definition": "(j, i) with transition j and achieved goal g_i, j < i",
+                "checkpoint_state_schema": HGR_STATE_SCHEMA,
+                "critic_loss_weight": "normalized product of episode and pair IS weights on relabeled samples",
+                "actor_loss_weight": "all_ones",
+                "original_goal_branch_weight": "one",
             },
         },
     )
@@ -714,13 +718,33 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "hgr/episode_priority_std",
         "hgr/episode_priority_max",
         "hgr/eligible_episode_count",
+        "hgr/pair_table_count",
+        "hgr/pair_priority_count",
+        "hgr/pair_priority_memory_mb",
         "hgr/goal_priority_entropy_mean",
         "hgr/goal_selected_rank_mean",
         "hgr/candidate_td_error_mean",
         "hgr/candidate_td_error_max",
         "hgr/relabel_fraction",
         "hgr/fallback_fraction",
+        "hgr/episode_probability_mean",
+        "hgr/pair_probability_mean",
+        "hgr/is_weight_raw_mean",
+        "hgr/is_weight_raw_max",
+        "hgr/is_weight_mean",
+        "hgr/is_weight_max",
+        "hgr/is_weight_min",
+        "hgr/actor_weight_mean",
+        "hgr/beta_episode",
+        "hgr/beta_goal",
+        "hgr/beta_progress",
+        "hgr/beta_episode_next",
+        "hgr/beta_goal_next",
+        "hgr/beta_progress_next",
+        "hgr/max_priority",
+        "hgr/priority_clip_enabled",
         "hgr/priority_clip_rate",
+        "hgr/priority_safety_replacement_rate",
         "hgr/update_priority_mean",
         "runtime/hgr_sampling_sec_per_update",
         "runtime/updates_per_sec",
@@ -949,7 +973,13 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             action_bin=None if hgr_sampler is not None else int(task.action_bin_batch(action[None, :], config.action_bins_per_dim)[0]),
         )
         if hgr_sampler is not None:
-            hgr_sampler.on_replay_add(slot_added, episode_idx, ep_step)
+            hgr_sampler.on_replay_add(
+                slot_added,
+                episode_idx,
+                ep_step,
+                replay,
+                episode_done=done,
+            )
 
         obs = obs_next
         ep_step += 1
@@ -959,18 +989,13 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             for _ in range(config.updates_per_step):
                 hgr_sample_metrics: Dict[str, float] = {}
                 if hgr_sampler is not None:
-                    batch, hgr_info = hgr_sampler.sample(
-                        replay=replay,
-                        batch_size=config.batch_size,
-                        her_ratio=config.her_ratio,
-                        rng=sample_rng,
-                        agent=agent,
-                        env=train_env,
-                        device=device,
-                        success_terminates=config.success_terminates,
-                        timeout_bootstrap=config.timeout_bootstrap,
+                    batch = hgr_sampler.sample_batch(
+                        replay,
+                        config.batch_size,
+                        config.her_ratio,
+                        sample_rng,
                     )
-                    hgr_sample_metrics = hgr_info.metrics
+                    hgr_sample_metrics = dict(hgr_sampler.latest_metrics)
                 else:
                     batch = replay.sample(config.batch_size, config.her_ratio, sample_rng)
                 last_her_ratio = batch.her_relabel_ratio
@@ -985,6 +1010,10 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 nonterminal = (1.0 - terminal).astype(np.float32)
 
                 wb = weight_computer.compute(batch, replay, agent, weight_rng, device)
+                if hgr_sampler is not None:
+                    hgr_critic_weight, hgr_actor_weight = hgr_sampler.loss_weights(batch)
+                    wb.omega_critic = hgr_critic_weight
+                    wb.omega_actor = hgr_actor_weight
                 state_np = np.concatenate([batch.observation, batch.desired_goal_train], axis=1).astype(np.float32)
                 next_state_np = np.concatenate([batch.next_observation, batch.desired_goal_train], axis=1).astype(np.float32)
                 state_t = torch.as_tensor(state_np, dtype=torch.float32, device=device)
@@ -1030,10 +1059,9 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 last_lite = _lite_metrics_from_weight_batch(wb, phase_names)
                 last_lite.update(hgr_sample_metrics)
                 if hgr_sampler is not None:
-                    td_after_for_priority = agent.td_error_abs(
-                        state_t, action_t, reward_t, next_state_t, nonterminal_t
-                    ).detach().cpu().numpy().reshape(-1).astype(np.float32)
-                    last_lite.update(hgr_sampler.update_priorities(batch.indices, td_after_for_priority, replay))
+                    last_lite.update(
+                        hgr_sampler.update_priorities(batch, update.td_error_abs_values)
+                    )
                 last_lite["time/actor_critic_update"] = float(t_update1 - t_update0)
                 last_lite["time_actor_critic_update"] = float(t_update1 - t_update0)
                 total_updates += 1
@@ -1405,13 +1433,33 @@ def _empty_hgr_metrics() -> Dict[str, float]:
         "hgr/episode_priority_std": 0.0,
         "hgr/episode_priority_max": 1.0,
         "hgr/eligible_episode_count": 0.0,
+        "hgr/pair_table_count": 0.0,
+        "hgr/pair_priority_count": 0.0,
+        "hgr/pair_priority_memory_mb": 0.0,
         "hgr/goal_priority_entropy_mean": 0.0,
         "hgr/goal_selected_rank_mean": 0.0,
         "hgr/candidate_td_error_mean": 0.0,
         "hgr/candidate_td_error_max": 0.0,
         "hgr/relabel_fraction": 0.0,
         "hgr/fallback_fraction": 0.0,
+        "hgr/episode_probability_mean": float("nan"),
+        "hgr/pair_probability_mean": float("nan"),
+        "hgr/is_weight_raw_mean": 1.0,
+        "hgr/is_weight_raw_max": 1.0,
+        "hgr/is_weight_mean": 1.0,
+        "hgr/is_weight_max": 1.0,
+        "hgr/is_weight_min": 1.0,
+        "hgr/actor_weight_mean": 1.0,
+        "hgr/beta_episode": 0.4,
+        "hgr/beta_goal": 0.4,
+        "hgr/beta_progress": 0.0,
+        "hgr/beta_episode_next": 0.4,
+        "hgr/beta_goal_next": 0.4,
+        "hgr/beta_progress_next": 0.0,
+        "hgr/max_priority": 1.0,
+        "hgr/priority_clip_enabled": 0.0,
         "hgr/priority_clip_rate": 0.0,
+        "hgr/priority_safety_replacement_rate": 0.0,
         "hgr/update_priority_mean": 1.0,
         "runtime/hgr_sampling_sec_per_update": 0.0,
     }
@@ -1557,11 +1605,20 @@ def _selected_metric_fields() -> list[str]:
         "hgr/episode_priority_mean",
         "hgr/episode_priority_std",
         "hgr/episode_priority_max",
+        "hgr/pair_table_count",
+        "hgr/pair_priority_count",
+        "hgr/pair_priority_memory_mb",
         "hgr/goal_priority_entropy_mean",
         "hgr/goal_selected_rank_mean",
         "hgr/candidate_td_error_mean",
         "hgr/candidate_td_error_max",
         "hgr/relabel_fraction",
+        "hgr/is_weight_mean",
+        "hgr/is_weight_min",
+        "hgr/beta_episode",
+        "hgr/beta_goal",
+        "hgr/beta_progress",
+        "hgr/max_priority",
         "hgr/priority_clip_rate",
         "runtime/hgr_sampling_sec_per_update",
     ]

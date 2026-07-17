@@ -1,0 +1,56 @@
+{
+  "task": "MetaWorld drawer-close-v3",
+  "reward_type": "sparse",
+  "reward_function_version": "v2",
+  "horizon": 200,
+  "total_steps": 2000000,
+  "seeds": [1, 2, 3, 4, 5],
+  "arms": {
+    "td3_er": {
+      "sampling": "uniform_256",
+      "learning_rate": "fixed_3e-4"
+    },
+    "td3_annealing_er": {
+      "sampling": "uniform_256",
+      "learning_rate": "lambda_t_times_3e-4"
+    },
+    "td3_aer": {
+      "sampling": "uniform_ceil_lambda_t_times_256_then_raw_cosine_top_256",
+      "learning_rate": "lambda_t_times_3e-4"
+    }
+  },
+  "aer": {
+    "lambda0": 2.5,
+    "anneal_fraction": 0.6666666666666666,
+    "query": "latest_online_observation_plus_desired_goal",
+    "candidate_state": "stored_pre_action_observation_plus_desired_goal",
+    "similarity": "raw_cosine",
+    "priority": false,
+    "importance_sampling_correction": false
+  },
+  "td3": {
+    "batch_size": 256,
+    "buffer_capacity": 300000,
+    "her_ratio": 0.0,
+    "updates_per_step": 1,
+    "start_steps": 10000,
+    "warmup_steps": 5000,
+    "gamma": 0.98,
+    "tau": 0.005,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0003,
+    "hidden_dim": 256,
+    "exploration_noise": 0.2,
+    "policy_delay": 2,
+    "target_policy_noise": 0.2,
+    "target_noise_clip": 0.5,
+    "success_terminates": false,
+    "timeout_bootstrap": true
+  },
+  "evaluation": {
+    "frequency_steps": 10000,
+    "episodes": 20,
+    "deterministic": true,
+    "final_fixed_episodes": 100
+  }
+}
