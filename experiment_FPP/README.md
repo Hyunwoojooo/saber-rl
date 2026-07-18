@@ -18,6 +18,7 @@ This source tree is generated from `SABER/SABER.md` for the FetchPickAndPlace be
 - `td3_saber_critic_only_v4_ls512`: TD3+SABER critic-only runtime optimized ls512.
 - `td3_her_per_style_loss_weighting_ls512`: TD3+HER with PER-style TD-error priority-derived critic loss weighting and uniform replay sampling.
 - `td3_her_per_full_ls512`: TD3+HER with slot-level full PER sampling and critic-only importance-sampling correction.
+- `td3_hgr_tdpriority_1m`: TD3+HER with two-stage HGR episode/pair replay, twin-critic `min_abs` TD priority, and critic IS correction.
 - `sac_her_baseline_ls512`: SAC+HER baseline with uniform critic weighting.
 - `sac_her_per_full_ls512`: SAC+HER with slot-level full PER sampling and critic-only importance-sampling correction.
 - `sac_saber_critic_only_v4_ls512`: SAC+HER+SABER critic-only support weighting with v4 exact Numba lookup.
