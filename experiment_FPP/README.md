@@ -46,3 +46,6 @@ python3 SABER/FetchPickAndPlace/shared/analyze_results.py
 - `paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m`: SAC+HER
   PER-style, seeds 1-5 at 1M steps, with validated summaries and 25k-step
   evaluation curves.
+- `paper_artifacts/fpp_td3_hgr_pair_priority_is_1m`: TD3+HER+HGR,
+  seeds 1-5 at 1M steps, with strict completion evidence, exact 10k curves,
+  HGR diagnostics, matched TD3+HER/SABER comparisons, and SHA256 manifests.

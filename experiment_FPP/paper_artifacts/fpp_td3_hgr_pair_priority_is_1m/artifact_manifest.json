@@ -1,0 +1,327 @@
+{
+  "artifact": "fpp_td3_hgr_pair_priority_is_1m",
+  "exclusions": [
+    "checkpoint files",
+    "raw metrics.csv",
+    "raw JSONL",
+    "logs"
+  ],
+  "file_count": 34,
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "a024fbd9de85014e3f1fd19c5925c489787d6c0818b79126b02f3c6b925ed209",
+      "size_bytes": 5160
+    },
+    {
+      "path": "aggregate_results.csv",
+      "sha256": "8bcb567eb28a29b9df0b27deaa3c9a42be61dafd2dda9b2213d29e5ca1a7edc3",
+      "size_bytes": 2041
+    },
+    {
+      "path": "code/build_artifact.py",
+      "sha256": "44bcaf84ab2102f0a3d0f67fbba62b5846f7ea30352432fad7b2c0de9f9ba2d0",
+      "size_bytes": 43101
+    },
+    {
+      "path": "code/verify_artifact.py",
+      "sha256": "d10d353d06a4a36c1dfa721caf2fad2fb0544dc729374c46a93fc22fd2be72f1",
+      "size_bytes": 16702
+    },
+    {
+      "path": "completion_validation.json",
+      "sha256": "7bbbe80349814f61eeb5b979e33bc2793f38b3a5808d37d3f2f3685b31936fd5",
+      "size_bytes": 2946
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000/config.json",
+      "sha256": "c2a7d9a5f9a00f57eebcfc8c52d00782bb783f4baf27f81fe6821f9e237cf837",
+      "size_bytes": 6343
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000/hgr_metrics_selected.csv",
+      "sha256": "5ef78743a2dbf90fb20f3f1fed6d5ad2165826a675822c607e27a9568f88f4e8",
+      "size_bytes": 51638
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000/metrics_selected_10k.csv",
+      "sha256": "1dbef470009e09e39335455ec65af675a4960d5085ce803e7f3f7eeb9422d552",
+      "size_bytes": 301519
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000/summary.json",
+      "sha256": "17285033ebfeb24796995a01105454974ea540e623e97a649c14ae10c48e7a22",
+      "size_bytes": 7405
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000/config.json",
+      "sha256": "d779958fc516ed0c4db7f6d03f9ad2ee924c9267fe19ce6722aa1ddb295f6193",
+      "size_bytes": 6343
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000/hgr_metrics_selected.csv",
+      "sha256": "baceea140ffc53c6289363f4fa78d84e8c0355ebe26bad391c38dbde56748673",
+      "size_bytes": 51532
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000/metrics_selected_10k.csv",
+      "sha256": "533d97ca6fa3a4d3fa0fa02a6d56c8dd7cb41f286ff62bcb70b1d2777620da90",
+      "size_bytes": 301687
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000/summary.json",
+      "sha256": "71083952a541408ef42ad1a59caca67a73371e0c6e15b51e6060cd7f64469a54",
+      "size_bytes": 7412
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000/config.json",
+      "sha256": "d3d1e3df5b64f0fb70be27c6cf1932c47726a7f9a597e3cbea7912a218181920",
+      "size_bytes": 6343
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000/hgr_metrics_selected.csv",
+      "sha256": "72a4bdf2dbef2a892c506d9387291eac0a475fc91a0a4059ba8a94dddd3acb17",
+      "size_bytes": 51512
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000/metrics_selected_10k.csv",
+      "sha256": "948c7d8ae3c4034751fe45b22fa82e593b1f374c9fe1bbc6ed344621ce91de92",
+      "size_bytes": 301806
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000/summary.json",
+      "sha256": "229c60e8ce51919203ea9ca00d8e092c713423265a7d45781631385e201e4192",
+      "size_bytes": 7421
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000/config.json",
+      "sha256": "c8371689720e7e818611d74d8613019bb4057f57a9b3a833e7a5cc03a55d40c9",
+      "size_bytes": 6343
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000/hgr_metrics_selected.csv",
+      "sha256": "37ebeba18e393af19ceaed5b95a1d418649d99a06a78fc46bea61787d739d068",
+      "size_bytes": 51516
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000/metrics_selected_10k.csv",
+      "sha256": "6c97a4eea79131717beaa254acdcbe3c72cf14343cc6fca49cf1622c9e845d0e",
+      "size_bytes": 301633
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000/summary.json",
+      "sha256": "6afe8140b704eb838f44f48e26cb8fae6146809d2cc8f52d29630d6875517c2a",
+      "size_bytes": 7430
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000/config.json",
+      "sha256": "69e1ad6660567ba0e6e36c86c6378fd45bd8f54f9b8b42896db950876b9f43ca",
+      "size_bytes": 6343
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000/hgr_metrics_selected.csv",
+      "sha256": "a19d7daedf5ed3b0d180d34e45b2e0c7e3be903910c953cfdc7534196ea689ac",
+      "size_bytes": 51585
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000/metrics_selected_10k.csv",
+      "sha256": "3b42b2cb684924049c34f338b4cdc8643e9ca56cd9bc8ace9c0594a05ac91fca",
+      "size_bytes": 301034
+    },
+    {
+      "path": "fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000/summary.json",
+      "sha256": "69d100736149ff61faf68d94c04f559421d7987fa7f46aaa1bdc5755589bc5b2",
+      "size_bytes": 7418
+    },
+    {
+      "path": "input_manifest.json",
+      "sha256": "ad8e92c220d268d8d8b86f80a7ba133ec063e3e779552bea53d1e1bd1c31ff1e",
+      "size_bytes": 19099
+    },
+    {
+      "path": "paired_vs_her_saber.csv",
+      "sha256": "6eaadbcae01dddab27ae001e7c335859b2954a2a1e4a033ab2581405b73b46c8",
+      "size_bytes": 3452
+    },
+    {
+      "path": "per_seed_results.csv",
+      "sha256": "409cd5d57b9e51eccfdd2e84d0e62682146e884950ccab3aa8c18c06ab6dd8ba",
+      "size_bytes": 5738
+    },
+    {
+      "path": "provenance/frozen_source.sha256",
+      "sha256": "1f51bf1a12c64dd6b4a6e9983696ba234dee59837db6ab6d44cc6e9d502df673",
+      "size_bytes": 2864
+    }
+  ],
+  "generated_at_utc": "2026-07-18T05:43:20.411835+00:00",
+  "manifest_scope": "all artifact payload files except artifact_manifest.json",
+  "manifest_self_excluded": true,
+  "paper_label": "HGR (matched TD3+HER)",
+  "schema_version": 1,
+  "source_commit": "e36059d",
+  "source_commit_full": "e36059dda646cfbaf60896df07bfc1e6d722f71e",
+  "source_runs": [
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "TD3+HER",
+      "run_name": "fetch_pick_and_place_td3_her_baseline_ls512_s1_1000000_ls512",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s1_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "TD3+HER",
+      "run_name": "fetch_pick_and_place_td3_her_baseline_ls512_s2_1000000_ls512",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s2_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "TD3+HER",
+      "run_name": "fetch_pick_and_place_td3_her_baseline_ls512_s3_1000000_ls512",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s3_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "TD3+HER",
+      "run_name": "fetch_pick_and_place_td3_her_baseline_ls512_s4_1000000_ls512",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s4_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "her",
+      "paper_label": "TD3+HER",
+      "run_name": "fetch_pick_and_place_td3_her_baseline_ls512_s5_1000000_ls512",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s5_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/td3_hgr_tdpriority_1m/fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/td3_hgr_tdpriority_1m/fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/td3_hgr_tdpriority_1m/fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/td3_hgr_tdpriority_1m/fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/td3_hgr_tdpriority_1m/fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s1_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s2_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s3_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s4_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 100,
+      "method_key": "saber",
+      "paper_label": "SABER (matched TD3+HER)",
+      "run_name": "fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s5_1000000_ls512",
+      "total_steps": 1000000
+    }
+  ],
+  "total_size_bytes": 1947111
+}
