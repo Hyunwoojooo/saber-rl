@@ -1,0 +1,13 @@
+{
+  "checkpoint": "${REPO_ROOT}/experiment_FPP/runs/fpp_ddpg_aer_noher_1m/fetch_pick_and_place_ddpg_annealing_er_noher_s3_1000000/best_checkpoint.pt",
+  "eval_env_success_ever_mean": 0.55,
+  "eval_env_success_final_mean": 0.55,
+  "eval_env_success_mean": 0.55,
+  "eval_goal_success_ever_mean": 0.55,
+  "eval_goal_success_final_mean": 0.55,
+  "eval_goal_success_mean": 0.55,
+  "eval_return_mean": -29.55,
+  "eval_success_mean": 0.55,
+  "selection_metric": "eval_goal_success_mean",
+  "step": 970000
+}

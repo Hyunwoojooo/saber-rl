@@ -17,7 +17,11 @@ ARM_NAMES = ("ddpg_er", "ddpg_annealing_er", "ddpg_aer")
 
 def find_repo_root(path: Path) -> Path:
     for parent in (path, *path.parents):
-        if (parent / "version_v0_lite").is_dir() and (parent / ".venv").is_dir():
+        if (
+            (parent / "experiment_FPP").is_dir()
+            and ((parent / ".git").exists() or (parent / "version_v0_lite").is_dir())
+            and (parent / ".venv").is_dir()
+        ):
             return parent
     raise RuntimeError(f"Could not find repository root from {path}")
 

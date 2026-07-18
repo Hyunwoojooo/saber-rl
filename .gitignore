@@ -17,6 +17,8 @@ results_*/
 !experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/results/**
 !experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/results/
 !experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/results/**
+!experiment_FPP/paper_artifacts/fpp_ddpg_aer_noher_seeds1_5_1m/results/
+!experiment_FPP/paper_artifacts/fpp_ddpg_aer_noher_seeds1_5_1m/results/**
 orchestrator_logs/
 *.pt
 runs/

@@ -194,3 +194,32 @@ python3 experiment_FPP/ddpg_aer_noher_1m/analysis/analyze_ddpg_aer_noher.py
 분석기는 정확한 grid를 강제하고 10,000회 paired bootstrap CI와 two-sided exact
 sign-flip test를 계산한다. 누락·중복 evaluation이나 공통 설정 불일치는 즉시
 오류로 처리한다.
+
+## Completed seeds 1-5 result artifact
+
+세 arm의 seed 1-5 main run은 모두 1M step 완료 gate를 통과했다. 20-episode
+10k-step evaluation curve의 normalized success AUC 결과는 다음과 같다.
+
+| Arm | AUC mean +/- sample SD | Curve-final success mean +/- sample SD |
+|---|---:|---:|
+| `ddpg_er` | 0.147677 +/- 0.039279 | 0.460000 +/- 0.188414 |
+| `ddpg_annealing_er` | 0.128586 +/- 0.111223 | 0.340000 +/- 0.362974 |
+| `ddpg_aer` | 0.044444 +/- 0.002020 | 0.000000 +/- 0.000000 |
+
+paired AUC 차이는 `AER - AnnealingER = -0.084141` (95% paired bootstrap CI
+`[-0.185859, -0.017778]`, exact sign-flip `p=0.0625`)이고,
+`AER - ER = -0.103232` (`[-0.134293, -0.070000]`, `p=0.0625`)다. 따라서 이
+DDPG matched-transfer 설정에서는 AER 우위를 관찰하지 못했다. curve-final 값과
+별도로 수행한 final-policy 100-episode 평가는 artifact에 함께 보존한다.
+
+compact artifact는 다음 명령으로 원본 run에서 다시 생성하고 검증할 수 있다.
+
+```bash
+.venv/bin/python experiment_FPP/package_ddpg_aer_results.py
+```
+
+결과 경로는
+`experiment_FPP/paper_artifacts/fpp_ddpg_aer_noher_seeds1_5_1m`이다. 모델
+checkpoint, replay state, full-resolution metrics, JSONL, 실행 로그는 Git 크기
+제한과 중복을 피하기 위해 제외하며, 입력 및 실행 당시 frozen source의 SHA-256을
+manifest로 기록한다.
