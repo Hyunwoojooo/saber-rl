@@ -99,3 +99,13 @@ NumPy RNGs, and Torch CPU/CUDA RNG states. The HGR checkpoint field must be
 Use normalized trapezoidal success AUC on the exact 25k grid as the primary
 endpoint. Correctness/smoke performance must not be used to tune the frozen
 PER-style or SAC settings.
+
+## Packaged results
+
+The completed 1M-step runs for seeds 1--5 are packaged under
+`experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m`.
+Regenerate the compact, validated artifact from the repository root with:
+
+```bash
+.venv/bin/python experiment_FPP/package_sac_her_per_style_results.py
+```

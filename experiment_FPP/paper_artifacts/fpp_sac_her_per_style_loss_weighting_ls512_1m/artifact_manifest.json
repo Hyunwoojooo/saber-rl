@@ -1,0 +1,158 @@
+{
+  "coverage": {
+    "environment": "FetchPickAndPlace-v4",
+    "evaluations_per_run": 40,
+    "method": "sac_her_per_style_loss_weighting",
+    "run_count": 5,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "steps_per_run": 1000000
+  },
+  "excluded": [
+    "*.pt checkpoints and replay state",
+    "full metrics.csv",
+    "metrics.jsonl",
+    "run and launcher logs",
+    "__pycache__ and *.pyc"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "16e580fbe4ba811d437b0e8e6ac6951bc30695dc92a2d1b94c8afaced625c557",
+      "size_bytes": 1084
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed1/config.json",
+      "sha256": "30aa8a33507cf129e5b11428d69cf4e84d138e2bf1f999e5811b4590bd655904",
+      "size_bytes": 7493
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed1/eval_metrics.csv",
+      "sha256": "7e184cf113ae3b19ec05d44e0a3b17683301e482e1fa25051efdd48b778190ea",
+      "size_bytes": 2197
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed1/summary.json",
+      "sha256": "ebabcb0cd4c161d4bcd0496345eab7fccece818052a8de5ca16ba32b100dec96",
+      "size_bytes": 6653
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed2/config.json",
+      "sha256": "d2379eccf100c765112789dbe6a4b36b443a934b3402499a5da9ec4b87e3602f",
+      "size_bytes": 7493
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed2/eval_metrics.csv",
+      "sha256": "fefe3a28c81b402ea2c92b9eed2f86b188d5930f2d82782bd01307fc3ace3312",
+      "size_bytes": 2193
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed2/summary.json",
+      "sha256": "551aafed4279c61a0f525a5744e2ebde49c7124a6531275c1fdb25e7a26d386b",
+      "size_bytes": 6644
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed3/config.json",
+      "sha256": "4c425594b84cb36c66a360c9d8b02850c1669ec9003999b7a9cc7791c02740d7",
+      "size_bytes": 7493
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed3/eval_metrics.csv",
+      "sha256": "2e78764c7a6b9e96a14ec777d7a5e825a3acbf72749d0e7d13ce40f793c537bf",
+      "size_bytes": 2159
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed3/summary.json",
+      "sha256": "d1ca9da38ee3764f6ac92d4b187d4dbe1fbbd99a4e1a30cd90bb44c57619bdce",
+      "size_bytes": 6611
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed4/config.json",
+      "sha256": "414e4f086f5477f925b55c26ed4c270483cd0874bc4b65be86c55467c1936a5e",
+      "size_bytes": 7493
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed4/eval_metrics.csv",
+      "sha256": "3befb5e4ff9dddca2b321d2140f72f617c0174519beb1425cb65befdaa4cd2d5",
+      "size_bytes": 2207
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed4/summary.json",
+      "sha256": "5de49dc626e835fd445693f86dd1eef1eb23580aa649ee3f3dfb395416b77795",
+      "size_bytes": 6643
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed5/config.json",
+      "sha256": "b188fa070da51421f2e062c6eb0b46ca2c1ca44ac16e3ba30fd729d918f5dbd8",
+      "size_bytes": 7493
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed5/eval_metrics.csv",
+      "sha256": "c856a9dc0db5604ca1f5354e23df7bd6d2152a64045598a2366ec1cdd81e6bac",
+      "size_bytes": 2221
+    },
+    {
+      "path": "data/sac_her_per_style_loss_weighting/seed5/summary.json",
+      "sha256": "f9624e27d17fe541104c9bbb21e01c8f78da45e5cfd421b14115f91952a740b5",
+      "size_bytes": 6668
+    },
+    {
+      "path": "input_manifest.json",
+      "sha256": "5952c2a3636f01cec5f8948c45fedddbe3e0d47c8bd9e8686b144d8cbc5df619",
+      "size_bytes": 12828
+    },
+    {
+      "path": "results/aggregate_results.csv",
+      "sha256": "5028a1bbdda09a62aed42409ec79c57aee63795b83787aa0b32b56f53cb06078",
+      "size_bytes": 706
+    },
+    {
+      "path": "results/per_seed_results.csv",
+      "sha256": "201a647ce34c1e2388f2ee90efabe25d108e640c6148315c6b3bfc1a655f7988",
+      "size_bytes": 1007
+    },
+    {
+      "path": "results/report.md",
+      "sha256": "05ee455963b7f5c0edd51f9c3dfef3c0ccfdf386363dbfaa93b4a72497931372",
+      "size_bytes": 1985
+    },
+    {
+      "path": "results/validation.json",
+      "sha256": "0024c0ca1539513c10209c842ca1ee140810d09cd889277aafe810f743a3050f",
+      "size_bytes": 10367
+    }
+  ],
+  "generated_at_utc": "2026-07-18T03:28:12.628967+00:00",
+  "schema_version": 1,
+  "source_head_at_packaging": "10d2a34e91c67b2a0440742e9ab8dcf2e32f6d21"
+}
