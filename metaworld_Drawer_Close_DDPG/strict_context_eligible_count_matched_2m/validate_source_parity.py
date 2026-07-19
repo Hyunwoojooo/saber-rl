@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prove that all non-control DrawerOpen learning components remain byte-identical."""
+"""Prove that all non-control DrawerClose learning components remain byte-identical."""
 
 from __future__ import annotations
 
@@ -22,13 +22,13 @@ EXACT_FILES = (
     "metacog_lite_v0/networks.py",
     "metacog_lite_v0/replay.py",
     "metacog_lite_v0/envs.py",
-    "metacog_lite_v0/task_drawer_open.py",
+    "metacog_lite_v0/task_drawer_close.py",
     "metacog_lite_v0/io_utils.py",
 )
 
 # Changes are isolated to strict assignment/config/logging/checkpoint support.
 CONTROL_FILES = (
-    "train_drawer_open_lite_v0.py",
+    "train_drawer_close_lite_v0.py",
     "metacog_lite_v0/config.py",
     "metacog_lite_v0/weights.py",
     "metacog_lite_v0/numba_support_scan_drawer_open.py",

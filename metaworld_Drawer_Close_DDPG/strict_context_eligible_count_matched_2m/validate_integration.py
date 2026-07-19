@@ -31,6 +31,14 @@ STRICT_FIELDS = (
     "strict/normalized_weight_max",
     "runtime/support_lookup_sec_per_update",
     "runtime/strict_assignment_sec_per_update",
+    "runtime/numba_support_scan_enabled",
+    "runtime/numba_scanner_warmed",
+    "runtime/numba_support_scan_fallback_rate",
+)
+NUMBA_FIELDS = (
+    "runtime/numba_support_scan_enabled",
+    "runtime/numba_scanner_warmed",
+    "runtime/numba_support_scan_fallback_rate",
 )
 
 
@@ -112,10 +120,15 @@ def validate_run(run_dir: Path, mode: experiment_run.Mode, seed: int) -> dict[st
     if missing_headers:
         raise RuntimeError(f"{run_dir}: missing strict metric columns {missing_headers}")
     checked_updates = 0
+    numba_rows_checked = 0
     for row in rows:
         if row.get("strict/main_positive_count", "") == "":
             continue
-        values = {field: _number(row, field) for field in STRICT_FIELDS}
+        values = {
+            field: _number(row, field)
+            for field in STRICT_FIELDS
+            if field not in NUMBA_FIELDS
+        }
         if values["strict/main_positive_count"] != values["strict/control_positive_count"]:
             raise RuntimeError(f"{run_dir}: exact-k mismatch in metrics row")
         if values["strict/main_positive_count"] > values["strict/context_eligible_count"]:
@@ -134,9 +147,21 @@ def validate_run(run_dir: Path, mode: experiment_run.Mode, seed: int) -> dict[st
             raise RuntimeError(f"{run_dir}: negative support timing")
         if values["runtime/strict_assignment_sec_per_update"] < 0.0:
             raise RuntimeError(f"{run_dir}: negative assignment timing")
+        step = int(float(row["step"]))
+        if step >= mode.warmup_steps:
+            numba = {field: _number(row, field) for field in NUMBA_FIELDS}
+            if numba["runtime/numba_support_scan_enabled"] != 1.0:
+                raise RuntimeError(f"{run_dir}: Numba support scanner is not enabled")
+            if numba["runtime/numba_scanner_warmed"] != 1.0:
+                raise RuntimeError(f"{run_dir}: Numba support scanner is not warmed")
+            if numba["runtime/numba_support_scan_fallback_rate"] != 0.0:
+                raise RuntimeError(f"{run_dir}: Numba support scanner used fallback")
+            numba_rows_checked += 1
         checked_updates += 1
     if checked_updates == 0:
         raise RuntimeError(f"{run_dir}: no strict metric rows were checked")
+    if numba_rows_checked == 0:
+        raise RuntimeError(f"{run_dir}: no post-warmup Numba metric rows were checked")
 
     eval_rows = [row for row in rows if row.get("eval/env_success_mean", "") != ""]
     expected_grid = list(range(mode.eval_freq, mode.steps + 1, mode.eval_freq))
@@ -196,6 +221,7 @@ def validate_run(run_dir: Path, mode: experiment_run.Mode, seed: int) -> dict[st
         "updates": expected_updates,
         "eval_points": len(eval_rows),
         "strict_metric_rows_checked": checked_updates,
+        "numba_metric_rows_checked": numba_rows_checked,
         "strict_diagnostic_windows": len(diagnostic_rows),
         "passed": True,
     }

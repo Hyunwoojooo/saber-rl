@@ -23,12 +23,12 @@ from metacog_lite_v0.trainer import (
     validate_resume_output_tails,
     validate_resume_payload,
 )
-from train_drawer_open_lite_v0 import config_from_args, parse_args
+from train_drawer_close_lite_v0 import config_from_args, parse_args
 
 
 def strict_config(**overrides: object) -> LiteConfig:
     values = {
-        "task_name": "drawer_open",
+        "task_name": "drawer_close",
         "method": "b3_support_runtime_opt",
         "weight_scope": "critic_only",
         "weighting_mode": "batch_norm",
@@ -164,11 +164,11 @@ def test_strict_config_and_cli() -> None:
 
     expect_failure(
         lambda: strict_config(method="b4_lite"),
-        "must match DrawerOpen SABER Main",
+        "must match DrawerClose SABER Main",
     )
     expect_failure(
         lambda: strict_config(weight_scope="actor_critic"),
-        "must match DrawerOpen SABER Main",
+        "must match DrawerClose SABER Main",
     )
     expect_failure(
         lambda: strict_config(support_query_mode="replay_action"),

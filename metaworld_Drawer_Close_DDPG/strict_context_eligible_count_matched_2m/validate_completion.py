@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Strict completion gate for DrawerOpen DDPG count-matched seeds 1--5."""
+"""Strict completion gate for DrawerClose DDPG count-matched seeds 1--5."""
 
 from __future__ import annotations
 
@@ -42,6 +42,9 @@ STRICT_METRIC_FIELDS = (
     "strict/replacement_sampling_used",
     "runtime/support_lookup_sec_per_update",
     "runtime/strict_assignment_sec_per_update",
+    "runtime/numba_support_scan_enabled",
+    "runtime/numba_scanner_warmed",
+    "runtime/numba_support_scan_fallback_rate",
 )
 
 TRACE_MEAN_FIELDS = (
@@ -76,7 +79,7 @@ TRACE_BOUND_FIELDS = (
 
 # These are the only non-finite raw-metric families tolerated after warm-up.
 # They are legacy diagnostics that are mathematically undefined or unrelated
-# to DrawerOpen.  Strict, loss, value, replay, evaluation, and runtime fields
+# to DrawerClose. Strict, loss, value, replay, evaluation, and runtime fields
 # are never covered by this allowlist.
 ALLOWED_NAN_PREFIXES = (
     "pushT/",
@@ -106,10 +109,35 @@ ALLOWED_NAN_EXACT = {
 }
 NON_NUMERIC_METRIC_FIELDS = {"config/weight_scope"}
 
+PARITY_ALLOWED_PATHS = {
+    "output_root",
+    "run_name",
+    "seeds.assignment_seed",
+    "support_assignment_mode",
+}
+
+EXPECTED_EXACT_SOURCE_FILES = {
+    "metacog_lite_v0/agent.py",
+    "metacog_lite_v0/networks.py",
+    "metacog_lite_v0/replay.py",
+    "metacog_lite_v0/envs.py",
+    "metacog_lite_v0/task_drawer_close.py",
+    "metacog_lite_v0/io_utils.py",
+}
+
+EXPECTED_CONTROLLED_SOURCE_FILES = {
+    "train_drawer_close_lite_v0.py",
+    "metacog_lite_v0/config.py",
+    "metacog_lite_v0/weights.py",
+    "metacog_lite_v0/numba_support_scan_drawer_open.py",
+    "metacog_lite_v0/trainer.py",
+    "metacog_lite_v0/assignment_diagnostics.py",
+}
+
 REQUIRED_CONFIG = {
-    "task_name": "drawer_open",
+    "task_name": "drawer_close",
     "reward_type": "sparse",
-    "metaworld_env_name": "drawer-open-v3",
+    "metaworld_env_name": "drawer-close-v3",
     "metaworld_reward_function_version": "v2",
     "max_episode_steps": 200,
     "total_steps": TOTAL_STEPS,
@@ -222,16 +250,7 @@ def require_config(config: Mapping[str, object], seed: int, expectations: Expect
 
 def allowed_parity_path(path: str) -> bool:
     normalized = path.replace("[", ".").replace("]", "").strip(".")
-    exact = {
-        "method",
-        "control_mode",
-        "support_assignment_mode",
-        "run_name",
-        "output_root",
-        "seeds.assignment_seed",
-        "assignment_diagnostic_window_updates",
-    }
-    return normalized in exact or normalized.startswith("strict_") or normalized.startswith("strict.")
+    return normalized in PARITY_ALLOWED_PATHS
 
 
 def _seed_record(payload: Mapping[str, object], seed: int) -> Mapping[str, object]:
@@ -260,6 +279,14 @@ def validate_config_parity(path: Path, seed: int) -> dict[str, object]:
     payload = analysis.read_json(path)
     if payload.get("passed") is not True:
         raise ValueError(f"{path}: overall config parity failed")
+    if set(payload.get("allowed_paths", [])) != PARITY_ALLOWED_PATHS:
+        raise ValueError(f"{path}: config parity allowlist drifted")
+    canonical = payload.get("canonical_main_expected")
+    if not isinstance(canonical, dict) or (
+        canonical.get("task_name") != "drawer_close"
+        or canonical.get("metaworld_env_name") != "drawer-close-v3"
+    ):
+        raise ValueError(f"{path}: canonical Main is not DrawerClose")
     source_checks = payload.get("canonical_source_checks")
     if not isinstance(source_checks, dict) or not source_checks or not all(
         value is True for value in source_checks.values()
@@ -321,6 +348,20 @@ def validate_source_parity(path: Path) -> dict[str, object]:
         raise ValueError(f"{path}: missing exact source parity records")
     if not isinstance(controlled, list) or not controlled:
         raise ValueError(f"{path}: missing controlled source records")
+    exact_paths = {
+        str(row.get("path")) for row in exact if isinstance(row, dict)
+    }
+    controlled_paths = {
+        str(row.get("path")) for row in controlled if isinstance(row, dict)
+    }
+    if exact_paths != EXPECTED_EXACT_SOURCE_FILES:
+        raise ValueError(
+            f"{path}: exact DrawerClose source set mismatch: {sorted(exact_paths)}"
+        )
+    if controlled_paths != EXPECTED_CONTROLLED_SOURCE_FILES:
+        raise ValueError(
+            f"{path}: controlled source set mismatch: {sorted(controlled_paths)}"
+        )
     for row in exact:
         if not isinstance(row, dict) or row.get("byte_identical") is not True:
             raise ValueError(f"{path}: non-identical exact source row {row!r}")
@@ -373,7 +414,7 @@ def validate_env_snapshot(snapshot: Mapping[str, object], seed: int) -> None:
         env = snapshot.get(key)
         if not isinstance(env, dict):
             raise ValueError(f"env_snapshot.{key} must be an object")
-        if str(env.get("env_name")) != "drawer-open-v3":
+        if str(env.get("env_name")) != "drawer-close-v3":
             raise ValueError(f"env_snapshot.{key}.env_name mismatch")
         if int(env.get("max_episode_steps", -1)) != 200:
             raise ValueError(f"env_snapshot.{key}.max_episode_steps mismatch")
@@ -387,8 +428,8 @@ def validate_env_snapshot(snapshot: Mapping[str, object], seed: int) -> None:
         if not isinstance(kwargs, dict) or int(kwargs.get("seed", -1)) != expected_seed:
             raise ValueError(f"env_snapshot.{key}.spec_kwargs.seed mismatch")
     task = snapshot.get("task_spec")
-    if not isinstance(task, dict) or "DrawerOpen" not in str(task.get("task", "")):
-        raise ValueError("env_snapshot.task_spec is not DrawerOpen")
+    if not isinstance(task, dict) or "DrawerClose" not in str(task.get("task", "")):
+        raise ValueError("env_snapshot.task_spec is not DrawerClose")
 
 
 def _nan_allowed(field: str) -> bool:
@@ -434,6 +475,12 @@ def validate_metrics(metrics_path: Path, warmup_steps: int) -> dict[str, object]
                 raise ValueError(f"{metrics_path}: normalized weight mean differs from one at step {int(step)}")
             if strict["strict/normalized_weight_min"] <= 0.0:
                 raise ValueError(f"{metrics_path}: non-positive normalized weight at step {int(step)}")
+            if strict["runtime/numba_support_scan_enabled"] != 1.0:
+                raise ValueError(f"{metrics_path}: Numba scanner disabled at step {int(step)}")
+            if strict["runtime/numba_scanner_warmed"] != 1.0:
+                raise ValueError(f"{metrics_path}: Numba scanner not warmed at step {int(step)}")
+            if strict["runtime/numba_support_scan_fallback_rate"] != 0.0:
+                raise ValueError(f"{metrics_path}: Numba scanner fallback at step {int(step)}")
     if checked_rows == 0:
         raise ValueError(f"{metrics_path}: no post-warmup metric rows")
     return {
@@ -517,6 +564,8 @@ def validate_checkpoint(path: Path, config: Mapping[str, object], expectations: 
         raise ValueError(f"{path}: global_step mismatch")
     if int(payload.get("total_updates", -1)) != expectations.total_updates:
         raise ValueError(f"{path}: total_updates mismatch")
+    if payload.get("selection_metric") != "eval_env_success_mean":
+        raise ValueError(f"{path}: DrawerClose selection metric mismatch")
     replay = payload.get("replay")
     if not isinstance(replay, dict) or int(replay.get("size", -1)) != expectations.final_replay_size:
         raise ValueError(f"{path}: replay size mismatch")
@@ -589,6 +638,8 @@ def validate_summary(summary: Mapping[str, object], steps: Sequence[int], values
         raise ValueError("summary.total_updates mismatch")
     if int(summary.get("final_replay_size", -1)) != expectations.final_replay_size:
         raise ValueError("summary.final_replay_size mismatch")
+    if summary.get("selection_metric") != "eval_env_success_mean":
+        raise ValueError("summary.selection_metric is not DrawerClose env success")
     auc = analysis.normalized_auc(steps, values)
     final = float(values[-1])
     best = max(float(value) for value in values)
@@ -616,6 +667,21 @@ def validate_summary(summary: Mapping[str, object], steps: Sequence[int], values
         raise ValueError("summary final strict metrics missing")
     for field in STRICT_METRIC_FIELDS:
         require_finite(f"summary.final_strict_metrics.{field}", strict.get(field))
+    if require_finite(
+        "summary.final_strict_metrics.runtime/numba_support_scan_enabled",
+        strict.get("runtime/numba_support_scan_enabled"),
+    ) != 1.0:
+        raise ValueError("summary reports the Numba scanner as disabled")
+    if require_finite(
+        "summary.final_strict_metrics.runtime/numba_scanner_warmed",
+        strict.get("runtime/numba_scanner_warmed"),
+    ) != 1.0:
+        raise ValueError("summary reports the Numba scanner as not warmed")
+    if require_finite(
+        "summary.final_strict_metrics.runtime/numba_support_scan_fallback_rate",
+        strict.get("runtime/numba_support_scan_fallback_rate"),
+    ) != 0.0:
+        raise ValueError("summary reports Numba scanner fallback")
     return {"auc": auc, "final_success": final, "best_success": best, "hit90": hit}
 
 
@@ -732,7 +798,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--repo-root", type=Path, default=repo)
     parser.add_argument(
         "--strict-root", type=Path,
-        default=repo / "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+        default=repo / "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
     )
     parser.add_argument("--output", type=Path)
     parser.add_argument("--force", action="store_true")

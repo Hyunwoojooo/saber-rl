@@ -12,7 +12,7 @@ from metacog_lite_v0.numba_support_scan_drawer_open import (
     scan_drawer_open_support_exact,
     scan_drawer_open_support_predicate,
 )
-from metacog_lite_v0.task_drawer_open import MetaWorldDrawerOpenTaskSpec
+from metacog_lite_v0.task_drawer_close import MetaWorldDrawerCloseTaskSpec
 from metacog_lite_v0.weights import GapStats, LiteWeightComputer, LocalScan
 
 
@@ -21,7 +21,7 @@ def load_original_scanner():
         Path(__file__).resolve().parents[3]
         / "code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
     )
-    spec = importlib.util.spec_from_file_location("drawer_open_original_scanner", source)
+    spec = importlib.util.spec_from_file_location("drawer_close_original_scanner", source)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load original scanner from {source}")
     module = importlib.util.module_from_spec(spec)
@@ -30,7 +30,7 @@ def load_original_scanner():
 
 
 def fixture():
-    task = MetaWorldDrawerOpenTaskSpec(
+    task = MetaWorldDrawerCloseTaskSpec(
         action_low=np.full(4, -1.0, dtype=np.float32),
         action_high=np.full(4, 1.0, dtype=np.float32),
         epsilon_g=0.05,
@@ -167,6 +167,7 @@ def test_absent_coarse_action_bin_still_computes_E() -> None:
         task=task,
         gap_stats=GapStats(8, 128, 0.1, 0.9, 1e-6),
     )
+    assert computer._numba_support_scan_enabled == NUMBA_AVAILABLE
 
     class Replay:
         def __init__(self) -> None:
@@ -208,6 +209,38 @@ def test_absent_coarse_action_bin_still_computes_E() -> None:
     )
     assert not main_positive
 
+    python_cfg = SimpleNamespace(**vars(cfg))
+    python_cfg.numba_support_scan = False
+    python_computer = LiteWeightComputer(
+        config=python_cfg,
+        task=task,
+        gap_stats=GapStats(8, 128, 0.1, 0.9, 1e-6),
+    )
+    python_context, _python_full_scan, _python_exact_negative, *_ = (
+        python_computer._local_context_from_scan(
+            full_key=task.full_context_hash(
+                observation[0], goal, int(horizon[0])
+            ),
+            goal=goal,
+            replay=replay,
+            scan=scan,
+            policy_bins={query_bin},
+            policy_bin=query_bin,
+        )
+    )
+    assert not python_computer._numba_support_scan_enabled
+    np.testing.assert_array_equal(python_context.indices, context.indices)
+    np.testing.assert_array_equal(python_context.action_bins, context.action_bins)
+    assert python_context.local_pool_size == context.local_pool_size
+    assert python_context.available_support_size == context.available_support_size
+    assert python_context.context_count_eligible == context.context_count_eligible
+    python_main_positive = bool(
+        python_context.context_count_eligible
+        and python_context.psi_a_policy is not None
+        and python_context.psi_a_policy > 0.5
+    )
+    assert python_main_positive == main_positive
+
     cfg.support_assignment_mode = "support"
     main_computer = LiteWeightComputer(
         config=cfg,
@@ -235,7 +268,7 @@ def main() -> int:
     test_scanner_membership_switch_preserves_default_main()
     test_default_scanner_exact_tuple_parity_with_original_main()
     test_absent_coarse_action_bin_still_computes_E()
-    print("test_strict_drawer_open_scanner.py passed")
+    print("test_strict_drawer_close_scanner.py passed")
     return 0
 
 

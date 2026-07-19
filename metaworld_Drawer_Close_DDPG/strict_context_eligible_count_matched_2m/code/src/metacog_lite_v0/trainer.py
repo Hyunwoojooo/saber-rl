@@ -36,7 +36,6 @@ from .task_fetch_push import FetchPushTaskSpec
 from .task_fetch_slide import FetchSlideTaskSpec
 from .task_drawer_open import MetaWorldDrawerOpenTaskSpec
 from .task_drawer_close import MetaWorldDrawerCloseTaskSpec
-from .task_drawer_close import MetaWorldDrawerCloseTaskSpec
 from .task_pick_cube import PickCubeTaskSpec
 from .task_push_t import PushTTaskSpec
 from .task_unitree_apple import UnitreeAppleTaskSpec
@@ -1243,7 +1242,9 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     episode_idx = 0
     total_updates = 0
     selection_metric = (
-        "eval_env_success_mean" if config.task_name in {"push_t", "drawer_open"} else "eval_goal_success_mean"
+        "eval_env_success_mean"
+        if config.task_name in {"push_t", "drawer_open", "drawer_close"}
+        else "eval_goal_success_mean"
     )
     best_eval_success = -1.0
     best_eval_selection_success = -1.0

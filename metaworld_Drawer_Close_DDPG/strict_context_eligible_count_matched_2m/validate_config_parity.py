@@ -21,12 +21,9 @@ CODE_SRC = EXPERIMENT_DIR / "code" / "src"
 
 # Every other recursive config path must compare exactly.
 ALLOWED_PATHS = {
-    "method",
-    "control_mode",
     "run_name",
     "output_root",
     "support_assignment_mode",
-    "assignment_diagnostic_window_updates",
     "seeds.assignment_seed",
 }
 
@@ -34,9 +31,9 @@ ALLOWED_PATHS = {
 # control to each other is insufficient if a shared runner field drifts, so the
 # generated Main config must also satisfy this full learning/evaluation contract.
 CANONICAL_MAIN_EXPECTED = {
-    "task_name": "drawer_open",
+    "task_name": "drawer_close",
     "reward_type": "sparse",
-    "metaworld_env_name": "drawer-open-v3",
+    "metaworld_env_name": "drawer-close-v3",
     "metaworld_reward_function_version": "v2",
     "max_episode_steps": 200,
     "total_steps": 2_000_000,
@@ -104,7 +101,7 @@ def _sha256(path: Path) -> str:
 def _load_train_module():
     sys.path.insert(0, str(CODE_SRC))
     try:
-        return importlib.import_module("train_drawer_open_lite_v0")
+        return importlib.import_module("train_drawer_close_lite_v0")
     finally:
         sys.path.pop(0)
 
@@ -136,7 +133,7 @@ def _main_cli(mode: experiment_run.Mode, seed: int) -> list[str]:
         *experiment_run.saber_args(),
         "--method", "b3_support_runtime_opt",
         "--weight_scope", "critic_only",
-        "--run_name", f"drawer_open_DDPG-HER-B3-Critic-Only-2M_s{seed}_2m_cuda",
+        "--run_name", f"drawer_close_DDPG-HER-B3-Critic-Only-2M_s{seed}_2m_cuda",
         "--output_root", str(DRAWER_ROOT / "results_2m" / "DDPG-HER-B3-Critic-Only-2M"),
     ]
 

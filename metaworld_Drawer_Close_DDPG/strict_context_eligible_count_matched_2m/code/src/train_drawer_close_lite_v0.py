@@ -417,6 +417,24 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
             "b3_runtime_opt_predicate_metric_present": "runtime/predicate_early_exit_rate"
             in b3_runtime_wb.extra_metrics,
             "b3_runtime_opt_time_numba_scan_logged": "numba_support_scan" in b3_runtime_wb.timing,
+            "b3_runtime_opt_numba_enabled": (
+                b3_runtime_wb.extra_metrics[
+                    "runtime/numba_support_scan_enabled"
+                ]
+                == 1.0
+            ),
+            "b3_runtime_opt_numba_warmed": (
+                b3_runtime_wb.extra_metrics[
+                    "runtime/numba_scanner_warmed"
+                ]
+                == 1.0
+            ),
+            "b3_runtime_opt_numba_zero_fallback": (
+                b3_runtime_wb.extra_metrics[
+                    "runtime/numba_support_scan_fallback_rate"
+                ]
+                == 0.0
+            ),
             "time_q_candidate_eval_logged": "q_candidate_eval" in b4_wb.timing,
             "time_local_context_lookup_logged": "local_context_lookup" in b4_wb.timing,
             "configured_omega_finite_positive": bool(
@@ -484,6 +502,9 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
         "b3_runtime_opt_numba_metric_present",
         "b3_runtime_opt_predicate_metric_present",
         "b3_runtime_opt_time_numba_scan_logged",
+        "b3_runtime_opt_numba_enabled",
+        "b3_runtime_opt_numba_warmed",
+        "b3_runtime_opt_numba_zero_fallback",
         "time_q_candidate_eval_logged",
         "time_local_context_lookup_logged",
         "configured_omega_finite_positive",
@@ -495,7 +516,7 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
     )
     failed_checks = [name for name in required_checks if not bool(checks.get(name, False))]
     if failed_checks:
-        raise RuntimeError(f"Drawer-Open validate_only failed checks: {failed_checks}")
+        raise RuntimeError(f"Drawer-Close validate_only failed checks: {failed_checks}")
 
 
 def _finite_goal_obs(obs: object) -> bool:

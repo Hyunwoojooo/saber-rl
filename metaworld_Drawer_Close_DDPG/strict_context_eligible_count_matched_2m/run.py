@@ -21,6 +21,11 @@ DRAWER_ROOT = EXPERIMENT_DIR.parent
 REPO_ROOT = DRAWER_ROOT.parent
 TRAIN = EXPERIMENT_DIR / "code" / "src" / "train_drawer_close_lite_v0.py"
 DEFAULT_PYTHON = REPO_ROOT / ".venv" / "bin" / "python"
+PINNED_SCANNER_VERSIONS = {
+    "numpy": "2.3.5",
+    "numba": "0.66.0",
+    "llvmlite": "0.48.0",
+}
 
 
 @dataclass(frozen=True)
@@ -235,6 +240,33 @@ def _runtime_env(cuda_device: str) -> dict[str, str]:
     return env
 
 
+def _require_pinned_scanner_runtime(python: Path, cuda_device: str) -> None:
+    expected = json.dumps(PINNED_SCANNER_VERSIONS, sort_keys=True)
+    probe = (
+        "import json, llvmlite, numba, numpy; "
+        f"expected=json.loads({expected!r}); "
+        "actual={'numpy': numpy.__version__, 'numba': numba.__version__, "
+        "'llvmlite': llvmlite.__version__}; "
+        "assert actual == expected, f'pinned scanner mismatch: {actual} != {expected}'"
+    )
+    process = subprocess.run(
+        [str(python), "-c", probe],
+        cwd=EXPERIMENT_DIR,
+        env=_runtime_env(cuda_device),
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if process.returncode != 0:
+        detail = process.stderr.strip() or process.stdout.strip() or "import failed"
+        raise RuntimeError(
+            "pinned Numba scanner runtime is required for executable runs; "
+            "install requirements-numba.txt into an isolated target and prepend it "
+            f"to PYTHONPATH. Probe error: {detail}"
+        )
+
+
 def _run_parallel(
     python: Path,
     mode: Mode,
@@ -312,6 +344,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.dry_run:
             print(shlex.join(validate_command))
             return 0
+        _require_pinned_scanner_runtime(args.python, args.cuda_device)
         subprocess.run(
             validate_command,
             cwd=EXPERIMENT_DIR,
@@ -325,6 +358,7 @@ def main(argv: list[str] | None = None) -> int:
             print(shlex.join(command(args.python, mode, seed, resume=args.resume)))
         return 0
 
+    _require_pinned_scanner_runtime(args.python, args.cuda_device)
     runnable, resume_by_seed = _preflight(mode, seeds, args.resume)
     if not runnable:
         print("all requested runs are already complete")

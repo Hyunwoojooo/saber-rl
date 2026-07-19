@@ -245,7 +245,7 @@ class LiteConfig:
             "drawer_close",
         }:
             raise ValueError(
-                "task_name must be fetch_push|fetch_pick_and_place|fetch_slide|unitree_apple|pick_cube|push_t|drawer_open"
+                "task_name must be fetch_push|fetch_pick_and_place|fetch_slide|unitree_apple|pick_cube|push_t|drawer_open|drawer_close"
             )
         self.method = self.method.lower()
         allowed = {
@@ -452,7 +452,7 @@ class LiteConfig:
                     f"{mismatched}"
                 )
         if self.smoke:
-            if self.task_name in {"unitree_apple", "pick_cube", "push_t", "drawer_open"}:
+            if self.task_name in {"unitree_apple", "pick_cube", "push_t", "drawer_open", "drawer_close"}:
                 self.total_steps = min(self.total_steps, 5_000)
                 self.start_steps = min(self.start_steps, 1_000)
                 self.warmup_steps = min(self.warmup_steps, 1_000)

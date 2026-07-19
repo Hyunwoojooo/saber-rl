@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exact-grid analysis for the DrawerOpen DDPG strict count-matched control.
+"""Exact-grid analysis for the DrawerClose DDPG strict count-matched control.
 
 The analysis is deliberately standard-library only.  It never interpolates,
 smooths, forward-fills, or treats episode rows as evaluation rows.  An
@@ -84,8 +84,8 @@ def seed_from_run(run_dir: Path) -> int:
 def discover_runs(root: Path, seeds: Sequence[int] = SEEDS) -> dict[int, Path]:
     """Discover exactly the requested seeds while ignoring documented extra cohorts.
 
-    The historical B3 result root also contains diagnostic seeds 6--10.  Those
-    are intentionally not part of the primary matched 1--5 cohort.
+    Any non-primary cohorts under a result root are intentionally excluded from
+    the matched seeds 1--5 comparison.
     """
 
     if not root.is_dir():
@@ -406,17 +406,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--her-root",
         type=Path,
-        default=repo / "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M",
+        default=repo / "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M",
     )
     parser.add_argument(
         "--main-root",
         type=Path,
-        default=repo / "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
+        default=repo / "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
     )
     parser.add_argument(
         "--strict-root",
         type=Path,
-        default=repo / "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+        default=repo / "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
     )
     parser.add_argument("--output-dir", type=Path, required=True)
     return parser.parse_args()
@@ -425,9 +425,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     methods = (
-        MethodSpec("her", "DrawerOpen DDPG HER", args.her_root.resolve()),
-        MethodSpec("main", "DrawerOpen DDPG HER + SABER Main", args.main_root.resolve()),
-        MethodSpec("strict", "DrawerOpen DDPG Strict Context-Eligible Count-Matched", args.strict_root.resolve()),
+        MethodSpec("her", "DrawerClose DDPG HER", args.her_root.resolve()),
+        MethodSpec("main", "DrawerClose DDPG HER + SABER Main", args.main_root.resolve()),
+        MethodSpec("strict", "DrawerClose DDPG Strict Context-Eligible Count-Matched", args.strict_root.resolve()),
     )
     result = analyze(methods, args.output_dir.resolve())
     print(

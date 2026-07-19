@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the non-overwriting compact DrawerOpen strict-control paper artifact."""
+"""Build the non-overwriting compact DrawerClose strict-control paper artifact."""
 
 from __future__ import annotations
 
@@ -18,14 +18,14 @@ import analyze_results as analysis
 import validate_completion as completion
 
 
-ARTIFACT_ID = "drawer_open_ddpg_saber_context_eligible_count_matched_2m"
+ARTIFACT_ID = "drawer_close_ddpg_saber_context_eligible_count_matched_2m"
 EXPERIMENT = "DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M"
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
-DEFAULT_HER_ROOT = REPO_ROOT / "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M"
-DEFAULT_MAIN_ROOT = REPO_ROOT / "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M"
-DEFAULT_STRICT_ROOT = REPO_ROOT / f"metaworld_Drawer_Open_DDPG/results_2m/{EXPERIMENT}"
-DEFAULT_OUTPUT = REPO_ROOT / f"metaworld_Drawer_Open_DDPG/paper_artifacts/{ARTIFACT_ID}"
+DEFAULT_HER_ROOT = REPO_ROOT / "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M"
+DEFAULT_MAIN_ROOT = REPO_ROOT / "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M"
+DEFAULT_STRICT_ROOT = REPO_ROOT / f"metaworld_Drawer_Close_DDPG/results_2m/{EXPERIMENT}"
+DEFAULT_OUTPUT = REPO_ROOT / f"metaworld_Drawer_Close_DDPG/paper_artifacts/{ARTIFACT_ID}"
 
 
 def sha256(path: Path) -> str:
@@ -213,11 +213,11 @@ def build(
 
     gate = completion.validate_all(strict_root.resolve(), repo_root)
     methods = (
-        analysis.MethodSpec("her", "DrawerOpen DDPG HER", her_root.resolve()),
-        analysis.MethodSpec("main", "DrawerOpen DDPG HER + SABER Main", main_root.resolve()),
+        analysis.MethodSpec("her", "DrawerClose DDPG HER", her_root.resolve()),
+        analysis.MethodSpec("main", "DrawerClose DDPG HER + SABER Main", main_root.resolve()),
         analysis.MethodSpec(
             "strict",
-            "DrawerOpen DDPG Strict Context-Eligible Count-Matched",
+            "DrawerClose DDPG Strict Context-Eligible Count-Matched",
             strict_root.resolve(),
         ),
     )

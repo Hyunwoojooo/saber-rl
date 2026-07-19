@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independently verify the compact DrawerOpen strict-control artifact."""
+"""Independently verify the compact DrawerClose strict-control artifact."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ CONTRASTS = (
 )
 DEFAULT_ARTIFACT = (
     Path(__file__).resolve().parents[1]
-    / "drawer_open_ddpg_saber_context_eligible_count_matched_2m"
+    / "drawer_close_ddpg_saber_context_eligible_count_matched_2m"
 )
 TOL = 1e-10
 
@@ -379,7 +379,9 @@ def verify_provenance(root: Path, manifest: Mapping[str, object]) -> None:
     for seed in SEEDS:
         config = load_json(root / "data" / "strict" / f"seed_{seed}" / "config.json")
         if (
-            config.get("method") != "b3_support_runtime_opt"
+            config.get("task_name") != "drawer_close"
+            or config.get("metaworld_env_name") != "drawer-close-v3"
+            or config.get("method") != "b3_support_runtime_opt"
             or config.get("support_assignment_mode") != "context_eligible_count_matched"
             or config.get("weight_scope") != "critic_only"
             or config.get("total_steps") != 2_000_000
@@ -408,7 +410,7 @@ def verify_provenance(root: Path, manifest: Mapping[str, object]) -> None:
 def verify(root: Path) -> dict[str, object]:
     root = root.resolve()
     manifest = load_json(root / "artifact_manifest.json")
-    if manifest.get("artifact_id") != "drawer_open_ddpg_saber_context_eligible_count_matched_2m":
+    if manifest.get("artifact_id") != "drawer_close_ddpg_saber_context_eligible_count_matched_2m":
         raise ValueError("wrong artifact id")
     manifest_files(root, manifest)
     forbidden_files(root)
