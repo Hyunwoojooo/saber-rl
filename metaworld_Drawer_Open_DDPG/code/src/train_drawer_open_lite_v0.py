@@ -85,6 +85,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--action_bins_per_dim", type=int, default=5)
     parser.add_argument("--policy_support_mode", type=str, default="bin", choices=["bin", "radius"])
     parser.add_argument("--policy_action_radius", type=float, default=0.35)
+    parser.add_argument("--support_query_mode", type=str, default="current_policy", choices=["current_policy", "context_count_only"])
     parser.add_argument(
         "--support_scan_mode",
         type=str,
@@ -180,6 +181,7 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         action_bins_per_dim=args.action_bins_per_dim,
         policy_support_mode=args.policy_support_mode,
         policy_action_radius=args.policy_action_radius,
+        support_query_mode=args.support_query_mode,
         support_scan_mode=args.support_scan_mode,
         support_cache_enabled=args.support_cache_enabled,
         support_cache_max_entries=args.support_cache_max_entries,

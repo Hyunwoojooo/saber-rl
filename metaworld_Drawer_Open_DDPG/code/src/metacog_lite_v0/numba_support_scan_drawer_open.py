@@ -82,6 +82,7 @@ if NUMBA_AVAILABLE:
         action_low: np.ndarray,
         action_high: np.ndarray,
         bins_per_dim: int,
+        require_action_membership: bool,
     ) -> Tuple[int, int, int, int, int, int]:
         q_phase = query_full_key // 1_000_000
         rem = query_full_key - q_phase * 1_000_000
@@ -95,7 +96,7 @@ if NUMBA_AVAILABLE:
         q_h_bin = rem - q_grip_bin * 100
 
         local_count = 0
-        policy_seen = 0
+        policy_seen = 0 if require_action_membership else 1
         n_scanned = int(scanned_indices.shape[0])
 
         for pos in range(n_scanned):
@@ -141,16 +142,17 @@ if NUMBA_AVAILABLE:
                 continue
 
             local_count += 1
-            action_bin = int(replay_action_bin[idx])
-            if action_bin < 0:
-                action_bin = _action_bin_one(
-                    replay_action_exec[idx],
-                    action_low,
-                    action_high,
-                    bins_per_dim,
-                )
-            if action_bin == query_policy_bin:
-                policy_seen = 1
+            if require_action_membership:
+                action_bin = int(replay_action_bin[idx])
+                if action_bin < 0:
+                    action_bin = _action_bin_one(
+                        replay_action_exec[idx],
+                        action_low,
+                        action_high,
+                        bins_per_dim,
+                    )
+                if action_bin == query_policy_bin:
+                    policy_seen = 1
 
         available_support_size = local_count
         if available_support_size > m_b:
@@ -188,6 +190,7 @@ if NUMBA_AVAILABLE:
         action_low: np.ndarray,
         action_high: np.ndarray,
         bins_per_dim: int,
+        require_action_membership: bool,
     ) -> Tuple[int, int, int, int, int, int, int]:
         q_phase = query_full_key // 1_000_000
         rem = query_full_key - q_phase * 1_000_000
@@ -201,7 +204,7 @@ if NUMBA_AVAILABLE:
         q_h_bin = rem - q_grip_bin * 100
 
         local_count = 0
-        policy_seen = 0
+        policy_seen = 0 if require_action_membership else 1
         n_scanned = int(scanned_indices.shape[0])
         required_count = n_local_min
         if m_q_min > required_count:
@@ -250,16 +253,17 @@ if NUMBA_AVAILABLE:
                 continue
 
             local_count += 1
-            action_bin = int(replay_action_bin[idx])
-            if action_bin < 0:
-                action_bin = _action_bin_one(
-                    replay_action_exec[idx],
-                    action_low,
-                    action_high,
-                    bins_per_dim,
-                )
-            if action_bin == query_policy_bin:
-                policy_seen = 1
+            if require_action_membership:
+                action_bin = int(replay_action_bin[idx])
+                if action_bin < 0:
+                    action_bin = _action_bin_one(
+                        replay_action_exec[idx],
+                        action_low,
+                        action_high,
+                        bins_per_dim,
+                    )
+                if action_bin == query_policy_bin:
+                    policy_seen = 1
 
             if local_count >= required_count and policy_seen == 1 and m_b >= m_q_min:
                 available_support_size = local_count
@@ -307,6 +311,7 @@ def scan_drawer_open_support_exact(
     action_low: np.ndarray | None = None,
     action_high: np.ndarray | None = None,
     bins_per_dim: int = 5,
+    require_action_membership: bool = True,
 ) -> tuple[int, int, int, int, int, int]:
     if not NUMBA_AVAILABLE or _scan_drawer_open_support_exact_jit is None:
         raise RuntimeError("numba is not available")
@@ -338,6 +343,7 @@ def scan_drawer_open_support_exact(
         np.asarray(action_low, dtype=np.float32),
         np.asarray(action_high, dtype=np.float32),
         int(bins_per_dim),
+        bool(require_action_membership),
     )
     return tuple(int(v) for v in result)
 
@@ -368,6 +374,7 @@ def scan_drawer_open_support_predicate(
     action_low: np.ndarray | None = None,
     action_high: np.ndarray | None = None,
     bins_per_dim: int = 5,
+    require_action_membership: bool = True,
 ) -> tuple[int, int, int, int, int, int, int]:
     if not NUMBA_AVAILABLE or _scan_drawer_open_support_predicate_jit is None:
         raise RuntimeError("numba is not available")
@@ -399,6 +406,7 @@ def scan_drawer_open_support_predicate(
         np.asarray(action_low, dtype=np.float32),
         np.asarray(action_high, dtype=np.float32),
         int(bins_per_dim),
+        bool(require_action_membership),
     )
     return tuple(int(v) for v in result)
 

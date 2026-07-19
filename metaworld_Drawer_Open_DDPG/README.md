@@ -251,7 +251,18 @@ bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Support-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-PER-Style-2M.sh
+bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Context-Count-Only-2M.sh
 ```
+
+## Context-count-only descriptive control
+
+`DDPG-HER-B3-Context-Count-Only-2M.sh` implements **Context eligibility only (count-unmatched descriptive control)**. For each HER-relabeled query it uses the existing DrawerOpen state-goal-horizon contexts and deterministic recent tail of at most 512 replay transitions. A sample is positive when `n_local >= 4` and `min(n_local, 16) >= 4`. Current-policy/replay action membership, Q values, TD errors, and random assignment are not used.
+
+Raw critic weights are `1 + psi_ctx` and are normalized by their minibatch mean; actor weights stay one. This is not the strict count-matched control: every eligible sample is positive, so its positive count and normalized-weight histogram may differ from SABER Main. The launcher accepts `SEEDS`, `STEPS`, `STEP_TAG`, `CUDA_DEVICE`, `OUTPUT_ROOT`, and `LOG_ROOT`; the shared trainer defaults to `support_query_mode=current_policy` for backward compatibility.
+
+With predicate early exit enabled, the context-only local-count diagnostic is threshold-capped eligibility evidence (it may stop at the fourth exact match), not a full local-population count; do not use it to claim population-size statistics.
+
+For a clean checkout on another machine, set `PYTHON` to the target virtual environment when `.venv/bin/python` is unavailable. Before a full run, execute `code/src/test_context_count_only_drawer_open.py`, `code/src/test_context_count_only_ddpg_loss_scope.py`, `validate_context_count_only_config_parity.py`, and `freeze_context_count_only_source.py --verify` with that interpreter. The source snapshot used here was validated with NumPy 2.3.5, Numba 0.66.0, llvmlite 0.48.0, PyTorch 2.12.1, Gymnasium 1.3.0, Gymnasium-Robotics 1.4.2, and Meta-World 3.1.1.
 
 Run B0 and B3-Critic-Only sequentially:
 
