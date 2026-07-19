@@ -20,6 +20,10 @@ from .numba_support_scan_drawer_open import (
 )
 
 
+SUPPORT_QUERY_MODES = frozenset({"current_policy", "context_count_only"})
+CONTEXT_ONLY_DESCRIPTION = "Context eligibility only (count-unmatched descriptive control)"
+
+
 @dataclass
 class WeightBatch:
     omega_critic: np.ndarray
@@ -71,6 +75,7 @@ class LocalContextResult:
     scanned_count_short_circuit: bool = False
     coarse_action_bin_count_lookup: bool = False
     predicate_early_exit: bool = False
+    context_count_eligible: float | None = None
 
 
 class GapStats:
@@ -178,6 +183,7 @@ class LiteWeightComputer:
         psi_q_rank = np.zeros(b, dtype=np.float32)
         fallback = np.ones(b, dtype=np.float32)
         psi_a_policy = np.zeros(b, dtype=np.float32)
+        context_count_eligible_mask = np.zeros(b, dtype=np.bool_)
         len_sup = np.zeros(b, dtype=np.float32)
         len_local = np.zeros(b, dtype=np.float32)
         coarse_count = np.zeros(b, dtype=np.float32)
@@ -230,6 +236,8 @@ class LiteWeightComputer:
                 else:
                     local_count = int(local_indices.size)
                 len_local[i] = float(local_count)
+                if runtime_opt_contexts is not None and local_context.context_count_eligible is not None:
+                    context_count_eligible_mask[i] = local_context.context_count_eligible > 0.5
                 if local_count < self.cfg.N_local_min:
                     continue
                 if runtime_opt_contexts is not None and local_context.available_support_size is not None:
@@ -237,6 +245,8 @@ class LiteWeightComputer:
                 else:
                     n_sup = min(local_count, int(self.cfg.M_B))
                 len_sup[i] = float(n_sup)
+                if runtime_opt_contexts is None or local_context.context_count_eligible is None:
+                    context_count_eligible_mask[i] = n_sup >= int(self.cfg.M_Q_min)
                 t_support0 = time.perf_counter()
                 if runtime_opt_contexts is not None and local_context.psi_a_policy is not None:
                     psi_a_policy[i] = float(local_context.psi_a_policy)
@@ -401,6 +411,36 @@ class LiteWeightComputer:
         else:
             omega_critic = np.ones(b, dtype=np.float32)
             omega_actor = np.ones(b, dtype=np.float32)
+
+        if (str(getattr(self.cfg, "support_query_mode", "current_policy")).lower() == "context_count_only"
+                and self.cfg.method == "b3_support_runtime_opt"):
+            eligible = context_count_eligible_mask.astype(np.bool_, copy=False)
+            support_positive = psi_q_rank > 0.5
+            high_weight = assigned_w_raw > (1.0 + 0.5 * float(self.cfg.lambda_support))
+            lookup_count = int(round(float(extra_metrics.get("runtime/coarse_action_bin_count_lookup_rate", 0.0)) * max(1, b)))
+            violations = sum((not np.array_equal(support_positive, eligible), not np.array_equal(high_weight, eligible), not np.all(np.isfinite(omega)), not np.all(omega > 0.0), not np.allclose(omega_actor, 1.0, rtol=0.0, atol=0.0), lookup_count != 0, not np.isclose(float(np.mean(omega, dtype=np.float64)), 1.0, rtol=1e-6, atol=1e-6)))
+            valid_raw = np.logical_or(np.isclose(assigned_w_raw, 1.0), np.isclose(assigned_w_raw, 1.0 + float(self.cfg.lambda_support)))
+            violations += int(not np.all(valid_raw))
+            if violations:
+                raise RuntimeError(f"context_count_only invariant violation count={violations}")
+            raw64 = assigned_w_raw.astype(np.float64); norm64 = omega.astype(np.float64)
+            raw_denom = float(np.sum(np.square(raw64))); norm_denom = float(np.sum(np.square(norm64)))
+            all_eligible = bool(b > 0 and np.all(eligible)); all_ineligible = bool(b == 0 or not np.any(eligible))
+            extra_metrics.update({
+                "query/context_count_eligible_rate": float(np.mean(eligible)) if b else 0.0, "query/support_positive_rate": float(np.mean(support_positive)) if b else 0.0,
+                "query/high_weight_count": float(np.sum(high_weight)), "query/raw_weight_mean": float(np.mean(raw64)) if b else 1.0, "query/raw_weight_std": float(np.std(raw64)) if b else 0.0,
+                "query/raw_weight_ess": float(np.square(np.sum(raw64)) / raw_denom) if raw_denom else 0.0, "query/normalized_weight_mean": float(np.mean(norm64)) if b else 1.0,
+                "query/normalized_weight_std": float(np.std(norm64)) if b else 0.0, "query/normalized_weight_ess": float(np.square(np.sum(norm64)) / norm_denom) if norm_denom else 0.0,
+                "query/all_eligible_update": float(all_eligible), "query/all_ineligible_update": float(all_ineligible), "query/mixed_weight_update": float(not all_eligible and not all_ineligible),
+                "query/action_membership_lookup_count": float(lookup_count), "query/invariant_violation_count": float(violations),
+                "query/query_bin_present_given_context_rate": float("nan"), "query/query_bin_matches_current_policy_rate": float("nan"),
+                "query/query_bin_matches_replay_action_rate": float("nan"), "lite/psi_A_query_rate": float("nan"),
+            })
+            psi_a_policy.fill(np.nan)
+            for phase_id, phase_name in enumerate(getattr(self.task, "phase_names", ())):
+                phase_mask = phase == phase_id
+                extra_metrics[f"query/phase_{phase_name}_eligible_rate"] = float(np.mean(eligible[phase_mask])) if np.any(phase_mask) else float("nan")
+                extra_metrics[f"query/phase_{phase_name}_high_weight_rate"] = float(np.mean(high_weight[phase_mask])) if np.any(phase_mask) else float("nan")
         weight_computation_time += time.perf_counter() - t_weight0
         if self.cfg.method == "b2_unrestricted_gap":
             extra_metrics["b2/candidate_action_norm_mean"] = float(np.mean(candidate_action_norm)) if b else 0.0
@@ -736,7 +776,12 @@ class LiteWeightComputer:
         b = int(batch.observation.shape[0])
         query_coarse = self.task.coarse_hash_batch(batch.observation, batch.h)
         full_keys = self.task.full_context_hash_batch(batch.observation, batch.desired_goal_train, batch.h)
-        policy_bins = self.task.action_bin_batch(a_policy, self.cfg.action_bins_per_dim)
+        query_mode = str(getattr(self.cfg, "support_query_mode", "current_policy")).lower()
+        if query_mode not in SUPPORT_QUERY_MODES:
+            raise ValueError(f"Unsupported support_query_mode={query_mode!r}")
+        require_action_membership = query_mode == "current_policy"
+        policy_bins = (self.task.action_bin_batch(a_policy, self.cfg.action_bins_per_dim)
+                       if require_action_membership else np.full(b, -1, dtype=np.int64))
 
         support_keys: list[tuple[Any, ...]] = []
         unique_queries: Dict[tuple[Any, ...], Dict[str, Any]] = {}
@@ -751,7 +796,7 @@ class LiteWeightComputer:
                 goal=batch.desired_goal_train[i],
                 h=int(batch.h[i]),
                 bucket_version=bucket_version,
-                policy_bin=policy_bin if self._numba_support_scan_enabled else None,
+                policy_bin=policy_bin if (require_action_membership and self._numba_support_scan_enabled) else None,
             )
             support_keys.append(support_key)
             query = unique_queries.get(support_key)
@@ -764,7 +809,8 @@ class LiteWeightComputer:
                     "policy_bins": set(),
                 }
                 unique_queries[support_key] = query
-            query["policy_bins"].add(policy_bin)
+            if require_action_membership:
+                query["policy_bins"].add(policy_bin)
 
         scan_hits = 0
         scan_misses = 0
@@ -831,17 +877,20 @@ class LiteWeightComputer:
             if context.predicate_early_exit:
                 predicate_scanned_count += int(context.num_scanned_candidates)
             if audit_this and context.predicate_early_exit:
-                exact_local, exact_sup, exact_psi = self._audit_local_context_exact(
-                    full_key=int(query["full_key"]),
-                    goal=query["goal"],
-                    replay=replay,
-                    scan=scan,
-                    policy_bin=int(query["policy_bin"]),
-                )
                 diagnostic_audits += 1
-                audit_len_local_abs_diff += abs(float(exact_local) - float(context.local_pool_size or 0))
-                audit_len_sup_abs_diff += abs(float(exact_sup) - float(context.available_support_size or 0))
-                audit_psi_mismatch += int(float(exact_psi) != float(context.psi_a_policy or 0.0))
+                if require_action_membership:
+                    exact_local, exact_sup, exact_psi = self._audit_local_context_exact(
+                        full_key=int(query["full_key"]), goal=query["goal"], replay=replay, scan=scan,
+                        policy_bin=int(query["policy_bin"]),
+                    )
+                    audit_len_local_abs_diff += abs(float(exact_local) - float(context.local_pool_size or 0))
+                    audit_len_sup_abs_diff += abs(float(exact_sup) - float(context.available_support_size or 0))
+                    audit_psi_mismatch += int(float(exact_psi) != float(context.psi_a_policy or 0.0))
+                else:
+                    exact_eligible, *_ = self._context_count_eligible_from_scan(
+                        full_key=int(query["full_key"]), goal=query["goal"], replay=replay, scan=scan,
+                    )
+                    audit_psi_mismatch += int(float(exact_eligible) != float(context.context_count_eligible or 0.0))
             if support_cache_enabled and not did_exact_negative:
                 self._lru_put(self._support_cache, support_key, context, int(self.cfg.support_cache_max_entries))
             context_by_key[support_key] = context
@@ -921,7 +970,9 @@ class LiteWeightComputer:
         scan = LocalScan(
             indices=scanned.astype(np.int64, copy=True),
             coarse_key=int(coarse_key),
-            action_bins=self._coarse_action_bins(replay, int(coarse_key)),
+            action_bins=(self._coarse_action_bins(replay, int(coarse_key))
+                         if str(getattr(self.cfg, "support_query_mode", "current_policy")).lower() == "current_policy"
+                         else np.zeros((0,), dtype=np.int64)),
             bucket_version=bucket_version,
             num_coarse_candidates=int(n_candidates),
             local_scan_truncated=bool(truncated),
@@ -1101,6 +1152,25 @@ class LiteWeightComputer:
                 0.0,
             )
 
+        if str(getattr(self.cfg, "support_query_mode", "current_policy")).lower() == "context_count_only":
+            eligible, did_full_scan, filter_count, numba_used, numba_fallback, scan_time = self._context_count_eligible_from_scan(
+                full_key=full_key, goal=goal, replay=replay, scan=scan
+            )
+            threshold_count = max(int(self.cfg.N_local_min), int(self.cfg.M_Q_min))
+            observed_count = threshold_count if eligible > 0.5 else 0
+            return (
+                LocalContextResult(
+                    indices=np.zeros((0,), dtype=np.int64), action_bins=np.zeros((0,), dtype=np.int64),
+                    num_coarse_candidates=scan.num_coarse_candidates,
+                    num_scanned_candidates=int(scan.indices.size if did_full_scan else min(scan.indices.size, threshold_count)),
+                    local_scan_truncated=scan.local_scan_truncated, local_pool_size=observed_count,
+                    available_support_size=min(observed_count, int(self.cfg.M_B)),
+                    psi_a_policy=float(eligible), context_count_eligible=float(eligible),
+                    predicate_early_exit=not did_full_scan,
+                ),
+                did_full_scan, eligible < 0.5, filter_count, numba_used, numba_fallback, scan_time,
+            )
+
         action_bin_count_lookup = False
         if self.cfg.support_short_circuit and self.cfg.policy_support_mode == "bin" and policy_bins:
             if hasattr(replay, "action_index_has_action_bin"):
@@ -1166,6 +1236,7 @@ class LiteWeightComputer:
                     action_low=params["action_low"],
                     action_high=params["action_high"],
                     bins_per_dim=int(self.cfg.action_bins_per_dim),
+                    require_action_membership=True,
                 )
                 if use_predicate:
                     (
@@ -1239,6 +1310,79 @@ class LiteWeightComputer:
             0.0,
         )
 
+    def _context_count_eligible_from_scan(
+        self,
+        full_key: int,
+        goal: np.ndarray,
+        replay: HERReplayBuffer,
+        scan: LocalScan,
+    ) -> tuple[float, bool, int, int, int, float]:
+        """Evaluate E without consulting the current-policy action bin."""
+        params = self._numba_scan_params
+        numba_attempted = self._numba_support_scan_enabled and params is not None
+        if numba_attempted:
+            try:
+                t_numba0 = time.perf_counter()
+                result = scan_drawer_open_support_predicate(
+                    replay_obs=replay.observation,
+                    replay_h=replay.h,
+                    replay_action_bin=replay.action_bin,
+                    replay_action_exec=replay.action_exec,
+                    scanned_indices=scan.indices,
+                    query_goal=goal,
+                    query_full_key=int(full_key),
+                    query_policy_bin=-1,
+                    hand_handle_bins=params["hand_obj_bins"],
+                    handle_goal_bins=params["obj_goal_bins"],
+                    handle_y_bins=params["object_z_bins"],
+                    gripper_bins=params["gripper_gap_bins"],
+                    horizon_bins=params["horizon_bins"],
+                    d_reach=params["d_reach"],
+                    d_goal_near=params["d_goal_near"],
+                    d_opening_mid=params["d_opening_mid"],
+                    n_local_min=int(self.cfg.N_local_min),
+                    m_q_min=int(self.cfg.M_Q_min),
+                    m_b=int(self.cfg.M_B),
+                    ee_start=params["ee_start"],
+                    handle_start=params["object_start"],
+                    gripper_start=params["gripper_start"],
+                    action_low=params["action_low"],
+                    action_high=params["action_high"],
+                    bins_per_dim=int(self.cfg.action_bins_per_dim),
+                    require_action_membership=False,
+                )
+                elapsed = time.perf_counter() - t_numba0
+                early_exit = bool(result[6])
+                return (
+                    float(result[3]),
+                    not early_exit,
+                    0 if early_exit else int(scan.indices.size),
+                    1,
+                    0,
+                    elapsed,
+                )
+            except Exception:
+                pass
+
+        ref_obs = replay.observation[scan.indices]
+        ref_goal = np.repeat(goal[None, :], scan.indices.size, axis=0)
+        ref_h = replay.h[scan.indices]
+        ref_hash = self.task.full_context_hash_batch(ref_obs, ref_goal, ref_h)
+        local_count = int(np.sum(ref_hash == int(full_key)))
+        available = min(local_count, int(self.cfg.M_B))
+        eligible = float(
+            local_count >= int(self.cfg.N_local_min)
+            and available >= int(self.cfg.M_Q_min)
+        )
+        return (
+            eligible,
+            True,
+            int(scan.indices.size),
+            0,
+            int(numba_attempted),
+            0.0,
+        )
+
     def _support_cache_key(
         self,
         coarse_key: int,
@@ -1248,6 +1392,8 @@ class LiteWeightComputer:
         bucket_version: int,
         policy_bin: int | None = None,
     ) -> tuple[Any, ...]:
+        if str(getattr(self.cfg, "support_query_mode", "current_policy")).lower() == "context_count_only":
+            return (int(coarse_key), int(full_key), np.ascontiguousarray(np.asarray(goal, dtype=np.float32)).tobytes(), int(h), int(bucket_version), int(self.cfg.local_search_max), "context_count_only", str(self.cfg.support_scan_mode))
         key: tuple[Any, ...] = (
             int(coarse_key),
             int(full_key),
@@ -1264,6 +1410,8 @@ class LiteWeightComputer:
         return key
 
     def _scan_cache_key(self, coarse_key: int, bucket_version: int) -> tuple[Any, ...]:
+        if str(getattr(self.cfg, "support_query_mode", "current_policy")).lower() == "context_count_only":
+            return (int(coarse_key), int(bucket_version), int(self.cfg.local_search_max), "context_count_only", str(self.cfg.support_scan_mode))
         return (
             int(coarse_key),
             int(bucket_version),

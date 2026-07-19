@@ -481,6 +481,58 @@ def _task_phase_names(task: Any) -> tuple[str, ...]:
     return tuple(str(name) for name in names)
 
 
+def _restore_training_log_state(
+    payload: Dict[str, Any],
+    phase_names: tuple[str, ...],
+) -> tuple[Dict[str, float], Dict[str, float], float, Dict[str, float], list[tuple[int, float]]]:
+    """Restore summary-relevant state while accepting checkpoints from older runs."""
+    last_loss = {
+        "critic": 0.0,
+        "actor": 0.0,
+        "q_mean": 0.0,
+        "target_mean": 0.0,
+        "q_std": 0.0,
+        "target_std": 0.0,
+        "q_abs_mean": 0.0,
+        "q_abs_max": 0.0,
+        "td_error_abs_mean": 0.0,
+        "td_error_abs_p90": 0.0,
+    }
+    stored_loss = payload.get("last_loss", {})
+    if isinstance(stored_loss, dict):
+        last_loss.update({str(key): float(value) for key, value in stored_loss.items()})
+
+    last_lite = _empty_lite_metrics(phase_names)
+    stored_lite = payload.get("last_lite", {})
+    if isinstance(stored_lite, dict):
+        last_lite.update({str(key): float(value) for key, value in stored_lite.items()})
+
+    stored_eval = payload.get("last_eval_metrics", {})
+    last_eval_metrics = (
+        {str(key): float(value) for key, value in stored_eval.items()}
+        if isinstance(stored_eval, dict)
+        else {}
+    )
+    eval_history_env: list[tuple[int, float]] = []
+    for row in payload.get("eval_history_env", []):
+        if not isinstance(row, (list, tuple)) or len(row) != 2:
+            raise ValueError(f"invalid eval_history_env checkpoint row: {row!r}")
+        eval_history_env.append((int(row[0]), float(row[1])))
+
+    return (
+        last_loss,
+        last_lite,
+        float(payload.get("last_her_ratio", 0.0)),
+        last_eval_metrics,
+        eval_history_env,
+    )
+
+
+def _resume_global_step(payload: Dict[str, Any]) -> int:
+    """Return the number of transitions already completed by a checkpoint."""
+    return int(payload["global_step"])
+
+
 def run_training(config: LiteConfig, repo_root: Path) -> Path:
     config.normalize()
     output_root = config.output_root_path(repo_root)
@@ -761,6 +813,23 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "b3/support_to_success_corr",
         "b3/support_to_td_error_corr",
         "diagnostic/support_positive_rate",
+        "query/context_count_eligible_rate",
+        "query/support_positive_rate",
+        "query/high_weight_count",
+        "query/raw_weight_mean",
+        "query/raw_weight_std",
+        "query/raw_weight_ess",
+        "query/normalized_weight_mean",
+        "query/normalized_weight_std",
+        "query/normalized_weight_ess",
+        "query/all_eligible_update",
+        "query/all_ineligible_update",
+        "query/mixed_weight_update",
+        "query/action_membership_lookup_count",
+        "query/invariant_violation_count",
+        "query/query_bin_present_given_context_rate",
+        "query/query_bin_matches_current_policy_rate",
+        "query/query_bin_matches_replay_action_rate",
         "diagnostic/td_error_support_pos_mean",
         "diagnostic/td_error_support_neg_mean",
         "diagnostic/td_error_enrichment_ratio",
@@ -800,6 +869,8 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                 f"b3/support_by_phase_{phase_name}",
                 f"b3/mean_w_P_by_phase_{phase_name}",
                 f"b3/fallback_by_phase_{phase_name}",
+                f"query/phase_{phase_name}_eligible_rate",
+                f"query/phase_{phase_name}_high_weight_rate",
             ]
         )
     fields = list(dict.fromkeys(fields))
@@ -821,12 +892,20 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     best_eval_env_success = -1.0
     best_eval_return = float("-inf")
     best_eval_step = -1
-    last_eval_metrics: Dict[str, float] = {}
-    eval_history_env: list[tuple[int, float]] = []
+    (
+        last_loss,
+        last_lite,
+        last_her_ratio,
+        last_eval_metrics,
+        eval_history_env,
+    ) = _restore_training_log_state({}, phase_names)
 
     ckpt_path = Path(config.resume_path) if config.resume_path else _checkpoint_path(run_dir)
     if config.resume and ckpt_path.exists():
         payload = load_checkpoint(ckpt_path)
+        checkpoint_query_mode = str(payload.get("config", {}).get("support_query_mode", "current_policy")).lower()
+        if checkpoint_query_mode != config.support_query_mode:
+            raise ValueError(f"resume support_query_mode mismatch: checkpoint={checkpoint_query_mode!r}, requested={config.support_query_mode!r}")
         agent.load_state_dict(payload["agent"])
         replay.load_state_dict(payload["replay"])
         if replay.indexed_slot_count() < replay.size:
@@ -834,7 +913,9 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             logger.info("rebuilt replay action index slots=%d", replay.indexed_slot_count())
         replay.rebuild_action_bins(task.action_bin_batch(replay.action_exec[:replay.size], config.action_bins_per_dim))
         gap_stats.load_state_dict(payload.get("gap_stats", {}))
-        start_step = int(payload["global_step"]) + 1
+        # global_step counts completed environment transitions. Resume from
+        # that count; the loop increments it after the next transition.
+        start_step = _resume_global_step(payload)
         episode_idx = int(payload["episode_idx"])
         total_updates = int(payload.get("total_updates", 0))
         best_eval_success = float(payload.get("best_eval_success", -1.0))
@@ -846,6 +927,13 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         noise_rng.bit_generator.state = payload["noise_rng_state"]
         sample_rng.bit_generator.state = payload["sample_rng_state"]
         weight_rng.bit_generator.state = payload["weight_rng_state"]
+        (
+            last_loss,
+            last_lite,
+            last_her_ratio,
+            last_eval_metrics,
+            eval_history_env,
+        ) = _restore_training_log_state(payload, phase_names)
         logger.info("resumed from %s at step=%d", ckpt_path, start_step)
 
     obs = train_env.reset(seed=config.seeds.env_seed + episode_idx)
@@ -853,20 +941,6 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     ep_success = 0.0
     ep_step = 0
     global_step = start_step
-    last_loss = {
-        "critic": 0.0,
-        "actor": 0.0,
-        "q_mean": 0.0,
-        "target_mean": 0.0,
-        "q_std": 0.0,
-        "target_std": 0.0,
-        "q_abs_mean": 0.0,
-        "q_abs_max": 0.0,
-        "td_error_abs_mean": 0.0,
-        "td_error_abs_p90": 0.0,
-    }
-    last_lite = _empty_lite_metrics(phase_names)
-    last_her_ratio = 0.0
     wall_start = time.perf_counter()
 
     def checkpoint_payload(step_value: int, kind: str) -> Dict[str, Any]:
@@ -883,6 +957,11 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
             "best_eval_env_success": best_eval_env_success,
             "best_eval_return": best_eval_return,
             "best_eval_step": best_eval_step,
+            "last_loss": last_loss,
+            "last_lite": last_lite,
+            "last_her_ratio": last_her_ratio,
+            "last_eval_metrics": last_eval_metrics,
+            "eval_history_env": eval_history_env,
             "agent": agent.state_dict(),
             "replay": replay.state_dict(),
             "gap_stats": gap_stats.state_dict(),
@@ -1148,6 +1227,8 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     summary = {
         "run_dir": str(run_dir),
         "method": config.method,
+        "support_query_mode": config.support_query_mode,
+        "control_description": ("Context eligibility only (count-unmatched descriptive control)" if config.support_query_mode == "context_count_only" else "SABER current-policy action-support query"),
         "total_steps": config.total_steps,
         "episodes": episode_idx,
         "total_updates": total_updates,
