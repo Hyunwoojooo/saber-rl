@@ -1,0 +1,16 @@
+comparison,method_key,reference_key,metric,n_pairs,paired_seeds,mean_delta,sample_std_delta,ci95_low,ci95_high,bootstrap_method,bootstrap_distribution_size,positive_pairs,zero_pairs,negative_pairs,exact_sign_flip_p_two_sided,sign_flip_distribution_size
+AER-minus-ER,ddpg_aer,ddpg_er,success_auc,5,1;2;3;4;5,0.043869346733668338,0.086290914593398049,-0.026708542713567835,0.1086180904522613,exact_n_to_n_paired_resampling,3125,4,0,1,0.375,32
+AER-minus-ER,ddpg_aer,ddpg_er,final_success,5,1;2;3;4;5,0.20000000000000001,0.44721359549995793,0,0.59999999999999998,exact_n_to_n_paired_resampling,3125,1,4,0,1,2
+AER-minus-ER,ddpg_aer,ddpg_er,best_success,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AER-minus-ER,ddpg_aer,ddpg_er,last_quarter_auc,5,1;2;3;4;5,0.047346938775510203,0.33950514616603306,-0.20693877551020409,0.32204081632653064,exact_n_to_n_paired_resampling,3125,2,0,3,0.875,32
+AER-minus-ER,ddpg_aer,ddpg_er,fixed100_success,5,1;2;3;4;5,0.20000000000000001,0.44721359549995793,0,0.59999999999999998,exact_n_to_n_paired_resampling,3125,1,4,0,1,2
+AER-minus-AnnealingER,ddpg_aer,ddpg_annealing_er,success_auc,5,1;2;3;4;5,-0.0057286432160803952,0.16203431192794812,-0.14266331658291456,0.11502512562814071,exact_n_to_n_paired_resampling,3125,3,0,2,1,32
+AER-minus-AnnealingER,ddpg_aer,ddpg_annealing_er,final_success,5,1;2;3;4;5,-0.13,0.70231759197673527,-0.66000000000000003,0.46999999999999997,exact_n_to_n_paired_resampling,3125,1,0,4,0.5625,32
+AER-minus-AnnealingER,ddpg_aer,ddpg_annealing_er,best_success,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AER-minus-AnnealingER,ddpg_aer,ddpg_annealing_er,last_quarter_auc,5,1;2;3;4;5,-0.051326530612244889,0.37657357616724596,-0.36336734693877548,0.22602040816326532,exact_n_to_n_paired_resampling,3125,3,0,2,0.875,32
+AER-minus-AnnealingER,ddpg_aer,ddpg_annealing_er,fixed100_success,5,1;2;3;4;5,-0.13400000000000001,0.71405882110649677,-0.67200000000000004,0.47599999999999998,exact_n_to_n_paired_resampling,3125,1,0,4,0.5625,32
+AnnealingER-minus-ER,ddpg_annealing_er,ddpg_er,success_auc,5,1;2;3;4;5,0.04959798994974874,0.12025882628044833,-0.051381909547738691,0.13668341708542714,exact_n_to_n_paired_resampling,3125,4,0,1,0.3125,32
+AnnealingER-minus-ER,ddpg_annealing_er,ddpg_er,final_success,5,1;2;3;4;5,0.33000000000000002,0.39147158262126769,0.089999999999999997,0.67000000000000004,exact_n_to_n_paired_resampling,3125,5,0,0,0.0625,32
+AnnealingER-minus-ER,ddpg_annealing_er,ddpg_er,best_success,5,1;2;3;4;5,0,0,0,0,exact_n_to_n_paired_resampling,3125,0,5,0,1,1
+AnnealingER-minus-ER,ddpg_annealing_er,ddpg_er,last_quarter_auc,5,1;2;3;4;5,0.098673469387755119,0.35775614252965804,-0.18846938775510202,0.38602040816326533,exact_n_to_n_paired_resampling,3125,3,0,2,0.625,32
+AnnealingER-minus-ER,ddpg_annealing_er,ddpg_er,fixed100_success,5,1;2;3;4;5,0.33400000000000002,0.39099872122553037,0.085999999999999993,0.67400000000000004,exact_n_to_n_paired_resampling,3125,5,0,0,0.0625,32

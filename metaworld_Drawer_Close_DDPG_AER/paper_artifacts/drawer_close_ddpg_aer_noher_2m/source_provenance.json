@@ -1,0 +1,501 @@
+{
+  "artifact": "drawer_close_ddpg_aer_noher_2m",
+  "note": "Source checkpoints, raw metrics.jsonl, full metrics.csv, and run.log are intentionally excluded.",
+  "source_runs": [
+    {
+      "method_key": "ddpg_er",
+      "run_name": "drawer_close_ddpg_er_s1_2000000",
+      "seed": 1,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s1_2000000/config.json",
+          "sha256": "395929c6d92d53a5dd78647635b0da1e999454b4342df5dfad074966d26f9b55",
+          "size_bytes": 5882
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s1_2000000/env_snapshot.json",
+          "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s1_2000000/final_evaluation_fixed.json",
+          "sha256": "206e72844a6bcaad8bfb512e8c8f537a5ab1d41c84d6641a3a9912ddf71ce5ef",
+          "size_bytes": 1492
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s1_2000000/metrics.csv",
+          "sha256": "3e338e6d0f8eeb86512ec40db37a3a3618177c1b8e1b5a20237055d334adf71b",
+          "size_bytes": 12920028
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s1_2000000/summary.json",
+          "sha256": "ec2a4b1483dbb34f1724338b6ac649d31a985ebb77bce02532fe8fa9d207b8f4",
+          "size_bytes": 9897
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s1_2000000"
+    },
+    {
+      "method_key": "ddpg_er",
+      "run_name": "drawer_close_ddpg_er_s2_2000000",
+      "seed": 2,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s2_2000000/config.json",
+          "sha256": "7a2ee63278ad6c1082f7b497434f87757b36f98fd08552b6e5376b35418b3c15",
+          "size_bytes": 5882
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s2_2000000/env_snapshot.json",
+          "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s2_2000000/final_evaluation_fixed.json",
+          "sha256": "c697ea89160c97d3f266e538cd9d8ea0705bc993985ce236846650911bdab0a9",
+          "size_bytes": 1496
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s2_2000000/metrics.csv",
+          "sha256": "1772b3eb784ae051d59d0472979328de38b2cbfbd12f1075164dec24988fa7d9",
+          "size_bytes": 12936722
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s2_2000000/summary.json",
+          "sha256": "0c2c6e336bcd20f5337245362babfa0a437ae193a6bf924df012ce95590301de",
+          "size_bytes": 9913
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s2_2000000"
+    },
+    {
+      "method_key": "ddpg_er",
+      "run_name": "drawer_close_ddpg_er_s3_2000000",
+      "seed": 3,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s3_2000000/config.json",
+          "sha256": "f855712f4903054d6d887f05ec85bd6b9bd55f18674d36a168d08649f828d13e",
+          "size_bytes": 5882
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s3_2000000/env_snapshot.json",
+          "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s3_2000000/final_evaluation_fixed.json",
+          "sha256": "dbc014e8130a3dc6a26dbc3a6e3ba6e0e71071e0baf4b49b4baefc1241b7fe96",
+          "size_bytes": 1495
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s3_2000000/metrics.csv",
+          "sha256": "97360c22f0928a38295fd70105c3912f72f346844ca2a291f845eb4a10cb79bc",
+          "size_bytes": 12965688
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s3_2000000/summary.json",
+          "sha256": "f0b74a79a70e8859d163d9322543d1f13c2a0819594321dec356c51ea55d7cb1",
+          "size_bytes": 9896
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s3_2000000"
+    },
+    {
+      "method_key": "ddpg_er",
+      "run_name": "drawer_close_ddpg_er_s4_2000000",
+      "seed": 4,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s4_2000000/config.json",
+          "sha256": "aae1f75c51975fcd5b758fc86634d0e49df51827bd1727b9bca6d0855b8b6a09",
+          "size_bytes": 5882
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s4_2000000/env_snapshot.json",
+          "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s4_2000000/final_evaluation_fixed.json",
+          "sha256": "5878c568744d12fc35e43a4d2e27278a28f9adbc61b95ae98b0ff91aa4b16742",
+          "size_bytes": 1491
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s4_2000000/metrics.csv",
+          "sha256": "7b0a0bd84c364f7ddc5b9c48e4b1a3f4126160e6ac92536d85c07e755ac1e8f3",
+          "size_bytes": 12936669
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s4_2000000/summary.json",
+          "sha256": "ddb97fb77359926c91b22847885e789ef7ca9fe6c74a944bbad40cfa16b663ba",
+          "size_bytes": 9915
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s4_2000000"
+    },
+    {
+      "method_key": "ddpg_er",
+      "run_name": "drawer_close_ddpg_er_s5_2000000",
+      "seed": 5,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s5_2000000/config.json",
+          "sha256": "79a3cd5ea1363911d71c1bff44bd550286bcaf4ea034ea58e9797dc6dde2435c",
+          "size_bytes": 5882
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s5_2000000/env_snapshot.json",
+          "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s5_2000000/final_evaluation_fixed.json",
+          "sha256": "84241b9d96cb53968ed4386c24399f02790a11725bf6f349ecaaf4aca17427f0",
+          "size_bytes": 1492
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s5_2000000/metrics.csv",
+          "sha256": "b038632c27509365df9f1926969fd931ea533e915ae048553d2bdcfa5317cff4",
+          "size_bytes": 12923778
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s5_2000000/summary.json",
+          "sha256": "fd8165a129bffeca7e9abd654e5e3a8e27d1e2e515bef9c2223a1122fc620981",
+          "size_bytes": 9883
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_er/drawer_close_ddpg_er_s5_2000000"
+    },
+    {
+      "method_key": "ddpg_annealing_er",
+      "run_name": "drawer_close_ddpg_annealing_er_s1_2000000",
+      "seed": 1,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s1_2000000/config.json",
+          "sha256": "a5cf1a8654c44eeed92c9f0d46c9acb01c9e9142384e52c7b175e427f179c1b1",
+          "size_bytes": 5911
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s1_2000000/env_snapshot.json",
+          "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s1_2000000/final_evaluation_fixed.json",
+          "sha256": "1455d3e9b426002f529a0581789f3c13508927b04f8e77d34212fa8c09bb261c",
+          "size_bytes": 1563
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s1_2000000/metrics.csv",
+          "sha256": "4ca365e6b9578a72ba3c20d3a00651b35a789b58ebcb870d49cba3b2947f8cbd",
+          "size_bytes": 13172260
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s1_2000000/summary.json",
+          "sha256": "6454dc9aadf0a88e72aa19b2a722a33471ea140c774b83e85525e109b7e9da09",
+          "size_bytes": 10043
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s1_2000000"
+    },
+    {
+      "method_key": "ddpg_annealing_er",
+      "run_name": "drawer_close_ddpg_annealing_er_s2_2000000",
+      "seed": 2,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s2_2000000/config.json",
+          "sha256": "ba052bd7781a36f48c21fed4be2c56994243475294336ebc70cc303e5473c2af",
+          "size_bytes": 5911
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s2_2000000/env_snapshot.json",
+          "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s2_2000000/final_evaluation_fixed.json",
+          "sha256": "c8f378e77e166111b64a7da444a600fbaaa683e2d2480073ad697be4a0ebfe0b",
+          "size_bytes": 1552
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s2_2000000/metrics.csv",
+          "sha256": "b53ee2ec58666e6fef627f885adcb284c3158a045c6d8bc9362a3ed48a2bbbde",
+          "size_bytes": 13151866
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s2_2000000/summary.json",
+          "sha256": "4062a1352e59a0eee97562e4498556c37aec9b19d6a89ced27e922d802115ee4",
+          "size_bytes": 10002
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s2_2000000"
+    },
+    {
+      "method_key": "ddpg_annealing_er",
+      "run_name": "drawer_close_ddpg_annealing_er_s3_2000000",
+      "seed": 3,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s3_2000000/config.json",
+          "sha256": "d9bb0bc08ca4277b8b8ba9e1db9b1b2ac556d7fd6db2ab7407ac122d1e384a6c",
+          "size_bytes": 5911
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s3_2000000/env_snapshot.json",
+          "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s3_2000000/final_evaluation_fixed.json",
+          "sha256": "f6af81c379db5906d30a024c191623978cf868dbb95172cb01f1d1612b43ca0b",
+          "size_bytes": 1499
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s3_2000000/metrics.csv",
+          "sha256": "b68c560b6cc0236b7d09698cfca274fa2fef5a72c4fbbc881d52fc4c0d6b0dde",
+          "size_bytes": 13128634
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s3_2000000/summary.json",
+          "sha256": "6301d959e1795a5bba1f2e67eaffe81c57da0f1e1f79b0cddddf6a419630e46f",
+          "size_bytes": 9948
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s3_2000000"
+    },
+    {
+      "method_key": "ddpg_annealing_er",
+      "run_name": "drawer_close_ddpg_annealing_er_s4_2000000",
+      "seed": 4,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s4_2000000/config.json",
+          "sha256": "e4946d80081300dded030faea11ae1f2b0e822239b92eac3d6bd98d3e8c55207",
+          "size_bytes": 5911
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s4_2000000/env_snapshot.json",
+          "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s4_2000000/final_evaluation_fixed.json",
+          "sha256": "c7dca6bd12f0f77d7775b365580641e3ea85f0cfdc8f52a4f9e09566b290a884",
+          "size_bytes": 1560
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s4_2000000/metrics.csv",
+          "sha256": "20b53ee7baa7f1581b9965c7506bcc1191f3dec28e458348ea47f12703087041",
+          "size_bytes": 13115412
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s4_2000000/summary.json",
+          "sha256": "17b5be735b18efdadb7137fab1b9ad749da50a4adaf124f86a52198be264803e",
+          "size_bytes": 9994
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s4_2000000"
+    },
+    {
+      "method_key": "ddpg_annealing_er",
+      "run_name": "drawer_close_ddpg_annealing_er_s5_2000000",
+      "seed": 5,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s5_2000000/config.json",
+          "sha256": "538ada2e5607d693e415cfd5949bf113b798b492d88683b7fc6cd59c1a8bcf6c",
+          "size_bytes": 5911
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s5_2000000/env_snapshot.json",
+          "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s5_2000000/final_evaluation_fixed.json",
+          "sha256": "bdb26ac17933366266f0c6ecf33f87c2a6d2e5d40114eded925478273aa64f91",
+          "size_bytes": 1559
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s5_2000000/metrics.csv",
+          "sha256": "42cfef23b3237b3e28520bd78f872f3d048c8fb57af8c82c8d352dfe563ce05d",
+          "size_bytes": 13090244
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s5_2000000/summary.json",
+          "sha256": "bf430127a12bc865226d221e6c83750689904839639dafe0008b6bd6ce69992e",
+          "size_bytes": 9977
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_annealing_er/drawer_close_ddpg_annealing_er_s5_2000000"
+    },
+    {
+      "method_key": "ddpg_aer",
+      "run_name": "drawer_close_ddpg_aer_s1_2000000",
+      "seed": 1,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s1_2000000/config.json",
+          "sha256": "edbc6512da8c4116fcca042e263d235c34045e738f14f94e2b30c8f5c11f8aab",
+          "size_bytes": 5884
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s1_2000000/env_snapshot.json",
+          "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s1_2000000/final_evaluation_fixed.json",
+          "sha256": "c4721da9dd4eefd56270aa458aa4e537aa0339205237f996642fd071c636140a",
+          "size_bytes": 1517
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s1_2000000/metrics.csv",
+          "sha256": "51e2b32f1fb627ce7f1c3be3823b85829584c1896cf07c12e556220197271f32",
+          "size_bytes": 13308852
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s1_2000000/summary.json",
+          "sha256": "5a48e1c760c70f0e1d9ac51eb652762f691dfe103d5838e017078954c7fcc7b9",
+          "size_bytes": 9939
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s1_2000000"
+    },
+    {
+      "method_key": "ddpg_aer",
+      "run_name": "drawer_close_ddpg_aer_s2_2000000",
+      "seed": 2,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s2_2000000/config.json",
+          "sha256": "e1ac9826e0e799f5d95978eb7250bb0ed6661fd8ef57785ab4e5086010022a58",
+          "size_bytes": 5884
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s2_2000000/env_snapshot.json",
+          "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s2_2000000/final_evaluation_fixed.json",
+          "sha256": "a8556ddd5c53fda44c680e6f7c2a6722a70522f34f7fc6d76e84230b8a74cbef",
+          "size_bytes": 1495
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s2_2000000/metrics.csv",
+          "sha256": "ff226dfc45c04c0b1521ed275d72c0ddcfd0a1a25f6de797868da74de52e4d23",
+          "size_bytes": 13252106
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s2_2000000/summary.json",
+          "sha256": "6111c76efc3b32e2eae986735ffc6add98b0941c61bd4e1f9fef35d7670a2569",
+          "size_bytes": 9903
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s2_2000000"
+    },
+    {
+      "method_key": "ddpg_aer",
+      "run_name": "drawer_close_ddpg_aer_s3_2000000",
+      "seed": 3,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s3_2000000/config.json",
+          "sha256": "58b6810e9dfea4e1b59622f1bf20b4730c337a2351850f7348169d8bb94035d4",
+          "size_bytes": 5884
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s3_2000000/env_snapshot.json",
+          "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s3_2000000/final_evaluation_fixed.json",
+          "sha256": "ad93ce43e502ed1b204861b4c8955e089f8bb2b046e2db138f95f4c109a70eef",
+          "size_bytes": 1495
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s3_2000000/metrics.csv",
+          "sha256": "0a31904eddb70fb04922086395d388199d9920a7ad4f483c4f02c08bf475d1b2",
+          "size_bytes": 13168734
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s3_2000000/summary.json",
+          "sha256": "040872d5bab879a802d6fb3b938a97930aff32d1a0abe3de8033f55e57f470b6",
+          "size_bytes": 9865
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s3_2000000"
+    },
+    {
+      "method_key": "ddpg_aer",
+      "run_name": "drawer_close_ddpg_aer_s4_2000000",
+      "seed": 4,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s4_2000000/config.json",
+          "sha256": "489d97d46867ed4ea1ca5a0c2bd8872e6dcc9ba73762a3b0685e3594f132bc32",
+          "size_bytes": 5884
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s4_2000000/env_snapshot.json",
+          "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s4_2000000/final_evaluation_fixed.json",
+          "sha256": "99568064193eb12966a5c9e9442099e29397355cd83ef7510191f489a4b5a663",
+          "size_bytes": 1496
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s4_2000000/metrics.csv",
+          "sha256": "b52ac9c619cbf02881adf12b8cb6e683cd936f034ef3a9933ff7c163b9b44b9a",
+          "size_bytes": 13278027
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s4_2000000/summary.json",
+          "sha256": "45f7da44a2fa9c54d5becf3839d1654a70f2efb6cf59614a0ee732fd69d08e0d",
+          "size_bytes": 9919
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s4_2000000"
+    },
+    {
+      "method_key": "ddpg_aer",
+      "run_name": "drawer_close_ddpg_aer_s5_2000000",
+      "seed": 5,
+      "source_files": {
+        "config": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s5_2000000/config.json",
+          "sha256": "49b58e4b18af9dc60c7828bd6b81e15aac4689d7a746e3da9567142320123fc1",
+          "size_bytes": 5884
+        },
+        "env": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s5_2000000/env_snapshot.json",
+          "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+          "size_bytes": 2755
+        },
+        "final": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s5_2000000/final_evaluation_fixed.json",
+          "sha256": "b7b69fbd621f0af58b5b258718259fe4ea43e7688c188b9898c8d4802b47dd82",
+          "size_bytes": 1495
+        },
+        "metrics": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s5_2000000/metrics.csv",
+          "sha256": "167ce627b22670e8c4a70f1693ed3181548827a4ba54c241015c7f4aabec3b2b",
+          "size_bytes": 13271646
+        },
+        "summary": {
+          "path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s5_2000000/summary.json",
+          "sha256": "275db75e04efcdb60e1ace3462a73e07a6bfc857b670284b335cf5170b95f258",
+          "size_bytes": 9923
+        }
+      },
+      "source_run_path": "metaworld_Drawer_Close_DDPG_AER/runs/ddpg_aer/drawer_close_ddpg_aer_s5_2000000"
+    }
+  ]
+}
