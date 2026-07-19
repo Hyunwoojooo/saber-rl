@@ -124,6 +124,52 @@ Selected performance/runtime metrics:
 - critic loss
 - actor loss
 
+## Completed Results: Full HGR 2M
+
+The Full HGR run completed seeds 1-5 at 2M environment steps on 2026-07-19
+KST. Evaluation used 20 deterministic episodes every 10k environment steps.
+AUC was computed on the exact recorded grid without smoothing, interpolation,
+or forward filling.
+
+| Seed | Final success | Best success | AUC | Last-quarter AUC | Hit90 | Steps/s | Runtime |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 0.00 | 0.00 | 0.000 | 0.000 | - | 11.66 | 47.63 h |
+| 2 | 1.00 | 1.00 | 0.692 | 0.992 | 520k | 11.65 | 47.70 h |
+| 3 | 0.90 | 1.00 | 0.532 | 0.997 | 930k | 11.64 | 47.73 h |
+| 4 | 0.00 | 0.00 | 0.000 | 0.000 | - | 11.65 | 47.69 h |
+| 5 | 1.00 | 1.00 | 0.628 | 0.996 | 760k | 11.64 | 47.75 h |
+| Mean | 0.58 | 0.60 | 0.371 | 0.597 | 737k* | 11.65 | 47.70 h |
+
+`*` Mean Hit90 is computed over the three seeds that reached 90% success;
+coverage is 3/5 and the median is 760k. The AUC sample standard deviation is
+0.343.
+
+### Matched TD3 Comparison
+
+| Experiment | Success seeds | Final success | AUC | Mean Hit90 | Steps/s |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER | 1/5 | 0.19 | 0.127 | 740k* | 41.55 |
+| TD3+HER+SABER/B3-Critic-Only | 3/5 | 0.59 | 0.362 | 803k* | 21.57 |
+| TD3+HER+Full HGR | 3/5 | 0.58 | 0.371 | 737k* | 11.65 |
+
+For Full HGR minus HER, the paired mean AUC difference is +0.244 with a 95%
+seed-bootstrap interval of [-0.253, 0.635]. For Full HGR minus SABER, the
+paired mean AUC difference is +0.009 with a 95% interval of [-0.471, 0.489].
+The five paired seeds therefore do not establish performance dominance between
+Full HGR and SABER: Full HGR has the higher AUC on two seeds, while SABER has
+the higher AUC on three.
+
+The recorded training throughput is 11.65 steps/s for Full HGR and 21.57
+steps/s for SABER, making SABER approximately 1.85x faster in these recorded
+runs. This is an observed run-level comparison rather than a
+hardware-normalized runtime claim. Full HGR changes HER pair sampling and
+applies importance correction, whereas SABER keeps uniform replay and changes
+only critic-loss allocation.
+
+The committed result payload contains each seed's `metrics.csv` and
+`summary.json`. Checkpoints, JSONL logs, and intermediate step checkpoints are
+excluded.
+
 ## Validation Commands
 
 Compile:
