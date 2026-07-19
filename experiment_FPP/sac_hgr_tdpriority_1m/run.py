@@ -12,7 +12,7 @@ from typing import Any
 
 def repo_root_from(path: Path) -> Path:
     for parent in [path, *path.parents]:
-        if (parent / "version_v0_lite").exists() and (parent / "experiment_FPP").exists():
+        if (parent / ".git").exists() and (parent / "experiment_FPP").is_dir():
             return parent
     raise RuntimeError(f"Could not find repository root from {path}")
 
