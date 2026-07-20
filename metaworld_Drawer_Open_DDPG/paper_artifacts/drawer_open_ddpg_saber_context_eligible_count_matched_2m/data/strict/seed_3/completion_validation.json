@@ -1,0 +1,163 @@
+{
+  "checkpoint": {
+    "assignment_diagnostics_flushed": true,
+    "dedicated_assignment_rng_state_present": true,
+    "eval_history_points": 200,
+    "global_step": 2000000,
+    "replay_size": 300000,
+    "resume_audit_metadata_valid": true,
+    "single_critic_ddpg": true,
+    "total_updates": 1995001
+  },
+  "checkpoint_resume_audit": {
+    "assignment_reproduced": true,
+    "checkpoint_rng_state_restored": true,
+    "learning_result_reproduced": true,
+    "other_rng_streams_unchanged": true,
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+  },
+  "config_parity": {
+    "allowed_difference_paths": [
+      "output_root",
+      "run_name",
+      "seeds.assignment_seed",
+      "support_assignment_mode"
+    ],
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+  },
+  "environment_snapshot_validated": true,
+  "evaluation_episodes_per_point": 20,
+  "evaluation_points": 200,
+  "final_replay_size": 300000,
+  "inputs": [
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/config.json",
+      "sha256": "ef1131bbd7be3df4d150b95ba4ef4868859049935297f37dd7b82099f0b82133",
+      "size_bytes": 5740
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/summary.json",
+      "sha256": "20781bb1c3099383dd5f882df3615bd19578db6fd5f645ef631e2c15e16df78f",
+      "size_bytes": 10180
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "6d3054d4d0c53135a6bfe4915914acf5625e52a8deaa192268c1c701649451e3",
+      "size_bytes": 20522695
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/strict_diagnostics_1000.csv",
+      "sha256": "60a5d5b89f3604a3c31443ea4f72aea5a9e7aa1c3f3ba5903116067c0499800b",
+      "size_bytes": 775342
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/checkpoint.pt",
+      "sha256": "4f790e39b2d484b38d40cfe1c89287b853c606842becc3953549634dc90425ce",
+      "size_bytes": 151268981
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+      "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+      "size_bytes": 7949
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+      "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+      "size_bytes": 2391
+    }
+  ],
+  "metrics": {
+    "allowed_nan_exact": [
+      "assigned_high_weight_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "lite/assigned_high_weight_rate",
+      "lite/mean_w_P_reference",
+      "lite/reference_high_weight_rate",
+      "lite/support_weight_alignment_rate",
+      "lite/support_weight_overlap_rate",
+      "mean_w_P_reference",
+      "reference_high_weight_rate",
+      "runtime/overhead_vs_B0",
+      "support_weight_alignment_rate",
+      "support_weight_overlap_rate"
+    ],
+    "allowed_nan_fields_observed": [
+      "b2/gap_to_pos_progress_corr",
+      "b2/gap_to_rot_progress_corr",
+      "b2/high_gap_bad_progress_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "b4/B2_gap_minus_B4_gap",
+      "b4/unsupported_gap_rate",
+      "diagnostic/residual_correction_enrichment_ratio",
+      "diagnostic/residual_reduction_support_neg_mean",
+      "diagnostic/residual_reduction_support_neg_rate",
+      "diagnostic/support_to_residual_reduction_corr",
+      "diagnostic/support_to_td_error_corr",
+      "diagnostic/td_error_enrichment_ratio",
+      "diagnostic/td_error_support_neg_mean",
+      "diagnostic/weight_to_residual_reduction_corr",
+      "diagnostic/weight_to_td_error_corr",
+      "pushT/contact_like_rate",
+      "pushT/intersection_ratio_mean",
+      "pushT/intersection_ratio_p50",
+      "pushT/intersection_ratio_p90",
+      "pushT/obj_ang_vel_z_abs_mean",
+      "pushT/obj_goal_rot_err_mean",
+      "pushT/obj_goal_rot_err_p50",
+      "pushT/obj_goal_rot_err_p90",
+      "pushT/obj_goal_xy_dist_mean",
+      "pushT/obj_goal_xy_dist_p50",
+      "pushT/obj_goal_xy_dist_p90",
+      "pushT/obj_speed_xy_mean",
+      "pushT/pos_progress_rate",
+      "pushT/rot_progress_rate",
+      "pushT/success_margin_mean",
+      "pushT/tcp_obj_dist_mean",
+      "pushT/vel_align_to_goal_mean"
+    ],
+    "allowed_nan_prefixes": [
+      "pushT/",
+      "td_error/",
+      "per/",
+      "b2/",
+      "b4/",
+      "diagnostic/",
+      "lite/slide_"
+    ],
+    "post_warmup_rows_checked": 10176
+  },
+  "passed": true,
+  "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda",
+  "seed": 3,
+  "strict_trace": {
+    "all_count_equal": true,
+    "fallback_sum": 0,
+    "first_update": 1,
+    "last_update": 1995001,
+    "outside_eligible_sum": 0,
+    "replacement_sum": 0,
+    "updates_covered": 1995001,
+    "window_count": 1996
+  },
+  "summary": {
+    "auc": 0.0,
+    "best_success": 0.0,
+    "final_success": 0.0,
+    "hit90": null
+  },
+  "total_steps": 2000000,
+  "total_updates": 1995001
+}

@@ -1,0 +1,87 @@
+{
+  "assignment_seed_convention": "30000 + seed",
+  "audit": "deterministic_fake_ddpg_split_resume",
+  "device": "cpu",
+  "passed": true,
+  "performance_used_for_gate_decision": false,
+  "schema_version": 1,
+  "seed_coverage": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "seeds": [
+    {
+      "assignment_reproduced": true,
+      "checkpoint_rng_state_restored": true,
+      "dedicated_rng_streams_exact": true,
+      "global_rng_streams_exact": true,
+      "learning_result_reproduced": true,
+      "loss_trace_exact": true,
+      "model_optimizer_state_exact": true,
+      "other_rng_streams_unchanged": true,
+      "passed": true,
+      "seed": 1,
+      "split_update": 4,
+      "updates": 8
+    },
+    {
+      "assignment_reproduced": true,
+      "checkpoint_rng_state_restored": true,
+      "dedicated_rng_streams_exact": true,
+      "global_rng_streams_exact": true,
+      "learning_result_reproduced": true,
+      "loss_trace_exact": true,
+      "model_optimizer_state_exact": true,
+      "other_rng_streams_unchanged": true,
+      "passed": true,
+      "seed": 2,
+      "split_update": 4,
+      "updates": 8
+    },
+    {
+      "assignment_reproduced": true,
+      "checkpoint_rng_state_restored": true,
+      "dedicated_rng_streams_exact": true,
+      "global_rng_streams_exact": true,
+      "learning_result_reproduced": true,
+      "loss_trace_exact": true,
+      "model_optimizer_state_exact": true,
+      "other_rng_streams_unchanged": true,
+      "passed": true,
+      "seed": 3,
+      "split_update": 4,
+      "updates": 8
+    },
+    {
+      "assignment_reproduced": true,
+      "checkpoint_rng_state_restored": true,
+      "dedicated_rng_streams_exact": true,
+      "global_rng_streams_exact": true,
+      "learning_result_reproduced": true,
+      "loss_trace_exact": true,
+      "model_optimizer_state_exact": true,
+      "other_rng_streams_unchanged": true,
+      "passed": true,
+      "seed": 4,
+      "split_update": 4,
+      "updates": 8
+    },
+    {
+      "assignment_reproduced": true,
+      "checkpoint_rng_state_restored": true,
+      "dedicated_rng_streams_exact": true,
+      "global_rng_streams_exact": true,
+      "learning_result_reproduced": true,
+      "loss_trace_exact": true,
+      "model_optimizer_state_exact": true,
+      "other_rng_streams_unchanged": true,
+      "passed": true,
+      "seed": 5,
+      "split_update": 4,
+      "updates": 8
+    }
+  ]
+}
