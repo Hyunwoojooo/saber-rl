@@ -1,0 +1,16 @@
+method_key,method,seed,run_dir,metrics_path,evaluation_points,auc,final_success,best_success,best_to_final_drop,hit90,summary_auc,summary_auc_difference,summary_final_difference,summary_best_difference
+her,DrawerClose DDPG HER,1,data/her/seed_1,data/her/seed_1/metrics_selected_10k.csv,200,0.28165829145728644,0.3,1.0,0.7,90000,0.28165829145728644,0.0,0.0,0.0
+her,DrawerClose DDPG HER,2,data/her/seed_2,data/her/seed_2/metrics_selected_10k.csv,200,0.26884422110552764,0.1,1.0,0.9,150000,0.26884422110552764,0.0,0.0,0.0
+her,DrawerClose DDPG HER,3,data/her/seed_3,data/her/seed_3/metrics_selected_10k.csv,200,0.20351758793969849,0.4,1.0,0.6,40000,0.20351758793969849,0.0,0.0,0.0
+her,DrawerClose DDPG HER,4,data/her/seed_4,data/her/seed_4/metrics_selected_10k.csv,200,0.24949748743718592,0.0,1.0,1.0,70000,0.24949748743718592,0.0,0.0,0.0
+her,DrawerClose DDPG HER,5,data/her/seed_5,data/her/seed_5/metrics_selected_10k.csv,200,0.2515075376884422,0.0,1.0,1.0,20000,0.2515075376884422,0.0,0.0,0.0
+main,DrawerClose DDPG HER + SABER Main,1,data/main/seed_1,data/main/seed_1/metrics_selected_10k.csv,200,0.2878140703517588,0.65,1.0,0.35,10000,0.2878140703517588,0.0,0.0,0.0
+main,DrawerClose DDPG HER + SABER Main,2,data/main/seed_2,data/main/seed_2/metrics_selected_10k.csv,200,0.3374371859296482,0.2,1.0,0.8,60000,0.3374371859296482,0.0,0.0,0.0
+main,DrawerClose DDPG HER + SABER Main,3,data/main/seed_3,data/main/seed_3/metrics_selected_10k.csv,200,0.28404522613065325,0.15,1.0,0.85,50000,0.28404522613065325,0.0,0.0,0.0
+main,DrawerClose DDPG HER + SABER Main,4,data/main/seed_4,data/main/seed_4/metrics_selected_10k.csv,200,0.46130653266331656,0.0,1.0,1.0,20000,0.46130653266331656,0.0,0.0,0.0
+main,DrawerClose DDPG HER + SABER Main,5,data/main/seed_5,data/main/seed_5/metrics_selected_10k.csv,200,0.2515075376884422,0.4,1.0,0.6,10000,0.2515075376884422,0.0,0.0,0.0
+strict,DrawerClose DDPG Strict Context-Eligible Count-Matched,1,data/strict/seed_1,data/strict/seed_1/metrics_selected_10k.csv,200,0.3336683417085427,0.0,1.0,1.0,20000,0.3336683417085427,0.0,0.0,0.0
+strict,DrawerClose DDPG Strict Context-Eligible Count-Matched,2,data/strict/seed_2,data/strict/seed_2/metrics_selected_10k.csv,200,0.20301507537688443,0.0,1.0,1.0,140000,0.20301507537688443,0.0,0.0,0.0
+strict,DrawerClose DDPG Strict Context-Eligible Count-Matched,3,data/strict/seed_3,data/strict/seed_3/metrics_selected_10k.csv,200,0.2743718592964824,0.7,1.0,0.30000000000000004,120000,0.2743718592964824,0.0,0.0,0.0
+strict,DrawerClose DDPG Strict Context-Eligible Count-Matched,4,data/strict/seed_4,data/strict/seed_4/metrics_selected_10k.csv,200,0.36947236180904525,0.95,1.0,0.050000000000000044,70000,0.36947236180904525,0.0,0.0,0.0
+strict,DrawerClose DDPG Strict Context-Eligible Count-Matched,5,data/strict/seed_5,data/strict/seed_5/metrics_selected_10k.csv,200,0.29346733668341707,0.0,1.0,1.0,20000,0.29346733668341707,0.0,0.0,0.0

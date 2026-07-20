@@ -1,0 +1,1032 @@
+{
+  "allowed_nan_policy": {
+    "exact_fields": [
+      "assigned_high_weight_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "lite/assigned_high_weight_rate",
+      "lite/mean_w_P_reference",
+      "lite/reference_high_weight_rate",
+      "lite/support_weight_alignment_rate",
+      "lite/support_weight_overlap_rate",
+      "mean_w_P_reference",
+      "reference_high_weight_rate",
+      "runtime/overhead_vs_B0",
+      "support_weight_alignment_rate",
+      "support_weight_overlap_rate"
+    ],
+    "prefix_families": [
+      "pushT/",
+      "td_error/",
+      "per/",
+      "b2/",
+      "b4/",
+      "diagnostic/",
+      "lite/slide_"
+    ],
+    "scope": "post-warmup raw metrics only; strict/loss/value/replay/eval/runtime fields excluded"
+  },
+  "current_git_head": "d9f2ed93b993efc9e710b98fce568845d3fcf2cb",
+  "evaluation_field": "eval/env_success_mean",
+  "evaluation_grid": [
+    10000,
+    20000,
+    30000,
+    40000,
+    50000,
+    60000,
+    70000,
+    80000,
+    90000,
+    100000,
+    110000,
+    120000,
+    130000,
+    140000,
+    150000,
+    160000,
+    170000,
+    180000,
+    190000,
+    200000,
+    210000,
+    220000,
+    230000,
+    240000,
+    250000,
+    260000,
+    270000,
+    280000,
+    290000,
+    300000,
+    310000,
+    320000,
+    330000,
+    340000,
+    350000,
+    360000,
+    370000,
+    380000,
+    390000,
+    400000,
+    410000,
+    420000,
+    430000,
+    440000,
+    450000,
+    460000,
+    470000,
+    480000,
+    490000,
+    500000,
+    510000,
+    520000,
+    530000,
+    540000,
+    550000,
+    560000,
+    570000,
+    580000,
+    590000,
+    600000,
+    610000,
+    620000,
+    630000,
+    640000,
+    650000,
+    660000,
+    670000,
+    680000,
+    690000,
+    700000,
+    710000,
+    720000,
+    730000,
+    740000,
+    750000,
+    760000,
+    770000,
+    780000,
+    790000,
+    800000,
+    810000,
+    820000,
+    830000,
+    840000,
+    850000,
+    860000,
+    870000,
+    880000,
+    890000,
+    900000,
+    910000,
+    920000,
+    930000,
+    940000,
+    950000,
+    960000,
+    970000,
+    980000,
+    990000,
+    1000000,
+    1010000,
+    1020000,
+    1030000,
+    1040000,
+    1050000,
+    1060000,
+    1070000,
+    1080000,
+    1090000,
+    1100000,
+    1110000,
+    1120000,
+    1130000,
+    1140000,
+    1150000,
+    1160000,
+    1170000,
+    1180000,
+    1190000,
+    1200000,
+    1210000,
+    1220000,
+    1230000,
+    1240000,
+    1250000,
+    1260000,
+    1270000,
+    1280000,
+    1290000,
+    1300000,
+    1310000,
+    1320000,
+    1330000,
+    1340000,
+    1350000,
+    1360000,
+    1370000,
+    1380000,
+    1390000,
+    1400000,
+    1410000,
+    1420000,
+    1430000,
+    1440000,
+    1450000,
+    1460000,
+    1470000,
+    1480000,
+    1490000,
+    1500000,
+    1510000,
+    1520000,
+    1530000,
+    1540000,
+    1550000,
+    1560000,
+    1570000,
+    1580000,
+    1590000,
+    1600000,
+    1610000,
+    1620000,
+    1630000,
+    1640000,
+    1650000,
+    1660000,
+    1670000,
+    1680000,
+    1690000,
+    1700000,
+    1710000,
+    1720000,
+    1730000,
+    1740000,
+    1750000,
+    1760000,
+    1770000,
+    1780000,
+    1790000,
+    1800000,
+    1810000,
+    1820000,
+    1830000,
+    1840000,
+    1850000,
+    1860000,
+    1870000,
+    1880000,
+    1890000,
+    1900000,
+    1910000,
+    1920000,
+    1930000,
+    1940000,
+    1950000,
+    1960000,
+    1970000,
+    1980000,
+    1990000,
+    2000000
+  ],
+  "experiment": "DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+  "passed": true,
+  "records": [
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/config.json",
+          "sha256": "7ee3b056bb2f7215d8b4f27090e2104ef4d75ecdad43eb9959896b2be4d27f4a",
+          "size_bytes": 5733
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/env_snapshot.json",
+          "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+          "size_bytes": 2755
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/summary.json",
+          "sha256": "08142e03949304b009cdaa64b9c9b643b88aace005b19198cd494ff39abc85be",
+          "size_bytes": 10810
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/metrics.csv",
+          "sha256": "dc86dfbce7217aed5e82342ad7da7429787cd5ea313f0f1a8a00e5f336cdc81f",
+          "size_bytes": 22754779
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "bd5706f46efeca5d49d50de6f8360bd8ef1dab9c79f4f8c3af1b753716ad5a52",
+          "size_bytes": 910680
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/checkpoint.pt",
+          "sha256": "0fc2fef1d38bb0f4601c3774b4f4cbfff3f1a8e06f787b01118358af1024ad60",
+          "size_bytes": 148342069
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json",
+          "sha256": "750be04d2719ca6844d74accec282eff4eee7e83eb596515bdd278becaa27656",
+          "size_bytes": 7784
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda",
+      "seed": 1,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.3336683417085427,
+        "best_success": 1.0,
+        "final_success": 0.0,
+        "hit90": 20000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/config.json",
+          "sha256": "1f1260c42fe68cd23fa1939ec774038be541d6f2635c9a3677113ff99fd06d60",
+          "size_bytes": 5733
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/env_snapshot.json",
+          "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+          "size_bytes": 2755
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/summary.json",
+          "sha256": "aac2f497cb5eb0932a60201dda3490b4cc87afef763146870aaa2b4ae6ca03da",
+          "size_bytes": 10814
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/metrics.csv",
+          "sha256": "aefb02fac4cc77326ba28cbe851a0b8e258cf69e955c86ea901af09ef823f7e0",
+          "size_bytes": 22859152
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "734aaeaafd8cfc69559016ed91ba88761e51c03910bf11193d3ea94920aa6b28",
+          "size_bytes": 911572
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/checkpoint.pt",
+          "sha256": "6897922669e333fa80ef921b93774c8635981ef0fe940657649bea47a5370cb8",
+          "size_bytes": 147574581
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json",
+          "sha256": "750be04d2719ca6844d74accec282eff4eee7e83eb596515bdd278becaa27656",
+          "size_bytes": 7784
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda",
+      "seed": 2,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.20301507537688443,
+        "best_success": 1.0,
+        "final_success": 0.0,
+        "hit90": 140000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/config.json",
+          "sha256": "99d75118b8775bfd674fe85aed8135c15b9323ce3fc69c28cb37b58ed2d0b952",
+          "size_bytes": 5733
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/env_snapshot.json",
+          "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+          "size_bytes": 2755
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/summary.json",
+          "sha256": "4c9e8453f5499270ee8abf3e13a34fa8559d2a52a74edc270e12fa842e45f55d",
+          "size_bytes": 10913
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/metrics.csv",
+          "sha256": "3f05a4a3175aaaaa6b33ab0605db5b3226bed6e67a616abb7077563cb9e4ff99",
+          "size_bytes": 22938755
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "8d33355eab6b27be584f1f3312a3fed505c0b1f418477c09d109a4079eba99b4",
+          "size_bytes": 910114
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/checkpoint.pt",
+          "sha256": "b96ec5ccf47612b4255ea8d283aa3a13fccf2cb87db2f126ffdbb617bd46f1c8",
+          "size_bytes": 148701109
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json",
+          "sha256": "750be04d2719ca6844d74accec282eff4eee7e83eb596515bdd278becaa27656",
+          "size_bytes": 7784
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda",
+      "seed": 3,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.2743718592964824,
+        "best_success": 1.0,
+        "final_success": 0.7,
+        "hit90": 120000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/config.json",
+          "sha256": "2be8a4ccb98b487efd295ad8dfb722d6bdf97f6bf47214454bdea1e5d91fb967",
+          "size_bytes": 5733
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/env_snapshot.json",
+          "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+          "size_bytes": 2755
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/summary.json",
+          "sha256": "2f334fca385a26323e1fadf218db27db281ded0ca59de43727beba448278b75a",
+          "size_bytes": 10854
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/metrics.csv",
+          "sha256": "560d03a654dcf3211efb69560d06a6d00b90e52cd47c4a75315875c001638161",
+          "size_bytes": 23153424
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "4297491aef84f7ddab67d7006e2d17193d0141d6b773254670cb2b09c75663c7",
+          "size_bytes": 911192
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/checkpoint.pt",
+          "sha256": "1ce1111813b639463f067d7b667bbc4bd4c337018c062045ae81d48eafa35847",
+          "size_bytes": 148261493
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json",
+          "sha256": "750be04d2719ca6844d74accec282eff4eee7e83eb596515bdd278becaa27656",
+          "size_bytes": 7784
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda",
+      "seed": 4,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.36947236180904525,
+        "best_success": 1.0,
+        "final_success": 0.95,
+        "hit90": 70000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/config.json",
+          "sha256": "52444b607c7832a94b264156cac43cae4af22b0a8bba90dc5fd41e35a50acf2e",
+          "size_bytes": 5733
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/env_snapshot.json",
+          "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+          "size_bytes": 2755
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/summary.json",
+          "sha256": "01c7fab5135ee4ca9d005be2a0da42092791067ecebc9c2be76b96de8fb2a181",
+          "size_bytes": 10924
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/metrics.csv",
+          "sha256": "7597e98ebe541647a36736101ea7cb8e5e62bf70c85a8128bec9672a68748697",
+          "size_bytes": 22755390
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "cf5688f5dcdf1bc09b389ed3cdb848cc89feb2681e8f2496c4e5cc225ee72908",
+          "size_bytes": 910456
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/checkpoint.pt",
+          "sha256": "2cfd845a2f8c7d9e3a2fb5bdafe464296c8fd7d1dadc56fd81f3ae62ee2a5477",
+          "size_bytes": 148174261
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json",
+          "sha256": "750be04d2719ca6844d74accec282eff4eee7e83eb596515bdd278becaa27656",
+          "size_bytes": 7784
+        },
+        {
+          "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda",
+      "seed": 5,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.29346733668341707,
+        "best_success": 1.0,
+        "final_success": 0.0,
+        "hit90": 20000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    }
+  ],
+  "schema_version": 1,
+  "seed_count": 5,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+  "source_commit_relation": "recorded_source_commit_differs_from_current_head",
+  "source_freeze": {
+    "file_count": 40,
+    "passed": true,
+    "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/freeze_manifest.json",
+    "source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109"
+  },
+  "source_parity": {
+    "controlled_file_count": 6,
+    "exact_file_count": 6,
+    "passed": true,
+    "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/source_parity.json"
+  },
+  "strict_root": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M"
+}

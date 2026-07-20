@@ -1,0 +1,75 @@
+{
+  "controlled_change_files": [
+    {
+      "path": "train_drawer_close_lite_v0.py",
+      "sha256": "1dd0b9118739c7e9d22fdf69b8cc194167eb3449ec910a6c8a7fb7d7ab8a6e89",
+      "size_bytes": 23086
+    },
+    {
+      "path": "metacog_lite_v0/config.py",
+      "sha256": "8b6e6f1f4f96b5878edae80e127136b759dbf7f02684d0438e4dbd986c6e100e",
+      "size_bytes": 19893
+    },
+    {
+      "path": "metacog_lite_v0/weights.py",
+      "sha256": "ea5ee217fe3a440ddceaeb01878d3eeb05b14e2b428effcbc32173858d8d202e",
+      "size_bytes": 79970
+    },
+    {
+      "path": "metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+      "size_bytes": 15300
+    },
+    {
+      "path": "metacog_lite_v0/trainer.py",
+      "sha256": "8dff7cd838605fc2fbd7296c8d28a13ae942d384147ae1e871373753f32c6fe0",
+      "size_bytes": 98903
+    },
+    {
+      "path": "metacog_lite_v0/assignment_diagnostics.py",
+      "sha256": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5",
+      "size_bytes": 9961
+    }
+  ],
+  "exact_files": [
+    {
+      "byte_identical": true,
+      "control_sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "original_sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "path": "metacog_lite_v0/agent.py"
+    },
+    {
+      "byte_identical": true,
+      "control_sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "original_sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "path": "metacog_lite_v0/networks.py"
+    },
+    {
+      "byte_identical": true,
+      "control_sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "original_sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "path": "metacog_lite_v0/replay.py"
+    },
+    {
+      "byte_identical": true,
+      "control_sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
+      "original_sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
+      "path": "metacog_lite_v0/envs.py"
+    },
+    {
+      "byte_identical": true,
+      "control_sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+      "original_sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+      "path": "metacog_lite_v0/task_drawer_close.py"
+    },
+    {
+      "byte_identical": true,
+      "control_sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "original_sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "path": "metacog_lite_v0/io_utils.py"
+    }
+  ],
+  "failures": [],
+  "passed": true,
+  "schema_version": 1
+}

@@ -1,0 +1,244 @@
+{
+  "allowed_paths": [
+    "output_root",
+    "run_name",
+    "seeds.assignment_seed",
+    "support_assignment_mode"
+  ],
+  "canonical_main_expected": {
+    "M_B": 16,
+    "M_Q_min": 4,
+    "N_gap_min": 128,
+    "N_local_min": 4,
+    "action_bins_per_dim": 5,
+    "actor_lr": 0.0003,
+    "batch_size": 256,
+    "buffer_capacity": 300000,
+    "checkpoint_every_steps": 50000,
+    "critic_lr": 0.0003,
+    "device": "cuda",
+    "drawer_d_goal_near": 0.05,
+    "drawer_d_opening_mid": 0.12,
+    "drawer_d_reach": 0.08,
+    "drawer_success_threshold": 0.05,
+    "eval_episodes": 20,
+    "eval_freq": 10000,
+    "gamma": 0.98,
+    "her_ratio": 0.8,
+    "hidden_dim": 256,
+    "l2_action_penalty": 0.0,
+    "lambda_support": 1.0,
+    "local_scan_cache_enabled": true,
+    "local_scan_cache_max_entries": 50000,
+    "local_search_max": 512,
+    "log_every_steps": 1000,
+    "max_episode_steps": 200,
+    "metaworld_env_name": "drawer-close-v3",
+    "metaworld_reward_function_version": "v2",
+    "method": "b3_support_runtime_opt",
+    "noise_std": 0.2,
+    "numba_support_scan": true,
+    "policy_delay": 2,
+    "policy_support_mode": "bin",
+    "reward_type": "sparse",
+    "save_step_checkpoints": false,
+    "start_steps": 10000,
+    "success_terminates": false,
+    "support_assignment_mode": "support",
+    "support_cache_enabled": true,
+    "support_cache_max_entries": 200000,
+    "support_diagnostic_audit_interval": 100,
+    "support_predicate_early_exit": true,
+    "support_query_mode": "current_policy",
+    "support_scan_mode": "deterministic_tail_v1",
+    "support_short_circuit": true,
+    "target_noise_clip": 0.5,
+    "target_policy_noise": 0.2,
+    "task_name": "drawer_close",
+    "tau": 0.005,
+    "timeout_bootstrap": true,
+    "total_steps": 2000000,
+    "updates_per_step": 1,
+    "warmup_steps": 5000,
+    "weight_scope": "critic_only",
+    "weighting_mode": "batch_norm"
+  },
+  "canonical_main_failures": [],
+  "canonical_source_checks": {
+    "M_B": true,
+    "M_Q_min": true,
+    "N_local_min": true,
+    "batch": true,
+    "eval_episodes": true,
+    "eval_grid": true,
+    "her": true,
+    "horizon": true,
+    "lambda_support": true,
+    "local_search_max": true,
+    "main_method": true,
+    "replay": true,
+    "steps": true,
+    "weight_scope": true
+  },
+  "main_source": "metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Critic-Only-2M.sh",
+  "main_source_sha256": "25020650d687c45a7071e46b91b32de51f34b07dce7f19f5388820701ddb302d",
+  "nonallowed_differences": [],
+  "passed": true,
+  "schema_version": 1,
+  "seeds": [
+    {
+      "canonical_main_failures": [],
+      "differences": [
+        {
+          "allowed": true,
+          "control": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+          "main": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
+          "path": "output_root"
+        },
+        {
+          "allowed": true,
+          "control": "drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda",
+          "main": "drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda",
+          "path": "run_name"
+        },
+        {
+          "allowed": true,
+          "control": "context_eligible_count_matched",
+          "main": "support",
+          "path": "support_assignment_mode"
+        }
+      ],
+      "nonallowed_differences": [],
+      "passed": true,
+      "seed": 1
+    },
+    {
+      "canonical_main_failures": [],
+      "differences": [
+        {
+          "allowed": true,
+          "control": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+          "main": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
+          "path": "output_root"
+        },
+        {
+          "allowed": true,
+          "control": "drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda",
+          "main": "drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda",
+          "path": "run_name"
+        },
+        {
+          "allowed": true,
+          "control": 30002,
+          "main": 30001,
+          "path": "seeds.assignment_seed"
+        },
+        {
+          "allowed": true,
+          "control": "context_eligible_count_matched",
+          "main": "support",
+          "path": "support_assignment_mode"
+        }
+      ],
+      "nonallowed_differences": [],
+      "passed": true,
+      "seed": 2
+    },
+    {
+      "canonical_main_failures": [],
+      "differences": [
+        {
+          "allowed": true,
+          "control": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+          "main": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
+          "path": "output_root"
+        },
+        {
+          "allowed": true,
+          "control": "drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda",
+          "main": "drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda",
+          "path": "run_name"
+        },
+        {
+          "allowed": true,
+          "control": 30003,
+          "main": 30001,
+          "path": "seeds.assignment_seed"
+        },
+        {
+          "allowed": true,
+          "control": "context_eligible_count_matched",
+          "main": "support",
+          "path": "support_assignment_mode"
+        }
+      ],
+      "nonallowed_differences": [],
+      "passed": true,
+      "seed": 3
+    },
+    {
+      "canonical_main_failures": [],
+      "differences": [
+        {
+          "allowed": true,
+          "control": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+          "main": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
+          "path": "output_root"
+        },
+        {
+          "allowed": true,
+          "control": "drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda",
+          "main": "drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda",
+          "path": "run_name"
+        },
+        {
+          "allowed": true,
+          "control": 30004,
+          "main": 30001,
+          "path": "seeds.assignment_seed"
+        },
+        {
+          "allowed": true,
+          "control": "context_eligible_count_matched",
+          "main": "support",
+          "path": "support_assignment_mode"
+        }
+      ],
+      "nonallowed_differences": [],
+      "passed": true,
+      "seed": 4
+    },
+    {
+      "canonical_main_failures": [],
+      "differences": [
+        {
+          "allowed": true,
+          "control": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+          "main": "/home/mimiclab-gigabyte-gen4/SABER/metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M",
+          "path": "output_root"
+        },
+        {
+          "allowed": true,
+          "control": "drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda",
+          "main": "drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda",
+          "path": "run_name"
+        },
+        {
+          "allowed": true,
+          "control": 30005,
+          "main": 30001,
+          "path": "seeds.assignment_seed"
+        },
+        {
+          "allowed": true,
+          "control": "context_eligible_count_matched",
+          "main": "support",
+          "path": "support_assignment_mode"
+        }
+      ],
+      "nonallowed_differences": [],
+      "passed": true,
+      "seed": 5
+    }
+  ]
+}

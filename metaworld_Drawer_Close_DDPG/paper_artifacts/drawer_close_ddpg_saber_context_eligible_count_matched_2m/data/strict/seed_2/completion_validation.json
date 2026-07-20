@@ -1,0 +1,154 @@
+{
+  "checkpoint": {
+    "assignment_diagnostics_flushed": true,
+    "dedicated_assignment_rng_state_present": true,
+    "eval_history_points": 200,
+    "global_step": 2000000,
+    "replay_size": 300000,
+    "resume_audit_metadata_valid": true,
+    "single_critic_ddpg": true,
+    "total_updates": 1995001
+  },
+  "checkpoint_resume_audit": {
+    "assignment_reproduced": true,
+    "checkpoint_rng_state_restored": true,
+    "learning_result_reproduced": true,
+    "other_rng_streams_unchanged": true,
+    "passed": true,
+    "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+  },
+  "config_parity": {
+    "allowed_difference_paths": [
+      "output_root",
+      "run_name",
+      "seeds.assignment_seed",
+      "support_assignment_mode"
+    ],
+    "passed": true,
+    "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+  },
+  "environment_snapshot_validated": true,
+  "evaluation_episodes_per_point": 20,
+  "evaluation_points": 200,
+  "final_replay_size": 300000,
+  "inputs": [
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/config.json",
+      "sha256": "1f1260c42fe68cd23fa1939ec774038be541d6f2635c9a3677113ff99fd06d60",
+      "size_bytes": 5733
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+      "size_bytes": 2755
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/summary.json",
+      "sha256": "aac2f497cb5eb0932a60201dda3490b4cc87afef763146870aaa2b4ae6ca03da",
+      "size_bytes": 10814
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "aefb02fac4cc77326ba28cbe851a0b8e258cf69e955c86ea901af09ef823f7e0",
+      "size_bytes": 22859152
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/strict_diagnostics_1000.csv",
+      "sha256": "734aaeaafd8cfc69559016ed91ba88761e51c03910bf11193d3ea94920aa6b28",
+      "size_bytes": 911572
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/checkpoint.pt",
+      "sha256": "6897922669e333fa80ef921b93774c8635981ef0fe940657649bea47a5370cb8",
+      "size_bytes": 147574581
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/config_parity.json",
+      "sha256": "750be04d2719ca6844d74accec282eff4eee7e83eb596515bdd278becaa27656",
+      "size_bytes": 7784
+    },
+    {
+      "path": "./metaworld_Drawer_Close_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json",
+      "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+      "size_bytes": 2391
+    }
+  ],
+  "metrics": {
+    "allowed_nan_exact": [
+      "assigned_high_weight_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "lite/assigned_high_weight_rate",
+      "lite/mean_w_P_reference",
+      "lite/reference_high_weight_rate",
+      "lite/support_weight_alignment_rate",
+      "lite/support_weight_overlap_rate",
+      "mean_w_P_reference",
+      "reference_high_weight_rate",
+      "runtime/overhead_vs_B0",
+      "support_weight_alignment_rate",
+      "support_weight_overlap_rate"
+    ],
+    "allowed_nan_fields_observed": [
+      "b2/gap_to_pos_progress_corr",
+      "b2/gap_to_rot_progress_corr",
+      "b2/high_gap_bad_progress_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "b4/B2_gap_minus_B4_gap",
+      "b4/unsupported_gap_rate",
+      "pushT/contact_like_rate",
+      "pushT/intersection_ratio_mean",
+      "pushT/intersection_ratio_p50",
+      "pushT/intersection_ratio_p90",
+      "pushT/obj_ang_vel_z_abs_mean",
+      "pushT/obj_goal_rot_err_mean",
+      "pushT/obj_goal_rot_err_p50",
+      "pushT/obj_goal_rot_err_p90",
+      "pushT/obj_goal_xy_dist_mean",
+      "pushT/obj_goal_xy_dist_p50",
+      "pushT/obj_goal_xy_dist_p90",
+      "pushT/obj_speed_xy_mean",
+      "pushT/pos_progress_rate",
+      "pushT/rot_progress_rate",
+      "pushT/success_margin_mean",
+      "pushT/tcp_obj_dist_mean",
+      "pushT/vel_align_to_goal_mean"
+    ],
+    "allowed_nan_prefixes": [
+      "pushT/",
+      "td_error/",
+      "per/",
+      "b2/",
+      "b4/",
+      "diagnostic/",
+      "lite/slide_"
+    ],
+    "post_warmup_rows_checked": 10176
+  },
+  "passed": true,
+  "run_dir": "./metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_close_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda",
+  "seed": 2,
+  "strict_trace": {
+    "all_count_equal": true,
+    "fallback_sum": 0,
+    "first_update": 1,
+    "last_update": 1995001,
+    "outside_eligible_sum": 0,
+    "replacement_sum": 0,
+    "updates_covered": 1995001,
+    "window_count": 1996
+  },
+  "summary": {
+    "auc": 0.20301507537688443,
+    "best_success": 1.0,
+    "final_success": 0.0,
+    "hit90": 140000
+  },
+  "total_steps": 2000000,
+  "total_updates": 1995001
+}
