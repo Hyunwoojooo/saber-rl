@@ -452,20 +452,52 @@ def per_beta_at_step(config: LiteConfig, global_step: int) -> float:
 
 
 def _apply_per_full_loss_weights(config: LiteConfig, wb: Any, batch: Any) -> None:
+    batch_size = int(batch.indices.shape[0])
     if batch.is_weight is None or batch.sampling_priority is None or batch.sampling_prob is None:
-        raise ValueError("Full PER requires prioritized replay metadata")
+        raise ValueError("Full PER requires prioritized replay batch metadata")
+
     eps = float(config.eps)
     is_weight = np.asarray(batch.is_weight, dtype=np.float32).reshape(-1)
     priority = np.asarray(batch.sampling_priority, dtype=np.float32).reshape(-1)
     sample_prob = np.asarray(batch.sampling_prob, dtype=np.float32).reshape(-1)
-    if not (is_weight.size == priority.size == sample_prob.size == batch.indices.shape[0]):
+    if is_weight.size != batch_size or priority.size != batch_size or sample_prob.size != batch_size:
         raise ValueError("Full PER batch metadata shape mismatch")
+    if not (
+        np.all(np.isfinite(is_weight))
+        and np.all(np.isfinite(priority))
+        and np.all(np.isfinite(sample_prob))
+        and np.all(is_weight > 0.0)
+        and np.all(priority > 0.0)
+        and np.all(sample_prob > 0.0)
+    ):
+        raise ValueError("Full PER batch metadata must be finite and positive")
+
     w_raw = np.clip(is_weight, 0.0, float(config.U_PER_max)).astype(np.float32)
-    omega = w_raw if config.weighting_mode == "raw" else (w_raw / max(eps, float(np.mean(w_raw)))).astype(np.float32)
+    if config.weighting_mode == "raw":
+        omega = w_raw.copy()
+    else:
+        omega = (w_raw / max(eps, float(np.mean(w_raw)))).astype(np.float32)
     wb.w_p_raw = w_raw
     wb.omega_critic = omega
-    wb.omega_actor = np.ones_like(omega, dtype=np.float32)
-    wb.extra_metrics.update({"per/beta": float(batch.per_beta), "per/sampling_prob_mean": float(np.mean(sample_prob)), "per/priority_mean": float(np.mean(priority)), "per/weight_mean": float(np.mean(w_raw)), "per/weight_max": float(np.max(w_raw))})
+    wb.omega_actor = np.ones(batch_size, dtype=np.float32)
+    wb.extra_metrics.update(
+        {
+            "per/beta": float(batch.per_beta),
+            "per/sampling_prob_mean": float(np.mean(sample_prob)),
+            "per/sampling_prob_min": float(np.min(sample_prob)),
+            "per/sampling_prob_max": float(np.max(sample_prob)),
+            "per/priority_mean": float(np.mean(priority)),
+            "per/priority_max": float(np.max(priority)),
+            "per/priority_entropy": _entropy_weight(priority, eps),
+            "per/priority_ESS": _ess_weight(priority, eps),
+            "per/weight_mean": float(np.mean(w_raw)),
+            "per/weight_max": float(np.max(w_raw)),
+            "per/weight_entropy": _entropy_weight(w_raw, eps),
+            "per/weight_ESS": _ess_weight(w_raw, eps),
+            "per/sample_duplicate_rate": 1.0
+            - float(np.unique(batch.indices).size / max(1, batch_size)),
+        }
+    )
 
 
 def _apply_td_or_per_loss_weights(
@@ -737,12 +769,19 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "td_error/weight_max",
         "td_error/weight_entropy",
         "td_error/weight_ESS",
+        "per/beta",
+        "per/sampling_prob_mean",
+        "per/sampling_prob_min",
+        "per/sampling_prob_max",
+        "per/priority_mean",
+        "per/priority_max",
         "per/priority_entropy",
         "per/priority_ESS",
         "per/weight_mean",
         "per/weight_max",
         "per/weight_entropy",
         "per/weight_ESS",
+        "per/sample_duplicate_rate",
         "lite/slide_mean_obj_speed",
         "lite/slide_mean_vel_align",
         "lite/slide_phase_distribution_approach",
@@ -1165,6 +1204,19 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     summary = {
         "run_dir": str(run_dir),
         "method": config.method,
+        "full_per": {
+            "enabled": config.method in {"ddpg_her_per_full", "td3_her_per_full"},
+            "sampling_order": "slot_priority_then_future_goal_relabeling",
+            "priority_update": "mean_absolute_twin_critic_td_error",
+            "alpha": config.per_alpha,
+            "beta_start": config.per_beta_start,
+            "beta_end": config.per_beta_end,
+            "beta_steps": config.per_beta_steps,
+            "priority_epsilon": config.eps_PER,
+            "importance_sampling_scope": "critic_only",
+            "minibatch_mean_normalized": config.weighting_mode == "batch_norm",
+            "support_lookup": False,
+        },
         "total_steps": config.total_steps,
         "episodes": episode_idx,
         "total_updates": total_updates,
@@ -1317,12 +1369,19 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "td_error/weight_max": np.nan,
         "td_error/weight_entropy": np.nan,
         "td_error/weight_ESS": np.nan,
+        "per/beta": np.nan,
+        "per/sampling_prob_mean": np.nan,
+        "per/sampling_prob_min": np.nan,
+        "per/sampling_prob_max": np.nan,
+        "per/priority_mean": np.nan,
+        "per/priority_max": np.nan,
         "per/priority_entropy": np.nan,
         "per/priority_ESS": np.nan,
         "per/weight_mean": np.nan,
         "per/weight_max": np.nan,
         "per/weight_entropy": np.nan,
         "per/weight_ESS": np.nan,
+        "per/sample_duplicate_rate": np.nan,
         "b2/unrestricted_gap_mean": 0.0,
         "b2/unrestricted_gap_p95": 0.0,
         "b2/candidate_action_norm_mean": 0.0,

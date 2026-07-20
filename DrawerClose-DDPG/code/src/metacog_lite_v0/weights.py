@@ -135,7 +135,13 @@ class LiteWeightComputer:
         t0 = time.perf_counter()
         b = int(batch.observation.shape[0])
         phase, extra_metrics = self._task_batch_diagnostics(batch, b)
-        if self.cfg.method in {"b0_ddpg_her", "td_error", "per_style_loss_weighting"}:
+        if self.cfg.method in {
+            "b0_ddpg_her",
+            "td_error",
+            "per_style_loss_weighting",
+            "ddpg_her_per_full",
+            "td3_her_per_full",
+        }:
             return self._constant_batch(b, t0, t0, phase=phase, extra_metrics=extra_metrics)
         if self.cfg.method == "b3_fully_random_fixed_count":
             return self._fully_random_fixed_count_batch(b, t0, rng, phase=phase, extra_metrics=extra_metrics)

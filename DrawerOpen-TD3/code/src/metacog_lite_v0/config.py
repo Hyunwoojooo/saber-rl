@@ -129,6 +129,9 @@ class LiteConfig:
     local_scan_cache_enabled: bool = True
     local_scan_cache_max_entries: int = 50_000
     support_short_circuit: bool = True
+    numba_support_scan: bool = True
+    support_predicate_early_exit: bool = True
+    support_diagnostic_audit_interval: int = 100
     verify_runtime_optimization: bool = False
 
     # FetchPush bucket.
@@ -385,8 +388,28 @@ class LiteConfig:
         self.target_noise_clip = max(0.0, float(self.target_noise_clip))
         self.support_cache_max_entries = max(0, int(self.support_cache_max_entries))
         self.local_scan_cache_max_entries = max(0, int(self.local_scan_cache_max_entries))
+        self.support_diagnostic_audit_interval = max(0, int(self.support_diagnostic_audit_interval))
         self.N_gap_min = max(1, int(self.N_gap_min))
         self.random_fixed_count_k = max(0, int(self.random_fixed_count_k))
+        self.per_alpha = float(self.per_alpha)
+        self.per_beta_start = float(self.per_beta_start)
+        self.per_beta_end = float(self.per_beta_end)
+        self.per_beta_steps = int(self.per_beta_steps)
+        self.eps_PER = float(self.eps_PER)
+        self.U_PER_max = float(self.U_PER_max)
+        if self.per_alpha < 0.0:
+            raise ValueError("per_alpha must be nonnegative")
+        if not (0.0 <= self.per_beta_start <= self.per_beta_end <= 1.0):
+            raise ValueError("PER beta schedule must satisfy 0 <= start <= end <= 1")
+        if self.per_beta_steps <= 0:
+            raise ValueError("per_beta_steps must be positive")
+        if self.eps_PER <= 0.0 or self.U_PER_max <= 0.0:
+            raise ValueError("eps_PER and U_PER_max must be positive")
+        if self.method in {"ddpg_her_per_full", "td3_her_per_full"}:
+            if self.weight_scope != "critic_only":
+                raise ValueError("Full PER requires weight_scope=critic_only")
+            if self.weighting_mode != "batch_norm":
+                raise ValueError("Full PER requires weighting_mode=batch_norm")
         self.gap_window = max(self.N_gap_min, int(self.gap_window))
         if self.smoke:
             if self.task_name in {"unitree_apple", "pick_cube", "push_t", "drawer_open"}:

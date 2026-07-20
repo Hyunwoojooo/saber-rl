@@ -40,7 +40,7 @@ def parse_args() -> argparse.Namespace:
             "b4_lite",
             "td_error",
             "per_style_loss_weighting",
-            "td3_her_per_full",
+            "ddpg_her_per_full",
         ],
     )
     parser.add_argument("--resume", action="store_true")
@@ -120,6 +120,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lambda_TD", type=float, default=1.0)
     parser.add_argument("--U_TD_max", type=float, default=1.0)
     parser.add_argument("--per_alpha", type=float, default=0.6)
+    parser.add_argument("--per_beta_start", type=float, default=0.4)
+    parser.add_argument("--per_beta_end", type=float, default=1.0)
+    parser.add_argument("--per_beta_steps", type=int, default=2_000_000)
     parser.add_argument("--eps_PER", type=float, default=1e-6)
     parser.add_argument("--U_PER_max", type=float, default=2.0)
     parser.add_argument("--weighting_mode", type=str, default="batch_norm", choices=["batch_norm", "raw"])
@@ -189,6 +192,9 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         local_scan_cache_enabled=args.local_scan_cache_enabled,
         local_scan_cache_max_entries=args.local_scan_cache_max_entries,
         support_short_circuit=args.support_short_circuit,
+        numba_support_scan=args.numba_support_scan,
+        support_predicate_early_exit=args.support_predicate_early_exit,
+        support_diagnostic_audit_interval=args.support_diagnostic_audit_interval,
         verify_runtime_optimization=args.verify_runtime_optimization,
         drawer_success_threshold=args.drawer_success_threshold,
         drawer_d_reach=args.drawer_d_reach,
@@ -207,6 +213,9 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         lambda_TD=args.lambda_TD,
         U_TD_max=args.U_TD_max,
         per_alpha=args.per_alpha,
+        per_beta_start=args.per_beta_start,
+        per_beta_end=args.per_beta_end,
+        per_beta_steps=args.per_beta_steps,
         eps_PER=args.eps_PER,
         U_PER_max=args.U_PER_max,
         weighting_mode=args.weighting_mode,
@@ -398,9 +407,6 @@ def _finite_goal_obs(obs: object) -> bool:
 def main() -> int:
     args = parse_args()
     cfg = config_from_args(args)
-    cfg.numba_support_scan = bool(args.numba_support_scan)
-    cfg.support_predicate_early_exit = bool(args.support_predicate_early_exit)
-    cfg.support_diagnostic_audit_interval = int(args.support_diagnostic_audit_interval)
     repo_root = Path(__file__).resolve().parents[2]
     if args.validate_only:
         validate_drawer_open_setup(cfg)
