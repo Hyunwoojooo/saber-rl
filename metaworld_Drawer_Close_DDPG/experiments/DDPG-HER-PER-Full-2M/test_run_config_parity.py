@@ -8,7 +8,16 @@ from pathlib import Path
 
 
 FOLDER = Path(__file__).resolve().parent
-REPO_ROOT = FOLDER.parent
+
+
+def find_repo_root(path: Path) -> Path:
+    for candidate in (path, *path.parents):
+        if (candidate / ".git").exists():
+            return candidate
+    raise RuntimeError(f"Could not locate repository root from {path}")
+
+
+REPO_ROOT = find_repo_root(FOLDER)
 
 
 def load_runner():

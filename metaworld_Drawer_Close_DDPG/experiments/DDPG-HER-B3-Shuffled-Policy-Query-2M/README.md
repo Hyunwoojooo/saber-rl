@@ -1,10 +1,10 @@
-# DrawerOpen DDPG Replay-Action Query Ablation
+# DrawerClose DDPG Shuffled-Policy Query Ablation
 
-This folder is a self-contained code snapshot for one DDPG + future-goal HER query ablation on Meta-World DrawerOpen. It follows the FPP support-query implementation and changes only support_query_mode.
+This folder is a self-contained code snapshot for one DDPG + future-goal HER query ablation on Meta-World DrawerClose. It follows the FPP support-query implementation and changes only support_query_mode.
 
 ## One-Factor Definition
 
-- Environment: drawer-open-v3, sparse reward, reward function v2
+- Environment: drawer-close-v3, sparse reward, reward function v2
 - Backbone: DDPG
 - Replay: uniform replay with future-goal HER probability 0.8
 - Training: 2,000,000 environment steps, horizon 200, UTD 1
@@ -13,17 +13,17 @@ This folder is a self-contained code snapshot for one DDPG + future-goal HER que
 - Weight scope: critic_only
 - Weight normalization: minibatch mean one
 - Fixed support settings: M_B=16, M_Q_min=4, N_local_min=4, local_search_max=512, five bins per action dimension
-- Fixed query mode: replay_action
+- Fixed query mode: shuffled_policy
 
-The query action is the sampled replay action from the same minibatch row. This removes current-policy relevance while retaining the exact DrawerOpen context and support thresholds. HER relabeling, sampled transitions, rewards, Bellman targets, DDPG actor objective, network architecture, optimizer, and update budget remain unchanged.
+The query action is a batch-deranged current-policy action from another minibatch row. This preserves the policy-action marginal distribution while removing sample-level state-goal/action alignment. HER relabeling, sampled transitions, rewards, Bellman targets, DDPG actor objective, network architecture, optimizer, and update budget remain unchanged.
 
-The sampled transition is not removed from the local replay pool, matching the FPP replay-query control. Possible self-support is therefore an explicit limitation.
+The permutation has no fixed points and uses the checkpointed weight RNG, matching the FPP shuffled-policy control.
 
 ## Run
 
 From the repository root:
 
-    bash DrawerOpen-DDPG-Replay-Query/DDPG-HER-B3-Replay-Action-Query-2M.sh
+    bash metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/DDPG-HER-B3-Shuffled-Policy-Query-2M.sh
 
 The runner uses CUDA device 0 by default. Override CUDA_DEVICE, STEPS, OUTPUT_ROOT, or LOG_ROOT through environment variables when needed.
 
@@ -31,8 +31,8 @@ The runner uses CUDA device 0 by default. Override CUDA_DEVICE, STEPS, OUTPUT_RO
 
 No training is started by these checks:
 
-    PYTHONPATH=DrawerOpen-DDPG-Replay-Query/code/src .venv/bin/python DrawerOpen-DDPG-Replay-Query/code/src/test_support_query_modes.py
-    .venv/bin/python DrawerOpen-DDPG-Replay-Query/code/src/train_drawer_open_lite_v0.py --validate_only --device cpu --method b3_support_runtime_opt --weight_scope critic_only --weighting_mode batch_norm --support_query_mode replay_action
+    PYTHONPATH=metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/code/src .venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/code/src/test_support_query_modes.py
+    .venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/code/src/train_drawer_close_lite_v0.py --validate_only --device cpu --method b3_support_runtime_opt --weight_scope critic_only --weighting_mode batch_norm --support_query_mode shuffled_policy
 
 The synthetic test verifies expected current-policy, replay-action, and shuffled-policy support masks, cache on/off parity, replay-query bin agreement, deterministic derangement behavior, and rejection of invalid modes.
 

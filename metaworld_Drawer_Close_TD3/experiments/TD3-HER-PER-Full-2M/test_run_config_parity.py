@@ -8,7 +8,16 @@ from pathlib import Path
 
 
 FOLDER = Path(__file__).resolve().parent
-REPO_ROOT = FOLDER.parent
+
+
+def find_repo_root(path: Path) -> Path:
+    for candidate in (path, *path.parents):
+        if (candidate / ".git").exists():
+            return candidate
+    raise RuntimeError(f"Could not locate repository root from {path}")
+
+
+REPO_ROOT = find_repo_root(FOLDER)
 
 
 def load_runner():
@@ -31,9 +40,9 @@ class RunConfigParityTests(unittest.TestCase):
 
     def test_frozen_paper_protocol(self) -> None:
         expected = {
-            "task_name": "drawer_open",
-            "backbone": "DDPG",
-            "trainer_method": "ddpg_her_per_full",
+            "task_name": "drawer_close",
+            "backbone": "TD3",
+            "trainer_method": "td3_her_per_full",
             "total_steps": 2_000_000,
             "seeds": [1, 2, 3, 4, 5],
             "max_episode_steps": 200,
@@ -85,8 +94,8 @@ class RunConfigParityTests(unittest.TestCase):
             resume=False,
             resume_path=None,
         )
-        self.assertEqual(option(command, "--method"), "ddpg_her_per_full")
-        self.assertEqual(option(command, "--task_name"), "drawer_open")
+        self.assertEqual(option(command, "--method"), "td3_her_per_full")
+        self.assertEqual(option(command, "--task_name"), "drawer_close")
         self.assertEqual(option(command, "--total_steps"), "12345")
         self.assertEqual(option(command, "--device"), "cpu")
         self.assertEqual(option(command, "--per_alpha"), "0.6")
@@ -94,7 +103,7 @@ class RunConfigParityTests(unittest.TestCase):
         self.assertEqual(option(command, "--per_beta_end"), "1.0")
         self.assertEqual(option(command, "--per_beta_steps"), "2000000")
         self.assertEqual(option(command, "--weight_scope"), "critic_only")
-        self.assertIn("ddpg_her_per_full_s3_12345", option(command, "--run_name"))
+        self.assertIn("td3_her_per_full_s3_12345", option(command, "--run_name"))
         self.assertIn("--no-support_cache_enabled", command)
         self.assertIn("--no-local_scan_cache_enabled", command)
         self.assertIn("--no-numba_support_scan", command)

@@ -23,7 +23,7 @@ The sampled transition is not removed from the local replay pool, matching the F
 
 From the repository root:
 
-    bash DrawerClose-DDPG-Replay-Query/DDPG-HER-B3-Replay-Action-Query-2M.sh
+    bash metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/DDPG-HER-B3-Replay-Action-Query-2M.sh
 
 The runner uses CUDA device 0 by default. Override CUDA_DEVICE, STEPS, OUTPUT_ROOT, or LOG_ROOT through environment variables when needed.
 
@@ -31,8 +31,8 @@ The runner uses CUDA device 0 by default. Override CUDA_DEVICE, STEPS, OUTPUT_RO
 
 No training is started by these checks:
 
-    PYTHONPATH=DrawerClose-DDPG-Replay-Query/code/src .venv/bin/python DrawerClose-DDPG-Replay-Query/code/src/test_support_query_modes.py
-    .venv/bin/python DrawerClose-DDPG-Replay-Query/code/src/train_drawer_close_lite_v0.py --validate_only --device cpu --method b3_support_runtime_opt --weight_scope critic_only --weighting_mode batch_norm --support_query_mode replay_action
+    PYTHONPATH=metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src .venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/test_support_query_modes.py
+    .venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/train_drawer_close_lite_v0.py --validate_only --device cpu --method b3_support_runtime_opt --weight_scope critic_only --weighting_mode batch_norm --support_query_mode replay_action
 
 The synthetic test verifies expected current-policy, replay-action, and shuffled-policy support masks, cache on/off parity, replay-query bin agreement, deterministic derangement behavior, and rejection of invalid modes.
 

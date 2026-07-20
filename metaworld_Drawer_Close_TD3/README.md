@@ -149,3 +149,10 @@ Completed on 2026-07-02 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 
 PER-Style reached high success at least once in every seed, but only seed 5 maintained high final performance. Its mean AUC is higher than B0 and Random-Support, but below B3-Critic-Only and Shuffled-Weight on this DrawerClose TD3 run.
 
+
+
+## Independent Experiment Packages
+
+The following self-contained experiment package is grouped by task and backbone:
+
+- [TD3-HER-PER-Full-2M](experiments/TD3-HER-PER-Full-2M/)

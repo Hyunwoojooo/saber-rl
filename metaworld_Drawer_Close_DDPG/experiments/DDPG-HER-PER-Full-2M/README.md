@@ -48,29 +48,29 @@ high replay ratio are disabled.
 ## Validation
 
 ```bash
-.venv/bin/python DrawerClose-DDPG/code/src/test_per_full.py
-.venv/bin/python DrawerClose-DDPG/test_run_config_parity.py
-bash -n DrawerClose-DDPG/run_all_seeds.sh
-bash -n DrawerClose-DDPG/run_5seeds_parallel.sh
-.venv/bin/python DrawerClose-DDPG/run.py --seed 1 --dry-run
-.venv/bin/python DrawerClose-DDPG/run.py --seed 1 --device cpu --validate_only
+.venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/code/src/test_per_full.py
+.venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/test_run_config_parity.py
+bash -n metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run_all_seeds.sh
+bash -n metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run_5seeds_parallel.sh
+.venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run.py --seed 1 --dry-run
+.venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run.py --seed 1 --device cpu --validate_only
 ```
 
 A smoke run has its own `_smoke` run name and cannot overwrite the full run:
 
 ```bash
-.venv/bin/python DrawerClose-DDPG/run.py --seed 1 --device cuda --smoke
+.venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run.py --seed 1 --device cuda --smoke
 ```
 
 Run one full seed, all seeds sequentially, or five seeds in parallel:
 
 ```bash
-.venv/bin/python DrawerClose-DDPG/run.py --seed 1 --steps 2000000 --device cuda
-bash DrawerClose-DDPG/run_all_seeds.sh --steps 2000000 --device cuda
-GPU_IDS=0,1,2,3,4 bash DrawerClose-DDPG/run_5seeds_parallel.sh --steps 2000000
+.venv/bin/python metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run.py --seed 1 --steps 2000000 --device cuda
+bash metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run_all_seeds.sh --steps 2000000 --device cuda
+GPU_IDS=0,1,2,3,4 bash metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/run_5seeds_parallel.sh --steps 2000000
 ```
 
-Runs are written to `DrawerClose-DDPG/runs/ddpg_her_per_full_2m/`. Each seed uses the
+Runs are written to `metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/runs/ddpg_her_per_full_2m/`. Each seed uses the
 run name `drawer_close_ddpg_her_per_full_s{seed}_2000000` and produces the trainer's
 `config.json`, `env_snapshot.json`, `metrics.csv`, `summary.json`, `run.log`, and
 rolling `checkpoint.pt` artifacts. Full 2M training is intentionally not started

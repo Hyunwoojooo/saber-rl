@@ -2,7 +2,14 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$ROOT/.." && pwd)"
+REPO_ROOT="$ROOT"
+while [[ "$REPO_ROOT" != "/" && ! -d "$REPO_ROOT/.git" ]]; do
+  REPO_ROOT="$(dirname "$REPO_ROOT")"
+done
+if [[ ! -d "$REPO_ROOT/.git" ]]; then
+  echo "Could not locate repository root from $ROOT" >&2
+  exit 2
+fi
 EXP_DIR="$ROOT"
 TRAIN="$EXP_DIR/code/src/train_drawer_close_lite_v0.py"
 PYTHON="${PYTHON:-$REPO_ROOT/.venv/bin/python}"

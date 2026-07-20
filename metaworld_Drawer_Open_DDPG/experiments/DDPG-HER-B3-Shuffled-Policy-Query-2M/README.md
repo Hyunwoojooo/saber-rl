@@ -1,10 +1,10 @@
-# DrawerClose DDPG Shuffled-Policy Query Ablation
+# DrawerOpen DDPG Shuffled-Policy Query Ablation
 
-This folder is a self-contained code snapshot for one DDPG + future-goal HER query ablation on Meta-World DrawerClose. It follows the FPP support-query implementation and changes only support_query_mode.
+This folder is a self-contained code snapshot for one DDPG + future-goal HER query ablation on Meta-World DrawerOpen. It follows the FPP support-query implementation and changes only support_query_mode.
 
 ## One-Factor Definition
 
-- Environment: drawer-close-v3, sparse reward, reward function v2
+- Environment: drawer-open-v3, sparse reward, reward function v2
 - Backbone: DDPG
 - Replay: uniform replay with future-goal HER probability 0.8
 - Training: 2,000,000 environment steps, horizon 200, UTD 1
@@ -23,7 +23,7 @@ The permutation has no fixed points and uses the checkpointed weight RNG, matchi
 
 From the repository root:
 
-    bash DrawerClose-DDPG-Shuffled-Policy-Query/DDPG-HER-B3-Shuffled-Policy-Query-2M.sh
+    bash metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/DDPG-HER-B3-Shuffled-Policy-Query-2M.sh
 
 The runner uses CUDA device 0 by default. Override CUDA_DEVICE, STEPS, OUTPUT_ROOT, or LOG_ROOT through environment variables when needed.
 
@@ -31,8 +31,8 @@ The runner uses CUDA device 0 by default. Override CUDA_DEVICE, STEPS, OUTPUT_RO
 
 No training is started by these checks:
 
-    PYTHONPATH=DrawerClose-DDPG-Shuffled-Policy-Query/code/src .venv/bin/python DrawerClose-DDPG-Shuffled-Policy-Query/code/src/test_support_query_modes.py
-    .venv/bin/python DrawerClose-DDPG-Shuffled-Policy-Query/code/src/train_drawer_close_lite_v0.py --validate_only --device cpu --method b3_support_runtime_opt --weight_scope critic_only --weighting_mode batch_norm --support_query_mode shuffled_policy
+    PYTHONPATH=metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/code/src .venv/bin/python metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/code/src/test_support_query_modes.py
+    .venv/bin/python metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/code/src/train_drawer_open_lite_v0.py --validate_only --device cpu --method b3_support_runtime_opt --weight_scope critic_only --weighting_mode batch_norm --support_query_mode shuffled_policy
 
 The synthetic test verifies expected current-policy, replay-action, and shuffled-policy support masks, cache on/off parity, replay-query bin agreement, deterministic derangement behavior, and rejection of invalid modes.
 

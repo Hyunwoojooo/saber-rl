@@ -8,7 +8,16 @@ from pathlib import Path
 
 
 FOLDER = Path(__file__).resolve().parent
-REPO_ROOT = FOLDER.parent
+
+
+def find_repo_root(path: Path) -> Path:
+    for candidate in (path, *path.parents):
+        if (candidate / ".git").exists():
+            return candidate
+    raise RuntimeError(f"Could not locate repository root from {path}")
+
+
+REPO_ROOT = find_repo_root(FOLDER)
 
 
 def load_runner():
@@ -31,7 +40,7 @@ class RunConfigParityTests(unittest.TestCase):
 
     def test_frozen_paper_protocol(self) -> None:
         expected = {
-            "task_name": "drawer_close",
+            "task_name": "drawer_open",
             "backbone": "TD3",
             "trainer_method": "td3_her_per_full",
             "total_steps": 2_000_000,
@@ -86,7 +95,7 @@ class RunConfigParityTests(unittest.TestCase):
             resume_path=None,
         )
         self.assertEqual(option(command, "--method"), "td3_her_per_full")
-        self.assertEqual(option(command, "--task_name"), "drawer_close")
+        self.assertEqual(option(command, "--task_name"), "drawer_open")
         self.assertEqual(option(command, "--total_steps"), "12345")
         self.assertEqual(option(command, "--device"), "cpu")
         self.assertEqual(option(command, "--per_alpha"), "0.6")

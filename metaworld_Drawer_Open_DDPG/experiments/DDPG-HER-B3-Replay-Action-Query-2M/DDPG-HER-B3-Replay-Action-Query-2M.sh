@@ -2,7 +2,14 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$ROOT/.." && pwd)"
+REPO_ROOT="$ROOT"
+while [[ "$REPO_ROOT" != "/" && ! -d "$REPO_ROOT/.git" ]]; do
+  REPO_ROOT="$(dirname "$REPO_ROOT")"
+done
+if [[ ! -d "$REPO_ROOT/.git" ]]; then
+  echo "Could not locate repository root from $ROOT" >&2
+  exit 2
+fi
 EXP_DIR="$ROOT"
 TRAIN="$ROOT/code/src/train_drawer_open_lite_v0.py"
 PYTHON="${PYTHON:-$REPO_ROOT/.venv/bin/python}"
@@ -16,7 +23,7 @@ CUDA_DEVICE="${CUDA_DEVICE:-0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m}"
 LOG_ROOT="${LOG_ROOT:-$ROOT/logs_2m}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
-ORCH_LOG="$ORCH_LOG_DIR/DDPG-HER-B3-Shuffled-Policy-Query-2M_$(date +%Y%m%d_%H%M%S).log"
+ORCH_LOG="$ORCH_LOG_DIR/DDPG-HER-B3-Replay-Action-Query-2M_$(date +%Y%m%d_%H%M%S).log"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
 
 log() {
@@ -75,7 +82,7 @@ b3_args() {
     --drawer_d_opening_mid 0.12 \
     --weighting_mode batch_norm \
     --policy_support_mode bin \
-    --support_query_mode shuffled_policy \
+    --support_query_mode replay_action \
     --support_scan_mode deterministic_tail_v1 \
     --support_cache_enabled \
     --support_cache_max_entries 200000 \
@@ -137,7 +144,7 @@ run_variant() {
   log "END $label"
 }
 
-log "BEGIN MetaWorld DrawerOpen DDPG-HER-B3-Shuffled-Policy-Query-2M"
+log "BEGIN MetaWorld DrawerOpen DDPG-HER-B3-Replay-Action-Query-2M"
 log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE"
-run_variant "DDPG+HER+B3-Shuffled-Policy-Query 2M" "DDPG-HER-B3-Shuffled-Policy-Query-2M" "b3_support_runtime_opt" "critic_only"
-log "DDPG-HER-B3-Shuffled-Policy-Query-2M completed successfully"
+run_variant "DDPG+HER+B3-Replay-Action-Query 2M" "DDPG-HER-B3-Replay-Action-Query-2M" "b3_support_runtime_opt" "critic_only"
+log "DDPG-HER-B3-Replay-Action-Query-2M completed successfully"

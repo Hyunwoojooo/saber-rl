@@ -379,3 +379,10 @@ Interpretation:
   performance gain is not merely random critic reweighting; the support signal
   and its sample-level alignment both matter.
 
+
+
+## Independent Experiment Packages
+
+The following self-contained experiment package is grouped by task and backbone:
+
+- [TD3-HER-PER-Full-2M](experiments/TD3-HER-PER-Full-2M/)

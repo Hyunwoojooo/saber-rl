@@ -166,3 +166,12 @@ Completed on 2026-07-07 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.40 | 1.00 | 0.313 | 108k |
 
 PER-Style produced the strongest mean final success among the completed DrawerClose DDPG controls so far, but its mean AUC remained below B3-Critic-Only and Shuffled-Weight. This makes it a strong final-snapshot baseline/control while preserving the need to report AUC and late stability separately.
+
+
+## Independent Experiment Packages
+
+The following self-contained experiment packages are grouped by task and backbone:
+
+- [DDPG-HER-PER-Full-2M](experiments/DDPG-HER-PER-Full-2M/)
+- [DDPG-HER-B3-Replay-Action-Query-2M](experiments/DDPG-HER-B3-Replay-Action-Query-2M/)
+- [DDPG-HER-B3-Shuffled-Policy-Query-2M](experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/)

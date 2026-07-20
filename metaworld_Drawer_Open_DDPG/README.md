@@ -289,3 +289,12 @@ STEPS=1000 STEP_TAG=smoke CUDA_DEVICE=0 bash metaworld_Drawer_Open_DDPG/DDPG-HER
 ```
 
 Outputs are written under `metaworld_Drawer_Open_DDPG/results_2m/` and logs under `metaworld_Drawer_Open_DDPG/logs_2m/` by default.
+
+
+## Independent Experiment Packages
+
+The following self-contained experiment packages are grouped by task and backbone:
+
+- [DDPG-HER-PER-Full-2M](experiments/DDPG-HER-PER-Full-2M/)
+- [DDPG-HER-B3-Replay-Action-Query-2M](experiments/DDPG-HER-B3-Replay-Action-Query-2M/)
+- [DDPG-HER-B3-Shuffled-Policy-Query-2M](experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M/)
