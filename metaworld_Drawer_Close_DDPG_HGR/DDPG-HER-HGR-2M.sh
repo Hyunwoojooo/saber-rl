@@ -13,13 +13,18 @@ fi
 STEPS="${STEPS:-2000000}"
 STEP_TAG="${STEP_TAG:-2m}"
 CUDA_DEVICE="${CUDA_DEVICE:-0}"
-OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/runs/ddpg_hgr_tdpriority_${STEP_TAG}}"
-LOG_ROOT="${LOG_ROOT:-$ROOT/logs/ddpg_hgr_tdpriority_${STEP_TAG}}"
+SEED_LIST="${SEED_LIST:-1 2 3 4 5}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/runs/ddpg_hgr_tdpriority_original_pair_is_${STEP_TAG}}"
+LOG_ROOT="${LOG_ROOT:-$ROOT/logs/ddpg_hgr_tdpriority_original_pair_is_${STEP_TAG}}"
 DRY_RUN="${DRY_RUN:-0}"
-RESUME="${RESUME:-0}"
 ORCH_LOG_DIR="$ROOT/orchestrator_logs"
 ORCH_LOG="$ORCH_LOG_DIR/DDPG-HER-HGR-${STEP_TAG}_$(date +%Y%m%d_%H%M%S).log"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT" "$ORCH_LOG_DIR"
+read -r -a SEEDS <<< "$SEED_LIST"
+if [[ "${#SEEDS[@]}" -eq 0 ]]; then
+  printf 'SEED_LIST must contain at least one seed\n' >&2
+  exit 2
+fi
 
 log() {
   printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S %Z')" "$*" | tee -a "$ORCH_LOG"
@@ -56,12 +61,15 @@ common_args() {
     --device cuda \
     --hgr_priority_eps 0.000001 \
     --hgr_priority_init 1.0 \
-    --hgr_priority_clip_max 50.0 \
-    --hgr_alpha_episode 1.0 \
-    --hgr_alpha_goal 1.0 \
+    --hgr_priority_clip_max 0.0 \
+    --hgr_alpha_episode 0.6 \
+    --hgr_alpha_goal 0.6 \
+    --hgr_beta_episode_initial 0.4 \
+    --hgr_beta_goal_initial 0.4 \
+    --hgr_beta_episode_final 1.0 \
+    --hgr_beta_goal_final 1.0 \
+    --hgr_beta_anneal_updates 0 \
     --hgr_uniform_mix 0.0 \
-    --hgr_max_future_candidates 50 \
-    --hgr_episode_priority_ema 0.0 \
     --env_seed "$seed" \
     --torch_seed "$seed" \
     --numpy_seed "$seed" \
@@ -78,25 +86,25 @@ run_variant() {
   local log_dir="$LOG_ROOT/$slug"
   mkdir -p "$output_dir" "$log_dir"
 
-  log "BEGIN $label: method=hgr seeds=1..5 steps=$STEPS output=$output_dir"
+  log "BEGIN $label: method=hgr seeds=${SEEDS[*]} steps=$STEPS output=$output_dir"
   local pids=()
-  for seed in 1 2 3 4 5; do
-    local run_name="drawer_close_ddpg_hgr_tdpriority_s${seed}_${STEP_TAG}_cuda"
+  for seed in "${SEEDS[@]}"; do
+    if [[ ! "$seed" =~ ^[0-9]+$ ]]; then
+      log "Invalid seed in SEED_LIST: $seed"
+      return 2
+    fi
+    local run_name="drawer_close_ddpg_hgr_original_pair_is_s${seed}_${STEP_TAG}_cuda"
     local log_file="$log_dir/${run_name}.log"
     local args=()
     while IFS= read -r -d "" arg; do
       args+=("$arg")
     done < <(common_args "$seed")
-    local resume_args=()
-    if [[ "$RESUME" == "1" ]]; then
-      resume_args+=(--resume)
-    fi
 
     if [[ "$DRY_RUN" == "1" ]]; then
       log "DRY_RUN seed=$seed run=$run_name"
       printf 'cd %q && PYTHONPATH=%q CUDA_VISIBLE_DEVICES=%q %q %q' \
         "$EXP_DIR" "$EXP_DIR/code/src:${PYTHONPATH:-}" "$CUDA_DEVICE" "$PYTHON" "$TRAIN"
-      printf ' %q' "${args[@]}" "${resume_args[@]}" --method hgr --weight_scope none --run_name "$run_name" --output_root "$output_dir"
+      printf ' %q' "${args[@]}" --method hgr --weight_scope none --run_name "$run_name" --output_root "$output_dir"
       printf '\n'
       continue
     fi
@@ -108,7 +116,6 @@ run_variant() {
       CUDA_VISIBLE_DEVICES="$CUDA_DEVICE" \
       "$PYTHON" "$TRAIN" \
         "${args[@]}" \
-        "${resume_args[@]}" \
         --method hgr \
         --weight_scope none \
         --run_name "$run_name" \
@@ -135,7 +142,7 @@ run_variant() {
   log "END $label"
 }
 
-log "BEGIN MetaWorld DrawerClose DDPG-HER-HGR-${STEP_TAG}"
-log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE DRY_RUN=$DRY_RUN RESUME=$RESUME"
-run_variant "DDPG+HER+HGR ${STEP_TAG}" "DDPG-HER-HGR-${STEP_TAG}"
-log "DDPG-HER-HGR-${STEP_TAG} completed successfully"
+log "BEGIN MetaWorld DrawerClose DDPG-HER-HGR-original-pair-is-${STEP_TAG}"
+log "Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE DRY_RUN=$DRY_RUN"
+run_variant "DDPG+HER+HGR original-pair-IS ${STEP_TAG}" "DDPG-HER-HGR-original-pair-is-${STEP_TAG}"
+log "DDPG-HER-HGR-original-pair-is-${STEP_TAG} completed successfully"

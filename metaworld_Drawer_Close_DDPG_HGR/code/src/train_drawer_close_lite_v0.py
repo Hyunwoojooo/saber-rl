@@ -21,8 +21,16 @@ from metacog_lite_v0.weights import GapStats, LiteWeightComputer
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="MetaCog-Lite v0 MetaWorld drawer-close-v3 trainer.")
     parser.add_argument("--task_name", type=str, default="drawer_close", choices=["drawer_close"])
-    parser.add_argument("--run_name", type=str, default="drawer_close_ddpg_hgr_tdpriority_s1_2000000")
-    parser.add_argument("--output_root", type=str, default="runs/ddpg_hgr_tdpriority_2m")
+    parser.add_argument(
+        "--run_name",
+        type=str,
+        default="drawer_close_ddpg_hgr_original_pair_is_s1_2m_cuda",
+    )
+    parser.add_argument(
+        "--output_root",
+        type=str,
+        default="runs/ddpg_hgr_tdpriority_original_pair_is_2m",
+    )
     parser.add_argument(
         "--method",
         type=str,
@@ -54,7 +62,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--metaworld_reward_function_version", type=str, default="v2")
     parser.add_argument("--max_episode_steps", type=int, default=200)
     parser.add_argument("--render", action="store_true")
-    parser.add_argument("--total_steps", type=int, default=100_000)
+    parser.add_argument("--total_steps", type=int, default=2_000_000)
     parser.add_argument("--start_steps", type=int, default=10_000)
     parser.add_argument("--warmup_steps", type=int, default=5_000)
     parser.add_argument("--updates_per_step", type=int, default=1)
@@ -125,12 +133,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--U_PER_max", type=float, default=2.0)
     parser.add_argument("--hgr_priority_eps", type=float, default=1e-6)
     parser.add_argument("--hgr_priority_init", type=float, default=1.0)
-    parser.add_argument("--hgr_priority_clip_max", type=float, default=50.0)
-    parser.add_argument("--hgr_alpha_episode", type=float, default=1.0)
-    parser.add_argument("--hgr_alpha_goal", type=float, default=1.0)
+    parser.add_argument("--hgr_priority_clip_max", type=float, default=0.0)
+    parser.add_argument("--hgr_alpha_episode", type=float, default=0.6)
+    parser.add_argument("--hgr_alpha_goal", type=float, default=0.6)
+    parser.add_argument("--hgr_beta_episode_initial", type=float, default=0.4)
+    parser.add_argument("--hgr_beta_goal_initial", type=float, default=0.4)
+    parser.add_argument("--hgr_beta_episode_final", type=float, default=1.0)
+    parser.add_argument("--hgr_beta_goal_final", type=float, default=1.0)
+    parser.add_argument("--hgr_beta_anneal_updates", type=int, default=0)
     parser.add_argument("--hgr_uniform_mix", type=float, default=0.0)
-    parser.add_argument("--hgr_max_future_candidates", type=int, default=50)
-    parser.add_argument("--hgr_episode_priority_ema", type=float, default=0.0)
     parser.add_argument("--weighting_mode", type=str, default="batch_norm", choices=["batch_norm", "raw"])
     parser.add_argument("--weight_scope", type=str, default="actor_critic", choices=["actor_critic", "critic_only", "actor_only", "none"])
     parser.add_argument("--unrestricted_candidate_std", type=float, default=0.5)
@@ -222,9 +233,12 @@ def config_from_args(args: argparse.Namespace) -> LiteConfig:
         hgr_priority_clip_max=args.hgr_priority_clip_max,
         hgr_alpha_episode=args.hgr_alpha_episode,
         hgr_alpha_goal=args.hgr_alpha_goal,
+        hgr_beta_episode_initial=args.hgr_beta_episode_initial,
+        hgr_beta_goal_initial=args.hgr_beta_goal_initial,
+        hgr_beta_episode_final=args.hgr_beta_episode_final,
+        hgr_beta_goal_final=args.hgr_beta_goal_final,
+        hgr_beta_anneal_updates=args.hgr_beta_anneal_updates,
         hgr_uniform_mix=args.hgr_uniform_mix,
-        hgr_max_future_candidates=args.hgr_max_future_candidates,
-        hgr_episode_priority_ema=args.hgr_episode_priority_ema,
         weighting_mode=args.weighting_mode,
         weight_scope=args.weight_scope,
         unrestricted_candidate_std=args.unrestricted_candidate_std,
@@ -282,18 +296,20 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
             f"{desired_goal_source}. Expected _target_pos, target_pos, _goal, or goal."
         )
     replay = HERReplayBuffer(
-        capacity=256,
+        capacity=max(256, 3 * int(env.max_episode_steps)),
         obs_dim=env.obs_dim,
         goal_dim=env.goal_dim,
         action_dim=env.action_dim,
     )
-    hgr_sampler = HGRSampler.from_config(config, replay.capacity) if config.method == "hgr" else None
+    hgr_sampler = HGRSampler(config, env, device) if config.method == "hgr" else None
     ep_id = 0
     ep_step = 0
-    for _ in range(20):
+    rollout_steps = 0
+    for _ in range(max(64, 2 * int(env.max_episode_steps))):
         h_t = env.max_episode_steps - ep_step
         action = rng.uniform(env.action_low, env.action_high).astype(np.float32)
         obs_next, reward, terminated, truncated, _info = env.step(action)
+        done = bool(terminated or truncated)
         slot_added = replay.add_transition(
             observation=obs.observation,
             achieved_goal=obs.achieved_goal,
@@ -302,7 +318,7 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
             reward_ext=float(reward),
             next_observation=obs_next.observation,
             next_achieved_goal=obs_next.achieved_goal,
-            done=bool(terminated or truncated),
+            done=done,
             timeout=bool(truncated),
             h=h_t,
             episode_id=ep_id,
@@ -311,13 +327,22 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
             action_bin=int(task.action_bin_batch(action[None, :], config.action_bins_per_dim)[0]),
         )
         if hgr_sampler is not None:
-            hgr_sampler.on_replay_add(slot_added, ep_id, ep_step)
+            hgr_sampler.on_replay_add(
+                slot_added,
+                ep_id,
+                ep_step,
+                replay,
+                episode_done=done,
+            )
         obs = obs_next
         ep_step += 1
-        if terminated or truncated:
+        rollout_steps += 1
+        if done:
             ep_id += 1
             ep_step = 0
             obs = env.reset(seed=config.seeds.env_seed + ep_id)
+            if hgr_sampler is None or hgr_sampler.pair_table_stats()[0] > 0:
+                break
 
     batch_size = min(8, replay.size)
     batch = replay.sample(batch_size, her_ratio=1.0, rng=rng)
@@ -355,20 +380,69 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
         batch, replay, agent, rng, device
     )
     hgr_batch = None
-    hgr_info = None
     hgr_update_metrics = {}
+    hgr_future_ok = True
+    hgr_pair_table_count = 0
+    hgr_pair_priority_count = 0
+    hgr_critic_weight = np.ones(batch_size, dtype=np.float32)
+    hgr_actor_weight = np.ones(batch_size, dtype=np.float32)
+    hgr_original_weights_one = True
+    hgr_episode_probability_sum_one = False
+    hgr_sampling_time_finite = False
+    hgr_state_schema_ok = False
+    hgr_beta_initial_ok = False
+    hgr_priority_values_finite = False
+    hgr_reward = np.zeros((0,), dtype=np.float32)
     if hgr_sampler is not None:
-        hgr_batch, hgr_info = hgr_sampler.sample(
-            replay=replay,
+        hgr_beta_initial_ok = bool(
+            np.allclose(
+                hgr_sampler.current_betas(),
+                (config.hgr_beta_episode_initial, config.hgr_beta_goal_initial),
+                atol=1e-7,
+            )
+        )
+        hgr_batch = hgr_sampler.sample_batch(
+            replay,
             batch_size=batch_size,
             her_ratio=1.0,
             rng=rng,
-            agent=agent,
-            env=env,
-            device=device,
-            success_terminates=config.success_terminates,
-            timeout_bootstrap=config.timeout_bootstrap,
         )
+        hgr_sampling_time_finite = bool(
+            np.isfinite(hgr_sampler.latest_metrics["runtime/hgr_sampling_sec_per_update"])
+        )
+        if hgr_batch.hgr_goal_slot is not None:
+            for replay_slot, goal_slot, relabel_flag, desired_goal in zip(
+                hgr_batch.indices,
+                hgr_batch.hgr_goal_slot,
+                hgr_batch.her_relabel,
+                hgr_batch.desired_goal_train,
+            ):
+                if float(relabel_flag) <= 0.5:
+                    continue
+                replay_slot_i = int(replay_slot)
+                goal_slot_i = int(goal_slot)
+                hgr_future_ok = hgr_future_ok and (
+                    int(replay.episode_id[replay_slot_i]) == int(replay.episode_id[goal_slot_i])
+                    and int(replay.episode_step[replay_slot_i]) <= int(replay.episode_step[goal_slot_i])
+                    and np.allclose(desired_goal, replay.next_achieved_goal[goal_slot_i])
+                )
+        hgr_critic_weight, hgr_actor_weight = hgr_sampler.loss_weights(hgr_batch)
+        original_hgr_batch = hgr_sampler.sample_batch(
+            replay,
+            batch_size=batch_size,
+            her_ratio=0.0,
+            rng=rng,
+        )
+        original_critic_weight, original_actor_weight = hgr_sampler.loss_weights(original_hgr_batch)
+        hgr_original_weights_one = bool(
+            np.allclose(original_critic_weight, 1.0)
+            and np.allclose(original_actor_weight, 1.0)
+        )
+        hgr_pair_table_count, hgr_pair_priority_count, _memory_mb = hgr_sampler.pair_table_stats()
+        hgr_episode_probability_sum_one = bool(
+            np.isclose(np.sum(hgr_sampler.episode_distribution()[1]), 1.0)
+        )
+        hgr_state_schema_ok = hgr_sampler.state_dict().get("schema") == "hgr_episode_pair_priority_v1"
         hgr_reward = env.compute_reward(hgr_batch.next_achieved_goal, hgr_batch.desired_goal_train, {})
         hgr_state = torch.as_tensor(
             np.concatenate([hgr_batch.observation, hgr_batch.desired_goal_train], axis=1),
@@ -387,10 +461,13 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
             hgr_next_state,
             torch.ones(batch_size, dtype=torch.float32, device=device),
         ).detach().cpu().numpy()
-        hgr_update_metrics = hgr_sampler.update_priorities(hgr_batch.indices, hgr_td, replay)
+        hgr_update_metrics = hgr_sampler.update_priorities(hgr_batch, hgr_td)
+        hgr_priority_values_finite = bool(
+            all(np.all(np.isfinite(table.priorities)) for table in hgr_sampler._tables.values())
+        )
     checks.update(
         {
-            "random_step_20": True,
+            "random_rollout_steps": int(rollout_steps),
             "reward_shape": list(env.compute_reward(batch.next_achieved_goal, batch.desired_goal_train, {}).shape),
             "success_shape": list(env.success_from_goal(batch.next_achieved_goal, batch.desired_goal_train).shape),
             "replay_size": int(replay.size),
@@ -413,15 +490,27 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
             "time_q_candidate_eval_logged": "q_candidate_eval" in b4_wb.timing,
             "time_local_context_lookup_logged": "local_context_lookup" in b4_wb.timing,
             "hgr_sample_available": hgr_batch is not None,
-            "hgr_episode_priority_shape_ok": bool(hgr_batch is not None and hgr_sampler.slot_priority.shape[0] == replay.capacity),
-            "hgr_future_candidate_selected": bool(hgr_info is not None and np.any(hgr_info.selected_future_slots >= 0)),
-            "hgr_td_candidate_metric_finite": bool(
-                hgr_info is not None and np.isfinite(hgr_info.metrics.get("hgr/candidate_td_error_mean", np.nan))
+            "hgr_pair_table_count_positive": hgr_pair_table_count > 0,
+            "hgr_pair_priority_count_positive": hgr_pair_priority_count > 0,
+            "hgr_future_goal_selected_from_future": bool(hgr_batch is not None and hgr_future_ok),
+            "hgr_relabel_all": bool(
+                hgr_batch is not None
+                and hgr_batch.her_relabel is not None
+                and np.all(hgr_batch.her_relabel > 0.5)
             ),
+            "hgr_is_weight_finite_positive": bool(
+                np.all(np.isfinite(hgr_critic_weight)) and np.all(hgr_critic_weight > 0.0)
+            ),
+            "hgr_is_weight_max_at_most_one": bool(np.max(hgr_critic_weight) <= 1.0 + 1e-6),
+            "hgr_actor_weight_all_one": bool(np.allclose(hgr_actor_weight, 1.0)),
+            "hgr_original_goal_weights_all_one": hgr_original_weights_one,
+            "hgr_episode_probability_sum_one": hgr_episode_probability_sum_one,
+            "hgr_state_schema_ok": hgr_state_schema_ok,
+            "hgr_beta_initial_ok": hgr_beta_initial_ok,
+            "hgr_sampling_time_finite": hgr_sampling_time_finite,
             "hgr_reward_shape": list(hgr_reward.shape) if hgr_batch is not None else [],
-            "hgr_priority_update_finite": bool(
-                hgr_sampler is None or np.all(np.isfinite(hgr_sampler.slot_priority[: replay.size]))
-            ),
+            "hgr_reward_finite": bool(hgr_batch is not None and np.all(np.isfinite(hgr_reward))),
+            "hgr_priority_update_finite": hgr_sampler is None or hgr_priority_values_finite,
             "hgr_priority_clip_rate_finite": bool(
                 hgr_sampler is None or np.isfinite(hgr_update_metrics.get("hgr/priority_clip_rate", 0.0))
             ),
@@ -451,9 +540,19 @@ def validate_drawer_close_setup(config: LiteConfig) -> None:
     if config.method == "hgr":
         required_checks = required_checks + (
             "hgr_sample_available",
-            "hgr_episode_priority_shape_ok",
-            "hgr_future_candidate_selected",
-            "hgr_td_candidate_metric_finite",
+            "hgr_pair_table_count_positive",
+            "hgr_pair_priority_count_positive",
+            "hgr_future_goal_selected_from_future",
+            "hgr_relabel_all",
+            "hgr_is_weight_finite_positive",
+            "hgr_is_weight_max_at_most_one",
+            "hgr_actor_weight_all_one",
+            "hgr_original_goal_weights_all_one",
+            "hgr_episode_probability_sum_one",
+            "hgr_state_schema_ok",
+            "hgr_beta_initial_ok",
+            "hgr_sampling_time_finite",
+            "hgr_reward_finite",
             "hgr_priority_update_finite",
             "hgr_priority_clip_rate_finite",
         )
@@ -493,7 +592,12 @@ def main() -> int:
                 "priority_clip_max": cfg.hgr_priority_clip_max,
                 "alpha_episode": cfg.hgr_alpha_episode,
                 "alpha_goal": cfg.hgr_alpha_goal,
-                "max_future_candidates": cfg.hgr_max_future_candidates,
+                "beta_episode_initial": cfg.hgr_beta_episode_initial,
+                "beta_goal_initial": cfg.hgr_beta_goal_initial,
+                "beta_episode_final": cfg.hgr_beta_episode_final,
+                "beta_goal_final": cfg.hgr_beta_goal_final,
+                "beta_anneal_updates": cfg.hgr_beta_anneal_updates,
+                "state_schema": "hgr_episode_pair_priority_v1",
             },
         }, indent=2, sort_keys=True))
         return 0

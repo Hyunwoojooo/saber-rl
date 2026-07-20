@@ -1,145 +1,153 @@
-# MetaWorld DrawerClose DDPG+HER+HGR Baseline
+# MetaWorld DrawerClose DDPG+HER+Full HGR
 
-This folder is an independent DrawerClose DDPG+HGR experiment snapshot. It keeps the existing DrawerClose DDPG+HER task/env convention and adds the same vectorized two-step HGR sampler used by the DrawerOpen HGR baseline. Existing DrawerClose DDPG/SABER/PER code remains unchanged.
+This directory contains an independent DrawerClose DDPG+HER implementation of
+the full two-stage Hindsight Goal Ranking (HGR) baseline. It uses the same
+completed-episode pair-priority, importance-sampling (IS), beta annealing,
+replay-overwrite, and checkpoint semantics as
+`experiment_FPP/ddpg_hgr_tdpriority_1m/`.
 
-## What HGR Is
+The existing DrawerClose DDPG HER/SABER/PER implementations are unchanged.
 
-Hindsight Goal Ranking (HGR) is not a backbone RL algorithm. The backbone here is still DDPG, and HER is still the sparse goal relabeling framework. HGR changes only the hindsight replay sampling policy:
+## HGR Intervention
 
-1. sample episodes with higher average TD-error priority more often;
-2. inside the selected episode, rank future achieved-goal candidates by current TD error and sample the hindsight goal from that distribution.
+For each completed episode of length `T`, the sampler stores every valid
+transition/future-goal pair. A pair links transition slot `j` with a future
+`next_achieved_goal`; an episode of horizon 200 has 20,100 valid pairs.
 
-This implementation is the two-step TD-error HGR baseline, not HGR-lite. It implements both episode priority and future-goal priority.
+Sampling has two stages:
 
-## Held Fixed From DrawerClose DDPG+HER
+1. select a completed episode using its mean pair priority;
+2. select a transition/future-goal pair inside that episode using pair priority.
 
-- Task: `drawer_close`
-- Environment: `drawer-close-v3`
-- Reward: sparse
-- Episode horizon: 200
-- Actor architecture: unchanged DDPG actor
-- Critic architecture: unchanged single-critic DDPG critic
-- Target computation: unchanged DDPG target path
-- Optimizers: Adam, actor/critic lr `3e-4`
-- Gamma/tau: `0.98` / `0.005`
-- Exploration noise: `0.2`
-- Batch size: `256`
-- Replay capacity: `300000`
-- HER ratio: `0.8`
-- Updates per env step: `1`
-- Terminal convention: `success_terminates=false`, `timeout_bootstrap=true`
-- Critic and actor loss weights: all ones
+Episode and pair distributions use TD-error priorities with
+`alpha_episode=alpha_goal=0.6`. Newly created pairs receive the current global
+maximum priority. After a critic update, only the sampled relabeled pairs are
+updated using the pre-update absolute TD error exposed by the DDPG update.
 
-SABER support lookup, SABER critic loss weighting, PER, and high replay-ratio are off for `method=hgr`.
+For an HGR-relabeled sample, the critic receives the normalized product of the
+episode-level and pair-level IS corrections. The maximum relabeled IS weight in
+the minibatch is one. Actor weights and original desired-goal critic weights
+remain one.
 
-## HGR-Specific Settings
+## Fixed DrawerClose Setup
 
-Defaults:
+- Environment: MetaWorld `drawer-close-v3`
+- Reward: sparse, reward function `v2`
+- Horizon: 200
+- Backbone: single-critic DDPG
+- Total steps: 2,000,000
+- Seeds: 1, 2, 3, 4, 5
+- Batch size / replay capacity: 256 / 300,000
+- Future-goal HER probability: 0.8
+- Random start / warmup: 10,000 / 5,000 steps
+- Updates per environment step: 1
+- Actor / critic learning rate: 3e-4 / 3e-4
+- Gamma / tau: 0.98 / 0.005
+- Exploration noise: 0.2
+- Terminal convention: `success_terminates=false`,
+  `timeout_bootstrap=true`
+
+Full HGR settings:
 
 - `hgr_priority_eps = 1e-6`
 - `hgr_priority_init = 1.0`
-- `hgr_priority_clip_max = 50.0`
-- `hgr_alpha_episode = 1.0`
-- `hgr_alpha_goal = 1.0`
+- `hgr_priority_clip_max = 0.0` (disabled)
+- `hgr_alpha_episode = hgr_alpha_goal = 0.6`
+- `hgr_beta_episode_initial = hgr_beta_goal_initial = 0.4`
+- `hgr_beta_episode_final = hgr_beta_goal_final = 1.0`
+- `hgr_beta_anneal_updates = 0` (automatic full-run linear annealing)
 - `hgr_uniform_mix = 0.0`
-- `hgr_max_future_candidates = 50`
-- `hgr_episode_priority_ema = 0.0`
+- Checkpoint schema: `hgr_episode_pair_priority_v1`
 
-Priority storage:
+SABER support weighting, PER, and high replay ratio are disabled.
 
-- per replay-slot transition priority is stored in `HGRSampler.slot_priority`;
-- episode priority is maintained as the mean of valid transition priorities;
-- future-goal TD errors are computed on the fly and are not stored as a large goal table.
+## Output Paths
 
-Goal relabel convention follows the existing DrawerClose HER code path and uses future `next_achieved_goal` values from replay.
+New Full HGR runs are isolated from the legacy sampler-only results:
 
-## Files
+```text
+runs/ddpg_hgr_tdpriority_original_pair_is_2m/
+  DDPG-HER-HGR-original-pair-is-2m/
+    drawer_close_ddpg_hgr_original_pair_is_s{1..5}_2m_cuda/
+```
 
-- Source root: `metaworld_Drawer_Close_DDPG_HGR/`
-- Trainer: `code/src/train_drawer_close_lite_v0.py`
-- HGR sampler: `code/src/metacog_lite_v0/hgr.py`
-- DrawerClose task spec: `code/src/metacog_lite_v0/task_drawer_close.py`
-- Fake-batch test: `code/src/test_hgr_fake_batch.py`
+Logs are written below
+`logs/ddpg_hgr_tdpriority_original_pair_is_2m/`.
+
+## Legacy Result Boundary
+
+The compact artifact at
+`paper_artifacts/drawer_close_ddpg_her_hgr_2m/` was produced by the previous
+two-stage sampler-only implementation. That implementation selected episodes
+and future goals using TD error but did not maintain full pair-priority tables
+or apply IS correction to the critic loss.
+
+Those completed results must be labeled:
+
+> HGR-style two-stage sampler without importance correction
+
+They are not Full HGR results and are intentionally kept separate from new
+`original_pair_is` outputs.
+
+## Implementation
+
+- Sampler: `code/src/metacog_lite_v0/hgr.py`
+- Replay metadata: `code/src/metacog_lite_v0/replay.py`
+- Training integration: `code/src/metacog_lite_v0/trainer.py`
+- DrawerClose entrypoint: `code/src/train_drawer_close_lite_v0.py`
+- Regression test: `code/src/test_hgr_fake_batch.py`
 - Launcher: `DDPG-HER-HGR-2M.sh`
-- Default results: `metaworld_Drawer_Close_DDPG_HGR/runs/ddpg_hgr_tdpriority_2m/`
-- Default logs: `metaworld_Drawer_Close_DDPG_HGR/logs/ddpg_hgr_tdpriority_2m/`
 
-## Logged Artifacts
+The run logs pair-table count and memory, episode/pair probabilities,
+raw/normalized IS weights, beta progress, clipping/safety replacements, and HGR
+sampling runtime. Checkpoints include replay state, pair tables, global maximum
+priority, critic update count, and beta schedule state.
 
-Each run writes `config.json`, `env_snapshot.json`, `run.log`, `metrics.csv`, `metrics.jsonl`, `metrics_selected_10k.csv`, `summary.json`, and checkpoints unless disabled by the launcher.
-
-Selected HGR metrics include `hgr/episode_priority_mean`, `hgr/episode_priority_std`, `hgr/episode_priority_max`, `hgr/goal_priority_entropy_mean`, `hgr/goal_selected_rank_mean`, `hgr/candidate_td_error_mean`, `hgr/candidate_td_error_max`, `hgr/relabel_fraction`, `hgr/priority_clip_rate`, and `runtime/hgr_sampling_sec_per_update`.
-
-## Validation Commands
-
-Compile:
+## Validation
 
 ```bash
-PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src python3 -m py_compile \
+PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src \
+  .venv/bin/python -m py_compile \
+  metaworld_Drawer_Close_DDPG_HGR/code/src/metacog_lite_v0/config.py \
   metaworld_Drawer_Close_DDPG_HGR/code/src/metacog_lite_v0/hgr.py \
   metaworld_Drawer_Close_DDPG_HGR/code/src/metacog_lite_v0/replay.py \
   metaworld_Drawer_Close_DDPG_HGR/code/src/metacog_lite_v0/trainer.py \
   metaworld_Drawer_Close_DDPG_HGR/code/src/train_drawer_close_lite_v0.py \
   metaworld_Drawer_Close_DDPG_HGR/code/src/test_hgr_fake_batch.py
-```
 
-Launcher syntax:
+PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src \
+  .venv/bin/python \
+  metaworld_Drawer_Close_DDPG_HGR/code/src/test_hgr_fake_batch.py
 
-```bash
-bash -n metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
-```
-
-Dry-run command generation:
-
-```bash
-DRY_RUN=1 STEPS=1000 STEP_TAG=dry CUDA_DEVICE=0 metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
-```
-
-Fake-batch HGR sampler test:
-
-```bash
-PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src python3 metaworld_Drawer_Close_DDPG_HGR/code/src/test_hgr_fake_batch.py
-```
-
-Validate DrawerClose setup, including HGR sampling:
-
-```bash
-PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src python3 metaworld_Drawer_Close_DDPG_HGR/code/src/train_drawer_close_lite_v0.py \
+PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src \
+  .venv/bin/python \
+  metaworld_Drawer_Close_DDPG_HGR/code/src/train_drawer_close_lite_v0.py \
   --method hgr --weight_scope none --validate_only --device cpu
+
+bash -n metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
+DRY_RUN=1 metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
 ```
 
-## Execution Plan
+## Execution
 
-1. 1k dry run:
+Full 2M experiment:
 
 ```bash
-PYTHONPATH=metaworld_Drawer_Close_DDPG_HGR/code/src python3 metaworld_Drawer_Close_DDPG_HGR/code/src/train_drawer_close_lite_v0.py \
-  --method hgr --weight_scope none --device cpu \
-  --run_name drawer_close_ddpg_hgr_tdpriority_s1_1k_cpu \
-  --output_root runs/dry_1k \
-  --total_steps 1000 --start_steps 100 --warmup_steps 100 \
-  --batch_size 64 --buffer_capacity 20000 --eval_freq 1000 --eval_episodes 2 \
-  --checkpoint_every_steps 1000 --no_save_step_checkpoints
+CUDA_DEVICE=0 metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
 ```
 
-2. 50k smoke seed 1: run one explicit command with `--total_steps 50000`, or temporarily limit the launcher seed loop.
-
-3. 200k pilot seeds 1-2: run two explicit commands with `STEPS=200000 STEP_TAG=200k`.
-
-4. 2M full seeds 1-5:
+Selected seeds or a shorter pilot:
 
 ```bash
-STEPS=2000000 STEP_TAG=2m CUDA_DEVICE=0 metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
+SEED_LIST="1 2" STEPS=200000 STEP_TAG=pilot200k \
+  CUDA_DEVICE=0 metaworld_Drawer_Close_DDPG_HGR/DDPG-HER-HGR-2M.sh
 ```
 
-## Paper Interpretation
+## Operational Notes
 
-If HGR is stronger than SABER on DrawerClose DDPG, the interpretation is that TD-error-based hindsight goal prioritization can be stronger in this task, while SABER targets a different intervention point: critic-loss allocation under matched HER relabeling.
-
-If SABER is similar to or stronger than HGR, the interpretation is that SABER remains competitive with a TD-error-based hindsight goal-prioritization baseline while changing only critic loss allocation.
-
-## Remaining Risks
-
-- HGR does extra no-grad critic evaluations during sampling, so runtime can be materially slower than B0.
-- `hgr_max_future_candidates=50` caps DrawerClose future candidates. Set it to `0` for full future candidate scoring if runtime allows.
-- If priority sharpness is unstable, use `hgr_alpha_goal=0.6` or a small `hgr_uniform_mix` such as `0.05` as fallback ablations.
+- At horizon 200, a completed episode owns 20,100 pair priorities.
+- With a replay capacity of 300,000, the pair-priority arrays can use roughly
+  121 MB per seed when the replay is full.
+- Replay overwrite removes the stale episode's complete pair table.
+- A checkpoint from the legacy transition-priority implementation is
+  incompatible with `hgr_episode_pair_priority_v1`; start a new Full HGR run.
