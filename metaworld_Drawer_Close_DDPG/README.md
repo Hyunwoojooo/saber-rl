@@ -8,6 +8,8 @@ This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer
 |---|---|---|---|
 | DDPG+HER B0 baseline | `DDPG-HER-B0-2M.sh` | `b0_ddpg_her` | `none` |
 | DDPG+HER+B3 Critic-Only | `DDPG-HER-B3-Critic-Only-2M.sh` | `b3_support_runtime_opt` | `critic_only` |
+| DDPG+HER+B3 Actor-Only | `DDPG-HER-B3-Actor-Only-2M.sh` | `b3_support_runtime_opt` | `actor_only` |
+| DDPG+HER+B3 Actor+Critic | `DDPG-HER-B3-Actor-Critic-2M.sh` | `b3_support_runtime_opt` | `actor_critic` |
 | DDPG+HER+B3 Random-Fixed-Count | `DDPG-HER-B3-Random-Fixed-Count-2M.sh` | `b3_fully_random_fixed_count` | `critic_only` |
 | DDPG+HER+B3 Random-Support | `DDPG-HER-B3-Random-Support-2M.sh` | `b3_support_random_runtime_opt` | `critic_only` |
 | DDPG+HER+B3 Shuffled-Weight | `DDPG-HER-B3-Shuffled-Weight-2M.sh` | `b3_support_shuffled_runtime_opt` | `critic_only` |
@@ -44,6 +46,8 @@ From repository root:
 ```bash
 bash metaworld_Drawer_Close_DDPG/DDPG-HER-B0-2M.sh
 bash metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Critic-Only-2M.sh
+bash metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Actor-Only-2M.sh
+bash metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Actor-Critic-2M.sh
 bash metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
 bash metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Random-Support-2M.sh
 bash metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
@@ -56,6 +60,12 @@ Run the full sequence:
 bash metaworld_Drawer_Close_DDPG/run_all_ddpg_drawer_close_2m_5parallel.sh
 ```
 
+Run only the two actor-scope ablations in sequence:
+
+```bash
+bash metaworld_Drawer_Close_DDPG/run_ddpg_drawer_close_actor_ablation_2m_5parallel.sh
+```
+
 For a short smoke check:
 
 ```bash
@@ -63,6 +73,15 @@ STEPS=1000 STEP_TAG=smoke CUDA_DEVICE=0 bash metaworld_Drawer_Close_DDPG/DDPG-HE
 ```
 
 Outputs are written to `metaworld_Drawer_Close_DDPG/results_2m/`, logs to `metaworld_Drawer_Close_DDPG/logs_2m/`, and orchestrator logs to `metaworld_Drawer_Close_DDPG/orchestrator_logs/`.
+
+## Actor-Scope Ablation Settings
+
+The actor-scope launchers use the same DrawerClose environment, DDPG backbone, HER path, support query, normalized SABER weights, seeds, and training budget as `DDPG-HER-B3-Critic-Only-2M.sh`. The only intentional difference is where the same per-sample weight is applied:
+
+- `DDPG-HER-B3-Actor-Only-2M.sh`: `weight_scope=actor_only`; critic weights remain one.
+- `DDPG-HER-B3-Actor-Critic-2M.sh`: `weight_scope=actor_critic`; the same normalized weights are applied to actor and critic losses.
+
+These are scope ablations. They do not change replay sampling, HER relabeling, Bellman targets, support lookup, network architecture, optimizer settings, or UTD ratio.
 
 ## Results
 
