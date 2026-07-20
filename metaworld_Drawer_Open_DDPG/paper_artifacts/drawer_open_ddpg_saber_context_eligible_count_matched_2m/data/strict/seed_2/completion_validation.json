@@ -1,0 +1,154 @@
+{
+  "checkpoint": {
+    "assignment_diagnostics_flushed": true,
+    "dedicated_assignment_rng_state_present": true,
+    "eval_history_points": 200,
+    "global_step": 2000000,
+    "replay_size": 300000,
+    "resume_audit_metadata_valid": true,
+    "single_critic_ddpg": true,
+    "total_updates": 1995001
+  },
+  "checkpoint_resume_audit": {
+    "assignment_reproduced": true,
+    "checkpoint_rng_state_restored": true,
+    "learning_result_reproduced": true,
+    "other_rng_streams_unchanged": true,
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+  },
+  "config_parity": {
+    "allowed_difference_paths": [
+      "output_root",
+      "run_name",
+      "seeds.assignment_seed",
+      "support_assignment_mode"
+    ],
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+  },
+  "environment_snapshot_validated": true,
+  "evaluation_episodes_per_point": 20,
+  "evaluation_points": 200,
+  "final_replay_size": 300000,
+  "inputs": [
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/config.json",
+      "sha256": "1d7b0b0686e7c39c3c6181903487742eacf29a36530e668235dd961c249e048b",
+      "size_bytes": 5740
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/summary.json",
+      "sha256": "9f83b229ecdce16d71280b565c3c325bb7e708b4381b2952f46dd3a4c4c5852f",
+      "size_bytes": 10990
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "7346b14e1ad8cdda97c96daa4615cd3b7e3926145462ac688a01590790f81309",
+      "size_bytes": 23502557
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/strict_diagnostics_1000.csv",
+      "sha256": "618a3ee5b2ddff87651065c5aefdb77a259a18b7a078490516469820d4f8687a",
+      "size_bytes": 916671
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/checkpoint.pt",
+      "sha256": "41ed92ffa4fa66c65c8c399badf30a02c40907efb40189f0660db80bd9edc37c",
+      "size_bytes": 150803765
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+      "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+      "size_bytes": 7949
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+      "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+      "size_bytes": 2391
+    }
+  ],
+  "metrics": {
+    "allowed_nan_exact": [
+      "assigned_high_weight_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "lite/assigned_high_weight_rate",
+      "lite/mean_w_P_reference",
+      "lite/reference_high_weight_rate",
+      "lite/support_weight_alignment_rate",
+      "lite/support_weight_overlap_rate",
+      "mean_w_P_reference",
+      "reference_high_weight_rate",
+      "runtime/overhead_vs_B0",
+      "support_weight_alignment_rate",
+      "support_weight_overlap_rate"
+    ],
+    "allowed_nan_fields_observed": [
+      "b2/gap_to_pos_progress_corr",
+      "b2/gap_to_rot_progress_corr",
+      "b2/high_gap_bad_progress_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "b4/B2_gap_minus_B4_gap",
+      "b4/unsupported_gap_rate",
+      "pushT/contact_like_rate",
+      "pushT/intersection_ratio_mean",
+      "pushT/intersection_ratio_p50",
+      "pushT/intersection_ratio_p90",
+      "pushT/obj_ang_vel_z_abs_mean",
+      "pushT/obj_goal_rot_err_mean",
+      "pushT/obj_goal_rot_err_p50",
+      "pushT/obj_goal_rot_err_p90",
+      "pushT/obj_goal_xy_dist_mean",
+      "pushT/obj_goal_xy_dist_p50",
+      "pushT/obj_goal_xy_dist_p90",
+      "pushT/obj_speed_xy_mean",
+      "pushT/pos_progress_rate",
+      "pushT/rot_progress_rate",
+      "pushT/success_margin_mean",
+      "pushT/tcp_obj_dist_mean",
+      "pushT/vel_align_to_goal_mean"
+    ],
+    "allowed_nan_prefixes": [
+      "pushT/",
+      "td_error/",
+      "per/",
+      "b2/",
+      "b4/",
+      "diagnostic/",
+      "lite/slide_"
+    ],
+    "post_warmup_rows_checked": 10176
+  },
+  "passed": true,
+  "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda",
+  "seed": 2,
+  "strict_trace": {
+    "all_count_equal": true,
+    "fallback_sum": 0,
+    "first_update": 1,
+    "last_update": 1995001,
+    "outside_eligible_sum": 0,
+    "replacement_sum": 0,
+    "updates_covered": 1995001,
+    "window_count": 1996
+  },
+  "summary": {
+    "auc": 0.7394472361809046,
+    "best_success": 1.0,
+    "final_success": 1.0,
+    "hit90": 530000
+  },
+  "total_steps": 2000000,
+  "total_updates": 1995001
+}

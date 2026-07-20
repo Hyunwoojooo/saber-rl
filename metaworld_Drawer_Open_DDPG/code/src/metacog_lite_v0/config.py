@@ -123,6 +123,7 @@ class LiteConfig:
     action_bins_per_dim: int = 5
     policy_support_mode: str = "bin"
     policy_action_radius: float = 0.35
+    support_query_mode: str = "current_policy"
     support_scan_mode: str = "deterministic_tail_v1"
     support_cache_enabled: bool = True
     support_cache_max_entries: int = 200_000
@@ -271,6 +272,14 @@ class LiteConfig:
         self.policy_support_mode = self.policy_support_mode.lower()
         if self.policy_support_mode not in {"bin", "radius", "auto"}:
             raise ValueError("policy_support_mode must be bin|radius|auto")
+        self.support_query_mode = self.support_query_mode.lower()
+        if self.support_query_mode not in {"current_policy", "context_count_only"}:
+            raise ValueError("support_query_mode must be current_policy|context_count_only")
+        if self.support_query_mode == "context_count_only":
+            if self.task_name != "drawer_open" or self.method != "b3_support_runtime_opt":
+                raise ValueError("context_count_only requires drawer_open with b3_support_runtime_opt")
+            if self.weight_scope != "critic_only" or self.weighting_mode != "batch_norm":
+                raise ValueError("context_count_only requires critic_only and batch_norm")
         self.support_scan_mode = self.support_scan_mode.lower()
         if self.support_scan_mode not in {"deterministic_tail_v1", "deterministic_head_v1", "deterministic_stride_v1"}:
             raise ValueError(

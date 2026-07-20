@@ -1,0 +1,533 @@
+{
+  "additional_arm_manifests": {
+    "sac_annealing_er": {
+      "files": [
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/__init__.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/__init__.py",
+          "sha256": "671805b4b3d19be4a6a06b08051bbc528956b0cac9cb8a12dec6c2d4eedb47a2",
+          "size_bytes": 74
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/agent.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/agent.py",
+          "sha256": "f101a2a139d3140802f93751f127d409a2ad8599cc9e43c375ae8865f0b912e8",
+          "size_bytes": 29318
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/config.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/config.py",
+          "sha256": "ceadba7f124dd5e14766311185834b691816a250a2be6061cbeac8b6f09395b4",
+          "size_bytes": 18712
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/envs.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs.py",
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+          "size_bytes": 3943
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/envs_maniskill.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs_maniskill.py",
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+          "size_bytes": 47402
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/io_utils.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/io_utils.py",
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+          "size_bytes": 4028
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/networks.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/networks.py",
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+          "size_bytes": 996
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+          "size_bytes": 14842
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/replay.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/replay.py",
+          "sha256": "248c2351b826471b9a2c153a8ff89bd4e86f85c60779e665ba5b14310492f362",
+          "size_bytes": 30320
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+          "size_bytes": 7237
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_push.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_push.py",
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+          "size_bytes": 4807
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_slide.py",
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+          "size_bytes": 8674
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_pick_cube.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_pick_cube.py",
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+          "size_bytes": 7037
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_push_t.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_push_t.py",
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+          "size_bytes": 14815
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_unitree_apple.py",
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+          "size_bytes": 6273
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/trainer.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/trainer.py",
+          "sha256": "7d76973ea16ba0ec06f2963a38df8debc7a8d7f45df61ea03450197b72d11d43",
+          "size_bytes": 79135
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/weights.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/weights.py",
+          "sha256": "5284648d35f500118552dbdf86b8427de02eebc53399d22dfcc38cafb024b2e0",
+          "size_bytes": 61941
+        },
+        {
+          "execution_relative_path": "code/src/test_aer_sampling.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_aer_sampling.py",
+          "sha256": "d6ada791c4652bc1ecdb072b00a5af08f3fcb86166e64413f8ffcc163e90e0b4",
+          "size_bytes": 18923
+        },
+        {
+          "execution_relative_path": "code/src/test_b3_runtime_opt_lookup.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_b3_runtime_opt_lookup.py",
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+          "size_bytes": 9355
+        },
+        {
+          "execution_relative_path": "code/src/test_numba_runtime_opt_fpp.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_runtime_opt_fpp.py",
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+          "size_bytes": 6296
+        },
+        {
+          "execution_relative_path": "code/src/test_numba_support_scan_fpp.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_support_scan_fpp.py",
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+          "size_bytes": 9128
+        },
+        {
+          "execution_relative_path": "code/src/test_sac_aer_runner.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_sac_aer_runner.py",
+          "sha256": "415c131a36c8fefc7ba79f86a4fd0fc8060b49c20b4021d40fbb996e03a4948c",
+          "size_bytes": 3474
+        },
+        {
+          "execution_relative_path": "code/src/train_fetch_pick_and_place_lite_v0.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/train_fetch_pick_and_place_lite_v0.py",
+          "sha256": "7e493501d3acbcfef622059fd050ab0eeed504432946d47d49c4f00112de278f",
+          "size_bytes": 21405
+        },
+        {
+          "execution_relative_path": "config.json",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/config.json",
+          "sha256": "81f44c291a2aae855037e898317928c922a4f8d677d51b36e134533863e25669",
+          "size_bytes": 5464
+        },
+        {
+          "execution_relative_path": "queue_sac_annealing_er_main_after_sac_er_s1_5.sh",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/queue_sac_annealing_er_main_after_sac_er_s1_5.sh",
+          "sha256": "105efb2dc79108ab45b595d5a012d1ae22736a75620f3fa19415025f88c7d0b6",
+          "size_bytes": 3072
+        },
+        {
+          "execution_relative_path": "run.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/run.py",
+          "sha256": "f28484efcee3d52b79a9eea23077c32ec16ec465ab8522c8eb6009d069bdddc1",
+          "size_bytes": 11665
+        },
+        {
+          "execution_relative_path": "run_main_1m_sac_annealing_er_seeds1_5_5parallel.sh",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/run_main_1m_sac_annealing_er_seeds1_5_5parallel.sh",
+          "sha256": "ba1a1a0547c959346663aaa9bd4d67fe2cd65223e3a535d76ba08c6f43b7d3bc",
+          "size_bytes": 3022
+        },
+        {
+          "execution_relative_path": "validate_main_arm_gate.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/validate_main_arm_gate.py",
+          "sha256": "388a4252685ce76eb69fa10ad2a2e8a0f635fad0447ff7195090233bf0e7f2c6",
+          "size_bytes": 19269
+        }
+      ],
+      "repository_path": "experiment_FPP/logs/fpp_sac_annealing_er_main_after_er_queue/frozen_source.sha256",
+      "sha256": "6ea00710ed5a469c3cb8eb17d81031bc948859a3108975154975b71e37e6d110"
+    },
+    "sac_er": {
+      "files": [
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/__init__.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/__init__.py",
+          "sha256": "671805b4b3d19be4a6a06b08051bbc528956b0cac9cb8a12dec6c2d4eedb47a2",
+          "size_bytes": 74
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/agent.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/agent.py",
+          "sha256": "f101a2a139d3140802f93751f127d409a2ad8599cc9e43c375ae8865f0b912e8",
+          "size_bytes": 29318
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/config.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/config.py",
+          "sha256": "ceadba7f124dd5e14766311185834b691816a250a2be6061cbeac8b6f09395b4",
+          "size_bytes": 18712
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/envs.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs.py",
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+          "size_bytes": 3943
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/envs_maniskill.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs_maniskill.py",
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+          "size_bytes": 47402
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/io_utils.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/io_utils.py",
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+          "size_bytes": 4028
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/networks.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/networks.py",
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+          "size_bytes": 996
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+          "size_bytes": 14842
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/replay.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/replay.py",
+          "sha256": "248c2351b826471b9a2c153a8ff89bd4e86f85c60779e665ba5b14310492f362",
+          "size_bytes": 30320
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+          "size_bytes": 7237
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_push.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_push.py",
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+          "size_bytes": 4807
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_slide.py",
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+          "size_bytes": 8674
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_pick_cube.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_pick_cube.py",
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+          "size_bytes": 7037
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_push_t.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_push_t.py",
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+          "size_bytes": 14815
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_unitree_apple.py",
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+          "size_bytes": 6273
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/trainer.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/trainer.py",
+          "sha256": "7d76973ea16ba0ec06f2963a38df8debc7a8d7f45df61ea03450197b72d11d43",
+          "size_bytes": 79135
+        },
+        {
+          "execution_relative_path": "code/src/metacog_lite_v0/weights.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/weights.py",
+          "sha256": "5284648d35f500118552dbdf86b8427de02eebc53399d22dfcc38cafb024b2e0",
+          "size_bytes": 61941
+        },
+        {
+          "execution_relative_path": "code/src/test_aer_sampling.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_aer_sampling.py",
+          "sha256": "d6ada791c4652bc1ecdb072b00a5af08f3fcb86166e64413f8ffcc163e90e0b4",
+          "size_bytes": 18923
+        },
+        {
+          "execution_relative_path": "code/src/test_b3_runtime_opt_lookup.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_b3_runtime_opt_lookup.py",
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+          "size_bytes": 9355
+        },
+        {
+          "execution_relative_path": "code/src/test_numba_runtime_opt_fpp.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_runtime_opt_fpp.py",
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+          "size_bytes": 6296
+        },
+        {
+          "execution_relative_path": "code/src/test_numba_support_scan_fpp.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_support_scan_fpp.py",
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+          "size_bytes": 9128
+        },
+        {
+          "execution_relative_path": "code/src/test_sac_aer_runner.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_sac_aer_runner.py",
+          "sha256": "415c131a36c8fefc7ba79f86a4fd0fc8060b49c20b4021d40fbb996e03a4948c",
+          "size_bytes": 3474
+        },
+        {
+          "execution_relative_path": "code/src/train_fetch_pick_and_place_lite_v0.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/train_fetch_pick_and_place_lite_v0.py",
+          "sha256": "7e493501d3acbcfef622059fd050ab0eeed504432946d47d49c4f00112de278f",
+          "size_bytes": 21405
+        },
+        {
+          "execution_relative_path": "config.json",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/config.json",
+          "sha256": "81f44c291a2aae855037e898317928c922a4f8d677d51b36e134533863e25669",
+          "size_bytes": 5464
+        },
+        {
+          "execution_relative_path": "queue_sac_er_main_after_sac_aer_s1_5.sh",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/queue_sac_er_main_after_sac_aer_s1_5.sh",
+          "sha256": "d1427e3142620e615aa99dad1b9bcc2e0bf3ad4a6505dfbd3c2d374ff540e752",
+          "size_bytes": 3002
+        },
+        {
+          "execution_relative_path": "run.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/run.py",
+          "sha256": "f28484efcee3d52b79a9eea23077c32ec16ec465ab8522c8eb6009d069bdddc1",
+          "size_bytes": 11665
+        },
+        {
+          "execution_relative_path": "run_main_1m_sac_er_seeds1_5_5parallel.sh",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/run_main_1m_sac_er_seeds1_5_5parallel.sh",
+          "sha256": "9f9ac7171e265f3f6799b99fb1a04bf2a85a2ed25b8d50fd07e4bd9d743e64c1",
+          "size_bytes": 2967
+        },
+        {
+          "execution_relative_path": "validate_main_arm_gate.py",
+          "repository_path": "experiment_FPP/sac_aer_noher_1m/validate_main_arm_gate.py",
+          "sha256": "388a4252685ce76eb69fa10ad2a2e8a0f635fad0447ff7195090233bf0e7f2c6",
+          "size_bytes": 19269
+        }
+      ],
+      "repository_path": "experiment_FPP/logs/fpp_sac_er_main_after_aer_queue/frozen_source.sha256",
+      "sha256": "135ae90205e4e8cf5d1b24fd0dc265d1df27d3f129936ac209c273d2361ac8b1"
+    }
+  },
+  "all_current_files_match_frozen_execution_hashes": true,
+  "description": "Queue-frozen worktree snapshot used by the completed run",
+  "experiment_git_status_observed_at_packaging": [
+    "?? experiment_FPP/sac_aer_noher_1m/queue_sac_aer_main_after_ddpg_three_arm_s1_5.sh"
+  ],
+  "files": [
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/__init__.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "671805b4b3d19be4a6a06b08051bbc528956b0cac9cb8a12dec6c2d4eedb47a2",
+      "size_bytes": 74
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/agent.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/agent.py",
+      "sha256": "f101a2a139d3140802f93751f127d409a2ad8599cc9e43c375ae8865f0b912e8",
+      "size_bytes": 29318
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/config.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/config.py",
+      "sha256": "ceadba7f124dd5e14766311185834b691816a250a2be6061cbeac8b6f09395b4",
+      "size_bytes": 18712
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/envs.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "size_bytes": 3943
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/envs_maniskill.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/io_utils.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "size_bytes": 4028
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/networks.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/replay.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/replay.py",
+      "sha256": "248c2351b826471b9a2c153a8ff89bd4e86f85c60779e665ba5b14310492f362",
+      "size_bytes": 30320
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_push.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/task_pick_cube.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/task_push_t.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/trainer.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "7d76973ea16ba0ec06f2963a38df8debc7a8d7f45df61ea03450197b72d11d43",
+      "size_bytes": 79135
+    },
+    {
+      "execution_relative_path": "code/src/metacog_lite_v0/weights.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/weights.py",
+      "sha256": "5284648d35f500118552dbdf86b8427de02eebc53399d22dfcc38cafb024b2e0",
+      "size_bytes": 61941
+    },
+    {
+      "execution_relative_path": "code/src/test_aer_sampling.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_aer_sampling.py",
+      "sha256": "d6ada791c4652bc1ecdb072b00a5af08f3fcb86166e64413f8ffcc163e90e0b4",
+      "size_bytes": 18923
+    },
+    {
+      "execution_relative_path": "code/src/test_b3_runtime_opt_lookup.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_b3_runtime_opt_lookup.py",
+      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "size_bytes": 9355
+    },
+    {
+      "execution_relative_path": "code/src/test_numba_runtime_opt_fpp.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_runtime_opt_fpp.py",
+      "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+      "size_bytes": 6296
+    },
+    {
+      "execution_relative_path": "code/src/test_numba_support_scan_fpp.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_support_scan_fpp.py",
+      "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+      "size_bytes": 9128
+    },
+    {
+      "execution_relative_path": "code/src/test_sac_aer_runner.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/test_sac_aer_runner.py",
+      "sha256": "415c131a36c8fefc7ba79f86a4fd0fc8060b49c20b4021d40fbb996e03a4948c",
+      "size_bytes": 3474
+    },
+    {
+      "execution_relative_path": "code/src/train_fetch_pick_and_place_lite_v0.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "7e493501d3acbcfef622059fd050ab0eeed504432946d47d49c4f00112de278f",
+      "size_bytes": 21405
+    },
+    {
+      "execution_relative_path": "config.json",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/config.json",
+      "sha256": "81f44c291a2aae855037e898317928c922a4f8d677d51b36e134533863e25669",
+      "size_bytes": 5464
+    },
+    {
+      "execution_relative_path": "queue_sac_aer_main_after_ddpg_three_arm_s1_5.sh",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/queue_sac_aer_main_after_ddpg_three_arm_s1_5.sh",
+      "sha256": "5c560ebe9fcb6f887680f656e51925b54fc9387c54a3568870a75ca353280e4a",
+      "size_bytes": 7473
+    },
+    {
+      "execution_relative_path": "run.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/run.py",
+      "sha256": "f28484efcee3d52b79a9eea23077c32ec16ec465ab8522c8eb6009d069bdddc1",
+      "size_bytes": 11665
+    },
+    {
+      "execution_relative_path": "run_main_1m_sac_aer_seeds1_5_5parallel.sh",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/run_main_1m_sac_aer_seeds1_5_5parallel.sh",
+      "sha256": "0547b3144900c44ba65f30ba6c4a722e90d8a26041a4938b4b26e0839e3781e8",
+      "size_bytes": 3129
+    },
+    {
+      "execution_relative_path": "validate_main_arm_gate.py",
+      "repository_path": "experiment_FPP/sac_aer_noher_1m/validate_main_arm_gate.py",
+      "sha256": "388a4252685ce76eb69fa10ad2a2e8a0f635fad0447ff7195090233bf0e7f2c6",
+      "size_bytes": 19269
+    }
+  ],
+  "frozen_manifest_repository_path": "experiment_FPP/logs/fpp_sac_aer_main_after_ddpg_queue/frozen_source.sha256",
+  "frozen_manifest_sha256": "4f38ea17d27f6fb3457c2886d95fe011b86c71d8ccadea5bd4642b14e52f3f5c",
+  "repository_head_observed_at_packaging": "881b5c1567bc8a979f42eac22695dcb092722420",
+  "schema_version": 1,
+  "source_base_commit_full_recorded_by_queue": "10d2a34e91c67b2a0440742e9ab8dcf2e32f6d21",
+  "source_identity_note": "The base commit identifies the tracked source; the per-arm frozen SHA256 records define the exact queued worktrees."
+}

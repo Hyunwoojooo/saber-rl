@@ -1,0 +1,328 @@
+{
+  "artifact": "fpp_sac_hgr_pair_priority_is_1m",
+  "exclusions": [
+    "checkpoint files",
+    "raw metrics.csv",
+    "raw JSONL",
+    "logs"
+  ],
+  "file_count": 34,
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "1c5f4fefa49ab9b451e4c0d076f2dbf356b912dced037a03c364406e7ca7837f",
+      "size_bytes": 6344
+    },
+    {
+      "path": "aggregate_results.csv",
+      "sha256": "b1d8a8d496252d9f99a17b28a8c915a0289766a6a9bc9879d6d99a61ba175994",
+      "size_bytes": 2015
+    },
+    {
+      "path": "code/build_artifact.py",
+      "sha256": "3e737e700673ed96bc7e53836d4f5de0c199e8c9f9fb8416db238015232e694b",
+      "size_bytes": 47001
+    },
+    {
+      "path": "code/verify_artifact.py",
+      "sha256": "1d6f24eae65649bf2fcf9bb16402f1002087f5237b8b94645d6f63a3dec91a08",
+      "size_bytes": 25029
+    },
+    {
+      "path": "completion_validation.json",
+      "sha256": "f1a8b597c04b28271be7c4533385db9699f9135364a546baed945a207b529960",
+      "size_bytes": 2937
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/config.json",
+      "sha256": "cd09e7072a8683ce9803da13f6545f4c29689836e0e4235f7ddc76512eb6f32d",
+      "size_bytes": 6504
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/hgr_metrics_selected.csv",
+      "sha256": "6df22ee36cf72c521fc10bf96c29377da2e88e86761e5eac67748fa7c9f76806",
+      "size_bytes": 21242
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/metrics_selected_25k.csv",
+      "sha256": "97844b3065d3911e2c211f49f44104f512a486b2f8bca591fce63fb2dfa37d0d",
+      "size_bytes": 129772
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/summary.json",
+      "sha256": "940f75377f4ad6e073baf98858c79dfbe91064e68b7b1a740e537b50a5fe17e0",
+      "size_bytes": 7540
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000/config.json",
+      "sha256": "d9bf31ab3af88c2cc3b9d0e7e09098bd34695130426530b2fdec97dcaa4cc7ae",
+      "size_bytes": 6504
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000/hgr_metrics_selected.csv",
+      "sha256": "73488cd92e2fb662e62efccdf3fa4bed6eadd9f3ac914272543ebeb8cce0e462",
+      "size_bytes": 21056
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000/metrics_selected_25k.csv",
+      "sha256": "d8c94ed5d2339a091c2b0cb081ecb9d119f8bc5faa38a309d2ade38381dcb0e4",
+      "size_bytes": 129275
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000/summary.json",
+      "sha256": "68923920c3ae5a5490f4da56530172218a692e5797459bac8d1d809ffbc81f90",
+      "size_bytes": 7533
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000/config.json",
+      "sha256": "0b7744a5c9ae0c0f5ec7da7fb8fbc6a8b2e8d048c6b3bd6be89dc92170d4e0a9",
+      "size_bytes": 6504
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000/hgr_metrics_selected.csv",
+      "sha256": "64ea2e3b8c22409adc88e63d816c2b69ed4c927342fd06afbd087db4cfa58b99",
+      "size_bytes": 21088
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000/metrics_selected_25k.csv",
+      "sha256": "c06c13e0cacb51ea2d62853f309842364389951f20dba7362ae48838aa7a713b",
+      "size_bytes": 129747
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000/summary.json",
+      "sha256": "0135b79bed838c4729231257a453d2badd649ef8cc128b7603d84504dbf3bb06",
+      "size_bytes": 7544
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000/config.json",
+      "sha256": "ba7e3caf0fa97b9dd20de30c73b340db0e3511f9a0b3455a9344af206c364634",
+      "size_bytes": 6504
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000/hgr_metrics_selected.csv",
+      "sha256": "4f177606555720cdaa9eb39955157b2295a4317f6c781495c97888bbf8a5b9ef",
+      "size_bytes": 21105
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000/metrics_selected_25k.csv",
+      "sha256": "576c7a612f93b95f98a3731f7af4e7c47d2d2ab47cf3faa1d95a11c3f5d19ee7",
+      "size_bytes": 129139
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000/summary.json",
+      "sha256": "916504e0d41eb218d7ec97214e25d6b54b0f2eed6d583abd9b7a98238cd0c58b",
+      "size_bytes": 7538
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/config.json",
+      "sha256": "baa6b68317d2b60da4f058e56117fe44a6846e6080fcaa9956a67176e335156e",
+      "size_bytes": 6504
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/hgr_metrics_selected.csv",
+      "sha256": "e261b1fe2b398037031a4065d44a8fa92f7cd86de0f6ebee013fe331a5ac1e04",
+      "size_bytes": 21077
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/metrics_selected_25k.csv",
+      "sha256": "13c48c36d3fa405c65742be5d23e23f73bf8a555d47a0951cd30c6057d376120",
+      "size_bytes": 129187
+    },
+    {
+      "path": "fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/summary.json",
+      "sha256": "fc889a0d5bf0b7c0e4ddc1ec325cb7e3af11d60cbb4d1403cf7769e4735d192a",
+      "size_bytes": 7534
+    },
+    {
+      "path": "input_manifest.json",
+      "sha256": "f299c8fbe9cef557936b261613c1f2914205d467f1fc46e8e56833d69256a3b6",
+      "size_bytes": 17079
+    },
+    {
+      "path": "paired_vs_her_saber.csv",
+      "sha256": "30d9388f98d27e9ec7a2259e97937420082311505b5b9113235ba1a36819fa18",
+      "size_bytes": 3624
+    },
+    {
+      "path": "per_seed_results.csv",
+      "sha256": "8b86c3f4de12026af94776ac74ae41a1e27b7e2d770ed3a4f0ee2cec3da483e5",
+      "size_bytes": 6070
+    },
+    {
+      "path": "provenance/frozen_source.sha256",
+      "sha256": "3aa0c06576d9a5ecae26e538792d2be6f577bf72ff8af173b528dac408f89772",
+      "size_bytes": 2855
+    }
+  ],
+  "generated_at_utc": "2026-07-19T16:23:59.248729+00:00",
+  "manifest_scope": "all artifact payload files except artifact_manifest.json",
+  "manifest_self_excluded": true,
+  "paper_label": "HGR (matched SAC+HER)",
+  "sample_std_ddof": 1,
+  "schema_version": 1,
+  "source_commit": "c2be4e8",
+  "source_commit_full": "c2be4e85a451af61dabba8e54517e9d6d4c1cbf2",
+  "source_runs": [
+    {
+      "eval_grid_points": 20,
+      "method_key": "her",
+      "paper_label": "SAC+HER",
+      "run_name": "fetch_pick_and_place_sac_her_baseline_ls512_s1_1000000_ls512",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s1_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "her",
+      "paper_label": "SAC+HER",
+      "run_name": "fetch_pick_and_place_sac_her_baseline_ls512_s2_1000000_ls512",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s2_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "her",
+      "paper_label": "SAC+HER",
+      "run_name": "fetch_pick_and_place_sac_her_baseline_ls512_s3_1000000_ls512",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s3_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "her",
+      "paper_label": "SAC+HER",
+      "run_name": "fetch_pick_and_place_sac_her_baseline_ls512_s4_1000000_ls512",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s4_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "her",
+      "paper_label": "SAC+HER",
+      "run_name": "fetch_pick_and_place_sac_her_baseline_ls512_s5_1000000_ls512",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s5_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 40,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/runs/sac_hgr_tdpriority_1m/fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 40,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/runs/sac_hgr_tdpriority_1m/fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 40,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/runs/sac_hgr_tdpriority_1m/fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 40,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/runs/sac_hgr_tdpriority_1m/fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 40,
+      "method_key": "hgr",
+      "paper_label": "HGR (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/runs/sac_hgr_tdpriority_1m/fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "saber",
+      "paper_label": "SABER (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s1_1000000_ls512",
+      "seed": 1,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s1_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "saber",
+      "paper_label": "SABER (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s2_1000000_ls512",
+      "seed": 2,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s2_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "saber",
+      "paper_label": "SABER (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s3_1000000_ls512",
+      "seed": 3,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s3_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "saber",
+      "paper_label": "SABER (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s4_1000000_ls512",
+      "seed": 4,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s4_1000000_ls512",
+      "total_steps": 1000000
+    },
+    {
+      "eval_grid_points": 20,
+      "method_key": "saber",
+      "paper_label": "SABER (matched SAC+HER)",
+      "run_name": "fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s5_1000000_ls512",
+      "seed": 5,
+      "source_run_path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s5_1000000_ls512",
+      "total_steps": 1000000
+    }
+  ],
+  "total_size_bytes": 947596
+}

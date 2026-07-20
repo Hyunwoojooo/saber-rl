@@ -21,6 +21,7 @@ This source tree is generated from `SABER/SABER.md` for the FetchPickAndPlace be
 - `td3_hgr_tdpriority_1m`: TD3+HER with two-stage HGR episode/pair replay, twin-critic `min_abs` TD priority, and critic IS correction.
 - `sac_her_baseline_ls512`: SAC+HER baseline with uniform critic weighting.
 - `sac_her_per_full_ls512`: SAC+HER with slot-level full PER sampling and critic-only importance-sampling correction.
+- `sac_hgr_tdpriority_1m`: SAC+HER with two-stage HGR episode/pair replay, twin-critic `min_abs` TD priority, and critic IS correction.
 - `sac_saber_critic_only_v4_ls512`: SAC+HER+SABER critic-only support weighting with v4 exact Numba lookup.
 
 Generate every command without running:
@@ -49,6 +50,9 @@ python3 SABER/FetchPickAndPlace/shared/analyze_results.py
 - `paper_artifacts/fpp_td3_hgr_pair_priority_is_1m`: TD3+HER+HGR,
   seeds 1-5 at 1M steps, with strict completion evidence, exact 10k curves,
   HGR diagnostics, matched TD3+HER/SABER comparisons, and SHA256 manifests.
+- `paper_artifacts/fpp_sac_hgr_pair_priority_is_1m`: SAC+HER+HGR,
+  seeds 1-5 at 1M steps, with strict completion evidence, exact 25k curves,
+  HGR diagnostics, common-grid SAC+HER/SABER comparisons, and SHA256 manifests.
 - `paper_artifacts/fpp_ddpg_aer_noher_seeds1_5_1m`: DDPG no-HER ER,
   AnnealingER, and AER, seeds 1-5 at 1M steps, with strict completion records,
   fixed 100-episode final evaluations, compact 10k-step curves, and paired

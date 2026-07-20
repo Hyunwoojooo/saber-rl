@@ -1,0 +1,648 @@
+{
+  "frozen_source_manifest_sha256": "4f38ea17d27f6fb3457c2886d95fe011b86c71d8ccadea5bd4642b14e52f3f5c",
+  "frozen_source_manifest_sha256_by_arm": {
+    "sac_aer": "4f38ea17d27f6fb3457c2886d95fe011b86c71d8ccadea5bd4642b14e52f3f5c",
+    "sac_annealing_er": "6ea00710ed5a469c3cb8eb17d81031bc948859a3108975154975b71e37e6d110",
+    "sac_er": "135ae90205e4e8cf5d1b24fd0dc265d1df27d3f129936ac209c273d2361ac8b1"
+  },
+  "inputs": [
+    {
+      "path": "experiment_FPP/logs/fpp_sac_aer_main_after_ddpg_queue/frozen_source.sha256",
+      "sha256": "4f38ea17d27f6fb3457c2886d95fe011b86c71d8ccadea5bd4642b14e52f3f5c",
+      "size_bytes": 2897
+    },
+    {
+      "path": "experiment_FPP/logs/fpp_sac_annealing_er_main_after_er_queue/frozen_source.sha256",
+      "sha256": "6ea00710ed5a469c3cb8eb17d81031bc948859a3108975154975b71e37e6d110",
+      "size_bytes": 2907
+    },
+    {
+      "path": "experiment_FPP/logs/fpp_sac_er_main_after_aer_queue/frozen_source.sha256",
+      "sha256": "135ae90205e4e8cf5d1b24fd0dc265d1df27d3f129936ac209c273d2361ac8b1",
+      "size_bytes": 2888
+    },
+    {
+      "path": "experiment_FPP/package_sac_aer_results.py",
+      "sha256": "bb026cf08945832a010193141e0c8342763a43d773bd25ccfac92867ef770a2b",
+      "size_bytes": 58639
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s1_1000000/best_checkpoint.json",
+      "sha256": "6165509e0df4bd50c2da0311ec9784522cdf31899dd0fde847312e761da6e7e7",
+      "size_bytes": 514
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s1_1000000/config.json",
+      "sha256": "856c3ae797145b019985031f66cf1e8bc7af7aeb7855a757e44946dcb6070c0a",
+      "size_bytes": 5020
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s1_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s1_1000000/final_evaluation_100.json",
+      "sha256": "a5d518e0e8e662d51d9665470036e7a9a0203c493276dd7f365edf4a1a4c294e",
+      "size_bytes": 1407
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s1_1000000/metrics.csv",
+      "sha256": "7e3d36e14fc652d99e3174602645b039ea67a6e510c7d833804e6876e5690956",
+      "size_bytes": 26578528
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s1_1000000/summary.json",
+      "sha256": "7c62680a2a6c5c78b0a742c1b62d8199b6e3d284b28b167f4c159950d3a12f18",
+      "size_bytes": 6969
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s2_1000000/best_checkpoint.json",
+      "sha256": "238a13825d7f59ffd5299cd215116aacb5314804581110a50727330a2b83a62c",
+      "size_bytes": 514
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s2_1000000/config.json",
+      "sha256": "1db7c2aaf9142aec4d292fdab4dc68fc668d287c13209b11557a6eba45f39fa6",
+      "size_bytes": 5020
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s2_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s2_1000000/final_evaluation_100.json",
+      "sha256": "62ee2723c94662cbbbdc6d8308080676486594b53098de7fb50fe8aa35ce196c",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s2_1000000/metrics.csv",
+      "sha256": "dc5c8e8c8232327248c60dff9238b33570c8dc6622a890024b75b3d7f27f001c",
+      "size_bytes": 26551474
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s2_1000000/summary.json",
+      "sha256": "f1cdb082906f7d32c30b3905523c181cdfc5c0e84e08982870ffb519b33c6b3b",
+      "size_bytes": 6985
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s3_1000000/best_checkpoint.json",
+      "sha256": "170519be3cd118f0133204cf2ef9b33a75b93bd33b005e7633d3225d8cf581b5",
+      "size_bytes": 521
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s3_1000000/config.json",
+      "sha256": "9daaa556251b4822808524075b6aa4891c1fb3166adb29081146c46aaf85b891",
+      "size_bytes": 5020
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s3_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s3_1000000/final_evaluation_100.json",
+      "sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s3_1000000/metrics.csv",
+      "sha256": "4f1486d9bf0e7de4ebe7d8622130acb788c490dc46eafeb1489afc30ca54dfed",
+      "size_bytes": 26285160
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s3_1000000/summary.json",
+      "sha256": "51d5167db95f2c6f70fdb22793c344ef7c1e82fe2ba9c2627c14a8f986352d34",
+      "size_bytes": 6972
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s4_1000000/best_checkpoint.json",
+      "sha256": "73131249b21e170705bf37f985f369f5579cebd4e7c9411e9a5924099cd0a00a",
+      "size_bytes": 521
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s4_1000000/config.json",
+      "sha256": "3512b8689e4a26dfd8ea678850e4c3ac9616b52a6a514ed61781dabcecc3fc92",
+      "size_bytes": 5020
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s4_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s4_1000000/final_evaluation_100.json",
+      "sha256": "be7e6eb9e0a70bce19552527a6d079d70f28118b3932c45745d7d8306c69a2f1",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s4_1000000/metrics.csv",
+      "sha256": "65c033f8df8753dac4aa84e48a1f133474f5ea5035c517779e0c813f09355f5c",
+      "size_bytes": 26516490
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s4_1000000/summary.json",
+      "sha256": "0d1380cffa2f4cfa26f507832df18eb8b6573e01e8f98553de99d4c6f98babf7",
+      "size_bytes": 6984
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s5_1000000/best_checkpoint.json",
+      "sha256": "f6c39ddc4ed23a8f31c082e08a40229082d5c505fbe1115fa5d1aeb02a632aa0",
+      "size_bytes": 521
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s5_1000000/config.json",
+      "sha256": "a4f8c2a9b002c5c864074d5f9eb6a6dd525f5a1e9da4d6d744106b3dbd837f62",
+      "size_bytes": 5020
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s5_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s5_1000000/final_evaluation_100.json",
+      "sha256": "38e4c8c1400d3580b81703f97c247b5cf2861c4bd2a45d1c8ef4b246a7f3be5d",
+      "size_bytes": 1421
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s5_1000000/metrics.csv",
+      "sha256": "c21a2a9e4a8d9e8fb969d2d3596946b258d636038309b4c4a9e33f53cd9bdfb5",
+      "size_bytes": 26744662
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_aer_noher_s5_1000000/summary.json",
+      "sha256": "dcb1cafebc93ec19d11facff31c9967422acfd3cc1395dc6db833a90c43281bc",
+      "size_bytes": 6986
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s1_1000000/best_checkpoint.json",
+      "sha256": "0f2f4ae3f16b6ab881eb71c7fbfe5f7ffdda19add817f50895fc939b881e95e4",
+      "size_bytes": 523
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s1_1000000/config.json",
+      "sha256": "6891c7205c160d87dc09e702059cca3c85e94fad4383a283205dc2afede28506",
+      "size_bytes": 5038
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s1_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s1_1000000/final_evaluation_100.json",
+      "sha256": "a5d518e0e8e662d51d9665470036e7a9a0203c493276dd7f365edf4a1a4c294e",
+      "size_bytes": 1407
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s1_1000000/metrics.csv",
+      "sha256": "f1ba83c2a2e7202fd558a12089044951795b82a3a9bf9dee7ca28a967e4b449f",
+      "size_bytes": 23272823
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s1_1000000/summary.json",
+      "sha256": "403ee28eb6234f3a14f38b85ebf3033497235e3f7443cc4816e9be2abe2e394e",
+      "size_bytes": 6855
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s2_1000000/best_checkpoint.json",
+      "sha256": "1a8c5ef37e2ba59082ae89f591efd6cf773e70268ae727359a9e997adeac2c29",
+      "size_bytes": 523
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s2_1000000/config.json",
+      "sha256": "f1a156b0d0ee344730f88d3dd718acadaa0d6616c8f110b6e149b1d27589258b",
+      "size_bytes": 5038
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s2_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s2_1000000/final_evaluation_100.json",
+      "sha256": "62ee2723c94662cbbbdc6d8308080676486594b53098de7fb50fe8aa35ce196c",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s2_1000000/metrics.csv",
+      "sha256": "993a37c9bd25434ec2f270c155284e1fcfe5601bc64d06eb4d68599db82a8f69",
+      "size_bytes": 23312365
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s2_1000000/summary.json",
+      "sha256": "c969ac7871f9f0d90b925272e6b5bfda2f6e1f43a8ffec72b5b6c0cdd6faccf6",
+      "size_bytes": 6865
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s3_1000000/best_checkpoint.json",
+      "sha256": "4e5bbc38690119682ea35b8d26e824e1619cc3e04a57dbb7596afd805bd2d04e",
+      "size_bytes": 530
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s3_1000000/config.json",
+      "sha256": "ef36bac47155bba8db24009eb840e52a3c6c3fc3e9a82969727ef554871b3150",
+      "size_bytes": 5038
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s3_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s3_1000000/final_evaluation_100.json",
+      "sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s3_1000000/metrics.csv",
+      "sha256": "ebda8cfca4c02739336437a995aa4f74f2278bc6776e970d8184a3f2e7b3b049",
+      "size_bytes": 23248270
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s3_1000000/summary.json",
+      "sha256": "ddb68f84b9251eff6c0d269da31ac4e8298dd233ec5ccb77f83217849f3c3820",
+      "size_bytes": 6875
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s4_1000000/best_checkpoint.json",
+      "sha256": "33c144ecd801a96d75dc5a51240ef04facfaba446c520a2e74305f288d0baa33",
+      "size_bytes": 530
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s4_1000000/config.json",
+      "sha256": "d5394ad24ca37d15ac26aa9e93e9da355fe83a1f92c6d8d70c6db900c6469a65",
+      "size_bytes": 5038
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s4_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s4_1000000/final_evaluation_100.json",
+      "sha256": "70ae606a63afb9f1d3fb474e74b5ee77de215effb8f8dc990b594f49ae01eba6",
+      "size_bytes": 1420
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s4_1000000/metrics.csv",
+      "sha256": "e8d1478fa2c3669513fd5374c78c267451e92bbf6b5d4b300ae6f6d29c84e460",
+      "size_bytes": 23248813
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s4_1000000/summary.json",
+      "sha256": "558ef33874b16b64c19f76147c2cad2f7d7c3242cc6d7674bf27e398d4aebc97",
+      "size_bytes": 6861
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s5_1000000/best_checkpoint.json",
+      "sha256": "3187711571098adf632c164068d89d8d678e553130ee04a064110a048a117294",
+      "size_bytes": 530
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s5_1000000/config.json",
+      "sha256": "8b27676bb3aacb18a7b479ec90eff3b228a92a03e95ac7bd7c53ae604fefaab3",
+      "size_bytes": 5038
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s5_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s5_1000000/final_evaluation_100.json",
+      "sha256": "9293db79451a6d0186995453193287c975986d7bc3e6a7f2cb915cb2ffc681a9",
+      "size_bytes": 1421
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s5_1000000/metrics.csv",
+      "sha256": "afc3aa626150a839b96aff54041d50d627f15cc3236b884298da776a3b49411b",
+      "size_bytes": 23287747
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_annealing_er_noher_s5_1000000/summary.json",
+      "sha256": "3f43e0e5d74cdc8a2936663cf205931cb14b14ed0bba0e1eb44e3f380d19a080",
+      "size_bytes": 6857
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s1_1000000/best_checkpoint.json",
+      "sha256": "3f3406f204e21bdeb993b749d2f3e49ca6f89c5d9e024fb4e0d282d5f7e61cb8",
+      "size_bytes": 518
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s1_1000000/config.json",
+      "sha256": "15eb7a1000c8ae62519ee5ceadad2e86c8afffbdf0fec35d78e7f53cc2d7a4b4",
+      "size_bytes": 5018
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s1_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s1_1000000/final_evaluation_100.json",
+      "sha256": "973d8242ffab7999a1af4622103ac760b8e6b6f5e3b5b18efbb5af95a6edea17",
+      "size_bytes": 1418
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s1_1000000/metrics.csv",
+      "sha256": "e7bf619c913dcfc4d84c56e72e04e5f7d0903304d93838688143476a1ca2bbda",
+      "size_bytes": 22871650
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s1_1000000/summary.json",
+      "sha256": "24f7d1998a218c9c47be4eda6b1f96704b3645c1b02c846e5ee14bfa3921f11d",
+      "size_bytes": 6879
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s2_1000000/best_checkpoint.json",
+      "sha256": "68e739ac0e666c92310f1a5a38854624754f9f19ad1c8ae93b94647648e60546",
+      "size_bytes": 514
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s2_1000000/config.json",
+      "sha256": "0644f06fa71e650e381345fb74e740335b88f4d3ef80724fce992ef440cf726e",
+      "size_bytes": 5018
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s2_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s2_1000000/final_evaluation_100.json",
+      "sha256": "a7c3c1ce5c7971d6306007de70803efa25caaff6e1932d6919a8dd43ff94da8d",
+      "size_bytes": 1416
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s2_1000000/metrics.csv",
+      "sha256": "0bc331c3bcc586847150e1db34518b5826e83d8a55b42a4b0ec104387c0231cd",
+      "size_bytes": 22878735
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s2_1000000/summary.json",
+      "sha256": "33e138a063bc294c0404f84f450c5b9dc828b3cee413b05d3cb322df02be4d2b",
+      "size_bytes": 6848
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s3_1000000/best_checkpoint.json",
+      "sha256": "c5728c9c36c16c87050f8f0394a1abac6f5e1dc8a5b8e97bc72980969732586c",
+      "size_bytes": 520
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s3_1000000/config.json",
+      "sha256": "aec133ea16fc5030ea75eb65cd1752215d72b6b33a892212863cf5e3bb885093",
+      "size_bytes": 5018
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s3_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s3_1000000/final_evaluation_100.json",
+      "sha256": "76300385bb09e394bf8645457de737b6be654493d6ce84c59ae4acc286ad5611",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s3_1000000/metrics.csv",
+      "sha256": "f68da254e72fd2c066c966c2cffb9ada5f7e431ffc4bf2cad9329d7258dd8871",
+      "size_bytes": 22893329
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s3_1000000/summary.json",
+      "sha256": "76564130823390c8d13d008229ac8ff3a4509fd97b6e6ae18b9f37618b56c708",
+      "size_bytes": 6851
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s4_1000000/best_checkpoint.json",
+      "sha256": "8097b5634587b95ef051d7240bdfd8447113779957281ccea156718b45dbc322",
+      "size_bytes": 520
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s4_1000000/config.json",
+      "sha256": "a2d1abf55e9352224c0f9b922cd736a9d1c7c4e1042199ee729f4e4e8925c0ff",
+      "size_bytes": 5018
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s4_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s4_1000000/final_evaluation_100.json",
+      "sha256": "be7e6eb9e0a70bce19552527a6d079d70f28118b3932c45745d7d8306c69a2f1",
+      "size_bytes": 1413
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s4_1000000/metrics.csv",
+      "sha256": "3be4e2b4389154cedf3fff7c7960ad8296422d397a5114b38166b8dc4b8989d7",
+      "size_bytes": 22859296
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s4_1000000/summary.json",
+      "sha256": "d2d303ddda90a212532522eca098c2e441b1e3ee77aa061f743739b168dd48b4",
+      "size_bytes": 6851
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s5_1000000/best_checkpoint.json",
+      "sha256": "9ab48407f774bfcdeee29240461530ec4fce53d9df1a5d8488e0bed3f3e9505a",
+      "size_bytes": 520
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s5_1000000/config.json",
+      "sha256": "845499f17f7c2ef802666a6c6caf301737a5f191f7e1f8767e7778cc0a0c8fcc",
+      "size_bytes": 5018
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s5_1000000/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+      "size_bytes": 2349
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s5_1000000/final_evaluation_100.json",
+      "sha256": "9293db79451a6d0186995453193287c975986d7bc3e6a7f2cb915cb2ffc681a9",
+      "size_bytes": 1421
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s5_1000000/metrics.csv",
+      "sha256": "613dc2f89f4038f8a33e5130e1a83d3265915dc1cd44c83d624d5bb4fc16ffe7",
+      "size_bytes": 22857173
+    },
+    {
+      "path": "experiment_FPP/runs/fpp_sac_aer_noher_1m/fetch_pick_and_place_sac_er_noher_s5_1000000/summary.json",
+      "sha256": "3b2a3bdc2b88fd12f5827d37dfa6eeba2280b8f8c31c2e02928bc391054aa17b",
+      "size_bytes": 6853
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/analysis/analyze_sac_aer_noher.py",
+      "sha256": "246d1b9f076b8169e10d44f03a5530543e38d45c6fcd5cbafe3be6299e3fb62c",
+      "size_bytes": 24685
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "671805b4b3d19be4a6a06b08051bbc528956b0cac9cb8a12dec6c2d4eedb47a2",
+      "size_bytes": 74
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/agent.py",
+      "sha256": "f101a2a139d3140802f93751f127d409a2ad8599cc9e43c375ae8865f0b912e8",
+      "size_bytes": 29318
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/config.py",
+      "sha256": "ceadba7f124dd5e14766311185834b691816a250a2be6061cbeac8b6f09395b4",
+      "size_bytes": 18712
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "size_bytes": 3943
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "size_bytes": 4028
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/replay.py",
+      "sha256": "248c2351b826471b9a2c153a8ff89bd4e86f85c60779e665ba5b14310492f362",
+      "size_bytes": 30320
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "7d76973ea16ba0ec06f2963a38df8debc7a8d7f45df61ea03450197b72d11d43",
+      "size_bytes": 79135
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/metacog_lite_v0/weights.py",
+      "sha256": "5284648d35f500118552dbdf86b8427de02eebc53399d22dfcc38cafb024b2e0",
+      "size_bytes": 61941
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/test_aer_sampling.py",
+      "sha256": "d6ada791c4652bc1ecdb072b00a5af08f3fcb86166e64413f8ffcc163e90e0b4",
+      "size_bytes": 18923
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/test_b3_runtime_opt_lookup.py",
+      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "size_bytes": 9355
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_runtime_opt_fpp.py",
+      "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+      "size_bytes": 6296
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/test_numba_support_scan_fpp.py",
+      "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+      "size_bytes": 9128
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/test_sac_aer_runner.py",
+      "sha256": "415c131a36c8fefc7ba79f86a4fd0fc8060b49c20b4021d40fbb996e03a4948c",
+      "size_bytes": 3474
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "7e493501d3acbcfef622059fd050ab0eeed504432946d47d49c4f00112de278f",
+      "size_bytes": 21405
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/config.json",
+      "sha256": "81f44c291a2aae855037e898317928c922a4f8d677d51b36e134533863e25669",
+      "size_bytes": 5464
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/queue_sac_aer_main_after_ddpg_three_arm_s1_5.sh",
+      "sha256": "5c560ebe9fcb6f887680f656e51925b54fc9387c54a3568870a75ca353280e4a",
+      "size_bytes": 7473
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/queue_sac_annealing_er_main_after_sac_er_s1_5.sh",
+      "sha256": "105efb2dc79108ab45b595d5a012d1ae22736a75620f3fa19415025f88c7d0b6",
+      "size_bytes": 3072
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/queue_sac_er_main_after_sac_aer_s1_5.sh",
+      "sha256": "d1427e3142620e615aa99dad1b9bcc2e0bf3ad4a6505dfbd3c2d374ff540e752",
+      "size_bytes": 3002
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/run.py",
+      "sha256": "f28484efcee3d52b79a9eea23077c32ec16ec465ab8522c8eb6009d069bdddc1",
+      "size_bytes": 11665
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/run_main_1m_sac_aer_seeds1_5_5parallel.sh",
+      "sha256": "0547b3144900c44ba65f30ba6c4a722e90d8a26041a4938b4b26e0839e3781e8",
+      "size_bytes": 3129
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/run_main_1m_sac_annealing_er_seeds1_5_5parallel.sh",
+      "sha256": "ba1a1a0547c959346663aaa9bd4d67fe2cd65223e3a535d76ba08c6f43b7d3bc",
+      "size_bytes": 3022
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/run_main_1m_sac_er_seeds1_5_5parallel.sh",
+      "sha256": "9f9ac7171e265f3f6799b99fb1a04bf2a85a2ed25b8d50fd07e4bd9d743e64c1",
+      "size_bytes": 2967
+    },
+    {
+      "path": "experiment_FPP/sac_aer_noher_1m/validate_main_arm_gate.py",
+      "sha256": "388a4252685ce76eb69fa10ad2a2e8a0f635fad0447ff7195090233bf0e7f2c6",
+      "size_bytes": 19269
+    }
+  ],
+  "raw_run_count": 15,
+  "repository_head_observed_at_packaging": "881b5c1567bc8a979f42eac22695dcb092722420",
+  "schema_version": 1
+}

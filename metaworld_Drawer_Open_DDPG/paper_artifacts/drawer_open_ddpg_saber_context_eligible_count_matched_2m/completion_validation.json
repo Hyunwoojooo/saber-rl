@@ -1,0 +1,1041 @@
+{
+  "allowed_nan_policy": {
+    "exact_fields": [
+      "assigned_high_weight_rate",
+      "b3/support_to_pos_progress_corr",
+      "b3/support_to_rot_progress_corr",
+      "b3/support_to_success_corr",
+      "b3/support_to_td_error_corr",
+      "lite/assigned_high_weight_rate",
+      "lite/mean_w_P_reference",
+      "lite/reference_high_weight_rate",
+      "lite/support_weight_alignment_rate",
+      "lite/support_weight_overlap_rate",
+      "mean_w_P_reference",
+      "reference_high_weight_rate",
+      "runtime/overhead_vs_B0",
+      "support_weight_alignment_rate",
+      "support_weight_overlap_rate"
+    ],
+    "prefix_families": [
+      "pushT/",
+      "td_error/",
+      "per/",
+      "b2/",
+      "b4/",
+      "diagnostic/",
+      "lite/slide_"
+    ],
+    "scope": "post-warmup raw metrics only; strict/loss/value/replay/eval/runtime fields excluded"
+  },
+  "current_git_head": "7becc220a9d0cb9271d17fa7f846a809dbe79df7",
+  "evaluation_field": "eval/env_success_mean",
+  "evaluation_grid": [
+    10000,
+    20000,
+    30000,
+    40000,
+    50000,
+    60000,
+    70000,
+    80000,
+    90000,
+    100000,
+    110000,
+    120000,
+    130000,
+    140000,
+    150000,
+    160000,
+    170000,
+    180000,
+    190000,
+    200000,
+    210000,
+    220000,
+    230000,
+    240000,
+    250000,
+    260000,
+    270000,
+    280000,
+    290000,
+    300000,
+    310000,
+    320000,
+    330000,
+    340000,
+    350000,
+    360000,
+    370000,
+    380000,
+    390000,
+    400000,
+    410000,
+    420000,
+    430000,
+    440000,
+    450000,
+    460000,
+    470000,
+    480000,
+    490000,
+    500000,
+    510000,
+    520000,
+    530000,
+    540000,
+    550000,
+    560000,
+    570000,
+    580000,
+    590000,
+    600000,
+    610000,
+    620000,
+    630000,
+    640000,
+    650000,
+    660000,
+    670000,
+    680000,
+    690000,
+    700000,
+    710000,
+    720000,
+    730000,
+    740000,
+    750000,
+    760000,
+    770000,
+    780000,
+    790000,
+    800000,
+    810000,
+    820000,
+    830000,
+    840000,
+    850000,
+    860000,
+    870000,
+    880000,
+    890000,
+    900000,
+    910000,
+    920000,
+    930000,
+    940000,
+    950000,
+    960000,
+    970000,
+    980000,
+    990000,
+    1000000,
+    1010000,
+    1020000,
+    1030000,
+    1040000,
+    1050000,
+    1060000,
+    1070000,
+    1080000,
+    1090000,
+    1100000,
+    1110000,
+    1120000,
+    1130000,
+    1140000,
+    1150000,
+    1160000,
+    1170000,
+    1180000,
+    1190000,
+    1200000,
+    1210000,
+    1220000,
+    1230000,
+    1240000,
+    1250000,
+    1260000,
+    1270000,
+    1280000,
+    1290000,
+    1300000,
+    1310000,
+    1320000,
+    1330000,
+    1340000,
+    1350000,
+    1360000,
+    1370000,
+    1380000,
+    1390000,
+    1400000,
+    1410000,
+    1420000,
+    1430000,
+    1440000,
+    1450000,
+    1460000,
+    1470000,
+    1480000,
+    1490000,
+    1500000,
+    1510000,
+    1520000,
+    1530000,
+    1540000,
+    1550000,
+    1560000,
+    1570000,
+    1580000,
+    1590000,
+    1600000,
+    1610000,
+    1620000,
+    1630000,
+    1640000,
+    1650000,
+    1660000,
+    1670000,
+    1680000,
+    1690000,
+    1700000,
+    1710000,
+    1720000,
+    1730000,
+    1740000,
+    1750000,
+    1760000,
+    1770000,
+    1780000,
+    1790000,
+    1800000,
+    1810000,
+    1820000,
+    1830000,
+    1840000,
+    1850000,
+    1860000,
+    1870000,
+    1880000,
+    1890000,
+    1900000,
+    1910000,
+    1920000,
+    1930000,
+    1940000,
+    1950000,
+    1960000,
+    1970000,
+    1980000,
+    1990000,
+    2000000
+  ],
+  "experiment": "DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M",
+  "passed": true,
+  "records": [
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/config.json",
+          "sha256": "d71138ca6e5554395b138b2bcddfda84aae38350ae44a4b43ddb5b5af593399b",
+          "size_bytes": 5740
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/env_snapshot.json",
+          "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/summary.json",
+          "sha256": "ef09a869dfa6e51f9575011029ec2da9bc6ce77d7c24861fc2a9c2816ecf9710",
+          "size_bytes": 11008
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/metrics.csv",
+          "sha256": "31221dcdc0b774ad36a6451efe1473f4e1bec16b834fa5cdaec4ed5df46f58a2",
+          "size_bytes": 23662610
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "91f37e8a5b94724999d95dbbd293332ac1fa3510db151dc130ce21a7dbca1579",
+          "size_bytes": 917623
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/checkpoint.pt",
+          "sha256": "68acac6a28a0b7ed8a25180e7540982e6f53697fa79cd727e5b33842fe2cc921",
+          "size_bytes": 151854773
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+          "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+          "size_bytes": 7949
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda",
+      "seed": 1,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.8693467336683417,
+        "best_success": 1.0,
+        "final_success": 1.0,
+        "hit90": 250000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/config.json",
+          "sha256": "1d7b0b0686e7c39c3c6181903487742eacf29a36530e668235dd961c249e048b",
+          "size_bytes": 5740
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/env_snapshot.json",
+          "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/summary.json",
+          "sha256": "9f83b229ecdce16d71280b565c3c325bb7e708b4381b2952f46dd3a4c4c5852f",
+          "size_bytes": 10990
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/metrics.csv",
+          "sha256": "7346b14e1ad8cdda97c96daa4615cd3b7e3926145462ac688a01590790f81309",
+          "size_bytes": 23502557
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "618a3ee5b2ddff87651065c5aefdb77a259a18b7a078490516469820d4f8687a",
+          "size_bytes": 916671
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/checkpoint.pt",
+          "sha256": "41ed92ffa4fa66c65c8c399badf30a02c40907efb40189f0660db80bd9edc37c",
+          "size_bytes": 150803765
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+          "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+          "size_bytes": 7949
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda",
+      "seed": 2,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.7394472361809046,
+        "best_success": 1.0,
+        "final_success": 1.0,
+        "hit90": 530000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/config.json",
+          "sha256": "ef1131bbd7be3df4d150b95ba4ef4868859049935297f37dd7b82099f0b82133",
+          "size_bytes": 5740
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/env_snapshot.json",
+          "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/summary.json",
+          "sha256": "20781bb1c3099383dd5f882df3615bd19578db6fd5f645ef631e2c15e16df78f",
+          "size_bytes": 10180
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/metrics.csv",
+          "sha256": "6d3054d4d0c53135a6bfe4915914acf5625e52a8deaa192268c1c701649451e3",
+          "size_bytes": 20522695
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "60a5d5b89f3604a3c31443ea4f72aea5a9e7aa1c3f3ba5903116067c0499800b",
+          "size_bytes": 775342
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/checkpoint.pt",
+          "sha256": "4f790e39b2d484b38d40cfe1c89287b853c606842becc3953549634dc90425ce",
+          "size_bytes": 151268981
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+          "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+          "size_bytes": 7949
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "diagnostic/residual_correction_enrichment_ratio",
+          "diagnostic/residual_reduction_support_neg_mean",
+          "diagnostic/residual_reduction_support_neg_rate",
+          "diagnostic/support_to_residual_reduction_corr",
+          "diagnostic/support_to_td_error_corr",
+          "diagnostic/td_error_enrichment_ratio",
+          "diagnostic/td_error_support_neg_mean",
+          "diagnostic/weight_to_residual_reduction_corr",
+          "diagnostic/weight_to_td_error_corr",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda",
+      "seed": 3,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.0,
+        "best_success": 0.0,
+        "final_success": 0.0,
+        "hit90": null
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/config.json",
+          "sha256": "b42d3b982b6124d583f04318ff6bd1e05691dddd7bd7d82f6a3518e314fc7192",
+          "size_bytes": 5740
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/env_snapshot.json",
+          "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/summary.json",
+          "sha256": "61268e489e6b33ea459fa8ccf24b963a7db944db180612502b5c64ce838e01dc",
+          "size_bytes": 10993
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/metrics.csv",
+          "sha256": "0ee47bd2a4538a3c9f14b0dc2f1def87a2150314937265ff36f5ddc3ef631285",
+          "size_bytes": 23426984
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "20ffdbaed12259ea7b9dabf211085091b88aa004ef6f717ef93e4578ff31a106",
+          "size_bytes": 917145
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/checkpoint.pt",
+          "sha256": "37da68529fc55f79a0804fa289a1b44550203f38486de189ab6b15a7a59cbd82",
+          "size_bytes": 151406389
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+          "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+          "size_bytes": 7949
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda",
+      "seed": 4,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.6907035175879397,
+        "best_success": 1.0,
+        "final_success": 1.0,
+        "hit90": 600000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    },
+    {
+      "checkpoint": {
+        "assignment_diagnostics_flushed": true,
+        "dedicated_assignment_rng_state_present": true,
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_audit_metadata_valid": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "assignment_reproduced": true,
+        "checkpoint_rng_state_restored": true,
+        "learning_result_reproduced": true,
+        "other_rng_streams_unchanged": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json"
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "seeds.assignment_seed",
+          "support_assignment_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/config.json",
+          "sha256": "02dbc423f196429a3c137ab1d5fa26133d95087202df08c662b9ee1bf4062eae",
+          "size_bytes": 5740
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/env_snapshot.json",
+          "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/summary.json",
+          "sha256": "35c331e334e87297c857520caa5249e06aa1a58199f99a20ed92102214d87265",
+          "size_bytes": 11013
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/metrics.csv",
+          "sha256": "5cc583c0f601f27636340d17832886eb08bea5a0047f34b0cff1d7d0c2217554",
+          "size_bytes": 23522075
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/strict_diagnostics_1000.csv",
+          "sha256": "d02a8d5a0d4d8c21a25e0b8e32747759ba49fffdadd3f6f96321d90b6a6ea873",
+          "size_bytes": 917085
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/checkpoint.pt",
+          "sha256": "900605635f6070172118ae4d2a41c96dbe05655fa06d4149f7f703c91b06cb69",
+          "size_bytes": 150757877
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/config_parity.json",
+          "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+          "size_bytes": 7949
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/checkpoint_resume_audit.json",
+          "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+          "size_bytes": 2391
+        }
+      ],
+      "metrics": {
+        "allowed_nan_exact": [
+          "assigned_high_weight_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "lite/assigned_high_weight_rate",
+          "lite/mean_w_P_reference",
+          "lite/reference_high_weight_rate",
+          "lite/support_weight_alignment_rate",
+          "lite/support_weight_overlap_rate",
+          "mean_w_P_reference",
+          "reference_high_weight_rate",
+          "runtime/overhead_vs_B0",
+          "support_weight_alignment_rate",
+          "support_weight_overlap_rate"
+        ],
+        "allowed_nan_fields_observed": [
+          "b2/gap_to_pos_progress_corr",
+          "b2/gap_to_rot_progress_corr",
+          "b2/high_gap_bad_progress_rate",
+          "b3/support_to_pos_progress_corr",
+          "b3/support_to_rot_progress_corr",
+          "b3/support_to_success_corr",
+          "b3/support_to_td_error_corr",
+          "b4/B2_gap_minus_B4_gap",
+          "b4/unsupported_gap_rate",
+          "pushT/contact_like_rate",
+          "pushT/intersection_ratio_mean",
+          "pushT/intersection_ratio_p50",
+          "pushT/intersection_ratio_p90",
+          "pushT/obj_ang_vel_z_abs_mean",
+          "pushT/obj_goal_rot_err_mean",
+          "pushT/obj_goal_rot_err_p50",
+          "pushT/obj_goal_rot_err_p90",
+          "pushT/obj_goal_xy_dist_mean",
+          "pushT/obj_goal_xy_dist_p50",
+          "pushT/obj_goal_xy_dist_p90",
+          "pushT/obj_speed_xy_mean",
+          "pushT/pos_progress_rate",
+          "pushT/rot_progress_rate",
+          "pushT/success_margin_mean",
+          "pushT/tcp_obj_dist_mean",
+          "pushT/vel_align_to_goal_mean"
+        ],
+        "allowed_nan_prefixes": [
+          "pushT/",
+          "td_error/",
+          "per/",
+          "b2/",
+          "b4/",
+          "diagnostic/",
+          "lite/slide_"
+        ],
+        "post_warmup_rows_checked": 10176
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda",
+      "seed": 5,
+      "strict_trace": {
+        "all_count_equal": true,
+        "fallback_sum": 0,
+        "first_update": 1,
+        "last_update": 1995001,
+        "outside_eligible_sum": 0,
+        "replacement_sum": 0,
+        "updates_covered": 1995001,
+        "window_count": 1996
+      },
+      "summary": {
+        "auc": 0.7258793969849247,
+        "best_success": 1.0,
+        "final_success": 1.0,
+        "hit90": 500000
+      },
+      "total_steps": 2000000,
+      "total_updates": 1995001
+    }
+  ],
+  "schema_version": 1,
+  "seed_count": 5,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+  "source_commit_relation": "recorded_source_commit_differs_from_current_head",
+  "source_freeze": {
+    "file_count": 38,
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/freeze_manifest.json",
+    "source_commit": "881b5c1567bc8a979f42eac22695dcb092722420"
+  },
+  "source_parity": {
+    "controlled_file_count": 6,
+    "exact_file_count": 6,
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/source_parity.json"
+  },
+  "strict_root": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M"
+}

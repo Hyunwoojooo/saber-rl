@@ -1,0 +1,171 @@
+{
+  "files": [
+    {
+      "path": "DDPG-HER-B3-Context-Count-Only-2M.sh",
+      "sha256": "72d23367ab4ff6d1657a110dac9d56422f4bfca5eef7e298977a6866fe37b512",
+      "size": 4603
+    },
+    {
+      "path": "DDPG-HER-B3-Critic-Only-2M.sh",
+      "sha256": "80b4b2ca222c80a3a1dcb5b0d2334c6279adcc7b93d0d02ae499e77f5c53ca13",
+      "size": 3995
+    },
+    {
+      "path": "README.md",
+      "sha256": "cfea667455efca69f82e5cc0b53b9d6a845a6cec5148a4ccf4831f00702aeb7d",
+      "size": 17773
+    },
+    {
+      "path": "validate_context_count_only_config_parity.py",
+      "sha256": "8da1eb916d45694bfdac403eddfcb97489be4ef369a4e91e87abf0784ca5aaa1",
+      "size": 8625
+    },
+    {
+      "path": "test_context_count_only_config_parity.py",
+      "sha256": "b133aa0e55b1a7e2d0ffcbef40a8b892b4d3583e067e653c6023db79a6cb8b22",
+      "size": 1792
+    },
+    {
+      "path": "validate_context_count_only_run.py",
+      "sha256": "42a6a59356412421f54ffaaac3fa30b4e2e4146950ceaa0ed8b7f5dbcb7979c1",
+      "size": 5877
+    },
+    {
+      "path": "freeze_context_count_only_source.py",
+      "sha256": "20dba0140159ff9b19f6205e158439950aef02f9213f21b51213f303b469bc7b",
+      "size": 3274
+    },
+    {
+      "path": "run_context_count_only_correctness_5k.sh",
+      "sha256": "c4cfc009544f26d87f2f0277114f1a4dfacb0f2e2ac513710d56c5e5528b7a4d",
+      "size": 2133
+    },
+    {
+      "path": "analyze_context_count_only_results.py",
+      "sha256": "a4d1f856a2da57b269c8f6a5fe49dc1cd98db4178ac11510ee9dd528e2d99c06",
+      "size": 17809
+    },
+    {
+      "path": "test_analyze_context_count_only_results.py",
+      "sha256": "422800bb9b90fc6d3aee4b58fc8bf1291e1e4a26c259c5c275a9e380564ceede",
+      "size": 694
+    },
+    {
+      "path": "build_context_count_only_artifact.py",
+      "sha256": "038ebaae887330f6590896ab12117249018f42337b06079f937029bdf9cddf1c",
+      "size": 5544
+    },
+    {
+      "path": "verify_context_count_only_artifact.py",
+      "sha256": "5915760f90ddc9e7f626d44f88fd279ffb38dd79795d81e8dd406828a6b87508",
+      "size": 3285
+    },
+    {
+      "path": "code/src/train_drawer_open_lite_v0.py",
+      "sha256": "cdb154ed523062060979765c1917b03c5aee5e7cf13c2c453b1c3080dbcb3471",
+      "size": 19278
+    },
+    {
+      "path": "code/src/test_context_count_only_drawer_open.py",
+      "sha256": "e6d8414db74f388f93c48d57ed7faf4c48d42d6c7d9dba4f60b4fc07b2e13870",
+      "size": 12937
+    },
+    {
+      "path": "code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "size": 49
+    },
+    {
+      "path": "code/src/test_context_count_only_ddpg_loss_scope.py",
+      "sha256": "8d8aa88e4ac103bc72cab7e6e1faa959b067fee2c3d8533bd113a476d4e41e3b",
+      "size": 3899
+    },
+    {
+      "path": "code/src/metacog_lite_v0/agent.py",
+      "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "size": 8354
+    },
+    {
+      "path": "code/src/metacog_lite_v0/config.py",
+      "sha256": "5cea452a5bc727b8a05c54d44893fe43f1f2ab7ef0352457cb954d59ae5f037c",
+      "size": 17686
+    },
+    {
+      "path": "code/src/metacog_lite_v0/envs.py",
+      "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+      "size": 12291
+    },
+    {
+      "path": "code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size": 47402
+    },
+    {
+      "path": "code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "size": 4334
+    },
+    {
+      "path": "code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size": 996
+    },
+    {
+      "path": "code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+      "size": 15300
+    },
+    {
+      "path": "code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size": 19844
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size": 9112
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size": 7237
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size": 4807
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size": 8674
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size": 7037
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size": 14815
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size": 6273
+    },
+    {
+      "path": "code/src/metacog_lite_v0/trainer.py",
+      "sha256": "03381971826ff740b51c5ac26b3266dc7c258e10d96ba31df33e0a8f12ad5a3d",
+      "size": 77725
+    },
+    {
+      "path": "code/src/metacog_lite_v0/weights.py",
+      "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0",
+      "size": 76516
+    }
+  ],
+  "schema_version": 2,
+  "source_fingerprint": "51f51887f4fc23565fb1753e77456b7c58c0bcb753e584740922f8c8a6cbcdc4"
+}
