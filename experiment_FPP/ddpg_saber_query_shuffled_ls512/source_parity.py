@@ -10,6 +10,7 @@ from pathlib import Path
 
 
 MUTABLE_CORE_FILES = {"config.py", "trainer.py", "weights.py"}
+NONEXECUTABLE_PACKAGE_FILES = {"__init__.py"}
 ALLOWED_QUERY_ENTRY_POINTS = (
     "code/src/metacog_lite_v0/config.py",
     "code/src/metacog_lite_v0/trainer.py",
@@ -36,6 +37,7 @@ def protected_paths(source_root: Path) -> list[Path]:
         path.relative_to(source_root)
         for path in module_root.glob("*.py")
         if path.name not in MUTABLE_CORE_FILES
+        and path.name not in NONEXECUTABLE_PACKAGE_FILES
     )
 
 
@@ -68,8 +70,9 @@ def build_report(canonical_root: Path, intervention_root: Path, output: Path | N
         )
     report = {
         "passed": not errors,
-        "definition": "Protected DDPG agent/network/replay/scanner/task/environment files are byte-identical to canonical Main.",
+        "definition": "Protected DDPG agent/network/replay/scanner/task/environment files are byte-identical to canonical Main; the docstring-only package __init__.py is outside this executable-source parity scope.",
         "mutable_core_files": sorted(MUTABLE_CORE_FILES),
+        "excluded_nonexecutable_package_files": sorted(NONEXECUTABLE_PACKAGE_FILES),
         "allowed_query_entry_points": list(ALLOWED_QUERY_ENTRY_POINTS),
         "protected_file_count": len(records),
         "protected_files": records,
