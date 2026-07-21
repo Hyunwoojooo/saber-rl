@@ -24,6 +24,7 @@ Most TD3 DrawerOpen variants share the same implementation under
 - `TD3-HER-B3-Random-Support-2M.sh`
 - `TD3-HER-B3-Random-Fixed-Count-2M.sh`
 - `TD3-HER-B3-Shuffled-Weight-2M.sh`
+- `TD3-HER-PER-Style-2M.sh`
 
 The support-rate cap variant is intentionally isolated in
 `TD3-HER-B3-Critic-Only-SupportRateCap-04/` so that its cap-specific code does
@@ -41,6 +42,7 @@ bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Actor-Critic-2M.sh
 bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Random-Support-2M.sh
 bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Random-Fixed-Count-2M.sh
 bash metaworld_Drawer_Open_TD3/TD3-HER-B3-Shuffled-Weight-2M.sh
+bash metaworld_Drawer_Open_TD3/TD3-HER-PER-Style-2M.sh
 ```
 
 Defaults:
@@ -89,46 +91,12 @@ The runner prefers `.venv/bin/python`; otherwise it falls back to `python3`.
 | TD3-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 0/5 | 0.00 | 0.01 | 0.00005 | - | 20.03 steps/s |
 | TD3-HER-B3-Actor-Only-2M | SABER support | Actor only | 2/5 | 0.40 | 0.41 | 0.249 | 780k* | 21.48 steps/s |
 | TD3-HER-B3-Actor-Critic-2M | SABER support | Actor + critic | 3/5 | 0.60 | 0.61 | 0.432 | 603k | 21.75 steps/s |
+| TD3-HER-PER-Style-2M | Batch-local TD error | Critic only | 2/5 | 0.40 | 0.43 | 0.202 | 1,015k* | 46.52 steps/s |
 
-`*` Mean Hit90 is computed over successful seeds only. The core paper
-comparison set is B0, B3-Critic-Only, Random-Support, Random-Fixed-Count, and
-Shuffled-Weight; Actor-Only and Actor+Critic are scope ablations. PER-Style is
-reported in the 1M preliminary section because the completed TD3 summary table
-uses the 2M DrawerOpen runs.
-
-## Preliminary Results
-
-Status as of 2026-06-10 11:17 KST:
-
-- `TD3+HER`, `TD3+HER+B3-Critic-Only`, and `TD3+HER+PER-Style` completed 5 seeds at 1M steps.
-- A 2M follow-up for `TD3+HER` and `TD3+HER+B3-Critic-Only` completed under `results_2m/`; the completed 2M summary is reported below.
-
-Aggregate metrics use 5 seeds. Success values are environment success rates
-from 20 evaluation episodes per checkpoint.
-
-| Variant | Final success | Best success | AUC success | Hit90 | Speed |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| TD3+HER | 0.13 +/- 0.29 | 0.21 +/- 0.44 | 0.053 +/- 0.118 | 740k, 1/5 seeds | 41.7 steps/s |
-| TD3+HER+B3-Critic-Only | 0.29 +/- 0.39 | 0.55 +/- 0.51 | 0.141 +/- 0.173 | 670k +/- 156k, 2/5 seeds | 23.3 steps/s |
-| TD3+HER+PER-Style | 0.20 +/- 0.45 | 0.23 +/- 0.43 | 0.161 +/- 0.360 | 220k, 1/5 seeds | 38.7 steps/s |
-
-Seed-level final success:
-
-| Variant | seed 1 | seed 2 | seed 3 | seed 4 | seed 5 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| TD3+HER | 0.65 | 0.00 | 0.00 | 0.00 | 0.00 |
-| TD3+HER+B3-Critic-Only | 0.05 | 0.00 | 0.00 | 0.85 | 0.55 |
-| TD3+HER+PER-Style | 0.00 | 1.00 | 0.00 | 0.00 | 0.00 |
-
-Interpretation:
-
-- B3-Critic-Only improves the mean final success, best success, and AUC over
-  the TD3+HER baseline in this preliminary 1M-step run.
-- PER-Style achieves the highest AUC among the 1M variants, but this comes from
-  one strongly successful seed and high variance across the remaining seeds.
-- DrawerOpen appears harder and less stable than the Fetch tasks under this
-  setup, so the completed 2M follow-up below should be used for the stronger
-  B0 vs B3-Critic-Only comparison.
+`*` Mean Hit90 is computed over successful seeds only. Actor-Only and
+Actor+Critic are scope ablations. PER-Style is reported from the completed
+matched-budget 2M run; it keeps replay sampling uniform and changes only the
+batch-local critic-loss coefficients, so it is not Full PER.
 
 ## 2M Follow-Up Results
 
@@ -170,6 +138,43 @@ Interpretation:
   TD3+HER baseline.
 - The main remaining limitation is high seed variance: B3-Critic-Only still
   failed on seed 2, and seed 3 showed only a weak nonzero signal.
+
+## 2M PER-Style Results
+
+Status as of 2026-07-20 UTC:
+
+- `TD3+HER+PER-Style` completed seeds 1-5 at 2M environment steps.
+- It uses the same DrawerOpen TD3+HER backbone, budget, seeds, future-goal HER
+  probability, terminal handling, and evaluation grid as the 2M comparison.
+- Replay remains uniform. The critic loss is weighted by batch-local absolute
+  TD error with `alpha=0.6`, `epsilon=1e-6`, cap 2, and unit-mean
+  normalization; no prioritized replay sampling or importance correction is
+  used.
+
+Aggregate metrics use 5 seeds:
+
+| Variant | Final success | Best success | AUC success | Hit90 | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| TD3+HER+PER-Style 2M | 0.400 +/- 0.548 | 0.430 +/- 0.522 | 0.202 +/- 0.284 | 1,015k +/- 262k, 2/5 seeds | 46.52 steps/s |
+
+Seed-level results:
+
+| Seed | Final success | Best success | AUC success | Hit90 |
+| ---: | ---: | ---: | ---: | ---: |
+| 1 | 0.00 | 0.00 | 0.0000 | - |
+| 2 | 1.00 | 1.00 | 0.4128 | 1,200k |
+| 3 | 1.00 | 1.00 | 0.5970 | 830k |
+| 4 | 0.00 | 0.05 | 0.0005 | - |
+| 5 | 0.00 | 0.10 | 0.0005 | - |
+
+Interpretation:
+
+- PER-Style improves the descriptive 2M means over TD3+HER B0 but remains
+  highly seed-dependent, reaching Hit90 on 2/5 seeds.
+- B3-Critic-Only has higher mean final success (0.590 vs. 0.400), AUC (0.362
+  vs. 0.202), and Hit90 coverage (3/5 vs. 2/5) in this cohort.
+- This comparison isolates a TD-error critic-weighting signal from SABER's
+  support signal; it must not be described as a Full PER comparison.
 
 ## 2M Actor-Scope Ablation Results
 
