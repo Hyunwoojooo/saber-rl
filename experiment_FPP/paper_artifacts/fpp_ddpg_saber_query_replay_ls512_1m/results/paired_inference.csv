@@ -1,0 +1,2 @@
+comparison,metric,delta_definition,direction_favoring_main,n_pairs,paired_seeds,mean_delta,sample_std_delta,bootstrap_ci95_low,bootstrap_ci95_high,bootstrap_resamples,bootstrap_seed,positive_count,negative_count,zero_count,exact_sign_flip_p_two_sided,exact_sign_flip_assignments
+Main SABER - Replay-Action Query,normalized_success_auc,main_minus_replay,positive,5,1;2;3;4;5,0.011414141414141387,0.057180494650471515,-0.028080808080808106,0.05880176767676743,10000,27027,3,2,0,0.8125,32

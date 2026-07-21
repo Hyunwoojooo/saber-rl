@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import hashlib
 import json
@@ -87,6 +88,7 @@ COMPACT_METRIC_COLUMNS = (
 )
 
 FORBIDDEN_SOURCE_PARTS = frozenset({"__pycache__", ".pytest_cache"})
+GIT_PROVENANCE_REL = Path("code/source_provenance.json")
 
 
 class ArtifactBuildError(AnalysisError):
@@ -115,6 +117,47 @@ def _git(repo: Path, *args: str) -> str:
     return result.stdout.strip()
 
 
+def _git_bytes(repo: Path, *args: str) -> bytes:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=repo,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if result.returncode:
+        message = result.stderr.decode("utf-8", errors="replace").strip()
+        raise ArtifactBuildError(message or f"git {' '.join(args)} failed")
+    return result.stdout
+
+
+def git_object_oid(kind: str, payload: bytes) -> str:
+    header = f"{kind} {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload).hexdigest()
+
+
+def read_git_object(repo: Path, kind: str, oid: str) -> bytes:
+    payload = _git_bytes(repo, "cat-file", kind, oid)
+    if git_object_oid(kind, payload) != oid:
+        raise ArtifactBuildError(f"Git {kind} object failed hash verification: {oid}")
+    return payload
+
+
+def git_tree_oid(repo: Path, commit: str, relative: Path | None = None) -> str:
+    expression = f"{commit}^{{tree}}" if relative is None else f"{commit}:{relative.as_posix()}"
+    oid = _git(repo, "rev-parse", expression)
+    if not HEX40.fullmatch(oid):
+        raise ArtifactBuildError(f"Invalid Git tree OID for {expression}: {oid!r}")
+    return oid
+
+
+def git_blob_oid(repo: Path, commit: str, relative: Path) -> str:
+    oid = _git(repo, "rev-parse", f"{commit}:{relative.as_posix()}")
+    if not HEX40.fullmatch(oid):
+        raise ArtifactBuildError(f"Invalid Git blob OID for {relative}: {oid!r}")
+    return oid
+
+
 def source_commit_for_path(repo: Path, relative: Path) -> str:
     commit = _git(repo, "log", "-1", "--format=%H", "--", relative.as_posix())
     if not HEX40.fullmatch(commit):
@@ -132,9 +175,39 @@ def resolve_execution_source_commit(
     if not tracked:
         raise ArtifactBuildError(f"Experiment source is absent from commit {commit}")
     if require_clean:
-        dirty = _git(repo, "status", "--porcelain", "--", EXPERIMENT_REL.as_posix())
-        if dirty:
-            raise ArtifactBuildError(f"Experiment source has uncommitted changes:\n{dirty}")
+        pathspecs = (
+            EXPERIMENT_REL.as_posix(),
+            f":(exclude){(EXPERIMENT_REL / 'analysis/**').as_posix()}",
+        )
+        committed_or_tracked_drift = _git(
+            repo,
+            "diff",
+            "--name-only",
+            commit,
+            "--",
+            *pathspecs,
+        )
+        dirty = _git(
+            repo,
+            "status",
+            "--porcelain",
+            "--untracked-files=all",
+            "--",
+            *pathspecs,
+        )
+        if committed_or_tracked_drift or dirty:
+            details = []
+            if committed_or_tracked_drift:
+                details.append(
+                    f"paths differing from execution commit {commit}:\n"
+                    f"{committed_or_tracked_drift}"
+                )
+            if dirty:
+                details.append(f"worktree status:\n{dirty}")
+            raise ArtifactBuildError(
+                "Frozen experiment source differs outside analysis/:\n"
+                + "\n".join(details)
+            )
     return commit
 
 
@@ -333,44 +406,197 @@ def package_run(
     }
 
 
-def frozen_source_files(root: Path) -> list[Path]:
-    result: list[Path] = []
-    for path in sorted(root.rglob("*")):
-        if not path.is_file():
+def _committed_source_entries(
+    repo: Path,
+    commit: str,
+    source_relative: Path,
+    *,
+    exclude_analysis: bool,
+) -> list[tuple[Path, str, str, bytes]]:
+    output = _git_bytes(
+        repo,
+        "ls-tree",
+        "-r",
+        "-z",
+        "--full-tree",
+        commit,
+        "--",
+        source_relative.as_posix(),
+    )
+    entries: list[tuple[Path, str, str, bytes]] = []
+    prefix = source_relative.as_posix() + "/"
+    for raw_entry in output.split(b"\0"):
+        if not raw_entry:
             continue
-        relative = path.relative_to(root)
-        if "analysis" in relative.parts or any(part in FORBIDDEN_SOURCE_PARTS for part in relative.parts):
+        metadata, raw_path = raw_entry.split(b"\t", 1)
+        mode_bytes, kind_bytes, oid_bytes = metadata.split(b" ", 2)
+        full_path = raw_path.decode("utf-8")
+        if not full_path.startswith(prefix):
+            raise ArtifactBuildError(f"Unexpected Git source path: {full_path}")
+        relative = Path(full_path[len(prefix) :])
+        if exclude_analysis and "analysis" in relative.parts:
             continue
-        if path.suffix in {".pyc", ".pt", ".pth", ".ckpt"}:
+        if any(part in FORBIDDEN_SOURCE_PARTS for part in relative.parts):
             continue
-        result.append(path)
+        if relative.suffix in {".pyc", ".pt", ".pth", ".ckpt"}:
+            continue
+        mode = mode_bytes.decode("ascii")
+        kind = kind_bytes.decode("ascii")
+        oid = oid_bytes.decode("ascii")
+        if kind != "blob" or mode not in {"100644", "100755"} or not HEX40.fullmatch(oid):
+            raise ArtifactBuildError(
+                f"Unsupported committed source entry: mode={mode} kind={kind} oid={oid} path={full_path}"
+            )
+        payload = read_git_object(repo, "blob", oid)
+        entries.append((relative, mode, oid, payload))
+    if not entries:
+        raise ArtifactBuildError(f"No committed source files found at {commit}:{source_relative}")
     required = {
-        root / "config.json",
-        root / "run.py",
-        root / "code/src/train_fetch_pick_and_place_lite_v0.py",
-        root / "code/src/metacog_lite_v0/weights.py",
+        Path("config.json"),
+        Path("run.py"),
+        Path("code/src/train_fetch_pick_and_place_lite_v0.py"),
+        Path("code/src/metacog_lite_v0/weights.py"),
     }
-    if not required.issubset(set(result)):
-        raise ArtifactBuildError(f"Frozen execution source missing required files: {required - set(result)}")
-    return result
+    present = {relative for relative, _mode, _oid, _payload in entries}
+    if not required.issubset(present):
+        raise ArtifactBuildError(
+            f"Frozen source missing required committed files: {sorted(required - present)}"
+        )
+    return entries
 
 
-def copy_frozen_source(root: Path, destination: Path, repo: Path) -> list[dict[str, Any]]:
+def copy_frozen_source_from_git(
+    repo: Path,
+    commit: str,
+    source_relative: Path,
+    destination: Path,
+    packaged_prefix: Path,
+    *,
+    role: str,
+    exclude_analysis: bool,
+) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    for source in frozen_source_files(root):
-        relative = source.relative_to(root)
+    for relative, mode, oid, payload in _committed_source_entries(
+        repo,
+        commit,
+        source_relative,
+        exclude_analysis=exclude_analysis,
+    ):
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, target)
+        target.write_bytes(payload)
+        target.chmod(0o755 if mode == "100755" else 0o644)
         records.append(
-            source_record(
-                source,
-                repo,
-                role="execution_source",
-                packaged_path=(Path("code/execution_source") / relative).as_posix(),
-            )
+            {
+                "role": role,
+                "source_path": f"git:{commit}:{(source_relative / relative).as_posix()}",
+                "source_sha256": hashlib.sha256(payload).hexdigest(),
+                "source_size_bytes": len(payload),
+                "packaged_path": (packaged_prefix / relative).as_posix(),
+                "git_commit": commit,
+                "git_source_relative_path": relative.as_posix(),
+                "git_mode": mode,
+                "git_blob_oid": oid,
+            }
         )
     return records
+
+
+def _tree_directories_for_files(source_relative: Path, files: Sequence[Path]) -> set[Path]:
+    directories = {Path(".")}
+    cursor = Path(".")
+    for part in source_relative.parts:
+        cursor = cursor / part
+        directories.add(cursor)
+    for relative in files:
+        cursor = source_relative
+        for part in relative.parent.parts:
+            cursor = cursor / part
+            directories.add(cursor)
+    return directories
+
+
+def _all_source_tree_directories(
+    repo: Path, commit: str, source_relative: Path
+) -> set[Path]:
+    directories = _tree_directories_for_files(source_relative, ())
+    output = _git_bytes(
+        repo,
+        "ls-tree",
+        "-r",
+        "-t",
+        "-z",
+        "--full-tree",
+        commit,
+        "--",
+        source_relative.as_posix(),
+    )
+    for raw_entry in output.split(b"\0"):
+        if not raw_entry:
+            continue
+        metadata, raw_path = raw_entry.split(b"\t", 1)
+        _mode, kind, oid = metadata.split(b" ", 2)
+        if kind == b"tree":
+            path = Path(raw_path.decode("utf-8"))
+            if not HEX40.fullmatch(oid.decode("ascii")):
+                raise ArtifactBuildError(f"Invalid source subtree OID at {path}")
+            directories.add(path)
+    return directories
+
+
+def build_git_source_provenance(
+    repo: Path,
+    *,
+    name: str,
+    commit: str,
+    source_relative: Path,
+    packaged_root: Path,
+    records: Sequence[Mapping[str, Any]],
+    execution_commit_captured: bool,
+) -> dict[str, Any]:
+    if not HEX40.fullmatch(commit):
+        raise ArtifactBuildError(f"Invalid source provenance commit: {commit!r}")
+    selected = [Path(str(record["git_source_relative_path"])) for record in records]
+    tree_objects: dict[str, str] = {}
+    directories = _all_source_tree_directories(repo, commit, source_relative)
+    directories.update(_tree_directories_for_files(source_relative, selected))
+    for directory in sorted(
+        directories,
+        key=lambda item: (len(item.parts), item.as_posix()),
+    ):
+        oid = git_tree_oid(repo, commit, None if directory == Path(".") else directory)
+        payload = read_git_object(repo, "tree", oid)
+        tree_objects[oid] = base64.b64encode(payload).decode("ascii")
+    commit_payload = read_git_object(repo, "commit", commit)
+    source_tree = git_tree_oid(repo, commit, source_relative)
+    code_src_tree = git_tree_oid(repo, commit, source_relative / "code/src")
+    config_blob = git_blob_oid(repo, commit, source_relative / "config.json")
+    return {
+        "schema_version": 1,
+        "name": name,
+        "git_object_format": "sha1",
+        "commit": commit,
+        "execution_commit_captured": execution_commit_captured,
+        "source_path_at_commit": source_relative.as_posix(),
+        "packaged_root": packaged_root.as_posix(),
+        "commit_object_base64": base64.b64encode(commit_payload).decode("ascii"),
+        "commit_root_tree_oid": git_tree_oid(repo, commit),
+        "source_root_tree_oid": source_tree,
+        "code_src_tree_oid": code_src_tree,
+        "config_blob_oid": config_blob,
+        "tree_objects_base64": tree_objects,
+        "selected_files": [
+            {
+                "relative_path": record["git_source_relative_path"],
+                "packaged_path": record["packaged_path"],
+                "mode": record["git_mode"],
+                "blob_oid": record["git_blob_oid"],
+                "sha256": record["source_sha256"],
+                "size_bytes": record["source_size_bytes"],
+            }
+            for record in records
+        ],
+    }
 
 
 def copy_analysis_and_tests(
@@ -402,7 +628,11 @@ def copy_analysis_and_tests(
 
 
 def validate_execution_metadata(
-    replay_root: Path, expected_commit: str
+    replay_root: Path,
+    expected_commit: str,
+    *,
+    expected_source_tree_oid: str,
+    expected_config_blob_oid: str,
 ) -> tuple[Path, dict[str, Any]]:
     path = replay_root / EXECUTION_METADATA_REL
     payload = read_json(path)
@@ -412,6 +642,8 @@ def validate_execution_metadata(
         "origin_main": expected_commit,
         "head_matches_origin_main": True,
         "worktree_clean": True,
+        "source_tree_git_oid": expected_source_tree_oid,
+        "config_git_blob_oid": expected_config_blob_oid,
         "steps": TOTAL_STEPS,
         "seeds": list(SEEDS),
     }
@@ -490,6 +722,7 @@ def validation_payload(
     execution_source_commit: str,
     canonical_source_commit: str,
     execution_metadata: Mapping[str, Any],
+    source_provenance: Mapping[str, Any],
     test_evidence: Mapping[str, Any],
     input_manifest: Mapping[str, Any],
 ) -> dict[str, Any]:
@@ -591,6 +824,23 @@ def validation_payload(
                 "origin_main": execution_metadata["origin_main"],
                 "head_matches_origin_main": execution_metadata["head_matches_origin_main"],
                 "worktree_clean": execution_metadata["worktree_clean"],
+                "source_tree_git_oid": execution_metadata["source_tree_git_oid"],
+                "config_git_blob_oid": execution_metadata["config_git_blob_oid"],
+                "commit_tree_blob_chain_packaged": True,
+                "passed": True,
+            },
+            "canonical_main_reference_source_provenance": {
+                "reference_source_commit": canonical_source_commit,
+                "source_root_tree_oid": source_provenance["canonical_main_reference"][
+                    "source_root_tree_oid"
+                ],
+                "code_src_tree_oid": source_provenance["canonical_main_reference"][
+                    "code_src_tree_oid"
+                ],
+                "config_blob_oid": source_provenance["canonical_main_reference"][
+                    "config_blob_oid"
+                ],
+                "run_execution_commit_captured": False,
                 "passed": True,
             },
             "current_policy_legacy_parity_evidence": {
@@ -631,7 +881,7 @@ def artifact_readme(
 Compact matched seeds 1-5 paper artifact.
 
 - Execution source commit: `{execution_source_commit}`
-- Canonical Main source commit: `{canonical_source_commit}`
+- Canonical Main reference source commit: `{canonical_source_commit}`
 - Scientific factor: `support_query_mode: current_policy -> replay_action`
 - Backbone/scope: DDPG, HER=0.8, SABER critic-only, LS512
 
@@ -648,9 +898,20 @@ The exact two-sided sign-flip test enumerates all 32 assignments.
 
 Replay-action querying retains the sampled transition in the local replay pool and can therefore self-support.
 
+The Replay execution commit was captured by the production launcher. The
+historical Main run files do not capture an execution commit SHA; the Main Git
+commit reported here is therefore provenance for the frozen canonical reference
+source, not proof that this exact commit launched those historical runs.
+
 ## Contents
 
-- `code/`: frozen execution source plus analysis/build/verification code.
+- `code/execution_source/`: Replay source read byte-for-byte from its captured
+  execution commit.
+- `code/main_source/`: canonical Main reference source read byte-for-byte from
+  its recorded reference commit.
+- `code/source_provenance.json`: self-contained Git commit/tree/blob proof
+  objects for both frozen source trees.
+- remaining `code/` files: analysis/build/verification code.
 - `data/main/`, `data/replay/`: sanitized per-seed config, environment snapshot,
   summary, and exact-grid compact metrics only.
 - `results/`: exact analysis tables, query diagnostics, validation, and report.
@@ -752,9 +1013,18 @@ def build_artifact(
     if artifact_root.exists() and not replace:
         raise ArtifactBuildError(f"Artifact already exists: {artifact_root}; use --replace explicitly")
     bundle = analyze_query_ablation(main_root, replay_root)
+    execution_source_tree_oid = git_tree_oid(
+        repo, execution_source_commit, EXPERIMENT_REL / "code/src"
+    )
+    execution_config_blob_oid = git_blob_oid(
+        repo, execution_source_commit, EXPERIMENT_REL / "config.json"
+    )
     if require_execution_metadata:
         execution_path, execution_metadata = validate_execution_metadata(
-            replay_root, execution_source_commit
+            replay_root,
+            execution_source_commit,
+            expected_source_tree_oid=execution_source_tree_oid,
+            expected_config_blob_oid=execution_config_blob_oid,
         )
     else:
         execution_path = replay_root / EXECUTION_METADATA_REL
@@ -786,9 +1056,54 @@ def build_artifact(
         )
         write_outputs(packaged_bundle, stage / "results")
         analysis_records, test_records = copy_analysis_and_tests(analysis_root, stage, repo)
-        execution_records = copy_frozen_source(
-            experiment_root, stage / "code/execution_source", repo
+        execution_records = copy_frozen_source_from_git(
+            repo,
+            execution_source_commit,
+            EXPERIMENT_REL,
+            stage / "code/execution_source",
+            Path("code/execution_source"),
+            role="execution_source",
+            exclude_analysis=True,
         )
+        canonical_records = copy_frozen_source_from_git(
+            repo,
+            canonical_source_commit,
+            CANONICAL_SOURCE_REL,
+            stage / "code/main_source",
+            Path("code/main_source"),
+            role="canonical_main_reference_source",
+            exclude_analysis=True,
+        )
+        source_provenance = {
+            "schema_version": 1,
+            "replay_execution": build_git_source_provenance(
+                repo,
+                name="replay_execution",
+                commit=execution_source_commit,
+                source_relative=EXPERIMENT_REL,
+                packaged_root=Path("code/execution_source"),
+                records=execution_records,
+                execution_commit_captured=True,
+            ),
+            "canonical_main_reference": build_git_source_provenance(
+                repo,
+                name="canonical_main_reference",
+                commit=canonical_source_commit,
+                source_relative=CANONICAL_SOURCE_REL,
+                packaged_root=Path("code/main_source"),
+                records=canonical_records,
+                execution_commit_captured=False,
+            ),
+        }
+        if source_provenance["replay_execution"]["code_src_tree_oid"] != execution_metadata.get(
+            "source_tree_git_oid"
+        ):
+            raise ArtifactBuildError("Packaged Replay code/src tree disagrees with launch metadata")
+        if source_provenance["replay_execution"]["config_blob_oid"] != execution_metadata.get(
+            "config_git_blob_oid"
+        ):
+            raise ArtifactBuildError("Packaged Replay config blob disagrees with launch metadata")
+        write_json(stage / GIT_PROVENANCE_REL, source_provenance)
         execution_transform = copy_sanitized_json(
             execution_path,
             stage / "code/execution_metadata.json",
@@ -815,6 +1130,12 @@ def build_artifact(
             "methods": method_records,
             "execution_metadata": execution_record,
             "frozen_execution_source_files": execution_records,
+            "frozen_main_reference_source_files": canonical_records,
+            "source_git_provenance": {
+                "packaged_path": GIT_PROVENANCE_REL.as_posix(),
+                "replay_execution_commit_captured": True,
+                "canonical_main_run_execution_commit_captured": False,
+            },
             "analysis_code_files": analysis_records,
             "artifact_test_files": test_records,
             "transforms": {
@@ -844,6 +1165,7 @@ def build_artifact(
                 execution_source_commit,
                 canonical_source_commit,
                 execution_metadata,
+                source_provenance,
                 test_evidence,
                 input_manifest,
             ),
@@ -899,6 +1221,8 @@ def main() -> int:
     try:
         repo = find_repo_root(Path(__file__))
         source_commit = resolve_execution_source_commit(
+            # Analysis/artifact tooling may be newer while packaging, but all
+            # frozen trainer/config/runner/launcher inputs must remain clean.
             repo, args.source_commit, require_clean=True
         )
         canonical_commit = source_commit_for_path(repo, CANONICAL_SOURCE_REL)

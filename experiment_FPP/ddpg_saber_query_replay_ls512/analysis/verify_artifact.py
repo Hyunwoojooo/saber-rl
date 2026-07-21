@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import hashlib
 import json
 import math
@@ -34,6 +36,10 @@ from query_ablation import (
 
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
+REPLAY_SOURCE_PATH = "experiment_FPP/ddpg_saber_query_replay_ls512"
+MAIN_SOURCE_PATH = "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512"
+EXCLUDED_SOURCE_DIR_NAMES = frozenset({"analysis", "__pycache__", ".pytest_cache"})
+EXCLUDED_SOURCE_SUFFIXES = frozenset({".pyc", ".pt", ".pth", ".ckpt"})
 ROOT_FILES = frozenset(
     {
         "README.md",
@@ -81,6 +87,294 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _git_object_oid(kind: str, payload: bytes) -> str:
+    header = f"{kind} {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload).hexdigest()
+
+
+def _decode_base64(value: Any, *, label: str) -> bytes:
+    if not isinstance(value, str):
+        raise ArtifactVerificationError(f"{label} must be base64 text")
+    try:
+        return base64.b64decode(value, validate=True)
+    except (ValueError, binascii.Error) as exc:
+        raise ArtifactVerificationError(f"Invalid base64 payload for {label}") from exc
+
+
+def _parse_git_tree(payload: bytes) -> dict[str, tuple[str, str]]:
+    entries: dict[str, tuple[str, str]] = {}
+    cursor = 0
+    while cursor < len(payload):
+        space = payload.find(b" ", cursor)
+        nul = payload.find(b"\0", space + 1)
+        if space < 0 or nul < 0 or nul + 21 > len(payload):
+            raise ArtifactVerificationError("Malformed packaged Git tree object")
+        try:
+            mode = payload[cursor:space].decode("ascii")
+            name = payload[space + 1 : nul].decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise ArtifactVerificationError("Non-UTF-8 packaged Git tree entry") from exc
+        oid = payload[nul + 1 : nul + 21].hex()
+        if not name or "/" in name or name in entries or not HEX40.fullmatch(oid):
+            raise ArtifactVerificationError(f"Invalid packaged Git tree entry: {name!r}")
+        entries[name] = (mode, oid)
+        cursor = nul + 21
+    return entries
+
+
+def _resolve_git_path(
+    root_tree_oid: str,
+    tree_objects: Mapping[str, bytes],
+    parts: Sequence[str],
+) -> tuple[str, str]:
+    if not parts:
+        return "40000", root_tree_oid
+    current = root_tree_oid
+    for index, part in enumerate(parts):
+        payload = tree_objects.get(current)
+        if payload is None:
+            raise ArtifactVerificationError(
+                f"Git provenance is missing tree object {current} while resolving {'/'.join(parts)}"
+            )
+        entry = _parse_git_tree(payload).get(part)
+        if entry is None:
+            raise ArtifactVerificationError(
+                f"Git provenance path is absent: {'/'.join(parts[: index + 1])}"
+            )
+        mode, oid = entry
+        if index < len(parts) - 1 and mode not in {"40000", "040000"}:
+            raise ArtifactVerificationError(
+                f"Non-tree Git provenance path component: {'/'.join(parts[: index + 1])}"
+            )
+        current = oid
+    return mode, current
+
+
+def _safe_relative_parts(value: Any, *, label: str) -> tuple[str, ...]:
+    if not isinstance(value, str):
+        raise ArtifactVerificationError(f"{label} must be a relative path string")
+    path = Path(value)
+    if path.is_absolute() or not path.parts or any(part in {"", ".", ".."} for part in path.parts):
+        raise ArtifactVerificationError(f"Unsafe {label}: {value!r}")
+    return path.parts
+
+
+def _enumerate_eligible_source_blobs(
+    tree_oid: str,
+    tree_objects: Mapping[str, bytes],
+    prefix: tuple[str, ...] = (),
+) -> dict[str, tuple[str, str]]:
+    payload = tree_objects.get(tree_oid)
+    if payload is None:
+        raise ArtifactVerificationError(
+            f"Git provenance is missing authenticated source subtree {tree_oid}"
+        )
+    result: dict[str, tuple[str, str]] = {}
+    for name, (mode, oid) in _parse_git_tree(payload).items():
+        parts = prefix + (name,)
+        if mode in {"40000", "040000"}:
+            if name in EXCLUDED_SOURCE_DIR_NAMES:
+                continue
+            result.update(_enumerate_eligible_source_blobs(oid, tree_objects, parts))
+            continue
+        relative = Path(*parts)
+        if relative.suffix in EXCLUDED_SOURCE_SUFFIXES:
+            continue
+        if mode not in {"100644", "100755"}:
+            raise ArtifactVerificationError(
+                f"Unsupported eligible committed source mode {mode}: {relative.as_posix()}"
+            )
+        result[relative.as_posix()] = (mode, oid)
+    return result
+
+
+def _verify_one_source_provenance(
+    root: Path,
+    payload: Mapping[str, Any],
+    *,
+    expected_name: str,
+    expected_commit: str,
+    expected_source_path: str,
+    expected_packaged_root: str,
+    expected_execution_captured: bool,
+) -> dict[str, Any]:
+    expected_scalars = {
+        "schema_version": 1,
+        "name": expected_name,
+        "git_object_format": "sha1",
+        "commit": expected_commit,
+        "source_path_at_commit": expected_source_path,
+        "packaged_root": expected_packaged_root,
+        "execution_commit_captured": expected_execution_captured,
+    }
+    for key, expected in expected_scalars.items():
+        if payload.get(key) != expected:
+            raise ArtifactVerificationError(
+                f"{expected_name} provenance {key} expected {expected!r}, got {payload.get(key)!r}"
+            )
+    commit_payload = _decode_base64(
+        payload.get("commit_object_base64"), label=f"{expected_name}.commit_object_base64"
+    )
+    if _git_object_oid("commit", commit_payload) != expected_commit:
+        raise ArtifactVerificationError(f"{expected_name} packaged commit object hash mismatch")
+    commit_tree_lines = [
+        line[5:].decode("ascii", errors="strict")
+        for line in commit_payload.split(b"\n\n", 1)[0].splitlines()
+        if line.startswith(b"tree ")
+    ]
+    if len(commit_tree_lines) != 1 or not HEX40.fullmatch(commit_tree_lines[0]):
+        raise ArtifactVerificationError(f"{expected_name} commit object has invalid root tree")
+    root_tree_oid = commit_tree_lines[0]
+    if payload.get("commit_root_tree_oid") != root_tree_oid:
+        raise ArtifactVerificationError(f"{expected_name} recorded commit root tree mismatch")
+
+    encoded_trees = payload.get("tree_objects_base64")
+    if not isinstance(encoded_trees, Mapping) or not encoded_trees:
+        raise ArtifactVerificationError(f"{expected_name} tree object map is empty")
+    trees: dict[str, bytes] = {}
+    for oid, encoded in encoded_trees.items():
+        if not isinstance(oid, str) or not HEX40.fullmatch(oid):
+            raise ArtifactVerificationError(f"{expected_name} has invalid tree OID key: {oid!r}")
+        tree_payload = _decode_base64(encoded, label=f"{expected_name}.tree_objects[{oid}]")
+        if _git_object_oid("tree", tree_payload) != oid:
+            raise ArtifactVerificationError(f"{expected_name} packaged tree object hash mismatch: {oid}")
+        trees[oid] = tree_payload
+
+    source_parts = _safe_relative_parts(
+        payload.get("source_path_at_commit"), label=f"{expected_name}.source_path_at_commit"
+    )
+    source_mode, source_oid = _resolve_git_path(root_tree_oid, trees, source_parts)
+    if source_mode not in {"40000", "040000"} or source_oid != payload.get(
+        "source_root_tree_oid"
+    ):
+        raise ArtifactVerificationError(f"{expected_name} source-root tree chain mismatch")
+    code_mode, code_oid = _resolve_git_path(source_oid, trees, ("code", "src"))
+    if code_mode not in {"40000", "040000"} or code_oid != payload.get("code_src_tree_oid"):
+        raise ArtifactVerificationError(f"{expected_name} code/src tree chain mismatch")
+    config_mode, config_oid = _resolve_git_path(source_oid, trees, ("config.json",))
+    if config_mode not in {"100644", "100755"} or config_oid != payload.get("config_blob_oid"):
+        raise ArtifactVerificationError(f"{expected_name} config blob chain mismatch")
+
+    eligible_committed = _enumerate_eligible_source_blobs(source_oid, trees)
+
+    records = payload.get("selected_files")
+    if not isinstance(records, list) or not records:
+        raise ArtifactVerificationError(f"{expected_name} selected file provenance is empty")
+    packaged_root = root / expected_packaged_root
+    recorded_paths: set[str] = set()
+    for record in records:
+        if not isinstance(record, Mapping):
+            raise ArtifactVerificationError(f"Invalid {expected_name} selected file record")
+        relative_value = record.get("relative_path")
+        relative_parts = _safe_relative_parts(
+            relative_value, label=f"{expected_name}.selected_files.relative_path"
+        )
+        relative = Path(*relative_parts).as_posix()
+        if relative in recorded_paths:
+            raise ArtifactVerificationError(f"Duplicate {expected_name} selected file: {relative}")
+        recorded_paths.add(relative)
+        expected_packaged = (Path(expected_packaged_root) / relative).as_posix()
+        if record.get("packaged_path") != expected_packaged:
+            raise ArtifactVerificationError(f"{expected_name} packaged source path mismatch: {relative}")
+        mode, blob_oid = _resolve_git_path(source_oid, trees, relative_parts)
+        if mode != record.get("mode") or blob_oid != record.get("blob_oid"):
+            raise ArtifactVerificationError(f"{expected_name} Git tree/blob membership mismatch: {relative}")
+        path = root / expected_packaged
+        if not path.is_file() or path.is_symlink():
+            raise ArtifactVerificationError(f"Missing packaged {expected_name} source file: {relative}")
+        source_bytes = path.read_bytes()
+        if _git_object_oid("blob", source_bytes) != blob_oid:
+            raise ArtifactVerificationError(f"{expected_name} packaged Git blob mismatch: {relative}")
+        if hashlib.sha256(source_bytes).hexdigest() != record.get("sha256"):
+            raise ArtifactVerificationError(f"{expected_name} packaged SHA256 mismatch: {relative}")
+        if len(source_bytes) != record.get("size_bytes"):
+            raise ArtifactVerificationError(f"{expected_name} packaged size mismatch: {relative}")
+    if recorded_paths != set(eligible_committed):
+        raise ArtifactVerificationError(
+            f"{expected_name} selected source is incomplete relative to the authenticated "
+            f"committed subtree: missing={sorted(set(eligible_committed)-recorded_paths)}, "
+            f"extra={sorted(recorded_paths-set(eligible_committed))}"
+        )
+    for relative, (expected_mode, expected_oid) in eligible_committed.items():
+        record = next(
+            item for item in records if item["relative_path"] == relative
+        )
+        if record.get("mode") != expected_mode or record.get("blob_oid") != expected_oid:
+            raise ArtifactVerificationError(
+                f"{expected_name} authenticated source identity mismatch: {relative}"
+            )
+    actual_paths = {
+        path.relative_to(packaged_root).as_posix()
+        for path in packaged_root.rglob("*")
+        if path.is_file()
+    }
+    if actual_paths != recorded_paths:
+        raise ArtifactVerificationError(
+            f"{expected_name} frozen source file set mismatch: "
+            f"missing={sorted(actual_paths-recorded_paths)}, stale={sorted(recorded_paths-actual_paths)}"
+        )
+    return dict(payload)
+
+
+def _verify_source_provenance(
+    root: Path, manifest: Mapping[str, Any]
+) -> dict[str, dict[str, Any]]:
+    payload = read_json(root / "code/source_provenance.json")
+    if not isinstance(payload, Mapping) or payload.get("schema_version") != 1:
+        raise ArtifactVerificationError("Source provenance schema mismatch")
+    if set(payload) != {"schema_version", "replay_execution", "canonical_main_reference"}:
+        raise ArtifactVerificationError("Source provenance arm set mismatch")
+    replay = _verify_one_source_provenance(
+        root,
+        payload["replay_execution"],
+        expected_name="replay_execution",
+        expected_commit=str(manifest["execution_source_commit"]),
+        expected_source_path=REPLAY_SOURCE_PATH,
+        expected_packaged_root="code/execution_source",
+        expected_execution_captured=True,
+    )
+    main = _verify_one_source_provenance(
+        root,
+        payload["canonical_main_reference"],
+        expected_name="canonical_main_reference",
+        expected_commit=str(manifest["canonical_main_source_commit"]),
+        expected_source_path=MAIN_SOURCE_PATH,
+        expected_packaged_root="code/main_source",
+        expected_execution_captured=False,
+    )
+    return {"replay_execution": replay, "canonical_main_reference": main}
+
+
+def _verify_source_manifest_alignment(
+    input_manifest: Mapping[str, Any],
+    provenance: Mapping[str, Mapping[str, Any]],
+) -> None:
+    groups = (
+        ("frozen_execution_source_files", "replay_execution"),
+        ("frozen_main_reference_source_files", "canonical_main_reference"),
+    )
+    for manifest_key, provenance_key in groups:
+        direct_records = {
+            str(record["packaged_path"]): {
+                "relative_path": record["git_source_relative_path"],
+                "packaged_path": record["packaged_path"],
+                "mode": record["git_mode"],
+                "blob_oid": record["git_blob_oid"],
+                "sha256": record["source_sha256"],
+                "size_bytes": record["source_size_bytes"],
+            }
+            for record in input_manifest[manifest_key]
+        }
+        provenance_records = {
+            str(record["packaged_path"]): dict(record)
+            for record in provenance[provenance_key]["selected_files"]
+        }
+        if direct_records != provenance_records:
+            raise ArtifactVerificationError(
+                f"Input manifest and Git provenance disagree for {manifest_key}"
+            )
 
 
 def all_files(root: Path) -> dict[str, Path]:
@@ -134,10 +428,12 @@ def _verify_layout(root: Path) -> None:
             f"Root directory set mismatch: expected={sorted(ROOT_DIRS)}, actual={sorted(dirs)}"
         )
     code_files = {path.name for path in (root / "code").iterdir() if path.is_file()}
-    if code_files != ANALYSIS_CODE_FILES | {"execution_metadata.json"}:
+    if code_files != ANALYSIS_CODE_FILES | {"execution_metadata.json", "source_provenance.json"}:
         raise ArtifactVerificationError(f"Code file set mismatch: {sorted(code_files)}")
     if not (root / "code/execution_source").is_dir():
         raise ArtifactVerificationError("Frozen code/execution_source directory is missing")
+    if not (root / "code/main_source").is_dir():
+        raise ArtifactVerificationError("Frozen code/main_source directory is missing")
     test_files = {path.name for path in (root / "tests").iterdir() if path.is_file()}
     if test_files != TEST_FILES:
         raise ArtifactVerificationError(f"Tests file set mismatch: {sorted(test_files)}")
@@ -190,6 +486,31 @@ def _verify_layout(root: Path) -> None:
             raise ArtifactVerificationError(
                 f"Frozen source config.{key} expected {expected!r}, got {config.get(key)!r}"
             )
+    main_source = root / "code/main_source"
+    for required in (
+        main_source / "config.json",
+        main_source / "run.py",
+        main_source / "code/src/train_fetch_pick_and_place_lite_v0.py",
+        main_source / "code/src/metacog_lite_v0/weights.py",
+    ):
+        if not required.is_file():
+            raise ArtifactVerificationError(f"Frozen canonical Main source incomplete: {required}")
+    main_config = read_json(main_source / "config.json")
+    required_main = {
+        "trainer_method": "b3_support_runtime_opt",
+        "weight_scope": "critic_only",
+        "weighting_mode": "batch_norm",
+        "local_search_max": 512,
+        "total_steps": TOTAL_STEPS,
+        "seeds": list(SEEDS),
+    }
+    for key, expected in required_main.items():
+        if main_config.get(key) != expected:
+            raise ArtifactVerificationError(
+                f"Frozen Main source config.{key} expected {expected!r}, got {main_config.get(key)!r}"
+            )
+    if main_config.get("support_query_mode", "current_policy") != "current_policy":
+        raise ArtifactVerificationError("Frozen canonical Main query mode is not current_policy")
     readme = (root / "README.md").read_text(encoding="utf-8")
     limitation = (
         "Replay-action querying retains the sampled transition in the local replay pool "
@@ -197,6 +518,11 @@ def _verify_layout(root: Path) -> None:
     )
     if limitation not in readme:
         raise ArtifactVerificationError("README is missing the exact self-support limitation")
+    provenance_caveat = (
+        "historical Main run files do not capture an execution commit SHA"
+    )
+    if provenance_caveat not in readme:
+        raise ArtifactVerificationError("README is missing the canonical Main provenance caveat")
 
 
 def _verify_artifact_manifest(root: Path) -> dict[str, Any]:
@@ -382,6 +708,7 @@ def _verify_input_manifest(root: Path, manifest: Mapping[str, Any]) -> dict[str,
 
     direct_groups = (
         ("frozen_execution_source_files", "code/execution_source"),
+        ("frozen_main_reference_source_files", "code/main_source"),
         ("analysis_code_files", "code"),
         ("artifact_test_files", "tests"),
     )
@@ -402,25 +729,50 @@ def _verify_input_manifest(root: Path, manifest: Mapping[str, Any]) -> dict[str,
                 raise ArtifactVerificationError(f"Direct-copy source hash mismatch: {packaged}")
             if item.get("source_size_bytes") != path.stat().st_size:
                 raise ArtifactVerificationError(f"Direct-copy source size mismatch: {packaged}")
+            if key in {"frozen_execution_source_files", "frozen_main_reference_source_files"}:
+                expected_commit = (
+                    manifest["execution_source_commit"]
+                    if key == "frozen_execution_source_files"
+                    else manifest["canonical_main_source_commit"]
+                )
+                if item.get("git_commit") != expected_commit:
+                    raise ArtifactVerificationError(f"Direct-copy Git commit mismatch: {packaged}")
+                if item.get("git_mode") not in {"100644", "100755"} or not HEX40.fullmatch(
+                    str(item.get("git_blob_oid", ""))
+                ):
+                    raise ArtifactVerificationError(f"Direct-copy Git blob metadata invalid: {packaged}")
+                if not isinstance(item.get("git_source_relative_path"), str):
+                    raise ArtifactVerificationError(f"Direct-copy Git path metadata invalid: {packaged}")
         actual_paths = {
             path.relative_to(root).as_posix()
             for path in (root / prefix).rglob("*")
             if path.is_file()
-        } if key == "frozen_execution_source_files" else {
+        } if key in {"frozen_execution_source_files", "frozen_main_reference_source_files"} else {
             str(item["packaged_path"]) for item in records
         }
-        if key == "frozen_execution_source_files" and recorded_paths != actual_paths:
-            raise ArtifactVerificationError("Frozen execution source manifest file set mismatch")
+        if key in {"frozen_execution_source_files", "frozen_main_reference_source_files"} and recorded_paths != actual_paths:
+            raise ArtifactVerificationError(f"{key} manifest file set mismatch")
     execution = payload.get("execution_metadata")
     if not isinstance(execution, Mapping) or execution.get("packaged_path") != "code/execution_metadata.json":
         raise ArtifactVerificationError("Execution metadata provenance record missing")
+    source_git = payload.get("source_git_provenance")
+    if source_git != {
+        "packaged_path": "code/source_provenance.json",
+        "replay_execution_commit_captured": True,
+        "canonical_main_run_execution_commit_captured": False,
+    }:
+        raise ArtifactVerificationError("Source Git provenance record mismatch")
     excluded = payload.get("excluded")
     if not isinstance(excluded, Mapping) or not all(excluded.values()):
         raise ArtifactVerificationError("Input manifest exclusion record incomplete")
     return payload
 
 
-def _verify_execution_metadata(root: Path, source_commit: str) -> dict[str, Any]:
+def _verify_execution_metadata(
+    root: Path,
+    source_commit: str,
+    source_provenance: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
     payload = read_json(root / "code/execution_metadata.json")
     expected = {
         "experiment": "ddpg_saber_query_replay_ls512",
@@ -428,6 +780,8 @@ def _verify_execution_metadata(root: Path, source_commit: str) -> dict[str, Any]
         "origin_main": source_commit,
         "head_matches_origin_main": True,
         "worktree_clean": True,
+        "source_tree_git_oid": source_provenance["replay_execution"]["code_src_tree_oid"],
+        "config_git_blob_oid": source_provenance["replay_execution"]["config_blob_oid"],
         "steps": TOTAL_STEPS,
         "seeds": list(SEEDS),
     }
@@ -471,6 +825,7 @@ def _verify_validation(
     bundle: Any,
     manifest: Mapping[str, Any],
     execution: Mapping[str, Any],
+    source_provenance: Mapping[str, Mapping[str, Any]],
     test_evidence: Mapping[str, Any],
 ) -> None:
     payload = read_json(root / "results/validation.json")
@@ -526,6 +881,24 @@ def _verify_validation(
         raise ArtifactVerificationError("Validation replay-match diagnostics disagree with recomputation")
     if gates["execution_provenance"]["source_commit"] != execution["source_commit"]:
         raise ArtifactVerificationError("Validation execution provenance mismatch")
+    if gates["execution_provenance"]["source_tree_git_oid"] != execution[
+        "source_tree_git_oid"
+    ] or gates["execution_provenance"]["config_git_blob_oid"] != execution[
+        "config_git_blob_oid"
+    ]:
+        raise ArtifactVerificationError("Validation execution tree/blob provenance mismatch")
+    canonical_gate = gates.get("canonical_main_reference_source_provenance")
+    canonical = source_provenance["canonical_main_reference"]
+    expected_canonical = {
+        "reference_source_commit": manifest["canonical_main_source_commit"],
+        "source_root_tree_oid": canonical["source_root_tree_oid"],
+        "code_src_tree_oid": canonical["code_src_tree_oid"],
+        "config_blob_oid": canonical["config_blob_oid"],
+        "run_execution_commit_captured": False,
+        "passed": True,
+    }
+    if canonical_gate != expected_canonical:
+        raise ArtifactVerificationError("Validation canonical Main source provenance mismatch")
     if gates["current_policy_legacy_parity_evidence"]["test_suite_status"] != test_evidence["status"]:
         raise ArtifactVerificationError("Validation test evidence status mismatch")
 
@@ -538,14 +911,20 @@ def verify_artifact(root: Path, *, allow_synthetic_test_bypass: bool = False) ->
     _verify_layout(root)
     manifest = _verify_artifact_manifest(root)
     _verify_sha256sums(root)
-    _verify_input_manifest(root, manifest)
-    execution = _verify_execution_metadata(root, str(manifest["execution_source_commit"]))
+    input_manifest = _verify_input_manifest(root, manifest)
+    source_provenance = _verify_source_provenance(root, manifest)
+    _verify_source_manifest_alignment(input_manifest, source_provenance)
+    execution = _verify_execution_metadata(
+        root, str(manifest["execution_source_commit"]), source_provenance
+    )
     test_evidence = _verify_test_evidence(root, allow_synthetic=allow_synthetic_test_bypass)
     bundle = analyze_query_ablation(root / "data/main", root / "data/replay")
     verify_rendered_outputs(
         bundle, root / "results", extra_allowed_files={"validation.json"}
     )
-    _verify_validation(root, bundle, manifest, execution, test_evidence)
+    _verify_validation(
+        root, bundle, manifest, execution, source_provenance, test_evidence
+    )
     return {
         "artifact_id": ARTIFACT_ID,
         "execution_source_commit": manifest["execution_source_commit"],
@@ -555,7 +934,8 @@ def verify_artifact(root: Path, *, allow_synthetic_test_bypass: bool = False) ->
         "config_parity": "verified",
         "query_replay_match_rate": "identically_1_at_all_exact_evaluations",
         "analysis_recomputation": "verified",
-        "source_provenance": "verified",
+        "source_provenance": "commit_tree_blob_chains_verified",
+        "canonical_main_run_execution_commit": "not_captured",
         "sha256_manifests": "verified",
         "forbidden_payloads_and_symlinks": "absent",
         "validation_gates": "verified",
