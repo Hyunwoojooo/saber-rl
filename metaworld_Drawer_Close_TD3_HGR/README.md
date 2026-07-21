@@ -141,6 +141,42 @@ PYTHONPATH=metaworld_Drawer_Close_TD3_HGR/code/src python3 metaworld_Drawer_Clos
 STEPS=2000000 STEP_TAG=2m CUDA_DEVICE=0 metaworld_Drawer_Close_TD3_HGR/TD3-HER-HGR-2M.sh
 ```
 
+
+## Completed Result Summary
+
+Completed on 2026-07-21 KST with five seeds, 2M environment steps per seed,
+sparse `drawer-close-v3`, and 20 deterministic evaluation episodes every 10k
+steps.
+
+| Seed | Final Success | Best Success | AUC Success | Last-Quarter AUC | First Hit 90% |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 0.40 | 1.00 | 0.924 | 0.884 | 80k |
+| 2 | 0.95 | 1.00 | 0.686 | 0.806 | 60k |
+| 3 | 1.00 | 1.00 | 0.782 | 0.416 | 130k |
+| 4 | 0.15 | 1.00 | 0.477 | 0.112 | 60k |
+| 5 | 0.00 | 1.00 | 0.139 | 0.064 | 260k |
+| **Mean** | **0.50** | **1.00** | **0.602** | **0.457** | **118k** |
+
+All five seeds reached 90% success at least once, while two of five remained
+at or above 90% at the final evaluation. Mean throughput was 11.81 steps/s per
+seed, and the five-seed parallel block took approximately 47.1 hours.
+
+### Matched DrawerClose TD3 Context
+
+| Method | Final Success Seeds | Final Success | AUC Success | Mean Hit90 | Speed |
+|---|---:|---:|---:|---:|---:|
+| TD3+HER B0 | 1/5 | 0.35 | 0.329 | 76k | 41.70 steps/s |
+| TD3+HER+B3 Critic-Only | 3/5 | **0.59** | 0.549 | 86k | 22.49 steps/s |
+| TD3+HER+Full HGR | 2/5 | 0.50 | **0.602** | 118k | 11.81 steps/s |
+
+Full HGR exceeds B3 Critic-Only in mean AUC by 0.053, but the paired
+seed-bootstrap 95% interval for the AUC difference is wide and includes zero
+(`[-0.264, 0.468]`), with positive differences on three of five seeds. B3 has
+higher final success, one more seed above 90% at the final evaluation, and
+approximately 1.9x higher throughput. The result therefore establishes Full
+HGR as a strong but computationally expensive baseline without demonstrating
+clear dominance over B3 across metrics.
+
 ## Paper Interpretation
 
 If HGR is stronger than SABER on DrawerClose TD3, the interpretation is that TD-error-based hindsight goal prioritization can be stronger in this task, while SABER targets a different intervention point: critic-loss allocation under matched HER relabeling.
