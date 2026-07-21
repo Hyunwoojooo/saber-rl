@@ -1,0 +1,94 @@
+{
+  "commands": [
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/analysis/test_analysis.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.195s\n\nOK\n",
+      "stdout": "",
+      "test": "test_analysis.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/analysis/test_artifact.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 8.014s\n\nOK\n",
+      "stdout": "",
+      "test": "test_artifact.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_support_query_modes.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_support_query_modes.py passed\n",
+      "test": "test_support_query_modes.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_ddpg_query_loss_isolation.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_ddpg_query_loss_isolation.py passed\n",
+      "test": "test_ddpg_query_loss_isolation.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_current_policy_legacy_parity.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_current_policy_legacy_parity.py passed (Python reference)\n",
+      "test": "test_current_policy_legacy_parity.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/validate_config_parity.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"canonical\": \"experiment_FPP/b3_critic_only_runtime_opt_v4_ls512\",\n  \"config\": {\n    \"added_keys\": [\n      \"support_query_mode\"\n    ],\n    \"changed_keys\": [\n      \"folder\",\n      \"output_root\",\n      \"purpose\",\n      \"reference\",\n      \"run_slug\"\n    ],\n    \"support_query_mode\": \"replay_action\",\n    \"weight_scope\": \"critic_only\"\n  },\n  \"ok\": true,\n  \"production_source\": {\n    \"canonical_identical_file_count\": 13,\n    \"canonical_identical_tree_sha256\": \"d632253a09932b7ff465b401dab96f92fa08eb559d9ee740c6e2f7fb6d3391b6\",\n    \"modified_files\": [\n      \"metacog_lite_v0/config.py\",\n      \"metacog_lite_v0/numba_support_scan_fpp.py\",\n      \"metacog_lite_v0/trainer.py\",\n      \"metacog_lite_v0/weights.py\",\n      \"train_fetch_pick_and_place_lite_v0.py\"\n    ],\n    \"modified_sha256\": {\n      \"metacog_lite_v0/config.py\": \"c81f187f16b91a82b123d3d959c9aa2bbbaac104ee1d90c77f3ca5736b8b9114\",\n      \"metacog_lite_v0/numba_support_scan_fpp.py\": \"4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a\",\n      \"metacog_lite_v0/trainer.py\": \"fa5b768fda0e1d634030b403edd8138cede4710b57c08f1d818305cb98fe516c\",\n      \"metacog_lite_v0/weights.py\": \"2b7c68c8c1eebf65159eb057a0241086e58cdd4efcf7ee985a4a5c9e4f4f2875\",\n      \"train_fetch_pick_and_place_lite_v0.py\": \"a52c35a8e1583149cfd5050d9a57dabf9ebf12276996dcac9483034bab73ab3b\"\n    },\n    \"required_tests\": [\n      \"test_b3_runtime_opt_lookup.py\",\n      \"test_current_policy_legacy_parity.py\",\n      \"test_ddpg_query_loss_isolation.py\",\n      \"test_numba_runtime_opt_fpp.py\",\n      \"test_numba_support_scan_fpp.py\",\n      \"test_support_query_modes.py\",\n      \"weight_parity_fixture.py\"\n    ]\n  }\n}\n",
+      "test": "validate_config_parity.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_numba_support_scan_fpp.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_numba_support_scan_fpp.py passed\n",
+      "test": "test_numba_support_scan_fpp.py"
+    },
+    {
+      "command": [
+        "python",
+        "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_numba_runtime_opt_fpp.py"
+      ],
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_numba_runtime_opt_fpp.py passed\n",
+      "test": "test_numba_runtime_opt_fpp.py"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed"
+}

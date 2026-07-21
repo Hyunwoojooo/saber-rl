@@ -1,0 +1,151 @@
+method_key,method,support_query_mode,seed,metric,mean_over_finite_exact_eval_snapshots,finite_checkpoint_count,missing_or_nonfinite_checkpoint_count,source_column
+main,DDPG+HER+SABER Main,current_policy,1,query/context_count_eligible_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/support_positive_rate,0.367890625,100,0,lite/psi_q_rank_rate
+main,DDPG+HER+SABER Main,current_policy,1,query/query_bin_present_given_context_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/query_bin_matches_current_policy_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/query_bin_matches_replay_action_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/raw_weight_mean,1.367890625,100,0,lite/mean_w_P
+main,DDPG+HER+SABER Main,current_policy,1,query/raw_weight_std,0.477001776099205,100,0,lite/std_w_P
+main,DDPG+HER+SABER Main,current_policy,1,query/raw_weight_ESS,228.24952564767602,100,0,lite/ESS_w
+main,DDPG+HER+SABER Main,current_policy,1,query/normalized_weight_mean,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/normalized_weight_std,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/normalized_weight_ESS,,0,100,
+main,DDPG+HER+SABER Main,current_policy,1,query/support_positive_rate_phase_approach,0.35170601435005666,100,0,b3/support_by_phase_approach
+main,DDPG+HER+SABER Main,current_policy,1,query/support_positive_rate_phase_grasp,0.5053881968557835,100,0,b3/support_by_phase_grasp
+main,DDPG+HER+SABER Main,current_policy,1,query/support_positive_rate_phase_lift,0.4203773945569992,100,0,b3/support_by_phase_lift
+main,DDPG+HER+SABER Main,current_policy,1,query/support_positive_rate_phase_place,0.3022261212766171,100,0,b3/support_by_phase_place
+main,DDPG+HER+SABER Main,current_policy,2,query/context_count_eligible_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/support_positive_rate,0.36640625,100,0,lite/psi_q_rank_rate
+main,DDPG+HER+SABER Main,current_policy,2,query/query_bin_present_given_context_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/query_bin_matches_current_policy_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/query_bin_matches_replay_action_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/raw_weight_mean,1.36640625,100,0,lite/mean_w_P
+main,DDPG+HER+SABER Main,current_policy,2,query/raw_weight_std,0.4771082803606987,100,0,lite/std_w_P
+main,DDPG+HER+SABER Main,current_policy,2,query/raw_weight_ESS,228.18417386525783,100,0,lite/ESS_w
+main,DDPG+HER+SABER Main,current_policy,2,query/normalized_weight_mean,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/normalized_weight_std,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/normalized_weight_ESS,,0,100,
+main,DDPG+HER+SABER Main,current_policy,2,query/support_positive_rate_phase_approach,0.3487521055340767,100,0,b3/support_by_phase_approach
+main,DDPG+HER+SABER Main,current_policy,2,query/support_positive_rate_phase_grasp,0.47517609238624575,100,0,b3/support_by_phase_grasp
+main,DDPG+HER+SABER Main,current_policy,2,query/support_positive_rate_phase_lift,0.4040898601710796,100,0,b3/support_by_phase_lift
+main,DDPG+HER+SABER Main,current_policy,2,query/support_positive_rate_phase_place,0.2543526017665863,100,0,b3/support_by_phase_place
+main,DDPG+HER+SABER Main,current_policy,3,query/context_count_eligible_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/support_positive_rate,0.3746484375,100,0,lite/psi_q_rank_rate
+main,DDPG+HER+SABER Main,current_policy,3,query/query_bin_present_given_context_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/query_bin_matches_current_policy_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/query_bin_matches_replay_action_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/raw_weight_mean,1.3746484375,100,0,lite/mean_w_P
+main,DDPG+HER+SABER Main,current_policy,3,query/raw_weight_std,0.47884071797132494,100,0,lite/std_w_P
+main,DDPG+HER+SABER Main,current_policy,3,query/raw_weight_ESS,228.2998310748874,100,0,lite/ESS_w
+main,DDPG+HER+SABER Main,current_policy,3,query/normalized_weight_mean,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/normalized_weight_std,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/normalized_weight_ESS,,0,100,
+main,DDPG+HER+SABER Main,current_policy,3,query/support_positive_rate_phase_approach,0.3452803611755371,100,0,b3/support_by_phase_approach
+main,DDPG+HER+SABER Main,current_policy,3,query/support_positive_rate_phase_grasp,0.5392861983180046,100,0,b3/support_by_phase_grasp
+main,DDPG+HER+SABER Main,current_policy,3,query/support_positive_rate_phase_lift,0.44212613061070444,100,0,b3/support_by_phase_lift
+main,DDPG+HER+SABER Main,current_policy,3,query/support_positive_rate_phase_place,0.2876550027728081,100,0,b3/support_by_phase_place
+main,DDPG+HER+SABER Main,current_policy,4,query/context_count_eligible_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/support_positive_rate,0.348515625,100,0,lite/psi_q_rank_rate
+main,DDPG+HER+SABER Main,current_policy,4,query/query_bin_present_given_context_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/query_bin_matches_current_policy_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/query_bin_matches_replay_action_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/raw_weight_mean,1.348515625,100,0,lite/mean_w_P
+main,DDPG+HER+SABER Main,current_policy,4,query/raw_weight_std,0.4723103588819504,100,0,lite/std_w_P
+main,DDPG+HER+SABER Main,current_policy,4,query/raw_weight_ESS,228.03196681308017,100,0,lite/ESS_w
+main,DDPG+HER+SABER Main,current_policy,4,query/normalized_weight_mean,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/normalized_weight_std,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/normalized_weight_ESS,,0,100,
+main,DDPG+HER+SABER Main,current_policy,4,query/support_positive_rate_phase_approach,0.33266353093087675,100,0,b3/support_by_phase_approach
+main,DDPG+HER+SABER Main,current_policy,4,query/support_positive_rate_phase_grasp,0.4982301762700081,100,0,b3/support_by_phase_grasp
+main,DDPG+HER+SABER Main,current_policy,4,query/support_positive_rate_phase_lift,0.4201440428197384,100,0,b3/support_by_phase_lift
+main,DDPG+HER+SABER Main,current_policy,4,query/support_positive_rate_phase_place,0.3134896034002304,100,0,b3/support_by_phase_place
+main,DDPG+HER+SABER Main,current_policy,5,query/context_count_eligible_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/support_positive_rate,0.3764453125,100,0,lite/psi_q_rank_rate
+main,DDPG+HER+SABER Main,current_policy,5,query/query_bin_present_given_context_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/query_bin_matches_current_policy_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/query_bin_matches_replay_action_rate,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/raw_weight_mean,1.3764453125,100,0,lite/mean_w_P
+main,DDPG+HER+SABER Main,current_policy,5,query/raw_weight_std,0.47906090050935746,100,0,lite/std_w_P
+main,DDPG+HER+SABER Main,current_policy,5,query/raw_weight_ESS,228.33522458678806,100,0,lite/ESS_w
+main,DDPG+HER+SABER Main,current_policy,5,query/normalized_weight_mean,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/normalized_weight_std,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/normalized_weight_ESS,,0,100,
+main,DDPG+HER+SABER Main,current_policy,5,query/support_positive_rate_phase_approach,0.350185758471489,100,0,b3/support_by_phase_approach
+main,DDPG+HER+SABER Main,current_policy,5,query/support_positive_rate_phase_grasp,0.49966338828206064,100,0,b3/support_by_phase_grasp
+main,DDPG+HER+SABER Main,current_policy,5,query/support_positive_rate_phase_lift,0.39478559017181397,100,0,b3/support_by_phase_lift
+main,DDPG+HER+SABER Main,current_policy,5,query/support_positive_rate_phase_place,0.3023799675703049,100,0,b3/support_by_phase_place
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/context_count_eligible_rate,0.92359375,100,0,query/context_count_eligible_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/support_positive_rate,0.5026953125,100,0,query/support_positive_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/query_bin_present_given_context_rate,0.5437818172574044,100,0,query/query_bin_present_given_context_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/query_bin_matches_current_policy_rate,0.067109375,100,0,query/query_bin_matches_current_policy_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/query_bin_matches_replay_action_rate,1.0,100,0,query/query_bin_matches_replay_action_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/raw_weight_mean,1.5026953125,100,0,query/raw_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/raw_weight_std,0.4946767920255661,100,0,query/raw_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/raw_weight_ESS,230.78456129243412,100,0,query/raw_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/normalized_weight_mean,0.9999999827146531,100,0,query/normalized_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/normalized_weight_std,0.330124042481184,100,0,query/normalized_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/normalized_weight_ESS,230.78456129243415,100,0,query/normalized_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/support_positive_rate_phase_approach,0.46908930867910387,100,0,query/support_positive_rate_phase_approach
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/support_positive_rate_phase_grasp,0.7280396956205368,100,0,query/support_positive_rate_phase_grasp
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/support_positive_rate_phase_lift,0.6867300888895989,100,0,query/support_positive_rate_phase_lift
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,query/support_positive_rate_phase_place,0.3883510509133339,100,0,query/support_positive_rate_phase_place
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/context_count_eligible_rate,0.921171875,100,0,query/context_count_eligible_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/support_positive_rate,0.5065625,100,0,query/support_positive_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/query_bin_present_given_context_rate,0.5495773473381996,100,0,query/query_bin_present_given_context_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/query_bin_matches_current_policy_rate,0.0684375,100,0,query/query_bin_matches_current_policy_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/query_bin_matches_replay_action_rate,1.0,100,0,query/query_bin_matches_replay_action_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/raw_weight_mean,1.5065625,100,0,query/raw_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/raw_weight_std,0.49581085771322253,100,0,query/raw_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/raw_weight_ESS,230.8391172421639,100,0,query/raw_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/normalized_weight_mean,0.999999994635582,100,0,query/normalized_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/normalized_weight_std,0.3298226881027222,100,0,query/normalized_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/normalized_weight_ESS,230.8391172421639,100,0,query/normalized_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/support_positive_rate_phase_approach,0.4760752820968628,100,0,query/support_positive_rate_phase_approach
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/support_positive_rate_phase_grasp,0.7033762159943581,100,0,query/support_positive_rate_phase_grasp
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/support_positive_rate_phase_lift,0.6908896145224571,100,0,query/support_positive_rate_phase_lift
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,query/support_positive_rate_phase_place,0.3999168564379215,100,0,query/support_positive_rate_phase_place
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/context_count_eligible_rate,0.9235546875,100,0,query/context_count_eligible_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/support_positive_rate,0.5074609375,100,0,query/support_positive_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/query_bin_present_given_context_rate,0.549385883808136,100,0,query/query_bin_present_given_context_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/query_bin_matches_current_policy_rate,0.0676171875,100,0,query/query_bin_matches_current_policy_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/query_bin_matches_replay_action_rate,1.0,100,0,query/query_bin_matches_replay_action_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/raw_weight_mean,1.5074609375,100,0,query/raw_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/raw_weight_std,0.4959066590666771,100,0,query/raw_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/raw_weight_ESS,230.87627254404887,100,0,query/raw_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/normalized_weight_mean,0.9999999916553497,100,0,query/normalized_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/normalized_weight_std,0.3296253935992718,100,0,query/normalized_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/normalized_weight_ESS,230.87627254404887,100,0,query/normalized_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/support_positive_rate_phase_approach,0.4772383838891983,100,0,query/support_positive_rate_phase_approach
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/support_positive_rate_phase_grasp,0.7268622210621833,100,0,query/support_positive_rate_phase_grasp
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/support_positive_rate_phase_lift,0.7259948548674583,100,0,query/support_positive_rate_phase_lift
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,query/support_positive_rate_phase_place,0.4672965753078461,100,0,query/support_positive_rate_phase_place
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/context_count_eligible_rate,0.923984375,100,0,query/context_count_eligible_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/support_positive_rate,0.4958203125,100,0,query/support_positive_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/query_bin_present_given_context_rate,0.5363006299734115,100,0,query/query_bin_present_given_context_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/query_bin_matches_current_policy_rate,0.06703125,100,0,query/query_bin_matches_current_policy_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/query_bin_matches_replay_action_rate,1.0,100,0,query/query_bin_matches_replay_action_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/raw_weight_mean,1.4958203125,100,0,query/raw_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/raw_weight_std,0.4960822877287865,100,0,query/raw_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/raw_weight_ESS,230.50903152538635,100,0,query/raw_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/normalized_weight_mean,0.9999999815225601,100,0,query/normalized_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/normalized_weight_std,0.3322889894247055,100,0,query/normalized_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/normalized_weight_ESS,230.50903152538635,100,0,query/normalized_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/support_positive_rate_phase_approach,0.4664728194475174,100,0,query/support_positive_rate_phase_approach
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/support_positive_rate_phase_grasp,0.6908373865485191,100,0,query/support_positive_rate_phase_grasp
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/support_positive_rate_phase_lift,0.7087121257185935,100,0,query/support_positive_rate_phase_lift
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,query/support_positive_rate_phase_place,0.4262848946452141,100,0,query/support_positive_rate_phase_place
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/context_count_eligible_rate,0.9173828125,100,0,query/context_count_eligible_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/support_positive_rate,0.507578125,100,0,query/support_positive_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/query_bin_present_given_context_rate,0.5534737348556519,100,0,query/query_bin_present_given_context_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/query_bin_matches_current_policy_rate,0.0679296875,100,0,query/query_bin_matches_current_policy_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/query_bin_matches_replay_action_rate,1.0,100,0,query/query_bin_matches_replay_action_rate
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/raw_weight_mean,1.507578125,100,0,query/raw_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/raw_weight_std,0.49663997620344164,100,0,query/raw_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/raw_weight_ESS,230.82734853369726,100,0,query/raw_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/normalized_weight_mean,0.9999999898672104,100,0,query/normalized_weight_mean
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/normalized_weight_std,0.32999576583504675,100,0,query/normalized_weight_std
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/normalized_weight_ESS,230.82734853369726,100,0,query/normalized_weight_ESS
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/support_positive_rate_phase_approach,0.47241066724061964,100,0,query/support_positive_rate_phase_approach
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/support_positive_rate_phase_grasp,0.7203281018137931,100,0,query/support_positive_rate_phase_grasp
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/support_positive_rate_phase_lift,0.6871134746074676,100,0,query/support_positive_rate_phase_lift
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,query/support_positive_rate_phase_place,0.4789771392941475,100,0,query/support_positive_rate_phase_place

@@ -1,0 +1,11 @@
+method_key,method,support_query_mode,seed,run_name,total_steps,total_updates,eval_grid_points,success_auc,native_success_auc,native_minus_recomputed_auc,final_success,best_success,first_hit_0.90,hit90_reached,success_primary_checkpoint_count,success_fallback_checkpoint_count
+main,DDPG+HER+SABER Main,current_policy,1,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512,1000000,995001,100,0.656060606060606,0.656060606060606,0.0,0.95,1.0,480000,True,100,0
+main,DDPG+HER+SABER Main,current_policy,2,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512,1000000,995001,100,0.6151515151515151,0.6151515151515151,0.0,0.95,1.0,540000,True,100,0
+main,DDPG+HER+SABER Main,current_policy,3,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512,1000000,995001,100,0.5648989898989899,0.5648989898989899,0.0,1.0,1.0,630000,True,100,0
+main,DDPG+HER+SABER Main,current_policy,4,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512,1000000,995001,100,0.6318181818181818,0.6318181818181818,0.0,1.0,1.0,480000,True,100,0
+main,DDPG+HER+SABER Main,current_policy,5,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512,1000000,995001,100,0.5775252525252526,0.5775252525252526,0.0,0.9,1.0,610000,True,100,0
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,1,fetch_pick_and_place_ddpg_saber_query_replay_ls512_s1_1000000_ls512,1000000,995001,100,0.5517676767676768,0.5517676767676768,0.0,0.9,1.0,570000,True,100,0
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,2,fetch_pick_and_place_ddpg_saber_query_replay_ls512_s2_1000000_ls512,1000000,995001,100,0.602020202020202,0.602020202020202,0.0,0.95,1.0,590000,True,100,0
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,3,fetch_pick_and_place_ddpg_saber_query_replay_ls512_s3_1000000_ls512,1000000,995001,100,0.6063131313131314,0.6063131313131314,0.0,1.0,1.0,590000,True,100,0
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,4,fetch_pick_and_place_ddpg_saber_query_replay_ls512_s4_1000000_ls512,1000000,995001,100,0.6214646464646465,0.6214646464646465,0.0,1.0,1.0,510000,True,100,0
+replay,DDPG+HER+SABER Replay-Action Query,replay_action,5,fetch_pick_and_place_ddpg_saber_query_replay_ls512_s5_1000000_ls512,1000000,995001,100,0.6068181818181818,0.6068181818181818,0.0,1.0,1.0,550000,True,100,0
