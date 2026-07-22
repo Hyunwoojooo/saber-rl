@@ -45,6 +45,23 @@ Full PER replay at `experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_
 For DDPG, the priority update uses the absolute TD error from its single critic. SABER support lookup, support caches, PER-style loss weighting, and
 high replay ratio are disabled.
 
+## Completed Results
+
+The 5-seed, 2M-step experiment completed on 2026-07-21 KST.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.860 | 330k | 33.93 steps/s |
+| 2 | 1.00 | 1.00 | 0.877 | 270k | 34.00 steps/s |
+| 3 | 1.00 | 1.00 | 0.814 | 330k | 33.96 steps/s |
+| 4 | 0.95 | 1.00 | 0.809 | 390k | 33.97 steps/s |
+| 5 | 1.00 | 1.00 | 0.765 | 410k | 34.01 steps/s |
+| Mean | 0.99 | 1.00 | 0.825 | 346k | 33.98 steps/s |
+
+All five seeds reached 90% success. The committed result package is at
+`../../results_2m/DDPG-HER-PER-Full-2M/` and contains each seed's
+`metrics.csv` and `summary.json`; checkpoints are intentionally excluded.
+
 ## Validation
 
 ```bash
@@ -73,5 +90,5 @@ GPU_IDS=0,1,2,3,4 bash metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-PER-Full-
 Runs are written to `metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-PER-Full-2M/runs/ddpg_her_per_full_2m/`. Each seed uses the
 run name `drawer_open_ddpg_her_per_full_s{seed}_2000000` and produces the trainer's
 `config.json`, `env_snapshot.json`, `metrics.csv`, `summary.json`, `run.log`, and
-rolling `checkpoint.pt` artifacts. Full 2M training is intentionally not started
-by the validation commands above.
+rolling `checkpoint.pt` artifacts. The validation commands above do not start a
+new full run; the completed 2M results are preserved separately as described above.

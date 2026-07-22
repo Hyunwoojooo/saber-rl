@@ -12,6 +12,7 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 - `DDPG-HER-B3-Random-Support-2M.sh`: DDPG + HER + density-matched random critic reweighting using SABER support-positive count but random sample assignment.
 - `DDPG-HER-B3-Shuffled-Weight-2M.sh`: DDPG + HER + SABER/B3 support weights shuffled across the batch before critic-only assignment.
 - `DDPG-HER-PER-Style-2M.sh`: DDPG + HER + TD-error-based PER-style critic loss weighting.
+- `experiments/DDPG-HER-PER-Full-2M/`: DDPG + HER + slot-level prioritized replay with critic-only importance-sampling correction.
 - `run_all_ddpg_drawer_open_2m_5parallel.sh`: convenience runner for B0 followed by B3-Critic-Only.
 - `run_ddpg_drawer_open_actor_ablation_2m_5parallel.sh`: convenience runner for Actor-Only followed by Actor+Critic.
 - `run_ddpg_drawer_open_ablation_2m_5parallel.sh`: convenience runner for Random-Fixed-Count followed by Shuffled-Weight.
@@ -55,9 +56,10 @@ This folder is an independent DrawerOpen DDPG code snapshot. It reuses the exist
 | DDPG-HER-B3-Random-Support-2M | SABER density, random assignment | Critic only | 5/5 | 1.00 | 1.00 | 0.706 | 594k | 22.61 steps/s |
 | DDPG-HER-B3-Shuffled-Weight-2M | SABER support shuffled | Critic only | 2/5 | 0.40 | 0.42 | 0.307 | 460k* | 22.95 steps/s |
 | DDPG-HER-PER-Style-2M | TD-error PER-style | Critic only | 4/5 | 0.80 | 1.00 | 0.715 | 578k* | 39.02 steps/s |
+| DDPG-HER-PER-Full-2M | TD-error priority + IS | Replay sampling / critic IS | 5/5 | 0.99 | 1.00 | 0.825 | 346k | 33.98 steps/s |
 | DDPG-HER-HGR-2M Full | Episode/pair TD-error ranking + IS | HER goal selection | 4/5 | 0.90 | 1.00 | 0.688 | 608k | 13.24 steps/s |
 
-`*` Mean Hit90 is computed over seeds that reached the threshold. B3-Critic-Only and Random-Support both solved all 5 original seeds, but B3-Critic-Only has the highest AUC and earlier mean Hit90. The B3-Critic-Only diagnostic seed 6-10 run solved 4 of 5 additional seeds while logging support-positive rate, TD-error enrichment, and one-step residual correction diagnostics without changing replay sampling, loss weights, optimizer steps, or policy updates. PER-Style reached the second-highest AUC among the critic-loss controls, but its final success was less stable because seed 2 regressed to 0.00 by the end. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only. The HGR row uses the Full HGR completed-episode pair-priority implementation with episode/pair importance correction. Full HGR reached Hit90 on 5/5 seeds and has AUC 0.688; SABER has the higher mean AUC at 0.754, but the paired HGR-minus-SABER AUC interval `[-0.219, 0.047]` includes zero. HGR is therefore a strong matched complete-method baseline, not evidence of the same mechanism as SABER.
+`*` Mean Hit90 is computed over seeds that reached the threshold. Full PER has the highest AUC and earliest mean Hit90 among the completed DrawerOpen DDPG runs in this table. It changes replay sampling and applies critic-only importance-sampling correction, whereas SABER retains uniform replay and changes only critic-loss allocation. B3-Critic-Only and Random-Support both solved all 5 original seeds; B3-Critic-Only remains the strongest support-conditioned critic-loss variant. The B3-Critic-Only diagnostic seed 6-10 run solved 4 of 5 additional seeds while logging support-positive rate, TD-error enrichment, and one-step residual correction diagnostics without changing replay sampling, loss weights, optimizer steps, or policy updates. PER-Style reached AUC 0.715 but its final success was less stable because seed 2 regressed to 0.00 by the end. Random-Fixed-Count shows that critic reweighting alone can help but remains weaker than support-derived controls. Shuffled-Weight preserves the SABER-generated support-weight distribution but breaks sample-level assignment, and it remains substantially below B3-Critic-Only. The HGR row uses the Full HGR completed-episode pair-priority implementation with episode/pair importance correction. Full HGR reached Hit90 on 5/5 seeds and has AUC 0.688; SABER has the higher mean AUC at 0.754, but the paired HGR-minus-SABER AUC interval `[-0.219, 0.047]` includes zero. HGR is therefore a strong matched complete-method baseline, not evidence of the same mechanism as SABER.
 
 Detailed Korean 10-seed diagnosis report: [`DIAGNOSIS_B3_CRITIC_ONLY_10SEED_KO.md`](DIAGNOSIS_B3_CRITIC_ONLY_10SEED_KO.md). It covers support/TD-error enrichment, residual correction, phase-level behavior, the seed 7 failure path, statistical limitations, scanner issues, and follow-up priorities.
 
@@ -170,6 +172,23 @@ Completed on 2026-06-27 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v
 
 `*` The mean first-hit value is computed over the five seeds that reached 90% at least once. PER-Style produced strong AUC but weaker final stability than B3-Critic-Only, because seed 2 reached 90% early and later collapsed by the final evaluation.
 
+### DDPG-HER-PER-Full-2M
+
+Completed on 2026-07-21 KST with 5 seeds, 2M steps per seed, sparse DrawerOpen-v3, future-goal HER probability 0.8, and 20 evaluation episodes every 10k steps. Full PER samples replay slots according to TD-error priorities, applies future-goal HER after slot sampling, and uses beta-annealed importance-sampling correction on the critic loss.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.860 | 330k |
+| 2 | 1.00 | 1.00 | 0.877 | 270k |
+| 3 | 1.00 | 1.00 | 0.814 | 330k |
+| 4 | 0.95 | 1.00 | 0.809 | 390k |
+| 5 | 1.00 | 1.00 | 0.765 | 410k |
+| Mean | 0.99 | 1.00 | 0.825 | 346k |
+
+Full PER reached Hit90 on all five seeds. Relative to critic-only SABER on the same seeds, its paired mean AUC difference is `+0.071`; a 10,000-resample paired seed bootstrap gives an approximate 95% interval of `[+0.014, +0.104]`, with Full PER higher on 4 of 5 seeds. This establishes Full PER as the stronger DrawerOpen DDPG result in mean AUC and Hit90, while the methods intervene at different stages: Full PER changes replay sampling and corrects the critic with IS weights, whereas SABER preserves uniform replay and reallocates critic loss within the sampled HER minibatch.
+
+Committed raw results contain only `metrics.csv` and `summary.json` for each seed under `results_2m/DDPG-HER-PER-Full-2M/`; model checkpoints are excluded.
+
 ### DDPG-HER-HGR Pair-Priority + IS 2M
 
 The official DrawerOpen HGR result uses completed-episode transition/future-goal pair priorities,
@@ -240,6 +259,18 @@ Compact artifact and verification code:
 - `U_PER_max=2.0`
 - `weighting_mode=batch_norm`
 
+## Full PER Settings
+
+`experiments/DDPG-HER-PER-Full-2M/` implements standard slot-level prioritized replay on the matched DDPG+HER backbone:
+
+- Replay priority exponent: `alpha=0.6`
+- IS exponent: `beta=0.4` to `1.0` over 2M steps
+- Priority epsilon: `1e-6`
+- Replay slots are prioritized before future-goal HER relabeling
+- Critic loss receives IS correction; the actor loss is not directly weighted
+- Priorities are updated from the single critic's absolute TD error
+- SABER support lookup and PER-style loss-only weighting are disabled
+
 ## Run
 
 ```bash
@@ -251,6 +282,7 @@ bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Fixed-Count-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Support-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Shuffled-Weight-2M.sh
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-PER-Style-2M.sh
+bash metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-PER-Full-2M/run_5seeds_parallel.sh --steps 2000000
 bash metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Context-Count-Only-2M.sh
 ```
 
