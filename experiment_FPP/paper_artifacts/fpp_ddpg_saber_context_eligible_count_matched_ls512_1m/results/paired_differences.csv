@@ -1,0 +1,6 @@
+comparison,seed,main_auc,control_auc,main_minus_control_auc,main_final_success,control_final_success,main_best_success,control_best_success,main_first_hit_0.90,control_first_hit_0.90
+Main SABER - Strict Context-Eligible Count-Matched Control,1,0.656060606060606,0.5896464646464646,0.06641414141414137,0.95,1.0,1.0,1.0,480000,590000
+Main SABER - Strict Context-Eligible Count-Matched Control,2,0.6151515151515151,0.5944444444444444,0.020707070707070674,0.95,0.95,1.0,1.0,540000,390000
+Main SABER - Strict Context-Eligible Count-Matched Control,3,0.5648989898989899,0.5580808080808081,0.006818181818181834,1.0,0.95,1.0,1.0,630000,630000
+Main SABER - Strict Context-Eligible Count-Matched Control,4,0.6318181818181818,0.5303030303030303,0.10151515151515156,1.0,1.0,1.0,1.0,480000,630000
+Main SABER - Strict Context-Eligible Count-Matched Control,5,0.5775252525252526,0.6103535353535353,-0.03282828282828276,0.9,1.0,1.0,1.0,610000,510000

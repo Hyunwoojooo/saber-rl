@@ -1,0 +1,26 @@
+{
+  "assignment_seed_rule": "30000+seed",
+  "config_git_blob_oid": "c29cd0fe3bebae3e258dd288b66c0b17a757763d",
+  "device": "cuda",
+  "experiment": "ddpg_saber_context_eligible_count_matched_ls512",
+  "freeze_manifest_git_blob_oid": "475b32525181030f0230d6c56e1d99ceafaa8aa8",
+  "head_matches_origin_main": true,
+  "max_parallel": 5,
+  "origin_main": "1ddf7ba11cb221a9c0a9fca7c18a21cb54591715",
+  "schema_version": 1,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_commit": "1ddf7ba11cb221a9c0a9fca7c18a21cb54591715",
+  "source_tree_git_oid": "ee209cd63cc2b8c2a4a981f05958c14f4df072ee",
+  "steps": 1000000,
+  "support_assignment_mode": "context_eligible_count_matched",
+  "support_query_mode": "current_policy",
+  "timestamp_utc": "2026-07-21T06:31:23Z",
+  "weight_scope": "critic_only",
+  "worktree_clean": true
+}

@@ -1,0 +1,111 @@
+{
+  "commands": [
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": ".........\n----------------------------------------------------------------------\nRan 9 tests in 3.828s\n\nOK\n",
+      "stdout": "",
+      "test": "test_analysis.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 3.499s\n\nOK\n",
+      "stdout": "",
+      "test": "test_artifact.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"canonical\": \"experiment_FPP/b3_critic_only_runtime_opt_v4_ls512\",\n  \"config\": {\n    \"added_keys\": [\n      \"assignment_diagnostic_window_updates\",\n      \"assignment_seed_offset\",\n      \"support_assignment_mode\",\n      \"support_query_mode\"\n    ],\n    \"changed_keys\": [\n      \"folder\",\n      \"output_root\",\n      \"purpose\",\n      \"reference\",\n      \"run_slug\"\n    ],\n    \"control_seed_rule\": \"assignment_seed=30000+experiment_seed\",\n    \"explicit_default\": {\n      \"support_query_mode\": \"current_policy\"\n    },\n    \"scientific_change\": {\n      \"support_assignment_mode\": [\n        \"support\",\n        \"context_eligible_count_matched\"\n      ]\n    }\n  },\n  \"ok\": true,\n  \"production_source\": {\n    \"added_files\": [\n      \"metacog_lite_v0/assignment_diagnostics.py\"\n    ],\n    \"canonical_identical_file_count\": 13,\n    \"canonical_identical_tree_sha256\": \"d632253a09932b7ff465b401dab96f92fa08eb559d9ee740c6e2f7fb6d3391b6\",\n    \"changed_sha256\": {\n      \"metacog_lite_v0/assignment_diagnostics.py\": \"f11d982c80129ea34559f490f5ebf2d3da0ec6da23070af9712a1e511ba06931\",\n      \"metacog_lite_v0/config.py\": \"d1b475ef15c4c63c2d69c8d8bee4d4c22222ec6dae626f5359f0c2f6175df651\",\n      \"metacog_lite_v0/numba_support_scan_fpp.py\": \"4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a\",\n      \"metacog_lite_v0/trainer.py\": \"489909f7ce9c182634427d5fefcc9a57a975568501a860b3f57619185dfba8ac\",\n      \"metacog_lite_v0/weights.py\": \"2194d173a6f4b159f2eaad74ada54d0dc8d8a80d39b6360435ae1f3423300de7\",\n      \"train_fetch_pick_and_place_lite_v0.py\": \"2d177829b3c0c24256df33134f7da9291bc32bfa5c69421ed14d005542d07752\"\n    },\n    \"modified_files\": [\n      \"metacog_lite_v0/config.py\",\n      \"metacog_lite_v0/numba_support_scan_fpp.py\",\n      \"metacog_lite_v0/trainer.py\",\n      \"metacog_lite_v0/weights.py\",\n      \"train_fetch_pick_and_place_lite_v0.py\"\n    ],\n    \"required_tests\": [\n      \"test_b3_runtime_opt_lookup.py\",\n      \"test_context_eligible_count_matched.py\",\n      \"test_current_policy_legacy_parity.py\",\n      \"test_ddpg_query_loss_isolation.py\",\n      \"test_ddpg_strict_loss_scope.py\",\n      \"test_numba_runtime_opt_fpp.py\",\n      \"test_numba_support_scan_fpp.py\",\n      \"test_resume_output_rollback.py\",\n      \"test_support_query_modes.py\",\n      \"test_trainer_resume_contract.py\",\n      \"weight_parity_fixture.py\"\n    ]\n  }\n}\n",
+      "test": "validate_config_parity.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.006s\n\nOK\n",
+      "stdout": "",
+      "test": "test_validation_optional_nan.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.129s\n\nOK\n",
+      "stdout": "",
+      "test": "test_source_fingerprint.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "AdroitHandRelocateDense-v1, AdroitHandHammerDense-v1, AdroitHandDoorDense-v1 environment's reward functions were updated in v1.2.1 without an environment version update. Therefore, use gymnasium-robotics==1.2.0 for v1 reproducibility or use v2 in gymnasium-robotics>=1.4.3. See https://github.com/Farama-Foundation/Gymnasium-Robotics/pull/220 for more details\n",
+      "stdout": "test_context_eligible_count_matched.py passed\n",
+      "test": "test_context_eligible_count_matched.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "AdroitHandRelocateDense-v1, AdroitHandHammerDense-v1, AdroitHandDoorDense-v1 environment's reward functions were updated in v1.2.1 without an environment version update. Therefore, use gymnasium-robotics==1.2.0 for v1 reproducibility or use v2 in gymnasium-robotics>=1.4.3. See https://github.com/Farama-Foundation/Gymnasium-Robotics/pull/220 for more details\n",
+      "stdout": "test_ddpg_strict_loss_scope.py passed\n",
+      "test": "test_ddpg_strict_loss_scope.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "AdroitHandRelocateDense-v1, AdroitHandHammerDense-v1, AdroitHandDoorDense-v1 environment's reward functions were updated in v1.2.1 without an environment version update. Therefore, use gymnasium-robotics==1.2.0 for v1 reproducibility or use v2 in gymnasium-robotics>=1.4.3. See https://github.com/Farama-Foundation/Gymnasium-Robotics/pull/220 for more details\n",
+      "stdout": "test_trainer_resume_contract.py passed\n",
+      "test": "test_trainer_resume_contract.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "AdroitHandRelocateDense-v1, AdroitHandHammerDense-v1, AdroitHandDoorDense-v1 environment's reward functions were updated in v1.2.1 without an environment version update. Therefore, use gymnasium-robotics==1.2.0 for v1 reproducibility or use v2 in gymnasium-robotics>=1.4.3. See https://github.com/Farama-Foundation/Gymnasium-Robotics/pull/220 for more details\n",
+      "stdout": "test_resume_output_rollback.py passed\n",
+      "test": "test_resume_output_rollback.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_support_query_modes.py passed\n",
+      "test": "test_support_query_modes.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_ddpg_query_loss_isolation.py passed\n",
+      "test": "test_ddpg_query_loss_isolation.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_current_policy_legacy_parity.py passed (Python reference)\n",
+      "test": "test_current_policy_legacy_parity.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"batch_query_unique_rate\": 0.25,\n  \"local_scan_cache_hit_rate_first\": 0.0,\n  \"mismatches\": [],\n  \"support_cache_hit_rate_second\": 1.0\n}\n",
+      "test": "test_b3_runtime_opt_lookup.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_numba_runtime_opt_fpp.py passed\n",
+      "test": "test_numba_runtime_opt_fpp.py"
+    },
+    {
+      "passed": true,
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "test_numba_support_scan_fpp.py passed\n",
+      "test": "test_numba_support_scan_fpp.py"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed"
+}

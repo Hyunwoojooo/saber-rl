@@ -1,0 +1,2 @@
+comparison,metric,n_pairs,paired_seeds,mean_delta,sample_std_delta,bootstrap_ci95_low,bootstrap_ci95_high,bootstrap_resamples,bootstrap_seed,positive_count,negative_count,zero_count,exact_sign_flip_p_two_sided,exact_sign_flip_assignments
+Main SABER - Strict Context-Eligible Count-Matched Control,normalized_success_auc,5,1;2;3;4;5,0.03252525252525253,0.0523919613151475,-0.006262626262626236,0.07555555555555557,10000,27027,4,1,0,0.3125,32
