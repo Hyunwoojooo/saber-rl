@@ -1,0 +1,11 @@
+method_key,seed,run_name,total_steps,total_updates,eval_grid_points,success_auc,final_success,best_success,first_hit_0.90,hit90_reached
+main,1,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512,1000000,995001,100,0.656060606060606,0.95,1.0,480000,True
+main,2,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512,1000000,995001,100,0.6151515151515151,0.95,1.0,540000,True
+main,3,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512,1000000,995001,100,0.5648989898989899,1.0,1.0,630000,True
+main,4,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512,1000000,995001,100,0.6318181818181818,1.0,1.0,480000,True
+main,5,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512,1000000,995001,100,0.5775252525252526,0.9,1.0,610000,True
+control,1,fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s1_1000000_ls512,1000000,995001,100,0.5244949494949495,1.0,1.0,660000,True
+control,2,fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s2_1000000_ls512,1000000,995001,100,0.5851010101010101,0.9,1.0,630000,True
+control,3,fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s3_1000000_ls512,1000000,995001,100,0.5553030303030303,0.9,1.0,630000,True
+control,4,fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s4_1000000_ls512,1000000,995001,100,0.6222222222222222,1.0,1.0,510000,True
+control,5,fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s5_1000000_ls512,1000000,995001,100,0.4775252525252525,1.0,1.0,630000,True

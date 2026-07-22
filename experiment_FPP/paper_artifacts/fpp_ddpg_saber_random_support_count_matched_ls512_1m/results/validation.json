@@ -1,0 +1,314 @@
+{
+  "artifact_id": "fpp_ddpg_saber_random_support_count_matched_ls512_1m",
+  "assignment_invariants": {
+    "exact_k_mismatch": 0,
+    "invariant_failure": 0,
+    "normalized_histogram_mismatch": 0,
+    "passed": true,
+    "raw_histogram_mismatch": 0
+  },
+  "canonical_main_source_commit": "c43d40502b84ae713924ebf995be623e7acc7ca8",
+  "completion": {
+    "passed": true,
+    "steps": 1000000,
+    "updates": 995001
+  },
+  "config_differences_by_seed": {
+    "1": [
+      {
+        "control": 1000,
+        "field": "assignment_diagnostic_window_updates",
+        "main": null
+      },
+      {
+        "control": "${REPO_ROOT}/experiment_FPP/runs/ddpg_saber_random_support_count_matched_ls512",
+        "field": "output_root",
+        "main": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v4_ls512"
+      },
+      {
+        "control": "fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s1_1000000_ls512",
+        "field": "run_name",
+        "main": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512"
+      },
+      {
+        "control": 30001,
+        "field": "seeds.assignment_seed",
+        "main": null
+      },
+      {
+        "control": "batch_wide_count_matched",
+        "field": "support_assignment_mode",
+        "main": "support"
+      }
+    ],
+    "2": [
+      {
+        "control": 1000,
+        "field": "assignment_diagnostic_window_updates",
+        "main": null
+      },
+      {
+        "control": "${REPO_ROOT}/experiment_FPP/runs/ddpg_saber_random_support_count_matched_ls512",
+        "field": "output_root",
+        "main": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v4_ls512"
+      },
+      {
+        "control": "fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s2_1000000_ls512",
+        "field": "run_name",
+        "main": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512"
+      },
+      {
+        "control": 30002,
+        "field": "seeds.assignment_seed",
+        "main": null
+      },
+      {
+        "control": "batch_wide_count_matched",
+        "field": "support_assignment_mode",
+        "main": "support"
+      }
+    ],
+    "3": [
+      {
+        "control": 1000,
+        "field": "assignment_diagnostic_window_updates",
+        "main": null
+      },
+      {
+        "control": "${REPO_ROOT}/experiment_FPP/runs/ddpg_saber_random_support_count_matched_ls512",
+        "field": "output_root",
+        "main": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v4_ls512"
+      },
+      {
+        "control": "fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s3_1000000_ls512",
+        "field": "run_name",
+        "main": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512"
+      },
+      {
+        "control": 30003,
+        "field": "seeds.assignment_seed",
+        "main": null
+      },
+      {
+        "control": "batch_wide_count_matched",
+        "field": "support_assignment_mode",
+        "main": "support"
+      }
+    ],
+    "4": [
+      {
+        "control": 1000,
+        "field": "assignment_diagnostic_window_updates",
+        "main": null
+      },
+      {
+        "control": "${REPO_ROOT}/experiment_FPP/runs/ddpg_saber_random_support_count_matched_ls512",
+        "field": "output_root",
+        "main": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v4_ls512"
+      },
+      {
+        "control": "fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s4_1000000_ls512",
+        "field": "run_name",
+        "main": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512"
+      },
+      {
+        "control": 30004,
+        "field": "seeds.assignment_seed",
+        "main": null
+      },
+      {
+        "control": "batch_wide_count_matched",
+        "field": "support_assignment_mode",
+        "main": "support"
+      }
+    ],
+    "5": [
+      {
+        "control": 1000,
+        "field": "assignment_diagnostic_window_updates",
+        "main": null
+      },
+      {
+        "control": "${REPO_ROOT}/experiment_FPP/runs/ddpg_saber_random_support_count_matched_ls512",
+        "field": "output_root",
+        "main": "/home/mimiclab/Hyunwoo/metacog-rl-v0-lite/SABER/FetchPickAndPlace/runs/b3_critic_only_runtime_opt_v4_ls512"
+      },
+      {
+        "control": "fetch_pick_and_place_ddpg_saber_random_support_count_matched_ls512_s5_1000000_ls512",
+        "field": "run_name",
+        "main": "fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512"
+      },
+      {
+        "control": 30005,
+        "field": "seeds.assignment_seed",
+        "main": null
+      },
+      {
+        "control": "batch_wide_count_matched",
+        "field": "support_assignment_mode",
+        "main": "support"
+      }
+    ]
+  },
+  "control_bookkeeping_by_seed": {
+    "1": {
+      "assignment_diagnostic_window_updates": 1000,
+      "assignment_seed": 30001
+    },
+    "2": {
+      "assignment_diagnostic_window_updates": 1000,
+      "assignment_seed": 30002
+    },
+    "3": {
+      "assignment_diagnostic_window_updates": 1000,
+      "assignment_seed": 30003
+    },
+    "4": {
+      "assignment_diagnostic_window_updates": 1000,
+      "assignment_seed": 30004
+    },
+    "5": {
+      "assignment_diagnostic_window_updates": 1000,
+      "assignment_seed": 30005
+    }
+  },
+  "exact_evaluation_grid": {
+    "no_filling": true,
+    "passed": true,
+    "points": 100,
+    "steps": [
+      10000,
+      20000,
+      30000,
+      40000,
+      50000,
+      60000,
+      70000,
+      80000,
+      90000,
+      100000,
+      110000,
+      120000,
+      130000,
+      140000,
+      150000,
+      160000,
+      170000,
+      180000,
+      190000,
+      200000,
+      210000,
+      220000,
+      230000,
+      240000,
+      250000,
+      260000,
+      270000,
+      280000,
+      290000,
+      300000,
+      310000,
+      320000,
+      330000,
+      340000,
+      350000,
+      360000,
+      370000,
+      380000,
+      390000,
+      400000,
+      410000,
+      420000,
+      430000,
+      440000,
+      450000,
+      460000,
+      470000,
+      480000,
+      490000,
+      500000,
+      510000,
+      520000,
+      530000,
+      540000,
+      550000,
+      560000,
+      570000,
+      580000,
+      590000,
+      600000,
+      610000,
+      620000,
+      630000,
+      640000,
+      650000,
+      660000,
+      670000,
+      680000,
+      690000,
+      700000,
+      710000,
+      720000,
+      730000,
+      740000,
+      750000,
+      760000,
+      770000,
+      780000,
+      790000,
+      800000,
+      810000,
+      820000,
+      830000,
+      840000,
+      850000,
+      860000,
+      870000,
+      880000,
+      890000,
+      900000,
+      910000,
+      920000,
+      930000,
+      940000,
+      950000,
+      960000,
+      970000,
+      980000,
+      990000,
+      1000000
+    ]
+  },
+  "excluded_large_payloads": {
+    "checkpoints": true,
+    "full_per_update_metrics": true,
+    "jsonl": true,
+    "raw_logs": true,
+    "raw_smoke_gate_directories": true
+  },
+  "execution_source_commit": "77e496f134ba2a141d90e4b951c75674656d05eb",
+  "schema_version": 1,
+  "seed_coverage": {
+    "control": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "main": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "status": "passed",
+  "technical_gate": {
+    "gate_passed": true,
+    "gate_resume_exercised": true,
+    "smoke_passed": true,
+    "smoke_resume_exercised": true
+  }
+}

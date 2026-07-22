@@ -1,0 +1,6 @@
+comparison,seed,main_auc,control_auc,main_minus_control_auc,main_final_success,control_final_success,main_best_success,control_best_success,main_first_hit_0.90,control_first_hit_0.90
+Main SABER - Random-Support (Batch-Wide Count Matched),1,0.656060606060606,0.5244949494949495,0.13156565656565655,0.95,1.0,1.0,1.0,480000,660000
+Main SABER - Random-Support (Batch-Wide Count Matched),2,0.6151515151515151,0.5851010101010101,0.030050505050504994,0.95,0.9,1.0,1.0,540000,630000
+Main SABER - Random-Support (Batch-Wide Count Matched),3,0.5648989898989899,0.5553030303030303,0.009595959595959602,1.0,0.9,1.0,1.0,630000,630000
+Main SABER - Random-Support (Batch-Wide Count Matched),4,0.6318181818181818,0.6222222222222222,0.009595959595959602,1.0,1.0,1.0,1.0,480000,510000
+Main SABER - Random-Support (Batch-Wide Count Matched),5,0.5775252525252526,0.4775252525252525,0.10000000000000003,0.9,1.0,1.0,1.0,610000,630000

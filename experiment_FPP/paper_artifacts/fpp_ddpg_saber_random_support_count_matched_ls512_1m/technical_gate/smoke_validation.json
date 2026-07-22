@@ -1,0 +1,156 @@
+{
+  "kind": "smoke",
+  "passed": true,
+  "performance_used_for_gate_decision": false,
+  "runs": [
+    {
+      "assignment_diagnostics": {
+        "assigned_normalized_weight_ESS_mean": 235.27042253521125,
+        "assigned_normalized_weight_mean_mean": 1.000000031432137,
+        "assigned_normalized_weight_std_mean": 0.29683258374211213,
+        "assigned_normalized_weight_sum_mean": 256.00000804662704,
+        "assigned_positive_count_mean": 33.0,
+        "assigned_positive_rate_mean": 0.12890625,
+        "assigned_raw_weight_ESS_mean": 235.27042253521128,
+        "assigned_raw_weight_mean_mean": 1.12890625,
+        "assigned_raw_weight_std_mean": 0.3350961484573308,
+        "assignment_pool_count_mean": 256.0,
+        "assignment_pool_rate_mean": 1.0,
+        "batch_size_mean": 256.0,
+        "context_eligible_count_mean": 237.0,
+        "context_eligible_rate_mean": 0.92578125,
+        "covered_updates": 1,
+        "exact_k_mismatch_count": 0,
+        "invariant_failure_count": 0,
+        "jaccard_mean": 0.047619047619047616,
+        "k_zero_update_count": 0,
+        "main_positive_count_mean": 33.0,
+        "main_positive_rate_mean": 0.12890625,
+        "normalized_histogram_mismatch_count": 0,
+        "normalized_weight_sum_abs_diff_max": 0.0,
+        "normalized_weight_sum_abs_diff_mean": 0.0,
+        "overlap_count_mean": 3.0,
+        "overlap_over_k_mean": 0.09090909090909091,
+        "raw_histogram_mismatch_count": 0,
+        "reference_normalized_weight_ESS_mean": 235.27042253521125,
+        "reference_normalized_weight_mean_mean": 1.000000031432137,
+        "reference_normalized_weight_std_mean": 0.2968325837421122,
+        "reference_normalized_weight_sum_mean": 256.00000804662704,
+        "reference_raw_weight_ESS_mean": 235.27042253521128,
+        "reference_raw_weight_mean_mean": 1.12890625,
+        "reference_raw_weight_std_mean": 0.3350961484573308,
+        "window_count": 1
+      },
+      "checkpoint": {
+        "assignment_rng_state_present": true,
+        "diagnostic_state_present": true,
+        "finite_agent_tensors": 60
+      },
+      "config_differences": [
+        "output_root",
+        "run_name",
+        "support_assignment_mode",
+        "total_steps"
+      ],
+      "episode_rows": 100,
+      "evaluation_points": 1,
+      "evaluation_steps": [
+        5000
+      ],
+      "jsonl_rows": 101,
+      "log": {
+        "resume_exercised": true
+      },
+      "run_dir": "${REPO_ROOT}/experiment_FPP/runs/ddpg_saber_random_support_count_matched_smoke_5k/fetch_pick_and_place_ddpg_saber_random_support_count_matched_smoke_s1_5000_ls512",
+      "runtime_total_sec": 3.4722033888101578e-06,
+      "seed": 1,
+      "stage": "smoke",
+      "steps": 5000,
+      "steps_per_sec": 1440007810.6350164,
+      "total_updates": 1
+    }
+  ],
+  "schema_version": 1,
+  "seeds": [
+    1
+  ],
+  "selected_10k_csv": [],
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "created_utc": "2026-07-21T16:34:37.200491+00:00",
+    "exclusions": {
+      "directory_names": [
+        "__pycache__"
+      ],
+      "names": [
+        "freeze_manifest.json"
+      ],
+      "suffixes": [
+        ".nbc",
+        ".nbi",
+        ".pyc"
+      ]
+    },
+    "file_count": 53,
+    "files_sha256": {
+      "README.md": "49b22a8e088a7a01221a9fe243fdb2c7accb314913e452c99c3020754c28bffc",
+      "analysis/analyze_results.py": "689e806d0d7f7bd6fbbb7ee4c63f130ec10adab5ad668ef995379ecff3617b51",
+      "analysis/build_artifact.py": "d2e541155410ec94d4d9ea58dad669bda97a80b8632a2bdb7ecf366be3d73f50",
+      "analysis/random_support_analysis.py": "fc46403c641624f98094f0387371e22f8da9bc4edef2dc8cc985db7637ef2fb8",
+      "analysis/test_analysis.py": "9e06ad4e0a7f100ee3c31ac9186489fea5757aba7fd37c16da64654dacfd8bda",
+      "analysis/test_artifact.py": "5929cc05149d1fa119a5e09ea36cb2b216be1490a750b86c63f0370553ec61e7",
+      "analysis/verify_artifact.py": "30c29eaf428bfa8e5ea5980191ee57e255632f7a6933c3f0f466d7b961cac820",
+      "code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "code/src/metacog_lite_v0/agent.py": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
+      "code/src/metacog_lite_v0/assignment_diagnostics.py": "7dd60b310018d0e5b428e8dc63d71d4fd80f069fad6125fc91b5e7ace3c8c493",
+      "code/src/metacog_lite_v0/config.py": "a775c40f7520d42f55cbd2cdd2a9efbefb89e9d779ae59b3a8508a0fe033902f",
+      "code/src/metacog_lite_v0/envs.py": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "code/src/metacog_lite_v0/io_utils.py": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "code/src/metacog_lite_v0/numba_support_scan_fpp.py": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a",
+      "code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "code/src/metacog_lite_v0/trainer.py": "ad34bcda4898b0b90bf6c4e0b591251b07697d24089e062d7593f0b97de20f73",
+      "code/src/metacog_lite_v0/weights.py": "5bec8ce0fd49377489ea7a8964db5abb8b469399cda243e2bf23e4a847604d79",
+      "code/src/test_b3_runtime_opt_lookup.py": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "code/src/test_batch_wide_count_matched.py": "7fbfd4df86877e55de75775f712d87be06929b665a7375667012f757cc25917d",
+      "code/src/test_context_eligible_count_matched.py": "01391f462405ca3d6d53ee717ff3d82e8ed79b9ba2d7e90cd69ab0f47652c9b7",
+      "code/src/test_current_policy_legacy_parity.py": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311",
+      "code/src/test_ddpg_query_loss_isolation.py": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635",
+      "code/src/test_ddpg_random_support_loss_scope.py": "0ccadac0ef245977916d1837ed8d8a75a0860119f9d76f44fe6142dd09b9695d",
+      "code/src/test_numba_runtime_opt_fpp.py": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e",
+      "code/src/test_numba_support_scan_fpp.py": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586",
+      "code/src/test_resume_output_rollback.py": "cfc29159eefcbb60d3bb29f082189294ba0a976de6cba77490cc4572c3c04130",
+      "code/src/test_support_query_modes.py": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f",
+      "code/src/test_trainer_resume_contract.py": "9015ea3931886507bd68390e315454ae2814c238d9fcba08dfec71cfe43b62f5",
+      "code/src/train_fetch_pick_and_place_lite_v0.py": "d8a3f9c52c9fd89c0520d4b4aebb72225872b4cabfd40a285e564f78e8b4a135",
+      "code/src/weight_parity_fixture.py": "dbe7618e06628095d764820348bc31f21ee18f741a1f0304b5269005bde7ab71",
+      "config.json": "f6a056081a98e286bef1d8e3b03b11a9c80827eba8c8495f451f1168c03e4756",
+      "freeze_experiment.py": "1cfd2683310309da3b994424aab74b14c9e74b55e06d612fc046da57cc6b3a4e",
+      "run.py": "68917615fc2ebe4920f13719b0bd58e1dcca7be10ac1119ca70bc70ceefb9e70",
+      "run_all_seeds.sh": "a899a70833aaf6d53a7fc80d40fd0394906215be4d48f6639c2ad2146dadb4f6",
+      "run_main_1m_seeds1_5_parallel.sh": "bdc52d89b6d1384379a5cf717951ee5fbd7018b3a63c280047cb500da65fefba",
+      "run_screening_3seeds_parallel.sh": "884530697a5226909286c52abdc8e11f439d3fbe697751ca759aeefd14329e19",
+      "run_smoke_20k_seed1.sh": "1f214aff887b88c2a6f08217a373a6dbd68c47c880f208c250a0460a87eca885",
+      "run_smoke_5k_seed1.sh": "f63cb859f211b5b895ec2262002e8e785c36f9f8cc44953b290945a2f2fa0ba9",
+      "run_technical_gate_50k_seed1.sh": "f3a01a606b580ac57d45de98309a3ae4403230faa0e2773262d64f6fe508778c",
+      "run_tests.sh": "ebd3ede889c00267c59da3c88078c298826d9263ea16099ca6a8d370524f83d2",
+      "source_fingerprint.py": "0844187cd56b3aac8120627a4dd3fc19e6f009208f7cb3060212e9ae425adb5a",
+      "test_source_fingerprint.py": "715e5ab4f2a17c1ca603bd0b64a2dab0e8f31e202a20607c094518cd63efba99",
+      "test_validation_optional_nan.py": "6c22f14a01371652ebeec711e3b72f707fb1872d11ec02604f166871aa5b4e8f",
+      "validate_config_parity.py": "9c38b18fba2517a69785ff56745e9d87b91925801aeab2a25b71b9284f9f898c",
+      "validate_results.py": "12bbd4fafbc8e76a95dac8cf30f6b596290987af95f9fc6294cd16921841b4bc"
+    },
+    "schema_version": 1,
+    "scope": "full_experiment_package",
+    "stage": "smoke",
+    "tree_sha256": "e0b6d12e692fef727b22d683ceab7958e0690cdb49b186ee3967415ae3ead527"
+  },
+  "steps": 5000
+}

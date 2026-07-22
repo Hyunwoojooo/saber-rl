@@ -1,0 +1,3 @@
+method_key,n_seeds,success_auc_mean,success_auc_sample_std,final_success_mean,final_success_sample_std,best_success_mean,best_success_sample_std,hit90_reached_count,hit90_total,hit90_step_median_reached_only
+main,5,0.6090909090909091,0.03777806473720212,0.96,0.04183300132670378,1.0,0.0,5,5,540000
+control,5,0.5529292929292929,0.05553477572811402,0.96,0.0547722557505166,1.0,0.0,5,5,630000

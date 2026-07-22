@@ -1,0 +1,2 @@
+comparison,metric,n_pairs,paired_seeds,mean_delta,sample_std_delta,bootstrap_ci95_low,bootstrap_ci95_high,bootstrap_resamples,bootstrap_seed,positive_count,negative_count,zero_count,exact_sign_flip_p_two_sided,exact_sign_flip_assignments
+Main SABER - Random-Support (Batch-Wide Count Matched),normalized_success_auc,5,1;2;3;4;5,0.056161616161616155,0.05618292461472118,0.013686868686868681,0.10085858585858584,10000,27027,5,0,0,0.0625,32
