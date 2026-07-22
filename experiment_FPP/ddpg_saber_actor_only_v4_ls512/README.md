@@ -48,9 +48,10 @@ critic-only experiment copied into the current reference path.
 - Run name: `fetch_pick_and_place_{run_slug}_s{seed}_{steps}_ls{local_search_max}`
 
 `run.py` discovers the repository root from `.git` plus `experiment_FPP`, honors
-`PYTHON_BIN` before the repository virtual environment, accepts only registered
-seeds 1 through 5, and refuses to create timestamp-suffixed duplicates when the
-exact target run directory already exists.
+`PYTHON_BIN` before the repository virtual environment, and also recognizes a
+shared parent-workspace `.venv` when running from a Git worktree. It accepts only
+registered seeds 1 through 5 and refuses to create timestamp-suffixed duplicates
+when the exact target run directory already exists.
 
 ## Tests
 

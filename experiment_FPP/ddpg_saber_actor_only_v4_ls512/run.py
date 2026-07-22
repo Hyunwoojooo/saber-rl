@@ -40,7 +40,10 @@ def resolve_python(repo_root: Path) -> Path:
     if configured:
         return Path(configured).expanduser()
     repository_python = repo_root / ".venv" / "bin" / "python"
-    return repository_python if repository_python.exists() else Path(sys.executable)
+    if repository_python.exists():
+        return repository_python
+    shared_worktree_python = repo_root.parent / ".venv" / "bin" / "python"
+    return shared_worktree_python if shared_worktree_python.exists() else Path(sys.executable)
 
 
 def resolve_output_root(repo_root: Path, cfg: dict[str, Any], output_root: str | None) -> Path:

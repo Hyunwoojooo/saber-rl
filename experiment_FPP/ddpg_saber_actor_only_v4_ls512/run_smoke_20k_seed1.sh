@@ -27,6 +27,10 @@ resolve_python() {
     printf '%s\n' "${REPO_ROOT}/.venv/bin/python"
     return
   fi
+  if [[ -x "${REPO_ROOT}/../.venv/bin/python" ]]; then
+    printf '%s\n' "${REPO_ROOT}/../.venv/bin/python"
+    return
+  fi
   if command -v python3 >/dev/null 2>&1; then
     command -v python3
     return
