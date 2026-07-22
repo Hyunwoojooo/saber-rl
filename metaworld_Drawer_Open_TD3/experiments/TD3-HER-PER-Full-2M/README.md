@@ -45,6 +45,29 @@ Full PER replay at `experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_
 For TD3, the same IS coefficient is applied to both critic residuals and the priority update uses their mean absolute TD error. SABER support lookup, support caches, PER-style loss weighting, and
 high replay ratio are disabled.
 
+## Completed Results
+
+The 5-seed, 2M-step experiment completed on 2026-07-22 KST.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 1.00 | 1.00 | 0.632 | 780k | 34.51 steps/s |
+| 2 | 0.00 | 0.00 | 0.000 | - | 34.83 steps/s |
+| 3 | 0.00 | 0.00 | 0.000 | - | 34.64 steps/s |
+| 4 | 1.00 | 1.00 | 0.756 | 520k | 34.42 steps/s |
+| 5 | 1.00 | 1.00 | 0.644 | 720k | 34.52 steps/s |
+| Mean | 0.60 | 0.60 | 0.406 | 673k* | 34.58 steps/s |
+
+`*` Mean First Hit 90% is computed over the three seeds that reached the
+threshold. Full PER improves descriptively over TD3+HER B0 (AUC 0.127, Hit90
+coverage 1/5) and has a higher mean AUC than SABER/B3-Critic-Only (0.406 versus
+0.362) in this cohort. Full PER and SABER solve the same three seeds (1, 4, and
+5), so the result does not remove the high seed variance of DrawerOpen TD3.
+
+The committed result package is at
+`../../results_2m/TD3-HER-PER-Full-2M/` and contains each seed's `metrics.csv`
+and `summary.json`; checkpoints and verbose logs are intentionally excluded.
+
 ## Validation
 
 ```bash
@@ -73,5 +96,5 @@ GPU_IDS=0,1,2,3,4 bash metaworld_Drawer_Open_TD3/experiments/TD3-HER-PER-Full-2M
 Runs are written to `metaworld_Drawer_Open_TD3/experiments/TD3-HER-PER-Full-2M/runs/td3_her_per_full_2m/`. Each seed uses the
 run name `drawer_open_td3_her_per_full_s{seed}_2000000` and produces the trainer's
 `config.json`, `env_snapshot.json`, `metrics.csv`, `summary.json`, `run.log`, and
-rolling `checkpoint.pt` artifacts. Full 2M training is intentionally not started
-by the validation commands above.
+rolling `checkpoint.pt` artifacts. The validation commands above do not start a
+new full run; the completed 2M results are preserved separately as described above.

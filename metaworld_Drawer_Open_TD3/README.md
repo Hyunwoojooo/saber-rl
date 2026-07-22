@@ -92,11 +92,14 @@ The runner prefers `.venv/bin/python`; otherwise it falls back to `python3`.
 | TD3-HER-B3-Actor-Only-2M | SABER support | Actor only | 2/5 | 0.40 | 0.41 | 0.249 | 780k* | 21.48 steps/s |
 | TD3-HER-B3-Actor-Critic-2M | SABER support | Actor + critic | 3/5 | 0.60 | 0.61 | 0.432 | 603k | 21.75 steps/s |
 | TD3-HER-PER-Style-2M | Batch-local TD error | Critic only | 2/5 | 0.40 | 0.43 | 0.202 | 1,015k* | 46.52 steps/s |
+| TD3-HER-PER-Full-2M | Replay TD-error priority + IS | Prioritized replay / critic IS | 3/5 | 0.60 | 0.60 | 0.406 | 673k* | 34.58 steps/s |
 
 `*` Mean Hit90 is computed over successful seeds only. Actor-Only and
 Actor+Critic are scope ablations. PER-Style is reported from the completed
 matched-budget 2M run; it keeps replay sampling uniform and changes only the
-batch-local critic-loss coefficients, so it is not Full PER.
+batch-local critic-loss coefficients, so it is not Full PER. Full PER samples
+replay slots by TD-error priority and applies importance-sampling correction to
+the critic.
 
 ## 2M Follow-Up Results
 
