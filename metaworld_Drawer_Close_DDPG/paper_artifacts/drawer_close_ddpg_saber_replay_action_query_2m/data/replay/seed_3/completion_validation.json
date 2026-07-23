@@ -1,0 +1,151 @@
+{
+  "checkpoint_available_field_audit": {
+    "available_field_audit_passed": true,
+    "available_semantic_config_match": true,
+    "config_json_derived_fields_not_in_checkpoint": [
+      "terminal_convention",
+      "thread_hint"
+    ],
+    "effective_support_assignment_mode": "support",
+    "full_resume_fields_not_serialized": [
+      "python_random_state",
+      "numpy_global_rng_state",
+      "torch_cpu_rng_state",
+      "torch_cuda_rng_state_all",
+      "eval_history_env",
+      "config_fingerprint",
+      "checkpoint_metadata",
+      "resume_audit"
+    ],
+    "global_step": 2000000,
+    "replay_size": 300000,
+    "resume_reproducibility_claimed": false,
+    "resume_reproducibility_status": "not_empirically_audited",
+    "schema": "legacy_drawerclose_query_checkpoint",
+    "serialized_rng_states_present": [
+      "noise_rng_state",
+      "sample_rng_state",
+      "weight_rng_state"
+    ],
+    "single_critic_ddpg": true,
+    "support_assignment_mode_serialized": null,
+    "support_query_mode_preserved": true,
+    "total_updates": 1995001
+  },
+  "effective_support_assignment_mode": "support",
+  "environment_snapshot_validated": true,
+  "evaluation_episodes_per_point": 20,
+  "evaluation_points": 200,
+  "external_log_audit": {
+    "fatal_marker_count": 0,
+    "finish_marker": "finished run at",
+    "passed": true
+  },
+  "final_replay_size": 300000,
+  "passed": true,
+  "query_diagnostics": {
+    "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+    "effective_support_assignment_mode": "support",
+    "fields": {
+      "query/context_count_eligible_rate": {
+        "count": 10175,
+        "max": 0.98828125,
+        "mean": 0.8110803132678133,
+        "min": 0.50390625
+      },
+      "query/high_weight_count": {
+        "count": 10175,
+        "max": 229.0,
+        "mean": 101.40687960687961,
+        "min": 39.0
+      },
+      "query/normalized_weight_ess": {
+        "count": 10175,
+        "max": 249.44326617179217,
+        "mean": 228.78944964423212,
+        "min": 227.55577299412917
+      },
+      "query/normalized_weight_mean": {
+        "count": 10175,
+        "max": 1.0000000512227416,
+        "mean": 1.0000000023811653,
+        "min": 0.9999999543651938
+      },
+      "query/normalized_weight_std": {
+        "count": 10175,
+        "max": 0.3535518700063911,
+        "mean": 0.3447101732475697,
+        "min": 0.16212795349165215
+      },
+      "query/query_bin_matches_current_policy_rate": {
+        "count": 10175,
+        "max": 0.1171875,
+        "mean": 0.03368204852579853,
+        "min": 0.0
+      },
+      "query/query_bin_matches_replay_action_rate": {
+        "count": 10175,
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0
+      },
+      "query/query_bin_present_given_context_rate": {
+        "count": 10175,
+        "max": 0.9051383137702942,
+        "mean": 0.48790156787238487,
+        "min": 0.19907407462596893
+      },
+      "query/raw_weight_ess": {
+        "count": 10175,
+        "max": 249.44326617179215,
+        "mean": 228.78944964423212,
+        "min": 227.55577299412917
+      },
+      "query/raw_weight_mean": {
+        "count": 10175,
+        "max": 1.89453125,
+        "mean": 1.3961206234643735,
+        "min": 1.15234375
+      },
+      "query/raw_weight_std": {
+        "count": 10175,
+        "max": 0.5,
+        "mean": 0.4804601008437196,
+        "min": 0.30715646301752714
+      },
+      "query/support_positive_rate": {
+        "count": 10175,
+        "max": 0.89453125,
+        "mean": 0.3961206234643735,
+        "min": 0.15234375
+      }
+    },
+    "invariants": {
+      "all_required_fields_finite": true,
+      "normalized_weight_mean_all_one_within_1e-6": true,
+      "replay_action_bin_match_all_one": true
+    },
+    "post_warmup_update_rows": 10175,
+    "sampled_transition_removed_from_local_pool": false,
+    "schema_version": 1,
+    "seed": 3,
+    "self_support_possible": true,
+    "support_assignment_mode_serialized": null,
+    "support_query_mode": "replay_action"
+  },
+  "run_dir": "data/replay/seed_3",
+  "seed": 3,
+  "single_critic_ddpg": true,
+  "summary": {
+    "auc": 0.25891959798994973,
+    "best_success": 1.0,
+    "final_success": 0.25,
+    "hit90": 50000,
+    "summary_matches_exact_grid": true
+  },
+  "support_assignment_mode_serialized": null,
+  "support_query_mode": "replay_action",
+  "total_steps": 2000000,
+  "total_updates": 1995001,
+  "weight_scope": "critic_only"
+}

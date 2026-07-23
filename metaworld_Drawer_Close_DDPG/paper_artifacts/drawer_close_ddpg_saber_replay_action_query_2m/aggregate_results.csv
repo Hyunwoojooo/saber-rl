@@ -1,0 +1,4 @@
+method_key,method,seed_count,auc_mean,auc_sample_sd,final_success_mean,final_success_sample_sd,best_success_mean,best_success_sample_sd,best_to_final_drop_mean,best_to_final_drop_sample_sd,hit90_seed_count,hit90_median_reached
+her,DrawerClose DDPG HER,5,0.2510050251256281,0.02964557947339836,0.16,0.1816590212458495,1.0,0.0,0.8400000000000001,0.1816590212458495,5,70000.0
+main,DrawerClose DDPG HER + SABER Main,5,0.3244221105527638,0.08245258264994994,0.28,0.25149552679918585,1.0,0.0,0.72,0.25149552679918585,5,20000.0
+replay,DrawerClose DDPG Replay-Action Query,5,0.2757537688442211,0.016370026442036893,0.29000000000000004,0.19170289512680816,1.0,0.0,0.71,0.19170289512680816,5,50000.0

@@ -1,0 +1,185 @@
+{
+  "records": [
+    {
+      "available_field_audit_passed": true,
+      "available_semantic_config_match": true,
+      "config_json_derived_fields_not_in_checkpoint": [
+        "terminal_convention",
+        "thread_hint"
+      ],
+      "effective_support_assignment_mode": "support",
+      "full_resume_fields_not_serialized": [
+        "python_random_state",
+        "numpy_global_rng_state",
+        "torch_cpu_rng_state",
+        "torch_cuda_rng_state_all",
+        "eval_history_env",
+        "config_fingerprint",
+        "checkpoint_metadata",
+        "resume_audit"
+      ],
+      "global_step": 2000000,
+      "replay_size": 300000,
+      "resume_reproducibility_claimed": false,
+      "resume_reproducibility_status": "not_empirically_audited",
+      "schema": "legacy_drawerclose_query_checkpoint",
+      "seed": 1,
+      "serialized_rng_states_present": [
+        "noise_rng_state",
+        "sample_rng_state",
+        "weight_rng_state"
+      ],
+      "single_critic_ddpg": true,
+      "support_assignment_mode_serialized": null,
+      "support_query_mode_preserved": true,
+      "total_updates": 1995001
+    },
+    {
+      "available_field_audit_passed": true,
+      "available_semantic_config_match": true,
+      "config_json_derived_fields_not_in_checkpoint": [
+        "terminal_convention",
+        "thread_hint"
+      ],
+      "effective_support_assignment_mode": "support",
+      "full_resume_fields_not_serialized": [
+        "python_random_state",
+        "numpy_global_rng_state",
+        "torch_cpu_rng_state",
+        "torch_cuda_rng_state_all",
+        "eval_history_env",
+        "config_fingerprint",
+        "checkpoint_metadata",
+        "resume_audit"
+      ],
+      "global_step": 2000000,
+      "replay_size": 300000,
+      "resume_reproducibility_claimed": false,
+      "resume_reproducibility_status": "not_empirically_audited",
+      "schema": "legacy_drawerclose_query_checkpoint",
+      "seed": 2,
+      "serialized_rng_states_present": [
+        "noise_rng_state",
+        "sample_rng_state",
+        "weight_rng_state"
+      ],
+      "single_critic_ddpg": true,
+      "support_assignment_mode_serialized": null,
+      "support_query_mode_preserved": true,
+      "total_updates": 1995001
+    },
+    {
+      "available_field_audit_passed": true,
+      "available_semantic_config_match": true,
+      "config_json_derived_fields_not_in_checkpoint": [
+        "terminal_convention",
+        "thread_hint"
+      ],
+      "effective_support_assignment_mode": "support",
+      "full_resume_fields_not_serialized": [
+        "python_random_state",
+        "numpy_global_rng_state",
+        "torch_cpu_rng_state",
+        "torch_cuda_rng_state_all",
+        "eval_history_env",
+        "config_fingerprint",
+        "checkpoint_metadata",
+        "resume_audit"
+      ],
+      "global_step": 2000000,
+      "replay_size": 300000,
+      "resume_reproducibility_claimed": false,
+      "resume_reproducibility_status": "not_empirically_audited",
+      "schema": "legacy_drawerclose_query_checkpoint",
+      "seed": 3,
+      "serialized_rng_states_present": [
+        "noise_rng_state",
+        "sample_rng_state",
+        "weight_rng_state"
+      ],
+      "single_critic_ddpg": true,
+      "support_assignment_mode_serialized": null,
+      "support_query_mode_preserved": true,
+      "total_updates": 1995001
+    },
+    {
+      "available_field_audit_passed": true,
+      "available_semantic_config_match": true,
+      "config_json_derived_fields_not_in_checkpoint": [
+        "terminal_convention",
+        "thread_hint"
+      ],
+      "effective_support_assignment_mode": "support",
+      "full_resume_fields_not_serialized": [
+        "python_random_state",
+        "numpy_global_rng_state",
+        "torch_cpu_rng_state",
+        "torch_cuda_rng_state_all",
+        "eval_history_env",
+        "config_fingerprint",
+        "checkpoint_metadata",
+        "resume_audit"
+      ],
+      "global_step": 2000000,
+      "replay_size": 300000,
+      "resume_reproducibility_claimed": false,
+      "resume_reproducibility_status": "not_empirically_audited",
+      "schema": "legacy_drawerclose_query_checkpoint",
+      "seed": 4,
+      "serialized_rng_states_present": [
+        "noise_rng_state",
+        "sample_rng_state",
+        "weight_rng_state"
+      ],
+      "single_critic_ddpg": true,
+      "support_assignment_mode_serialized": null,
+      "support_query_mode_preserved": true,
+      "total_updates": 1995001
+    },
+    {
+      "available_field_audit_passed": true,
+      "available_semantic_config_match": true,
+      "config_json_derived_fields_not_in_checkpoint": [
+        "terminal_convention",
+        "thread_hint"
+      ],
+      "effective_support_assignment_mode": "support",
+      "full_resume_fields_not_serialized": [
+        "python_random_state",
+        "numpy_global_rng_state",
+        "torch_cpu_rng_state",
+        "torch_cuda_rng_state_all",
+        "eval_history_env",
+        "config_fingerprint",
+        "checkpoint_metadata",
+        "resume_audit"
+      ],
+      "global_step": 2000000,
+      "replay_size": 300000,
+      "resume_reproducibility_claimed": false,
+      "resume_reproducibility_status": "not_empirically_audited",
+      "schema": "legacy_drawerclose_query_checkpoint",
+      "seed": 5,
+      "serialized_rng_states_present": [
+        "noise_rng_state",
+        "sample_rng_state",
+        "weight_rng_state"
+      ],
+      "single_critic_ddpg": true,
+      "support_assignment_mode_serialized": null,
+      "support_query_mode_preserved": true,
+      "total_updates": 1995001
+    }
+  ],
+  "resume_reproducibility_claimed": false,
+  "resume_reproducibility_status": "not_empirically_audited",
+  "schema_version": 1,
+  "seed_coverage": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "status": "passed_available_fields_only"
+}

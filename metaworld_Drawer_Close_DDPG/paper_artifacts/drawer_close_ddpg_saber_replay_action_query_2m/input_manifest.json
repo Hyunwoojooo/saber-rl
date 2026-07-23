@@ -1,0 +1,1152 @@
+{
+  "artifact_id": "drawer_close_ddpg_saber_replay_action_query_2m",
+  "comparator": {
+    "arms_reused": [
+      "her",
+      "main"
+    ],
+    "artifact_git_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+    "artifact_id": "drawer_close_ddpg_saber_context_eligible_count_matched_2m",
+    "artifact_manifest_sha256": "744a55acd51065fb8bb593575d5fa14ac55d43f481c0bed7b0eec5a7d906eb0d",
+    "metadata_policy": "reconstructed config metadata and explicitly labelled same-seed DrawerClose Strict environment proxy",
+    "original_comparator_config_env_available": false,
+    "original_training_source_commit": null,
+    "original_training_source_commit_status": "unknown_not_recorded",
+    "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+    "retrained": false,
+    "upstream_input_manifest_path": "provenance/comparator_input_manifest.json",
+    "upstream_input_manifest_sha256": "c7e96c9dc2c28184f20933c479b8bda492095ccbe6fdd547b726a4e3d2ef2ef2"
+  },
+  "input_file_count": 102,
+  "inputs": [
+    {
+      "git_blob_oid": "5578bfa72342dc245c52ab6fe08a688765798827",
+      "included_in_artifact": true,
+      "role": "frozen.source.DDPG-HER-B3-Replay-Action-Query-2M.sh",
+      "sha256": "3a30363e999d92781b1b0132599511a1b917890355c5e5f5fae5133895f2e0ba",
+      "size_bytes": 4278,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/DDPG-HER-B3-Replay-Action-Query-2M.sh"
+    },
+    {
+      "git_blob_oid": "ab5ef8127538383d3ffca07a354794d198d53949",
+      "included_in_artifact": true,
+      "role": "frozen.source.README.md",
+      "sha256": "3432fe75d04fdf871f23b6d354375abbc23e67e7ef0d0ac4cbb36d9a3a3d1b42",
+      "size_bytes": 3146,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/README.md"
+    },
+    {
+      "git_blob_oid": "2d41309ecd31fabc2da399c72e2a0a220e79d912",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "size_bytes": 49,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/__init__.py"
+    },
+    {
+      "git_blob_oid": "c19f5aec12054c0e13ad10e0ccf732820952ce3a",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/agent.py",
+      "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "size_bytes": 8354,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/agent.py"
+    },
+    {
+      "git_blob_oid": "5a71eae0fc00e7defbb31259f3d10c04f236220b",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/config.py",
+      "sha256": "18f2f8b6256961538239a230cb33b40e910d3a869c3b4bc87e3f6d3f1bc6bcfc",
+      "size_bytes": 17554,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/config.py"
+    },
+    {
+      "git_blob_oid": "4bdb83bae6c4faedfa6ca5cd8d5a247a45ac14f4",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/envs.py",
+      "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
+      "size_bytes": 13693,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/envs.py"
+    },
+    {
+      "git_blob_oid": "668a150ab3a05d81df3d5cc58b32f7a422f59094",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/envs_maniskill.py"
+    },
+    {
+      "git_blob_oid": "6005d7a2c2154d5d4e0aafb003bf5e512f4458f8",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "size_bytes": 4334,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/io_utils.py"
+    },
+    {
+      "git_blob_oid": "44dd041992bc9f6b5b15ee93105397efa675714c",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/networks.py"
+    },
+    {
+      "git_blob_oid": "a60c526e63e1a93406392cbb8015e78fb690f05a",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
+      "size_bytes": 14812,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
+    },
+    {
+      "git_blob_oid": "cb0698b26b0f0c756756f57ad5bf70b971a13b90",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+    },
+    {
+      "git_blob_oid": "4e6c43c4d7488783c53e3ae5e6475ff74d4ebf29",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size_bytes": 19844,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/replay.py"
+    },
+    {
+      "git_blob_oid": "f083a58cc25c7bd0c3d088ca7f357117a368575b",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_drawer_close.py",
+      "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+      "size_bytes": 9123,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_drawer_close.py"
+    },
+    {
+      "git_blob_oid": "d7d08ecb3f781bc615f61229df478e33b1ee62e3",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size_bytes": 9112,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_drawer_open.py"
+    },
+    {
+      "git_blob_oid": "3557be18253b4ca1484e431d3c92f4889d8fb976",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+    },
+    {
+      "git_blob_oid": "91d4f916065a62fd67b7eb4242a554035846f3cc",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_fetch_push.py"
+    },
+    {
+      "git_blob_oid": "acf70d5b9ce3700a5b6c4fd3fef5c88b754e41d5",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_fetch_slide.py"
+    },
+    {
+      "git_blob_oid": "15bf49bebaf1593c10dffa58c5742630ee3ada92",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_pick_cube.py"
+    },
+    {
+      "git_blob_oid": "b3e14afe63a09446c97fa0624aa1829e850fb4a1",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_push_t.py"
+    },
+    {
+      "git_blob_oid": "52f978dbc24f102e6ad6bab21a339964e1edcd2f",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/task_unitree_apple.py"
+    },
+    {
+      "git_blob_oid": "ecc333bbe6e0e89e7bde2040fa1fdeb07d976110",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/trainer.py",
+      "sha256": "3a3100e0a27b257fae1a8e652c629468c44254fe1023a5d0d4838f542770fde5",
+      "size_bytes": 70274,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/trainer.py"
+    },
+    {
+      "git_blob_oid": "b1f8ba024c6a09c130854735be322a71bb669f6e",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/metacog_lite_v0/weights.py",
+      "sha256": "1431d1d76031ce1704c85a10bdccb645cec0e97516d9baaf2684b7403e8e35b8",
+      "size_bytes": 74767,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/metacog_lite_v0/weights.py"
+    },
+    {
+      "git_blob_oid": "13deb2a5d48ead75fba23b157e5d70b37f11bc24",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/test_support_query_modes.py",
+      "sha256": "80032f5b5f2086c3569335ef71ce3afc347b2210c01922f6d350798fd2f061b2",
+      "size_bytes": 6887,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/test_support_query_modes.py"
+    },
+    {
+      "git_blob_oid": "5e0760c5041de74f19f4b61ae0a3f36e39036c82",
+      "included_in_artifact": true,
+      "role": "frozen.source.code/src/train_drawer_close_lite_v0.py",
+      "sha256": "8eeed92bdf2f651835237a4d1bd65da0b61cdf8f7946ff65fd932eebe3c091b7",
+      "size_bytes": 19339,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/code/src/train_drawer_close_lite_v0.py"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_1.metrics",
+      "sha256": "d9d1040d6a4c5d4454647ce5994459f69912383407d82657542618d152733a06",
+      "size_bytes": 229563,
+      "source_path": "<comparator_artifact>/data/her/seed_1/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_1.metrics",
+        "sha256": "5454a576248f3516cd752f580309c083243a7c95c9382b28a3000b029ff6bb0c",
+        "size_bytes": 9839277,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_1.summary",
+      "sha256": "73d508a7198cf724136fa77286f6489fd05cd488f7756dad12e7b862c748d13c",
+      "size_bytes": 5597,
+      "source_path": "<comparator_artifact>/data/her/seed_1/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_1.summary",
+        "sha256": "423da92b08af0dcc70c218074cb7539a403e9d977c3f36c1ad19bc68218ca5ab",
+        "size_bytes": 5588,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s1_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_1.reconstructed_config_proxy",
+      "sha256": "7ee3b056bb2f7215d8b4f27090e2104ef4d75ecdad43eb9959896b2be4d27f4a",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_1/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_1.environment_proxy",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_1/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_2.metrics",
+      "sha256": "e83cb8f3857f490b3112f4697178ec841427ee60114a4d773cb872926933caac",
+      "size_bytes": 228732,
+      "source_path": "<comparator_artifact>/data/her/seed_2/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_2.metrics",
+        "sha256": "8e8e659adbd1119d25a61068a252ef8cf06122d174f144cee1606e7d982f539d",
+        "size_bytes": 9841470,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_2.summary",
+      "sha256": "8518dd22fbccdb6d12c968091c283e42a2595e5ba1e0a4ffaeef46eab8e9ecc7",
+      "size_bytes": 5591,
+      "source_path": "<comparator_artifact>/data/her/seed_2/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_2.summary",
+        "sha256": "759a54ede3a6c07a19c1da6377406e898a6ed6936d8cfc7eed828b00df4a2f65",
+        "size_bytes": 5582,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s2_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_2.reconstructed_config_proxy",
+      "sha256": "1f1260c42fe68cd23fa1939ec774038be541d6f2635c9a3677113ff99fd06d60",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_2/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_2.environment_proxy",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_2/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_3.metrics",
+      "sha256": "f576b6baf08c7f5141f417ce4d6ddd8e72dcd964b0f0e4831db190da81713e8e",
+      "size_bytes": 228162,
+      "source_path": "<comparator_artifact>/data/her/seed_3/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_3.metrics",
+        "sha256": "935a8d342a3fb82cf8f5d3fde0435fc287717173a440ed84e75afdd0e505894a",
+        "size_bytes": 9831932,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_3.summary",
+      "sha256": "c38ce2abd2d119e5bfc546c23e3524e371fd5cb4ff7e29fd72489444d3139f99",
+      "size_bytes": 5593,
+      "source_path": "<comparator_artifact>/data/her/seed_3/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_3.summary",
+        "sha256": "4364e4db6e8bc120e997b674cba6eae973dee2cb509136d30d3114ec8f0812de",
+        "size_bytes": 5584,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s3_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_3.reconstructed_config_proxy",
+      "sha256": "99d75118b8775bfd674fe85aed8135c15b9323ce3fc69c28cb37b58ed2d0b952",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_3/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_3.environment_proxy",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_3/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_4.metrics",
+      "sha256": "104d4f4ebc3ea7fea3db5ac7b045dfac3feb909ce14c739ef095cd375c2d9dc6",
+      "size_bytes": 228905,
+      "source_path": "<comparator_artifact>/data/her/seed_4/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_4.metrics",
+        "sha256": "10b91d15b5061fe675f2e84520fcdf957f1c55737d98cef56ae9006f0ea49c5e",
+        "size_bytes": 9842094,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_4.summary",
+      "sha256": "b5947c35301222feb465dfef083d1884830f5d9f8ee19b67658c3024ae63d0a3",
+      "size_bytes": 5596,
+      "source_path": "<comparator_artifact>/data/her/seed_4/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_4.summary",
+        "sha256": "48622dd3c6d37efd0e65199a9417368905021836d8500cf55c644b4e9ce5cf95",
+        "size_bytes": 5587,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s4_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_4.reconstructed_config_proxy",
+      "sha256": "2be8a4ccb98b487efd295ad8dfb722d6bdf97f6bf47214454bdea1e5d91fb967",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_4/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_4.environment_proxy",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_4/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_5.metrics",
+      "sha256": "a822638e5ec3767683c2b85ae0096c76d493d6b22bafa857a0a217997f39d8ac",
+      "size_bytes": 228965,
+      "source_path": "<comparator_artifact>/data/her/seed_5/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_5.metrics",
+        "sha256": "6c77f990c9638c8680d5f92f033427d7f5ccda59f5a7f8d62d93f1e2e47b8a80",
+        "size_bytes": 9833778,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_5.summary",
+      "sha256": "bde8ac19796e2b037bc13eaf0706cc9c9959cdec692a1db44a8f9ad8cd6e141e",
+      "size_bytes": 5584,
+      "source_path": "<comparator_artifact>/data/her/seed_5/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_5.summary",
+        "sha256": "e16f21acb5d756398f2539ac5e68d248a56c63bfd1640d35cd8cb9ca7c6e967a",
+        "size_bytes": 5575,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s5_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_5.reconstructed_config_proxy",
+      "sha256": "52444b607c7832a94b264156cac43cae4af22b0a8bba90dc5fd41e35a50acf2e",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_5/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "her.seed_5.environment_proxy",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_5/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_1.metrics",
+      "sha256": "f1097ed8f0744fafc83cb12c6db4a736457e6a876a4922a258f6f7ffe4d9eb92",
+      "size_bytes": 383673,
+      "source_path": "<comparator_artifact>/data/main/seed_1/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_1.metrics",
+        "sha256": "22e30c1354778cd01ae2a89809f700cb94f7f440b3a63e72f0b147697d7f41cc",
+        "size_bytes": 17764627,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_1.summary",
+      "sha256": "91400a03eb12538cdc4d31298d8efd1108dca4b26673d8b4741892a9e8c4dbfd",
+      "size_bytes": 7911,
+      "source_path": "<comparator_artifact>/data/main/seed_1/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_1.summary",
+        "sha256": "61774eb73f26167715872d46ec81bdef3726675af3f45f3994e84acb45d05e7d",
+        "size_bytes": 7902,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_1.reconstructed_config_proxy",
+      "sha256": "7ee3b056bb2f7215d8b4f27090e2104ef4d75ecdad43eb9959896b2be4d27f4a",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_1/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_1.environment_proxy",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_1/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_2.metrics",
+      "sha256": "88ee9d92f84349bc6f467621efbb16053c88a35500d13a6e9a2542969e8ecc30",
+      "size_bytes": 387971,
+      "source_path": "<comparator_artifact>/data/main/seed_2/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_2.metrics",
+        "sha256": "957df43ec129d6a1af42cc8210a88e45fa212536b89706b385e5f08171325f15",
+        "size_bytes": 17942749,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_2.summary",
+      "sha256": "1004491156e696f8686d84f0da05cda4c9e3d9a9af38c17b10bc319b8ec1533a",
+      "size_bytes": 7996,
+      "source_path": "<comparator_artifact>/data/main/seed_2/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_2.summary",
+        "sha256": "5c7405ffcc89ace2f7f58de00c8b1637bbd83404986f2512e8ec58fb78994893",
+        "size_bytes": 7987,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_2.reconstructed_config_proxy",
+      "sha256": "1f1260c42fe68cd23fa1939ec774038be541d6f2635c9a3677113ff99fd06d60",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_2/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_2.environment_proxy",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_2/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_3.metrics",
+      "sha256": "29d7d01d2de4c0d4e2af3a59e3d2c1de5ed3c9b63dc5bdfb0a2d66c5e5c17848",
+      "size_bytes": 387974,
+      "source_path": "<comparator_artifact>/data/main/seed_3/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_3.metrics",
+        "sha256": "0a54df538006c345cff66c8cc17624595f05b4cf04f39a2cc50e5a98de048faa",
+        "size_bytes": 17929813,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_3.summary",
+      "sha256": "591596049960ce7cc5c8e2afac83fede23ee12e14c8ba4032fddfb5dc7b671b6",
+      "size_bytes": 7872,
+      "source_path": "<comparator_artifact>/data/main/seed_3/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_3.summary",
+        "sha256": "19c3867c112887269b68a7213529448c1c432e9c31fbe80d5dc002bd3183653e",
+        "size_bytes": 7863,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_3.reconstructed_config_proxy",
+      "sha256": "99d75118b8775bfd674fe85aed8135c15b9323ce3fc69c28cb37b58ed2d0b952",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_3/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_3.environment_proxy",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_3/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_4.metrics",
+      "sha256": "d58b84476007f4f9dd19ae43686a39b8839988bb48bb57ea875847fbe355c161",
+      "size_bytes": 389685,
+      "source_path": "<comparator_artifact>/data/main/seed_4/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_4.metrics",
+        "sha256": "236060460cc296df64ee72399eddafe309da05f6e85934e6b7895e0e210d2730",
+        "size_bytes": 18084346,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_4.summary",
+      "sha256": "a6c79f6281c9989bfad33631d4dd442b81dfa15d7ff5c8a62939015d2ff87200",
+      "size_bytes": 8108,
+      "source_path": "<comparator_artifact>/data/main/seed_4/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_4.summary",
+        "sha256": "56ba491ffc54fad70a39b96b3551443490d6490d541c53ee71d648f463658529",
+        "size_bytes": 8099,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_4.reconstructed_config_proxy",
+      "sha256": "2be8a4ccb98b487efd295ad8dfb722d6bdf97f6bf47214454bdea1e5d91fb967",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_4/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_4.environment_proxy",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_4/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_5.metrics",
+      "sha256": "d0b9eefc6daeb305b1c60e61190fb8a5f46a60c130008656c4e9183d439baf03",
+      "size_bytes": 385931,
+      "source_path": "<comparator_artifact>/data/main/seed_5/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_5.metrics",
+        "sha256": "e88ff0cd59967f79f74c8b17fc10a6dadab0f57b2397ec2eca4ca203cb6e5ef5",
+        "size_bytes": 17825981,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_5.summary",
+      "sha256": "4621cb08b68d5a6aef25dfad83eefc7320ab9a1c8a458e8e3a343048ee409034",
+      "size_bytes": 7988,
+      "source_path": "<comparator_artifact>/data/main/seed_5/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_5.summary",
+        "sha256": "22a2b288b38bdf23a9ccebed15a0a4ad25cf294516644bd884b4e45a0f4a8c54",
+        "size_bytes": 7979,
+        "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json"
+      }
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_5.reconstructed_config_proxy",
+      "sha256": "52444b607c7832a94b264156cac43cae4af22b0a8bba90dc5fd41e35a50acf2e",
+      "size_bytes": 5733,
+      "source_path": "<comparator_artifact>/data/strict/seed_5/config.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "not_original_comparator_record": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "main.seed_5.environment_proxy",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+      "size_bytes": 2755,
+      "source_path": "<comparator_artifact>/data/strict/seed_5/env_snapshot.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": true,
+      "packaging_artifact_source_commit": "de13e3a0a14d3dc6984d3c592452517f3e32c109",
+      "role": "provenance.comparator_input_manifest",
+      "sha256": "c7e96c9dc2c28184f20933c479b8bda492095ccbe6fdd547b726a4e3d2ef2ef2",
+      "size_bytes": 19119,
+      "source_path": "<comparator_artifact>/input_manifest.json"
+    },
+    {
+      "comparator_artifact_commit": "841eb706b1dcdc12b59db23ec545099d39d3c619",
+      "included_in_artifact": false,
+      "role": "provenance.comparator_artifact_manifest",
+      "sha256": "744a55acd51065fb8bb593575d5fa14ac55d43f481c0bed7b0eec5a7d906eb0d",
+      "size_bytes": 23211,
+      "source_path": "<comparator_artifact>/artifact_manifest.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_1.config",
+      "sha256": "73733844f1da201635e08b7fec42f7432ce7f181fc59a6b992ee4985344606dd",
+      "size_bytes": 5497,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/config.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_1.env_snapshot",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+      "size_bytes": 2755,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/env_snapshot.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_1.summary",
+      "sha256": "aa9d436f19881e04ff7e107477f05f6eef714da764832caa158f9dd400b883e7",
+      "size_bytes": 8783,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "compact_transform": "exact 10k evaluation rows only",
+      "included_in_artifact": false,
+      "role": "replay.seed_1.metrics",
+      "sha256": "6c163218005eab02e6ab7bc55754a1af721877acf5df36704ed6e191ed032418",
+      "size_bytes": 19535977,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": false,
+      "role": "replay.seed_1.completion_checkpoint_excluded",
+      "sha256": "38c5802fffc80f431eb6e836c749ab741dc8b7336ec6c518b72bdb0926fe7e96",
+      "size_bytes": 148905077,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_1.best_checkpoint_excluded",
+      "sha256": "073595193e121453e35c5c3bea328f4844debbae0a0f6f1e3a51c3d429bd11ba",
+      "size_bytes": 138666815,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/best_checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_1.external_log_excluded",
+      "sha256": "28b6d20f6ba6c35969fe2321dd597db1899c90e9e53276f7e872af3e36a11462",
+      "size_bytes": 311029,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/logs_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda.log",
+      "validation": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      }
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_2.config",
+      "sha256": "092a064faad9517fdec548e684f35fd9050b962c026538fcc0294b5520b71188",
+      "size_bytes": 5497,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/config.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_2.env_snapshot",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+      "size_bytes": 2755,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/env_snapshot.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_2.summary",
+      "sha256": "88a434651a2cd5b0a48b666f851d205814f0ca337407a2cdf5b9d54ab2929aad",
+      "size_bytes": 8731,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "compact_transform": "exact 10k evaluation rows only",
+      "included_in_artifact": false,
+      "role": "replay.seed_2.metrics",
+      "sha256": "8fd44391fb92dbff242df10bbe8dbb77c5ff384a4a96d189407c923efc27b012",
+      "size_bytes": 19574281,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": false,
+      "role": "replay.seed_2.completion_checkpoint_excluded",
+      "sha256": "81314201beb28f40d570ca9838490aaa3194ac41c798666764a78cb52a52c6ee",
+      "size_bytes": 147452469,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_2.best_checkpoint_excluded",
+      "sha256": "61dedbd8ae76b8499519d7fcf570a033619c58be3c287bcc8504f50e44f51847",
+      "size_bytes": 147805823,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/best_checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_2.external_log_excluded",
+      "sha256": "3deb6c861bf9ffb55e91d5746ad46c39f1be378625e99f3eace90918cf953591",
+      "size_bytes": 310880,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/logs_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda.log",
+      "validation": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      }
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_3.config",
+      "sha256": "d937987580500af1884078ec9dbe7f7ae0b13191a0d676bc0fc004f0ba6288c1",
+      "size_bytes": 5497,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/config.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_3.env_snapshot",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+      "size_bytes": 2755,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/env_snapshot.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_3.summary",
+      "sha256": "25b1f38de0d2f7636a299ef090d09edabd148df4f2996936d0222d9e8234bcd9",
+      "size_bytes": 8826,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "compact_transform": "exact 10k evaluation rows only",
+      "included_in_artifact": false,
+      "role": "replay.seed_3.metrics",
+      "sha256": "1ca50c3601d3b9bda3132564c4c0d71c6f7df183d6e1cfbe3909073cb415ec28",
+      "size_bytes": 19629429,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": false,
+      "role": "replay.seed_3.completion_checkpoint_excluded",
+      "sha256": "adad879c8d1d02f35cd356fff36559219d047937c9f28b783f13e89b0aa2641b",
+      "size_bytes": 148547445,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_3.best_checkpoint_excluded",
+      "sha256": "bfbea6562b63f642001cb417063f85c34d98724aeb8d3e394da7b86f444de571",
+      "size_bytes": 136770175,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/best_checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_3.external_log_excluded",
+      "sha256": "8c6f1e2e74afbcf43162aa31ca9164930fb1d819c6831a4643ed62f71d66824d",
+      "size_bytes": 310967,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/logs_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda.log",
+      "validation": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      }
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_4.config",
+      "sha256": "94ac6c9a7de900fdbcb8c9b2c42562c72fffb9fe29f73fb616becfc537a474d6",
+      "size_bytes": 5497,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/config.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_4.env_snapshot",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+      "size_bytes": 2755,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/env_snapshot.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_4.summary",
+      "sha256": "3c110b98605a342ca4953576655b9e3dea1fbcbade4637ee942afe01144ec652",
+      "size_bytes": 8755,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "compact_transform": "exact 10k evaluation rows only",
+      "included_in_artifact": false,
+      "role": "replay.seed_4.metrics",
+      "sha256": "f745920ffa1c62b7bd4063f9ab7827e6249f16315b237d30ba46355768534050",
+      "size_bytes": 19525310,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": false,
+      "role": "replay.seed_4.completion_checkpoint_excluded",
+      "sha256": "da03105eed91fcf819b211b6152c4ef1414d358cb87621833574406dabc695d7",
+      "size_bytes": 148153781,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_4.best_checkpoint_excluded",
+      "sha256": "e56122f7fff00625bc3b1ba24df78764c147ebcfd7c7ee22f45406266bf729f7",
+      "size_bytes": 136703359,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/best_checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_4.external_log_excluded",
+      "sha256": "4a4484277aa6a531c9f6059ec4b2833cb60b728e8de501898396786396f28d9f",
+      "size_bytes": 310947,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/logs_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda.log",
+      "validation": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      }
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_5.config",
+      "sha256": "003b8d611e5724df3dc37ecb55b9f0e13c6d6862976e9d1627b2c096dfd84daf",
+      "size_bytes": 5497,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/config.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_5.env_snapshot",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+      "size_bytes": 2755,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/env_snapshot.json"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": true,
+      "role": "replay.seed_5.summary",
+      "sha256": "0eb628b7ba9b581b13c5b05dbd47a270af01f047e9b2a95222857d49fc9cec25",
+      "size_bytes": 8686,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/summary.json"
+    },
+    {
+      "compact_transform": "exact 10k evaluation rows only",
+      "included_in_artifact": false,
+      "role": "replay.seed_5.metrics",
+      "sha256": "161402ef8fc22a6b3249859fa4dfe9e3b3164e88686cc42490d6f26eb9a1a212",
+      "size_bytes": 19350644,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "compact_transform": null,
+      "included_in_artifact": false,
+      "role": "replay.seed_5.completion_checkpoint_excluded",
+      "sha256": "ad770351bd836f47b6a788b0080bb32f177f8a8416aebe3ca45c684e8515a563",
+      "size_bytes": 147767605,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_5.best_checkpoint_excluded",
+      "sha256": "a88166881ead2b1b4c25294c92a84968966d8113fd2c6265e08668c0a118728f",
+      "size_bytes": 139533823,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/best_checkpoint.pt"
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.seed_5.external_log_excluded",
+      "sha256": "f8ec9db53c04c2f2e362122b549611157195a3dbf9a553363975f62a870d63bb",
+      "size_bytes": 310818,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/logs_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_close_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda.log",
+      "validation": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      }
+    },
+    {
+      "included_in_artifact": false,
+      "role": "replay.orchestrator_log_excluded",
+      "sha256": "0b49de2836fc125cf950b8ac9a6bac21a7c17f9d2c338b5a0cec05b25c633893",
+      "size_bytes": 2500,
+      "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+      "source_path": "<execution_repo>/metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/orchestrator_logs/DDPG-HER-B3-Replay-Action-Query-2M_20260722_070804.log",
+      "validation": {
+        "fatal_marker_count": 0,
+        "finish_marker": "DDPG-HER-B3-Replay-Action-Query-2M completed successfully",
+        "passed": true
+      }
+    }
+  ],
+  "schema_version": 1,
+  "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+  "source_tree_oid": "1eb92f2850dcd492b265d2964218c37ff5eee7ff",
+  "transform": {
+    "best_checkpoints_copied": false,
+    "checkpoints_copied": false,
+    "json": "machine-local roots sanitized; NaN/Inf replaced by null",
+    "jsonl_copied": false,
+    "logs_copied": false,
+    "metrics": "exact observed evaluation rows 10k..2M",
+    "raw_metrics_copied": false,
+    "smoke_or_pilot_copied": false
+  }
+}

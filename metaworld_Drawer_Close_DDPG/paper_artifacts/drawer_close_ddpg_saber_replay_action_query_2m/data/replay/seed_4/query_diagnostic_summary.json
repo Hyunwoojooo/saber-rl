@@ -1,0 +1,90 @@
+{
+  "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+  "effective_support_assignment_mode": "support",
+  "fields": {
+    "query/context_count_eligible_rate": {
+      "count": 10175,
+      "max": 1.0,
+      "mean": 0.8049189957002457,
+      "min": 0.51953125
+    },
+    "query/high_weight_count": {
+      "count": 10175,
+      "max": 234.0,
+      "mean": 97.46240786240786,
+      "min": 31.0
+    },
+    "query/normalized_weight_ess": {
+      "count": 10175,
+      "max": 250.62630480167013,
+      "mean": 228.51148134298265,
+      "min": 227.55577299412917
+    },
+    "query/normalized_weight_mean": {
+      "count": 10175,
+      "max": 1.0000000521540642,
+      "mean": 1.0000000028358886,
+      "min": 0.9999999515712261
+    },
+    "query/normalized_weight_std": {
+      "count": 10175,
+      "max": 0.3535518700063911,
+      "mean": 0.3466615254690319,
+      "min": 0.14642767622731817
+    },
+    "query/query_bin_matches_current_policy_rate": {
+      "count": 10175,
+      "max": 0.1171875,
+      "mean": 0.03174946253071253,
+      "min": 0.0
+    },
+    "query/query_bin_matches_replay_action_rate": {
+      "count": 10175,
+      "max": 1.0,
+      "mean": 1.0,
+      "min": 1.0
+    },
+    "query/query_bin_present_given_context_rate": {
+      "count": 10175,
+      "max": 0.9212598204612732,
+      "mean": 0.47183236690938324,
+      "min": 0.16402116417884827
+    },
+    "query/raw_weight_ess": {
+      "count": 10175,
+      "max": 250.62630480167016,
+      "mean": 228.51148134298265,
+      "min": 227.55577299412917
+    },
+    "query/raw_weight_mean": {
+      "count": 10175,
+      "max": 1.9140625,
+      "mean": 1.3807125307125308,
+      "min": 1.12109375
+    },
+    "query/raw_weight_std": {
+      "count": 10175,
+      "max": 0.5,
+      "mean": 0.4779282707252916,
+      "min": 0.280271736166439
+    },
+    "query/support_positive_rate": {
+      "count": 10175,
+      "max": 0.9140625,
+      "mean": 0.3807125307125307,
+      "min": 0.12109375
+    }
+  },
+  "invariants": {
+    "all_required_fields_finite": true,
+    "normalized_weight_mean_all_one_within_1e-6": true,
+    "replay_action_bin_match_all_one": true
+  },
+  "post_warmup_update_rows": 10175,
+  "sampled_transition_removed_from_local_pool": false,
+  "schema_version": 1,
+  "seed": 4,
+  "self_support_possible": true,
+  "support_assignment_mode_serialized": null,
+  "support_query_mode": "replay_action"
+}
