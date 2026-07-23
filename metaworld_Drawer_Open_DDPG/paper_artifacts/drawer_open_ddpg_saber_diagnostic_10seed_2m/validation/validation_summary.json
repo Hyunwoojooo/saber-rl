@@ -27,8 +27,20 @@
   "exploratory_correlation_n": 9,
   "exploratory_multiple_comparison_corrected": false,
   "inference_unit": "seed",
+  "outcome_stratified_secondary_cohort": "diagnostic_successful_9",
+  "outcome_stratified_secondary_n_seeds": 9,
   "phase_fraction_and_required_range_checks_passed": true,
   "phase_fraction_sum_tolerance": 1e-06,
+  "phase_missing_observation_rule": "exclude_undefined_within_phase_support_rate_without_imputation_and_report_n",
+  "phase_support_rate_seed_counts": {
+    "approach": 10,
+    "contact": 10,
+    "open": 10,
+    "opening": 9
+  },
+  "primary_diagnostic_cohort": "diagnostic_all_10",
+  "primary_diagnostic_includes_failed_seed": true,
+  "primary_diagnostic_n_seeds": 10,
   "regression_checks": [
     {
       "absolute_tolerance": 0.001,
@@ -46,6 +58,83 @@
     },
     {
       "absolute_tolerance": 0.0002,
+      "actual": 0.4292772576057538,
+      "expected_approx": 0.4293,
+      "name": "diagnostic_all10_support_positive_rate",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0002,
+      "actual": 0.29130644541811945,
+      "expected_approx": 0.2913,
+      "name": "diagnostic_all10_td_support_positive_mean",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0002,
+      "actual": 0.24895236952814187,
+      "expected_approx": 0.249,
+      "name": "diagnostic_all10_td_support_negative_mean",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.003,
+      "actual": 1.1701292338380005,
+      "expected_approx": 1.17,
+      "name": "diagnostic_all10_td_ratio",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 6e-05,
+      "actual": 0.0075425066238736975,
+      "expected_approx": 0.00754,
+      "name": "diagnostic_all10_residual_support_positive_mean",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 6e-05,
+      "actual": 0.003587460588217755,
+      "expected_approx": 0.00359,
+      "name": "diagnostic_all10_residual_support_negative_mean",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.04,
+      "actual": 2.102463968146561,
+      "expected_approx": 2.102,
+      "name": "diagnostic_all10_residual_ratio",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0015,
+      "actual": 0.7366868147391671,
+      "expected_approx": 0.7367,
+      "name": "diagnostic_all10_phase_approach_support_rate",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0015,
+      "actual": 0.6558830178531145,
+      "expected_approx": 0.6559,
+      "name": "diagnostic_all10_phase_contact_support_rate",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0015,
+      "actual": 0.6410380938717611,
+      "expected_approx": 0.641,
+      "name": "diagnostic_all10_phase_opening_support_rate",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0015,
+      "actual": 0.32553553252319267,
+      "expected_approx": 0.3255,
+      "name": "diagnostic_all10_phase_open_support_rate",
+      "passed": true
+    },
+    {
+      "absolute_tolerance": 0.0002,
       "actual": 0.32043505187381954,
       "expected_approx": 0.3204,
       "name": "successful9_td_support_positive_mean",
@@ -56,13 +145,6 @@
       "actual": 0.2739285390793811,
       "expected_approx": 0.2739,
       "name": "successful9_td_support_negative_mean",
-      "passed": true
-    },
-    {
-      "absolute_tolerance": 0.003,
-      "actual": 1.16977607718691,
-      "expected_approx": 1.17,
-      "name": "successful9_td_ratio",
       "passed": true
     },
     {
@@ -80,41 +162,6 @@
       "passed": true
     },
     {
-      "absolute_tolerance": 0.04,
-      "actual": 2.0902800866775864,
-      "expected_approx": 2.1,
-      "name": "successful9_residual_ratio",
-      "passed": true
-    },
-    {
-      "absolute_tolerance": 0.0015,
-      "actual": 0.7363619006580286,
-      "expected_approx": 0.7364,
-      "name": "phase_approach_support_rate",
-      "passed": true
-    },
-    {
-      "absolute_tolerance": 0.0015,
-      "actual": 0.7047739354171695,
-      "expected_approx": 0.7048,
-      "name": "phase_contact_support_rate",
-      "passed": true
-    },
-    {
-      "absolute_tolerance": 0.0015,
-      "actual": 0.6410380938717611,
-      "expected_approx": 0.641,
-      "name": "phase_opening_support_rate",
-      "passed": true
-    },
-    {
-      "absolute_tolerance": 0.0015,
-      "actual": 0.3046171582057766,
-      "expected_approx": 0.3046,
-      "name": "phase_open_support_rate",
-      "passed": true
-    },
-    {
       "absolute_tolerance": 0.0015,
       "actual": 0.99275,
       "expected_approx": 0.993,
@@ -126,6 +173,84 @@
       "actual": 0.9915,
       "expected_approx": 0.9915,
       "name": "seed7_final400k_support_ge_095_rate",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_support_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_td_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_td_positive_seed_count",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_residual_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_residual_positive_seed_count",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_approach_batch_fraction_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_approach_support_rate_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_contact_batch_fraction_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_contact_support_rate_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_opening_batch_fraction_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 9,
+      "expected": 9,
+      "name": "diagnostic_all10_opening_support_rate_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_open_batch_fraction_n_seeds",
+      "passed": true
+    },
+    {
+      "actual": 10,
+      "expected": 10,
+      "name": "diagnostic_all10_open_support_rate_n_seeds",
       "passed": true
     },
     {

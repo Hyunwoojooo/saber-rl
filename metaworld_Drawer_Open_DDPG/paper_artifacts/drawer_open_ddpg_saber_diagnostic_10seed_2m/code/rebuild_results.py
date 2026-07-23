@@ -26,6 +26,9 @@ RESULT_FILENAMES = (
     "performance_by_seed.csv",
     "performance_aggregate.csv",
     "performance_reproducibility_reference.csv",
+    "diagnostic_all_10_support_activation_summary.csv",
+    "diagnostic_all_10_td_residual.csv",
+    "diagnostic_all_10_td_residual_summary.csv",
     "successful_9seed_td_residual.csv",
     "successful_9seed_td_residual_summary.csv",
     "phase_conditioned_allocation.csv",
@@ -59,6 +62,14 @@ def _finite(values: Iterable[Any]) -> list[float]:
 def _mean(values: Iterable[Any]) -> float:
     finite = _finite(values)
     return sum(finite) / len(finite) if finite else float("nan")
+
+
+def _sample_sd(values: Iterable[Any]) -> float:
+    finite = _finite(values)
+    if len(finite) < 2:
+        return float("nan")
+    center = _mean(finite)
+    return math.sqrt(sum((value - center) ** 2 for value in finite) / (len(finite) - 1))
 
 
 def _ratio(numerator: float, denominator: float) -> float:
@@ -263,6 +274,48 @@ def _stats_row(metric: str, values: Sequence[float]) -> dict[str, Any]:
     }
 
 
+def _td_residual_summary_rows(
+    stats: Sequence[Mapping[str, Any]],
+    cohort: str,
+    seed_selection_rule: str,
+) -> list[dict[str, Any]]:
+    summary_specs = (
+        (
+            "pre_update_absolute_td_error",
+            "td_support_pos_mean",
+            "td_support_neg_mean",
+            "td_difference",
+        ),
+        (
+            "same_minibatch_residual_reduction",
+            "residual_support_pos_mean",
+            "residual_support_neg_mean",
+            "residual_difference",
+        ),
+        (
+            "same_minibatch_residual_positive_rate",
+            "residual_positive_rate_pos",
+            "residual_positive_rate_neg",
+            "residual_positive_rate_difference",
+        ),
+    )
+    rows: list[dict[str, Any]] = []
+    for metric, pos_key, neg_key, diff_key in summary_specs:
+        pos_mean = _subset_mean(stats, pos_key)
+        neg_mean = _subset_mean(stats, neg_key)
+        stat = _stats_row(metric, [float(row[diff_key]) for row in stats])
+        stat.update({
+            "cohort": cohort,
+            "support_positive_mean": pos_mean,
+            "support_negative_mean": neg_mean,
+            "positive_to_negative_ratio": _ratio(pos_mean, neg_mean),
+            "same_minibatch": metric != "pre_update_absolute_td_error",
+            "seed_selection_rule": seed_selection_rule,
+        })
+        rows.append(stat)
+    return rows
+
+
 def _metric_in_snapshot(row: Mapping[str, str], metric: str) -> float:
     if metric == "td_difference":
         return _row_difference(row, "td_support_pos_mean", "td_support_neg_mean")
@@ -415,7 +468,36 @@ def build_results(artifact_root: Path) -> dict[str, Any]:
     diagnostic_stats = {
         seed: _diagnostic_seed_stats(seed, payloads[seed][1], seed in successful_seeds) for seed in SEEDS
     }
+    all_stats = [diagnostic_stats[seed] for seed in SEEDS]
     successful_stats = [diagnostic_stats[seed] for seed in successful_seeds]
+
+    support_values = [float(row["support_mean"]) for row in all_stats]
+    support_ci_low, support_ci_high = _t_interval(support_values)
+    support_activation_summary = {
+        "artifact_id": ARTIFACT_ID,
+        "cohort": "diagnostic_all_10",
+        "n_seeds": len(support_values),
+        "support_positive_rate_mean": _mean(support_values),
+        "support_positive_rate_sample_sd": _sample_sd(support_values),
+        "support_positive_rate_ci95_low": support_ci_low,
+        "support_positive_rate_ci95_high": support_ci_high,
+        "support_positive_rate_min": min(support_values),
+        "support_positive_rate_max": max(support_values),
+        "seed_selection_rule": "all_instrumented_seeds_regardless_of_outcome",
+        "inference_unit": "seed",
+    }
+    support_summary_fields = (
+        "artifact_id", "cohort", "n_seeds", "support_positive_rate_mean",
+        "support_positive_rate_sample_sd", "support_positive_rate_ci95_low",
+        "support_positive_rate_ci95_high", "support_positive_rate_min",
+        "support_positive_rate_max", "seed_selection_rule", "inference_unit",
+    )
+    _write_csv(
+        results_dir / "diagnostic_all_10_support_activation_summary.csv",
+        support_summary_fields,
+        [support_activation_summary],
+    )
+
     td_fields = (
         "artifact_id", "seed", "successful", "snapshot_count", "support_mean",
         "support_final_400k_mean", "td_support_pos_mean", "td_support_neg_mean", "td_difference",
@@ -424,73 +506,98 @@ def build_results(artifact_root: Path) -> dict[str, Any]:
         "support_td_corr", "support_residual_corr", "normalized_ess", "scan_truncated_rate",
     )
     _write_csv(
+        results_dir / "diagnostic_all_10_td_residual.csv",
+        td_fields,
+        all_stats,
+    )
+    _write_csv(
         results_dir / "successful_9seed_td_residual.csv",
         td_fields,
         [diagnostic_stats[seed] for seed in successful_seeds],
     )
 
-    td_pos_mean = _subset_mean(successful_stats, "td_support_pos_mean")
-    td_neg_mean = _subset_mean(successful_stats, "td_support_neg_mean")
-    residual_pos_mean = _subset_mean(successful_stats, "residual_support_pos_mean")
-    residual_neg_mean = _subset_mean(successful_stats, "residual_support_neg_mean")
-    rate_pos_mean = _subset_mean(successful_stats, "residual_positive_rate_pos")
-    rate_neg_mean = _subset_mean(successful_stats, "residual_positive_rate_neg")
-    summary_rows = []
-    summary_specs = (
-        ("pre_update_absolute_td_error", "td_support_pos_mean", "td_support_neg_mean", "td_difference", td_pos_mean, td_neg_mean),
-        ("same_minibatch_residual_reduction", "residual_support_pos_mean", "residual_support_neg_mean", "residual_difference", residual_pos_mean, residual_neg_mean),
-        ("same_minibatch_residual_positive_rate", "residual_positive_rate_pos", "residual_positive_rate_neg", "residual_positive_rate_difference", rate_pos_mean, rate_neg_mean),
+    all_summary_rows = _td_residual_summary_rows(
+        all_stats,
+        cohort="diagnostic_all_10",
+        seed_selection_rule="all_instrumented_seeds_regardless_of_outcome",
     )
-    for metric, _pos_key, _neg_key, diff_key, pos_mean, neg_mean in summary_specs:
-        stat = _stats_row(metric, [float(row[diff_key]) for row in successful_stats])
-        stat.update({
-            "support_positive_mean": pos_mean,
-            "support_negative_mean": neg_mean,
-            "positive_to_negative_ratio": _ratio(pos_mean, neg_mean),
-            "same_minibatch": metric != "pre_update_absolute_td_error",
-            "successful_seed_definition": "reached_eval_success_at_least_0.90",
-        })
-        summary_rows.append(stat)
+    successful_summary_rows = _td_residual_summary_rows(
+        successful_stats,
+        cohort="diagnostic_successful_9",
+        seed_selection_rule="reached_eval_success_at_least_0.90",
+    )
     td_summary_fields = (
-        "artifact_id", "metric", "n_seeds", "support_positive_mean", "support_negative_mean",
+        "artifact_id", "cohort", "metric", "n_seeds", "support_positive_mean", "support_negative_mean",
         "mean_difference", "positive_to_negative_ratio", "ci95_low", "ci95_high",
         "positive_seed_count", "negative_seed_count", "zero_seed_count", "one_sample_t_p",
-        "wilcoxon_two_sided_p", "same_minibatch", "inference_unit", "successful_seed_definition",
+        "wilcoxon_two_sided_p", "same_minibatch", "inference_unit", "seed_selection_rule",
     )
-    _write_csv(results_dir / "successful_9seed_td_residual_summary.csv", td_summary_fields, summary_rows)
+    _write_csv(
+        results_dir / "diagnostic_all_10_td_residual_summary.csv",
+        td_summary_fields,
+        all_summary_rows,
+    )
+    _write_csv(
+        results_dir / "successful_9seed_td_residual_summary.csv",
+        td_summary_fields,
+        successful_summary_rows,
+    )
 
     phase_rows: list[dict[str, Any]] = []
-    for seed in successful_seeds:
+    for seed in SEEDS:
         stats = diagnostic_stats[seed]
         for phase in PHASES:
+            batch_fraction = stats[f"phase_{phase}_fraction"]
+            support_rate = stats[f"phase_{phase}_support_rate"]
             phase_rows.append({
                 "artifact_id": ARTIFACT_ID,
                 "row_scope": "seed",
                 "seed": seed,
+                "successful": stats["successful"],
                 "phase": phase,
-                "batch_fraction": stats[f"phase_{phase}_fraction"],
-                "support_positive_rate_within_phase": stats[f"phase_{phase}_support_rate"],
+                "batch_fraction": batch_fraction,
+                "support_positive_rate_within_phase": support_rate,
+                "batch_fraction_n_seeds": int(_is_finite(batch_fraction)),
+                "support_rate_n_seeds": int(_is_finite(support_rate)),
                 "phase_goal_basis": "desired_goal_train_including_HER_relabels",
             })
-    phase_aggregate: dict[str, dict[str, float]] = {}
-    for phase in PHASES:
-        matching = [row for row in phase_rows if row["phase"] == phase]
-        aggregate = {
-            "batch_fraction": _mean(row["batch_fraction"] for row in matching),
-            "support_positive_rate_within_phase": _mean(row["support_positive_rate_within_phase"] for row in matching),
-        }
-        phase_aggregate[phase] = aggregate
-        phase_rows.append({
-            "artifact_id": ARTIFACT_ID,
-            "row_scope": "successful_9seed_mean",
-            "seed": None,
-            "phase": phase,
-            **aggregate,
-            "phase_goal_basis": "desired_goal_train_including_HER_relabels",
-        })
+    phase_aggregates: dict[str, dict[str, dict[str, Any]]] = {}
+    for row_scope, selected_seeds in (
+        ("diagnostic_all_10_mean", SEEDS),
+        ("successful_9seed_mean", successful_seeds),
+    ):
+        scope_aggregate: dict[str, dict[str, Any]] = {}
+        for phase in PHASES:
+            matching = [
+                row
+                for row in phase_rows
+                if row["row_scope"] == "seed"
+                and row["phase"] == phase
+                and int(row["seed"]) in selected_seeds
+            ]
+            batch_values = _finite(row["batch_fraction"] for row in matching)
+            support_values = _finite(row["support_positive_rate_within_phase"] for row in matching)
+            aggregate = {
+                "batch_fraction": _mean(batch_values),
+                "support_positive_rate_within_phase": _mean(support_values),
+                "batch_fraction_n_seeds": len(batch_values),
+                "support_rate_n_seeds": len(support_values),
+            }
+            scope_aggregate[phase] = aggregate
+            phase_rows.append({
+                "artifact_id": ARTIFACT_ID,
+                "row_scope": row_scope,
+                "seed": None,
+                "successful": None,
+                "phase": phase,
+                **aggregate,
+                "phase_goal_basis": "desired_goal_train_including_HER_relabels",
+            })
+        phase_aggregates[row_scope] = scope_aggregate
     phase_fields = (
-        "artifact_id", "row_scope", "seed", "phase", "batch_fraction",
-        "support_positive_rate_within_phase", "phase_goal_basis",
+        "artifact_id", "row_scope", "seed", "successful", "phase", "batch_fraction",
+        "support_positive_rate_within_phase", "batch_fraction_n_seeds",
+        "support_rate_n_seeds", "phase_goal_basis",
     )
     _write_csv(results_dir / "phase_conditioned_allocation.csv", phase_fields, phase_rows)
 
@@ -654,15 +761,21 @@ def build_results(artifact_root: Path) -> dict[str, Any]:
     _write_csv(results_dir / "exploratory_correlation.csv", correlation_fields, correlation_rows)
 
     all_aggregate = next(row for row in aggregate_performance if row["cohort"] == "diagnostic_all_10")
-    td_summary = {row["metric"]: row for row in summary_rows}
+    all_td_summary = {row["metric"]: row for row in all_summary_rows}
+    successful_td_summary = {row["metric"]: row for row in successful_summary_rows}
     seed7_tail = seed7_window_rows[-1]
     return {
         "result_files": [str(results_dir / filename) for filename in RESULT_FILENAMES],
         "performance_all_10": all_aggregate,
         "successful_seeds": successful_seeds,
         "diagnostic_seed_stats": diagnostic_stats,
-        "td_residual_summary": td_summary,
-        "phase_successful_9": phase_aggregate,
+        "support_activation_all_10": support_activation_summary,
+        "support_mean_all_10": support_activation_summary["support_positive_rate_mean"],
+        "td_residual_all_10_summary": all_td_summary,
+        "td_residual_successful_9_summary": successful_td_summary,
+        "td_residual_summary": successful_td_summary,
+        "phase_all_10": phase_aggregates["diagnostic_all_10_mean"],
+        "phase_successful_9": phase_aggregates["successful_9seed_mean"],
         "hit90_summary": {row["metric"]: row for row in hit_summary_rows},
         "seed7_final_400k": seed7_tail,
         "scanner_seed_rows": scanner_rows[:10],

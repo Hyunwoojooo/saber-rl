@@ -573,26 +573,55 @@ def _assert_close(name: str, actual: float, expected: float, tolerance: float) -
 
 def _regression_checks(analysis: Mapping[str, Any]) -> list[dict[str, Any]]:
     performance = analysis["performance_all_10"]
-    td = analysis["td_residual_summary"]["pre_update_absolute_td_error"]
-    residual = analysis["td_residual_summary"]["same_minibatch_residual_reduction"]
-    phase = analysis["phase_successful_9"]
+    support = analysis["support_activation_all_10"]
+    td = analysis["td_residual_all_10_summary"]["pre_update_absolute_td_error"]
+    residual = analysis["td_residual_all_10_summary"]["same_minibatch_residual_reduction"]
+    successful_td = analysis["td_residual_successful_9_summary"]["pre_update_absolute_td_error"]
+    successful_residual = analysis["td_residual_successful_9_summary"]["same_minibatch_residual_reduction"]
+    phase = analysis["phase_all_10"]
     seed7 = analysis["seed7_final_400k"]
     checks = [
         _assert_close("diagnostic_all10_final_success_mean", float(performance["final_success_mean"]), 0.890, 0.001),
         _assert_close("diagnostic_all10_auc_success_mean", float(performance["auc_success_mean"]), 0.653, 0.001),
-        _assert_close("successful9_td_support_positive_mean", float(td["support_positive_mean"]), 0.3204, 0.0002),
-        _assert_close("successful9_td_support_negative_mean", float(td["support_negative_mean"]), 0.2739, 0.0002),
-        _assert_close("successful9_td_ratio", float(td["positive_to_negative_ratio"]), 1.17, 0.003),
-        _assert_close("successful9_residual_support_positive_mean", float(residual["support_positive_mean"]), 0.00843, 0.00006),
-        _assert_close("successful9_residual_support_negative_mean", float(residual["support_negative_mean"]), 0.00403, 0.00006),
-        _assert_close("successful9_residual_ratio", float(residual["positive_to_negative_ratio"]), 2.10, 0.04),
-        _assert_close("phase_approach_support_rate", float(phase["approach"]["support_positive_rate_within_phase"]), 0.7364, 0.0015),
-        _assert_close("phase_contact_support_rate", float(phase["contact"]["support_positive_rate_within_phase"]), 0.7048, 0.0015),
-        _assert_close("phase_opening_support_rate", float(phase["opening"]["support_positive_rate_within_phase"]), 0.6410, 0.0015),
-        _assert_close("phase_open_support_rate", float(phase["open"]["support_positive_rate_within_phase"]), 0.3046, 0.0015),
+        _assert_close("diagnostic_all10_support_positive_rate", float(support["support_positive_rate_mean"]), 0.4293, 0.0002),
+        _assert_close("diagnostic_all10_td_support_positive_mean", float(td["support_positive_mean"]), 0.2913, 0.0002),
+        _assert_close("diagnostic_all10_td_support_negative_mean", float(td["support_negative_mean"]), 0.2490, 0.0002),
+        _assert_close("diagnostic_all10_td_ratio", float(td["positive_to_negative_ratio"]), 1.170, 0.003),
+        _assert_close("diagnostic_all10_residual_support_positive_mean", float(residual["support_positive_mean"]), 0.00754, 0.00006),
+        _assert_close("diagnostic_all10_residual_support_negative_mean", float(residual["support_negative_mean"]), 0.00359, 0.00006),
+        _assert_close("diagnostic_all10_residual_ratio", float(residual["positive_to_negative_ratio"]), 2.102, 0.04),
+        _assert_close("diagnostic_all10_phase_approach_support_rate", float(phase["approach"]["support_positive_rate_within_phase"]), 0.7367, 0.0015),
+        _assert_close("diagnostic_all10_phase_contact_support_rate", float(phase["contact"]["support_positive_rate_within_phase"]), 0.6559, 0.0015),
+        _assert_close("diagnostic_all10_phase_opening_support_rate", float(phase["opening"]["support_positive_rate_within_phase"]), 0.6410, 0.0015),
+        _assert_close("diagnostic_all10_phase_open_support_rate", float(phase["open"]["support_positive_rate_within_phase"]), 0.3255, 0.0015),
+        _assert_close("successful9_td_support_positive_mean", float(successful_td["support_positive_mean"]), 0.3204, 0.0002),
+        _assert_close("successful9_td_support_negative_mean", float(successful_td["support_negative_mean"]), 0.2739, 0.0002),
+        _assert_close("successful9_residual_support_positive_mean", float(successful_residual["support_positive_mean"]), 0.00843, 0.00006),
+        _assert_close("successful9_residual_support_negative_mean", float(successful_residual["support_negative_mean"]), 0.00403, 0.00006),
         _assert_close("seed7_final400k_support_mean", float(seed7["seed7_support_rate_mean"]), 0.993, 0.0015),
         _assert_close("seed7_final400k_support_ge_095_rate", float(seed7["seed7_support_ge_0_95_snapshot_rate"]), 0.9915, 0.0015),
     ]
+    for name, actual, expected in (
+        ("diagnostic_all10_support_n_seeds", int(support["n_seeds"]), 10),
+        ("diagnostic_all10_td_n_seeds", int(td["n_seeds"]), 10),
+        ("diagnostic_all10_td_positive_seed_count", int(td["positive_seed_count"]), 10),
+        ("diagnostic_all10_residual_n_seeds", int(residual["n_seeds"]), 10),
+        ("diagnostic_all10_residual_positive_seed_count", int(residual["positive_seed_count"]), 10),
+    ):
+        checks.append({"name": name, "actual": actual, "expected": expected, "passed": actual == expected})
+    for phase_name in rebuild_results.PHASES:
+        expected_support_n = 9 if phase_name == "opening" else 10
+        for metric_name, expected in (
+            ("batch_fraction_n_seeds", 10),
+            ("support_rate_n_seeds", expected_support_n),
+        ):
+            actual = int(phase[phase_name][metric_name])
+            checks.append({
+                "name": f"diagnostic_all10_{phase_name}_{metric_name}",
+                "actual": actual,
+                "expected": expected,
+                "passed": actual == expected,
+            })
     checks.append({
         "name": "diagnostic_all10_hit90_seed_count",
         "actual": int(performance["hit90_seed_count"]),
@@ -612,9 +641,11 @@ def _write_readme_and_report(
     duplicate_audits: Sequence[Mapping[str, Any]],
 ) -> None:
     performance = analysis["performance_all_10"]
-    td = analysis["td_residual_summary"]["pre_update_absolute_td_error"]
-    residual = analysis["td_residual_summary"]["same_minibatch_residual_reduction"]
-    phase = analysis["phase_successful_9"]
+    td = analysis["td_residual_all_10_summary"]["pre_update_absolute_td_error"]
+    residual = analysis["td_residual_all_10_summary"]["same_minibatch_residual_reduction"]
+    successful_td = analysis["td_residual_successful_9_summary"]["pre_update_absolute_td_error"]
+    successful_residual = analysis["td_residual_successful_9_summary"]["same_minibatch_residual_reduction"]
+    phase = analysis["phase_all_10"]
     seed7 = analysis["seed7_final_400k"]
     duplicate_removed = sum(int(row["removed_duplicate_row_count"]) for row in duplicate_audits)
 
@@ -638,6 +669,9 @@ Seeds 1–5와 6–10은 같은 한 번의 matched 10-seed launch가 아니므�
 - `data/seeds/seed_XX/diagnostic_snapshots.csv.gz`: seed당 step-deduplicated snapshot 9,976개
 - `data/seeds/seed_XX/{{config,env_snapshot,summary}}.json`: allowlist 익명화 metadata
 - `data/reproduction_reference/`: 기존 seeds 1–5 비-diagnostic 평가 reference
+- `results/diagnostic_all_10_support_activation_summary.csv`: all-10 support-positive rate 집계
+- `results/diagnostic_all_10_td_residual*.csv`: outcome과 무관하게 seed 1–10을 포함한 primary diagnostic 집계
+- `results/successful_9seed_td_residual*.csv`: Hit90 도달 seed만 포함한 outcome-stratified 보조 집계
 - `results/`: compact data에서 재생성되는 분석 CSV
 - `source_input_manifest.json`: 원본 입력의 상대경로, byte size, SHA256
 - `artifact_manifest.json`: artifact payload의 byte size와 SHA256
@@ -656,12 +690,16 @@ python code/rebuild_results.py
 
 동일 step의 분석 대상 필드가 수치적으로 완전히 같은지 먼저 확인한 뒤 raw 파일에서 가장 마지막에 나타난 행을 선택한다. 분석 필드가 하나라도 다르면 builder는 중단한다. 이번 패키지에서 제거된 중복행은 {duplicate_removed:,}개다.
 
+## Diagnostic 집계 원칙
+
+Primary diagnostic aggregate는 성능 결과와 무관하게 instrumented seed 1–10을 모두 포함한다. Hit90에 도달한 9개 seed만의 결과는 outcome-stratified secondary analysis로 별도 보존한다. Phase별 support rate는 해당 phase 관측이 있는 seed만 평균하며 각 결과 행에 유효 seed 수를 기록한다.
+
 ## 필수 해석 제한
 
 1. Residual reduction은 critic·actor·target update 후 **같은 weighted minibatch**에서 측정한 in-sample 값이다. Held-out 일반화나 인과적 성능 향상을 증명하지 않는다.
 2. Phase는 원래 환경 goal이 아니라 `desired_goal_train` 기준이며 HER relabeled goal을 포함한다.
 3. Support lookup은 `local_search_max=512` 제한을 사용한다. 512/full-scan 동등성은 이 artifact로 증명되지 않는다.
-4. Exploratory correlation은 성공한 9개 seed를 단위로 계산하며 multiple-comparison uncorrected다.
+4. Primary TD/residual 및 phase 집계는 all-10이지만, Hit90 전후와 exploratory correlation은 정의상 Hit90 도달 9개 seed만 사용한다. Correlation은 multiple-comparison uncorrected다.
 5. Checkpoint, raw `metrics.csv`, JSONL, run log는 payload에서 제외했다.
 """
     (ARTIFACT_ROOT / "README.md").write_text(readme, encoding="utf-8")
@@ -683,34 +721,42 @@ Seeds 1–5는 diagnostic logging 재실행이고 seeds 6–10은 별도의 exte
 - Hit90: `{int(performance['hit90_seed_count'])}/10` seeds
 - Hit90 도달 seed만의 평균: `{float(performance['hit90_mean_successful_only']):.0f}` steps
 
-## 3. 성공 9-seed TD/residual
+## 3. 전체 10-seed primary diagnostic
 
-Support-positive의 업데이트 전 절대 TD error는 `{_format_float(td['support_positive_mean'], 4)}`, support-negative는 `{_format_float(td['support_negative_mean'], 4)}`로 비율은 `{_format_float(td['positive_to_negative_ratio'], 3)}x`다. 방향은 `{int(td['positive_seed_count'])}/9` seed에서 양수다.
+전체 seed의 평균 support-positive rate는 `{_format_float(analysis['support_mean_all_10'], 4)}`다.
 
-같은 weighted minibatch에서 residual reduction은 support-positive `{_format_float(residual['support_positive_mean'], 5)}`, support-negative `{_format_float(residual['support_negative_mean'], 5)}`로 비율은 `{_format_float(residual['positive_to_negative_ratio'], 2)}x`다. 이 값은 same-minibatch local optimization response이며 독립 batch 또는 unseen transition의 개선을 뜻하지 않는다.
+Support-positive의 업데이트 전 절대 TD error는 `{_format_float(td['support_positive_mean'], 4)}`, support-negative는 `{_format_float(td['support_negative_mean'], 4)}`로 비율은 `{_format_float(td['positive_to_negative_ratio'], 3)}x`다. 차이는 `{int(td['positive_seed_count'])}/10` seed에서 양수다.
 
-## 4. Training-goal phase allocation
+같은 weighted minibatch에서 residual reduction은 support-positive `{_format_float(residual['support_positive_mean'], 5)}`, support-negative `{_format_float(residual['support_negative_mean'], 5)}`로 비율은 `{_format_float(residual['positive_to_negative_ratio'], 2)}x`다. 차이는 `{int(residual['positive_seed_count'])}/10` seed에서 양수다. 이 값은 same-minibatch local optimization response이며 독립 batch 또는 unseen transition의 개선을 뜻하지 않는다.
 
-| Phase | Batch fraction | Support-positive within phase |
-| --- | ---: | ---: |
-| Approach | {100 * phase['approach']['batch_fraction']:.2f}% | {100 * phase['approach']['support_positive_rate_within_phase']:.2f}% |
-| Contact | {100 * phase['contact']['batch_fraction']:.2f}% | {100 * phase['contact']['support_positive_rate_within_phase']:.2f}% |
-| Opening | {100 * phase['opening']['batch_fraction']:.2f}% | {100 * phase['opening']['support_positive_rate_within_phase']:.2f}% |
-| Open | {100 * phase['open']['batch_fraction']:.2f}% | {100 * phase['open']['support_positive_rate_within_phase']:.2f}% |
+## 4. Outcome-stratified successful 9-seed
+
+Hit90에 도달한 9개 seed만 집계하면 업데이트 전 절대 TD error는 support-positive `{_format_float(successful_td['support_positive_mean'], 4)}`, support-negative `{_format_float(successful_td['support_negative_mean'], 4)}`이고, residual reduction은 각각 `{_format_float(successful_residual['support_positive_mean'], 5)}`와 `{_format_float(successful_residual['support_negative_mean'], 5)}`다. 이 결과는 outcome에 조건화된 secondary analysis이며 primary all-10 aggregate를 대체하지 않는다.
+
+## 5. Training-goal phase allocation: all 10 seeds
+
+| Phase | Batch fraction | Support-positive within phase | Support-rate n |
+| --- | ---: | ---: | ---: |
+| Approach | {100 * phase['approach']['batch_fraction']:.2f}% | {100 * phase['approach']['support_positive_rate_within_phase']:.2f}% | {int(phase['approach']['support_rate_n_seeds'])} |
+| Contact | {100 * phase['contact']['batch_fraction']:.2f}% | {100 * phase['contact']['support_positive_rate_within_phase']:.2f}% | {int(phase['contact']['support_rate_n_seeds'])} |
+| Opening | {100 * phase['opening']['batch_fraction']:.2f}% | {100 * phase['opening']['support_positive_rate_within_phase']:.2f}% | {int(phase['opening']['support_rate_n_seeds'])} |
+| Open | {100 * phase['open']['batch_fraction']:.2f}% | {100 * phase['open']['support_positive_rate_within_phase']:.2f}% | {int(phase['open']['support_rate_n_seeds'])} |
 
 Phase는 observation과 `desired_goal_train`으로 정의되므로 HER relabeled goal을 포함한다. 따라서 `open`을 원래 환경 성공으로 해석해서는 안 된다.
 
-## 5. Hit90 전후와 seed 7
+Seed 7에는 opening-phase 관측이 없어 opening support rate만 9개 seed로 계산했다. 값을 대체하거나 0으로 imputing하지 않았으며, batch fraction은 zero-observation seed를 포함해 10개 seed 모두로 평균했다.
+
+## 6. Hit90 전후와 seed 7
 
 Hit90 전후 결과는 시간적 기술 통계이며 인과 방향을 분리하지 않는다. Seed 7은 400–800k 구간부터 성공 seed와 분기하며, 마지막 400k support 평균은 `{_format_float(seed7['seed7_support_rate_mean'], 4)}`, support≥0.95 snapshot 비율은 `{100 * seed7['seed7_support_ge_0_95_snapshot_rate']:.2f}%`다. 이는 초기 접촉 탐색 실패 뒤 support가 비구분적으로 포화된 단일 failure case다.
 
-## 6. Scanner와 통계 한계
+## 7. Scanner와 통계 한계
 
 원본 run은 Numba scanner를 요청했지만 diagnostic cohort에서 scanner enabled/warmed 값은 0이었다. Python fallback audit의 policy-support mismatch는 0이었으나, 이는 같은 512-candidate 제한 아래 구현 일치만 뜻한다. Local scan truncation이 높으므로 512/1024/full-scan label agreement가 별도로 필요하다.
 
 Exploratory correlation은 성공 seed 9개만 사용하고 multiple-comparison correction을 하지 않았다. p-value는 가설 생성용이며 확증적 결과가 아니다.
 
-## 7. Payload 제외
+## 8. Payload 제외
 
 Checkpoint, raw `metrics.csv`, `metrics.jsonl`, run log 및 기타 JSONL은 포함하지 않았다. 원본 파일은 `source_input_manifest.json`의 SHA256으로만 식별한다.
 """
@@ -880,6 +926,22 @@ def main() -> int:
         "diagnostic_snapshot_counts": snapshot_counts,
         "diagnostic_snapshot_count_valid_all_seeds": all(
             count == EXPECTED_DIAGNOSTIC_SNAPSHOTS for count in snapshot_counts.values()
+        ),
+        "primary_diagnostic_cohort": "diagnostic_all_10",
+        "primary_diagnostic_n_seeds": int(
+            second_analysis["td_residual_all_10_summary"]["pre_update_absolute_td_error"]["n_seeds"]
+        ),
+        "primary_diagnostic_includes_failed_seed": any(
+            not bool(second_analysis["diagnostic_seed_stats"][seed]["successful"]) for seed in SEEDS
+        ),
+        "outcome_stratified_secondary_cohort": "diagnostic_successful_9",
+        "outcome_stratified_secondary_n_seeds": len(second_analysis["successful_seeds"]),
+        "phase_support_rate_seed_counts": {
+            phase: int(second_analysis["phase_all_10"][phase]["support_rate_n_seeds"])
+            for phase in rebuild_results.PHASES
+        },
+        "phase_missing_observation_rule": (
+            "exclude_undefined_within_phase_support_rate_without_imputation_and_report_n"
         ),
         "phase_fraction_sum_tolerance": 1e-6,
         "phase_fraction_and_required_range_checks_passed": True,

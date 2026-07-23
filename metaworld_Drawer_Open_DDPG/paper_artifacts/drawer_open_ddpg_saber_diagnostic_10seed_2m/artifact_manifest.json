@@ -8,22 +8,22 @@
   ],
   "github_file_limit_bytes": 100000000,
   "max_payload_bytes": 3379297,
-  "payload_count": 73,
+  "payload_count": 76,
   "payloads": [
     {
       "path": "README.md",
-      "sha256": "bf4dd22f7a029bee382ecdfcb4d18f57d40231cfba03fcb2ed8872dc806d3ba0",
-      "size_bytes": 2420
+      "sha256": "ce0f087ed4f2e37d595f505918e879186590d49cbc9f419ef04463c69c7b077f",
+      "size_bytes": 3219
     },
     {
       "path": "code/build_artifact.py",
-      "sha256": "aa3c37421b9d669829a3e4497d206020ab8b1c4af78e74dc8df5ddc71582f65c",
-      "size_bytes": 45231
+      "sha256": "9a0a440ffefc33b9147f317a4f6e34e7c8299bd6566adeefc7541079937a0855",
+      "size_bytes": 50505
     },
     {
       "path": "code/rebuild_results.py",
-      "sha256": "4fec04967a9c0835a8e818914c846e027a2a8bc7447b6703c744751d5f14c987",
-      "size_bytes": 31462
+      "sha256": "6ce1a6acf7b732b07307e9f1a3b0e648fa4d2f5a6e89a86fa5f6029a3807e09d",
+      "size_bytes": 35275
     },
     {
       "path": "data/reproduction_reference/seed_01_eval_10k.csv",
@@ -302,8 +302,23 @@
     },
     {
       "path": "report.md",
-      "sha256": "ab6930562c0a53b76fc43087ad1192a0872a4b1e70cdffdf6187a25bce718324",
-      "size_bytes": 2986
+      "sha256": "db32484250e5745fe42ffe385cd36ddbccae5faff869b8f6d67b99c4b67331a3",
+      "size_bytes": 3755
+    },
+    {
+      "path": "results/diagnostic_all_10_support_activation_summary.csv",
+      "sha256": "2f7ebe0cd39c12b259007eb083b163139c208e2dba1387e9a7483a99c8996702",
+      "size_bytes": 440
+    },
+    {
+      "path": "results/diagnostic_all_10_td_residual.csv",
+      "sha256": "50e262142301c7b92ce3ee4971fdc514bdfa2e4b7f885e977550eeeb5a1a1277",
+      "size_bytes": 3255
+    },
+    {
+      "path": "results/diagnostic_all_10_td_residual_summary.csv",
+      "sha256": "cfe3f15ae75b47cb1e3916ee48e9df6a4f53696c69a444b30c21296f2c0ea96e",
+      "size_bytes": 1133
     },
     {
       "path": "results/exploratory_correlation.csv",
@@ -337,8 +352,8 @@
     },
     {
       "path": "results/phase_conditioned_allocation.csv",
-      "sha256": "6ab2bec04ca8ae189c0c83d931d57558d8b9fcccda2f8cd63ecee55865f97ea1",
-      "size_bytes": 5356
+      "sha256": "5844e01aa23b802253d4a26f215073f7c087422eeffe3a206614047f84cac53d",
+      "size_bytes": 6902
     },
     {
       "path": "results/scanner_runtime.csv",
@@ -357,8 +372,8 @@
     },
     {
       "path": "results/successful_9seed_td_residual_summary.csv",
-      "sha256": "1486ac3a7652bf83d487e53b8747fbb2a6aae9ba3e6cd639e3adce706e13aa5e",
-      "size_bytes": 1042
+      "sha256": "f3221b7e53a5d11c56ad2912aa0862b6359b165591c4271760b79441445e61e1",
+      "size_bytes": 1114
     },
     {
       "path": "source_input_manifest.json",
@@ -372,10 +387,10 @@
     },
     {
       "path": "validation/validation_summary.json",
-      "sha256": "021ad83c75c5588fcf82f481a6d126c7443ebbc29c1bd79bc59d89bfed88d0c7",
-      "size_bytes": 3916
+      "sha256": "6def14684427bd96c6c2fd00593a0a55656ad778eda08488662d6a9fcac9a8bd",
+      "size_bytes": 7245
     }
   ],
   "schema_version": 1,
-  "total_payload_bytes_excluding_manifest": 33697884
+  "total_payload_bytes_excluding_manifest": 33718314
 }

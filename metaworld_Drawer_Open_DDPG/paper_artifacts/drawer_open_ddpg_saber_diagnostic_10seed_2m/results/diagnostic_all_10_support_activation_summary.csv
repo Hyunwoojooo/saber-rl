@@ -1,0 +1,2 @@
+artifact_id,cohort,n_seeds,support_positive_rate_mean,support_positive_rate_sample_sd,support_positive_rate_ci95_low,support_positive_rate_ci95_high,support_positive_rate_min,support_positive_rate_max,seed_selection_rule,inference_unit
+DRAWEROPEN-DDPG-SABER-DIAGNOSTIC-10SEED-2M,diagnostic_all_10,10,0.429277257606,0.0507585963234,0.392966745188,0.465587770023,0.38501426862,0.559784889986,all_instrumented_seeds_regardless_of_outcome,seed
