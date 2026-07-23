@@ -74,20 +74,25 @@ runs/ddpg_hgr_tdpriority_original_pair_is_2m/
 Logs are written below
 `logs/ddpg_hgr_tdpriority_original_pair_is_2m/`.
 
-## Legacy Result Boundary
+## Completed Full HGR Result
 
-The compact artifact at
-`paper_artifacts/drawer_close_ddpg_her_hgr_2m/` was produced by the previous
-two-stage sampler-only implementation. That implementation selected episodes
-and future goals using TD error but did not maintain full pair-priority tables
-or apply IS correction to the critic loss.
+The official five-seed Full HGR artifact is stored at
+`paper_artifacts/drawer_close_ddpg_hgr_pair_priority_is_2m/`. It replaces the
+previous sampler-only artifact and records the pair-priority + IS runs described
+above.
 
-Those completed results must be labeled:
+| Method | Final success | AUC | Hit90 |
+|---|---:|---:|---:|
+| Full HGR | 0.080 +/- 0.091 | 0.349 +/- 0.184 | 100k (5/5) |
+| DDPG+HER | 0.160 +/- 0.182 | 0.251 +/- 0.030 | 70k (5/5) |
+| SABER critic-only | 0.280 +/- 0.251 | 0.324 +/- 0.082 | 20k (5/5) |
 
-> HGR-style two-stage sampler without importance correction
-
-They are not Full HGR results and are intentionally kept separate from new
-`original_pair_is` outputs.
+Full HGR has the highest mean AUC, but its same-seed AUC difference from SABER
+is +0.025 with a paired 95% interval of [-0.132, 0.225] and is positive on only
+2/5 seeds. All HGR seeds reach Hit90, but the lower final success indicates
+late instability. The artifact includes exact-grid curves, aggregate and paired
+CSV files, sanitized seed payloads, a SHA256 manifest, and rebuild/verification
+code. Checkpoints, raw metrics, JSONL, and logs are excluded.
 
 ## Implementation
 
