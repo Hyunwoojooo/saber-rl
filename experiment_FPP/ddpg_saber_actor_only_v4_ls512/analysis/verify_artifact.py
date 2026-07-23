@@ -430,7 +430,9 @@ def _expected_validation_gates(
             "passed": True,
         },
         "config_parity": {
-            "only_differences": ["output_root", "run_name", "weight_scope"],
+            "only_differences": [
+                "output_root", "run_name", "thread_hint", "weight_scope",
+            ],
             "actual_differences_by_seed": actual_differences,
             "passed": True,
         },

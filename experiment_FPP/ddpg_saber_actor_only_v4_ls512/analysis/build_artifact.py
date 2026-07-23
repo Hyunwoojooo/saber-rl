@@ -147,6 +147,11 @@ def sanitize(value: Any, replacements: Sequence[tuple[str, str]]) -> Any:
         return {key: sanitize(item, replacements) for key, item in value.items()}
     if isinstance(value, list):
         return [sanitize(item, replacements) for item in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        # Raw summaries may contain undefined auxiliary diagnostics encoded as
+        # non-standard JSON NaN/Infinity.  Keep the source hash in the input
+        # manifest and normalize only the compact copy to standards-valid null.
+        return None
     if isinstance(value, str):
         for before, after in replacements:
             if before:
@@ -305,7 +310,9 @@ def validation_payload(
                 "passed": True,
             },
             "config_parity": {
-                "only_differences": ["output_root", "run_name", "weight_scope"],
+                "only_differences": [
+                    "output_root", "run_name", "thread_hint", "weight_scope",
+                ],
                 "actual_differences_by_seed": actual_differences,
                 "passed": True,
             },
@@ -355,8 +362,12 @@ per-arm means and sample SDs. `execution_metadata.json` binds the actor results
 to a clean `origin/main` source commit. `source/` is the frozen executable
 experiment package; `code/` is the reproducible analysis/build/verification
 tooling. Raw run metrics, logs, checkpoints, and smoke result payloads are excluded.
+Undefined non-core summary diagnostics are normalized from non-standard
+NaN/Infinity values to JSON `null`; primary performance metrics remain subject to
+strict finite-value validation.
 
-Verify with `python3 code/verify_artifact.py --artifact-root .`.
+Verify with `python3 -B code/verify_artifact.py --artifact-root .` so Python does
+not add bytecode-cache files to the manifest-locked artifact directory.
 """
 
 

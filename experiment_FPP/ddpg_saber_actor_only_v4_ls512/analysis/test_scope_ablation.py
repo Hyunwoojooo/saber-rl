@@ -226,6 +226,18 @@ class ScopeAnalysisTests(unittest.TestCase):
         with self.assertRaisesRegex(AnalysisError, "config parity failed"):
             analyze_scope_ablation(self.fixture.actor, self.fixture.critic)
 
+    def test_config_parity_allows_launcher_thread_hints(self) -> None:
+        run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))
+        config = json.loads((run / "config.json").read_text())
+        config["thread_hint"] = {
+            "OMP_NUM_THREADS": "1",
+            "MKL_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+        }
+        write_json(run / "config.json", config)
+        bundle = analyze_scope_ablation(self.fixture.actor, self.fixture.critic)
+        self.assertEqual(len(bundle.paired_rows), 5)
+
     def test_missing_grid_point_is_not_interpolated(self) -> None:
         run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))
         path = run / "metrics.csv"
@@ -241,6 +253,10 @@ class ScopeAnalysisTests(unittest.TestCase):
 
     def test_compact_artifact_build_verify_and_tamper_detection(self) -> None:
         artifact = self.fixture.repo / "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m"
+        actor_run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))
+        raw_summary = json.loads((actor_run / "summary.json").read_text())
+        raw_summary["undefined_auxiliary_diagnostic"] = float("nan")
+        write_json(actor_run / "summary.json", raw_summary)
         result = build_artifact(
             repo=self.fixture.repo,
             actor_root=self.fixture.actor,
@@ -255,6 +271,14 @@ class ScopeAnalysisTests(unittest.TestCase):
         self.assertTrue((artifact / "execution_metadata.json").is_file())
         self.assertTrue((artifact / "source/config.json").is_file())
         self.assertTrue((artifact / "source/run_smoke_20k_seed1.sh").is_file())
+        compact_summary = json.loads(
+            (artifact / f"data/{ACTOR_KEY}/seed_1/summary.json").read_text()
+        )
+        self.assertIsNone(compact_summary["undefined_auxiliary_diagnostic"])
+        self.assertIn(
+            "python3 -B code/verify_artifact.py",
+            (artifact / "README.md").read_text(encoding="utf-8"),
+        )
         mean_curve = artifact / "analysis/mean_learning_curve.csv"
         with mean_curve.open(encoding="utf-8") as handle:
             self.assertEqual(len(list(csv.DictReader(handle))), 200)
