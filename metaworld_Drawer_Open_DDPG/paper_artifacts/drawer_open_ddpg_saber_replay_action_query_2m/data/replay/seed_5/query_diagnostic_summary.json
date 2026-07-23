@@ -1,0 +1,57 @@
+{
+  "fields": {
+    "query/context_count_eligible_rate": {
+      "count": 10176,
+      "max": 1.0,
+      "mean": 0.9595540364583334,
+      "min": 0.7578125
+    },
+    "query/high_weight_count": {
+      "count": 10176,
+      "max": 204.0,
+      "mean": 132.31898584905662,
+      "min": 48.0
+    },
+    "query/normalized_weight_mean": {
+      "count": 10176,
+      "max": 1.000000238418579,
+      "mean": 0.9999999863464596,
+      "min": 0.9999997615814209
+    },
+    "query/query_bin_matches_current_policy_rate": {
+      "count": 10176,
+      "max": 0.33203125,
+      "mean": 0.09929229928262578,
+      "min": 0.0
+    },
+    "query/query_bin_matches_replay_action_rate": {
+      "count": 10176,
+      "max": 1.0,
+      "mean": 1.0,
+      "min": 1.0
+    },
+    "query/raw_weight_mean": {
+      "count": 10176,
+      "max": 1.796875,
+      "mean": 1.5168710384728774,
+      "min": 1.1875
+    },
+    "query/support_positive_rate": {
+      "count": 10176,
+      "max": 0.796875,
+      "mean": 0.5168710384728774,
+      "min": 0.1875
+    }
+  },
+  "invariants": {
+    "all_finite": true,
+    "normalized_weight_mean_all_one": true,
+    "replay_action_bin_match_all_one": true
+  },
+  "post_warmup_update_rows": 10176,
+  "sampled_transition_removed_from_local_pool": false,
+  "schema_version": 1,
+  "self_support_possible": true,
+  "support_assignment_mode": "support",
+  "support_query_mode": "replay_action"
+}

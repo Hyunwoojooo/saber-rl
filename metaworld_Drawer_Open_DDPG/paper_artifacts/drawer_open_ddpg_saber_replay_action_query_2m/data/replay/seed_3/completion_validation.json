@@ -1,0 +1,81 @@
+{
+  "checkpoint": {
+    "eval_history_points": 200,
+    "global_step": 2000000,
+    "query_mode_preserved": true,
+    "replay_size": 300000,
+    "rng_state_present": true,
+    "single_critic_ddpg": true,
+    "total_updates": 1995001
+  },
+  "checkpoint_resume_audit": {
+    "learning_result_reproduced": true,
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json",
+    "query_mode_preserved": true,
+    "replay_query_is_deterministic": true,
+    "rng_state_restored": true
+  },
+  "config_parity": {
+    "allowed_difference_paths": [
+      "output_root",
+      "run_name",
+      "support_query_mode"
+    ],
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+  },
+  "environment_snapshot_validated": true,
+  "evaluation_episodes_per_point": 20,
+  "evaluation_points": 200,
+  "final_replay_size": 300000,
+  "inputs": [
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/config.json",
+      "sha256": "f82d63a6182c645fbe7010b68fd03c76f2cca57800933302574d84f118019f71",
+      "size_bytes": 5669
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/summary.json",
+      "sha256": "102cf6b5191540bf36323e4df1dd258b0a2aeda1be84586bba73088d6f887ad0",
+      "size_bytes": 10040
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "b4247aea88ebd6202078f91050676602b6562228b660b4fd68d69c0ccb2c6815",
+      "size_bytes": 21313477
+    },
+    {
+      "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/checkpoint.pt",
+      "sha256": "defbf682597ea4a75023792812f0894ac482a56d80b3413398183490f602ea30",
+      "size_bytes": 152780981
+    }
+  ],
+  "metrics": {
+    "all_required_fields_finite": true,
+    "normalized_weight_mean_max_abs_error": 2.980232238769531e-07,
+    "post_warmup_update_rows_checked": 10176,
+    "replay_action_bin_match_max_abs_error": 0.0,
+    "replay_action_bin_match_min": 1.0
+  },
+  "passed": true,
+  "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda",
+  "seed": 3,
+  "single_critic_ddpg": true,
+  "summary": {
+    "auc": 0.0,
+    "best_success": 0.0,
+    "final_success": 0.0,
+    "hit90": null
+  },
+  "support_assignment_mode": "support",
+  "support_query_mode": "replay_action",
+  "total_steps": 2000000,
+  "total_updates": 1995001,
+  "weight_scope": "critic_only"
+}

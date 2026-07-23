@@ -1,0 +1,650 @@
+{
+  "current_git_head": "6e0720c3ffcfbbab310ee2bbdbe3c14f2414c1dd",
+  "evaluation_field": "eval/env_success_mean",
+  "evaluation_grid": [
+    10000,
+    20000,
+    30000,
+    40000,
+    50000,
+    60000,
+    70000,
+    80000,
+    90000,
+    100000,
+    110000,
+    120000,
+    130000,
+    140000,
+    150000,
+    160000,
+    170000,
+    180000,
+    190000,
+    200000,
+    210000,
+    220000,
+    230000,
+    240000,
+    250000,
+    260000,
+    270000,
+    280000,
+    290000,
+    300000,
+    310000,
+    320000,
+    330000,
+    340000,
+    350000,
+    360000,
+    370000,
+    380000,
+    390000,
+    400000,
+    410000,
+    420000,
+    430000,
+    440000,
+    450000,
+    460000,
+    470000,
+    480000,
+    490000,
+    500000,
+    510000,
+    520000,
+    530000,
+    540000,
+    550000,
+    560000,
+    570000,
+    580000,
+    590000,
+    600000,
+    610000,
+    620000,
+    630000,
+    640000,
+    650000,
+    660000,
+    670000,
+    680000,
+    690000,
+    700000,
+    710000,
+    720000,
+    730000,
+    740000,
+    750000,
+    760000,
+    770000,
+    780000,
+    790000,
+    800000,
+    810000,
+    820000,
+    830000,
+    840000,
+    850000,
+    860000,
+    870000,
+    880000,
+    890000,
+    900000,
+    910000,
+    920000,
+    930000,
+    940000,
+    950000,
+    960000,
+    970000,
+    980000,
+    990000,
+    1000000,
+    1010000,
+    1020000,
+    1030000,
+    1040000,
+    1050000,
+    1060000,
+    1070000,
+    1080000,
+    1090000,
+    1100000,
+    1110000,
+    1120000,
+    1130000,
+    1140000,
+    1150000,
+    1160000,
+    1170000,
+    1180000,
+    1190000,
+    1200000,
+    1210000,
+    1220000,
+    1230000,
+    1240000,
+    1250000,
+    1260000,
+    1270000,
+    1280000,
+    1290000,
+    1300000,
+    1310000,
+    1320000,
+    1330000,
+    1340000,
+    1350000,
+    1360000,
+    1370000,
+    1380000,
+    1390000,
+    1400000,
+    1410000,
+    1420000,
+    1430000,
+    1440000,
+    1450000,
+    1460000,
+    1470000,
+    1480000,
+    1490000,
+    1500000,
+    1510000,
+    1520000,
+    1530000,
+    1540000,
+    1550000,
+    1560000,
+    1570000,
+    1580000,
+    1590000,
+    1600000,
+    1610000,
+    1620000,
+    1630000,
+    1640000,
+    1650000,
+    1660000,
+    1670000,
+    1680000,
+    1690000,
+    1700000,
+    1710000,
+    1720000,
+    1730000,
+    1740000,
+    1750000,
+    1760000,
+    1770000,
+    1780000,
+    1790000,
+    1800000,
+    1810000,
+    1820000,
+    1830000,
+    1840000,
+    1850000,
+    1860000,
+    1870000,
+    1880000,
+    1890000,
+    1900000,
+    1910000,
+    1920000,
+    1930000,
+    1940000,
+    1950000,
+    1960000,
+    1970000,
+    1980000,
+    1990000,
+    2000000
+  ],
+  "experiment": "DDPG-HER-B3-Replay-Action-Query-2M",
+  "passed": true,
+  "query_contract": {
+    "replay_action_bin_match": 1.0,
+    "sampled_transition_removed_from_local_pool": false,
+    "support_assignment_mode": "support",
+    "support_query_mode": "replay_action",
+    "weight_scope": "critic_only"
+  },
+  "records": [
+    {
+      "checkpoint": {
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "query_mode_preserved": true,
+        "replay_size": 300000,
+        "rng_state_present": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "learning_result_reproduced": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json",
+        "query_mode_preserved": true,
+        "replay_query_is_deterministic": true,
+        "rng_state_restored": true
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_query_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/config.json",
+          "sha256": "f590ac2702c09d26d70202e5d8ddfab879dc3bcb217b0704e1226ea4b02567ed",
+          "size_bytes": 5669
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/env_snapshot.json",
+          "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/summary.json",
+          "sha256": "01110a74b9bced18a7ab5e326d1d62eb868d4c02779d8a7caf106c270e5724f7",
+          "size_bytes": 10057
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/metrics.csv",
+          "sha256": "e4abb2d5a3598257a45c0af1eba50db695cf617bc67a1131012c16f304e941f8",
+          "size_bytes": 21057343
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/checkpoint.pt",
+          "sha256": "6563a079f3a6b7b25e3da467cdcb3b6b649b6f8122e3625184a6cd8e72530c56",
+          "size_bytes": 151858101
+        }
+      ],
+      "metrics": {
+        "all_required_fields_finite": true,
+        "normalized_weight_mean_max_abs_error": 2.384185791015625e-07,
+        "post_warmup_update_rows_checked": 10176,
+        "replay_action_bin_match_max_abs_error": 0.0,
+        "replay_action_bin_match_min": 1.0
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda",
+      "seed": 1,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.0,
+        "best_success": 0.0,
+        "final_success": 0.0,
+        "hit90": null
+      },
+      "support_assignment_mode": "support",
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint": {
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "query_mode_preserved": true,
+        "replay_size": 300000,
+        "rng_state_present": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "learning_result_reproduced": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json",
+        "query_mode_preserved": true,
+        "replay_query_is_deterministic": true,
+        "rng_state_restored": true
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_query_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/config.json",
+          "sha256": "6adb0fc0bc73d3bd5e712f7f358c79e9a97789919364365873cb6aa5ac9373c7",
+          "size_bytes": 5669
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/env_snapshot.json",
+          "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/summary.json",
+          "sha256": "9e4cd2864d687670fe6283f156a3903e905df3c5aa3273acbcd86fa4c70a90ea",
+          "size_bytes": 10352
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/metrics.csv",
+          "sha256": "3f21b2f81f4760e1194e52e8185e07dfbaa044227326eccbb37236f3765c669b",
+          "size_bytes": 22578648
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/checkpoint.pt",
+          "sha256": "7174f82b9add9cea31c9082c5e866a3ab17cf61de473050b1de89dbba781e0fa",
+          "size_bytes": 150988789
+        }
+      ],
+      "metrics": {
+        "all_required_fields_finite": true,
+        "normalized_weight_mean_max_abs_error": 2.384185791015625e-07,
+        "post_warmup_update_rows_checked": 10176,
+        "replay_action_bin_match_max_abs_error": 0.0,
+        "replay_action_bin_match_min": 1.0
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda",
+      "seed": 2,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.8442211055276382,
+        "best_success": 1.0,
+        "final_success": 1.0,
+        "hit90": 310000
+      },
+      "support_assignment_mode": "support",
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint": {
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "query_mode_preserved": true,
+        "replay_size": 300000,
+        "rng_state_present": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "learning_result_reproduced": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json",
+        "query_mode_preserved": true,
+        "replay_query_is_deterministic": true,
+        "rng_state_restored": true
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_query_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/config.json",
+          "sha256": "f82d63a6182c645fbe7010b68fd03c76f2cca57800933302574d84f118019f71",
+          "size_bytes": 5669
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/env_snapshot.json",
+          "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/summary.json",
+          "sha256": "102cf6b5191540bf36323e4df1dd258b0a2aeda1be84586bba73088d6f887ad0",
+          "size_bytes": 10040
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/metrics.csv",
+          "sha256": "b4247aea88ebd6202078f91050676602b6562228b660b4fd68d69c0ccb2c6815",
+          "size_bytes": 21313477
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/checkpoint.pt",
+          "sha256": "defbf682597ea4a75023792812f0894ac482a56d80b3413398183490f602ea30",
+          "size_bytes": 152780981
+        }
+      ],
+      "metrics": {
+        "all_required_fields_finite": true,
+        "normalized_weight_mean_max_abs_error": 2.980232238769531e-07,
+        "post_warmup_update_rows_checked": 10176,
+        "replay_action_bin_match_max_abs_error": 0.0,
+        "replay_action_bin_match_min": 1.0
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda",
+      "seed": 3,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.0,
+        "best_success": 0.0,
+        "final_success": 0.0,
+        "hit90": null
+      },
+      "support_assignment_mode": "support",
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint": {
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "query_mode_preserved": true,
+        "replay_size": 300000,
+        "rng_state_present": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "learning_result_reproduced": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json",
+        "query_mode_preserved": true,
+        "replay_query_is_deterministic": true,
+        "rng_state_restored": true
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_query_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/config.json",
+          "sha256": "5ea2ece4698057ad5adc017e7583ae8795dc532df77401be385999ea70107bfa",
+          "size_bytes": 5669
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/env_snapshot.json",
+          "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/summary.json",
+          "sha256": "8c0f745be8303a06a1b366eb174d38dcea8924157a18dbc51fc69650e74573b1",
+          "size_bytes": 10199
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/metrics.csv",
+          "sha256": "e10a947ed3860ec8eefc8e4a01b9830d4295d732459aee3f6b1d77fc4232b0bf",
+          "size_bytes": 21365732
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/checkpoint.pt",
+          "sha256": "c9eb4dde686a033ed9ddf6e7c779599199376cc3b4168562eb12b7812f445a5b",
+          "size_bytes": 151935093
+        }
+      ],
+      "metrics": {
+        "all_required_fields_finite": true,
+        "normalized_weight_mean_max_abs_error": 2.980232238769531e-07,
+        "post_warmup_update_rows_checked": 10176,
+        "replay_action_bin_match_max_abs_error": 0.0,
+        "replay_action_bin_match_min": 1.0
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda",
+      "seed": 4,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.0,
+        "best_success": 0.0,
+        "final_success": 0.0,
+        "hit90": null
+      },
+      "support_assignment_mode": "support",
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint": {
+        "eval_history_points": 200,
+        "global_step": 2000000,
+        "query_mode_preserved": true,
+        "replay_size": 300000,
+        "rng_state_present": true,
+        "single_critic_ddpg": true,
+        "total_updates": 1995001
+      },
+      "checkpoint_resume_audit": {
+        "learning_result_reproduced": true,
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json",
+        "query_mode_preserved": true,
+        "replay_query_is_deterministic": true,
+        "rng_state_restored": true
+      },
+      "config_parity": {
+        "allowed_difference_paths": [
+          "output_root",
+          "run_name",
+          "support_query_mode"
+        ],
+        "passed": true,
+        "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+      },
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "final_replay_size": 300000,
+      "inputs": [
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/config.json",
+          "sha256": "f56ef35771b714b153367b9c1168cd2e82c33d54f8719df1094479c0fed3c591",
+          "size_bytes": 5669
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/env_snapshot.json",
+          "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+          "size_bytes": 2746
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/summary.json",
+          "sha256": "ec2404987e02d6c387a5430d7b42a130deba35d23884c1c6a77f3b688e45af95",
+          "size_bytes": 10398
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/metrics.csv",
+          "sha256": "d7a6c295eb477d41aaabb2a9145d80d7763901614cc9c4f964ae844c27d7a151",
+          "size_bytes": 22446154
+        },
+        {
+          "path": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/checkpoint.pt",
+          "sha256": "682eb31bb5c031627f8d821e03312f5b3ced3b2a677221f75871866d8f951bda",
+          "size_bytes": 150826741
+        }
+      ],
+      "metrics": {
+        "all_required_fields_finite": true,
+        "normalized_weight_mean_max_abs_error": 2.384185791015625e-07,
+        "post_warmup_update_rows_checked": 10176,
+        "replay_action_bin_match_max_abs_error": 0.0,
+        "replay_action_bin_match_min": 1.0
+      },
+      "passed": true,
+      "run_dir": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda",
+      "seed": 5,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.7447236180904523,
+        "best_success": 1.0,
+        "final_success": 1.0,
+        "hit90": 500000
+      },
+      "support_assignment_mode": "support",
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    }
+  ],
+  "result_root": "./metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M",
+  "schema_version": 1,
+  "seed_count": 5,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+  "source_commit_relation": "recorded_source_commit_differs_from_current_head",
+  "source_freeze": {
+    "entrypoint_count": 1,
+    "file_count": 42,
+    "head_binding_verified": true,
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/freeze_manifest.json",
+    "recorded_commit_was_current_head_at_write": true,
+    "root_launcher_repo_path": "metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Replay-Action-Query-2M.sh",
+    "schema_version": 2,
+    "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f"
+  },
+  "source_parity": {
+    "passed": true,
+    "path": "./metaworld_Drawer_Open_DDPG/replay_action_query_2m/source_parity.json",
+    "sha256": "d1f8f4c88610a178b8ed097aa6d443decd6b652d034710b95c76c95c0f1183de"
+  }
+}

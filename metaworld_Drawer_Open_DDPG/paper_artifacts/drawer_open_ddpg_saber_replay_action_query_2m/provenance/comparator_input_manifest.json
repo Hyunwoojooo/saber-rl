@@ -1,0 +1,341 @@
+{
+  "artifact_id": "drawer_open_ddpg_saber_context_eligible_count_matched_2m",
+  "input_file_count": 54,
+  "inputs": [
+    {
+      "role": "her.seed_1.metrics",
+      "sha256": "93a185413e916d92ad36d7db064f609c860815cebaa4af6aa5f4b20c47994334",
+      "size_bytes": 9934611,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "her.seed_1.summary",
+      "sha256": "fd3b5fe75a73f919c919f9b00db2e2ebbac5104a20712ed29ea40028763073bc",
+      "size_bytes": 5574,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "role": "her.seed_2.metrics",
+      "sha256": "c7a8f94618a6075145ea427652aa809197674133e47b8b1f60b84467eabeac22",
+      "size_bytes": 9826639,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "her.seed_2.summary",
+      "sha256": "2b8fe95a07f2a08f4decddc02f86532dd02abcfc4284c5945cb4ab5775e3bc48",
+      "size_bytes": 5509,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "role": "her.seed_3.metrics",
+      "sha256": "ea50e0a0b07fe6adee44990d44efa9936b8b44c0779f1d293e6474a9a32798d7",
+      "size_bytes": 9835484,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "her.seed_3.summary",
+      "sha256": "4c746f54997f5fcab2f76a253fd931bf6042869a3709f53cc4ae935ac39334a6",
+      "size_bytes": 5521,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "role": "her.seed_4.metrics",
+      "sha256": "ad4a8116fd31f5fd904b6127f3447d4b340cef6f08acde11c543a1753b8e18f7",
+      "size_bytes": 9832980,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "her.seed_4.summary",
+      "sha256": "cfc54c6c03632346b9c497abd46c227073a84eb18eeaf62e422e547342aa090c",
+      "size_bytes": 5520,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "role": "her.seed_5.metrics",
+      "sha256": "a9d4cd0ca0d04e119e2ed47e83a235fd7817818ee9cb3dbed1f7387165df0ce8",
+      "size_bytes": 9932514,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "her.seed_5.summary",
+      "sha256": "871712bfba33f72252c92f0ca20e88fc62fe85ee86432a292d264ae8c1130cc5",
+      "size_bytes": 5570,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/summary.json"
+    },
+    {
+      "role": "main.seed_1.metrics",
+      "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4",
+      "size_bytes": 18532549,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "main.seed_1.summary",
+      "sha256": "5fee923b4e9eb5f1534f3468ac6a8fad53ac13597bf7ba3cf8f0c2c705c0827a",
+      "size_bytes": 8036,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "role": "main.seed_2.metrics",
+      "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80",
+      "size_bytes": 18562822,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "main.seed_2.summary",
+      "sha256": "0a29a60e427940a336a7ef20bbe03376b93bd01abf37888ad5909ad4f7e22e0f",
+      "size_bytes": 8079,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "role": "main.seed_3.metrics",
+      "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5",
+      "size_bytes": 18492864,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "main.seed_3.summary",
+      "sha256": "2638514f929a6193bd78c46760da05a9a691494f4936df59e3363b8357367056",
+      "size_bytes": 8008,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "role": "main.seed_4.metrics",
+      "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515",
+      "size_bytes": 18547465,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "main.seed_4.summary",
+      "sha256": "424511a2482b017f2d59b0381515a6464cf1a57fd5e872a9c8d66b81ca516648",
+      "size_bytes": 8084,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "role": "main.seed_5.metrics",
+      "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac",
+      "size_bytes": 18586425,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "main.seed_5.summary",
+      "sha256": "59cd952ce6a973a98a125c0f4febdda325ba79ee3bc2c809c1063ddce2ff625d",
+      "size_bytes": 8103,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json"
+    },
+    {
+      "role": "strict.seed_1.metrics",
+      "sha256": "31221dcdc0b774ad36a6451efe1473f4e1bec16b834fa5cdaec4ed5df46f58a2",
+      "size_bytes": 23662610,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "strict.seed_1.summary",
+      "sha256": "ef09a869dfa6e51f9575011029ec2da9bc6ce77d7c24861fc2a9c2816ecf9710",
+      "size_bytes": 11008,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "role": "strict.seed_1.config",
+      "sha256": "d71138ca6e5554395b138b2bcddfda84aae38350ae44a4b43ddb5b5af593399b",
+      "size_bytes": 5740,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/config.json"
+    },
+    {
+      "role": "strict.seed_1.env_snapshot",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "strict.seed_1.strict_diagnostic_trace",
+      "sha256": "91f37e8a5b94724999d95dbbd293332ac1fa3510db151dc130ce21a7dbca1579",
+      "size_bytes": 917623,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/strict_diagnostics_1000.csv"
+    },
+    {
+      "role": "strict.seed_1.completion_checkpoint_excluded",
+      "sha256": "68acac6a28a0b7ed8a25180e7540982e6f53697fa79cd727e5b33842fe2cc921",
+      "size_bytes": 151854773,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "strict.seed_2.metrics",
+      "sha256": "7346b14e1ad8cdda97c96daa4615cd3b7e3926145462ac688a01590790f81309",
+      "size_bytes": 23502557,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "strict.seed_2.summary",
+      "sha256": "9f83b229ecdce16d71280b565c3c325bb7e708b4381b2952f46dd3a4c4c5852f",
+      "size_bytes": 10990,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "role": "strict.seed_2.config",
+      "sha256": "1d7b0b0686e7c39c3c6181903487742eacf29a36530e668235dd961c249e048b",
+      "size_bytes": 5740,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/config.json"
+    },
+    {
+      "role": "strict.seed_2.env_snapshot",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "strict.seed_2.strict_diagnostic_trace",
+      "sha256": "618a3ee5b2ddff87651065c5aefdb77a259a18b7a078490516469820d4f8687a",
+      "size_bytes": 916671,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/strict_diagnostics_1000.csv"
+    },
+    {
+      "role": "strict.seed_2.completion_checkpoint_excluded",
+      "sha256": "41ed92ffa4fa66c65c8c399badf30a02c40907efb40189f0660db80bd9edc37c",
+      "size_bytes": 150803765,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s2_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "strict.seed_3.metrics",
+      "sha256": "6d3054d4d0c53135a6bfe4915914acf5625e52a8deaa192268c1c701649451e3",
+      "size_bytes": 20522695,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "strict.seed_3.summary",
+      "sha256": "20781bb1c3099383dd5f882df3615bd19578db6fd5f645ef631e2c15e16df78f",
+      "size_bytes": 10180,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "role": "strict.seed_3.config",
+      "sha256": "ef1131bbd7be3df4d150b95ba4ef4868859049935297f37dd7b82099f0b82133",
+      "size_bytes": 5740,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/config.json"
+    },
+    {
+      "role": "strict.seed_3.env_snapshot",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "strict.seed_3.strict_diagnostic_trace",
+      "sha256": "60a5d5b89f3604a3c31443ea4f72aea5a9e7aa1c3f3ba5903116067c0499800b",
+      "size_bytes": 775342,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/strict_diagnostics_1000.csv"
+    },
+    {
+      "role": "strict.seed_3.completion_checkpoint_excluded",
+      "sha256": "4f790e39b2d484b38d40cfe1c89287b853c606842becc3953549634dc90425ce",
+      "size_bytes": 151268981,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s3_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "strict.seed_4.metrics",
+      "sha256": "0ee47bd2a4538a3c9f14b0dc2f1def87a2150314937265ff36f5ddc3ef631285",
+      "size_bytes": 23426984,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "strict.seed_4.summary",
+      "sha256": "61268e489e6b33ea459fa8ccf24b963a7db944db180612502b5c64ce838e01dc",
+      "size_bytes": 10993,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "role": "strict.seed_4.config",
+      "sha256": "b42d3b982b6124d583f04318ff6bd1e05691dddd7bd7d82f6a3518e314fc7192",
+      "size_bytes": 5740,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/config.json"
+    },
+    {
+      "role": "strict.seed_4.env_snapshot",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "strict.seed_4.strict_diagnostic_trace",
+      "sha256": "20ffdbaed12259ea7b9dabf211085091b88aa004ef6f717ef93e4578ff31a106",
+      "size_bytes": 917145,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/strict_diagnostics_1000.csv"
+    },
+    {
+      "role": "strict.seed_4.completion_checkpoint_excluded",
+      "sha256": "37da68529fc55f79a0804fa289a1b44550203f38486de189ab6b15a7a59cbd82",
+      "size_bytes": 151406389,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s4_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "strict.seed_5.metrics",
+      "sha256": "5cc583c0f601f27636340d17832886eb08bea5a0047f34b0cff1d7d0c2217554",
+      "size_bytes": 23522075,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "strict.seed_5.summary",
+      "sha256": "35c331e334e87297c857520caa5249e06aa1a58199f99a20ed92102214d87265",
+      "size_bytes": 11013,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/summary.json"
+    },
+    {
+      "role": "strict.seed_5.config",
+      "sha256": "02dbc423f196429a3c137ab1d5fa26133d95087202df08c662b9ee1bf4062eae",
+      "size_bytes": 5740,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/config.json"
+    },
+    {
+      "role": "strict.seed_5.env_snapshot",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "strict.seed_5.strict_diagnostic_trace",
+      "sha256": "d02a8d5a0d4d8c21a25e0b8e32747759ba49fffdadd3f6f96321d90b6a6ea873",
+      "size_bytes": 917085,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/strict_diagnostics_1000.csv"
+    },
+    {
+      "role": "strict.seed_5.completion_checkpoint_excluded",
+      "sha256": "900605635f6070172118ae4d2a41c96dbe05655fa06d4149f7f703c91b06cb69",
+      "size_bytes": 150757877,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s5_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "provenance.config_parity.json",
+      "sha256": "181d9a7ed457f80f5f412b95471af4802087efab2551a1dfee162e75978ddc61",
+      "size_bytes": 7949,
+      "source_path": "metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/config_parity.json"
+    },
+    {
+      "role": "provenance.checkpoint_resume_audit.json",
+      "sha256": "0bdc61c727826c2682d1a151f08b6fc7fba99187a3efaf5aaad4ba58aad6accb",
+      "size_bytes": 2391,
+      "source_path": "metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/checkpoint_resume_audit.json"
+    },
+    {
+      "role": "provenance.source_parity.json",
+      "sha256": "934418d5e44a5e9f6488447936d236846e381a17173462e33f4652cc411978d0",
+      "size_bytes": 2791,
+      "source_path": "metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/source_parity.json"
+    },
+    {
+      "role": "provenance.freeze_manifest.json",
+      "sha256": "21b0a81f51fd86870d0bbe79ebe8a4e87daf1911fb075e316dfcc68716fb8e6c",
+      "size_bytes": 6568,
+      "source_path": "metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/freeze_manifest.json"
+    }
+  ],
+  "schema_version": 1,
+  "source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+  "transform": {
+    "checkpoints_copied": false,
+    "json": "machine-local repository path replaced by '.'; NaN/Inf replaced by null",
+    "jsonl_copied": false,
+    "logs_copied": false,
+    "metrics": "exact observed evaluation rows at 10k..2M; all columns retained",
+    "raw_metrics_copied": false,
+    "smoke_or_pilot_copied": false
+  }
+}

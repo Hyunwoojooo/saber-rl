@@ -1,0 +1,751 @@
+{
+  "artifact_id": "drawer_open_ddpg_saber_replay_action_query_2m",
+  "comparator": {
+    "arms_reused": [
+      "her",
+      "main"
+    ],
+    "artifact_git_commit": "93ae5c03633726f8e7783a157cac8516348f088f",
+    "artifact_manifest_sha256": "7c70f84dcee58f714233e3125f05922590abe0e4644bdf5d8e976d09d573fafd",
+    "artifact_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m",
+    "metadata_policy": "reconstructed config metadata and explicitly labelled same-seed Strict environment proxy",
+    "original_comparator_config_env_available": false,
+    "original_training_source_commit": null,
+    "original_training_source_commit_status": "unknown_not_recorded",
+    "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+    "retrained": false,
+    "upstream_input_manifest_path": "provenance/comparator_input_manifest.json",
+    "upstream_input_manifest_sha256": "a388b52717bdca85950b15d23ff1a44b0e14424163c83dc1612c7e4cf1361202"
+  },
+  "input_file_count": 71,
+  "inputs": [
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_1.metrics",
+      "sha256": "03828407b164e7958a90f349c45a62739b460c4d01957731683655ba0158246f",
+      "size_bytes": 228240,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_1/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_1.metrics",
+        "sha256": "93a185413e916d92ad36d7db064f609c860815cebaa4af6aa5f4b20c47994334",
+        "size_bytes": 9934611,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_1.summary",
+      "sha256": "f116807a5da5e2c41194d634c51985c2b8642be89ca30e8f321f3f651f64bf39",
+      "size_bytes": 5583,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_1/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_1.summary",
+        "sha256": "fd3b5fe75a73f919c919f9b00db2e2ebbac5104a20712ed29ea40028763073bc",
+        "size_bytes": 5574,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_1.reconstructed_config_proxy",
+      "sha256": "6e757def8158dd0bcf4d6af0330dcccbdcb4c66c63790c7dd4c0df5a99a60ba3",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_1/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_1.environment_proxy",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_1/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_2.metrics",
+      "sha256": "e97a712e72ff7589ebad03b2e62cb873d95f2c8f2835f8c14d9619f9bc728020",
+      "size_bytes": 218517,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_2/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_2.metrics",
+        "sha256": "c7a8f94618a6075145ea427652aa809197674133e47b8b1f60b84467eabeac22",
+        "size_bytes": 9826639,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_2.summary",
+      "sha256": "46ad2106012d08ee9d5be5682e84b290ef74e17afabdbebdeb72b000b405e231",
+      "size_bytes": 5518,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_2/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_2.summary",
+        "sha256": "2b8fe95a07f2a08f4decddc02f86532dd02abcfc4284c5945cb4ab5775e3bc48",
+        "size_bytes": 5509,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_2.reconstructed_config_proxy",
+      "sha256": "74b1909c4c48cddac02eed99a97ae5e6ea6175adff1156a3632b3bcd195e161e",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_2/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_2.environment_proxy",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_2/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_3.metrics",
+      "sha256": "8f99e4579f70c5ab64e003a3c5f20d1caaa3ab9c8a3ed8d21629db86628f4226",
+      "size_bytes": 218809,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_3/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_3.metrics",
+        "sha256": "ea50e0a0b07fe6adee44990d44efa9936b8b44c0779f1d293e6474a9a32798d7",
+        "size_bytes": 9835484,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_3.summary",
+      "sha256": "01bcadf05bb6b9e0bc74436edc8ba2b548549ad7e0f0e49098f549eeaeaba50a",
+      "size_bytes": 5530,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_3/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_3.summary",
+        "sha256": "4c746f54997f5fcab2f76a253fd931bf6042869a3709f53cc4ae935ac39334a6",
+        "size_bytes": 5521,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_3.reconstructed_config_proxy",
+      "sha256": "d2885a697aca84982b9d7f5c35d3c5161cf65e13467de0ec52fbe28f19ba7b1c",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_3/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_3.environment_proxy",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_3/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_4.metrics",
+      "sha256": "012eb2e0cb8b467b12cae7e3c9a5ad8b6bfec7fb5f6bcf3933df104d93a5029e",
+      "size_bytes": 218883,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_4/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_4.metrics",
+        "sha256": "ad4a8116fd31f5fd904b6127f3447d4b340cef6f08acde11c543a1753b8e18f7",
+        "size_bytes": 9832980,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_4.summary",
+      "sha256": "3cbd152a7037952f3d2b8637475ea43917c9e0715df6bb78907b7d722502bf39",
+      "size_bytes": 5529,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_4/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_4.summary",
+        "sha256": "cfc54c6c03632346b9c497abd46c227073a84eb18eeaf62e422e547342aa090c",
+        "size_bytes": 5520,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_4.reconstructed_config_proxy",
+      "sha256": "330dc1457a0c33921817f51b83f1c531f292d0954f25cc1c73002206822291db",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_4/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_4.environment_proxy",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_4/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_5.metrics",
+      "sha256": "d149e24975d1f5f01ce1c9bf6e230dd312b6361a31f5fa10594d4223e9234479",
+      "size_bytes": 229769,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_5/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "her.seed_5.metrics",
+        "sha256": "a9d4cd0ca0d04e119e2ed47e83a235fd7817818ee9cb3dbed1f7387165df0ce8",
+        "size_bytes": 9932514,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_5.summary",
+      "sha256": "07abde387af77dc41611d0f505f8377c426233a58aeae927a5bcc0ad40cb8764",
+      "size_bytes": 5579,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_5/summary.json",
+      "upstream_input_provenance": {
+        "role": "her.seed_5.summary",
+        "sha256": "871712bfba33f72252c92f0ca20e88fc62fe85ee86432a292d264ae8c1130cc5",
+        "size_bytes": 5570,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_5.reconstructed_config_proxy",
+      "sha256": "b3b168bb9e0bfc9034a80f02614756397b8bf671ecec3bef9e36b479c7b8ab12",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_5/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "her.seed_5.environment_proxy",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_5/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_1.metrics",
+      "sha256": "5aeb855ff5d9063b9875776682a79023f5ea0de1276a04f696573e841b7e6f76",
+      "size_bytes": 400494,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_1/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_1.metrics",
+        "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4",
+        "size_bytes": 18532549,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_1.summary",
+      "sha256": "a78a93f3474f220936e506c24106a6f21a7d5fafd2095366ed7dc3a461b3c3a4",
+      "size_bytes": 8045,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_1/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_1.summary",
+        "sha256": "5fee923b4e9eb5f1534f3468ac6a8fad53ac13597bf7ba3cf8f0c2c705c0827a",
+        "size_bytes": 8036,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_1.reconstructed_config_proxy",
+      "sha256": "6e757def8158dd0bcf4d6af0330dcccbdcb4c66c63790c7dd4c0df5a99a60ba3",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_1/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_1.environment_proxy",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_1/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_2.metrics",
+      "sha256": "8d074d97c1e5ba3fcf58015fa76d71bc1f5fe704e96b905814d18ba9a704414f",
+      "size_bytes": 401003,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_2/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_2.metrics",
+        "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80",
+        "size_bytes": 18562822,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_2.summary",
+      "sha256": "62600b0e556984ef2965e541f9481e793a07cfae088e20ea1c289d1f8e89c82e",
+      "size_bytes": 8088,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_2/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_2.summary",
+        "sha256": "0a29a60e427940a336a7ef20bbe03376b93bd01abf37888ad5909ad4f7e22e0f",
+        "size_bytes": 8079,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_2.reconstructed_config_proxy",
+      "sha256": "74b1909c4c48cddac02eed99a97ae5e6ea6175adff1156a3632b3bcd195e161e",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_2/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_2.environment_proxy",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_2/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_3.metrics",
+      "sha256": "deffc28b8b04da2a14210b53f9e542ff20184f51f5dba2831987a02e9267683a",
+      "size_bytes": 398844,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_3/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_3.metrics",
+        "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5",
+        "size_bytes": 18492864,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_3.summary",
+      "sha256": "b0446b5bce9e7ddb3214dff1cd976b2c88d153e7eb6284ac74539d80922461f4",
+      "size_bytes": 8017,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_3/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_3.summary",
+        "sha256": "2638514f929a6193bd78c46760da05a9a691494f4936df59e3363b8357367056",
+        "size_bytes": 8008,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_3.reconstructed_config_proxy",
+      "sha256": "d2885a697aca84982b9d7f5c35d3c5161cf65e13467de0ec52fbe28f19ba7b1c",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_3/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_3.environment_proxy",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_3/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_4.metrics",
+      "sha256": "386e863c529145622cc3ff4600c91b840a52f2c40c5aace0a1aec0d894ff350f",
+      "size_bytes": 403688,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_4/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_4.metrics",
+        "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515",
+        "size_bytes": 18547465,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_4.summary",
+      "sha256": "6d9a167aa512e081aa51f64f020873ea3ef6080d1897e9e94287562e9f42e84c",
+      "size_bytes": 8093,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_4/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_4.summary",
+        "sha256": "424511a2482b017f2d59b0381515a6464cf1a57fd5e872a9c8d66b81ca516648",
+        "size_bytes": 8084,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_4.reconstructed_config_proxy",
+      "sha256": "330dc1457a0c33921817f51b83f1c531f292d0954f25cc1c73002206822291db",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_4/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_4.environment_proxy",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_4/env_snapshot.json"
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_5.metrics",
+      "sha256": "14cb6954b20990ceda99784c87a9289bab334dd9f6c6ccc22b59cf7a28322dbc",
+      "size_bytes": 401561,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_5/metrics_selected_10k.csv",
+      "upstream_input_provenance": {
+        "role": "main.seed_5.metrics",
+        "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac",
+        "size_bytes": 18586425,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv"
+      }
+    },
+    {
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_5.summary",
+      "sha256": "b1c2ed92e3d942149d75f211b64a6933a2a801e487ff4e41f6b3b134bde8b44d",
+      "size_bytes": 8112,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_5/summary.json",
+      "upstream_input_provenance": {
+        "role": "main.seed_5.summary",
+        "sha256": "59cd952ce6a973a98a125c0f4febdda325ba79ee3bc2c809c1063ddce2ff625d",
+        "size_bytes": 8103,
+        "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json"
+      }
+    },
+    {
+      "not_original_comparator_config": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_5.reconstructed_config_proxy",
+      "sha256": "b3b168bb9e0bfc9034a80f02614756397b8bf671ecec3bef9e36b479c7b8ab12",
+      "size_bytes": 5696,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_5/config.json"
+    },
+    {
+      "not_original_comparator_env_snapshot": true,
+      "original_training_source_commit": null,
+      "original_training_source_commit_status": "unknown_not_recorded",
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "main.seed_5.environment_proxy",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_5/env_snapshot.json"
+    },
+    {
+      "role": "replay.seed_1.metrics",
+      "sha256": "e4abb2d5a3598257a45c0af1eba50db695cf617bc67a1131012c16f304e941f8",
+      "size_bytes": 21057343,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "replay.seed_1.summary",
+      "sha256": "01110a74b9bced18a7ab5e326d1d62eb868d4c02779d8a7caf106c270e5724f7",
+      "size_bytes": 10057,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "role": "replay.seed_1.config",
+      "sha256": "f590ac2702c09d26d70202e5d8ddfab879dc3bcb217b0704e1226ea4b02567ed",
+      "size_bytes": 5669,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/config.json"
+    },
+    {
+      "role": "replay.seed_1.env_snapshot",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+      "size_bytes": 2746,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "replay.seed_1.completion_checkpoint_excluded",
+      "sha256": "6563a079f3a6b7b25e3da467cdcb3b6b649b6f8122e3625184a6cd8e72530c56",
+      "size_bytes": 151858101,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s1_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "replay.seed_2.metrics",
+      "sha256": "3f21b2f81f4760e1194e52e8185e07dfbaa044227326eccbb37236f3765c669b",
+      "size_bytes": 22578648,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "replay.seed_2.summary",
+      "sha256": "9e4cd2864d687670fe6283f156a3903e905df3c5aa3273acbcd86fa4c70a90ea",
+      "size_bytes": 10352,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "role": "replay.seed_2.config",
+      "sha256": "6adb0fc0bc73d3bd5e712f7f358c79e9a97789919364365873cb6aa5ac9373c7",
+      "size_bytes": 5669,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/config.json"
+    },
+    {
+      "role": "replay.seed_2.env_snapshot",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+      "size_bytes": 2746,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "replay.seed_2.completion_checkpoint_excluded",
+      "sha256": "7174f82b9add9cea31c9082c5e866a3ab17cf61de473050b1de89dbba781e0fa",
+      "size_bytes": 150988789,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s2_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "replay.seed_3.metrics",
+      "sha256": "b4247aea88ebd6202078f91050676602b6562228b660b4fd68d69c0ccb2c6815",
+      "size_bytes": 21313477,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "replay.seed_3.summary",
+      "sha256": "102cf6b5191540bf36323e4df1dd258b0a2aeda1be84586bba73088d6f887ad0",
+      "size_bytes": 10040,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "role": "replay.seed_3.config",
+      "sha256": "f82d63a6182c645fbe7010b68fd03c76f2cca57800933302574d84f118019f71",
+      "size_bytes": 5669,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/config.json"
+    },
+    {
+      "role": "replay.seed_3.env_snapshot",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+      "size_bytes": 2746,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "replay.seed_3.completion_checkpoint_excluded",
+      "sha256": "defbf682597ea4a75023792812f0894ac482a56d80b3413398183490f602ea30",
+      "size_bytes": 152780981,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s3_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "replay.seed_4.metrics",
+      "sha256": "e10a947ed3860ec8eefc8e4a01b9830d4295d732459aee3f6b1d77fc4232b0bf",
+      "size_bytes": 21365732,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "replay.seed_4.summary",
+      "sha256": "8c0f745be8303a06a1b366eb174d38dcea8924157a18dbc51fc69650e74573b1",
+      "size_bytes": 10199,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "role": "replay.seed_4.config",
+      "sha256": "5ea2ece4698057ad5adc017e7583ae8795dc532df77401be385999ea70107bfa",
+      "size_bytes": 5669,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/config.json"
+    },
+    {
+      "role": "replay.seed_4.env_snapshot",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+      "size_bytes": 2746,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "replay.seed_4.completion_checkpoint_excluded",
+      "sha256": "c9eb4dde686a033ed9ddf6e7c779599199376cc3b4168562eb12b7812f445a5b",
+      "size_bytes": 151935093,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s4_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "replay.seed_5.metrics",
+      "sha256": "d7a6c295eb477d41aaabb2a9145d80d7763901614cc9c4f964ae844c27d7a151",
+      "size_bytes": 22446154,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "replay.seed_5.summary",
+      "sha256": "ec2404987e02d6c387a5430d7b42a130deba35d23884c1c6a77f3b688e45af95",
+      "size_bytes": 10398,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/summary.json"
+    },
+    {
+      "role": "replay.seed_5.config",
+      "sha256": "f56ef35771b714b153367b9c1168cd2e82c33d54f8719df1094479c0fed3c591",
+      "size_bytes": 5669,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/config.json"
+    },
+    {
+      "role": "replay.seed_5.env_snapshot",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+      "size_bytes": 2746,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "replay.seed_5.completion_checkpoint_excluded",
+      "sha256": "682eb31bb5c031627f8d821e03312f5b3ced3b2a677221f75871866d8f951bda",
+      "size_bytes": 150826741,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Replay-Action-Query-2M/drawer_open_DDPG-HER-B3-Replay-Action-Query-2M_s5_2m_cuda/checkpoint.pt"
+    },
+    {
+      "role": "provenance.config_parity.json",
+      "sha256": "3b201f256d66438ef33f2121f9295c944ad3ce8ad37f4bb2d8b36dab12354721",
+      "size_bytes": 7144,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/config_parity.json"
+    },
+    {
+      "role": "provenance.checkpoint_resume_audit.json",
+      "sha256": "2991a06399582d59c2c72b243ea84f61f4702f52ccb15d8b502ecace5a0896c9",
+      "size_bytes": 51665,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/checkpoint_resume_audit.json"
+    },
+    {
+      "role": "provenance.source_parity.json",
+      "sha256": "d1f8f4c88610a178b8ed097aa6d443decd6b652d034710b95c76c95c0f1183de",
+      "size_bytes": 3950,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/source_parity.json"
+    },
+    {
+      "role": "provenance.freeze_manifest.json",
+      "sha256": "72106a9f98076565cbf66fb00c56992fda8b898f2ef919ad1f5aefa5b11eb914",
+      "size_bytes": 21364,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/freeze_manifest.json"
+    },
+    {
+      "packaging_artifact_source_commit": "881b5c1567bc8a979f42eac22695dcb092722420",
+      "role": "provenance.comparator_input_manifest",
+      "sha256": "a388b52717bdca85950b15d23ff1a44b0e14424163c83dc1612c7e4cf1361202",
+      "size_bytes": 19014,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/input_manifest.json"
+    },
+    {
+      "git_blob_oid": "cf1f943954db0961e2769b5af39fd12210f68094",
+      "head_bound": true,
+      "role": "frozen.root_launcher",
+      "sha256": "0fbbae27183515cd5f15726858908a6bdcda6579ba4ea94fc0d3c06191c8e8ab",
+      "size_bytes": 143,
+      "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+      "source_path": "metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Replay-Action-Query-2M.sh"
+    }
+  ],
+  "schema_version": 1,
+  "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f",
+  "transform": {
+    "checkpoints_copied": false,
+    "json": "local repo path replaced by dot; non-finite replaced by null",
+    "jsonl_logs_smoke_copied": false,
+    "metrics": "exact observed eval rows 10k..2M",
+    "raw_metrics_copied": false
+  }
+}

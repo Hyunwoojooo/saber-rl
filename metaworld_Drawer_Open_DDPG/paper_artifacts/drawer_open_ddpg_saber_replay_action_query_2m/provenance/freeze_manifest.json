@@ -1,0 +1,441 @@
+{
+  "entrypoints": [
+    {
+      "git_blob_oid": "cf1f943954db0961e2769b5af39fd12210f68094",
+      "head_bound": true,
+      "head_sha256": "0fbbae27183515cd5f15726858908a6bdcda6579ba4ea94fc0d3c06191c8e8ab",
+      "path": "metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Replay-Action-Query-2M.sh",
+      "repo_path": "metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Replay-Action-Query-2M.sh",
+      "role": "root_launcher",
+      "sha256": "0fbbae27183515cd5f15726858908a6bdcda6579ba4ea94fc0d3c06191c8e8ab",
+      "size": 143
+    }
+  ],
+  "experiment": "DDPG-HER-B3-Replay-Action-Query-2M",
+  "files": [
+    {
+      "git_blob_oid": "355b6dacbdd41144d0c2e274bcb062d9267424df",
+      "head_bound": true,
+      "head_sha256": "8faeb908a117397e58f4f2cfe26d1c9eea30b850de20a96f109927d667d7eed3",
+      "path": "README.md",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/README.md",
+      "role": "experiment_source",
+      "sha256": "8faeb908a117397e58f4f2cfe26d1c9eea30b850de20a96f109927d667d7eed3",
+      "size": 5446
+    },
+    {
+      "git_blob_oid": "3d0456f83f37bd32659c1ee2f938f77af0f9a4c0",
+      "head_bound": true,
+      "head_sha256": "fe67b7ba772b449cc02d4db91c8fb67841605d073e74800876cbf01ec22e14af",
+      "path": "analyze_results.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/analyze_results.py",
+      "role": "experiment_source",
+      "sha256": "fe67b7ba772b449cc02d4db91c8fb67841605d073e74800876cbf01ec22e14af",
+      "size": 18305
+    },
+    {
+      "git_blob_oid": "9aed9448d077f0a495de6d97105853de509454c1",
+      "head_bound": true,
+      "head_sha256": "247ab867db80e552551e5092d9307e89ec585a7f31a71a675ac80901b6d86c65",
+      "path": "audit_checkpoint_resume.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/audit_checkpoint_resume.py",
+      "role": "experiment_source",
+      "sha256": "247ab867db80e552551e5092d9307e89ec585a7f31a71a675ac80901b6d86c65",
+      "size": 25481
+    },
+    {
+      "git_blob_oid": "7bb39dc45d03ee3623ad2f435ffc2b30c4309b1b",
+      "head_bound": true,
+      "head_sha256": "2c9566677c1fc50bd716a38ce773ce93a3067e4211757ad0fa05882f6e73a19f",
+      "path": "build_artifact.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/build_artifact.py",
+      "role": "experiment_source",
+      "sha256": "2c9566677c1fc50bd716a38ce773ce93a3067e4211757ad0fa05882f6e73a19f",
+      "size": 21243
+    },
+    {
+      "git_blob_oid": "ad0fad08df6ad13d2f88d6d31acbe26f3a9607c6",
+      "head_bound": true,
+      "head_sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
+      "path": "code/src/metacog_lite_v0/__init__.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/__init__.py",
+      "role": "experiment_source",
+      "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
+      "size": 48
+    },
+    {
+      "git_blob_oid": "c19f5aec12054c0e13ad10e0ccf732820952ce3a",
+      "head_bound": true,
+      "head_sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "path": "code/src/metacog_lite_v0/agent.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/agent.py",
+      "role": "experiment_source",
+      "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "size": 8354
+    },
+    {
+      "git_blob_oid": "28bdb94b4b5e9d497f6e22c0edb7925a1020f5b3",
+      "head_bound": true,
+      "head_sha256": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5",
+      "path": "code/src/metacog_lite_v0/assignment_diagnostics.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/assignment_diagnostics.py",
+      "role": "experiment_source",
+      "sha256": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5",
+      "size": 9961
+    },
+    {
+      "git_blob_oid": "26476f88dd9867aa71baa72404efd35711316664",
+      "head_bound": true,
+      "head_sha256": "9b4a2813665f52d23e7f3fc88368cfcb08d379cb8544990386b1452c4877ada6",
+      "path": "code/src/metacog_lite_v0/config.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/config.py",
+      "role": "experiment_source",
+      "sha256": "9b4a2813665f52d23e7f3fc88368cfcb08d379cb8544990386b1452c4877ada6",
+      "size": 20256
+    },
+    {
+      "git_blob_oid": "349f84fda1ccb0404b586ec212aead1280ed8a0d",
+      "head_bound": true,
+      "head_sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+      "path": "code/src/metacog_lite_v0/envs.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/envs.py",
+      "role": "experiment_source",
+      "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+      "size": 12291
+    },
+    {
+      "git_blob_oid": "668a150ab3a05d81df3d5cc58b32f7a422f59094",
+      "head_bound": true,
+      "head_sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "path": "code/src/metacog_lite_v0/envs_maniskill.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/envs_maniskill.py",
+      "role": "experiment_source",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size": 47402
+    },
+    {
+      "git_blob_oid": "6005d7a2c2154d5d4e0aafb003bf5e512f4458f8",
+      "head_bound": true,
+      "head_sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "path": "code/src/metacog_lite_v0/io_utils.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/io_utils.py",
+      "role": "experiment_source",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "size": 4334
+    },
+    {
+      "git_blob_oid": "44dd041992bc9f6b5b15ee93105397efa675714c",
+      "head_bound": true,
+      "head_sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "path": "code/src/metacog_lite_v0/networks.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/networks.py",
+      "role": "experiment_source",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size": 996
+    },
+    {
+      "git_blob_oid": "84e719b0ee390cfc3e3acb6c063ca24224420919",
+      "head_bound": true,
+      "head_sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+      "path": "code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "role": "experiment_source",
+      "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+      "size": 15300
+    },
+    {
+      "git_blob_oid": "cb0698b26b0f0c756756f57ad5bf70b971a13b90",
+      "head_bound": true,
+      "head_sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "role": "experiment_source",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size": 14842
+    },
+    {
+      "git_blob_oid": "4e6c43c4d7488783c53e3ae5e6475ff74d4ebf29",
+      "head_bound": true,
+      "head_sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "path": "code/src/metacog_lite_v0/replay.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/replay.py",
+      "role": "experiment_source",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size": 19844
+    },
+    {
+      "git_blob_oid": "d7d08ecb3f781bc615f61229df478e33b1ee62e3",
+      "head_bound": true,
+      "head_sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "path": "code/src/metacog_lite_v0/task_drawer_open.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_drawer_open.py",
+      "role": "experiment_source",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size": 9112
+    },
+    {
+      "git_blob_oid": "3557be18253b4ca1484e431d3c92f4889d8fb976",
+      "head_bound": true,
+      "head_sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "role": "experiment_source",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size": 7237
+    },
+    {
+      "git_blob_oid": "91d4f916065a62fd67b7eb4242a554035846f3cc",
+      "head_bound": true,
+      "head_sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "path": "code/src/metacog_lite_v0/task_fetch_push.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_fetch_push.py",
+      "role": "experiment_source",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size": 4807
+    },
+    {
+      "git_blob_oid": "acf70d5b9ce3700a5b6c4fd3fef5c88b754e41d5",
+      "head_bound": true,
+      "head_sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "role": "experiment_source",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size": 8674
+    },
+    {
+      "git_blob_oid": "15bf49bebaf1593c10dffa58c5742630ee3ada92",
+      "head_bound": true,
+      "head_sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "path": "code/src/metacog_lite_v0/task_pick_cube.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_pick_cube.py",
+      "role": "experiment_source",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size": 7037
+    },
+    {
+      "git_blob_oid": "b3e14afe63a09446c97fa0624aa1829e850fb4a1",
+      "head_bound": true,
+      "head_sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "path": "code/src/metacog_lite_v0/task_push_t.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_push_t.py",
+      "role": "experiment_source",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size": 14815
+    },
+    {
+      "git_blob_oid": "52f978dbc24f102e6ad6bab21a339964e1edcd2f",
+      "head_bound": true,
+      "head_sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "role": "experiment_source",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size": 6273
+    },
+    {
+      "git_blob_oid": "cf2c15fb290b575d5705f8a16fb0ee61aedffff8",
+      "head_bound": true,
+      "head_sha256": "9a8c6cf45a593221dc071ce664807063650008a49b84e90c8585f2756f7fec43",
+      "path": "code/src/metacog_lite_v0/trainer.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/trainer.py",
+      "role": "experiment_source",
+      "sha256": "9a8c6cf45a593221dc071ce664807063650008a49b84e90c8585f2756f7fec43",
+      "size": 103551
+    },
+    {
+      "git_blob_oid": "cbf29880e28da3e0dc743d4680e7aa50c0852fba",
+      "head_bound": true,
+      "head_sha256": "29a2e71044081e51a509e3de10fcd0f522feacad3ca4ea1328b912bdd7b5cd18",
+      "path": "code/src/metacog_lite_v0/weights.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/metacog_lite_v0/weights.py",
+      "role": "experiment_source",
+      "sha256": "29a2e71044081e51a509e3de10fcd0f522feacad3ca4ea1328b912bdd7b5cd18",
+      "size": 83777
+    },
+    {
+      "git_blob_oid": "4aa788437eb7d7483e4d1f5433136d90aa0461f3",
+      "head_bound": true,
+      "head_sha256": "23a5a0613a2111f5c9a4a2467e23456568e2065bd9b2b49a5dac6956111a0c98",
+      "path": "code/src/test_replay_action_query_drawer_open.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/test_replay_action_query_drawer_open.py",
+      "role": "experiment_source",
+      "sha256": "23a5a0613a2111f5c9a4a2467e23456568e2065bd9b2b49a5dac6956111a0c98",
+      "size": 20249
+    },
+    {
+      "git_blob_oid": "a4d6cfc2ee4ba3255ba0e4da09eb7487e28d34cd",
+      "head_bound": true,
+      "head_sha256": "5266e63968c72f83db1aebcb1b2dc629669523dff03b2ee25ec8e621d7f0da05",
+      "path": "code/src/test_strict_config_resume_contract.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/test_strict_config_resume_contract.py",
+      "role": "experiment_source",
+      "sha256": "5266e63968c72f83db1aebcb1b2dc629669523dff03b2ee25ec8e621d7f0da05",
+      "size": 9943
+    },
+    {
+      "git_blob_oid": "0a8f4abe03b2a4d784e2bc25d13af2312a3546f4",
+      "head_bound": true,
+      "head_sha256": "a5816bb24fcbd359d8ba210a868e3f70cf489a39c8edde04e03d7fc4d68266bb",
+      "path": "code/src/test_strict_context_eligible_count_matched.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/test_strict_context_eligible_count_matched.py",
+      "role": "experiment_source",
+      "sha256": "a5816bb24fcbd359d8ba210a868e3f70cf489a39c8edde04e03d7fc4d68266bb",
+      "size": 13381
+    },
+    {
+      "git_blob_oid": "c7001ba45ba13d622594801df383ee08fd640caf",
+      "head_bound": true,
+      "head_sha256": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10",
+      "path": "code/src/test_strict_ddpg_loss_scope.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/test_strict_ddpg_loss_scope.py",
+      "role": "experiment_source",
+      "sha256": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10",
+      "size": 3875
+    },
+    {
+      "git_blob_oid": "19eb72482125ec531dc1ac79dd6d96bdbf07df1b",
+      "head_bound": true,
+      "head_sha256": "14454eaf7cba5ad653992e0bba6090710abef1f0a6538de2af74383006d15b03",
+      "path": "code/src/test_strict_drawer_open_scanner.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/test_strict_drawer_open_scanner.py",
+      "role": "experiment_source",
+      "sha256": "14454eaf7cba5ad653992e0bba6090710abef1f0a6538de2af74383006d15b03",
+      "size": 8094
+    },
+    {
+      "git_blob_oid": "7f70b7c4b9acda888eec78ff3e190371b6db8c53",
+      "head_bound": true,
+      "head_sha256": "919b5d2128b56170f3f605e95da98fb8aaf5cd0bb81eda10361db2891c54d7c8",
+      "path": "code/src/train_drawer_open_lite_v0.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/code/src/train_drawer_open_lite_v0.py",
+      "role": "experiment_source",
+      "sha256": "919b5d2128b56170f3f605e95da98fb8aaf5cd0bb81eda10361db2891c54d7c8",
+      "size": 22352
+    },
+    {
+      "git_blob_oid": "dd0221bd1e962306b6d519eee41b33d23490af51",
+      "head_bound": true,
+      "head_sha256": "b258933db1c9072c3bccb8532dbf03fc50472d2b2dbadea0cab7f6969c6f8797",
+      "path": "freeze_source.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/freeze_source.py",
+      "role": "experiment_source",
+      "sha256": "b258933db1c9072c3bccb8532dbf03fc50472d2b2dbadea0cab7f6969c6f8797",
+      "size": 10770
+    },
+    {
+      "git_blob_oid": "fdc0e68e712586aa27b01dbed3def32882715083",
+      "head_bound": true,
+      "head_sha256": "b1e2ca855a1c7a3d273694c204a7b093d3a05ccb5f8fba6756003d0077f84d16",
+      "path": "launch.sh",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/launch.sh",
+      "role": "experiment_source",
+      "sha256": "b1e2ca855a1c7a3d273694c204a7b093d3a05ccb5f8fba6756003d0077f84d16",
+      "size": 906
+    },
+    {
+      "git_blob_oid": "4f91ff4e1640c703c71c951fd4e2c9f67180d073",
+      "head_bound": true,
+      "head_sha256": "ee8542f14a12008dafdb82cb5adef7235dd9710f94e346f3559a573f476989b2",
+      "path": "run.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/run.py",
+      "role": "experiment_source",
+      "sha256": "ee8542f14a12008dafdb82cb5adef7235dd9710f94e346f3559a573f476989b2",
+      "size": 12741
+    },
+    {
+      "git_blob_oid": "3c4f50608ec92ed17c934901ac5d471770fbe277",
+      "head_bound": true,
+      "head_sha256": "86b55e1f0f3ba38abdf2ba57737ca27de59d1898c71b013d086c2cf38b06b2fc",
+      "path": "run_sequence.sh",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/run_sequence.sh",
+      "role": "experiment_source",
+      "sha256": "86b55e1f0f3ba38abdf2ba57737ca27de59d1898c71b013d086c2cf38b06b2fc",
+      "size": 2375
+    },
+    {
+      "git_blob_oid": "3800685ab4a30ff41a2b6ac83ca314ca6ac72639",
+      "head_bound": true,
+      "head_sha256": "0b0b429d16ebb5892d702cffdc2f3100af694f07bde511b2539bc5a872d9fd9a",
+      "path": "test_analysis_artifact_contract.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/test_analysis_artifact_contract.py",
+      "role": "experiment_source",
+      "sha256": "0b0b429d16ebb5892d702cffdc2f3100af694f07bde511b2539bc5a872d9fd9a",
+      "size": 11823
+    },
+    {
+      "git_blob_oid": "279ba9509b1452b215321f47add51f2731ee780a",
+      "head_bound": true,
+      "head_sha256": "5f2af3e3947fdf06c4282ddf44890c730ed266da77797ac72864c323aedc0b95",
+      "path": "test_config_parity.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/test_config_parity.py",
+      "role": "experiment_source",
+      "sha256": "5f2af3e3947fdf06c4282ddf44890c730ed266da77797ac72864c323aedc0b95",
+      "size": 1384
+    },
+    {
+      "git_blob_oid": "b871106c1c8898768728497e9bd7528212d28cc6",
+      "head_bound": true,
+      "head_sha256": "8069937cb66b91e7b378ce6de04d89ff98151be5b2e592686a2ecf5e3e572117",
+      "path": "test_freeze_source_head_binding.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/test_freeze_source_head_binding.py",
+      "role": "experiment_source",
+      "sha256": "8069937cb66b91e7b378ce6de04d89ff98151be5b2e592686a2ecf5e3e572117",
+      "size": 2941
+    },
+    {
+      "git_blob_oid": "005e2ac9f075f75b574391c2f559bfe4f64e8abe",
+      "head_bound": true,
+      "head_sha256": "902cea9ee02decbe5f09a52feaf2f8cd483f4669491a089a885a4d6a3222ae7d",
+      "path": "validate_completion.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/validate_completion.py",
+      "role": "experiment_source",
+      "sha256": "902cea9ee02decbe5f09a52feaf2f8cd483f4669491a089a885a4d6a3222ae7d",
+      "size": 21060
+    },
+    {
+      "git_blob_oid": "c1200cee4a85437b4526b25084350bfce6473bef",
+      "head_bound": true,
+      "head_sha256": "e5b03b7a9b20bd1e86e23c2ea1c4c42b80822a240e08823d0e43c258b0b619ba",
+      "path": "validate_config_parity.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/validate_config_parity.py",
+      "role": "experiment_source",
+      "sha256": "e5b03b7a9b20bd1e86e23c2ea1c4c42b80822a240e08823d0e43c258b0b619ba",
+      "size": 10284
+    },
+    {
+      "git_blob_oid": "5235c9afa38f56110db36d4a0117060e875c8868",
+      "head_bound": true,
+      "head_sha256": "bf41a538bc613c6675ef8321b87910f579253b944644d4a68ec7b8b522c761a7",
+      "path": "validate_integration.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/validate_integration.py",
+      "role": "experiment_source",
+      "sha256": "bf41a538bc613c6675ef8321b87910f579253b944644d4a68ec7b8b522c761a7",
+      "size": 16193
+    },
+    {
+      "git_blob_oid": "3b829e90b547fe4f0b259cd8b6741df60a8eff58",
+      "head_bound": true,
+      "head_sha256": "76a01c0ab5f6d05736ec3b2a34a490259c7d0549cdbef2ec53b17e6088d17c70",
+      "path": "validate_source_parity.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/validate_source_parity.py",
+      "role": "experiment_source",
+      "sha256": "76a01c0ab5f6d05736ec3b2a34a490259c7d0549cdbef2ec53b17e6088d17c70",
+      "size": 3428
+    },
+    {
+      "git_blob_oid": "d87a8d4268684af65e182b1f1cf7ac201b18c6f3",
+      "head_bound": true,
+      "head_sha256": "85b152569e52fb1739d19eb8d7d0ed9150d2e478d8ab08962d3eedc724575b70",
+      "path": "verify_artifact.py",
+      "repo_path": "metaworld_Drawer_Open_DDPG/replay_action_query_2m/verify_artifact.py",
+      "role": "experiment_source",
+      "sha256": "85b152569e52fb1739d19eb8d7d0ed9150d2e478d8ab08962d3eedc724575b70",
+      "size": 36425
+    }
+  ],
+  "head_binding_verified": true,
+  "recorded_commit_was_current_head_at_write": true,
+  "schema_version": 2,
+  "source_commit": "babe7eddc93c4bfb6f2ba870f3db7a35625aed2f"
+}
