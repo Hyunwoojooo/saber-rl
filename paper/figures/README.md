@@ -1,40 +1,66 @@
-# DrawerOpen environment render
+# Environment renders
 
-`drawer_open_v3_render.png` is an illustrative rendering of the exact
-Meta-World task family used by the DrawerOpen experiments. It is not an
-evaluation frame and does not constitute performance evidence.
+The figure directory contains three simulator-generated environment panels:
+
+- `drawer_open_v3_render.png`: Meta-World DrawerOpen-v3
+- `drawer_close_v3_render.png`: Meta-World DrawerClose-v3
+- `fetch_pick_and_place_v4_render.png`: Gymnasium-Robotics
+  FetchPickAndPlace-v4 (FPP)
+
+The panels illustrate the experimental environments. They are not evaluation
+frames and do not constitute performance evidence.
 
 ## Reproduce
 
 From the repository root, run:
 
 ```bash
+MUJOCO_GL=egl .venv/bin/python paper/figures/render_environment_panels.py
+```
+
+This command regenerates all three PNG files at `960 x 720`. Individual panels
+can be generated with `--task drawer-open`, `--task drawer-close`, or
+`--task fpp`. The legacy DrawerOpen command remains available:
+
+```bash
 MUJOCO_GL=egl .venv/bin/python paper/figures/render_drawer_open.py
 ```
 
-The renderer uses:
+The fixed presets are:
 
-- environment: `Meta-World/MT1`
-- task: `drawer-open-v3`
-- reward function version: `v2`
-- seed: `1`
-- camera: `corner4`
-- resolution: `960 x 720`
-- capture step: `90`
-- controller: Meta-World's bundled `SawyerDrawerOpenV3Policy`
+| Panel | Seed | Capture | Camera `(lookat; distance; azimuth; elevation)` |
+|---|---:|---:|---|
+| DrawerOpen-v3 | 1 | step 90 | `(-0.04, 0.68, 0.22); 1.50; 140; -23` |
+| DrawerClose-v3 | 1 | step 82 | `(-0.04, 0.76, 0.22); 1.50; 140; -23` |
+| FetchPickAndPlace-v4 | 3 | reset state | `(1.32, 0.75, 0.58); 1.70; 115; -22` |
 
-The scripted controller is used only to place the simulator in a visually
-recognizable opened-drawer state. The paper should describe the panel as an
-illustrative environment rendering rather than a learned-policy rollout.
+The Drawer panels use Meta-World's bundled scripted policies only to place the
+simulator in visually recognizable task states. FPP is rendered directly after
+the seeded reset so that the robot, object, and target are visible. No learned
+policy is used to generate any panel.
 
 ## LaTeX
 
 ```latex
-\includegraphics[width=\linewidth]{figures/drawer_open_v3_render.png}
+\begin{figure*}[t]
+  \centering
+  \begin{minipage}{0.32\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/drawer_open_v3_render.png}
+    \\[-1mm]\small (a) DrawerOpen
+  \end{minipage}\hfill
+  \begin{minipage}{0.32\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/drawer_close_v3_render.png}
+    \\[-1mm]\small (b) DrawerClose
+  \end{minipage}\hfill
+  \begin{minipage}{0.32\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/fetch_pick_and_place_v4_render.png}
+    \\[-1mm]\small (c) FetchPickAndPlace
+  \end{minipage}
+  \caption{Illustrative simulator renderings of the manipulation environments
+  used in our experiments. These panels are not evaluation rollouts.}
+  \label{fig:environments}
+\end{figure*}
 ```
-
-Suggested caption:
-
-> Illustrative rendering of the Meta-World DrawerOpen-v3 environment used in
-> our experiments. The image is generated from the simulator and is not an
-> evaluation result.
