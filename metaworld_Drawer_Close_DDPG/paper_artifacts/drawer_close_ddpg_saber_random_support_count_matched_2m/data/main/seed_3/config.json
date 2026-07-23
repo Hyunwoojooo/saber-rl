@@ -1,0 +1,10 @@
+{
+  "method_key": "main",
+  "not_original_run_config": true,
+  "original_training_source_commit": null,
+  "proxy_source": "same-seed strict-control config",
+  "proxy_source_sha256": "99d75118b8775bfd674fe85aed8135c15b9323ce3fc69c28cb37b58ed2d0b952",
+  "record_type": "reconstructed_metadata_not_original_run_config",
+  "schema_version": 1,
+  "seed": 3
+}

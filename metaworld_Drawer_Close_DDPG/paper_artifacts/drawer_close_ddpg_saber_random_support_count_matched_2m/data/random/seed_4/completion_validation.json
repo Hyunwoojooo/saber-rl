@@ -1,0 +1,51 @@
+{
+  "checkpoint_available": false,
+  "evaluation_episodes_per_point": 20,
+  "evaluation_field": "eval/env_success_mean",
+  "evaluation_points": 200,
+  "evidence_scope": "committed metrics.csv and summary.json only",
+  "execution_git_sha_serialized": false,
+  "original_config_available": false,
+  "original_environment_snapshot_available": false,
+  "passed": true,
+  "positive_count_invariant": {
+    "audit_scope": "every serialized post-warmup metrics row; optimizer updates between logged rows are not directly observed",
+    "batch_size": 256,
+    "invariants": {
+      "assignment_is_batch_wide_random": "source-derived; raw metrics preserve count and overlap/alignment diagnostics but not sampled indices",
+      "positive_counts_integral": true,
+      "raw_weight_histograms_count_matched": true,
+      "reference_and_assigned_positive_counts_equal": true,
+      "reference_rate_matches_canonical_support_rate": true
+    },
+    "max_absolute_deviations": {
+      "assigned_raw_mean_formula": 0.0,
+      "canonical_support_rate": 0.0,
+      "duplicate_rate_fields": 0.0,
+      "reference_minus_assigned_rate": 0.0,
+      "reference_raw_mean_formula": 0.0
+    },
+    "maximum_positive_count": 167,
+    "minimum_positive_count": 13,
+    "passed": true,
+    "raw_high_weight": 2.0,
+    "raw_low_weight": 1.0,
+    "schema_version": 1,
+    "seed": 4,
+    "serialized_post_warmup_rows_audited": 10176
+  },
+  "raw_summary_run_dir_basename": "drawer_close_DDPG-HER-B3-Random-Support-2M_s4_2m_cuda",
+  "raw_summary_run_dir_sanitized": true,
+  "raw_summary_run_dir_sha256": "d212d1a37a4e1357b0367ac5d0854fafe9ce4ad92f1e299330edb682cde0fc66",
+  "seed": 4,
+  "summary": {
+    "auc": 0.28869346733668344,
+    "best_success": 1.0,
+    "final_success": 0.0,
+    "hit90": 30000,
+    "summary_matches_exact_grid": true
+  },
+  "total_steps": 2000000,
+  "total_updates": 1995001,
+  "training_log_available": false
+}

@@ -1,0 +1,10 @@
+{
+  "method_key": "her",
+  "not_original_run_config": true,
+  "original_training_source_commit": null,
+  "proxy_source": "same-seed strict-control config",
+  "proxy_source_sha256": "1f1260c42fe68cd23fa1939ec774038be541d6f2635c9a3677113ff99fd06d60",
+  "record_type": "reconstructed_metadata_not_original_run_config",
+  "schema_version": 1,
+  "seed": 2
+}

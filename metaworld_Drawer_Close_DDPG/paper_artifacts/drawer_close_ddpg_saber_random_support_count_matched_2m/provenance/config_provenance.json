@@ -1,0 +1,13 @@
+{
+  "config_parity_status": "source-derived shared launcher settings; not empirically recovered from original config.json",
+  "original_random_run_config_available": false,
+  "passed": true,
+  "reconstructed_config_records_are_explicitly_labelled": true,
+  "schema_version": 1,
+  "source_assignment_definition": "k=sum(canonical_support_mask); sample k batch indices uniformly without replacement",
+  "source_launcher_available": true,
+  "source_method": "b3_support_random_runtime_opt",
+  "source_support_query_mode": "current_policy_legacy_default",
+  "source_weight_scope": "critic_only",
+  "source_weighting_mode": "batch_norm"
+}

@@ -1,0 +1,59 @@
+{
+  "comparator_artifact_commit": "1a184f69588c0d02ece942bc106845a4516e81cb",
+  "implementation_source_parent_commit": "7c870d78b6b064d45432c84a8e9b4f1c624a2357",
+  "implementation_source_tree_consistency": {
+    "interpretation": "source-tree consistency evidence only; not proof that the runs executed this exact commit",
+    "parent_is_ancestor_of_result_commit": true,
+    "path": "metaworld_Drawer_Open_DDPG/code/src",
+    "tree_diff_is_empty": true
+  },
+  "metadata_policy": "config is explicitly reconstructed from frozen launcher; environment record is explicitly a same-seed proxy",
+  "random_original_config_available": false,
+  "random_original_environment_snapshot_available": false,
+  "random_result_commit": "86912701b2ca0e26586c43748f2a984c0f301960",
+  "schema_version": 1,
+  "source_files": [
+    {
+      "path": "metaworld_Drawer_Open_DDPG/DDPG-HER-B3-Random-Support-2M.sh",
+      "sha256": "dbc1f9eae0d3c90419c477b3965a7fe7fe012dc94be5443f21400d19a25821f0",
+      "size_bytes": 4073,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/code/src/train_drawer_open_lite_v0.py",
+      "sha256": "36f00ec758ebe19719a381e441dd2109b52fd07a03b13d54fce39e1bf6ede4ed",
+      "size_bytes": 19092,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/config.py",
+      "sha256": "c0ea93c0ad9c0f1e17ec3f06e22c37663b0c100c9d9883c14c6f10be51dba87c",
+      "size_bytes": 16960,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size_bytes": 19844,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size_bytes": 9112,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "de72618685989d1f9a90b759a8a30eddc3d14c259f5a70e04c5828133659dce5",
+      "size_bytes": 66910,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/weights.py",
+      "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
+      "size_bytes": 66530,
+      "source_commit": "86912701b2ca0e26586c43748f2a984c0f301960"
+    }
+  ]
+}

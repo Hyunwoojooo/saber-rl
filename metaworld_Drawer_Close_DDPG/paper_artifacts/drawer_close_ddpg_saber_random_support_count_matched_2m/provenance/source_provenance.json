@@ -1,0 +1,202 @@
+{
+  "claim_boundary": "Repository history proves source-tree consistency between the launcher-creation and raw-result commits. The legacy run did not serialize a git SHA, so this is not proof of the exact checkout used by the training process.",
+  "code_src_tree_oid_at_launcher_creation": "78a7408bd7dd20269331e5f02143e4a195f15b90",
+  "code_src_tree_oid_at_result_commit": "78a7408bd7dd20269331e5f02143e4a195f15b90",
+  "execution_binding_status": "reconstructed_not_cryptographically_bound",
+  "execution_source_commit_serialized_by_raw_run": false,
+  "file_count": 23,
+  "files": [
+    {
+      "git_blob_oid": "796b275b4f6929fc44d4e23b96597e8578466d7a",
+      "mode": "100755",
+      "path": "DDPG-HER-B3-Random-Support-2M.sh",
+      "repo_path": "metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Random-Support-2M.sh",
+      "sha256": "f49801b15e3c783c84a376ccb0a444118ca57c1cebbd090813589c126cbcdd76",
+      "size_bytes": 4082
+    },
+    {
+      "git_blob_oid": "df254daca2f4e5b101a295c6249b321c5ca0386a",
+      "mode": "100755",
+      "path": "DDPG-HER-B3-Critic-Only-2M.sh",
+      "repo_path": "metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Critic-Only-2M.sh",
+      "sha256": "25020650d687c45a7071e46b91b32de51f34b07dce7f19f5388820701ddb302d",
+      "size_bytes": 4003
+    },
+    {
+      "git_blob_oid": "2d41309ecd31fabc2da399c72e2a0a220e79d912",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/__init__.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "size_bytes": 49
+    },
+    {
+      "git_blob_oid": "c19f5aec12054c0e13ad10e0ccf732820952ce3a",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/agent.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/agent.py",
+      "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+      "size_bytes": 8354
+    },
+    {
+      "git_blob_oid": "cd39abf01ac4be062858f6b63550bf62495fb62e",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/config.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/config.py",
+      "sha256": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6",
+      "size_bytes": 17113
+    },
+    {
+      "git_blob_oid": "4bdb83bae6c4faedfa6ca5cd8d5a247a45ac14f4",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/envs.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/envs.py",
+      "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
+      "size_bytes": 13693
+    },
+    {
+      "git_blob_oid": "668a150ab3a05d81df3d5cc58b32f7a422f59094",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/envs_maniskill.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "git_blob_oid": "6005d7a2c2154d5d4e0aafb003bf5e512f4458f8",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/io_utils.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "size_bytes": 4334
+    },
+    {
+      "git_blob_oid": "44dd041992bc9f6b5b15ee93105397efa675714c",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/networks.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "git_blob_oid": "a60c526e63e1a93406392cbb8015e78fb690f05a",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
+      "size_bytes": 14812
+    },
+    {
+      "git_blob_oid": "cb0698b26b0f0c756756f57ad5bf70b971a13b90",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "git_blob_oid": "4e6c43c4d7488783c53e3ae5e6475ff74d4ebf29",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/replay.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size_bytes": 19844
+    },
+    {
+      "git_blob_oid": "f083a58cc25c7bd0c3d088ca7f357117a368575b",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_drawer_close.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_drawer_close.py",
+      "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+      "size_bytes": 9123
+    },
+    {
+      "git_blob_oid": "d7d08ecb3f781bc615f61229df478e33b1ee62e3",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_drawer_open.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size_bytes": 9112
+    },
+    {
+      "git_blob_oid": "3557be18253b4ca1484e431d3c92f4889d8fb976",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "git_blob_oid": "91d4f916065a62fd67b7eb4242a554035846f3cc",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_fetch_push.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "git_blob_oid": "acf70d5b9ce3700a5b6c4fd3fef5c88b754e41d5",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "git_blob_oid": "15bf49bebaf1593c10dffa58c5742630ee3ada92",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_pick_cube.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "git_blob_oid": "b3e14afe63a09446c97fa0624aa1829e850fb4a1",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_push_t.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "git_blob_oid": "52f978dbc24f102e6ad6bab21a339964e1edcd2f",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "git_blob_oid": "4b3b4539ce938e67c3c047bc895712d6afa3184e",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/trainer.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c",
+      "size_bytes": 68202
+    },
+    {
+      "git_blob_oid": "43c6230fe80445c2960a8f8fe784a919a4d2db34",
+      "mode": "100644",
+      "path": "code/src/metacog_lite_v0/weights.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/weights.py",
+      "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
+      "size_bytes": 66530
+    },
+    {
+      "git_blob_oid": "6fca99b54dc5a4256bfac8ee1422a72af9a21fd5",
+      "mode": "100644",
+      "path": "code/src/train_drawer_close_lite_v0.py",
+      "repo_path": "metaworld_Drawer_Close_DDPG/code/src/train_drawer_close_lite_v0.py",
+      "sha256": "679ed88a0e168d53634e1271f90d52eb55744c2362ebea93acfa2d024ad5fed3",
+      "size_bytes": 19101
+    }
+  ],
+  "launcher_creation_commit": "bf5fe867b08ab3c374a80802dd706c2d6f88df2c",
+  "launcher_creation_is_ancestor_of_result_commit": true,
+  "passed": true,
+  "random_launcher_blob_at_launcher_creation": "796b275b4f6929fc44d4e23b96597e8578466d7a",
+  "random_launcher_blob_at_result_commit": "796b275b4f6929fc44d4e23b96597e8578466d7a",
+  "raw_result_commit": "ae6d93de0d1dad5bf8328fd3334addb00caec205",
+  "schema_version": 1,
+  "source_tree_unchanged": true
+}

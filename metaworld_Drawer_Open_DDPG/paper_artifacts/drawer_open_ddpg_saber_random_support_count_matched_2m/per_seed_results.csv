@@ -1,0 +1,16 @@
+method_key,method,seed,run_dir,metrics_path,evaluation_points,auc,final_success,best_success,best_to_final_drop,hit90,summary_auc,summary_auc_difference,summary_final_difference,summary_best_difference
+her,DrawerOpen DDPG HER,1,data/her/seed_1,data/her/seed_1/metrics_selected_10k.csv,200,0.46030150753768845,1.0,1.0,0.0,1090000,0.46030150753768845,0.0,0.0,0.0
+her,DrawerOpen DDPG HER,2,data/her/seed_2,data/her/seed_2/metrics_selected_10k.csv,200,0.0,0.0,0.0,0.0,,0.0,0.0,0.0,0.0
+her,DrawerOpen DDPG HER,3,data/her/seed_3,data/her/seed_3/metrics_selected_10k.csv,200,0.0,0.0,0.0,0.0,,0.0,0.0,0.0,0.0
+her,DrawerOpen DDPG HER,4,data/her/seed_4,data/her/seed_4/metrics_selected_10k.csv,200,0.0,0.0,0.0,0.0,,0.0,0.0,0.0,0.0
+her,DrawerOpen DDPG HER,5,data/her/seed_5,data/her/seed_5/metrics_selected_10k.csv,200,0.5762562814070352,0.95,1.0,0.050000000000000044,830000,0.5762562814070352,0.0,0.0,0.0
+main,DrawerOpen DDPG HER + SABER Main,1,data/main/seed_1,data/main/seed_1/metrics_selected_10k.csv,200,0.757286432160804,1.0,1.0,0.0,510000,0.757286432160804,0.0,0.0,0.0
+main,DrawerOpen DDPG HER + SABER Main,2,data/main/seed_2,data/main/seed_2/metrics_selected_10k.csv,200,0.7869346733668342,1.0,1.0,0.0,420000,0.7869346733668342,0.0,0.0,0.0
+main,DrawerOpen DDPG HER + SABER Main,3,data/main/seed_3,data/main/seed_3/metrics_selected_10k.csv,200,0.7050251256281407,1.0,1.0,0.0,580000,0.7050251256281407,0.0,0.0,0.0
+main,DrawerOpen DDPG HER + SABER Main,4,data/main/seed_4,data/main/seed_4/metrics_selected_10k.csv,200,0.7130653266331658,1.0,1.0,0.0,500000,0.7130653266331658,0.0,0.0,0.0
+main,DrawerOpen DDPG HER + SABER Main,5,data/main/seed_5,data/main/seed_5/metrics_selected_10k.csv,200,0.8060301507537688,1.0,1.0,0.0,400000,0.8060301507537688,0.0,0.0,0.0
+random,DrawerOpen DDPG Random-Support (Count Matched),1,data/random/seed_1,data/random/seed_1/metrics_selected_10k.csv,200,0.7909547738693468,1.0,1.0,0.0,460000,0.7909547738693468,0.0,0.0,0.0
+random,DrawerOpen DDPG Random-Support (Count Matched),2,data/random/seed_2,data/random/seed_2/metrics_selected_10k.csv,200,0.6655778894472362,1.0,1.0,0.0,680000,0.6655778894472362,0.0,0.0,0.0
+random,DrawerOpen DDPG Random-Support (Count Matched),3,data/random/seed_3,data/random/seed_3/metrics_selected_10k.csv,200,0.5128140703517587,1.0,1.0,0.0,970000,0.5128140703517587,0.0,0.0,0.0
+random,DrawerOpen DDPG Random-Support (Count Matched),4,data/random/seed_4,data/random/seed_4/metrics_selected_10k.csv,200,0.8118090452261306,1.0,1.0,0.0,350000,0.8118090452261306,0.0,0.0,0.0
+random,DrawerOpen DDPG Random-Support (Count Matched),5,data/random/seed_5,data/random/seed_5/metrics_selected_10k.csv,200,0.7512562814070352,1.0,1.0,0.0,510000,0.7512562814070352,0.0,0.0,0.0

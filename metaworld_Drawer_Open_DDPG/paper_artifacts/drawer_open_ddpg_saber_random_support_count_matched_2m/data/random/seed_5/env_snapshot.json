@@ -1,0 +1,151 @@
+{
+  "not_original_run_env_snapshot": true,
+  "proxy_artifact_commit": "1a184f69588c0d02ece942bc106845a4516e81cb",
+  "proxy_snapshot": {
+    "method_key": "main",
+    "not_original_run_env_snapshot": true,
+    "proxy_snapshot": {
+      "eval_env": {
+        "action_dim": 4,
+        "action_high": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "action_low": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "desired_goal_source": "_target_pos",
+        "distance_threshold": 0.05,
+        "entry_point": "metaworld.register_mw_envs.<locals>.<lambda>",
+        "env_id": "Meta-World/MT1",
+        "env_name": "drawer-open-v3",
+        "goal_dim": 3,
+        "max_episode_steps": 200,
+        "obs_dim": 39,
+        "render_mode": null,
+        "reward_type": "sparse",
+        "spec_kwargs": {
+          "env_name": "drawer-open-v3",
+          "reward_function_version": "v2",
+          "seed": 10005,
+          "terminate_on_success": false
+        },
+        "state_dim": 42
+      },
+      "task_spec": {
+        "coarse_index_key": "hand-handle distance bin, handle-y bin, gripper bin, horizon bin",
+        "d_goal_near": 0.05,
+        "d_opening_mid": 0.12,
+        "d_reach": 0.08,
+        "epsilon_g": 0.05,
+        "full_context_key": "phase, hand-handle distance bin, handle-goal distance bin, handle-y bin, gripper bin, horizon bin",
+        "gripper_bins": [
+          -0.5,
+          0.0,
+          0.5
+        ],
+        "hand_handle_bins": [
+          0.03,
+          0.05,
+          0.08,
+          0.12,
+          0.2,
+          0.4
+        ],
+        "handle_goal_bins": [
+          0.03,
+          0.05,
+          0.08,
+          0.12,
+          0.2,
+          0.4,
+          0.7
+        ],
+        "handle_y_bins": [
+          -0.05,
+          0.0,
+          0.05,
+          0.1,
+          0.15,
+          0.25
+        ],
+        "horizon_bins": [
+          10,
+          25,
+          50,
+          100,
+          200,
+          500
+        ],
+        "observation_layout": {
+          "ee_pos": [
+            0,
+            3
+          ],
+          "gripper": [
+            3,
+            4
+          ],
+          "handle_pos": [
+            4,
+            7
+          ]
+        },
+        "phase_definition": "approach if d_hand_handle>d_reach; contact if hand is near handle; opening if hand is near and handle-goal distance is below d_opening_mid; open if handle-goal distance is below d_goal_near",
+        "phase_labels": {
+          "0": "approach",
+          "1": "contact",
+          "2": "opening",
+          "3": "open"
+        },
+        "task": "MetaWorldDrawerOpen-v3"
+      },
+      "train_env": {
+        "action_dim": 4,
+        "action_high": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "action_low": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ],
+        "desired_goal_source": "_target_pos",
+        "distance_threshold": 0.05,
+        "entry_point": "metaworld.register_mw_envs.<locals>.<lambda>",
+        "env_id": "Meta-World/MT1",
+        "env_name": "drawer-open-v3",
+        "goal_dim": 3,
+        "max_episode_steps": 200,
+        "obs_dim": 39,
+        "render_mode": null,
+        "reward_type": "sparse",
+        "spec_kwargs": {
+          "env_name": "drawer-open-v3",
+          "reward_function_version": "v2",
+          "seed": 5,
+          "terminate_on_success": false
+        },
+        "state_dim": 42
+      }
+    },
+    "proxy_source_sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+    "reason": "Comparator compact data omits original HER/Main env snapshots; this is an explicitly labelled same-seed Strict environment proxy.",
+    "record_type": "same_seed_environment_proxy_not_original_snapshot",
+    "schema_version": 1,
+    "seed": 5
+  },
+  "proxy_source_sha256": "5a2a718ba58fa51e78723bafde843f3dc9b38c3c7dbcd9af9077040178218ea0",
+  "reason": "The Random-Support run did not preserve an environment snapshot. This nested record is the already-labelled same-seed proxy from the verified HER/Main comparator artifact.",
+  "record_type": "same_seed_environment_proxy_not_original_snapshot",
+  "schema_version": 1
+}

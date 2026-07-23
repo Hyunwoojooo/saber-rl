@@ -1,0 +1,13 @@
+{
+  "evaluation_first_step": 10000,
+  "evaluation_last_step": 2000000,
+  "evaluation_points": 200,
+  "final_replay_size": 300000,
+  "passed": true,
+  "seed": 2,
+  "summary_auc_difference": 0.0,
+  "summary_best_difference": 0.0,
+  "summary_final_difference": 0.0,
+  "total_steps": 2000000,
+  "total_updates": 1995001
+}

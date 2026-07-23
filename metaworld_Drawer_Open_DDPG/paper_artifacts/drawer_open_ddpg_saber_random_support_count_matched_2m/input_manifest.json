@@ -1,0 +1,225 @@
+{
+  "artifact_id": "drawer_open_ddpg_saber_random_support_count_matched_2m",
+  "comparator_artifact_commit": "1a184f69588c0d02ece942bc106845a4516e81cb",
+  "comparator_artifact_manifest_sha256": "12b716e7841c1d617a680f58ca9c20f7ca83834c2c54593653db5aa39616e4a3",
+  "inputs": [
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_1.metrics",
+      "sha256": "03828407b164e7958a90f349c45a62739b460c4d01957731683655ba0158246f",
+      "size_bytes": 228240,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_1/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_1.summary",
+      "sha256": "f116807a5da5e2c41194d634c51985c2b8642be89ca30e8f321f3f651f64bf39",
+      "size_bytes": 5583,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_1/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_2.metrics",
+      "sha256": "e97a712e72ff7589ebad03b2e62cb873d95f2c8f2835f8c14d9619f9bc728020",
+      "size_bytes": 218517,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_2/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_2.summary",
+      "sha256": "46ad2106012d08ee9d5be5682e84b290ef74e17afabdbebdeb72b000b405e231",
+      "size_bytes": 5518,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_2/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_3.metrics",
+      "sha256": "8f99e4579f70c5ab64e003a3c5f20d1caaa3ab9c8a3ed8d21629db86628f4226",
+      "size_bytes": 218809,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_3/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_3.summary",
+      "sha256": "01bcadf05bb6b9e0bc74436edc8ba2b548549ad7e0f0e49098f549eeaeaba50a",
+      "size_bytes": 5530,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_3/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_4.metrics",
+      "sha256": "012eb2e0cb8b467b12cae7e3c9a5ad8b6bfec7fb5f6bcf3933df104d93a5029e",
+      "size_bytes": 218883,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_4/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_4.summary",
+      "sha256": "3cbd152a7037952f3d2b8637475ea43917c9e0715df6bb78907b7d722502bf39",
+      "size_bytes": 5529,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_4/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_5.metrics",
+      "sha256": "d149e24975d1f5f01ce1c9bf6e230dd312b6361a31f5fa10594d4223e9234479",
+      "size_bytes": 229769,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_5/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "her.seed_5.summary",
+      "sha256": "07abde387af77dc41611d0f505f8377c426233a58aeae927a5bcc0ad40cb8764",
+      "size_bytes": 5579,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/her/seed_5/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_1.metrics",
+      "sha256": "5aeb855ff5d9063b9875776682a79023f5ea0de1276a04f696573e841b7e6f76",
+      "size_bytes": 400494,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_1/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_1.summary",
+      "sha256": "a78a93f3474f220936e506c24106a6f21a7d5fafd2095366ed7dc3a461b3c3a4",
+      "size_bytes": 8045,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_1/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_2.metrics",
+      "sha256": "8d074d97c1e5ba3fcf58015fa76d71bc1f5fe704e96b905814d18ba9a704414f",
+      "size_bytes": 401003,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_2/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_2.summary",
+      "sha256": "62600b0e556984ef2965e541f9481e793a07cfae088e20ea1c289d1f8e89c82e",
+      "size_bytes": 8088,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_2/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_3.metrics",
+      "sha256": "deffc28b8b04da2a14210b53f9e542ff20184f51f5dba2831987a02e9267683a",
+      "size_bytes": 398844,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_3/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_3.summary",
+      "sha256": "b0446b5bce9e7ddb3214dff1cd976b2c88d153e7eb6284ac74539d80922461f4",
+      "size_bytes": 8017,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_3/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_4.metrics",
+      "sha256": "386e863c529145622cc3ff4600c91b840a52f2c40c5aace0a1aec0d894ff350f",
+      "size_bytes": 403688,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_4/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_4.summary",
+      "sha256": "6d9a167aa512e081aa51f64f020873ea3ef6080d1897e9e94287562e9f42e84c",
+      "size_bytes": 8093,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_4/summary.json"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_5.metrics",
+      "sha256": "14cb6954b20990ceda99784c87a9289bab334dd9f6c6ccc22b59cf7a28322dbc",
+      "size_bytes": 401561,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_5/metrics_selected_10k.csv"
+    },
+    {
+      "provenance": "verified comparator compact artifact",
+      "role": "main.seed_5.summary",
+      "sha256": "b1c2ed92e3d942149d75f211b64a6933a2a801e487ff4e41f6b3b134bde8b44d",
+      "size_bytes": 8112,
+      "source_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/main/seed_5/summary.json"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_1.metrics",
+      "sha256": "316841e53578ead9f37bcabae7534a23cd9ce18aafce4e59fc0fc43ceb0f0328",
+      "size_bytes": 19666446,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_1.summary",
+      "sha256": "f06d5ac87bd5c0df2aa2633c2f40c1ccde9158699e709bed70a8302e89f47146",
+      "size_bytes": 8594,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_2.metrics",
+      "sha256": "d3fe260da941b555b1c9c285799b4aea30a0bb915b516643d14eba3f8956afdc",
+      "size_bytes": 19498462,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_2.summary",
+      "sha256": "636c53b15460ab5806ae8f0faeda16637a7e886221329d299e27b98c1c883d9b",
+      "size_bytes": 8538,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_3.metrics",
+      "sha256": "3848f5eaa775738056905de2c22d6ceb000e7ceaccb8828c3842c302932706ce",
+      "size_bytes": 19257887,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_3.summary",
+      "sha256": "19cf8460ba163ee9cb6c9b9a31df380f175e6930cdc076e1a2f1ecdb3b31fa6c",
+      "size_bytes": 8598,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_4.metrics",
+      "sha256": "101f5f2c1ca0f0c4c50e63542404c1e6d739d84d97c89ada09fe90bfffcce324",
+      "size_bytes": 19702016,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_4.summary",
+      "sha256": "8cf4f0b40e57268e651d9dd20ec800abeada78ac65b0fa777fc5ea751be82ac1",
+      "size_bytes": 8551,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_5.metrics",
+      "sha256": "34027c35a696c3469c68a11d3f2a48f80ee1cd4cbf0fb88eae72c03a9749dc4b",
+      "size_bytes": 19613778,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "provenance": "raw result committed at 86912701b2ca0e26586c43748f2a984c0f301960",
+      "role": "random.seed_5.summary",
+      "sha256": "ad4a8e4beba427064b3c72a0f07066b1ddbfe9b6a9f19b2ef26f4316f7b8beff",
+      "size_bytes": 8588,
+      "source_path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s5_2m_cuda/summary.json"
+    }
+  ],
+  "random_result_commit": "86912701b2ca0e26586c43748f2a984c0f301960",
+  "schema_version": 1,
+  "transform": {
+    "checkpoints_logs_jsonl_copied": false,
+    "positive_count_trace": "all finite reference/assigned high-weight-rate pairs",
+    "selected_metrics": "only exact finite observed eval/env_success_mean rows at 10k..2M; no fallback, smoothing, or interpolation",
+    "summary_run_dir": "host-specific absolute run_dir values are replaced with package-relative data/<method>/seed_<n> paths"
+  }
+}

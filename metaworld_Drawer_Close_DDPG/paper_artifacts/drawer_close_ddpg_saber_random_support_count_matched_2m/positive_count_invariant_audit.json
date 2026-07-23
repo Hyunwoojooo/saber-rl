@@ -1,0 +1,46 @@
+{
+  "definition": "reference_high_weight_rate equals assigned_high_weight_rate for every finite logged Random-Support row",
+  "max_abs_difference": 0.0,
+  "passed": true,
+  "records": [
+    {
+      "max_abs_difference": 0.0,
+      "mismatch_count": 0,
+      "passed": true,
+      "rows_checked": 10176,
+      "seed": 1
+    },
+    {
+      "max_abs_difference": 0.0,
+      "mismatch_count": 0,
+      "passed": true,
+      "rows_checked": 10176,
+      "seed": 2
+    },
+    {
+      "max_abs_difference": 0.0,
+      "mismatch_count": 0,
+      "passed": true,
+      "rows_checked": 10176,
+      "seed": 3
+    },
+    {
+      "max_abs_difference": 0.0,
+      "mismatch_count": 0,
+      "passed": true,
+      "rows_checked": 10176,
+      "seed": 4
+    },
+    {
+      "max_abs_difference": 0.0,
+      "mismatch_count": 0,
+      "passed": true,
+      "rows_checked": 10176,
+      "seed": 5
+    }
+  ],
+  "schema_version": 1,
+  "tolerance": 1e-12,
+  "total_mismatch_count": 0,
+  "total_rows_checked": 50880
+}
