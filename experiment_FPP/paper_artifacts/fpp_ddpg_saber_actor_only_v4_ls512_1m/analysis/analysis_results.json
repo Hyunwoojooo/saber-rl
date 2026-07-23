@@ -1,0 +1,175 @@
+{
+  "aggregate": [
+    {
+      "arm": "actor_only",
+      "best_success_mean": 1.0,
+      "best_success_sample_std": 0.0,
+      "final_success_mean": 0.96,
+      "final_success_sample_std": 0.022360679774997918,
+      "hit90_reached_count": 5,
+      "hit90_step_mean_reached_only": 598000,
+      "hit90_step_median_reached_only": 600000,
+      "hit90_step_sample_std_reached_only": 65726.70690061993,
+      "hit90_total": 5,
+      "n_seeds": 5,
+      "success_auc_mean": 0.5888888888888889,
+      "success_auc_sample_std": 0.031878250177898,
+      "weight_scope": "actor_only"
+    },
+    {
+      "arm": "critic_only",
+      "best_success_mean": 1.0,
+      "best_success_sample_std": 0.0,
+      "final_success_mean": 0.96,
+      "final_success_sample_std": 0.04183300132670378,
+      "hit90_reached_count": 5,
+      "hit90_step_mean_reached_only": 548000,
+      "hit90_step_median_reached_only": 540000,
+      "hit90_step_sample_std_reached_only": 70498.22692805827,
+      "hit90_total": 5,
+      "n_seeds": 5,
+      "success_auc_mean": 0.6090909090909091,
+      "success_auc_sample_std": 0.03777806473720212,
+      "weight_scope": "critic_only"
+    }
+  ],
+  "analysis_status": "complete",
+  "arms": {
+    "actor_only": {
+      "weight_scope": "actor_only"
+    },
+    "critic_only": {
+      "canonical": true,
+      "weight_scope": "critic_only"
+    }
+  },
+  "artifact_id": "fpp_ddpg_saber_actor_only_v4_ls512_1m",
+  "config_parity": {
+    "only_exempt_keys": [
+      "output_root",
+      "run_name",
+      "thread_hint",
+      "weight_scope"
+    ],
+    "status": "verified"
+  },
+  "evaluation_grid": {
+    "end": 1000000,
+    "frequency": 10000,
+    "normalization_denominator": 990000,
+    "points": 100,
+    "start": 10000
+  },
+  "n_pairs": 5,
+  "paired_statistics": [
+    {
+      "bootstrap_ci95_high": 0.024242424242424242,
+      "bootstrap_ci95_low": -0.06303030303030303,
+      "bootstrap_resamples": 10000,
+      "bootstrap_seed": 27012027,
+      "delta_definition": "actor_only - canonical_critic_only",
+      "direction_favoring_actor_only": "positive",
+      "exact_sign_flip_p_two_sided": 0.5,
+      "exact_sign_flip_permutations": 32,
+      "mean_delta": -0.0202020202020202,
+      "metric": "success_auc",
+      "missing_pair_seeds": "",
+      "n_pairs": 5,
+      "negative_count": 3,
+      "paired_seeds": "1,2,3,4,5",
+      "positive_count": 2,
+      "sample_std_delta": 0.056384710136614904,
+      "zero_count": 0
+    },
+    {
+      "bootstrap_ci95_high": 0.02999999999999996,
+      "bootstrap_ci95_low": -0.030000000000000027,
+      "bootstrap_resamples": 10000,
+      "bootstrap_seed": 27012027,
+      "delta_definition": "actor_only - canonical_critic_only",
+      "direction_favoring_actor_only": "positive",
+      "exact_sign_flip_p_two_sided": 1.0,
+      "exact_sign_flip_permutations": 32,
+      "mean_delta": -2.2204460492503132e-17,
+      "metric": "final_success",
+      "missing_pair_seeds": "",
+      "n_pairs": 5,
+      "negative_count": 1,
+      "paired_seeds": "1,2,3,4,5",
+      "positive_count": 1,
+      "sample_std_delta": 0.03535533905932737,
+      "zero_count": 3
+    },
+    {
+      "bootstrap_ci95_high": 0.0,
+      "bootstrap_ci95_low": 0.0,
+      "bootstrap_resamples": 10000,
+      "bootstrap_seed": 27012027,
+      "delta_definition": "actor_only - canonical_critic_only",
+      "direction_favoring_actor_only": "positive",
+      "exact_sign_flip_p_two_sided": 1.0,
+      "exact_sign_flip_permutations": 32,
+      "mean_delta": 0.0,
+      "metric": "best_success",
+      "missing_pair_seeds": "",
+      "n_pairs": 5,
+      "negative_count": 0,
+      "paired_seeds": "1,2,3,4,5",
+      "positive_count": 0,
+      "sample_std_delta": 0.0,
+      "zero_count": 5
+    },
+    {
+      "bootstrap_ci95_high": 124000.0,
+      "bootstrap_ci95_low": -24000.0,
+      "bootstrap_resamples": 10000,
+      "bootstrap_seed": 27012027,
+      "delta_definition": "actor_only - canonical_critic_only",
+      "direction_favoring_actor_only": "negative",
+      "exact_sign_flip_p_two_sided": 0.375,
+      "exact_sign_flip_permutations": 32,
+      "mean_delta": 50000.0,
+      "metric": "first_hit_0.90_step",
+      "missing_pair_seeds": "",
+      "n_pairs": 5,
+      "negative_count": 2,
+      "paired_seeds": "1,2,3,4,5",
+      "positive_count": 3,
+      "sample_std_delta": 95393.92014169456,
+      "zero_count": 0
+    }
+  ],
+  "primary_endpoint": "trapezoidal eval/success_mean AUC on observed 10k..1M grid, divided by 990k",
+  "primary_paired_auc": {
+    "bootstrap_ci_95": [
+      -0.06303030303030303,
+      0.024242424242424242
+    ],
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 27012027,
+    "delta_definition": "actor_only - canonical_critic_only",
+    "exact_sign_flip_p_two_sided": 0.5,
+    "exact_sign_flip_permutations": 32,
+    "mean_delta": -0.0202020202020202,
+    "negative_count": 3,
+    "positive_count": 2,
+    "sample_std_delta": 0.056384710136614904,
+    "zero_count": 0
+  },
+  "processing": {
+    "forward_fill": false,
+    "hit90_missingness": "descriptive reached count; paired step inference uses complete pairs only",
+    "interpolation": false,
+    "mean_learning_curve": "per-arm mean and sample SD at each exact observed grid point",
+    "missing_paired_runs": "error; no partial paired result",
+    "smoothing": false
+  },
+  "schema_version": 1,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

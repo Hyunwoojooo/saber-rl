@@ -1,0 +1,537 @@
+{
+  "arms": {
+    "actor_only": [
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s1_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "c7945b81659fa3b8323f6eb9441f2c5397e1244222e3c5e5a6a7ec46e8990a82",
+            "size_bytes": 4693
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s1_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "29c892fc5538f0f62ba5ef8ad82772c1d4e8df7ba5e4678e03bd0f4ef15da2f3",
+            "size_bytes": 7864
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s1_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s1_1000000_ls512/metrics.csv",
+            "role": "metrics",
+            "sha256": "3686d00f3b44e3f682e6645e44ef17300356e3c4fb7a61254181860ac3b09a88",
+            "size_bytes": 34402440
+          }
+        ],
+        "packaged_run_dir": "data/actor_only/seed_1",
+        "seed": 1,
+        "source_metrics_kind": "metrics.csv",
+        "source_run_dir": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s1_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s2_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "cbac6aa3e51a94dcfd8815ad003d10c3be2559a870748759bae814b3126904ad",
+            "size_bytes": 4693
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s2_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "ecd493c68eafdf2ec054a05cb7eb3352b51e4f4115d908276308068349453103",
+            "size_bytes": 7798
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s2_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s2_1000000_ls512/metrics.csv",
+            "role": "metrics",
+            "sha256": "4e3328055445a86f2b56120cd126964b5f3eb0034c8154d4c4c3c10f8c6d20f9",
+            "size_bytes": 34003679
+          }
+        ],
+        "packaged_run_dir": "data/actor_only/seed_2",
+        "seed": 2,
+        "source_metrics_kind": "metrics.csv",
+        "source_run_dir": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s2_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s3_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "569d941f0eb8529a9a0ddc951fa883ad33d437ad747b619efbd3f06af884a94f",
+            "size_bytes": 4693
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s3_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "9b28c4bcd17c71f823c69ea943cf4bd57d286ac706b49b5ce91459a26ddefd93",
+            "size_bytes": 7858
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s3_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s3_1000000_ls512/metrics.csv",
+            "role": "metrics",
+            "sha256": "92221cae3393b6df7a793fc286f6e1a32b405fdd7da3a315581b5ad3d24548b8",
+            "size_bytes": 34140227
+          }
+        ],
+        "packaged_run_dir": "data/actor_only/seed_3",
+        "seed": 3,
+        "source_metrics_kind": "metrics.csv",
+        "source_run_dir": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s3_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s4_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "b5aa5d751cb85af45227027040fdb20b5e0a4815b1e56203b71f7d922bf9f935",
+            "size_bytes": 4693
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s4_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "3a903480e62f9e9ef5abbfd6267bcd65b84b448ed55964721dcd8757d6177d87",
+            "size_bytes": 7762
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s4_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s4_1000000_ls512/metrics.csv",
+            "role": "metrics",
+            "sha256": "08470a25698cabf5beba6b3db62fbf926444f1d24a481a339ddd1c3636a9918a",
+            "size_bytes": 33962178
+          }
+        ],
+        "packaged_run_dir": "data/actor_only/seed_4",
+        "seed": 4,
+        "source_metrics_kind": "metrics.csv",
+        "source_run_dir": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s4_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s5_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "f7b6d659cb5d6df622fea2eee19ef2c718524558f93c895787ca0a1f845e20d7",
+            "size_bytes": 4693
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s5_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "b11cf6aa8837157c353810978028423833bedda6ad7928a9f3c9d8a0c6406ad5",
+            "size_bytes": 7851
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s5_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s5_1000000_ls512/metrics.csv",
+            "role": "metrics",
+            "sha256": "1cad9198dfc9c61b5246b6f071769cacba1f4fc71bd515e1f18e9440c1f8133a",
+            "size_bytes": 34312915
+          }
+        ],
+        "packaged_run_dir": "data/actor_only/seed_5",
+        "seed": 5,
+        "source_metrics_kind": "metrics.csv",
+        "source_run_dir": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_only_v4_ls512_s5_1000000_ls512"
+      }
+    ],
+    "critic_only": [
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "7d8b1eb0eedb4d6662747379150022e5c704cd56ddd3897f1434bec29710f112",
+            "size_bytes": 4681
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "f1271475359209e4ac6dccb849a4a9721a191e37a8327f3dc1984951371adec5",
+            "size_bytes": 7852
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+            "role": "metrics",
+            "sha256": "57f3c5978083ab1758bd136aa304b11ea583d32e44a654d559e089f04e8910d6",
+            "size_bytes": 372781
+          }
+        ],
+        "packaged_run_dir": "data/critic_only/seed_1",
+        "seed": 1,
+        "source_metrics_kind": "metrics_selected_10k.csv",
+        "source_run_dir": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "d060ac7615b7f150020067b1b1fbfa33020747137a5ed01dd481b5655e5fd657",
+            "size_bytes": 4681
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "44394e1a219e2d55f6cc74b501333b8e39712621ca32a4c757b1aca5f435ddb6",
+            "size_bytes": 7733
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+            "role": "metrics",
+            "sha256": "8c00c95faf6dc75cdd067bfd7f930186795ecf53a15af5b29a0917565fbe59ed",
+            "size_bytes": 366024
+          }
+        ],
+        "packaged_run_dir": "data/critic_only/seed_2",
+        "seed": 2,
+        "source_metrics_kind": "metrics_selected_10k.csv",
+        "source_run_dir": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "fd21db4b6a9c3b8250ef99623e45ccd26267d0ef3927d18a5202ca4fecdb98eb",
+            "size_bytes": 4681
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "24b1cc0820977845cb4e4e62b79ae84b547bb276b9cf4c02475df8d67db34982",
+            "size_bytes": 7806
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+            "role": "metrics",
+            "sha256": "ddd31165a02c975146fa72c4c7860562be11fc12cc577bc1f82d23751522c428",
+            "size_bytes": 364599
+          }
+        ],
+        "packaged_run_dir": "data/critic_only/seed_3",
+        "seed": 3,
+        "source_metrics_kind": "metrics_selected_10k.csv",
+        "source_run_dir": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "590d6ec9c47ecd4a793c699521c8fbd9c0af62d255502e2aa3ee15ab3740e48a",
+            "size_bytes": 4681
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "b400c8047890d51a71aeacb0150e22dc766b31490bcbb550f03a83f1f8f19755",
+            "size_bytes": 7806
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+            "role": "metrics",
+            "sha256": "bf0c63a572c955e2509b7b989c2637141009f2536023d16ae0638308b5b3d49f",
+            "size_bytes": 369467
+          }
+        ],
+        "packaged_run_dir": "data/critic_only/seed_4",
+        "seed": 4,
+        "source_metrics_kind": "metrics_selected_10k.csv",
+        "source_run_dir": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512"
+      },
+      {
+        "files": [
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512/config.json",
+            "role": "config",
+            "sha256": "2c6d6dec66743cf7b9e7fbc2f4e495f6e97e9f1e60696079935230a51aeeac87",
+            "size_bytes": 4681
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512/summary.json",
+            "role": "summary",
+            "sha256": "f898b224b7892c522617a7a9ee636c77fd50a99bd8f90abdc615a3cae418b2e5",
+            "size_bytes": 7754
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512/env_snapshot.json",
+            "role": "env_snapshot",
+            "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89",
+            "size_bytes": 2349
+          },
+          {
+            "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+            "role": "metrics",
+            "sha256": "8fb0467061a2baf118c54d12c533a15b660654f4e1e96e34134dc0508ab9aa52",
+            "size_bytes": 366142
+          }
+        ],
+        "packaged_run_dir": "data/critic_only/seed_5",
+        "seed": 5,
+        "source_metrics_kind": "metrics_selected_10k.csv",
+        "source_run_dir": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512"
+      }
+    ]
+  },
+  "artifact_id": "fpp_ddpg_saber_actor_only_v4_ls512_1m",
+  "canonical_critic_source_commit": "c43d40502b84ae713924ebf995be623e7acc7ca8",
+  "canonical_raw_roots": {
+    "actor_only": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512",
+    "critic_only": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512"
+  },
+  "execution_metadata_source": {
+    "packaged_path": "execution_metadata.json",
+    "path": "experiment_FPP/runs/ddpg_saber_actor_only_v4_ls512/_execution/launch_metadata.json",
+    "role": "launch_metadata",
+    "sha256": "96667acb20efda14bf306d567b890aefc91fe9b32d7fcfe27e67cd4ea6887930",
+    "size_bytes": 370
+  },
+  "frozen_source_files": [
+    {
+      "packaged_path": "source/README.md",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/README.md",
+      "sha256": "74ad316b7a83b628918f0c7ff9a0afd34508840eca1d4c2ee62a40747e8f28a4",
+      "size_bytes": 4664
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/__init__.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+      "size_bytes": 49
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/agent.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/agent.py",
+      "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
+      "size_bytes": 6188
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/config.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/config.py",
+      "sha256": "3382eba8077245aafc215c138f38d353044ea5c3ec6c282e704ed1f2eae376e2",
+      "size_bytes": 14999
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/envs.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+      "size_bytes": 3943
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/envs_maniskill.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/io_utils.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+      "size_bytes": 4028
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/networks.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/replay.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size_bytes": 19844
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/task_fetch_push.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/task_pick_cube.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/task_push_t.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/trainer.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "ef174fc8d6ec0353992d91c3e7e1071df77a79aa8288e0262e38d0e1103edd39",
+      "size_bytes": 64848
+    },
+    {
+      "packaged_path": "source/code/src/metacog_lite_v0/weights.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/metacog_lite_v0/weights.py",
+      "sha256": "20dc29452708dff4b5f0af40eae0ee18fff068f06be69e180e1e53cf43e32a11",
+      "size_bytes": 61429
+    },
+    {
+      "packaged_path": "source/code/src/test_actor_only_scope.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/test_actor_only_scope.py",
+      "sha256": "4cf72ef7c300353e769bc3de1ead5bb58e0d97a422cb26233dee8a2b923c8567",
+      "size_bytes": 10271
+    },
+    {
+      "packaged_path": "source/code/src/test_b3_runtime_opt_lookup.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/test_b3_runtime_opt_lookup.py",
+      "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
+      "size_bytes": 9355
+    },
+    {
+      "packaged_path": "source/code/src/test_numba_runtime_opt_fpp.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/test_numba_runtime_opt_fpp.py",
+      "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
+      "size_bytes": 6296
+    },
+    {
+      "packaged_path": "source/code/src/test_numba_support_scan_fpp.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/test_numba_support_scan_fpp.py",
+      "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
+      "size_bytes": 9128
+    },
+    {
+      "packaged_path": "source/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py",
+      "sha256": "7c6cf655209d1695d339572ca6e7b4609fce813707ed9a9098ca260df3cfb94f",
+      "size_bytes": 15382
+    },
+    {
+      "packaged_path": "source/config.json",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/config.json",
+      "sha256": "2c7128b7dcbc82830bae7398558396e9db5e9bb5bfa97299fa5a7d0a246105b2",
+      "size_bytes": 1547
+    },
+    {
+      "packaged_path": "source/run.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/run.py",
+      "sha256": "cd90cc5eb368474423d528d8ca80d3845fdff5f957e0327079bbd86db4a3a975",
+      "size_bytes": 7023
+    },
+    {
+      "packaged_path": "source/run_all_seeds.sh",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/run_all_seeds.sh",
+      "sha256": "2bf4afafb2b97d7d5e8e57b1050d778187b768a53d7c5684f4d3c8ca199f8562",
+      "size_bytes": 326
+    },
+    {
+      "packaged_path": "source/run_main_1m_seeds1_5_parallel.sh",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/run_main_1m_seeds1_5_parallel.sh",
+      "sha256": "b7f5fb7cc722ae8f1b7ec2992ccb230e6b936514a46d6fa0a51ec7097cfdceff",
+      "size_bytes": 4972
+    },
+    {
+      "packaged_path": "source/run_screening_3seeds_parallel.sh",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/run_screening_3seeds_parallel.sh",
+      "sha256": "6db1fb05968b424a93a95c430d881c2c63fb6fb973011d814b4fcd0f685084d1",
+      "size_bytes": 342
+    },
+    {
+      "packaged_path": "source/run_smoke_20k_seed1.sh",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/run_smoke_20k_seed1.sh",
+      "sha256": "fb6ddcbe3aa1e57ef286c4bbc7d44ceeb0381a6dee54ad1c740eedd08a6862d9",
+      "size_bytes": 1850
+    },
+    {
+      "packaged_path": "source/run_tests.sh",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/run_tests.sh",
+      "sha256": "53bd8c082535f2e993ff8f476aa701658db9b29a2b197de03922833a553b55d9",
+      "size_bytes": 1637
+    },
+    {
+      "packaged_path": "source/validate_config_parity.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/validate_config_parity.py",
+      "sha256": "f8d0121be5131e7429fbe663349fe79c4d3b67d124b06c673e561774bbbc00d1",
+      "size_bytes": 6220
+    },
+    {
+      "packaged_path": "source/validate_results.py",
+      "path": "experiment_FPP/ddpg_saber_actor_only_v4_ls512/validate_results.py",
+      "sha256": "eac80af0699582597f60375377dc35acc908da9a9dae74bfe956f54df9557a8a",
+      "size_bytes": 32171
+    }
+  ],
+  "schema_version": 1,
+  "source_commit": "e062064a5b08783c7d4147eaf072198a7874f09b"
+}

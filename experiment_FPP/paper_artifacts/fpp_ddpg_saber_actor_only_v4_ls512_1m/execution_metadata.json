@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "experiment": "ddpg_saber_actor_only_v4_ls512",
+  "timestamp_utc": "2026-07-22T08:59:10Z",
+  "repo_head": "e062064a5b08783c7d4147eaf072198a7874f09b",
+  "origin_main": "e062064a5b08783c7d4147eaf072198a7874f09b",
+  "head_matches_origin_main": true,
+  "worktree_clean": true,
+  "steps": 1000000,
+  "seeds": [1, 2, 3, 4, 5],
+  "max_parallel": 5
+}
