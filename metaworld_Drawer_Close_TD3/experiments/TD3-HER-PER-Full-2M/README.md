@@ -45,6 +45,30 @@ Full PER replay at `experiment_FPP/td3_her_per_full_ls512/code/src/metacog_lite_
 For TD3, the same IS coefficient is applied to both critic residuals and the priority update uses their mean absolute TD error. SABER support lookup, support caches, PER-style loss weighting, and
 high replay ratio are disabled.
 
+## Completed Results
+
+The 5-seed, 2M-step experiment completed on 2026-07-24 KST.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 0.00 | 1.00 | 0.111 | 220k | 34.31 steps/s |
+| 2 | 1.00 | 1.00 | 0.845 | 190k | 34.27 steps/s |
+| 3 | 1.00 | 1.00 | 0.825 | 120k | 34.37 steps/s |
+| 4 | 0.00 | 1.00 | 0.112 | 120k | 34.47 steps/s |
+| 5 | 1.00 | 1.00 | 0.725 | 100k | 34.39 steps/s |
+| Mean | 0.60 | 1.00 | 0.524 | 150k | 34.36 steps/s |
+
+All five seeds reached 90% success at least once, and seeds 2, 3, and 5
+retained 100% success at the final evaluation. Relative to TD3+HER B0, Full
+PER improves mean AUC from 0.329 to 0.524 and final success from 0.35 to 0.60.
+Compared with SABER/B3-Critic-Only, Full PER has slightly higher final success
+(0.60 versus 0.59) but lower AUC (0.524 versus 0.549), so neither method
+dominates both metrics in this cohort.
+
+The committed result package is at
+`../../results_2m/TD3-HER-PER-Full-2M/` and contains each seed's `metrics.csv`
+and `summary.json`; checkpoints and verbose logs are intentionally excluded.
+
 ## Validation
 
 ```bash

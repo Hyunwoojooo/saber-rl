@@ -51,6 +51,7 @@ Outputs are written to `metaworld_Drawer_Close_TD3/results_2m/`, logs to `metawo
 | TD3-HER-B3-Random-Support-2M | Completed | 1/5 | 0.20 | 1.00 | 0.296 | 118k | 22.41 steps/s |
 | TD3-HER-B3-Shuffled-Weight-2M | Completed | 3/5 | 0.59 | 1.00 | 0.586 | 38k | 23.52 steps/s |
 | TD3-HER-PER-Style-2M | Completed | 1/5 | 0.20 | 1.00 | 0.369 | 94k | 38.68 steps/s |
+| TD3-HER-PER-Full-2M | Completed | 3/5 | 0.60 | 1.00 | 0.524 | 150k | 34.36 steps/s |
 
 `TD3-HER-B0-2M` finished on 2026-06-28 KST. All five seeds reached 90% success at least once, but only one seed remained at or above 90% success in the final evaluation. Wall-clock runtime was about 13h 26m 37s for five parallel seeds, corresponding to roughly 206-208 aggregate environment steps/s.
 
@@ -148,6 +149,30 @@ Completed on 2026-07-02 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.20 | 1.00 | 0.369 | 94k |
 
 PER-Style reached high success at least once in every seed, but only seed 5 maintained high final performance. Its mean AUC is higher than B0 and Random-Support, but below B3-Critic-Only and Shuffled-Weight on this DrawerClose TD3 run.
+
+### TD3-HER-PER-Full-2M
+
+Completed on 2026-07-24 KST with 5 seeds, 2M steps per seed, sparse
+DrawerClose-v3, and full prioritized experience replay. Replay slots are
+sampled by priority before future-goal HER relabeling, importance-sampling
+weights are applied to both TD3 critic losses, and priorities are updated from
+the mean absolute twin-critic TD error used by the optimizer step.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.00 | 1.00 | 0.111 | 220k |
+| 2 | 1.00 | 1.00 | 0.845 | 190k |
+| 3 | 1.00 | 1.00 | 0.825 | 120k |
+| 4 | 0.00 | 1.00 | 0.112 | 120k |
+| 5 | 1.00 | 1.00 | 0.725 | 100k |
+| Mean | 0.60 | 1.00 | 0.524 | 150k |
+
+Every seed reached 90% success transiently, and seeds 2, 3, and 5 retained
+100% success at the final evaluation. Full PER improved over TD3+HER B0 in
+both AUC and final success. Relative to B3-Critic-Only, it produced slightly
+higher final success (0.60 versus 0.59) but lower AUC (0.524 versus 0.549),
+showing that the final snapshot and whole-training efficiency favor different
+methods in this cohort.
 
 
 
