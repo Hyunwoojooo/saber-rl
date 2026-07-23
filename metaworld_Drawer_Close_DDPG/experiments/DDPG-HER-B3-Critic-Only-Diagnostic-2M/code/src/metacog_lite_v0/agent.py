@@ -86,6 +86,7 @@ class DDPGAgent:
         nonterminal: torch.Tensor,
         omega_critic: torch.Tensor,
         omega_actor: torch.Tensor,
+        fixed_target: torch.Tensor | None = None,
     ) -> UpdateMetrics:
         self.total_it += 1
         reward = reward.reshape(-1)
@@ -93,8 +94,14 @@ class DDPGAgent:
         omega_critic = omega_critic.reshape(-1)
         omega_actor = omega_actor.reshape(-1)
         with torch.no_grad():
-            next_action = self.actor_target(next_state)
-            target = reward + self.gamma * nonterminal * self.critic_target(next_state, next_action)
+            if fixed_target is None:
+                next_action = self.actor_target(next_state)
+                target = reward + self.gamma * nonterminal * self.critic_target(
+                    next_state,
+                    next_action,
+                )
+            else:
+                target = fixed_target.detach().reshape(-1)
 
         q = self.critic(state, action_exec)
         td_error = q - target
@@ -162,6 +169,25 @@ class DDPGAgent:
         target = reward + self.gamma * nonterminal * self.target_q_values(next_state)
         q = self.critic(state, action_exec)
         return (q - target).abs()
+
+    @torch.no_grad()
+    def td_error_components(
+        self,
+        state: torch.Tensor,
+        action_exec: torch.Tensor,
+        reward: torch.Tensor,
+        next_state: torch.Tensor,
+        nonterminal: torch.Tensor,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        reward = reward.reshape(-1)
+        nonterminal = nonterminal.reshape(-1)
+        next_action = self.actor_target(next_state)
+        target = reward + self.gamma * nonterminal * self.critic_target(
+            next_state,
+            next_action,
+        )
+        q = self.critic(state, action_exec)
+        return q, target, (q - target).abs()
 
     @torch.no_grad()
     def critic_target_values(self, state: torch.Tensor, action: torch.Tensor) -> torch.Tensor:

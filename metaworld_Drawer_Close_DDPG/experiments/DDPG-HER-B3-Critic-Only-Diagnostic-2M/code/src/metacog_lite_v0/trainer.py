@@ -50,10 +50,6 @@ def save_checkpoint(path: Path, payload: Dict[str, Any]) -> None:
     torch.save(payload, path)
 
 
-def load_checkpoint(path: Path) -> Dict[str, Any]:
-    return torch.load(path, map_location="cpu", weights_only=False)
-
-
 def make_env(config: LiteConfig, seed: int, render: bool) -> Any:
     if config.task_name in {"fetch_push", "fetch_pick_and_place", "fetch_slide"}:
         return FetchGoalEnv(config.env_id, config.max_episode_steps, seed, render)
@@ -510,6 +506,12 @@ def _task_phase_names(task: Any) -> tuple[str, ...]:
 
 def run_training(config: LiteConfig, repo_root: Path) -> Path:
     config.normalize()
+    if config.resume or config.resume_path:
+        raise RuntimeError(
+            "Resume is disabled for DrawerClose diagnostic runs because "
+            "MetaWorld environment state is not checkpointed. Restart the "
+            "seed from step 0."
+        )
     output_root = config.output_root_path(repo_root)
     run_dir = make_run_dir(output_root, config.run_name, config.resume)
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -787,6 +789,7 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "b3/support_to_rot_progress_corr",
         "b3/support_to_success_corr",
         "b3/support_to_td_error_corr",
+        "diagnostic/fixed_target_from_pre_update",
         "diagnostic/support_positive_rate",
         "diagnostic/td_error_support_pos_mean",
         "diagnostic/td_error_support_neg_mean",
@@ -797,6 +800,8 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "diagnostic/residual_reduction_mean",
         "diagnostic/td_error_enrichment_ratio",
         "diagnostic/td_error_top10_threshold",
+        "diagnostic/td_error_top10_count",
+        "diagnostic/td_error_top10_fraction",
         "diagnostic/td_error_top10_support_rate",
         "diagnostic/td_error_top10_overlap_rate",
         "diagnostic/td_error_top10_enrichment_ratio",
@@ -811,6 +816,15 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "diagnostic/support_to_residual_reduction_corr",
         "diagnostic/weight_to_td_error_corr",
         "diagnostic/weight_to_residual_reduction_corr",
+        "diagnostic/live_target_td_error_post_mean",
+        "diagnostic/live_target_td_error_post_support_pos_mean",
+        "diagnostic/live_target_td_error_post_support_neg_mean",
+        "diagnostic/live_target_residual_reduction_mean",
+        "diagnostic/live_target_residual_reduction_support_pos_mean",
+        "diagnostic/live_target_residual_reduction_support_neg_mean",
+        "diagnostic/live_target_residual_correction_enrichment_ratio",
+        "diagnostic/live_target_support_to_residual_reduction_corr",
+        "diagnostic/live_target_weight_to_residual_reduction_corr",
         "diagnostic/same_minibatch_one_update",
         "b4/G_sup_mean",
         "b4/G_sup_positive_rate",
@@ -864,43 +878,6 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     best_eval_step = -1
     last_eval_metrics: Dict[str, float] = {}
     eval_history_env: list[tuple[int, float]] = []
-    resume_payload: Dict[str, Any] | None = None
-
-    ckpt_path = Path(config.resume_path) if config.resume_path else _checkpoint_path(run_dir)
-    if config.resume and ckpt_path.exists():
-        payload = load_checkpoint(ckpt_path)
-        resume_payload = payload
-        agent.load_state_dict(payload["agent"])
-        replay.load_state_dict(payload["replay"])
-        if replay.indexed_slot_count() < replay.size:
-            replay.rebuild_action_index(task.coarse_hash_batch(replay.observation[:replay.size], replay.h[:replay.size]))
-            logger.info("rebuilt replay action index slots=%d", replay.indexed_slot_count())
-        replay.rebuild_action_bins(task.action_bin_batch(replay.action_exec[:replay.size], config.action_bins_per_dim))
-        gap_stats.load_state_dict(payload.get("gap_stats", {}))
-        start_step = int(payload["global_step"])
-        if start_step % train_env.max_episode_steps != 0:
-            raise RuntimeError(
-                "Diagnostic resume requires an episode-boundary checkpoint; "
-                f"got global_step={start_step}."
-            )
-        episode_idx = int(payload["episode_idx"])
-        total_updates = int(payload.get("total_updates", 0))
-        best_eval_success = float(payload.get("best_eval_success", -1.0))
-        best_eval_selection_success = float(payload.get("best_eval_selection_success", best_eval_success))
-        best_eval_goal_success = float(payload.get("best_eval_goal_success", -1.0))
-        best_eval_env_success = float(payload.get("best_eval_env_success", -1.0))
-        best_eval_return = float(payload.get("best_eval_return", float("-inf")))
-        best_eval_step = int(payload.get("best_eval_step", -1))
-        last_eval_metrics = dict(payload.get("last_eval_metrics", {}))
-        eval_history_env = [
-            (int(step), float(value))
-            for step, value in payload.get("eval_history_env", [])
-        ]
-        noise_rng.bit_generator.state = payload["noise_rng_state"]
-        sample_rng.bit_generator.state = payload["sample_rng_state"]
-        weight_rng.bit_generator.state = payload["weight_rng_state"]
-        logger.info("resumed from %s at step=%d", ckpt_path, start_step)
-
     obs = train_env.reset(seed=config.seeds.env_seed + episode_idx)
     ep_return = 0.0
     ep_success = 0.0
@@ -920,10 +897,6 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
     }
     last_lite = _empty_lite_metrics(phase_names)
     last_her_ratio = 0.0
-    if resume_payload is not None:
-        last_loss.update(resume_payload.get("last_loss", {}))
-        last_lite.update(resume_payload.get("last_lite", {}))
-        last_her_ratio = float(resume_payload.get("last_her_ratio", 0.0))
     wall_start = time.perf_counter()
 
     def checkpoint_payload(step_value: int, kind: str) -> Dict[str, Any]:
@@ -1021,6 +994,28 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                         nonterminal=nonterminal_t,
                     )
 
+                diagnostic_target_before: torch.Tensor | None = None
+                diagnostic_td_before: np.ndarray | None = None
+                if config.method in {
+                    "b3_support_only",
+                    "b3_support_runtime_opt",
+                }:
+                    _, target_before, td_before = agent.td_error_components(
+                        state_t,
+                        action_t,
+                        reward_t,
+                        next_state_t,
+                        nonterminal_t,
+                    )
+                    diagnostic_target_before = target_before.detach()
+                    diagnostic_td_before = (
+                        td_before.detach()
+                        .cpu()
+                        .numpy()
+                        .reshape(-1)
+                        .astype(np.float32)
+                    )
+
                 t_update0 = time.perf_counter()
                 update = agent.update(
                     state=state_t,
@@ -1030,6 +1025,7 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                     nonterminal=nonterminal_t,
                     omega_critic=torch.as_tensor(wb.omega_critic, dtype=torch.float32, device=device),
                     omega_actor=torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device),
+                    fixed_target=diagnostic_target_before,
                 )
                 t_update1 = time.perf_counter()
                 last_loss = {
@@ -1045,15 +1041,20 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                     "td_error_abs_p90": update.td_error_abs_p90,
                 }
                 last_lite = _lite_metrics_from_weight_batch(wb, phase_names)
-                if config.method in {
-                    "b3_support_only",
-                    "b3_support_runtime_opt",
-                }:
-                    td_before_for_diagnostic = update.td_error_abs_values.astype(
-                        np.float32,
-                        copy=False,
+                if (
+                    diagnostic_target_before is not None
+                    and diagnostic_td_before is not None
+                ):
+                    td_after_fixed = (
+                        (agent.q_values(state_t, action_t) - diagnostic_target_before)
+                        .abs()
+                        .detach()
+                        .cpu()
+                        .numpy()
+                        .reshape(-1)
+                        .astype(np.float32)
                     )
-                    td_after_for_diagnostic = (
+                    td_after_live = (
                         agent.td_error_abs(
                             state_t,
                             action_t,
@@ -1070,8 +1071,9 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
                     last_lite.update(
                         _b3_residual_diagnostic_metrics(
                             wb=wb,
-                            td_before=td_before_for_diagnostic,
-                            td_after=td_after_for_diagnostic,
+                            td_before=diagnostic_td_before,
+                            td_after_fixed=td_after_fixed,
+                            td_after_live=td_after_live,
                             phase_names=phase_names,
                         )
                     )
@@ -1246,6 +1248,10 @@ def run_training(config: LiteConfig, repo_root: Path) -> Path:
         "final_steps_per_sec": float(global_step) / max(runtime_total_sec, 1e-8),
         "posthoc_correlation_metrics_online_computed": True,
         "diagnostic_logging_enabled": True,
+        "fixed_target_residual_diagnostic": True,
+        "live_target_residual_diagnostic": True,
+        "top10_exact_k": True,
+        "resume_supported": False,
     }
     if config.task_name == "push_t":
         summary.update(
@@ -1392,6 +1398,7 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "b3/support_to_rot_progress_corr": np.nan,
         "b3/support_to_success_corr": np.nan,
         "b3/support_to_td_error_corr": np.nan,
+        "diagnostic/fixed_target_from_pre_update": 0.0,
         "diagnostic/support_positive_rate": np.nan,
         "diagnostic/td_error_support_pos_mean": np.nan,
         "diagnostic/td_error_support_neg_mean": np.nan,
@@ -1402,6 +1409,8 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "diagnostic/residual_reduction_mean": np.nan,
         "diagnostic/td_error_enrichment_ratio": np.nan,
         "diagnostic/td_error_top10_threshold": np.nan,
+        "diagnostic/td_error_top10_count": np.nan,
+        "diagnostic/td_error_top10_fraction": np.nan,
         "diagnostic/td_error_top10_support_rate": np.nan,
         "diagnostic/td_error_top10_overlap_rate": np.nan,
         "diagnostic/td_error_top10_enrichment_ratio": np.nan,
@@ -1416,6 +1425,15 @@ def _empty_lite_metrics(phase_names: tuple[str, ...] = ("approach", "grasp", "tr
         "diagnostic/support_to_residual_reduction_corr": np.nan,
         "diagnostic/weight_to_td_error_corr": np.nan,
         "diagnostic/weight_to_residual_reduction_corr": np.nan,
+        "diagnostic/live_target_td_error_post_mean": np.nan,
+        "diagnostic/live_target_td_error_post_support_pos_mean": np.nan,
+        "diagnostic/live_target_td_error_post_support_neg_mean": np.nan,
+        "diagnostic/live_target_residual_reduction_mean": np.nan,
+        "diagnostic/live_target_residual_reduction_support_pos_mean": np.nan,
+        "diagnostic/live_target_residual_reduction_support_neg_mean": np.nan,
+        "diagnostic/live_target_residual_correction_enrichment_ratio": np.nan,
+        "diagnostic/live_target_support_to_residual_reduction_corr": np.nan,
+        "diagnostic/live_target_weight_to_residual_reduction_corr": np.nan,
         "diagnostic/same_minibatch_one_update": 0.0,
         "b4/G_sup_mean": 0.0,
         "b4/G_sup_positive_rate": 0.0,
@@ -1503,6 +1521,7 @@ def _lite_metrics_from_weight_batch(
         "b3/support_to_rot_progress_corr": np.nan,
         "b3/support_to_success_corr": np.nan,
         "b3/support_to_td_error_corr": np.nan,
+        "diagnostic/fixed_target_from_pre_update": 0.0,
         "diagnostic/support_positive_rate": np.nan,
         "diagnostic/td_error_support_pos_mean": np.nan,
         "diagnostic/td_error_support_neg_mean": np.nan,
@@ -1513,6 +1532,8 @@ def _lite_metrics_from_weight_batch(
         "diagnostic/residual_reduction_mean": np.nan,
         "diagnostic/td_error_enrichment_ratio": np.nan,
         "diagnostic/td_error_top10_threshold": np.nan,
+        "diagnostic/td_error_top10_count": np.nan,
+        "diagnostic/td_error_top10_fraction": np.nan,
         "diagnostic/td_error_top10_support_rate": np.nan,
         "diagnostic/td_error_top10_overlap_rate": np.nan,
         "diagnostic/td_error_top10_enrichment_ratio": np.nan,
@@ -1527,6 +1548,15 @@ def _lite_metrics_from_weight_batch(
         "diagnostic/support_to_residual_reduction_corr": np.nan,
         "diagnostic/weight_to_td_error_corr": np.nan,
         "diagnostic/weight_to_residual_reduction_corr": np.nan,
+        "diagnostic/live_target_td_error_post_mean": np.nan,
+        "diagnostic/live_target_td_error_post_support_pos_mean": np.nan,
+        "diagnostic/live_target_td_error_post_support_neg_mean": np.nan,
+        "diagnostic/live_target_residual_reduction_mean": np.nan,
+        "diagnostic/live_target_residual_reduction_support_pos_mean": np.nan,
+        "diagnostic/live_target_residual_reduction_support_neg_mean": np.nan,
+        "diagnostic/live_target_residual_correction_enrichment_ratio": np.nan,
+        "diagnostic/live_target_support_to_residual_reduction_corr": np.nan,
+        "diagnostic/live_target_weight_to_residual_reduction_corr": np.nan,
         "diagnostic/same_minibatch_one_update": 0.0,
         "b4/G_sup_mean": _mean(wb.g_sup),
         "b4/G_sup_positive_rate": float(np.mean(wb.g_sup > 0.0)) if wb.g_sup.size else 0.0,
@@ -1580,13 +1610,19 @@ def _lite_metrics_from_weight_batch(
 def _b3_residual_diagnostic_metrics(
     wb: Any,
     td_before: np.ndarray,
-    td_after: np.ndarray,
+    td_after_fixed: np.ndarray,
+    td_after_live: np.ndarray,
     phase_names: tuple[str, ...],
 ) -> Dict[str, float]:
-    """Summarize sample-level support, TD error, and one-update correction."""
+    """Summarize support and one-update correction on fixed and live targets."""
     td_before_arr = np.asarray(td_before, dtype=np.float32).reshape(-1)
-    td_after_arr = np.asarray(td_after, dtype=np.float32).reshape(-1)
-    if td_before_arr.size == 0 or td_after_arr.size != td_before_arr.size:
+    td_after_fixed_arr = np.asarray(td_after_fixed, dtype=np.float32).reshape(-1)
+    td_after_live_arr = np.asarray(td_after_live, dtype=np.float32).reshape(-1)
+    if (
+        td_before_arr.size == 0
+        or td_after_fixed_arr.size != td_before_arr.size
+        or td_after_live_arr.size != td_before_arr.size
+    ):
         return {}
 
     support = np.asarray(
@@ -1608,33 +1644,51 @@ def _b3_residual_diagnostic_metrics(
 
     support_mask = support > 0.5
     negative_mask = ~support_mask
-    residual_reduction = td_before_arr - td_after_arr
-    top10_threshold = float(np.quantile(td_before_arr, 0.90))
-    top10_mask = td_before_arr >= top10_threshold
+    residual_reduction = td_before_arr - td_after_fixed_arr
+    live_residual_reduction = td_before_arr - td_after_live_arr
+
+    top10_count = max(1, int(np.ceil(0.10 * td_before_arr.size)))
+    top10_indices = np.argsort(
+        -td_before_arr.astype(np.float64),
+        kind="mergesort",
+    )[:top10_count]
+    top10_mask = np.zeros(td_before_arr.size, dtype=np.bool_)
+    top10_mask[top10_indices] = True
+    top10_threshold = float(td_before_arr[top10_indices[-1]])
+
     support_rate = float(np.mean(support_mask))
     top10_support_rate = _safe_mask_mean(support, top10_mask)
     eps = 1e-8
 
     pos_td = _safe_mask_mean(td_before_arr, support_mask)
     neg_td = _safe_mask_mean(td_before_arr, negative_mask)
-    pos_td_after = _safe_mask_mean(td_after_arr, support_mask)
-    neg_td_after = _safe_mask_mean(td_after_arr, negative_mask)
+    pos_td_after = _safe_mask_mean(td_after_fixed_arr, support_mask)
+    neg_td_after = _safe_mask_mean(td_after_fixed_arr, negative_mask)
     pos_reduction = _safe_mask_mean(residual_reduction, support_mask)
     neg_reduction = _safe_mask_mean(residual_reduction, negative_mask)
+    live_pos_td_after = _safe_mask_mean(td_after_live_arr, support_mask)
+    live_neg_td_after = _safe_mask_mean(td_after_live_arr, negative_mask)
+    live_pos_reduction = _safe_mask_mean(live_residual_reduction, support_mask)
+    live_neg_reduction = _safe_mask_mean(live_residual_reduction, negative_mask)
     support_td_corr = _safe_corr(support, td_before_arr)
 
     metrics: Dict[str, float] = {
         "b3/support_to_td_error_corr": support_td_corr,
+        "diagnostic/fixed_target_from_pre_update": 1.0,
         "diagnostic/support_positive_rate": support_rate,
         "diagnostic/td_error_support_pos_mean": pos_td,
         "diagnostic/td_error_support_neg_mean": neg_td,
         "diagnostic/td_error_pre_mean": float(np.mean(td_before_arr)),
-        "diagnostic/td_error_post_mean": float(np.mean(td_after_arr)),
+        "diagnostic/td_error_post_mean": float(np.mean(td_after_fixed_arr)),
         "diagnostic/td_error_post_support_pos_mean": pos_td_after,
         "diagnostic/td_error_post_support_neg_mean": neg_td_after,
         "diagnostic/residual_reduction_mean": float(np.mean(residual_reduction)),
         "diagnostic/td_error_enrichment_ratio": _safe_ratio(pos_td, neg_td),
         "diagnostic/td_error_top10_threshold": top10_threshold,
+        "diagnostic/td_error_top10_count": float(top10_count),
+        "diagnostic/td_error_top10_fraction": float(
+            top10_count / td_before_arr.size
+        ),
         "diagnostic/td_error_top10_support_rate": top10_support_rate,
         "diagnostic/td_error_top10_overlap_rate": float(
             np.mean(np.logical_and(support_mask, top10_mask))
@@ -1672,6 +1726,31 @@ def _b3_residual_diagnostic_metrics(
         "diagnostic/weight_to_residual_reduction_corr": _safe_corr(
             weights,
             residual_reduction,
+        ),
+        "diagnostic/live_target_td_error_post_mean": float(
+            np.mean(td_after_live_arr)
+        ),
+        "diagnostic/live_target_td_error_post_support_pos_mean": live_pos_td_after,
+        "diagnostic/live_target_td_error_post_support_neg_mean": live_neg_td_after,
+        "diagnostic/live_target_residual_reduction_mean": float(
+            np.mean(live_residual_reduction)
+        ),
+        "diagnostic/live_target_residual_reduction_support_pos_mean": (
+            live_pos_reduction
+        ),
+        "diagnostic/live_target_residual_reduction_support_neg_mean": (
+            live_neg_reduction
+        ),
+        "diagnostic/live_target_residual_correction_enrichment_ratio": (
+            _safe_ratio(live_pos_reduction, live_neg_reduction)
+        ),
+        "diagnostic/live_target_support_to_residual_reduction_corr": _safe_corr(
+            support,
+            live_residual_reduction,
+        ),
+        "diagnostic/live_target_weight_to_residual_reduction_corr": _safe_corr(
+            weights,
+            live_residual_reduction,
         ),
         "diagnostic/same_minibatch_one_update": 1.0,
     }

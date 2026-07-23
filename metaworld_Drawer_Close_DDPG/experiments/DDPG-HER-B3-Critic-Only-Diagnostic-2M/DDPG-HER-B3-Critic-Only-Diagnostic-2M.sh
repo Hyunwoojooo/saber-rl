@@ -16,18 +16,12 @@ CUDA_DEVICE="${CUDA_DEVICE:-0}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-$ROOT/results_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic}"
 LOG_ROOT="${LOG_ROOT:-$ROOT/logs_2m_diag/DDPG-HER-B3-Critic-Only-2M-diagnostic}"
 ARTIFACT_ROOT="${ARTIFACT_ROOT:-$ROOT/diagnostic_artifact}"
-RESUME="${RESUME:-0}"
 mkdir -p "$OUTPUT_ROOT" "$LOG_ROOT"
 
 pids=()
 for seed in $SEEDS; do
   run_name="drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s${seed}_${STEP_TAG}_cuda"
   log_file="$LOG_ROOT/${run_name}.log"
-  resume_args=()
-  if [[ "$RESUME" == "1" ]]; then
-    resume_args+=(--resume)
-  fi
-
   (
     cd "$ROOT"
     PYTHONPATH="$ROOT/code/src:${PYTHONPATH:-}" \
@@ -90,8 +84,7 @@ for seed in $SEEDS; do
       --weight_scope critic_only \
       --no_save_step_checkpoints \
       --run_name "$run_name" \
-      --output_root "$OUTPUT_ROOT" \
-      "${resume_args[@]}"
+      --output_root "$OUTPUT_ROOT"
   ) >"$log_file" 2>&1 &
   pids+=("$!")
   printf 'started seed=%s pid=%s log=%s\n' "$seed" "${pids[-1]}" "$log_file"

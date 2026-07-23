@@ -7,10 +7,11 @@ import argparse
 import csv
 import gzip
 import hashlib
+import io
 import json
 import math
 import random
-import shutil
+import re
 from pathlib import Path
 from statistics import mean, stdev
 from typing import Any, Iterable, Mapping, Sequence
@@ -22,6 +23,7 @@ CORE_COLUMNS: tuple[tuple[str, str], ...] = (
     ("episode", "episode"),
     ("train/her_relabel_ratio", "her_relabel_ratio"),
     ("lite/local_support_count_mean", "local_support_count_mean"),
+    ("diagnostic/fixed_target_from_pre_update", "fixed_target_from_pre_update"),
     ("diagnostic/support_positive_rate", "support_positive_rate"),
     ("diagnostic/td_error_support_pos_mean", "td_support_pos_mean"),
     ("diagnostic/td_error_support_neg_mean", "td_support_neg_mean"),
@@ -31,6 +33,8 @@ CORE_COLUMNS: tuple[tuple[str, str], ...] = (
     ("diagnostic/td_error_post_support_neg_mean", "td_post_support_neg_mean"),
     ("diagnostic/td_error_enrichment_ratio", "td_enrichment_ratio"),
     ("diagnostic/td_error_top10_threshold", "td_top10_threshold"),
+    ("diagnostic/td_error_top10_count", "td_top10_count"),
+    ("diagnostic/td_error_top10_fraction", "td_top10_fraction"),
     ("diagnostic/td_error_top10_support_rate", "td_top10_support_rate"),
     ("diagnostic/td_error_top10_overlap_rate", "td_top10_overlap_rate"),
     ("diagnostic/td_error_top10_enrichment_ratio", "td_top10_enrichment_ratio"),
@@ -45,6 +49,39 @@ CORE_COLUMNS: tuple[tuple[str, str], ...] = (
     ("diagnostic/weighted_residual_reduction_mean", "weighted_residual_reduction_mean"),
     ("diagnostic/support_to_residual_reduction_corr", "support_residual_corr"),
     ("diagnostic/weight_to_residual_reduction_corr", "weight_residual_corr"),
+    ("diagnostic/live_target_td_error_post_mean", "live_td_post_mean"),
+    (
+        "diagnostic/live_target_td_error_post_support_pos_mean",
+        "live_td_post_support_pos_mean",
+    ),
+    (
+        "diagnostic/live_target_td_error_post_support_neg_mean",
+        "live_td_post_support_neg_mean",
+    ),
+    (
+        "diagnostic/live_target_residual_reduction_mean",
+        "live_residual_reduction_mean",
+    ),
+    (
+        "diagnostic/live_target_residual_reduction_support_pos_mean",
+        "live_residual_support_pos_mean",
+    ),
+    (
+        "diagnostic/live_target_residual_reduction_support_neg_mean",
+        "live_residual_support_neg_mean",
+    ),
+    (
+        "diagnostic/live_target_residual_correction_enrichment_ratio",
+        "live_residual_enrichment_ratio",
+    ),
+    (
+        "diagnostic/live_target_support_to_residual_reduction_corr",
+        "live_support_residual_corr",
+    ),
+    (
+        "diagnostic/live_target_weight_to_residual_reduction_corr",
+        "live_weight_residual_corr",
+    ),
     ("diagnostic/same_minibatch_one_update", "same_minibatch_one_update"),
 )
 
@@ -64,6 +101,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--seeds", type=int, nargs="+", default=list(range(1, 6)))
     parser.add_argument("--expected-final-step", type=int, default=2_000_000)
+    parser.add_argument("--expected-first-diagnostic-step", type=int, default=5_000)
+    parser.add_argument("--expected-diagnostic-cadence", type=int, default=200)
+    parser.add_argument("--expected-snapshot-count", type=int, default=None)
+    parser.add_argument("--expected-batch-size", type=int, default=256)
     parser.add_argument("--allow-incomplete", action="store_true")
     return parser.parse_args()
 
@@ -99,13 +140,30 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, Any]], fields: Sequence[st
             writer.writerow({field: row.get(field, "") for field in fields})
 
 
-def write_gzip_csv(path: Path, rows: Sequence[Mapping[str, Any]], fields: Sequence[str]) -> None:
+def write_gzip_csv(
+    path: Path,
+    rows: Sequence[Mapping[str, Any]],
+    fields: Sequence[str],
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with gzip.open(path, "wt", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(fields))
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({field: row.get(field, "") for field in fields})
+    with path.open("wb") as raw_handle:
+        with gzip.GzipFile(
+            filename="",
+            mode="wb",
+            fileobj=raw_handle,
+            mtime=0,
+        ) as gzip_handle:
+            with io.TextIOWrapper(
+                gzip_handle,
+                encoding="utf-8",
+                newline="",
+            ) as text_handle:
+                writer = csv.DictWriter(text_handle, fieldnames=list(fields))
+                writer.writeheader()
+                for row in rows:
+                    writer.writerow(
+                        {field: row.get(field, "") for field in fields}
+                    )
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -116,6 +174,66 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 def read_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+PATH_KEY_RE = re.compile(r"(?:^|_)(?:root|path|dir)$", re.IGNORECASE)
+WINDOWS_ABSOLUTE_RE = re.compile(r"^[A-Za-z]:[\\/]")
+
+
+def is_path_key(key: str) -> bool:
+    normalized = key.strip().lower()
+    return normalized in {
+        "checkpoint",
+        "checkpoint_path",
+        "input_root",
+        "output_root",
+        "resume_path",
+        "run_dir",
+        "run_path",
+        "source_path",
+    } or bool(PATH_KEY_RE.search(normalized))
+
+
+def is_absolute_path_string(value: str) -> bool:
+    return value.startswith("~/") or Path(value).is_absolute() or bool(
+        WINDOWS_ABSOLUTE_RE.match(value)
+    )
+
+
+def sanitize_json_value(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {
+            str(key): sanitize_json_value(item)
+            for key, item in value.items()
+            if not is_path_key(str(key))
+        }
+    if isinstance(value, list):
+        return [sanitize_json_value(item) for item in value]
+    if isinstance(value, str) and is_absolute_path_string(value):
+        return "<redacted-local-path>"
+    return value
+
+
+def write_sanitized_json(source: Path, destination: Path) -> None:
+    payload = sanitize_json_value(read_json(source))
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def absolute_json_strings(value: Any) -> list[str]:
+    found: list[str] = []
+    if isinstance(value, dict):
+        for item in value.values():
+            found.extend(absolute_json_strings(item))
+    elif isinstance(value, list):
+        for item in value:
+            found.extend(absolute_json_strings(item))
+    elif isinstance(value, str) and is_absolute_path_string(value):
+        found.append(value)
+    return found
 
 
 def locate_seed_run(root: Path, seed: int) -> Path:
@@ -210,7 +328,7 @@ def weighted_phase_mean(rows: Sequence[Mapping[str, Any]], phase: str, metric: s
 def summarize_seed(seed: int, run_dir: Path, rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     stats: dict[str, Any] = {
         "seed": seed,
-        "run_path": str(run_dir.resolve()),
+        "source_run": run_dir.name,
         "snapshot_count": len(rows),
         "first_step": int(rows[0]["step"]),
         "final_step": int(rows[-1]["step"]),
@@ -229,10 +347,23 @@ def summarize_seed(seed: int, run_dir: Path, rows: Sequence[Mapping[str, Any]]) 
             row.get("residual_support_neg_mean") for row in rows
         ),
         "support_residual_corr": finite_mean(row.get("support_residual_corr") for row in rows),
+        "live_residual_support_pos_mean": finite_mean(
+            row.get("live_residual_support_pos_mean") for row in rows
+        ),
+        "live_residual_support_neg_mean": finite_mean(
+            row.get("live_residual_support_neg_mean") for row in rows
+        ),
+        "live_support_residual_corr": finite_mean(
+            row.get("live_support_residual_corr") for row in rows
+        ),
     }
     stats["td_support_difference"] = stats["td_support_pos_mean"] - stats["td_support_neg_mean"]
     stats["residual_support_difference"] = (
         stats["residual_support_pos_mean"] - stats["residual_support_neg_mean"]
+    )
+    stats["live_residual_support_difference"] = (
+        stats["live_residual_support_pos_mean"]
+        - stats["live_residual_support_neg_mean"]
     )
     for phase in PHASES:
         stats[f"phase_{phase}_batch_rate"] = finite_mean(
@@ -269,6 +400,10 @@ def aggregate_seed_stats(seed_rows: Sequence[Mapping[str, Any]]) -> list[dict[st
         "residual_support_neg_mean",
         "residual_support_difference",
         "support_residual_corr",
+        "live_residual_support_pos_mean",
+        "live_residual_support_neg_mean",
+        "live_residual_support_difference",
+        "live_support_residual_corr",
     ]
     metrics.extend(f"phase_{phase}_{suffix}" for phase in PHASES for suffix in (
         "batch_rate", "support_rate", "td_mean", "residual_mean"
@@ -328,88 +463,305 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def expected_snapshot_steps(
+    first_step: int,
+    final_step: int,
+    cadence: int,
+) -> list[int]:
+    if cadence <= 0:
+        raise ValueError("expected diagnostic cadence must be positive")
+    if first_step > final_step:
+        raise ValueError("first diagnostic step must not exceed final step")
+    if (final_step - first_step) % cadence != 0:
+        raise ValueError(
+            "final diagnostic step must lie on the expected cadence"
+        )
+    return list(range(first_step, final_step + 1, cadence))
+
+
 def main() -> int:
     args = parse_args()
     input_root = args.input_root.resolve()
     output_root = args.output_root.resolve()
+    expected_steps = expected_snapshot_steps(
+        args.expected_first_diagnostic_step,
+        args.expected_final_step,
+        args.expected_diagnostic_cadence,
+    )
+    expected_count = (
+        len(expected_steps)
+        if args.expected_snapshot_count is None
+        else int(args.expected_snapshot_count)
+    )
+    if expected_count != len(expected_steps):
+        raise ValueError(
+            "expected snapshot count does not match first/final/cadence: "
+            f"{expected_count} != {len(expected_steps)}"
+        )
+    expected_top10_count = max(
+        1,
+        int(math.ceil(0.10 * args.expected_batch_size)),
+    )
+
+    manifest_path = output_root / "artifact_manifest.json"
+    manifest_path.unlink(missing_ok=True)
+
     seed_stats: list[dict[str, Any]] = []
     windows: list[dict[str, Any]] = []
-    validation: dict[str, Any] = {"input_root": str(input_root), "seeds": {}}
+    validation: dict[str, Any] = {
+        "artifact_schema_version": 2,
+        "expected": {
+            "seeds": list(args.seeds),
+            "final_training_step": int(args.expected_final_step),
+            "first_diagnostic_step": int(
+                args.expected_first_diagnostic_step
+            ),
+            "diagnostic_cadence": int(
+                args.expected_diagnostic_cadence
+            ),
+            "diagnostic_snapshot_rows_per_seed": expected_count,
+            "batch_size": int(args.expected_batch_size),
+            "exact_top10_count": expected_top10_count,
+            "allow_incomplete": bool(args.allow_incomplete),
+        },
+        "seeds": {},
+    }
 
     for seed in args.seeds:
         run_dir = locate_seed_run(input_root, seed)
-        required = ("metrics.csv", "metrics.jsonl", "config.json", "env_snapshot.json", "summary.json", "checkpoint.pt")
-        missing = [name for name in required if not (run_dir / name).is_file()]
-        if missing:
-            raise FileNotFoundError(f"seed {seed} missing files: {missing} in {run_dir}")
+        required = (
+            "metrics.csv",
+            "metrics.jsonl",
+            "config.json",
+            "env_snapshot.json",
+            "summary.json",
+            "checkpoint.pt",
+        )
+        missing_files = [
+            name for name in required if not (run_dir / name).is_file()
+        ]
+        if missing_files:
+            raise FileNotFoundError(
+                f"seed {seed} missing files: {missing_files} in {run_dir}"
+            )
+        run_config = read_json(run_dir / "config.json")
+        if int(run_config.get("total_steps", -1)) != args.expected_final_step:
+            raise ValueError(
+                f"seed {seed} config total_steps does not match "
+                f"{args.expected_final_step}"
+            )
+        if int(run_config.get("batch_size", -1)) != args.expected_batch_size:
+            raise ValueError(
+                f"seed {seed} config batch_size does not match "
+                f"{args.expected_batch_size}"
+            )
+
         raw_rows = read_csv(run_dir / "metrics.csv")
         snapshots = compact_snapshots(raw_rows, seed)
         if not snapshots:
-            raise ValueError(f"seed {seed} has no finite diagnostic snapshots")
-        final_step = max(int(float(row["step"])) for row in raw_rows if finite(row.get("step")))
-        if final_step != args.expected_final_step and not args.allow_incomplete:
             raise ValueError(
-                f"seed {seed} final step {final_step} != expected {args.expected_final_step}"
+                f"seed {seed} has no finite diagnostic snapshots"
+            )
+
+        final_step = max(
+            int(float(row["step"]))
+            for row in raw_rows
+            if finite(row.get("step"))
+        )
+        actual_steps = [int(row["step"]) for row in snapshots]
+        missing_steps = sorted(set(expected_steps) - set(actual_steps))
+        unexpected_steps = sorted(set(actual_steps) - set(expected_steps))
+        cadence_valid = (
+            actual_steps == sorted(set(actual_steps))
+            and all(
+                (step - args.expected_first_diagnostic_step)
+                % args.expected_diagnostic_cadence
+                == 0
+                for step in actual_steps
+            )
+            and all(
+                right - left == args.expected_diagnostic_cadence
+                for left, right in zip(actual_steps, actual_steps[1:])
+            )
+        )
+        full_grid_complete = (
+            final_step == args.expected_final_step
+            and actual_steps == expected_steps
+            and len(actual_steps) == expected_count
+        )
+        if args.allow_incomplete:
+            if (
+                final_step > args.expected_final_step
+                or not cadence_valid
+            ):
+                raise ValueError(
+                    f"seed {seed} has an invalid partial diagnostic grid"
+                )
+        elif not full_grid_complete:
+            raise ValueError(
+                f"seed {seed} diagnostic grid incomplete: "
+                f"rows={len(actual_steps)}/{expected_count}, "
+                f"first={actual_steps[0]}, last={actual_steps[-1]}, "
+                f"training_final={final_step}, "
+                f"missing={len(missing_steps)}, "
+                f"unexpected={len(unexpected_steps)}"
             )
 
         seed_root = output_root / "data" / "seeds" / f"seed_{seed:02d}"
-        snapshot_fields = ["seed"] + [target for _, target in diagnostic_columns()]
-        write_gzip_csv(seed_root / "diagnostic_snapshots.csv.gz", snapshots, snapshot_fields)
+        snapshot_fields = ["seed"] + [
+            target for _, target in diagnostic_columns()
+        ]
+        write_gzip_csv(
+            seed_root / "diagnostic_snapshots.csv.gz",
+            snapshots,
+            snapshot_fields,
+        )
         for name in ("config.json", "env_snapshot.json", "summary.json"):
-            seed_root.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(run_dir / name, seed_root / name)
+            write_sanitized_json(run_dir / name, seed_root / name)
 
         stats = summarize_seed(seed, run_dir, snapshots)
         seed_stats.append(stats)
         windows.extend(window_rows(seed, snapshots))
+
         phase_total_error = max(
-            abs(sum(number(row.get(f"phase_{phase}_batch_rate")) for phase in PHASES) - 1.0)
+            abs(
+                sum(
+                    number(row.get(f"phase_{phase}_batch_rate"))
+                    for phase in PHASES
+                )
+                - 1.0
+            )
             for row in snapshots
         )
+        fixed_target_valid = all(
+            number(row.get("fixed_target_from_pre_update")) == 1.0
+            for row in snapshots
+        )
+        exact_top10_valid = all(
+            finite(row.get("td_top10_count"))
+            and finite(row.get("td_top10_fraction"))
+            and int(round(number(row.get("td_top10_count"))))
+            == expected_top10_count
+            and math.isclose(
+                number(row.get("td_top10_fraction")),
+                expected_top10_count / args.expected_batch_size,
+                rel_tol=0.0,
+                abs_tol=1e-8,
+            )
+            for row in snapshots
+        )
+        live_target_available = all(
+            finite(row.get("live_td_post_mean"))
+            and finite(row.get("live_residual_reduction_mean"))
+            for row in snapshots
+        )
+        snapshot_coverage_valid = (
+            cadence_valid if args.allow_incomplete else full_grid_complete
+        )
         validation["seeds"][str(seed)] = {
-            "run_path": str(run_dir.resolve()),
+            "source_run": run_dir.name,
             "raw_metric_rows": len(raw_rows),
             "diagnostic_snapshot_rows": len(snapshots),
+            "expected_diagnostic_snapshot_rows": expected_count,
             "first_diagnostic_step": int(snapshots[0]["step"]),
             "final_diagnostic_step": int(snapshots[-1]["step"]),
             "final_training_step": final_step,
-            "support_activation": all(finite(row.get("support_positive_rate")) for row in snapshots),
+            "snapshot_cadence_valid": cadence_valid,
+            "snapshot_grid_complete": full_grid_complete,
+            "snapshot_coverage_valid": snapshot_coverage_valid,
+            "missing_snapshot_count": len(missing_steps),
+            "missing_snapshot_steps_preview": missing_steps[:20],
+            "unexpected_snapshot_count": len(unexpected_steps),
+            "unexpected_snapshot_steps_preview": unexpected_steps[:20],
+            "fixed_target_from_pre_update": fixed_target_valid,
+            "live_target_comparison_available": live_target_available,
+            "exact_top10_count": exact_top10_valid,
+            "support_activation": all(
+                finite(row.get("support_positive_rate"))
+                for row in snapshots
+            ),
             "sample_level_td_and_top10": (
-                all(finite(row.get("td_top10_support_rate")) for row in snapshots)
-                and any(finite(row.get("support_td_corr")) for row in snapshots)
-                and any(finite(row.get("td_support_pos_mean")) for row in snapshots)
-                and any(finite(row.get("td_support_neg_mean")) for row in snapshots)
+                exact_top10_valid
+                and all(
+                    finite(row.get("td_top10_support_rate"))
+                    for row in snapshots
+                )
+                and any(
+                    finite(row.get("support_td_corr"))
+                    for row in snapshots
+                )
+                and any(
+                    finite(row.get("td_support_pos_mean"))
+                    for row in snapshots
+                )
+                and any(
+                    finite(row.get("td_support_neg_mean"))
+                    for row in snapshots
+                )
             ),
             "same_minibatch_pre_post_residual": (
-                all(number(row.get("same_minibatch_one_update")) == 1.0 for row in snapshots)
-                and all(finite(row.get("td_pre_mean")) for row in snapshots)
-                and all(finite(row.get("td_post_mean")) for row in snapshots)
-                and any(finite(row.get("residual_support_pos_mean")) for row in snapshots)
-                and any(finite(row.get("residual_support_neg_mean")) for row in snapshots)
+                fixed_target_valid
+                and all(
+                    number(row.get("same_minibatch_one_update")) == 1.0
+                    for row in snapshots
+                )
+                and all(
+                    finite(row.get("td_pre_mean"))
+                    for row in snapshots
+                )
+                and all(
+                    finite(row.get("td_post_mean"))
+                    for row in snapshots
+                )
+                and any(
+                    finite(row.get("residual_support_pos_mean"))
+                    for row in snapshots
+                )
+                and any(
+                    finite(row.get("residual_support_neg_mean"))
+                    for row in snapshots
+                )
             ),
             "phase_conditioned_support": phase_total_error < 1e-5,
             "max_phase_fraction_sum_error": phase_total_error,
         }
 
     seed_fields = list(seed_stats[0].keys())
-    write_csv(output_root / "results" / "diagnostic_by_seed.csv", seed_stats, seed_fields)
+    write_csv(
+        output_root / "results" / "diagnostic_by_seed.csv",
+        seed_stats,
+        seed_fields,
+    )
     aggregate = aggregate_seed_stats(seed_stats)
     write_csv(
         output_root / "results" / "diagnostic_aggregate.csv",
         aggregate,
-        ("metric", "n_seeds", "mean", "sample_sd", "bootstrap_ci_low", "bootstrap_ci_high"),
+        (
+            "metric",
+            "n_seeds",
+            "mean",
+            "sample_sd",
+            "bootstrap_ci_low",
+            "bootstrap_ci_high",
+        ),
     )
     write_csv(
         output_root / "results" / "diagnostic_by_phase_window.csv",
         windows,
         (
-            "seed", "window", "snapshot_count", "support_positive_rate", "support_td_corr",
-            "td_top10_enrichment_ratio", "residual_support_difference",
+            "seed",
+            "window",
+            "snapshot_count",
+            "support_positive_rate",
+            "support_td_corr",
+            "td_top10_enrichment_ratio",
+            "residual_support_difference",
         ),
     )
 
     validation["all_four_diagnostics_complete"] = all(
-        all(
+        seed_info["snapshot_coverage_valid"]
+        and all(
             seed_info[key]
             for key in (
                 "support_activation",
@@ -420,24 +772,50 @@ def main() -> int:
         )
         for seed_info in validation["seeds"].values()
     )
-    validation_path = output_root / "validation" / "validation_summary.json"
+    validation_path = (
+        output_root / "validation" / "validation_summary.json"
+    )
     validation_path.parent.mkdir(parents=True, exist_ok=True)
-    validation_path.write_text(json.dumps(validation, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    validation_path.write_text(
+        json.dumps(validation, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     if not validation["all_four_diagnostics_complete"]:
-        raise RuntimeError("one or more diagnostic contracts failed; see validation_summary.json")
+        raise RuntimeError(
+            "one or more diagnostic contracts failed; "
+            "see validation_summary.json"
+        )
 
+    for json_path in sorted(output_root.rglob("*.json")):
+        leaked = absolute_json_strings(read_json(json_path))
+        if leaked:
+            raise RuntimeError(
+                f"absolute local path leaked into {json_path}: "
+                f"{leaked[:3]}"
+            )
+
+    manifest_path.unlink(missing_ok=True)
     manifest = []
-    for path in sorted(output_root.rglob("*")):
-        if path.is_file():
+    for artifact_path in sorted(output_root.rglob("*")):
+        if artifact_path.is_file() and artifact_path != manifest_path:
             manifest.append(
                 {
-                    "path": str(path.relative_to(output_root)),
-                    "bytes": path.stat().st_size,
-                    "sha256": sha256(path),
+                    "path": str(
+                        artifact_path.relative_to(output_root)
+                    ),
+                    "bytes": artifact_path.stat().st_size,
+                    "sha256": sha256(artifact_path),
                 }
             )
-    manifest_path = output_root / "artifact_manifest.json"
-    manifest_path.write_text(json.dumps({"files": manifest}, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(
+        json.dumps(
+            {"files": manifest},
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     print(json.dumps(validation, indent=2, sort_keys=True))
     return 0
 
