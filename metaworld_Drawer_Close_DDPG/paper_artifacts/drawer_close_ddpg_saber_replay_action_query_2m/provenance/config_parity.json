@@ -1,0 +1,75 @@
+{
+  "allowed_scientific_difference": "support_query_mode",
+  "comparison_type": "executed-source canonical launcher parity; historical Main run config files were not preserved",
+  "historical_main_run_config_available": false,
+  "infrastructure_text_difference_description": "experiment-directory repository-root discovery and run/log labels",
+  "infrastructure_text_differences_present": true,
+  "method": "b3_support_runtime_opt",
+  "nonallowed_differences": [],
+  "passed": true,
+  "resolved_replay_config_contract": {
+    "M_B": 16,
+    "M_Q_min": 4,
+    "N_gap_min": 128,
+    "N_local_min": 4,
+    "action_bins_per_dim": 5,
+    "actor_lr": 0.0003,
+    "batch_size": 256,
+    "buffer_capacity": 300000,
+    "checkpoint_every_steps": 50000,
+    "critic_lr": 0.0003,
+    "device": "cuda",
+    "eval_episodes": 20,
+    "eval_freq": 10000,
+    "gamma": 0.98,
+    "her_ratio": 0.8,
+    "hidden_dim": 256,
+    "lambda_support": 1.0,
+    "local_scan_cache_enabled": true,
+    "local_scan_cache_max_entries": 50000,
+    "local_search_max": 512,
+    "max_episode_steps": 200,
+    "metaworld_env_name": "drawer-close-v3",
+    "metaworld_reward_function_version": "v2",
+    "method": "b3_support_runtime_opt",
+    "noise_std": 0.2,
+    "policy_support_mode": "bin",
+    "reward_type": "sparse",
+    "save_step_checkpoints": false,
+    "start_steps": 10000,
+    "success_terminates": false,
+    "support_cache_enabled": true,
+    "support_cache_max_entries": 200000,
+    "support_query_mode": "replay_action",
+    "support_scan_mode": "deterministic_tail_v1",
+    "support_short_circuit": true,
+    "task_name": "drawer_close",
+    "tau": 0.005,
+    "timeout_bootstrap": true,
+    "total_steps": 2000000,
+    "updates_per_step": 1,
+    "warmup_steps": 5000,
+    "weight_scope": "critic_only",
+    "weighting_mode": "batch_norm"
+  },
+  "resolved_replay_seed_coverage": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "schema_version": 1,
+  "scientific_argument_differences": {
+    "--support_query_mode": {
+      "main": [
+        "current_policy"
+      ],
+      "replay": [
+        "replay_action"
+      ]
+    }
+  },
+  "unified_diff": "--- metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Critic-Only-2M.sh\n+++ metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Replay-Action-Query-2M/DDPG-HER-B3-Replay-Action-Query-2M.sh\n@@ -2,7 +2,14 @@\n set -euo pipefail\n\n ROOT=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\n-REPO_ROOT=\"$(cd \"$ROOT/..\" && pwd)\"\n+REPO_ROOT=\"$ROOT\"\n+while [[ \"$REPO_ROOT\" != \"/\" && ! -d \"$REPO_ROOT/.git\" ]]; do\n+  REPO_ROOT=\"$(dirname \"$REPO_ROOT\")\"\n+done\n+if [[ ! -d \"$REPO_ROOT/.git\" ]]; then\n+  echo \"Could not locate repository root from $ROOT\" >&2\n+  exit 2\n+fi\n EXP_DIR=\"$ROOT\"\n TRAIN=\"$EXP_DIR/code/src/train_drawer_close_lite_v0.py\"\n PYTHON=\"${PYTHON:-$REPO_ROOT/.venv/bin/python}\"\n@@ -16,7 +23,7 @@\n OUTPUT_ROOT=\"${OUTPUT_ROOT:-$ROOT/results_2m}\"\n LOG_ROOT=\"${LOG_ROOT:-$ROOT/logs_2m}\"\n ORCH_LOG_DIR=\"$ROOT/orchestrator_logs\"\n-ORCH_LOG=\"$ORCH_LOG_DIR/DDPG-HER-B3-Critic-Only-2M_$(date +%Y%m%d_%H%M%S).log\"\n+ORCH_LOG=\"$ORCH_LOG_DIR/DDPG-HER-B3-Replay-Action-Query-2M_$(date +%Y%m%d_%H%M%S).log\"\n mkdir -p \"$OUTPUT_ROOT\" \"$LOG_ROOT\" \"$ORCH_LOG_DIR\"\n\n log() {\n@@ -75,6 +82,7 @@\n     --drawer_d_opening_mid 0.12 \\\n     --weighting_mode batch_norm \\\n     --policy_support_mode bin \\\n+    --support_query_mode replay_action \\\n     --support_scan_mode deterministic_tail_v1 \\\n     --support_cache_enabled \\\n     --support_cache_max_entries 200000 \\\n@@ -136,7 +144,7 @@\n   log \"END $label\"\n }\n\n-log \"BEGIN MetaWorld DrawerClose DDPG-HER-B3-Critic-Only-2M\"\n+log \"BEGIN MetaWorld DrawerClose DDPG-HER-B3-Replay-Action-Query-2M\"\n log \"Python=$PYTHON CUDA_VISIBLE_DEVICES=$CUDA_DEVICE\"\n-run_variant \"DDPG+HER+B3-Critic-Only 2M\" \"DDPG-HER-B3-Critic-Only-2M\" \"b3_support_runtime_opt\" \"critic_only\"\n-log \"DDPG-HER-B3-Critic-Only-2M completed successfully\"\n+run_variant \"DDPG+HER+B3-Replay-Action-Query 2M\" \"DDPG-HER-B3-Replay-Action-Query-2M\" \"b3_support_runtime_opt\" \"critic_only\"\n+log \"DDPG-HER-B3-Replay-Action-Query-2M completed successfully\"\n",
+  "weight_scope": "critic_only"
+}

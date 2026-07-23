@@ -1,0 +1,9 @@
+{
+  "current_execution_worktree_matches_commit": true,
+  "execution_source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503",
+  "execution_source_tree_oid": "1eb92f2850dcd492b265d2964218c37ff5eee7ff",
+  "passed": true,
+  "schema_version": 1,
+  "source_file_count": 24,
+  "tracked_source_clean": true
+}

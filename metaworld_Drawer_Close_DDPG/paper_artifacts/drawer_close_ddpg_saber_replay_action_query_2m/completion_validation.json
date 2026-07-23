@@ -1,0 +1,1004 @@
+{
+  "evaluation_field": "eval/env_success_mean",
+  "evaluation_grid": [
+    10000,
+    20000,
+    30000,
+    40000,
+    50000,
+    60000,
+    70000,
+    80000,
+    90000,
+    100000,
+    110000,
+    120000,
+    130000,
+    140000,
+    150000,
+    160000,
+    170000,
+    180000,
+    190000,
+    200000,
+    210000,
+    220000,
+    230000,
+    240000,
+    250000,
+    260000,
+    270000,
+    280000,
+    290000,
+    300000,
+    310000,
+    320000,
+    330000,
+    340000,
+    350000,
+    360000,
+    370000,
+    380000,
+    390000,
+    400000,
+    410000,
+    420000,
+    430000,
+    440000,
+    450000,
+    460000,
+    470000,
+    480000,
+    490000,
+    500000,
+    510000,
+    520000,
+    530000,
+    540000,
+    550000,
+    560000,
+    570000,
+    580000,
+    590000,
+    600000,
+    610000,
+    620000,
+    630000,
+    640000,
+    650000,
+    660000,
+    670000,
+    680000,
+    690000,
+    700000,
+    710000,
+    720000,
+    730000,
+    740000,
+    750000,
+    760000,
+    770000,
+    780000,
+    790000,
+    800000,
+    810000,
+    820000,
+    830000,
+    840000,
+    850000,
+    860000,
+    870000,
+    880000,
+    890000,
+    900000,
+    910000,
+    920000,
+    930000,
+    940000,
+    950000,
+    960000,
+    970000,
+    980000,
+    990000,
+    1000000,
+    1010000,
+    1020000,
+    1030000,
+    1040000,
+    1050000,
+    1060000,
+    1070000,
+    1080000,
+    1090000,
+    1100000,
+    1110000,
+    1120000,
+    1130000,
+    1140000,
+    1150000,
+    1160000,
+    1170000,
+    1180000,
+    1190000,
+    1200000,
+    1210000,
+    1220000,
+    1230000,
+    1240000,
+    1250000,
+    1260000,
+    1270000,
+    1280000,
+    1290000,
+    1300000,
+    1310000,
+    1320000,
+    1330000,
+    1340000,
+    1350000,
+    1360000,
+    1370000,
+    1380000,
+    1390000,
+    1400000,
+    1410000,
+    1420000,
+    1430000,
+    1440000,
+    1450000,
+    1460000,
+    1470000,
+    1480000,
+    1490000,
+    1500000,
+    1510000,
+    1520000,
+    1530000,
+    1540000,
+    1550000,
+    1560000,
+    1570000,
+    1580000,
+    1590000,
+    1600000,
+    1610000,
+    1620000,
+    1630000,
+    1640000,
+    1650000,
+    1660000,
+    1670000,
+    1680000,
+    1690000,
+    1700000,
+    1710000,
+    1720000,
+    1730000,
+    1740000,
+    1750000,
+    1760000,
+    1770000,
+    1780000,
+    1790000,
+    1800000,
+    1810000,
+    1820000,
+    1830000,
+    1840000,
+    1850000,
+    1860000,
+    1870000,
+    1880000,
+    1890000,
+    1900000,
+    1910000,
+    1920000,
+    1930000,
+    1940000,
+    1950000,
+    1960000,
+    1970000,
+    1980000,
+    1990000,
+    2000000
+  ],
+  "experiment": "DDPG-HER-B3-Replay-Action-Query-2M",
+  "orchestrator_log_audit": {
+    "fatal_marker_count": 0,
+    "finish_marker": "DDPG-HER-B3-Replay-Action-Query-2M completed successfully",
+    "passed": true
+  },
+  "passed": true,
+  "query_contract": {
+    "effective_assignment_basis": "canonical membership mask is applied directly by the frozen source; no assignment-control layer exists",
+    "effective_support_assignment_mode": "support",
+    "replay_action_bin_match": 1.0,
+    "sampled_transition_removed_from_local_pool": false,
+    "self_support_possible": true,
+    "support_assignment_mode_serialized": null,
+    "support_query_mode": "replay_action",
+    "weight_scope": "critic_only"
+  },
+  "records": [
+    {
+      "checkpoint_available_field_audit": {
+        "available_field_audit_passed": true,
+        "available_semantic_config_match": true,
+        "config_json_derived_fields_not_in_checkpoint": [
+          "terminal_convention",
+          "thread_hint"
+        ],
+        "effective_support_assignment_mode": "support",
+        "full_resume_fields_not_serialized": [
+          "python_random_state",
+          "numpy_global_rng_state",
+          "torch_cpu_rng_state",
+          "torch_cuda_rng_state_all",
+          "eval_history_env",
+          "config_fingerprint",
+          "checkpoint_metadata",
+          "resume_audit"
+        ],
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_reproducibility_claimed": false,
+        "resume_reproducibility_status": "not_empirically_audited",
+        "schema": "legacy_drawerclose_query_checkpoint",
+        "serialized_rng_states_present": [
+          "noise_rng_state",
+          "sample_rng_state",
+          "weight_rng_state"
+        ],
+        "single_critic_ddpg": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode_preserved": true,
+        "total_updates": 1995001
+      },
+      "effective_support_assignment_mode": "support",
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "external_log_audit": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      },
+      "final_replay_size": 300000,
+      "passed": true,
+      "query_diagnostics": {
+        "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+        "effective_support_assignment_mode": "support",
+        "fields": {
+          "query/context_count_eligible_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 0.7818327702702703,
+            "min": 0.484375
+          },
+          "query/high_weight_count": {
+            "count": 10175,
+            "max": 224.0,
+            "mean": 93.32442260442261,
+            "min": 37.0
+          },
+          "query/normalized_weight_ess": {
+            "count": 10175,
+            "max": 248.2758620689655,
+            "mean": 228.42573595998937,
+            "min": 227.55577299412917
+          },
+          "query/normalized_weight_mean": {
+            "count": 10175,
+            "max": 1.0000000521540642,
+            "mean": 1.0000000020958877,
+            "min": 0.9999999543651938
+          },
+          "query/normalized_weight_std": {
+            "count": 10175,
+            "max": 0.3535518700063911,
+            "mean": 0.34729175550825264,
+            "min": 0.1763834299367516
+          },
+          "query/query_bin_matches_current_policy_rate": {
+            "count": 10175,
+            "max": 0.11328125,
+            "mean": 0.03210841523341523,
+            "min": 0.0
+          },
+          "query/query_bin_matches_replay_action_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0
+          },
+          "query/query_bin_present_given_context_rate": {
+            "count": 10175,
+            "max": 0.9068825840950012,
+            "mean": 0.46490156353984474,
+            "min": 0.20560747385025024
+          },
+          "query/raw_weight_ess": {
+            "count": 10175,
+            "max": 248.27586206896552,
+            "mean": 228.42573595998937,
+            "min": 227.55577299412917
+          },
+          "query/raw_weight_mean": {
+            "count": 10175,
+            "max": 1.875,
+            "mean": 1.3645485257985257,
+            "min": 1.14453125
+          },
+          "query/raw_weight_std": {
+            "count": 10175,
+            "max": 0.5,
+            "mean": 0.4732864706261127,
+            "min": 0.33071891388307384
+          },
+          "query/support_positive_rate": {
+            "count": 10175,
+            "max": 0.875,
+            "mean": 0.3645485257985258,
+            "min": 0.14453125
+          }
+        },
+        "invariants": {
+          "all_required_fields_finite": true,
+          "normalized_weight_mean_all_one_within_1e-6": true,
+          "replay_action_bin_match_all_one": true
+        },
+        "post_warmup_update_rows": 10175,
+        "sampled_transition_removed_from_local_pool": false,
+        "schema_version": 1,
+        "seed": 1,
+        "self_support_possible": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode": "replay_action"
+      },
+      "run_dir": "data/replay/seed_1",
+      "seed": 1,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.29032663316582913,
+        "best_success": 1.0,
+        "final_success": 0.55,
+        "hit90": 90000,
+        "summary_matches_exact_grid": true
+      },
+      "support_assignment_mode_serialized": null,
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint_available_field_audit": {
+        "available_field_audit_passed": true,
+        "available_semantic_config_match": true,
+        "config_json_derived_fields_not_in_checkpoint": [
+          "terminal_convention",
+          "thread_hint"
+        ],
+        "effective_support_assignment_mode": "support",
+        "full_resume_fields_not_serialized": [
+          "python_random_state",
+          "numpy_global_rng_state",
+          "torch_cpu_rng_state",
+          "torch_cuda_rng_state_all",
+          "eval_history_env",
+          "config_fingerprint",
+          "checkpoint_metadata",
+          "resume_audit"
+        ],
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_reproducibility_claimed": false,
+        "resume_reproducibility_status": "not_empirically_audited",
+        "schema": "legacy_drawerclose_query_checkpoint",
+        "serialized_rng_states_present": [
+          "noise_rng_state",
+          "sample_rng_state",
+          "weight_rng_state"
+        ],
+        "single_critic_ddpg": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode_preserved": true,
+        "total_updates": 1995001
+      },
+      "effective_support_assignment_mode": "support",
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "external_log_audit": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      },
+      "final_replay_size": 300000,
+      "passed": true,
+      "query_diagnostics": {
+        "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+        "effective_support_assignment_mode": "support",
+        "fields": {
+          "query/context_count_eligible_rate": {
+            "count": 10175,
+            "max": 0.99609375,
+            "mean": 0.775066031941032,
+            "min": 0.40625
+          },
+          "query/high_weight_count": {
+            "count": 10175,
+            "max": 234.0,
+            "mean": 93.32078624078625,
+            "min": 39.0
+          },
+          "query/normalized_weight_ess": {
+            "count": 10175,
+            "max": 250.62630480167013,
+            "mean": 228.3754019913433,
+            "min": 227.55577299412917
+          },
+          "query/normalized_weight_mean": {
+            "count": 10175,
+            "max": 1.0000000526197255,
+            "mean": 1.0000000024749611,
+            "min": 0.9999999543651938
+          },
+          "query/normalized_weight_std": {
+            "count": 10175,
+            "max": 0.3535518700063911,
+            "mean": 0.34766090358834845,
+            "min": 0.14642767622731817
+          },
+          "query/query_bin_matches_current_policy_rate": {
+            "count": 10175,
+            "max": 0.3125,
+            "mean": 0.031454238329238327,
+            "min": 0.0
+          },
+          "query/query_bin_matches_replay_action_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0
+          },
+          "query/query_bin_present_given_context_rate": {
+            "count": 10175,
+            "max": 0.9249011874198914,
+            "mean": 0.4692913125158821,
+            "min": 0.2142857164144516
+          },
+          "query/raw_weight_ess": {
+            "count": 10175,
+            "max": 250.62630480167016,
+            "mean": 228.3754019913433,
+            "min": 227.55577299412917
+          },
+          "query/raw_weight_mean": {
+            "count": 10175,
+            "max": 1.9140625,
+            "mean": 1.3645343212530712,
+            "min": 1.15234375
+          },
+          "query/raw_weight_std": {
+            "count": 10175,
+            "max": 0.5,
+            "mean": 0.4738626722793721,
+            "min": 0.280271736166439
+          },
+          "query/support_positive_rate": {
+            "count": 10175,
+            "max": 0.9140625,
+            "mean": 0.3645343212530713,
+            "min": 0.15234375
+          }
+        },
+        "invariants": {
+          "all_required_fields_finite": true,
+          "normalized_weight_mean_all_one_within_1e-6": true,
+          "replay_action_bin_match_all_one": true
+        },
+        "post_warmup_update_rows": 10175,
+        "sampled_transition_removed_from_local_pool": false,
+        "schema_version": 1,
+        "seed": 2,
+        "self_support_possible": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode": "replay_action"
+      },
+      "run_dir": "data/replay/seed_2",
+      "seed": 2,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.29447236180904524,
+        "best_success": 1.0,
+        "final_success": 0.4,
+        "hit90": 30000,
+        "summary_matches_exact_grid": true
+      },
+      "support_assignment_mode_serialized": null,
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint_available_field_audit": {
+        "available_field_audit_passed": true,
+        "available_semantic_config_match": true,
+        "config_json_derived_fields_not_in_checkpoint": [
+          "terminal_convention",
+          "thread_hint"
+        ],
+        "effective_support_assignment_mode": "support",
+        "full_resume_fields_not_serialized": [
+          "python_random_state",
+          "numpy_global_rng_state",
+          "torch_cpu_rng_state",
+          "torch_cuda_rng_state_all",
+          "eval_history_env",
+          "config_fingerprint",
+          "checkpoint_metadata",
+          "resume_audit"
+        ],
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_reproducibility_claimed": false,
+        "resume_reproducibility_status": "not_empirically_audited",
+        "schema": "legacy_drawerclose_query_checkpoint",
+        "serialized_rng_states_present": [
+          "noise_rng_state",
+          "sample_rng_state",
+          "weight_rng_state"
+        ],
+        "single_critic_ddpg": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode_preserved": true,
+        "total_updates": 1995001
+      },
+      "effective_support_assignment_mode": "support",
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "external_log_audit": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      },
+      "final_replay_size": 300000,
+      "passed": true,
+      "query_diagnostics": {
+        "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+        "effective_support_assignment_mode": "support",
+        "fields": {
+          "query/context_count_eligible_rate": {
+            "count": 10175,
+            "max": 0.98828125,
+            "mean": 0.8110803132678133,
+            "min": 0.50390625
+          },
+          "query/high_weight_count": {
+            "count": 10175,
+            "max": 229.0,
+            "mean": 101.40687960687961,
+            "min": 39.0
+          },
+          "query/normalized_weight_ess": {
+            "count": 10175,
+            "max": 249.44326617179217,
+            "mean": 228.78944964423212,
+            "min": 227.55577299412917
+          },
+          "query/normalized_weight_mean": {
+            "count": 10175,
+            "max": 1.0000000512227416,
+            "mean": 1.0000000023811653,
+            "min": 0.9999999543651938
+          },
+          "query/normalized_weight_std": {
+            "count": 10175,
+            "max": 0.3535518700063911,
+            "mean": 0.3447101732475697,
+            "min": 0.16212795349165215
+          },
+          "query/query_bin_matches_current_policy_rate": {
+            "count": 10175,
+            "max": 0.1171875,
+            "mean": 0.03368204852579853,
+            "min": 0.0
+          },
+          "query/query_bin_matches_replay_action_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0
+          },
+          "query/query_bin_present_given_context_rate": {
+            "count": 10175,
+            "max": 0.9051383137702942,
+            "mean": 0.48790156787238487,
+            "min": 0.19907407462596893
+          },
+          "query/raw_weight_ess": {
+            "count": 10175,
+            "max": 249.44326617179215,
+            "mean": 228.78944964423212,
+            "min": 227.55577299412917
+          },
+          "query/raw_weight_mean": {
+            "count": 10175,
+            "max": 1.89453125,
+            "mean": 1.3961206234643735,
+            "min": 1.15234375
+          },
+          "query/raw_weight_std": {
+            "count": 10175,
+            "max": 0.5,
+            "mean": 0.4804601008437196,
+            "min": 0.30715646301752714
+          },
+          "query/support_positive_rate": {
+            "count": 10175,
+            "max": 0.89453125,
+            "mean": 0.3961206234643735,
+            "min": 0.15234375
+          }
+        },
+        "invariants": {
+          "all_required_fields_finite": true,
+          "normalized_weight_mean_all_one_within_1e-6": true,
+          "replay_action_bin_match_all_one": true
+        },
+        "post_warmup_update_rows": 10175,
+        "sampled_transition_removed_from_local_pool": false,
+        "schema_version": 1,
+        "seed": 3,
+        "self_support_possible": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode": "replay_action"
+      },
+      "run_dir": "data/replay/seed_3",
+      "seed": 3,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.25891959798994973,
+        "best_success": 1.0,
+        "final_success": 0.25,
+        "hit90": 50000,
+        "summary_matches_exact_grid": true
+      },
+      "support_assignment_mode_serialized": null,
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint_available_field_audit": {
+        "available_field_audit_passed": true,
+        "available_semantic_config_match": true,
+        "config_json_derived_fields_not_in_checkpoint": [
+          "terminal_convention",
+          "thread_hint"
+        ],
+        "effective_support_assignment_mode": "support",
+        "full_resume_fields_not_serialized": [
+          "python_random_state",
+          "numpy_global_rng_state",
+          "torch_cpu_rng_state",
+          "torch_cuda_rng_state_all",
+          "eval_history_env",
+          "config_fingerprint",
+          "checkpoint_metadata",
+          "resume_audit"
+        ],
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_reproducibility_claimed": false,
+        "resume_reproducibility_status": "not_empirically_audited",
+        "schema": "legacy_drawerclose_query_checkpoint",
+        "serialized_rng_states_present": [
+          "noise_rng_state",
+          "sample_rng_state",
+          "weight_rng_state"
+        ],
+        "single_critic_ddpg": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode_preserved": true,
+        "total_updates": 1995001
+      },
+      "effective_support_assignment_mode": "support",
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "external_log_audit": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      },
+      "final_replay_size": 300000,
+      "passed": true,
+      "query_diagnostics": {
+        "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+        "effective_support_assignment_mode": "support",
+        "fields": {
+          "query/context_count_eligible_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 0.8049189957002457,
+            "min": 0.51953125
+          },
+          "query/high_weight_count": {
+            "count": 10175,
+            "max": 234.0,
+            "mean": 97.46240786240786,
+            "min": 31.0
+          },
+          "query/normalized_weight_ess": {
+            "count": 10175,
+            "max": 250.62630480167013,
+            "mean": 228.51148134298265,
+            "min": 227.55577299412917
+          },
+          "query/normalized_weight_mean": {
+            "count": 10175,
+            "max": 1.0000000521540642,
+            "mean": 1.0000000028358886,
+            "min": 0.9999999515712261
+          },
+          "query/normalized_weight_std": {
+            "count": 10175,
+            "max": 0.3535518700063911,
+            "mean": 0.3466615254690319,
+            "min": 0.14642767622731817
+          },
+          "query/query_bin_matches_current_policy_rate": {
+            "count": 10175,
+            "max": 0.1171875,
+            "mean": 0.03174946253071253,
+            "min": 0.0
+          },
+          "query/query_bin_matches_replay_action_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0
+          },
+          "query/query_bin_present_given_context_rate": {
+            "count": 10175,
+            "max": 0.9212598204612732,
+            "mean": 0.47183236690938324,
+            "min": 0.16402116417884827
+          },
+          "query/raw_weight_ess": {
+            "count": 10175,
+            "max": 250.62630480167016,
+            "mean": 228.51148134298265,
+            "min": 227.55577299412917
+          },
+          "query/raw_weight_mean": {
+            "count": 10175,
+            "max": 1.9140625,
+            "mean": 1.3807125307125308,
+            "min": 1.12109375
+          },
+          "query/raw_weight_std": {
+            "count": 10175,
+            "max": 0.5,
+            "mean": 0.4779282707252916,
+            "min": 0.280271736166439
+          },
+          "query/support_positive_rate": {
+            "count": 10175,
+            "max": 0.9140625,
+            "mean": 0.3807125307125307,
+            "min": 0.12109375
+          }
+        },
+        "invariants": {
+          "all_required_fields_finite": true,
+          "normalized_weight_mean_all_one_within_1e-6": true,
+          "replay_action_bin_match_all_one": true
+        },
+        "post_warmup_update_rows": 10175,
+        "sampled_transition_removed_from_local_pool": false,
+        "schema_version": 1,
+        "seed": 4,
+        "self_support_possible": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode": "replay_action"
+      },
+      "run_dir": "data/replay/seed_4",
+      "seed": 4,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.2608040201005025,
+        "best_success": 1.0,
+        "final_success": 0.2,
+        "hit90": 50000,
+        "summary_matches_exact_grid": true
+      },
+      "support_assignment_mode_serialized": null,
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    },
+    {
+      "checkpoint_available_field_audit": {
+        "available_field_audit_passed": true,
+        "available_semantic_config_match": true,
+        "config_json_derived_fields_not_in_checkpoint": [
+          "terminal_convention",
+          "thread_hint"
+        ],
+        "effective_support_assignment_mode": "support",
+        "full_resume_fields_not_serialized": [
+          "python_random_state",
+          "numpy_global_rng_state",
+          "torch_cpu_rng_state",
+          "torch_cuda_rng_state_all",
+          "eval_history_env",
+          "config_fingerprint",
+          "checkpoint_metadata",
+          "resume_audit"
+        ],
+        "global_step": 2000000,
+        "replay_size": 300000,
+        "resume_reproducibility_claimed": false,
+        "resume_reproducibility_status": "not_empirically_audited",
+        "schema": "legacy_drawerclose_query_checkpoint",
+        "serialized_rng_states_present": [
+          "noise_rng_state",
+          "sample_rng_state",
+          "weight_rng_state"
+        ],
+        "single_critic_ddpg": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode_preserved": true,
+        "total_updates": 1995001
+      },
+      "effective_support_assignment_mode": "support",
+      "environment_snapshot_validated": true,
+      "evaluation_episodes_per_point": 20,
+      "evaluation_points": 200,
+      "external_log_audit": {
+        "fatal_marker_count": 0,
+        "finish_marker": "finished run at",
+        "passed": true
+      },
+      "final_replay_size": 300000,
+      "passed": true,
+      "query_diagnostics": {
+        "effective_assignment_basis": "executed legacy source directly applies the canonical support membership mask; it has no randomized assignment layer",
+        "effective_support_assignment_mode": "support",
+        "fields": {
+          "query/context_count_eligible_rate": {
+            "count": 10175,
+            "max": 0.9921875,
+            "mean": 0.8000522113022113,
+            "min": 0.49609375
+          },
+          "query/high_weight_count": {
+            "count": 10175,
+            "max": 218.0,
+            "mean": 94.53199017199017,
+            "min": 39.0
+          },
+          "query/normalized_weight_ess": {
+            "count": 10175,
+            "max": 246.8967032967033,
+            "mean": 228.8356130539778,
+            "min": 227.55577299412917
+          },
+          "query/normalized_weight_mean": {
+            "count": 10175,
+            "max": 1.000000050291419,
+            "mean": 1.0000000024130866,
+            "min": 0.9999999515712261
+          },
+          "query/normalized_weight_std": {
+            "count": 10175,
+            "max": 0.3535518700063911,
+            "mean": 0.34430721194762925,
+            "min": 0.19201788526591854
+          },
+          "query/query_bin_matches_current_policy_rate": {
+            "count": 10175,
+            "max": 0.28125,
+            "mean": 0.026475353194103195,
+            "min": 0.0
+          },
+          "query/query_bin_matches_replay_action_rate": {
+            "count": 10175,
+            "max": 1.0,
+            "mean": 1.0,
+            "min": 1.0
+          },
+          "query/query_bin_present_given_context_rate": {
+            "count": 10175,
+            "max": 0.903930127620697,
+            "mean": 0.4580784503672574,
+            "min": 0.20000000298023224
+          },
+          "query/raw_weight_ess": {
+            "count": 10175,
+            "max": 246.8967032967033,
+            "mean": 228.8356130539778,
+            "min": 227.55577299412917
+          },
+          "query/raw_weight_mean": {
+            "count": 10175,
+            "max": 1.8515625,
+            "mean": 1.3692655866093366,
+            "min": 1.15234375
+          },
+          "query/raw_weight_std": {
+            "count": 10175,
+            "max": 0.5,
+            "mean": 0.4704506224275452,
+            "min": 0.35553313290571104
+          },
+          "query/support_positive_rate": {
+            "count": 10175,
+            "max": 0.8515625,
+            "mean": 0.3692655866093366,
+            "min": 0.15234375
+          }
+        },
+        "invariants": {
+          "all_required_fields_finite": true,
+          "normalized_weight_mean_all_one_within_1e-6": true,
+          "replay_action_bin_match_all_one": true
+        },
+        "post_warmup_update_rows": 10175,
+        "sampled_transition_removed_from_local_pool": false,
+        "schema_version": 1,
+        "seed": 5,
+        "self_support_possible": true,
+        "support_assignment_mode_serialized": null,
+        "support_query_mode": "replay_action"
+      },
+      "run_dir": "data/replay/seed_5",
+      "seed": 5,
+      "single_critic_ddpg": true,
+      "summary": {
+        "auc": 0.2742462311557789,
+        "best_success": 1.0,
+        "final_success": 0.05,
+        "hit90": 100000,
+        "summary_matches_exact_grid": true
+      },
+      "support_assignment_mode_serialized": null,
+      "support_query_mode": "replay_action",
+      "total_steps": 2000000,
+      "total_updates": 1995001,
+      "weight_scope": "critic_only"
+    }
+  ],
+  "resume_contract": {
+    "claim_made": false,
+    "full_resume_fields_not_serialized": [
+      "python_random_state",
+      "numpy_global_rng_state",
+      "torch_cpu_rng_state",
+      "torch_cuda_rng_state_all",
+      "eval_history_env",
+      "config_fingerprint",
+      "checkpoint_metadata",
+      "resume_audit"
+    ],
+    "reason": "legacy execution checkpoints contain noise/sample/weight RNG states but not the full modern resume-audit schema",
+    "status": "not_empirically_audited"
+  },
+  "schema_version": 1,
+  "seed_count": 5,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "source_commit": "cb871323fed51c6c7d5f692d189ebd766f282503"
+}
