@@ -95,6 +95,7 @@ These are scope ablations. They do not change replay sampling, HER relabeling, B
 | DDPG-HER-B3-Random-Support-2M | Completed | 1/5 | 0.24 | 1.00 | 0.277 | 68k | 23.84 steps/s |
 | DDPG-HER-B3-Shuffled-Weight-2M | Completed | 0/5 | 0.07 | 1.00 | 0.328 | 108k | 24.00 steps/s |
 | DDPG-HER-PER-Style-2M | Completed | 0/5 | 0.40 | 1.00 | 0.313 | 108k | 38.94 steps/s |
+| DDPG-HER-PER-Full-2M | Completed | 1/5 | 0.46 | 1.00 | 0.308 | 86k | 33.95 steps/s |
 
 ### DDPG-HER-B0-2M
 
@@ -185,6 +186,30 @@ Completed on 2026-07-07 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-
 | Mean | 0.40 | 1.00 | 0.313 | 108k |
 
 PER-Style produced the strongest mean final success among the completed DrawerClose DDPG controls so far, but its mean AUC remained below B3-Critic-Only and Shuffled-Weight. This makes it a strong final-snapshot baseline/control while preserving the need to report AUC and late stability separately.
+
+### DDPG-HER-PER-Full-2M
+
+Completed on 2026-07-23 KST with 5 seeds, 2M steps per seed, sparse
+DrawerClose-v3, and full prioritized experience replay. Replay slots are
+sampled by priority before future-goal HER relabeling, importance-sampling
+weights are applied to the critic loss, and priorities are updated from the
+same single-critic absolute TD error used by the optimizer step.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% |
+|---:|---:|---:|---:|---:|
+| 1 | 0.55 | 1.00 | 0.289 | 100k |
+| 2 | 0.00 | 1.00 | 0.245 | 180k |
+| 3 | 1.00 | 1.00 | 0.298 | 40k |
+| 4 | 0.35 | 1.00 | 0.331 | 50k |
+| 5 | 0.40 | 1.00 | 0.377 | 60k |
+| Mean | 0.46 | 1.00 | 0.308 | 86k |
+
+Every seed reached 90% success transiently, but only seed 3 retained at least
+90% success at the final evaluation. Full PER improved over DDPG+HER B0 in
+both AUC and final success. Relative to B3-Critic-Only, it produced higher
+final success (0.46 versus 0.28) but lower AUC (0.308 versus 0.324), showing
+that the final snapshot and whole-training efficiency favor different methods
+in this cohort.
 
 
 ## Independent Experiment Packages

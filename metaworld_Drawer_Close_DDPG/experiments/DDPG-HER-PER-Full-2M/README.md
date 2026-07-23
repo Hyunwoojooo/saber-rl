@@ -73,5 +73,30 @@ GPU_IDS=0,1,2,3,4 bash metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full
 Runs are written to `metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-PER-Full-2M/runs/ddpg_her_per_full_2m/`. Each seed uses the
 run name `drawer_close_ddpg_her_per_full_s{seed}_2000000` and produces the trainer's
 `config.json`, `env_snapshot.json`, `metrics.csv`, `summary.json`, `run.log`, and
-rolling `checkpoint.pt` artifacts. Full 2M training is intentionally not started
-by the validation commands above.
+rolling `checkpoint.pt` artifacts. The validation commands above do not start
+full training.
+
+## Completed Results
+
+The 5-seed, 2M-step experiment completed on 2026-07-23 KST.
+
+| Seed | Final Success | Best Success | AUC Success | First Hit 90% | Speed |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 0.55 | 1.00 | 0.289 | 100k | 33.92 steps/s |
+| 2 | 0.00 | 1.00 | 0.245 | 180k | 34.00 steps/s |
+| 3 | 1.00 | 1.00 | 0.298 | 40k | 33.93 steps/s |
+| 4 | 0.35 | 1.00 | 0.331 | 50k | 33.88 steps/s |
+| 5 | 0.40 | 1.00 | 0.377 | 60k | 34.02 steps/s |
+| Mean | 0.46 | 1.00 | 0.308 | 86k | 33.95 steps/s |
+
+All five seeds reached 90% success at least once, but only seed 3 retained at
+least 90% success at the final evaluation. Relative to DDPG+HER B0, Full PER
+improves mean AUC from 0.251 to 0.308 and final success from 0.16 to 0.46.
+Compared with SABER/B3-Critic-Only, Full PER has higher final success
+(0.46 versus 0.28) but lower AUC (0.308 versus 0.324), so neither method
+dominates both metrics in this cohort.
+
+The committed result package is at
+`../../results_2m/DDPG-HER-PER-Full-2M/` and contains each seed's
+`metrics.csv` and `summary.json`; checkpoints and verbose logs are
+intentionally excluded.
