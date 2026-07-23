@@ -1,0 +1,137 @@
+{
+  "algorithms": {
+    "ddpg": {
+      "data_introduction_commit": "a30660506c2ca39ef1280f3fbbff2bd4ac97eaab",
+      "data_introduction_commit_role": "commit_that_introduced_the_packaged_run_data",
+      "execution_source_commit": null,
+      "execution_source_commit_verified": false,
+      "execution_source_status": "unverified_candidate_snapshot",
+      "repository_id": "Hyunwoojooo/metacog-rl",
+      "repository_url": "https://github.com/Hyunwoojooo/metacog-rl.git",
+      "snapshot_files": [
+        {
+          "algorithm": "ddpg",
+          "git_blob_oid": "71bba65e7ff086f80aae33d5c54dcf52dc755a33",
+          "path": "provenance/source_snapshots/ddpg/launcher.py",
+          "role": "source_snapshot",
+          "sha256": "c0d71a8338af65c60478d11099db25a2596bb4f2767c649a2263c789e7cc19ff",
+          "size_bytes": 316
+        },
+        {
+          "algorithm": "ddpg",
+          "git_blob_oid": "0b8cc086345d1404e27b06e00f3f516afa0a3675",
+          "path": "provenance/source_snapshots/ddpg/launcher_config.json",
+          "role": "source_snapshot",
+          "sha256": "69fd99c5a3c3db0521a41f29b0f203bacb9faee57aa537f29b44708f19900d2c",
+          "size_bytes": 2389
+        },
+        {
+          "algorithm": "ddpg",
+          "git_blob_oid": "b4d0a49fe400aba183d28675960b82eed6e6889d",
+          "path": "provenance/source_snapshots/ddpg/legacy_analyzer.py",
+          "role": "source_snapshot",
+          "sha256": "5cdc0a872cc6d6f25c234131f1a9f86ce458714905f429e7c5a9b63e3f16bfc2",
+          "size_bytes": 8071
+        },
+        {
+          "algorithm": "ddpg",
+          "git_blob_oid": "badb4a01b00e0a4e7f7f2008f4f694f4c2e85475",
+          "path": "provenance/source_snapshots/ddpg/trainer.py",
+          "role": "source_snapshot",
+          "sha256": "ed45e0e31c7870eeaeb4be80edb048d4bcce8aea9d4cc80bdd63eab2a096e615",
+          "size_bytes": 80500
+        }
+      ],
+      "snapshot_role": "unverified_candidate_execution_source",
+      "snapshot_root": "provenance/source_snapshots/ddpg"
+    },
+    "sac": {
+      "data_introduction_commit": "04833bb8b7613e7e1b60e335d83ad21376e62eaa",
+      "data_introduction_commit_role": "commit_that_introduced_the_packaged_run_data",
+      "execution_source_commit": null,
+      "execution_source_commit_verified": false,
+      "execution_source_status": "unverified_candidate_snapshot",
+      "repository_id": "Hyunwoojooo/saber-rl",
+      "repository_url": "https://github.com/Hyunwoojooo/saber-rl.git",
+      "snapshot_files": [
+        {
+          "algorithm": "sac",
+          "git_blob_oid": "d4b3112d8e175dbbea6a82dfe2541ffb757f3e17",
+          "path": "provenance/source_snapshots/sac/launcher.py",
+          "role": "source_snapshot",
+          "sha256": "65520d9937ee572ec02eeb7ac161022d27d2639fa8f5838db746c5c3b9d2a9dd",
+          "size_bytes": 7057
+        },
+        {
+          "algorithm": "sac",
+          "git_blob_oid": "37d0af2aa63fa287f95debfd932bb57015f05ba9",
+          "path": "provenance/source_snapshots/sac/launcher_config.json",
+          "role": "source_snapshot",
+          "sha256": "ca8cc7aaaa42b4bf1ca02e4e64fe4b4c1e1910d812b7209fe143ce28152887be",
+          "size_bytes": 2808
+        },
+        {
+          "algorithm": "sac",
+          "git_blob_oid": "7e5263ed996a316b02dadaa4c1ca6ff64af389a4",
+          "path": "provenance/source_snapshots/sac/trainer.py",
+          "role": "source_snapshot",
+          "sha256": "c85b4f7e9b0c7f85131458ed40c8d050a9e5090e7bc2c4e04d5d4ffed58b2dc2",
+          "size_bytes": 88299
+        }
+      ],
+      "snapshot_role": "unverified_candidate_execution_source",
+      "snapshot_root": "provenance/source_snapshots/sac"
+    },
+    "td3": {
+      "data_introduction_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9",
+      "data_introduction_commit_role": "commit_that_introduced_the_packaged_run_data",
+      "execution_source_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9",
+      "execution_source_commit_verified": true,
+      "execution_source_status": "verified_from_execution_commit",
+      "repository_id": "Hyunwoojooo/metacog-rl",
+      "repository_url": "https://github.com/Hyunwoojooo/metacog-rl.git",
+      "snapshot_files": [
+        {
+          "algorithm": "td3",
+          "git_blob_oid": "f2d0d5231abf5597494b480557d88043c02f0373",
+          "path": "provenance/source_snapshots/td3/launcher.py",
+          "role": "source_snapshot",
+          "sha256": "a80a91061688c34d3feb174c61e46cb89b0586727727a2329056431521241852",
+          "size_bytes": 5985
+        },
+        {
+          "algorithm": "td3",
+          "git_blob_oid": "c5b5377e43a249092d4d4c2425b8f9339049381a",
+          "path": "provenance/source_snapshots/td3/launcher_config.json",
+          "role": "source_snapshot",
+          "sha256": "b4b674ca8285b494b527eb2341161cdb12d2aad729b843bfb93992e3135fde38",
+          "size_bytes": 2462
+        },
+        {
+          "algorithm": "td3",
+          "git_blob_oid": "29a029611a2878bb6482dfdc8bdd779b8e5eaeff",
+          "path": "provenance/source_snapshots/td3/legacy_analyzer.py",
+          "role": "source_snapshot",
+          "sha256": "fdb3c65f08b5c5542830ffbd85ce3d92ee6ddd3cf441a9ff0fa822f569a1acf4",
+          "size_bytes": 8442
+        },
+        {
+          "algorithm": "td3",
+          "git_blob_oid": "8502fc8e70fbe254b1d8e1d52424b1d29826a8fa",
+          "path": "provenance/source_snapshots/td3/trainer.py",
+          "role": "source_snapshot",
+          "sha256": "862f5a8c135cea14f16b32d4ae397998a93eabebe21d42068dc6686341fff7af",
+          "size_bytes": 82818
+        }
+      ],
+      "snapshot_role": "verified_execution_source",
+      "snapshot_root": "provenance/source_snapshots/td3"
+    }
+  },
+  "artifact_id": "fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m",
+  "provenance_note": "Data-introduction commits identify immutable input blobs. Execution-source commits are a separate claim: TD3 is verified; DDPG and SAC retain hashed candidate snapshots but have no verified execution-source commit.",
+  "provenance_status": "partial",
+  "schema_version": 1,
+  "snapshot_file_count": 11,
+  "snapshot_total_size_bytes": 289147
+}
