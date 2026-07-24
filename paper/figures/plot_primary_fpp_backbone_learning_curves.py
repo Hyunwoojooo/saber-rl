@@ -35,11 +35,11 @@ METHODS = ("HER", "SABER", "HGR", "TD-error weighting", "PER")
 DRAW_ORDER = ("HGR", "TD-error weighting", "PER", "HER", "SABER")
 
 STYLES = {
-    "HER": ("#333333", 1.45, (4.0, 2.2), 0.085),
-    "SABER": ("#D55E00", 2.35, (), 0.16),
-    "HGR": ("#0072B2", 1.15, (5.0, 2.0, 1.2, 2.0), 0.075),
-    "TD-error weighting": ("#009E73", 1.15, (1.2, 2.0), 0.075),
-    "PER": ("#CC79A7", 1.15, (6.0, 2.0), 0.075),
+    "HER": ("#333333", 1.45, (4.0, 2.2), 0.10),
+    "SABER": ("#D62728", 1.90, (), 0.20),
+    "HGR": ("#0072B2", 1.15, (5.0, 2.0, 1.2, 2.0), 0.10),
+    "TD-error weighting": ("#009E73", 1.15, (1.2, 2.0), 0.10),
+    "PER": ("#CC79A7", 1.15, (6.0, 2.0), 0.10),
 }
 
 # These exact paths exclude FPP 500k legacy runs and TD3 SABER seeds 6--10.
