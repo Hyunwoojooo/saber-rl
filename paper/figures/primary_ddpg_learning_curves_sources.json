@@ -1,0 +1,288 @@
+{
+  "figure": "primary_ddpg_learning_curves.pdf",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "aggregation": "checkpoint-wise mean and sample standard deviation",
+  "smoothing": false,
+  "interpolation": false,
+  "grids": {
+    "FPP": "10k--1M by 10k",
+    "DrawerOpen": "10k--2M by 10k",
+    "DrawerClose": "10k--2M by 10k"
+  },
+  "sources": [
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/metrics_selected_10k.csv",
+      "sha256": "d63015fee8002631573ba9106fd0d6cd689d373baf123fcd0cdc325d89d0990f"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/metrics_selected_10k.csv",
+      "sha256": "fbe210f5f04f584d81beccb1e9068a07cdf5a07c5d6e76e93995d008509f0f22"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/metrics_selected_10k.csv",
+      "sha256": "58b5be23c63879b6fbf7e826e180813e307d3f76f27cb089f3c662019892cab1"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/metrics_selected_10k.csv",
+      "sha256": "113ddabf83fab9e06c68f8c1cce02ebd377262e4ee261ddb337cf9e84d07a028"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/metrics_selected_10k.csv",
+      "sha256": "f7147a9ad6c0311ad7d48ed696254ce73bb9821c430d982af4c523c800b78d95"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s1_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "810b5ade002f4e4a02743c2a2c2ee0332c3ceb917a15fdd7aa6bd6011fba6c2f"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s2_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "1c3a234f7eb3606c98a185329c0128c2c865c9e01daddcdc5185221c404667a7"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s3_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "9a724b84aca7bb7f2bc5a64990d6eedab68547390d85ea54d871fd673eb52d73"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s4_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "a6fe5f9bbecea9a38755097fd9bd1d3b9f96c66a0bff6aafd8a3ea1618361270"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s5_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "9e4d9ac5ef88541150cd63d9b2b985ebee45a99a45dcf9aca4d146b7f12b5abe"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "57f3c5978083ab1758bd136aa304b11ea583d32e44a654d559e089f04e8910d6"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8c00c95faf6dc75cdd067bfd7f930186795ecf53a15af5b29a0917565fbe59ed"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "ddd31165a02c975146fa72c4c7860562be11fc12cc577bc1f82d23751522c428"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "bf0c63a572c955e2509b7b989c2637141009f2536023d16ae0638308b5b3d49f"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8fb0467061a2baf118c54d12c533a15b660654f4e1e96e34134dc0508ab9aa52"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "e9e9ee6f3217152b2e3dd5f4ef186df1b9d19b5314d086dbbbaed08ab1890a75"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "99077f7f54cc87d3900613182f6a631a8608952a6534f6a35580cbc4f5ad8136"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "518030ea94f29360c741ffef32023dc29f69855c98f9cf82ee6a85f9b3654548"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "7eeb2c82fd177ba417aac3aaddf450577146315b1b622cf4b4e6dde55872bea1"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "b144c3a456b767b613d0575167cb15a1c1c294e0e99b24b56f60451dfa8a2c1e"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8aca89aaa3fabb45106498ecb8b9dd004c0162293d10f84d4d984873adea2df0"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "2aca8470afeafdda74d392249b0a9a40121772636a375cc127e7d0a5ec141766"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "fba728f3366a3dddb5a0dd0834c2a515070a241e3ce50ab30191c23b4df842d7"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "e3f347956630f455d5f5ad3c068471fb7efbf1a78e5766bd1b98bf9c93aa08cc"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "eaf8182a25e9c9b4ef315e874ac5631527710cbd5d2b8a7fa774f807b660a1ea"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "5454a576248f3516cd752f580309c083243a7c95c9382b28a3000b029ff6bb0c"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "8e8e659adbd1119d25a61068a252ef8cf06122d174f144cee1606e7d982f539d"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "935a8d342a3fb82cf8f5d3fde0435fc287717173a440ed84e75afdd0e505894a"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "10b91d15b5061fe675f2e84520fcdf957f1c55737d98cef56ae9006f0ea49c5e"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "6c77f990c9638c8680d5f92f033427d7f5ccda59f5a7f8d62d93f1e2e47b8a80"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "22e30c1354778cd01ae2a89809f700cb94f7f440b3a63e72f0b147697d7f41cc"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "957df43ec129d6a1af42cc8210a88e45fa212536b89706b385e5f08171325f15"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "0a54df538006c345cff66c8cc17624595f05b4cf04f39a2cc50e5a98de048faa"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "236060460cc296df64ee72399eddafe309da05f6e85934e6b7895e0e210d2730"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "e88ff0cd59967f79f74c8b17fc10a6dadab0f57b2397ec2eca4ca203cb6e5ef5"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_close_ddpg_her_per_full_s1_2000000/metrics.csv",
+      "sha256": "13bc4b1c020d785239d345b8a1d5d5d4877442f96deef28f07edb610c21451e3"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_close_ddpg_her_per_full_s2_2000000/metrics.csv",
+      "sha256": "9eccd283cb0fd87e94d844a1f7c7124bebeb178231a4a5cb655ff8f79371f8ed"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_close_ddpg_her_per_full_s3_2000000/metrics.csv",
+      "sha256": "ea991c29af64516f4f6e3a328ada6e7e3b3792e41269d7a1aee9e75990c86152"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_close_ddpg_her_per_full_s4_2000000/metrics.csv",
+      "sha256": "c27477fa475b522c417dcdfe1e323c10a84b2f9ed0c3aac54ae3aa4ab9b4349a"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_close_ddpg_her_per_full_s5_2000000/metrics.csv",
+      "sha256": "8c5c771ea3c9fbdb0d9fc5e0a933ad35a790bfa55b6468f9af6e96bfece61c47"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "8b22fa7a69f8096f9031a6e894f9fda4eecb33b269422f71fab99e8fe1636e03"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "2b6d51b2b5828d50250212b7314362c1bcb5cfabb1dd0b9b949edd1712870473"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "53784095417d8cb38da16e0a66bedc42c15869f9e5975aca584f93eb6f3a3827"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "97172766f36382c8b0c13c24295748efffef0576348e284ab775ae33d60c69bb"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "e3a89d148c7ace6afb9f031e6d214baba716811a69e845537c063fcea2fcdec1"
+    },
+    {
+      "path": "metaworld_Drawer_Close_DDPG_HGR/paper_artifacts/drawer_close_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "sha256": "f6dbc95664293fc3f729150798f6f23eec9b33873f1f6caba5d9457b59468fd6"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "93a185413e916d92ad36d7db064f609c860815cebaa4af6aa5f4b20c47994334"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "c7a8f94618a6075145ea427652aa809197674133e47b8b1f60b84467eabeac22"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "ea50e0a0b07fe6adee44990d44efa9936b8b44c0779f1d293e6474a9a32798d7"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "ad4a8116fd31f5fd904b6127f3447d4b340cef6f08acde11c543a1753b8e18f7"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "a9d4cd0ca0d04e119e2ed47e83a235fd7817818ee9cb3dbed1f7387165df0ce8"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s1_2000000/metrics.csv",
+      "sha256": "92ab046b9bf5b488c9654f3cdbbf10bb214f34262b6d999ae9f4d6c6ac435b3c"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s2_2000000/metrics.csv",
+      "sha256": "9ccf57aaa3b48c9b69ca86dafc5d6e2713c20a7350fb4a7ff60435561de501c2"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s3_2000000/metrics.csv",
+      "sha256": "50ed56f67bd5333b5f9b63398b39c6f7242bc53ad781aaa7d7d2a0a68c5a4f25"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s4_2000000/metrics.csv",
+      "sha256": "88fc00165a35bc0ec899616e5b0772a53cd0aa5494719b70eb357af27cff8a45"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s5_2000000/metrics.csv",
+      "sha256": "7a2285846ad347c6b52b75febd6b5c178fe27b3e490c093067791f73d5a19947"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "4cbf4fa5cbcdf4bb2e009ea979c59a71824ccb7f5095f3f56d8141534ba0398c"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "cc77c568027a5081f61ce2652c045d34c44f66952a9685fcb704921692303c1a"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "5360e8fc086a25cb44a380d0f5fa4e16ae9be2e0063db83634a00d055427f5b4"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "c3ec2039482dadc288bf9de926ff3abdac531b6b149f9384c45cd2835383add1"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "bece55c35a16cae71525ea345c58c664953e49c2be515d8087d8e81ad7db17aa"
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG_HGR/paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417"
+    }
+  ]
+}
