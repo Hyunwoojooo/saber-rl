@@ -1,0 +1,321 @@
+{
+  "figure": "primary_fpp_backbone_learning_curves.pdf",
+  "task": "FetchPickAndPlace-v4",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "aggregation": "checkpoint-wise mean and sample standard deviation",
+  "smoothing": false,
+  "interpolation": false,
+  "grids": {
+    "DDPG": "10k--1M by 10k",
+    "TD3": "10k--1M by 10k",
+    "SAC": "50k--1M by 50k (exact shared grid)"
+  },
+  "sources": [
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s1_1000000/metrics_selected_10k.csv",
+      "sha256": "d63015fee8002631573ba9106fd0d6cd689d373baf123fcd0cdc325d89d0990f"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s2_1000000/metrics_selected_10k.csv",
+      "sha256": "fbe210f5f04f584d81beccb1e9068a07cdf5a07c5d6e76e93995d008509f0f22"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s3_1000000/metrics_selected_10k.csv",
+      "sha256": "58b5be23c63879b6fbf7e826e180813e307d3f76f27cb089f3c662019892cab1"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s4_1000000/metrics_selected_10k.csv",
+      "sha256": "113ddabf83fab9e06c68f8c1cce02ebd377262e4ee261ddb337cf9e84d07a028"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/fetch_pick_and_place_ddpg_hgr_tdpriority_s5_1000000/metrics_selected_10k.csv",
+      "sha256": "f7147a9ad6c0311ad7d48ed696254ce73bb9821c430d982af4c523c800b78d95"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "c5f003a5d414017df5e257d506fa03b675efafb1e8e417a885e0a325cbe5f98c"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "0932e137b45e82f7af713ab0b64d487d6169e153ef8b70248dbd38a460918c00"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "d5175a58a8be0d4db8d472dba517711e1d254311eb45cbfe1ea8b27921fe145f"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "ba5f8c8fbd7cd89b038adc1de56a75f93441966c16573745a2e8ade93487a85b"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "28c757ed6c08a0d216f5bca7f547f3913e8d804b5d58a1e44d2fe66909b262b1"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "d6efa3cf1e39eacd18d376373d20f7cfa1950d5c805f79c8f48adc31eae3ab3c"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "44393f8100ec49daf222d8513878876f9c8f0fd23614440d74510c18a4a65e53"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "6bbbc1ed3bd95a640404be14952cdc3b47c3c4147a59660833e56977df81eaa8"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "2e1e10f8783b0b0459ab47c81ea7ddd25b9745013a8a988be40c72c1f85c8cc4"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "0a983f6c6dad47c31f5d12e636ce62080ac00c49680b76c4cbe7a5123818a4ae"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed1/eval_metrics.csv",
+      "sha256": "7e184cf113ae3b19ec05d44e0a3b17683301e482e1fa25051efdd48b778190ea"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed2/eval_metrics.csv",
+      "sha256": "fefe3a28c81b402ea2c92b9eed2f86b188d5930f2d82782bd01307fc3ace3312"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed3/eval_metrics.csv",
+      "sha256": "2e78764c7a6b9e96a14ec777d7a5e825a3acbf72749d0e7d13ce40f793c537bf"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed4/eval_metrics.csv",
+      "sha256": "3befb5e4ff9dddca2b321d2140f72f617c0174519beb1425cb65befdaa4cd2d5"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed5/eval_metrics.csv",
+      "sha256": "c856a9dc0db5604ca1f5354e23df7bd6d2152a64045598a2366ec1cdd81e6bac"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/metrics_selected_25k.csv",
+      "sha256": "97844b3065d3911e2c211f49f44104f512a486b2f8bca591fce63fb2dfa37d0d"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s2_1000000/metrics_selected_25k.csv",
+      "sha256": "d8c94ed5d2339a091c2b0cb081ecb9d119f8bc5faa38a309d2ade38381dcb0e4"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s3_1000000/metrics_selected_25k.csv",
+      "sha256": "c06c13e0cacb51ea2d62853f309842364389951f20dba7362ae48838aa7a713b"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s4_1000000/metrics_selected_25k.csv",
+      "sha256": "576c7a612f93b95f98a3731f7af4e7c47d2d2ab47cf3faa1d95a11c3f5d19ee7"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/metrics_selected_25k.csv",
+      "sha256": "13c48c36d3fa405c65742be5d23e23f73bf8a555d47a0951cd30c6057d376120"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed1/eval_metrics.csv",
+      "sha256": "383c4b6f38f284ea39dc6b91fce5110c0f8e66e508a62d10d712009955b152be"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed2/eval_metrics.csv",
+      "sha256": "8ae18b76ac10a8ea415698b52744b8ba38dd6ac7e4f0cf6ed146f4565b6f7f30"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed3/eval_metrics.csv",
+      "sha256": "239b93fc2064215bed905ba6faede82494929cbdc99c6059a375bf9b5c2a53b8"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed4/eval_metrics.csv",
+      "sha256": "f1ce1590a0216085be9b5de8eb11ee190fd25f54af48e36f97aaf80d47e3a12d"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed5/eval_metrics.csv",
+      "sha256": "554c36a91ec179d9fe5be8e89d5019bea35924f8fd4289ffe4c396230459c325"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/1/metrics_selected_10k.csv",
+      "sha256": "b7cd9dc8108b53225fa2521510988bdaf6764f425347c307d70bcdb4b9191697"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/2/metrics_selected_10k.csv",
+      "sha256": "a58b39c1475b85d2d8be8cd8d810574bec56b3e5ea4f9d3b3fa39ede6d0484e1"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/3/metrics_selected_10k.csv",
+      "sha256": "49caf2edad39cf031c3b553d281910d54ad8d1c2c5b0365da169660d6bac6118"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/4/metrics_selected_10k.csv",
+      "sha256": "e51304cab06dff67196b14a3e07d64d622dc8b5e510dbeaed9598bfb7fbb85a8"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/5/metrics_selected_10k.csv",
+      "sha256": "98e683aeac55c3f0429a65147a6ac62951d964414f13f595e2f08a407934330b"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/1/metrics_selected_10k.csv",
+      "sha256": "db0037df3a85b106967b6d39f54009dddc04aaa032304bfae5712e07a14f6ab1"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/2/metrics_selected_10k.csv",
+      "sha256": "21c696013b9b7e718978e627fe14a41d96cbfe70fa3a5bc6456d8e33a6287fe6"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/3/metrics_selected_10k.csv",
+      "sha256": "bf8695cf1ff235a70b19cfd8324f08727c6301392bb92cb4f38aee9c4bb82cc8"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/4/metrics_selected_10k.csv",
+      "sha256": "c0e49a23d700d9ec545f6088200ac7e04fa549b698d9895d000e63992f644ef0"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/5/metrics_selected_10k.csv",
+      "sha256": "e0e15b646eead38805d82797aae83c323807bfd3494e9d9858a35f101c6b9235"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_hgr_pair_priority_is_1m/fetch_pick_and_place_td3_hgr_tdpriority_s1_1000000/metrics_selected_10k.csv",
+      "sha256": "1dbef470009e09e39335455ec65af675a4960d5085ce803e7f3f7eeb9422d552"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_hgr_pair_priority_is_1m/fetch_pick_and_place_td3_hgr_tdpriority_s2_1000000/metrics_selected_10k.csv",
+      "sha256": "533d97ca6fa3a4d3fa0fa02a6d56c8dd7cb41f286ff62bcb70b1d2777620da90"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_hgr_pair_priority_is_1m/fetch_pick_and_place_td3_hgr_tdpriority_s3_1000000/metrics_selected_10k.csv",
+      "sha256": "948c7d8ae3c4034751fe45b22fa82e593b1f374c9fe1bbc6ed344621ce91de92"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_hgr_pair_priority_is_1m/fetch_pick_and_place_td3_hgr_tdpriority_s4_1000000/metrics_selected_10k.csv",
+      "sha256": "6c97a4eea79131717beaa254acdcbe3c72cf14343cc6fca49cf1622c9e845d0e"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_hgr_pair_priority_is_1m/fetch_pick_and_place_td3_hgr_tdpriority_s5_1000000/metrics_selected_10k.csv",
+      "sha256": "3b42b2cb684924049c34f338b4cdc8643e9ca56cd9bc8ace9c0594a05ac91fca"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/sac_her_per_full/seed1/eval_metrics.csv",
+      "sha256": "636922a69dd391bee5c3e6acc9b88b69d7e9e80191574c9b427b21e1df904724"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/sac_her_per_full/seed2/eval_metrics.csv",
+      "sha256": "6d179f077828dbe61546a8fa77414d6cbcf744566030e8681a5b4ebed615cf02"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/sac_her_per_full/seed3/eval_metrics.csv",
+      "sha256": "6745f9b1eed2a26d098dfcf8e08b1cfb4d883868753fa0b063e03331b07b428d"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/sac_her_per_full/seed4/eval_metrics.csv",
+      "sha256": "47b77f3381dddf80d7f9b43aaf0046b08dff9be1f5f7ab7e618676f1304f6d3d"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/sac_her_per_full/seed5/eval_metrics.csv",
+      "sha256": "b9f9cddf6a181450665cb53992b574cd0788444a41453428e5af94af22bc8dd6"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/td3_her_per_full/seed1/eval_metrics.csv",
+      "sha256": "a77d76869b7fc664401b825d158c975b6e725355fba4a9e5b45e06c31a587be8"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/td3_her_per_full/seed2/eval_metrics.csv",
+      "sha256": "33d16790715bc592e2c6f819e6a6fc8fc549bc6a60b29933c20912ca6f62c244"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/td3_her_per_full/seed3/eval_metrics.csv",
+      "sha256": "ee043f3100463421e0ff95f66563fd0a03f5d0a2c2c150282b8d7ca7fd9e19e2"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/td3_her_per_full/seed4/eval_metrics.csv",
+      "sha256": "67db2d10ec704622190e010e606920337377571078bb6fbe7a0efe244c997f3a"
+    },
+    {
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/data/td3_her_per_full/seed5/eval_metrics.csv",
+      "sha256": "de039f53276515945415c53643a6bfd6329b0e61ccd3e52ea9d3137077db2e72"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s1_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "810b5ade002f4e4a02743c2a2c2ee0332c3ceb917a15fdd7aa6bd6011fba6c2f"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s2_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "1c3a234f7eb3606c98a185329c0128c2c865c9e01daddcdc5185221c404667a7"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s3_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "9a724b84aca7bb7f2bc5a64990d6eedab68547390d85ea54d871fd673eb52d73"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s4_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "a6fe5f9bbecea9a38755097fd9bd1d3b9f96c66a0bff6aafd8a3ea1618361270"
+    },
+    {
+      "path": "experiment_FPP/runs/B0/fetch_pick_and_place_b0_s5_1000000_ls1024/metrics_selected_10k.csv",
+      "sha256": "9e4d9ac5ef88541150cd63d9b2b985ebee45a99a45dcf9aca4d146b7f12b5abe"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "57f3c5978083ab1758bd136aa304b11ea583d32e44a654d559e089f04e8910d6"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8c00c95faf6dc75cdd067bfd7f930186795ecf53a15af5b29a0917565fbe59ed"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "ddd31165a02c975146fa72c4c7860562be11fc12cc577bc1f82d23751522c428"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "bf0c63a572c955e2509b7b989c2637141009f2536023d16ae0638308b5b3d49f"
+    },
+    {
+      "path": "experiment_FPP/runs/b3_critic_only_runtime_opt_v4_ls512/fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8fb0467061a2baf118c54d12c533a15b660654f4e1e96e34134dc0508ab9aa52"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "e9e9ee6f3217152b2e3dd5f4ef186df1b9d19b5314d086dbbbaed08ab1890a75"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "99077f7f54cc87d3900613182f6a631a8608952a6534f6a35580cbc4f5ad8136"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "518030ea94f29360c741ffef32023dc29f69855c98f9cf82ee6a85f9b3654548"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "7eeb2c82fd177ba417aac3aaddf450577146315b1b622cf4b4e6dde55872bea1"
+    },
+    {
+      "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "b144c3a456b767b613d0575167cb15a1c1c294e0e99b24b56f60451dfa8a2c1e"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8aca89aaa3fabb45106498ecb8b9dd004c0162293d10f84d4d984873adea2df0"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "2aca8470afeafdda74d392249b0a9a40121772636a375cc127e7d0a5ec141766"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "fba728f3366a3dddb5a0dd0834c2a515070a241e3ce50ab30191c23b4df842d7"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "e3f347956630f455d5f5ad3c068471fb7efbf1a78e5766bd1b98bf9c93aa08cc"
+    },
+    {
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "eaf8182a25e9c9b4ef315e874ac5631527710cbd5d2b8a7fa774f807b660a1ea"
+    }
+  ]
+}
