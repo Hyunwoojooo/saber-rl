@@ -1,0 +1,85 @@
+{
+  "aggregation_unit": "seed",
+  "artifact_schema_version": 1,
+  "artifact_type": "summary-only combined diagnostic",
+  "builder_repository_path": "metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/analysis/build_combined_diagnostic_artifact.py",
+  "raw_snapshot_policy": "Referenced from source artifacts; not duplicated in this artifact.",
+  "seed_sources": {
+    "1": {
+      "source_artifact": "seeds_1_5",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s1_2m_cuda"
+    },
+    "10": {
+      "source_artifact": "seeds_6_10",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s10_2m_cuda"
+    },
+    "2": {
+      "source_artifact": "seeds_1_5",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s2_2m_cuda"
+    },
+    "3": {
+      "source_artifact": "seeds_1_5",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s3_2m_cuda"
+    },
+    "4": {
+      "source_artifact": "seeds_1_5",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s4_2m_cuda"
+    },
+    "5": {
+      "source_artifact": "seeds_1_5",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s5_2m_cuda"
+    },
+    "6": {
+      "source_artifact": "seeds_6_10",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s6_2m_cuda"
+    },
+    "7": {
+      "source_artifact": "seeds_6_10",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s7_2m_cuda"
+    },
+    "8": {
+      "source_artifact": "seeds_6_10",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s8_2m_cuda"
+    },
+    "9": {
+      "source_artifact": "seeds_6_10",
+      "source_run": "drawer_close_DDPG-HER-B3-Critic-Only-2M-diagnostic_s9_2m_cuda"
+    }
+  },
+  "source_artifacts": [
+    {
+      "artifact_manifest_sha256": "ddec86f2d5212e74c568ed47aa40535fbc8722d3a94adf7446ae25bfc5baa6cf",
+      "manifest_file_count": 24,
+      "manifest_total_bytes": 18504955,
+      "name": "seeds_1_5",
+      "repository_path": "metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact",
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "source_commit": "d2038c7c964e73d0a8862ff3a5d361c21ae2f046",
+      "training_config_sha256_excluding_run_and_seeds": "fb47ca4f9e26ac2a6aa9fb34ad6219945f2e6ed632d6033fe416ed462cae99ab",
+      "validation_all_four_diagnostics_complete": true
+    },
+    {
+      "artifact_manifest_sha256": "47e76f7e9ac28a570bb95fd376145def992ffc794648d6470c60593e98e15ead",
+      "manifest_file_count": 24,
+      "manifest_total_bytes": 18524550,
+      "name": "seeds_6_10",
+      "repository_path": "metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact_s6_10",
+      "seeds": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "source_commit": "e990acdd30923bc8249f08b53d3abb7f7ae52ce9",
+      "training_config_sha256_excluding_run_and_seeds": "fb47ca4f9e26ac2a6aa9fb34ad6219945f2e6ed632d6033fe416ed462cae99ab",
+      "validation_all_four_diagnostics_complete": true
+    }
+  ]
+}

@@ -92,6 +92,25 @@ Snapshot values are first summarized within each seed; aggregate rows treat
 seeds, not snapshots, as the independent units. Phase support, TD, and residual
 means are weighted by each phase's minibatch prevalence.
 
+## Ten-seed combined artifact
+
+The validated seeds 6--10 extension is stored in
+`diagnostic_artifact_s6_10`. The summary-only
+`diagnostic_artifact_all_10` combines seeds 1--10 without copying any
+per-seed metadata or compressed diagnostic snapshots. Its provenance records
+the source repository paths, introducing commits, source-manifest hashes,
+training-configuration hash, and seed-to-source mapping.
+
+Rebuild and validate the combined artifact with:
+
+```bash
+python analysis/build_combined_diagnostic_artifact.py
+```
+
+The combined builder first verifies every file listed by both source manifests,
+then checks diagnostic completeness, seed coverage, result schemas, and
+training-setting parity before computing seed-level aggregate statistics.
+
 ## Verification
 
 ```bash
@@ -99,4 +118,5 @@ PYTHONPATH=code/src python code/src/test_drawer_close_diagnostic_contract.py
 (cd analysis && python -m unittest -v test_build_diagnostic_artifact.py)
 bash -n DDPG-HER-B3-Critic-Only-Diagnostic-2M.sh
 python -m py_compile analysis/build_diagnostic_artifact.py code/src/metacog_lite_v0/agent.py code/src/metacog_lite_v0/trainer.py
+(cd analysis && python -m unittest -v test_build_combined_diagnostic_artifact.py)
 ```

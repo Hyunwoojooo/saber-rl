@@ -1,0 +1,43 @@
+{
+  "aggregation_unit": "seed",
+  "all_checks_passed": true,
+  "artifact_schema_version": 1,
+  "expected_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "final_diagnostic_step": 2000000,
+  "first_diagnostic_step": 5000,
+  "n_seeds": 10,
+  "observed_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "paper_summary_direction_counts": {
+    "one_update_reduction_positive_greater": 10,
+    "pre_update_td_positive_greater": 10
+  },
+  "phase_window_rows": 30,
+  "raw_snapshot_files_duplicated": false,
+  "snapshot_rows_per_seed": 9976,
+  "source_diagnostics_complete": true,
+  "source_manifest_integrity": true,
+  "training_config_parity_excluding_run_and_seeds": true,
+  "training_config_sha256_excluding_run_and_seeds": "fb47ca4f9e26ac2a6aa9fb34ad6219945f2e6ed632d6033fe416ed462cae99ab"
+}

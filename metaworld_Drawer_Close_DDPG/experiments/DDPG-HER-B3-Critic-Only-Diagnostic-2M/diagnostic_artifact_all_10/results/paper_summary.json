@@ -1,0 +1,115 @@
+{
+  "aggregation_unit": "seed",
+  "cohort": "DrawerClose DDPG HER+SABER diagnostic",
+  "fixed_target_one_update_residual_reduction": {
+    "positive_greater_seed_count": 10,
+    "positive_to_negative_ratio": 3.476077000314666,
+    "support_negative_mean": 0.001806323055809429,
+    "support_positive_mean": 0.006278918029437261
+  },
+  "n_seeds": 10,
+  "phase_conditioned": {
+    "approach": {
+      "batch_fraction": {
+        "mean": 0.21989838111467522,
+        "sample_sd": 0.0031991231216922465
+      },
+      "fixed_target_one_update_residual_reduction": {
+        "mean": 0.00813589819023139,
+        "sample_sd": 0.0012815838129374504
+      },
+      "pre_update_absolute_bellman_residual": {
+        "mean": 0.18015786610065512,
+        "sample_sd": 0.01768103815975922
+      },
+      "support_positive_rate": {
+        "mean": 0.5588839728152447,
+        "sample_sd": 0.023674602216371434
+      }
+    },
+    "closed": {
+      "batch_fraction": {
+        "mean": 0.7449761458751003,
+        "sample_sd": 0.006100860897124779
+      },
+      "fixed_target_one_update_residual_reduction": {
+        "mean": 0.0008505570565728559,
+        "sample_sd": 0.0010351715199198358
+      },
+      "pre_update_absolute_bellman_residual": {
+        "mean": 0.06570842447245791,
+        "sample_sd": 0.00983642697849491
+      },
+      "support_positive_rate": {
+        "mean": 0.2082587448877719,
+        "sample_sd": 0.013967603393114394
+      }
+    },
+    "closing": {
+      "batch_fraction": {
+        "mean": 0.018074159232157178,
+        "sample_sd": 0.003055749568577892
+      },
+      "fixed_target_one_update_residual_reduction": {
+        "mean": 0.02400568183485426,
+        "sample_sd": 0.005077620059484738
+      },
+      "pre_update_absolute_bellman_residual": {
+        "mean": 0.39067291230383844,
+        "sample_sd": 0.05750262145320164
+      },
+      "support_positive_rate": {
+        "mean": 0.4315361789686284,
+        "sample_sd": 0.029758508667085758
+      }
+    },
+    "contact": {
+      "batch_fraction": {
+        "mean": 0.017051313778067363,
+        "sample_sd": 0.0029470834026515185
+      },
+      "fixed_target_one_update_residual_reduction": {
+        "mean": 0.01577836302354742,
+        "sample_sd": 0.0021195512822874173
+      },
+      "pre_update_absolute_bellman_residual": {
+        "mean": 0.27176439113528666,
+        "sample_sd": 0.01339423063245697
+      },
+      "support_positive_rate": {
+        "mean": 0.718819973063342,
+        "sample_sd": 0.022206513470307238
+      }
+    }
+  },
+  "pre_update_absolute_bellman_residual": {
+    "positive_greater_seed_count": 10,
+    "positive_to_negative_ratio": 1.4504088462950289,
+    "support_negative_mean": 0.0893490609351423,
+    "support_positive_mean": 0.129592668388484
+  },
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "support_positive_rate": {
+    "mean": 0.29823709715817964,
+    "sample_sd": 0.012516765945801417
+  },
+  "support_td_correlation": {
+    "mean": 0.11135521996912583,
+    "sample_sd": 0.013154063235244139
+  },
+  "top10_td_error_support_enrichment": {
+    "mean": 1.5682066172529907,
+    "sample_sd": 0.070442850517241
+  }
+}
