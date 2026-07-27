@@ -24,6 +24,8 @@ FetchPickAndPlace & SAC & TD-error & $0.990\pm0.022$ & $0.544\pm0.068$ & 800k (5
 remains uniform, and only critic-loss coefficients are changed. Values are
 mean $\pm$ sample standard deviation over paired seeds 1--5. SABER rows
 reproduce the matched main-method values; TD-error rows use TD-error
-critic-loss weighting.}
+critic-loss weighting. For SAC, the priority signal is
+$\min(|\delta_{i1}|,|\delta_{i2}|)$, and the resulting normalized
+coefficient is applied to both critic losses.}
 \label{tab:supp-td-error-weighting}
 \end{table*}
