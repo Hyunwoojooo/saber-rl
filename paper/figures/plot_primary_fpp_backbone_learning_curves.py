@@ -263,7 +263,7 @@ def dash(pdf: canvas.Canvas, pattern: tuple[float, ...]) -> None:
 
 
 def legend(pdf: canvas.Canvas, width: float, y: float) -> None:
-    size, line_width, gap, text_gap = 7.1, 14.0, 11.0, 3.5
+    size, line_width, gap, text_gap = 9.0, 16.0, 12.0, 4.0
     widths = []
     for method in METHODS:
         font = "Helvetica-Bold" if method == "SABER" else "Helvetica"
@@ -352,35 +352,35 @@ def panel(
         pdf.restoreState()
 
     pdf.setFillColor(HexColor("#1F2328"))
-    pdf.setFont("Helvetica-Bold", 8.2)
-    pdf.drawCentredString(left + 0.5 * width, top + 7.0, title)
-    pdf.setFont("Helvetica", 6.5)
+    pdf.setFont("Helvetica-Bold", 9.5)
+    pdf.drawCentredString(left + 0.5 * width, top + 8.0, title)
+    pdf.setFont("Helvetica", 9.0)
     for tick, label in zip(x_ticks, x_labels):
-        pdf.drawCentredString(xmap(tick), bottom - 10.0, label)
+        pdf.drawCentredString(xmap(tick), bottom - 13.0, label)
     if index == 0:
         for tick, label in zip(
             (0.0, 0.25, 0.5, 0.75, 1.0),
             ("0", "0.25", "0.50", "0.75", "1"),
         ):
-            pdf.drawRightString(left - 4.0, ymap(tick) - 2.2, label)
-    pdf.setFont("Helvetica", 6.7)
+            pdf.drawRightString(left - 5.0, ymap(tick) - 3.0, label)
+    pdf.setFont("Helvetica", 9.0)
     pdf.drawCentredString(
-        left + 0.5 * width, bottom - 22.0, "Environment steps (millions)"
+        left + 0.5 * width, bottom - 29.0, "Environment steps (millions)"
     )
 
 
 def write_pdf(aggregated: dict) -> None:
     output = OUT / "primary_fpp_backbone_learning_curves.pdf"
-    page_width, page_height = 7.0 * inch, 2.55 * inch
+    page_width, page_height = 7.0 * inch, 3.05 * inch
     pdf = canvas.Canvas(
         str(output), pagesize=(page_width, page_height), pageCompression=1
     )
     pdf.setTitle("FetchPickAndPlace cross-backbone learning curves")
     pdf.setAuthor("Anonymous")
-    left, right, panel_gap = 34.0, 7.0, 11.0
+    left, right, panel_gap = 42.0, 8.0, 14.0
     panel_width = (page_width - left - right - 2 * panel_gap) / 3
-    bottom, top = 31.0, 143.0
-    legend(pdf, page_width, page_height - 12.0)
+    bottom, top = 42.0, 171.0
+    legend(pdf, page_width, page_height - 14.0)
     for index, backbone_row in enumerate(BACKBONES):
         panel_left = left + index * (panel_width + panel_gap)
         panel(
@@ -388,10 +388,10 @@ def write_pdf(aggregated: dict) -> None:
             bottom, top, aggregated
         )
     pdf.saveState()
-    pdf.translate(9.0, 0.5 * (bottom + top))
+    pdf.translate(12.0, 0.5 * (bottom + top))
     pdf.rotate(90)
     pdf.setFillColor(HexColor("#1F2328"))
-    pdf.setFont("Helvetica", 7.2)
+    pdf.setFont("Helvetica", 9.0)
     pdf.drawCentredString(0, 0, "Success rate")
     pdf.restoreState()
     pdf.showPage()
