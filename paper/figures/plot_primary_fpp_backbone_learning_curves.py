@@ -31,14 +31,13 @@ BACKBONES = (
      (0, 250_000, 500_000, 750_000, 1_000_000),
      ("0", "0.25", "0.50", "0.75", "1.0")),
 )
-METHODS = ("HER", "SABER", "HGR", "TD-error weighting", "PER")
-DRAW_ORDER = ("HGR", "TD-error weighting", "PER", "HER", "SABER")
+METHODS = ("HER", "SABER", "HGR", "PER")
+DRAW_ORDER = ("HGR", "PER", "HER", "SABER")
 
 STYLES = {
     "HER": ("#333333", 1.45, (4.0, 2.2), 0.10),
     "SABER": ("#FF0000", 1.50, (), 0.20),
     "HGR": ("#0072B2", 1.15, (5.0, 2.0, 1.2, 2.0), 0.10),
-    "TD-error weighting": ("#009E73", 1.15, (1.2, 2.0), 0.10),
     "PER": ("#CC79A7", 1.15, (6.0, 2.0), 0.10),
 }
 
@@ -59,11 +58,6 @@ SPECS = {
         "experiment_FPP/paper_artifacts/fpp_ddpg_hgr_pair_priority_is_1m/"
         "fetch_pick_and_place_ddpg_hgr_tdpriority_s{seed}_1000000/"
         "metrics_selected_10k.csv", None),
-    ("DDPG", "TD-error weighting"): (
-        "raw", "eval/env_success_mean",
-        "experiment_FPP/runs/per_style_loss_weighting_ls512/"
-        "fetch_pick_and_place_per_style_loss_weighting_ls512_"
-        "s{seed}_1000000_ls512/metrics_selected_10k.csv", None),
     ("DDPG", "PER"): (
         "raw", "eval/env_success_mean",
         "experiment_FPP/runs/ddpg_her_per_full_ls512/"
@@ -82,11 +76,6 @@ SPECS = {
         "experiment_FPP/paper_artifacts/fpp_td3_hgr_pair_priority_is_1m/"
         "fetch_pick_and_place_td3_hgr_tdpriority_s{seed}_1000000/"
         "metrics_selected_10k.csv", None),
-    ("TD3", "TD-error weighting"): (
-        "raw", "eval/env_success_mean",
-        "experiment_FPP/paper_artifacts/"
-        "fpp_td3_her_per_style_loss_weighting_ls512_1m/data/"
-        "td3_her_per_style_loss_weighting/seed{seed}/eval_metrics.csv", None),
     ("TD3", "PER"): (
         "raw", "eval/env_success_mean",
         "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/"
@@ -108,11 +97,6 @@ SPECS = {
         "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/"
         "fetch_pick_and_place_sac_hgr_tdpriority_s{seed}_1000000/"
         "metrics_selected_25k.csv", None),
-    ("SAC", "TD-error weighting"): (
-        "raw", "eval/env_success_mean",
-        "experiment_FPP/paper_artifacts/"
-        "fpp_sac_her_per_style_loss_weighting_ls512_1m/data/"
-        "sac_her_per_style_loss_weighting/seed{seed}/eval_metrics.csv", None),
     ("SAC", "PER"): (
         "raw", "eval/env_success_mean",
         "experiment_FPP/paper_artifacts/fpp_td3_sac_her_per_full_1m/"
@@ -122,17 +106,14 @@ SPECS = {
 EXPECTED_AUC = {
     ("DDPG", "HER"): 0.538788, ("DDPG", "SABER"): 0.609091,
     ("DDPG", "HGR"): 0.338182,
-    ("DDPG", "TD-error weighting"): 0.568384,
     ("DDPG", "PER"): 0.460303,
     ("TD3", "HER"): 0.371616161616162,
     ("TD3", "SABER"): 0.442373737373737,
     ("TD3", "HGR"): 0.367323232323232,
-    ("TD3", "TD-error weighting"): 0.351363636363636,
     ("TD3", "PER"): 0.368888888888889,
     ("SAC", "HER"): 0.471052631578947,
     ("SAC", "SABER"): 0.583421052631579,
     ("SAC", "HGR"): 0.483684210526316,
-    ("SAC", "TD-error weighting"): 0.543684210526316,
     ("SAC", "PER"): 0.689736842105263,
 }
 

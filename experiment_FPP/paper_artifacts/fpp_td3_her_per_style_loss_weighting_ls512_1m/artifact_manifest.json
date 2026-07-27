@@ -23,8 +23,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "d9938d417386572adfe8897b84fe6aa0329637e5bdbb2c146a5d7d45f6e7eeac",
-      "size_bytes": 1085
+      "sha256": "5126eaa73257f171f1c5403adba31ede683b2185a33909d80f8a2956321742ab",
+      "size_bytes": 1440
     },
     {
       "path": "data/td3_her_per_style_loss_weighting/seed1/config.json",

@@ -1,0 +1,29 @@
+% Supplementary allocation-signal control. TD3 cohorts are intentionally
+% excluded because their weights and optimized residuals used independent
+% target-policy smoothing noise.
+\begin{table*}[t]
+\centering
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllccc@{}}
+\toprule
+Task & Backbone & Method & Final & AUC & Hit90 \\
+\midrule
+FetchPickAndPlace & DDPG & SABER & $0.960\pm0.042$ & $0.609\pm0.038$ & 540k (5/5) \\
+FetchPickAndPlace & DDPG & TD-error & $0.930\pm0.104$ & $0.568\pm0.069$ & 630k (5/5) \\
+\addlinespace
+DrawerOpen & DDPG & SABER & $1.000\pm0.000$ & $0.754\pm0.044$ & 500k (5/5) \\
+DrawerOpen & DDPG & TD-error & $0.800\pm0.447$ & $0.715\pm0.090$ & 610k (5/5) \\
+\addlinespace
+DrawerClose & DDPG & SABER & $0.280\pm0.251$ & $0.324\pm0.082$ & 20k (5/5) \\
+DrawerClose & DDPG & TD-error & $0.400\pm0.166$ & $0.313\pm0.098$ & 130k (5/5) \\
+\addlinespace
+FetchPickAndPlace & SAC & SABER & $0.990\pm0.022$ & $0.583\pm0.030$ & 750k (5/5) \\
+FetchPickAndPlace & SAC & TD-error & $0.990\pm0.022$ & $0.544\pm0.068$ & 800k (5/5) \\
+\bottomrule
+\end{tabular*}
+\caption{Validated TD-error critic-loss weighting controls. Replay sampling
+remains uniform, and only critic-loss coefficients are changed. Values are
+mean $\pm$ sample standard deviation over paired seeds 1--5. SABER rows
+reproduce the matched main-method values; TD-error rows use TD-error
+critic-loss weighting.}
+\label{tab:supp-td-error-weighting}
+\end{table*}

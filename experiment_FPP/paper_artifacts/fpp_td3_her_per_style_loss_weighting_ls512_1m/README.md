@@ -1,5 +1,11 @@
 # FPP TD3 HER PER-style Loss-Weighting 1M Artifact
 
+> **Excluded result notice (2026-07-27).** This artifact is retained for
+> provenance but is excluded from the paper and supplementary analyses. Its
+> TD-error weights and optimized critic residuals used independently sampled
+> TD3 target-policy smoothing noise, so the packaged runs are not treated as
+> an exact TD-error critic-loss weighting control.
+
 This artifact packages completed FetchPickAndPlace-v4 sparse-reward
 TD3+HER+PER-style loss-weighting runs for seeds 1-5.
 

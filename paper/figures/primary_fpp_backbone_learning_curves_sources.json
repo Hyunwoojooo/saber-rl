@@ -78,26 +78,6 @@
       "sha256": "0a983f6c6dad47c31f5d12e636ce62080ac00c49680b76c4cbe7a5123818a4ae"
     },
     {
-      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed1/eval_metrics.csv",
-      "sha256": "7e184cf113ae3b19ec05d44e0a3b17683301e482e1fa25051efdd48b778190ea"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed2/eval_metrics.csv",
-      "sha256": "fefe3a28c81b402ea2c92b9eed2f86b188d5930f2d82782bd01307fc3ace3312"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed3/eval_metrics.csv",
-      "sha256": "2e78764c7a6b9e96a14ec777d7a5e825a3acbf72749d0e7d13ce40f793c537bf"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed4/eval_metrics.csv",
-      "sha256": "3befb5e4ff9dddca2b321d2140f72f617c0174519beb1425cb65befdaa4cd2d5"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/data/sac_her_per_style_loss_weighting/seed5/eval_metrics.csv",
-      "sha256": "c856a9dc0db5604ca1f5354e23df7bd6d2152a64045598a2366ec1cdd81e6bac"
-    },
-    {
       "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s1_1000000/metrics_selected_25k.csv",
       "sha256": "97844b3065d3911e2c211f49f44104f512a486b2f8bca591fce63fb2dfa37d0d"
     },
@@ -116,26 +96,6 @@
     {
       "path": "experiment_FPP/paper_artifacts/fpp_sac_hgr_pair_priority_is_1m/fetch_pick_and_place_sac_hgr_tdpriority_s5_1000000/metrics_selected_25k.csv",
       "sha256": "13c48c36d3fa405c65742be5d23e23f73bf8a555d47a0951cd30c6057d376120"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed1/eval_metrics.csv",
-      "sha256": "383c4b6f38f284ea39dc6b91fce5110c0f8e66e508a62d10d712009955b152be"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed2/eval_metrics.csv",
-      "sha256": "8ae18b76ac10a8ea415698b52744b8ba38dd6ac7e4f0cf6ed146f4565b6f7f30"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed3/eval_metrics.csv",
-      "sha256": "239b93fc2064215bed905ba6faede82494929cbdc99c6059a375bf9b5c2a53b8"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed4/eval_metrics.csv",
-      "sha256": "f1ce1590a0216085be9b5de8eb11ee190fd25f54af48e36f97aaf80d47e3a12d"
-    },
-    {
-      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_per_style_loss_weighting_ls512_1m/data/td3_her_per_style_loss_weighting/seed5/eval_metrics.csv",
-      "sha256": "554c36a91ec179d9fe5be8e89d5019bea35924f8fd4289ffe4c396230459c325"
     },
     {
       "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/1/metrics_selected_10k.csv",
@@ -296,26 +256,6 @@
     {
       "path": "experiment_FPP/runs/ddpg_her_per_full_ls512/fetch_pick_and_place_ddpg_her_per_full_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
       "sha256": "b144c3a456b767b613d0575167cb15a1c1c294e0e99b24b56f60451dfa8a2c1e"
-    },
-    {
-      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
-      "sha256": "8aca89aaa3fabb45106498ecb8b9dd004c0162293d10f84d4d984873adea2df0"
-    },
-    {
-      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
-      "sha256": "2aca8470afeafdda74d392249b0a9a40121772636a375cc127e7d0a5ec141766"
-    },
-    {
-      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
-      "sha256": "fba728f3366a3dddb5a0dd0834c2a515070a241e3ce50ab30191c23b4df842d7"
-    },
-    {
-      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
-      "sha256": "e3f347956630f455d5f5ad3c068471fb7efbf1a78e5766bd1b98bf9c93aa08cc"
-    },
-    {
-      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
-      "sha256": "eaf8182a25e9c9b4ef315e874ac5631527710cbd5d2b8a7fa774f807b660a1ea"
     }
   ]
 }

@@ -139,6 +139,12 @@ Shuffled-Weight matched B3-Critic-Only on final success and produced a slightly 
 
 Completed on 2026-07-02 KST with 5 seeds, 2M steps per seed, sparse DrawerClose-v3, and critic-only PER-style TD-error loss weighting.
 
+> **Excluded result notice (2026-07-27).** These runs are retained only for
+> provenance and are excluded from the paper and supplementary analyses. The
+> TD-error weights and optimized critic residuals used independently sampled
+> TD3 target-policy smoothing noise, so this cohort is not treated as an exact
+> TD-error critic-loss weighting control.
+
 | Seed | Final Success | Best Success | AUC Success | First Hit 90% |
 |---:|---:|---:|---:|---:|
 | 1 | 0.00 | 1.00 | 0.177 | 340k |

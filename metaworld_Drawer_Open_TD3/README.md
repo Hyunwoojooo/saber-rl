@@ -144,6 +144,12 @@ Interpretation:
 
 ## 2M PER-Style Results
 
+> **Excluded result notice (2026-07-27).** These runs are retained only for
+> provenance and are excluded from the paper and supplementary analyses. The
+> TD-error weights and optimized critic residuals used independently sampled
+> TD3 target-policy smoothing noise, so this cohort is not treated as an exact
+> TD-error critic-loss weighting control.
+
 Status as of 2026-07-20 UTC:
 
 - `TD3+HER+PER-Style` completed seeds 1-5 at 2M environment steps.

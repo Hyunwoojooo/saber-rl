@@ -1,5 +1,12 @@
 # TD3 HER PER-style Loss Weighting LS512
 
+> **Excluded result notice (2026-07-27).** Results produced by this
+> implementation are retained only for provenance and are excluded from the
+> paper and supplementary analyses. The TD-error weights and the optimized
+> critic residuals were computed with independently sampled TD3 target-policy
+> smoothing noise, so this run is not a valid exact TD-error critic-loss
+> weighting control.
+
 Purpose: compare TD3+SABER against TD3+HER with PER-style TD-error priority-derived critic loss weighting on FetchPickAndPlace.
 
 This is not full replay sampling PER. Replay sampling remains uniform; TD-error-derived priorities only shape the critic loss weights.
