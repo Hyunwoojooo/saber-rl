@@ -70,20 +70,35 @@ export PYTHONPATH=/tmp/saber-numba-0.66.0${PYTHONPATH:+:$PYTHONPATH}
 
 ## Production
 
-The two wrappers are intended for assignment to separate machines:
+The launchers run seeds concurrently and cap the number of active workers with
+`MAX_PARALLEL`. To assign one variant to each of two machines:
 
 ```bash
 # Machine A
+MAX_PARALLEL=5 \
 experiment_FPP/td3_saber_action_bin_sensitivity_ls512_1m/run_k3_all_seeds.sh \
   --device cuda
 
 # Machine B
+MAX_PARALLEL=5 \
 experiment_FPP/td3_saber_action_bin_sensitivity_ls512_1m/run_k7_all_seeds.sh \
   --device cuda
 ```
 
-Each wrapper runs seeds sequentially. `run_all_seeds.sh {k3|k7}` exposes the
-same interface for schedulers.
+To run all ten K=3/K=7 jobs on one machine with seven concurrent workers:
+
+```bash
+MAX_PARALLEL=7 \
+experiment_FPP/td3_saber_action_bin_sensitivity_ls512_1m/run_k3_k7_parallel.sh \
+  --device cuda
+```
+
+`run_all_seeds.sh {k3|k7|both}` exposes the same interface for schedulers.
+It validates the frozen experiment contract and all commands before launching,
+interleaves K=3 and K=7 jobs by seed for a combined run, records launch
+metadata, writes one log per job under the experiment `_execution` directory,
+and returns nonzero if any worker fails. Reduce `MAX_PARALLEL` if the target
+machine cannot sustain the default worker count.
 
 After all runs finish, use `analyze_results.py` to enforce the exact evaluation
 grid and summarize the three-bin, Main five-bin, and seven-bin cohorts.

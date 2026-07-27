@@ -174,6 +174,17 @@ def main() -> None:
             main_artifact_cfg[key],
         )
 
+    parallel_launcher = (HERE / "run_all_seeds.sh").read_text(encoding="utf-8")
+    assert "k3|k7|both" in parallel_launcher
+    assert 'MAX_PARALLEL="${MAX_PARALLEL:-5}"' in parallel_launcher
+    assert "wait -n -p finished_pid" in parallel_launcher
+    assert 'jobs+=("${variant}:${seed}")' in parallel_launcher
+    combined_wrapper = (HERE / "run_k3_k7_parallel.sh").read_text(
+        encoding="utf-8"
+    )
+    assert 'MAX_PARALLEL="${MAX_PARALLEL:-7}"' in combined_wrapper
+    assert 'run_all_seeds.sh" both' in combined_wrapper
+
     shared_output = "/tmp/saber-action-bin-contract"
     k3_cmd, k3_cfg = module.build_command(
         "k3", 1, None, "cpu", shared_output, False, False
