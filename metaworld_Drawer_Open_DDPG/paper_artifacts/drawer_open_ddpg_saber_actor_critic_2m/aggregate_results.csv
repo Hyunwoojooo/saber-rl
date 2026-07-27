@@ -1,0 +1,4 @@
+method_key,method,seed_count,auc_mean,auc_sample_sd,final_success_mean,final_success_sample_sd,best_success_mean,best_success_sample_sd,best_to_final_drop_mean,best_to_final_drop_sample_sd,hit90_seed_count,hit90_median_reached,hit90_mean_reached
+her,DrawerOpen DDPG HER,5,0.20731155778894475,0.28681804760951585,0.39,0.5343220002957019,0.4,0.5477225575051661,0.010000000000000009,0.022360679774997918,2,960000.0,960000.0
+main,DrawerOpen DDPG HER + SABER Main,5,0.7536683417085428,0.04437416407906994,1.0,0.0,1.0,0.0,0.0,0.0,5,500000,482000.0
+actor_critic,DrawerOpen DDPG HER + SABER Actor+Critic,5,0.7280150753768844,0.08431183348453286,0.99,0.022360679774997918,1.0,0.0,0.010000000000000009,0.022360679774997918,5,540000,518000.0
