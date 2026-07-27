@@ -1,0 +1,253 @@
+{
+  "comparator_artifact": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m",
+  "excluded": [
+    "checkpoints",
+    "metrics.jsonl",
+    "run logs",
+    "non-evaluation training rows"
+  ],
+  "inputs": [
+    {
+      "role": "her.seed_1.metrics",
+      "sha256": "d9d1040d6a4c5d4454647ce5994459f69912383407d82657542618d152733a06",
+      "size_bytes": 229563,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_1/metrics_selected_10k.csv"
+    },
+    {
+      "role": "her.seed_1.summary",
+      "sha256": "73d508a7198cf724136fa77286f6489fd05cd488f7756dad12e7b862c748d13c",
+      "size_bytes": 5597,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_1/summary.json"
+    },
+    {
+      "role": "her.seed_2.metrics",
+      "sha256": "e83cb8f3857f490b3112f4697178ec841427ee60114a4d773cb872926933caac",
+      "size_bytes": 228732,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_2/metrics_selected_10k.csv"
+    },
+    {
+      "role": "her.seed_2.summary",
+      "sha256": "8518dd22fbccdb6d12c968091c283e42a2595e5ba1e0a4ffaeef46eab8e9ecc7",
+      "size_bytes": 5591,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_2/summary.json"
+    },
+    {
+      "role": "her.seed_3.metrics",
+      "sha256": "f576b6baf08c7f5141f417ce4d6ddd8e72dcd964b0f0e4831db190da81713e8e",
+      "size_bytes": 228162,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_3/metrics_selected_10k.csv"
+    },
+    {
+      "role": "her.seed_3.summary",
+      "sha256": "c38ce2abd2d119e5bfc546c23e3524e371fd5cb4ff7e29fd72489444d3139f99",
+      "size_bytes": 5593,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_3/summary.json"
+    },
+    {
+      "role": "her.seed_4.metrics",
+      "sha256": "104d4f4ebc3ea7fea3db5ac7b045dfac3feb909ce14c739ef095cd375c2d9dc6",
+      "size_bytes": 228905,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_4/metrics_selected_10k.csv"
+    },
+    {
+      "role": "her.seed_4.summary",
+      "sha256": "b5947c35301222feb465dfef083d1884830f5d9f8ee19b67658c3024ae63d0a3",
+      "size_bytes": 5596,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_4/summary.json"
+    },
+    {
+      "role": "her.seed_5.metrics",
+      "sha256": "a822638e5ec3767683c2b85ae0096c76d493d6b22bafa857a0a217997f39d8ac",
+      "size_bytes": 228965,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_5/metrics_selected_10k.csv"
+    },
+    {
+      "role": "her.seed_5.summary",
+      "sha256": "bde8ac19796e2b037bc13eaf0706cc9c9959cdec692a1db44a8f9ad8cd6e141e",
+      "size_bytes": 5584,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/her/seed_5/summary.json"
+    },
+    {
+      "role": "main.seed_1.metrics",
+      "sha256": "f1097ed8f0744fafc83cb12c6db4a736457e6a876a4922a258f6f7ffe4d9eb92",
+      "size_bytes": 383673,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_1/metrics_selected_10k.csv"
+    },
+    {
+      "role": "main.seed_1.summary",
+      "sha256": "91400a03eb12538cdc4d31298d8efd1108dca4b26673d8b4741892a9e8c4dbfd",
+      "size_bytes": 7911,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_1/summary.json"
+    },
+    {
+      "role": "main.seed_2.metrics",
+      "sha256": "88ee9d92f84349bc6f467621efbb16053c88a35500d13a6e9a2542969e8ecc30",
+      "size_bytes": 387971,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_2/metrics_selected_10k.csv"
+    },
+    {
+      "role": "main.seed_2.summary",
+      "sha256": "1004491156e696f8686d84f0da05cda4c9e3d9a9af38c17b10bc319b8ec1533a",
+      "size_bytes": 7996,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_2/summary.json"
+    },
+    {
+      "role": "main.seed_3.metrics",
+      "sha256": "29d7d01d2de4c0d4e2af3a59e3d2c1de5ed3c9b63dc5bdfb0a2d66c5e5c17848",
+      "size_bytes": 387974,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_3/metrics_selected_10k.csv"
+    },
+    {
+      "role": "main.seed_3.summary",
+      "sha256": "591596049960ce7cc5c8e2afac83fede23ee12e14c8ba4032fddfb5dc7b671b6",
+      "size_bytes": 7872,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_3/summary.json"
+    },
+    {
+      "role": "main.seed_4.metrics",
+      "sha256": "d58b84476007f4f9dd19ae43686a39b8839988bb48bb57ea875847fbe355c161",
+      "size_bytes": 389685,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_4/metrics_selected_10k.csv"
+    },
+    {
+      "role": "main.seed_4.summary",
+      "sha256": "a6c79f6281c9989bfad33631d4dd442b81dfa15d7ff5c8a62939015d2ff87200",
+      "size_bytes": 8108,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_4/summary.json"
+    },
+    {
+      "role": "main.seed_5.metrics",
+      "sha256": "d0b9eefc6daeb305b1c60e61190fb8a5f46a60c130008656c4e9183d439baf03",
+      "size_bytes": 385931,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_5/metrics_selected_10k.csv"
+    },
+    {
+      "role": "main.seed_5.summary",
+      "sha256": "4621cb08b68d5a6aef25dfad83eefc7320ab9a1c8a458e8e3a343048ee409034",
+      "size_bytes": 7988,
+      "source_path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_context_eligible_count_matched_2m/data/main/seed_5/summary.json"
+    },
+    {
+      "role": "actor_critic.seed_1.metrics.csv",
+      "sha256": "d888159ceca1f2516cb90202fd147325cc9bd0b7b7cba05cc34c92b2732f5337",
+      "size_bytes": 17972650,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "actor_critic.seed_1.summary.json",
+      "sha256": "43261db18189c7955697a63cf85f6ad8347b449cc8a0d7cec312460e9e2bb7eb",
+      "size_bytes": 7922,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s1_2m_cuda/summary.json"
+    },
+    {
+      "role": "actor_critic.seed_1.config.json",
+      "sha256": "b478965501c75c682b93719c3509827c9ff5706e2e027dcffacfd79e8bf99381",
+      "size_bytes": 5375,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s1_2m_cuda/config.json"
+    },
+    {
+      "role": "actor_critic.seed_1.env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+      "size_bytes": 2755,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s1_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "actor_critic.seed_2.metrics.csv",
+      "sha256": "5e774528e5e4adbf0a67e711580dda2986d34267bf7a556115f1ef85f4627bfc",
+      "size_bytes": 17829919,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "actor_critic.seed_2.summary.json",
+      "sha256": "654f9e5a76830d7370a7b03c24ddeb00dc8158f2802f5240ee2d67bf436ff98a",
+      "size_bytes": 7983,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s2_2m_cuda/summary.json"
+    },
+    {
+      "role": "actor_critic.seed_2.config.json",
+      "sha256": "57e122514ed4361153382cc2d9855444d05032a70892e2bbf34a29ac4b602171",
+      "size_bytes": 5375,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s2_2m_cuda/config.json"
+    },
+    {
+      "role": "actor_critic.seed_2.env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+      "size_bytes": 2755,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s2_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "actor_critic.seed_3.metrics.csv",
+      "sha256": "6ed7265c699b79eda9899b8830e00be3717eda44375305fe900a07c52eccffd0",
+      "size_bytes": 17703605,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "actor_critic.seed_3.summary.json",
+      "sha256": "7fc216fa93d857e8b1c1be82e32b67cae4813076ded54ec9f07f4c1e16d96a19",
+      "size_bytes": 7899,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s3_2m_cuda/summary.json"
+    },
+    {
+      "role": "actor_critic.seed_3.config.json",
+      "sha256": "212bd015f7cb6015cc42f8dd0ca1fd3c876fd8b75fd2c53f9b82854a9d6df583",
+      "size_bytes": 5375,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s3_2m_cuda/config.json"
+    },
+    {
+      "role": "actor_critic.seed_3.env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+      "size_bytes": 2755,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s3_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "actor_critic.seed_4.metrics.csv",
+      "sha256": "3014fc7ebcf037fc224fac047383fac15e7b36684bab7d16ad2129827bc9ed49",
+      "size_bytes": 17825962,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "actor_critic.seed_4.summary.json",
+      "sha256": "5ebcf5d09fcb26684d38ef325df72da33744be574a8b39e733ffc97088de27a4",
+      "size_bytes": 8078,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s4_2m_cuda/summary.json"
+    },
+    {
+      "role": "actor_critic.seed_4.config.json",
+      "sha256": "4207b5c0ad52ce8951fa3c9719794120204bc0c6adcc520932ea316ad5d351a9",
+      "size_bytes": 5375,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s4_2m_cuda/config.json"
+    },
+    {
+      "role": "actor_critic.seed_4.env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+      "size_bytes": 2755,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s4_2m_cuda/env_snapshot.json"
+    },
+    {
+      "role": "actor_critic.seed_5.metrics.csv",
+      "sha256": "e2f99565b70ce265a6fd261e5eab9b4ac2a9aa3aa9975e6f0460320c33bfc7aa",
+      "size_bytes": 17831630,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "role": "actor_critic.seed_5.summary.json",
+      "sha256": "46cc8100845e9045413ef39cd7e8da29db2f679b2d193d78ee6f5903500c2c02",
+      "size_bytes": 7810,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s5_2m_cuda/summary.json"
+    },
+    {
+      "role": "actor_critic.seed_5.config.json",
+      "sha256": "0ce5578fb44372689e9584c02727d7366d6e3a87940d683bb4fb46cb9beb5172",
+      "size_bytes": 5375,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s5_2m_cuda/config.json"
+    },
+    {
+      "role": "actor_critic.seed_5.env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+      "size_bytes": 2755,
+      "source_path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Actor-Critic-2M/drawer_close_DDPG-HER-B3-Actor-Critic-2M_s5_2m_cuda/env_snapshot.json"
+    }
+  ],
+  "schema_version": 1,
+  "training_source_commit": "77b5e56eb0712497b55efac6dd0cfd6d841b2670"
+}
