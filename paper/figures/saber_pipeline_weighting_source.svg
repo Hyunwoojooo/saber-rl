@@ -73,6 +73,6 @@
 <rect x="19.00" y="152.00" width="199.00" height="24.00" rx="3.00" fill="#FFF3F3" stroke="#C62828" stroke-width="0.85"/>
 <text x="118.80" y="162.00" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">All samples retained</text>
 <text x="118.80" y="172.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="middle" fill="#C62828">Mean-one normalized critic weight: Ωᵢ</text>
-<path d="M 218.00 164.00 L 229.50 164.00 L 229.50 44.50 L 165.50 44.50 L 165.50 38.70" fill="none" stroke="#C62828" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="165.50,38.70 167.15,41.56 163.85,41.56" fill="#C62828" stroke="none" stroke-width="0.75"/>
+<path d="M 218.00 164.00 L 229.50 164.00 L 229.50 44.50 L 165.50 44.50 L 165.50 38.00" fill="none" stroke="#C62828" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="165.50,38.00 167.15,40.86 163.85,40.86" fill="#C62828" stroke="none" stroke-width="0.75"/>
 </svg>

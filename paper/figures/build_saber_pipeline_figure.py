@@ -573,7 +573,7 @@ def draw_figure(backend: SvgBackend | PdfBackend) -> None:
             (229.5, norm_y + norm_h / 2),
             (229.5, 44.5),
             (x_positions[3] + widths[3] / 2, 44.5),
-            (x_positions[3] + widths[3] / 2, top_y + box_h + 0.7),
+            (x_positions[3] + widths[3] / 2, top_y + box_h),
         ],
         color=RED,
         width=1.05,
