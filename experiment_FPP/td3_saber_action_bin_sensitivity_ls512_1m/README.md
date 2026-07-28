@@ -27,6 +27,39 @@ TD3 Main settings.
 Production commands reject nonregistered seeds and budgets. Shorter runs are
 allowed only with `--smoke`, `--validate_only`, or `--dry-run`.
 
+## Completed K=3 Results
+
+The K=3 arm completed all five registered seeds on the exact 10k--1M
+evaluation grid. K=7 remains pending, so the full action-bin sensitivity
+comparison is not yet complete.
+
+| Seed | AUC | Final-quarter AUC | Final success | Hit90 |
+|---:|---:|---:|---:|---:|
+| 1 | 0.369949 | 0.627000 | 1.00 | 1,000,000 |
+| 2 | 0.343687 | 0.569000 | 0.80 | not reached |
+| 3 | 0.421970 | 0.801000 | 1.00 | 890,000 |
+| 4 | 0.289646 | 0.506000 | 0.45 | not reached |
+| 5 | 0.339141 | 0.514000 | 0.50 | not reached |
+
+K=3 achieves mean AUC `0.352879 +/- 0.048313`, mean final-quarter AUC
+`0.603400 +/- 0.120691`, and mean final success
+`0.750000 +/- 0.264575`. Hit90 is reached on 2/5 seeds, with a median of
+945k among the reached seeds. Its mean support-positive rate is
+`0.396297 +/- 0.012079`, compared with `0.219063 +/- 0.009077` for Main
+K=5.
+
+The paired AUC difference, K=3 minus Main K=5, is `-0.089495` with a 95%
+paired-bootstrap interval of `[-0.108687, -0.070303]`; K=3 is lower on all
+five paired seeds. This completed arm is consistent with coarse action bins
+activating the support predicate more broadly while reducing performance.
+The interpretation remains conditional until the registered K=7 arm is
+available.
+
+The compact artifact under
+`experiment_FPP/paper_artifacts/fpp_td3_saber_action_bin_sensitivity_ls512_1m/k3/` contains sanitized configurations,
+environment snapshots, summaries, exact-grid metrics, recomputed tables, and
+file hashes. Checkpoints and full per-update logs are excluded.
+
 ## Validation
 
 Verify source parity, variant isolation, launch contracts, and command parity:
