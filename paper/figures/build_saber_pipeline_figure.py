@@ -437,24 +437,16 @@ def draw_grid(
         cy = y + (row + 0.5) * cell
         radius = 2.45
         if positive and (col, row) == query_cell:
-            # Keep both glyphs visible while showing occupancy of the same bin.
-            cx -= 1.8
-            cy += 1.8
-            radius = 2.0
+            # Draw the occupied replay bin first, then overlay the policy star.
+            radius = 4.0
         backend.circle(cx, cy, radius, fill=BLUE)
 
     qx = x + (query_cell[0] + 0.5) * cell
     qy = y + (query_cell[1] + 0.5) * cell
-    query_radius = 4.15
-    if positive:
-        qx += 1.0
-        qy -= 1.0
-        query_radius = 3.2
+    query_radius = 3.35
     backend.polygon(
         _star_points(qx, qy, query_radius),
         fill=RED,
-        stroke=WHITE,
-        stroke_width=0.55,
     )
 
 
@@ -520,8 +512,6 @@ def draw_figure(backend: SvgBackend | PdfBackend) -> None:
     backend.polygon(
         _star_points(136.0, 74.0, 4.0),
         fill=RED,
-        stroke=WHITE,
-        stroke_width=0.55,
     )
     backend.text(142.0, 77.0, "policy query", size=9.0, anchor="start")
 

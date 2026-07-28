@@ -30,7 +30,7 @@
 <text x="118.80" y="65.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="middle" fill="#4B5563">Same state-goal-horizon context</text>
 <circle cx="69.00" cy="74.00" r="2.60" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <text x="74.00" y="77.00" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="start" fill="#1F2937">replay action</text>
-<polygon points="136.00,70.00 137.01,72.61 139.80,72.76 137.64,74.53 138.35,77.24 136.00,75.72 133.65,77.24 134.36,74.53 132.20,72.76 134.99,72.61" fill="#C62828" stroke="#FFFFFF" stroke-width="0.55"/>
+<polygon points="136.00,70.00 137.01,72.61 139.80,72.76 137.64,74.53 138.35,77.24 136.00,75.72 133.65,77.24 134.36,74.53 132.20,72.76 134.99,72.61" fill="#C62828" stroke="none" stroke-width="0.75"/>
 <text x="142.00" y="77.00" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="start" fill="#1F2937">policy query</text>
 <text x="66.00" y="89.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">Support-positive</text>
 <text x="169.00" y="89.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">Support-negative</text>
@@ -46,11 +46,11 @@
 <circle cx="49.20" cy="98.70" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="66.00" cy="98.70" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="82.80" cy="107.10" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
-<circle cx="55.80" cy="117.30" r="2.00" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
+<circle cx="57.60" cy="115.50" r="4.00" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="74.40" cy="123.90" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="49.20" cy="132.30" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="82.80" cy="132.30" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
-<polygon points="58.60,111.30 59.41,113.39 61.64,113.51 59.91,114.93 60.48,117.09 58.60,115.88 56.72,117.09 57.29,114.93 55.56,113.51 57.79,113.39" fill="#C62828" stroke="#FFFFFF" stroke-width="0.55"/>
+<polygon points="57.60,112.15 58.45,114.33 60.79,114.46 58.97,115.95 59.57,118.21 57.60,116.94 55.63,118.21 56.23,115.95 54.41,114.46 56.75,114.33" fill="#C62828" stroke="none" stroke-width="0.75"/>
 <rect x="148.00" y="94.50" width="42.00" height="42.00" rx="0.00" fill="#FFFFFF" stroke="#1F2937" stroke-width="0.75"/>
 <path d="M 156.40 94.50 L 156.40 136.50" fill="none" stroke="#1F2937" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 148.00 102.90 L 190.00 102.90" fill="none" stroke="#1F2937" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round"/>
@@ -67,7 +67,7 @@
 <circle cx="177.40" cy="123.90" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="152.20" cy="132.30" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
 <circle cx="185.80" cy="132.30" r="2.45" fill="#1F77B4" stroke="none" stroke-width="0.75"/>
-<polygon points="177.40,111.35 178.45,114.06 181.35,114.22 179.10,116.05 179.84,118.86 177.40,117.28 174.96,118.86 175.70,116.05 173.45,114.22 176.35,114.06" fill="#C62828" stroke="#FFFFFF" stroke-width="0.55"/>
+<polygon points="177.40,112.15 178.25,114.33 180.59,114.46 178.77,115.95 179.37,118.21 177.40,116.94 175.43,118.21 176.03,115.95 174.21,114.46 176.55,114.33" fill="#C62828" stroke="none" stroke-width="0.75"/>
 <text x="66.00" y="146.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="middle" fill="#1F2937">ψᵢ=1, raw weight=2</text>
 <text x="169.00" y="146.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="middle" fill="#1F2937">ψᵢ=0, raw weight=1</text>
 <rect x="19.00" y="152.00" width="199.00" height="24.00" rx="3.00" fill="#FFF3F3" stroke="#C62828" stroke-width="0.85"/>
