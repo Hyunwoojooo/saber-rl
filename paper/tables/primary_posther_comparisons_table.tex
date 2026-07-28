@@ -3,64 +3,67 @@
 \begin{table*}[t]
 \centering
 \small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllccc@{}}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllcccc@{}}
 \toprule
-Task & Backbone & Method & Final & AUC & FQ-AUC \\
+Task & Backbone & Method & Final & AUC & FQ-AUC
+  & \shortstack{$\Delta$AUC vs. HER\\(95\% CI)} \\
 \midrule
 FPP & DDPG & \textbf{SABER (Ours)}
   & \(\mathbf{0.960 \pm .042}\) & \(\mathbf{0.609 \pm .038}\)
-  & \(\mathbf{0.961 \pm .014}\) \\
- & & HER & \(0.940 \pm .042\) & \(0.539 \pm .125\) & \(0.910 \pm .101\) \\
- & & HGR & \(0.540 \pm .365\) & \(0.338 \pm .149\) & \(0.481 \pm .258\) \\
- & & PER & \(0.780 \pm .438\) & \(0.460 \pm .238\) & \(0.766 \pm .403\) \\
+  & \(\mathbf{0.961 \pm .014}\) & \(+0.070\;[-0.016,0.193]\) \\
+ & & HER & \(0.940 \pm .042\) & \(0.539 \pm .125\) & \(0.910 \pm .101\) & \\
+ & & HGR & \(0.540 \pm .365\) & \(0.338 \pm .149\) & \(0.481 \pm .258\) & \\
+ & & PER & \(0.780 \pm .438\) & \(0.460 \pm .238\) & \(0.766 \pm .403\) & \\
 \addlinespace[2pt]
  & TD3 & \textbf{SABER (Ours)}
   & \(\mathbf{0.970 \pm .045}\) & \(\mathbf{0.442 \pm .035}\)
-  & \(\mathbf{0.804 \pm .103}\) \\
- & & HER & \(0.840 \pm .188\) & \(0.372 \pm .032\) & \(0.607 \pm .076\) \\
- & & HGR & \(0.610 \pm .198\) & \(0.367 \pm .034\) & \(0.534 \pm .049\) \\
- & & PER & \(0.660 \pm .204\) & \(0.369 \pm .034\) & \(0.562 \pm .074\) \\
+  & \(\mathbf{0.804 \pm .103}\) & \(+0.071\;[0.032,0.095]\) \\
+ & & HER & \(0.840 \pm .188\) & \(0.372 \pm .032\) & \(0.607 \pm .076\) & \\
+ & & HGR & \(0.610 \pm .198\) & \(0.367 \pm .034\) & \(0.534 \pm .049\) & \\
+ & & PER & \(0.660 \pm .204\) & \(0.369 \pm .034\) & \(0.562 \pm .074\) & \\
 \addlinespace[2pt]
  & SAC & \textbf{SABER (Ours)}
   & \(\mathbf{0.990 \pm .022}\) & \(0.583 \pm .030\)
-  & \(\mathbf{0.986 \pm .011}\) \\
- & & HER & \(0.790 \pm .288\) & \(0.471 \pm .079\) & \(0.735 \pm .247\) \\
- & & HGR & \(0.760 \pm .251\) & \(0.484 \pm .071\) & \(0.664 \pm .217\) \\
- & & PER & \(\mathbf{0.990 \pm .022}\) & \(\mathbf{0.690 \pm .046}\) & \(\mathbf{0.986 \pm .011}\) \\
+  & \(\mathbf{0.986 \pm .011}\) & \(+0.112\;[0.064,0.161]\) \\
+ & & HER & \(0.790 \pm .288\) & \(0.471 \pm .079\) & \(0.735 \pm .247\) & \\
+ & & HGR & \(0.760 \pm .251\) & \(0.484 \pm .071\) & \(0.664 \pm .217\) & \\
+ & & PER & \(\mathbf{0.990 \pm .022}\) & \(\mathbf{0.690 \pm .046}\) & \(\mathbf{0.986 \pm .011}\) & \\
 \midrule
 DrawerOpen & DDPG & \textbf{SABER (Ours)}
   & \(\mathbf{1.000 \pm .000}\) & \(0.754 \pm .044\)
-  & \(\mathbf{0.987 \pm .018}\) \\
- & & HER & \(0.390 \pm .534\) & \(0.207 \pm .287\) & \(0.393 \pm .538\) \\
- & & HGR & \(0.900 \pm .224\) & \(0.688 \pm .142\) & \(0.982 \pm .027\) \\
- & & PER & \(0.990 \pm .022\) & \(\mathbf{0.825 \pm .044}\) & \(0.982 \pm .021\) \\
+  & \(\mathbf{0.987 \pm .018}\) & \(+0.546\;[0.340,0.741]\) \\
+ & & HER & \(0.390 \pm .534\) & \(0.207 \pm .287\) & \(0.393 \pm .538\) & \\
+ & & HGR & \(0.900 \pm .224\) & \(0.688 \pm .142\) & \(0.982 \pm .027\) & \\
+ & & PER & \(0.990 \pm .022\) & \(\mathbf{0.825 \pm .044}\) & \(0.982 \pm .021\) & \\
 \addlinespace[2pt]
  & TD3 & \textbf{SABER (Ours)}
   & \(0.590 \pm .539\) & \(0.362 \pm .338\)
-  & \(\mathbf{0.598 \pm .546}\) \\
- & & HER & \(0.190 \pm .425\) & \(0.127 \pm .283\) & \(0.200 \pm .447\) \\
- & & HGR & \(0.580 \pm .531\) & \(0.371 \pm .343\) & \(0.597 \pm .545\) \\
- & & PER & \(\mathbf{0.600 \pm .548}\) & \(\mathbf{0.406 \pm .374}\) & \(0.596 \pm .544\) \\
+  & \(\mathbf{0.598 \pm .546}\) & \(+0.235\;[-0.058,0.529]\) \\
+ & & HER & \(0.190 \pm .425\) & \(0.127 \pm .283\) & \(0.200 \pm .447\) & \\
+ & & HGR & \(0.580 \pm .531\) & \(0.371 \pm .343\) & \(0.597 \pm .545\) & \\
+ & & PER & \(\mathbf{0.600 \pm .548}\) & \(\mathbf{0.406 \pm .374}\) & \(0.596 \pm .544\) & \\
 \midrule
 DrawerClose & DDPG & \textbf{SABER (Ours)}
   & \(0.280 \pm .251\) & \(0.324 \pm .082\)
-  & \(0.277 \pm .100\) \\
- & & HER & \(0.160 \pm .182\) & \(0.251 \pm .030\) & \(0.250 \pm .093\) \\
- & & HGR & \(0.080 \pm .091\) & \(\mathbf{0.349 \pm .184}\) & \(0.226 \pm .052\) \\
- & & PER & \(\mathbf{0.460 \pm .363}\) & \(0.308 \pm .049\) & \(\mathbf{0.340 \pm .063}\) \\
+  & \(0.277 \pm .100\) & \(+0.073\;[0.016,0.143]\) \\
+ & & HER & \(0.160 \pm .182\) & \(0.251 \pm .030\) & \(0.250 \pm .093\) & \\
+ & & HGR & \(0.080 \pm .091\) & \(\mathbf{0.349 \pm .184}\) & \(0.226 \pm .052\) & \\
+ & & PER & \(\mathbf{0.460 \pm .363}\) & \(0.308 \pm .049\) & \(\mathbf{0.340 \pm .063}\) & \\
 \addlinespace[2pt]
  & TD3 & \textbf{SABER (Ours)}
   & \(0.590 \pm .539\) & \(0.549 \pm .422\)
-  & \(0.534 \pm .485\) \\
- & & HER & \(0.350 \pm .480\) & \(0.329 \pm .348\) & \(0.284 \pm .365\) \\
- & & HGR & \(0.500 \pm .457\) & \(\mathbf{0.602 \pm .305}\) & \(0.460 \pm .381\) \\
- & & PER & \(\mathbf{0.600 \pm .548}\) & \(0.524 \pm .379\) & \(\mathbf{0.583 \pm .510}\) \\
+  & \(0.534 \pm .485\) & \(+0.220\;[-0.216,0.656]\) \\
+ & & HER & \(0.350 \pm .480\) & \(0.329 \pm .348\) & \(0.284 \pm .365\) & \\
+ & & HGR & \(0.500 \pm .457\) & \(\mathbf{0.602 \pm .305}\) & \(0.460 \pm .381\) & \\
+ & & PER & \(\mathbf{0.600 \pm .548}\) & \(0.524 \pm .379\) & \(\mathbf{0.583 \pm .510}\) & \\
 \bottomrule
 \end{tabular*}
 \caption{Primary post-HER comparisons over paired seeds 1--5 (mean
 $\pm$ sample standard deviation). Final denotes final-checkpoint success;
 AUC and FQ-AUC denote full-span and final-quarter normalized success AUC.
+The final column reports paired SABER-minus-HER full-span AUC differences
+with 10,000-resample percentile-bootstrap 95\% confidence intervals.
 Bold denotes the highest mean within each task--backbone and metric;
 ties are bolded. All methods include HER, and repeated HER+ prefixes are
 omitted.}
