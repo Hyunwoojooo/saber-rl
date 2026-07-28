@@ -44,3 +44,15 @@ MAX_PARALLEL=7 ./run_sensitivity_1m_seeds1_5_parallel.sh
 
 Run outputs and launcher logs are written under
 `experiment_FPP/runs/td3_inclusive_future_sensitivity_ls512/`.
+
+## Results
+
+All ten runs completed. Mean normalized success AUC was `0.3261` for HER and
+`0.3935` for SABER. The paired SABER-minus-HER difference was `+0.0674`
+(95% paired-bootstrap CI `[-0.0068, 0.1416]`; 3/5 positive pairs). Thus, the
+observed mean SABER-over-HER direction was preserved under inclusive future-goal
+indexing, while the five-seed interval included zero.
+
+The compact result artifact, including exact evaluation curves, seed-level
+metrics, paired statistics, and sanitized provenance, is available at
+[`../paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/`](../paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/).
