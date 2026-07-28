@@ -1,0 +1,3 @@
+comparison,mean_difference,ci95_low,ci95_high,positive_pairs,n_pairs
+k3_minus_k5_main_auc,-0.08949494949494949,-0.10868686868686868,-0.07030303030303028,0,5
+k3_minus_k5_main_final_quarter_auc,-0.20060000000000003,-0.2538,-0.1446,0,5
