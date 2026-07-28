@@ -43,6 +43,7 @@ BACKBONES = (
 )
 METHODS = ("HER", "SABER", "HGR", "PER")
 DRAW_ORDER = ("HGR", "PER", "HER", "SABER")
+DISPLAY_NAMES = {"SABER": "SABER (Ours)"}
 
 STYLES = {
     "HER": ("#333333", 1.45, (4.0, 2.2), 0.10),
@@ -278,7 +279,11 @@ def legend(pdf: canvas.Canvas, width: float, y: float) -> None:
     for method in METHODS:
         font = FONT_BOLD if method == "SABER" else FONT_REGULAR
         widths.append(
-            line_width + text_gap + pdfmetrics.stringWidth(method, font, size)
+            line_width
+            + text_gap
+            + pdfmetrics.stringWidth(
+                DISPLAY_NAMES.get(method, method), font, size
+            )
         )
     x = 0.5 * (width - sum(widths) - gap * (len(METHODS) - 1))
     for method, item_width in zip(METHODS, widths):
@@ -293,7 +298,9 @@ def legend(pdf: canvas.Canvas, width: float, y: float) -> None:
         font = FONT_BOLD if method == "SABER" else FONT_REGULAR
         pdf.setFont(font, size)
         pdf.setFillColor(HexColor("#222222"))
-        pdf.drawString(x + line_width + text_gap, y, method)
+        pdf.drawString(
+            x + line_width + text_gap, y, DISPLAY_NAMES.get(method, method)
+        )
         x += item_width + gap
 
 

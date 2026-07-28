@@ -21,9 +21,9 @@ FONT_BOLD_PATH = Path(
 FONT_REGULAR = "FigureSans"
 FONT_BOLD = "FigureSans-Bold"
 TASKS = (
-    ("(a)", "FetchPickAndPlace", "fetch_pick_and_place_v4_render.png"),
-    ("(b)", "DrawerOpen", "drawer_open_v3_render.png"),
-    ("(c)", "DrawerClose", "drawer_close_v3_render.png"),
+    ("FetchPickAndPlace", "fetch_pick_and_place_v4_render.png"),
+    ("DrawerOpen", "drawer_open_v3_render.png"),
+    ("DrawerClose", "drawer_close_v3_render.png"),
 )
 
 
@@ -53,7 +53,7 @@ def main() -> None:
     pdf.setTitle("Experimental task renderings")
     pdf.setAuthor("Anonymous")
 
-    for index, (panel_label, task_name, filename) in enumerate(TASKS):
+    for index, (task_name, filename) in enumerate(TASKS):
         source = OUT / filename
         if not source.is_file():
             raise FileNotFoundError(source)
@@ -68,21 +68,6 @@ def main() -> None:
             anchor="c",
         )
 
-        pdf.saveState()
-        pdf.setFillColor(HexColor("#FFFFFF"))
-        pdf.setFillAlpha(0.86)
-        pdf.rect(
-            x + 2.0,
-            image_y + image_height - 12.0,
-            17.0,
-            11.0,
-            fill=1,
-            stroke=0,
-        )
-        pdf.restoreState()
-        pdf.setFillColor(HexColor("#111111"))
-        pdf.setFont(FONT_BOLD, 9.0)
-        pdf.drawString(x + 4.0, image_y + image_height - 10.0, panel_label)
         pdf.setFont(FONT_REGULAR, 9.0)
         if pdfmetrics.stringWidth(task_name, FONT_REGULAR, 9.0) > panel_width:
             raise ValueError(f"Task label does not fit its panel: {task_name}")
