@@ -431,19 +431,27 @@ def draw_grid(
         )
 
     replay_cells = [(0, 0), (2, 0), (4, 1), (1, 2), (3, 3), (0, 4), (4, 4)]
-    for col, row in replay_cells:
-        backend.circle(
-            x + (col + 0.5) * cell,
-            y + (row + 0.5) * cell,
-            2.45,
-            fill=BLUE,
-        )
-
     query_cell = (1, 2) if positive else (3, 2)
+    for col, row in replay_cells:
+        cx = x + (col + 0.5) * cell
+        cy = y + (row + 0.5) * cell
+        radius = 2.45
+        if positive and (col, row) == query_cell:
+            # Keep both glyphs visible while showing occupancy of the same bin.
+            cx -= 1.8
+            cy += 1.8
+            radius = 2.0
+        backend.circle(cx, cy, radius, fill=BLUE)
+
     qx = x + (query_cell[0] + 0.5) * cell
     qy = y + (query_cell[1] + 0.5) * cell
+    query_radius = 4.15
+    if positive:
+        qx += 1.0
+        qy -= 1.0
+        query_radius = 3.2
     backend.polygon(
-        _star_points(qx, qy, 4.15),
+        _star_points(qx, qy, query_radius),
         fill=RED,
         stroke=WHITE,
         stroke_width=0.55,
