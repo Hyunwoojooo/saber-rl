@@ -130,7 +130,7 @@ gap may matter in off-policy actor--critic learning: the critic
 regresses Bellman targets at replay actions \(a_i^r\), whereas the
 actor improves the policy by querying the critic at current-policy
 actions \(a_i^\pi\).  The amount of replay evidence near these policy
-queries can vary across state--goal contexts.  We therefore ask
+queries can vary across observation-derived state--goal contexts.  We therefore ask
 whether observable local replay support for \(a_i^\pi\) can be used
 to allocate critic-loss weight while holding the relabeled minibatch
 and Bellman targets fixed.
@@ -162,12 +162,15 @@ goals, rewards, and targets remain unchanged.
 
 \subsection{Current-Policy Local Support}
 
-For sample \(i\), SABER constructs a task-specific discrete full
-support-context key
+For sample \(i\), SABER constructs a task-specific discrete
+state--goal--horizon context from the agent-observed input, represented
+by the full support-context key
 \begin{equation}
 c_i=C(o_i,\tilde g_i,h_i),
 \end{equation}
-where \(h_i\) is the remaining horizon.  In the manipulation domains
+where \(h_i\) is the remaining horizon. Here, ``state'' refers only to
+task-relevant state features derived from \(o_i\), not to privileged
+simulator state \(s_i\). In the manipulation domains
 evaluated in Sec.~\ref{sec:experiments}, the full key summarizes task progression,
 agent--object interaction, goal-relative geometry, gripper state, and
 remaining horizon.  Concretely, FetchPickAndPlace uses manipulation
