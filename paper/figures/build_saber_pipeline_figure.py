@@ -435,11 +435,7 @@ def draw_grid(
     for col, row in replay_cells:
         cx = x + (col + 0.5) * cell
         cy = y + (row + 0.5) * cell
-        radius = 2.45
-        if positive and (col, row) == query_cell:
-            # Draw the occupied replay bin first, then overlay the policy star.
-            radius = 4.0
-        backend.circle(cx, cy, radius, fill=BLUE)
+        backend.circle(cx, cy, 2.45, fill=BLUE)
 
     qx = x + (query_cell[0] + 0.5) * cell
     qy = y + (query_cell[1] + 0.5) * cell
