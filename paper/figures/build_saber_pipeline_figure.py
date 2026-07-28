@@ -439,7 +439,7 @@ def draw_grid(
 
     qx = x + (query_cell[0] + 0.5) * cell
     qy = y + (query_cell[1] + 0.5) * cell
-    query_radius = 3.35
+    query_radius = 3.0
     backend.polygon(
         _star_points(qx, qy, query_radius),
         fill=RED,
@@ -506,7 +506,7 @@ def draw_figure(backend: SvgBackend | PdfBackend) -> None:
     backend.circle(69.0, 74.0, 2.6, fill=BLUE)
     backend.text(74.0, 77.0, "replay action", size=9.0, anchor="start")
     backend.polygon(
-        _star_points(136.0, 74.0, 4.0),
+        _star_points(136.0, 74.0, 3.6),
         fill=RED,
     )
     backend.text(142.0, 77.0, "policy query", size=9.0, anchor="start")
