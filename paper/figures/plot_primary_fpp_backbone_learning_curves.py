@@ -12,13 +12,23 @@ from pathlib import Path
 
 from reportlab.lib.colors import HexColor
 from reportlab.lib.units import inch
-from reportlab.pdfbase.pdfmetrics import stringWidth
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent
 SEEDS = tuple(range(1, 6))
+
+FONT_REGULAR_PATH = Path(
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
+)
+FONT_BOLD_PATH = Path(
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+)
+FONT_REGULAR = "FigureSans"
+FONT_BOLD = "FigureSans-Bold"
 
 BACKBONES = (
     ("DDPG", "(a) DDPG", 1_000_000, 10_000,
@@ -36,9 +46,9 @@ DRAW_ORDER = ("HGR", "PER", "HER", "SABER")
 
 STYLES = {
     "HER": ("#333333", 1.45, (4.0, 2.2), 0.10),
-    "SABER": ("#FF0000", 1.50, (), 0.20),
+    "SABER": ("#C62828", 1.50, (), 0.20),
     "HGR": ("#0072B2", 1.15, (5.0, 2.0, 1.2, 2.0), 0.10),
-    "PER": ("#CC79A7", 1.15, (6.0, 2.0), 0.10),
+    "PER": ("#8E4A6F", 1.15, (6.0, 2.0), 0.10),
 }
 
 # These exact paths exclude FPP 500k legacy runs and TD3 SABER seeds 6--10.
@@ -266,8 +276,10 @@ def legend(pdf: canvas.Canvas, width: float, y: float) -> None:
     size, line_width, gap, text_gap = 9.0, 16.0, 12.0, 4.0
     widths = []
     for method in METHODS:
-        font = "Helvetica-Bold" if method == "SABER" else "Helvetica"
-        widths.append(line_width + text_gap + stringWidth(method, font, size))
+        font = FONT_BOLD if method == "SABER" else FONT_REGULAR
+        widths.append(
+            line_width + text_gap + pdfmetrics.stringWidth(method, font, size)
+        )
     x = 0.5 * (width - sum(widths) - gap * (len(METHODS) - 1))
     for method, item_width in zip(METHODS, widths):
         color, stroke_width, pattern, _ = STYLES[method]
@@ -278,7 +290,7 @@ def legend(pdf: canvas.Canvas, width: float, y: float) -> None:
         dash(pdf, pattern)
         pdf.line(x, y + 2.1, x + line_width, y + 2.1)
         pdf.restoreState()
-        font = "Helvetica-Bold" if method == "SABER" else "Helvetica"
+        font = FONT_BOLD if method == "SABER" else FONT_REGULAR
         pdf.setFont(font, size)
         pdf.setFillColor(HexColor("#222222"))
         pdf.drawString(x + line_width + text_gap, y, method)
@@ -295,8 +307,8 @@ def panel(
     ymap = lambda value: bottom + height * min(1.0, max(0.0, value))
 
     pdf.saveState()
-    pdf.setStrokeColor(HexColor("#D8DADD"))
-    pdf.setLineWidth(0.35)
+    pdf.setStrokeColor(HexColor("#767676"))
+    pdf.setLineWidth(0.55)
     for tick in (0.0, 0.25, 0.5, 0.75, 1.0):
         pdf.line(left, ymap(tick), left + width, ymap(tick))
     for tick in x_ticks:
@@ -352,9 +364,9 @@ def panel(
         pdf.restoreState()
 
     pdf.setFillColor(HexColor("#1F2328"))
-    pdf.setFont("Helvetica-Bold", 9.5)
+    pdf.setFont(FONT_BOLD, 9.5)
     pdf.drawCentredString(left + 0.5 * width, top + 8.0, title)
-    pdf.setFont("Helvetica", 9.0)
+    pdf.setFont(FONT_REGULAR, 9.0)
     for tick, label in zip(x_ticks, x_labels):
         pdf.drawCentredString(xmap(tick), bottom - 13.0, label)
     if index == 0:
@@ -363,17 +375,28 @@ def panel(
             ("0", "0.25", "0.50", "0.75", "1"),
         ):
             pdf.drawRightString(left - 5.0, ymap(tick) - 3.0, label)
-    pdf.setFont("Helvetica", 9.0)
+    pdf.setFont(FONT_REGULAR, 9.0)
     pdf.drawCentredString(
         left + 0.5 * width, bottom - 29.0, "Environment steps (millions)"
     )
 
 
 def write_pdf(aggregated: dict) -> None:
+    for font_path in (FONT_REGULAR_PATH, FONT_BOLD_PATH):
+        if not font_path.is_file():
+            raise FileNotFoundError(font_path)
+    pdfmetrics.registerFont(TTFont(FONT_REGULAR, str(FONT_REGULAR_PATH)))
+    pdfmetrics.registerFont(TTFont(FONT_BOLD, str(FONT_BOLD_PATH)))
+
     output = OUT / "primary_fpp_backbone_learning_curves.pdf"
     page_width, page_height = 7.0 * inch, 3.05 * inch
     pdf = canvas.Canvas(
-        str(output), pagesize=(page_width, page_height), pageCompression=1
+        str(output),
+        pagesize=(page_width, page_height),
+        pageCompression=1,
+        invariant=1,
+        initialFontName=FONT_REGULAR,
+        initialFontSize=9.0,
     )
     pdf.setTitle("FetchPickAndPlace cross-backbone learning curves")
     pdf.setAuthor("Anonymous")
@@ -391,7 +414,7 @@ def write_pdf(aggregated: dict) -> None:
     pdf.translate(12.0, 0.5 * (bottom + top))
     pdf.rotate(90)
     pdf.setFillColor(HexColor("#1F2328"))
-    pdf.setFont("Helvetica", 9.0)
+    pdf.setFont(FONT_REGULAR, 9.0)
     pdf.drawCentredString(0, 0, "Success rate")
     pdf.restoreState()
     pdf.showPage()
