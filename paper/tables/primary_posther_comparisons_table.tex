@@ -59,11 +59,9 @@ DrawerClose & DDPG & \textbf{SABER (Ours)}
  & & PER & \(0.600 \pm .548\) & \(0.524 \pm .379\) & \(0.583 \pm .510\) \\
 \bottomrule
 \end{tabular*}
-\caption{Primary post-HER comparisons over paired seeds 1--5.
-Entries are mean $\pm$ sample standard deviation. AUC is normalized success
-AUC over the complete shared evaluation span; FQ-AUC uses the final quarter
-of the training budget (750k--1M for FPP and 1.5M--2M for the Drawer tasks).
-Repeated \emph{HER+} prefixes are omitted. SABER values are bold. FPP SAC
-uses the exact common 50k--1M evaluation grid.}
+\caption{Primary post-HER comparisons over paired seeds 1--5 (mean
+$\pm$ sample standard deviation). AUC and FQ-AUC denote full-span and
+final-quarter normalized success AUC; all methods include HER, and repeated
+HER+ prefixes are omitted.}
 \label{tab:primary-posther-comparisons}
 \end{table*}
