@@ -6,22 +6,22 @@
 <rect x="4.00" y="4.00" width="36.00" height="34.00" rx="3.00" fill="#EAF4FB" stroke="#1F77B4" stroke-width="0.80"/>
 <text x="22.00" y="19.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">Uniform</text>
 <text x="22.00" y="28.70" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">replay</text>
-<path d="M 41.50 21.00 L 48.50 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 41.50 21.00 L 46.08 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="48.50,21.00 46.08,22.40 46.08,19.60" fill="#1F2937" stroke="none" stroke-width="0.75"/>
 <rect x="50.00" y="4.00" width="36.00" height="34.00" rx="3.00" fill="#F3F4F6" stroke="#6B7280" stroke-width="0.80"/>
 <text x="68.00" y="19.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">HER</text>
 <text x="68.00" y="28.70" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">relabel</text>
-<path d="M 87.50 21.00 L 94.50 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 87.50 21.00 L 92.08 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="94.50,21.00 92.08,22.40 92.08,19.60" fill="#1F2937" stroke="none" stroke-width="0.75"/>
 <rect x="96.00" y="4.00" width="38.00" height="34.00" rx="3.00" fill="#F3F4F6" stroke="#6B7280" stroke-width="0.80"/>
 <text x="115.00" y="19.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">Bellman</text>
 <text x="115.00" y="28.70" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">target</text>
-<path d="M 135.50 21.00 L 142.50 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 135.50 21.00 L 140.08 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="142.50,21.00 140.08,22.40 140.08,19.60" fill="#1F2937" stroke="none" stroke-width="0.75"/>
 <rect x="144.00" y="4.00" width="43.00" height="34.00" rx="3.00" fill="#FFF3F3" stroke="#C62828" stroke-width="0.80"/>
 <text x="165.50" y="19.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">Weighted</text>
 <text x="165.50" y="28.70" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">critic loss</text>
-<path d="M 188.50 21.00 L 195.50 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 188.50 21.00 L 193.08 21.00" fill="none" stroke="#1F2937" stroke-width="0.80" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="195.50,21.00 193.08,22.40 193.08,19.60" fill="#1F2937" stroke="none" stroke-width="0.75"/>
 <rect x="197.00" y="4.00" width="36.00" height="34.00" rx="3.00" fill="#F3F4F6" stroke="#6B7280" stroke-width="0.80"/>
 <text x="215.00" y="19.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">Critic</text>
@@ -73,6 +73,6 @@
 <rect x="19.00" y="152.00" width="199.00" height="24.00" rx="3.00" fill="#FFF3F3" stroke="#C62828" stroke-width="0.85"/>
 <text x="118.80" y="162.00" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="700" text-anchor="middle" fill="#1F2937">All samples retained</text>
 <text x="118.80" y="172.50" font-family="Helvetica, Arial, sans-serif" font-size="9.00pt" font-weight="400" text-anchor="middle" fill="#C62828">Mean-one normalized critic weight: Ωᵢ</text>
-<path d="M 218.00 164.00 L 229.50 164.00 L 229.50 44.50 L 165.50 44.50 L 165.50 38.00" fill="none" stroke="#C62828" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 218.00 164.00 L 229.50 164.00 L 229.50 44.50 L 165.50 44.50 L 165.50 40.86" fill="none" stroke="#C62828" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="165.50,38.00 167.15,40.86 163.85,40.86" fill="#C62828" stroke="none" stroke-width="0.75"/>
 </svg>

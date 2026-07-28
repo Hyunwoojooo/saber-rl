@@ -360,10 +360,15 @@ def draw_arrow(
     width: float = 0.9,
     head_size: float = 3.2,
 ) -> None:
-    backend.line(points, color=color, width=width)
     x1, y1 = points[-2]
     x2, y2 = points[-1]
     angle = math.atan2(y2 - y1, x2 - x1)
+    head_base_offset = head_size * math.cos(math.pi / 6)
+    shaft_end = (
+        x2 - head_base_offset * math.cos(angle),
+        y2 - head_base_offset * math.sin(angle),
+    )
+    backend.line([*points[:-1], shaft_end], color=color, width=width)
     left = (
         x2 - head_size * math.cos(angle - math.pi / 6),
         y2 - head_size * math.sin(angle - math.pi / 6),
