@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/tmp/saber-drawerclose-redq-run/metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s5_2m_cuda/best_checkpoint.pt",
+  "eval_env_success_ever_mean": 1.0,
+  "eval_env_success_final_mean": 1.0,
+  "eval_env_success_mean": 1.0,
+  "eval_goal_success_ever_mean": 0.0,
+  "eval_goal_success_final_mean": 0.0,
+  "eval_goal_success_mean": 0.0,
+  "eval_return_mean": -200.0,
+  "eval_success_mean": 1.0,
+  "selection_metric": "eval_env_success_mean",
+  "step": 20000
+}
