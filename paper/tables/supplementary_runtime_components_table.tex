@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{lrrrr}
+\toprule
+Component & HER ms/step & SABER ms/step & Difference & SABER share \\
+\midrule
+Interaction & 1.000 & 1.071 & \(+0.070\) & 4.4\% \\
+Replay + HER & 1.925 & 2.651 & \(+0.726\) & 11.0\% \\
+Batch preparation & 0.096 & 0.108 & \(+0.012\) & 0.4\% \\
+Support and weighting & 0.000 & 15.028 & \(+15.028\) & 62.3\% \\
+Critic update & 2.945 & 2.832 & \(-0.113\) & 11.7\% \\
+Actor + target update & 1.384 & 1.292 & \(-0.091\) & 5.4\% \\
+Evaluation/logging amortized & 0.080 & 0.085 & \(+0.005\) & 0.4\% \\
+\midrule
+Total training loop & 8.063 & 24.133 & \(+16.070\) & 100.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Hardware-specific FPP TD3 implementation profile over the
+20k--100k window of seed 1. HER and SABER achieve 124.0 and 41.4 environment
+steps/s excluding evaluation, respectively. The profile identifies current
+support retrieval as the dominant overhead; it is not a learning-performance
+claim and is not extrapolated to 1M steps.}
+\label{tab:supp-runtime-components}
+\end{table*}

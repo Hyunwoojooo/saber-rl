@@ -1,0 +1,153 @@
+{
+  "pending": [
+    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+    "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/diagnostic_artifact_all_10/artifact_manifest.json"
+  ],
+  "scope": "Technical Supplement derived summaries",
+  "sources": [
+    {
+      "bytes": 865,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_aer_noher_seeds1_5_1m/results/method_summary.csv",
+      "sha256": "d3c4afd09e8911657d00c69fc5d41792aadbafda9f0422e00b5d78b5c5b4bf59"
+    },
+    {
+      "bytes": 25585,
+      "path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/artifact_manifest.json",
+      "sha256": "2f0e189e41e43d1ae777b4556ac83957e7c116536a0f5a187a9bff3738e0263f"
+    },
+    {
+      "bytes": 827,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_aer_noher_seeds1_5_1m/results/method_summary.csv",
+      "sha256": "4b5774d9dd635cb2b6e0dc7e1f78bf757cd36134e9c9ac3969a71f3ad34e1608"
+    },
+    {
+      "bytes": 4147,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/artifact_manifest.json",
+      "sha256": "11ccec0c590c493ea3e5518a165327971324b62149332f558a27fd62b6fffe60"
+    },
+    {
+      "bytes": 5525,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_her_per_style_loss_weighting_ls512_1m/artifact_manifest.json",
+      "sha256": "3d6c3b73dd0b96cf74f68f94d944cf7ea27440937d32187b984eb4c1400bff6a"
+    },
+    {
+      "bytes": 801,
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_aer_noher_seeds1_5_1m/analysis/method_summary.csv",
+      "sha256": "133465685804d009cfe5fa8446990c5864c755c08dceb1d27dc107fb252acada"
+    },
+    {
+      "bytes": 25522,
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/artifact_manifest.json",
+      "sha256": "7f08fa06af59bc4211b9427f86aacbd50125e0620727e4c43e715a8ef0543170"
+    },
+    {
+      "bytes": 12654,
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_runtime_profile_100k/artifact_manifest.json",
+      "sha256": "13d6013e9e54438635189e1dcdb5c14d51b4859f9344cd0c1ba0af75329aefd9"
+    },
+    {
+      "bytes": 1860,
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/artifact_manifest.json",
+      "sha256": "4ceb6d0591c4739fe125850685d54d2dbcbc8bc66a769e252fe540d07a596c8c"
+    },
+    {
+      "bytes": 251972,
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "8aca89aaa3fabb45106498ecb8b9dd004c0162293d10f84d4d984873adea2df0"
+    },
+    {
+      "bytes": 253618,
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "2aca8470afeafdda74d392249b0a9a40121772636a375cc127e7d0a5ec141766"
+    },
+    {
+      "bytes": 253815,
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "fba728f3366a3dddb5a0dd0834c2a515070a241e3ce50ab30191c23b4df842d7"
+    },
+    {
+      "bytes": 254642,
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "e3f347956630f455d5f5ad3c068471fb7efbf1a78e5766bd1b98bf9c93aa08cc"
+    },
+    {
+      "bytes": 253665,
+      "path": "experiment_FPP/runs/per_style_loss_weighting_ls512/fetch_pick_and_place_per_style_loss_weighting_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "eaf8182a25e9c9b4ef315e874ac5631527710cbd5d2b8a7fa774f807b660a1ea"
+    },
+    {
+      "bytes": 1148,
+      "path": "metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact_all_10/artifact_manifest.json",
+      "sha256": "8b79c396c3e564cfa574943544582911b486ce469ce2459b2dbf13bbe9c03e2c"
+    },
+    {
+      "bytes": 12553103,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "8b22fa7a69f8096f9031a6e894f9fda4eecb33b269422f71fab99e8fe1636e03"
+    },
+    {
+      "bytes": 12521219,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "2b6d51b2b5828d50250212b7314362c1bcb5cfabb1dd0b9b949edd1712870473"
+    },
+    {
+      "bytes": 12530470,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "53784095417d8cb38da16e0a66bedc42c15869f9e5975aca584f93eb6f3a3827"
+    },
+    {
+      "bytes": 12557418,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "97172766f36382c8b0c13c24295748efffef0576348e284ab775ae33d60c69bb"
+    },
+    {
+      "bytes": 12443841,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_close_DDPG-HER-PER-Style-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "e3a89d148c7ace6afb9f031e6d214baba716811a69e845537c063fcea2fcdec1"
+    },
+    {
+      "bytes": 12656749,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "4cbf4fa5cbcdf4bb2e009ea979c59a71824ccb7f5095f3f56d8141534ba0398c"
+    },
+    {
+      "bytes": 12705713,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "cc77c568027a5081f61ce2652c045d34c44f66952a9685fcb704921692303c1a"
+    },
+    {
+      "bytes": 12541476,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "5360e8fc086a25cb44a380d0f5fa4e16ae9be2e0063db83634a00d055427f5b4"
+    },
+    {
+      "bytes": 12529397,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "c3ec2039482dadc288bf9de926ff3abdac531b6b149f9384c45cd2835383add1"
+    },
+    {
+      "bytes": 12548179,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "bece55c35a16cae71525ea345c58c664953e49c2be515d8087d8e81ad7db17aa"
+    },
+    {
+      "bytes": 1115,
+      "path": "paper/supplementary_artifacts/action_bin_sensitivity/artifact_manifest.json",
+      "sha256": "ddf72f35f286584227f93bf14b3440f286cb329f74d1c26bc05e6ea02aa51078"
+    },
+    {
+      "bytes": 1282,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/artifact_manifest.json",
+      "sha256": "f834fb1e8200e69e8bab68b28b65cfce8d1fe723081e4f24f1acff76aa1e3c64"
+    },
+    {
+      "bytes": 1317,
+      "path": "paper/supplementary_artifacts/primary_seed_results/artifact_manifest.json",
+      "sha256": "271529c2fe2541dc045c2387a371774852aaa5c38836a905a62c304e213378cf"
+    }
+  ]
+}

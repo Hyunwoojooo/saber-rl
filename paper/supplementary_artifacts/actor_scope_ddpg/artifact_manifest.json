@@ -1,9 +1,9 @@
 {
   "files": [
     {
-      "bytes": 355,
+      "bytes": 339,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/README.md",
-      "sha256": "a15bcdfdc35fe9b588306b5b918030e4eb5c1d7e78eaea270a1d5073b78118b5"
+      "sha256": "75bf9382af7f20d9270d2e7ca4d33edfd5538389829e7c843c802acb8fc57dd0"
     },
     {
       "bytes": 1372,
@@ -11,9 +11,9 @@
       "sha256": "6ce80cf7d1fb23928ae499888852a5b5de42d6c3b6d68a2b6b7bfbc5f68160d1"
     },
     {
-      "bytes": 280,
+      "bytes": 948,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/missing_sources.json",
-      "sha256": "49bdbd33d702f346286b0c58fad2bc4471c0a894cda02e889908545f478c3448"
+      "sha256": "d0b67cd66a4ca3825b3a46cf5e20f8600c423cf0b7e4cc15a107b679870e7a2f"
     },
     {
       "bytes": 1200,
@@ -26,9 +26,9 @@
       "sha256": "95eaedc58fd8fab9e69b46c29b224856476ab9170669d6c15fbb36b7caa85af7"
     },
     {
-      "bytes": 36277,
+      "bytes": 36955,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/source_manifest.json",
-      "sha256": "1c52769880fe0e7b27660e6c35c1d051884fdecce0abcda5d150f6127136a171"
+      "sha256": "233c7b2fab3f745ba4976b2ca93888cbbd3a68e1a1a91c171c012052afc5daa1"
     }
   ],
   "root": "paper/supplementary_artifacts/actor_scope_ddpg"

@@ -1,0 +1,37 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllcccc}
+\toprule
+Cohort & Seeds & Phase & Batch fraction & Support rate &
+Pre-update \(|\delta|\) & Fixed \(\Delta|\delta|\) \\
+\midrule
+DrawerOpen DDPG & 1--5 & \multicolumn{5}{c}{\textit{pending fixed-target result}} \\
+DrawerOpen DDPG & 6--10 extension & \multicolumn{5}{c}{\textit{pending fixed-target result}} \\
+\addlinespace[2pt]
+DrawerClose DDPG & 1--5 & Approach & \(0.218\pm0.002\) & \(0.549\pm0.032\) &
+\(0.173\pm0.010\) & \(0.0081\pm0.0018\) \\
+ &  & Contact & \(0.016\pm0.003\) & \(0.710\pm0.026\) &
+\(0.262\pm0.011\) & \(0.0147\pm0.0018\) \\
+ &  & Closing & \(0.019\pm0.004\) & \(0.425\pm0.034\) &
+\(0.381\pm0.066\) & \(0.0232\pm0.0067\) \\
+ &  & Closed & \(0.747\pm0.004\) & \(0.212\pm0.017\) &
+\(0.062\pm0.009\) & \(0.0011\pm0.0014\) \\
+\addlinespace[2pt]
+DrawerClose DDPG & 6--10 extension & Approach & \(0.222\pm0.003\) &
+\(0.569\pm0.004\) & \(0.187\pm0.022\) & \(0.0081\pm0.0007\) \\
+ &  & Contact & \(0.018\pm0.003\) & \(0.727\pm0.016\) &
+\(0.282\pm0.007\) & \(0.0169\pm0.0019\) \\
+ &  & Closing & \(0.017\pm0.002\) & \(0.438\pm0.028\) &
+\(0.401\pm0.053\) & \(0.0248\pm0.0033\) \\
+ &  & Closed & \(0.743\pm0.007\) & \(0.204\pm0.010\) &
+\(0.069\pm0.011\) & \(0.0006\pm0.0006\) \\
+\bottomrule
+\end{tabular}
+\caption{Drawer phase-conditioned diagnostics. Phases are defined from the
+relabeled training goal. Values are seed means \(\pm\) sample SD. The
+seeds 6--10 rows are a separate diagnostic extension; pooled ten-seed and
+seed-level values are included in the accompanying artifact.}
+\label{tab:supp-phase-diagnostics}
+\end{table*}

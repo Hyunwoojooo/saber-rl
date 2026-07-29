@@ -1,10 +1,15 @@
 [
   {
     "backbone": "DDPG",
-    "expected_results": "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512",
-    "expected_runner": "experiment_FPP/ddpg_saber_actor_critic_v4_ls512",
+    "expected_metrics": [
+      "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv"
+    ],
     "scope": "actor_critic",
-    "status": "missing_completed_results",
+    "status": "pending_completed_results",
     "task": "FPP"
   }
 ]

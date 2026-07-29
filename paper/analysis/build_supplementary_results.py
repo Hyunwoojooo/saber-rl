@@ -81,6 +81,12 @@ ACTOR_SCOPE_SPECS = {
         "fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/"
         "seed_{seed}/metrics_selected_10k.csv",
     ),
+    ("FPP", "actor_critic"): (
+        1_000_000,
+        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/"
+        "fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s{seed}_"
+        "1000000_ls512/metrics_selected_10k.csv",
+    ),
     ("DrawerOpen", "critic_only"): (
         2_000_000,
         "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/"
@@ -501,7 +507,32 @@ def build_actor_scope() -> None:
     out = OUTPUT_ROOT / "actor_scope_ddpg"
     rows: list[dict[str, object]] = []
     sources: dict[str, dict[str, object]] = {}
+    missing: list[dict[str, object]] = []
     for (task, scope), (budget, template) in ACTOR_SCOPE_SPECS.items():
+        expected_paths = [ROOT / template.format(seed=seed) for seed in SEEDS]
+        present_paths = [path for path in expected_paths if path.is_file()]
+        if not present_paths:
+            missing.append(
+                {
+                    "task": task,
+                    "backbone": "DDPG",
+                    "scope": scope,
+                    "status": "pending_completed_results",
+                    "expected_metrics": [
+                        str(path.relative_to(ROOT)) for path in expected_paths
+                    ],
+                }
+            )
+            continue
+        if len(present_paths) != len(expected_paths):
+            absent = [
+                str(path.relative_to(ROOT))
+                for path in expected_paths
+                if not path.is_file()
+            ]
+            raise FileNotFoundError(
+                f"{task}/{scope}: partial five-seed cohort; missing {absent}"
+            )
         grid = tuple(range(10_000, budget + 1, 10_000))
         for seed in SEEDS:
             path = ROOT / template.format(seed=seed)
@@ -575,16 +606,6 @@ def build_actor_scope() -> None:
                     }
                 )
 
-    missing = [
-        {
-            "task": "FPP",
-            "backbone": "DDPG",
-            "scope": "actor_critic",
-            "status": "missing_completed_results",
-            "expected_runner": "experiment_FPP/ddpg_saber_actor_critic_v4_ls512",
-            "expected_results": "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512",
-        }
-    ]
     per_fields = (
         "task", "backbone", "scope", "scope_label", "seed", "auc",
         "final_quarter_auc", "final_success", "hit90_step",
@@ -622,10 +643,10 @@ def build_actor_scope() -> None:
     (out / "README.md").write_text(
         "# DDPG actor-scope ablations\n\n"
         "Integrated exact-grid analysis for Critic-Only (Main), Actor-Only, "
-        "and Actor+Critic on FPP, DrawerOpen, and DrawerClose. The repository "
-        "currently contains no completed FPP Actor+Critic run or artifact, so "
-        "that cell is explicitly recorded in `missing_sources.json` rather "
-        "than inferred. All other cells use paired seeds 1--5.\n",
+        "and Actor+Critic on FPP, DrawerOpen, and DrawerClose. Conditions with "
+        "no completed five-seed cohort are recorded in `missing_sources.json` "
+        "rather than inferred; partially present cohorts fail closed. All "
+        "reported cells use paired seeds 1--5.\n",
         encoding="utf-8",
     )
     artifact_manifest(out)
@@ -651,7 +672,10 @@ def build_actor_scope() -> None:
             row = agg.get((task, scope))
             task_cell = task if scope == "critic_only" else ""
             if row is None:
-                tex.append(f"{task_cell} & {SCOPE_LABELS[scope]} & -- & -- & -- & -- & -- \\\\")
+                tex.append(
+                    f"{task_cell} & {SCOPE_LABELS[scope]} & "
+                    "\\multicolumn{5}{c}{\\textit{pending}} \\\\"
+                )
                 continue
             delta = "--"
             if scope != "critic_only":
@@ -679,8 +703,8 @@ def build_actor_scope() -> None:
             "Values are mean $\\pm$ sample standard deviation. Hit90 reports "
             "the number of reaching seeds and the reached-seed median step. "
             "The final column gives Main-minus-scope paired AUC differences "
-            "with 95\\% bootstrap confidence intervals. A completed FPP "
-            "Actor+Critic result artifact was not available at analysis time.}",
+            "with 95\\% bootstrap confidence intervals. Pending cells are "
+            "left unreported until a complete five-seed cohort is available.}",
             "\\label{tab:supp-actor-scope}",
             "\\end{table*}",
             "",

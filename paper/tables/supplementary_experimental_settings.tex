@@ -1,0 +1,61 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lllll}
+\toprule
+Task & Horizon & Budget & Backbones & Exact primary grid \\
+\midrule
+FetchPickAndPlace-v4 & 50 & 1M & DDPG, TD3, SAC & 10k (DDPG/TD3), 50k (SAC) \\
+DrawerOpen & 200 & 2M & DDPG, TD3 & 10k \\
+DrawerClose & 200 & 2M & DDPG, TD3 & 10k \\
+\bottomrule
+\end{tabular}
+\caption{Primary task and cohort definitions. Every method within a
+task--backbone cohort uses the same environment-step budget and exact
+evaluation grid. Primary comparisons use paired seeds 1--5.}
+\label{tab:supp-task-cohorts}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{ll}
+\toprule
+Setting & Value or convention \\
+\midrule
+HER & Future-goal convention in the main paper; nominal \(p_{\mathrm{HER}}=0.8\) \\
+Replay & Uniform for HER and SABER; capacity 300k; minibatch size 256 \\
+Networks & Actor and critic MLPs with two hidden layers of 256 units \\
+Optimization & Adam, actor and critic learning rates \(3\times10^{-4}\) \\
+Discount and targets & \(\gamma=0.98\), Polyak coefficient \(\tau=0.005\) \\
+Update schedule & UTD 1; learning begins after 5k steps; random actions for first 10k steps \\
+Termination & Successful relabeled transitions are nonterminal; time limits bootstrap \\
+Evaluation & Deterministic policy, 20 episodes per checkpoint \\
+Statistics & Seed mean and sample SD; paired percentile-bootstrap CI, 10,000 resamples, RNG seed 2027 \\
+Curve processing & Exact common checkpoints only; no smoothing, interpolation, extrapolation, or filling \\
+\bottomrule
+\end{tabular}
+\caption{Shared training, evaluation, and statistical settings. Matched
+HER--SABER runs use identical replay and relabeling code.}
+\label{tab:supp-shared-settings}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{llll}
+\toprule
+Backbone & Critic & Exploration or entropy & Backbone-specific settings \\
+\midrule
+DDPG & One critic & Gaussian action noise, SD \(0.2\) & Deterministic actor \\
+TD3 & Twin critics & Gaussian action noise, SD \(0.2\) & Target noise \(0.2\), clip \(0.5\), policy delay 2 \\
+SAC & Twin critics & Automatic entropy tuning & Initial \(\alpha=0.2\), \(\alpha\) LR \(3\times10^{-4}\), target entropy \(-4\) \\
+\bottomrule
+\end{tabular}
+\caption{Backbone-specific settings. SABER preserves each backbone's target
+construction and actor-update rule.}
+\label{tab:supp-backbone-settings}
+\end{table*}

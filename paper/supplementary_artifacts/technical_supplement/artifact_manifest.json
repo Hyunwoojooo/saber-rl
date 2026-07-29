@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "bytes": 2322,
+      "path": "paper/supplementary_artifacts/technical_supplement/README.md",
+      "sha256": "7ba23d6af272ec951d4d0c72e6d9c4e4d1f4749484e8286ab6fa60f389f30f8c"
+    },
+    {
+      "bytes": 886,
+      "path": "paper/supplementary_artifacts/technical_supplement/artifact_index.csv",
+      "sha256": "1619fd7f04daa51bf5328ff459de2ccaf18792da1040cf1c453fba252f76e020"
+    },
+    {
+      "bytes": 1389,
+      "path": "paper/supplementary_artifacts/technical_supplement/diagnostic_cohort_summary.csv",
+      "sha256": "a53d96a01c182f17b8c9fc455283d2c9a5812adc30c6c51eae55d2639b621c84"
+    },
+    {
+      "bytes": 1683,
+      "path": "paper/supplementary_artifacts/technical_supplement/drawerclose_phase_summary.csv",
+      "sha256": "3f7c9bd6c2ba77cd5147a89efb5519a9bf898c12ade3abf911beda78dbb3ba53"
+    },
+    {
+      "bytes": 1495,
+      "path": "paper/supplementary_artifacts/technical_supplement/runtime_summary.csv",
+      "sha256": "2fef336813bd83a52a8f44ea98a2c22bc81c9c3f98bb6f9ab54e65e1b586ca59"
+    },
+    {
+      "bytes": 911,
+      "path": "paper/supplementary_artifacts/technical_supplement/secondary_reference_summary.csv",
+      "sha256": "4aee251e548f66ea7c2076082acdcf0902b6bc41840300fc53537fd421c964b2"
+    },
+    {
+      "bytes": 7914,
+      "path": "paper/supplementary_artifacts/technical_supplement/source_manifest.json",
+      "sha256": "d233e06392b0cac2b02e91f89f65358c7bbe080e7568f571f7cb5541e8678df6"
+    }
+  ],
+  "root": "paper/supplementary_artifacts/technical_supplement"
+}

@@ -1,0 +1,49 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.16\textwidth}
+                >{\raggedright\arraybackslash}p{0.43\textwidth}
+                >{\raggedright\arraybackslash}p{0.32\textwidth}}
+\toprule
+Task family & Full context components & Coarse retrieval key \\
+\midrule
+FetchPickAndPlace & Phase, hand--object distance, object--goal distance,
+object height, gripper gap, horizon & Hand--object distance, object height,
+gripper gap, horizon \\
+DrawerOpen/Close & Phase, hand--handle distance, handle--goal distance,
+handle \(y\), gripper state, horizon & Hand--handle distance, handle \(y\),
+gripper state, horizon \\
+\bottomrule
+\end{tabular}
+\caption{Task-specific support contexts. Candidate retrieval uses the coarse
+key, after which exact component-wise equality on the full discretized context
+defines the local replay set.}
+\label{tab:supp-context-components}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.16\textwidth}
+                >{\raggedright\arraybackslash}p{0.37\textwidth}
+                >{\raggedright\arraybackslash}p{0.37\textwidth}}
+\toprule
+Component & FetchPickAndPlace thresholds & Drawer thresholds \\
+\midrule
+Phase & approach, grasp, lift, place & approach, contact, opening/closing, open/closed \\
+Hand distance & \(.03,.05,.08,.12,.20,.40\) & \(.03,.05,.08,.12,.20,.40\) \\
+Goal distance & \(.05,.10,.20,.40,.70\) & \(.03,.05,.08,.12,.20,.40,.70\) \\
+Task coordinate & object \(z\): \(.43,.48,.55,.65,.75\) & handle \(y\): \(-.05,0,.05,.10,.15,.25\) \\
+Gripper & gap: \(.02,.05,.08\) & state: \(-.50,0,.50\) \\
+Remaining horizon & \(10,25,50,100\) & \(10,25,50,100,200,500\) \\
+\bottomrule
+\end{tabular}
+\caption{Discretization boundaries used to construct support contexts. Values
+are applied component-wise in environment units. The main method normalizes
+each action dimension to its action bounds and uses \(K=5\) bins per
+dimension, \(N_{\mathrm{scan}}=512\), \(N_{\mathrm{local}}=4\), and
+\(\lambda_S=1\).}
+\label{tab:supp-context-thresholds}
+\end{table*}

@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llrrr}
+\toprule
+Task & Backbone & HGR & SABER & Ratio \\
+\midrule
+FPP & DDPG & 16.93 & 41.72 & \(2.46\times\) \\
+FPP & TD3 & 12.94 & 41.25 & \(3.19\times\) \\
+FPP & SAC & 8.39 & 29.10 & \(3.47\times\) \\
+DrawerOpen & DDPG & 13.24 & 23.33 & \(1.76\times\) \\
+DrawerOpen & TD3 & 11.65 & 21.57 & \(1.85\times\) \\
+DrawerClose & DDPG & 13.22 & 23.96 & \(1.81\times\) \\
+DrawerClose & TD3 & 11.81 & 22.49 & \(1.90\times\) \\
+\bottomrule
+\end{tabular}
+\caption{Recorded environment steps/s for HGR and SABER. Values are
+descriptive means over seeds 1--5 within each cohort. Hardware identity is
+not uniformly recorded across cohorts, so this supports only within-cohort
+implementation comparisons and no cross-cohort hardware ranking.}
+\label{tab:supp-hgr-throughput}
+\end{table}

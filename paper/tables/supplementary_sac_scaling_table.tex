@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lccccc}
+\toprule
+Method & UTD & Critic configuration & AUC & Final & Hit90 \\
+\midrule
+HER & 1 & 2 critics & \(0.471\pm0.079\) & \(0.790\pm0.288\) &
+3/5 (0.80M) \\
+SABER & 1 & 2 critics & \(0.583\pm0.030\) & \(0.990\pm0.022\) &
+5/5 (0.75M) \\
+HER high-RR & 4 & 2 critics & \(0.768\pm0.097\) & \(0.960\pm0.042\) &
+5/5 (0.45M) \\
+REDQ-HER TQB & 4 & 10 critics, 2 sampled & \(0.867\pm0.052\) &
+\(1.000\pm0.000\) & 5/5 (0.30M) \\
+\bottomrule
+\end{tabular}
+\caption{FPP SAC scaling references on the exact shared 50k--1M grid.
+High-replay-ratio HER and REDQ-HER change the update budget, and REDQ-HER
+also changes critic architecture; they are not matched post-HER
+loss-allocation controls.}
+\label{tab:supp-sac-scaling}
+\end{table*}

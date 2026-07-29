@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcc}
+\toprule
+Backbone & No-HER replay & AUC & Final \\
+\midrule
+DDPG & ER & \(0.148\pm0.039\) & \(0.460\pm0.188\) \\
+ & Annealing ER & \(0.129\pm0.111\) & \(0.340\pm0.363\) \\
+ & AER & \(0.044\pm0.002\) & \(0.000\pm0.000\) \\
+\addlinespace[2pt]
+TD3 & ER & \(0.039\pm0.002\) & \(0.000\pm0.000\) \\
+ & Annealing ER & \(0.039\pm0.002\) & \(0.000\pm0.000\) \\
+ & AER & \(0.039\pm0.002\) & \(0.000\pm0.000\) \\
+\addlinespace[2pt]
+SAC & ER & \(0.064\pm0.042\) & \(0.130\pm0.199\) \\
+ & Annealing ER & \(0.041\pm0.002\) & \(0.000\pm0.000\) \\
+ & AER & \(0.040\pm0.003\) & \(0.000\pm0.000\) \\
+\bottomrule
+\end{tabular}
+\caption{FPP no-HER replay references over seeds 1--5. These runs omit
+hindsight relabeling and are context references rather than matched post-HER
+mechanism controls.}
+\label{tab:supp-aer-noher}
+\end{table}

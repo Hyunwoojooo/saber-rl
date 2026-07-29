@@ -1,0 +1,35 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.34\textwidth}
+                >{\raggedright\arraybackslash}p{0.39\textwidth}
+                >{\raggedright\arraybackslash}p{0.18\textwidth}}
+\toprule
+Content & Artifact key & Status \\
+\midrule
+Primary seed metrics and curves &
+\texttt{primary\_seed\_results} & Complete \\
+Action-bin sensitivity &
+\texttt{action\_bin\_sensitivity} & Complete \\
+DDPG actor-scope analysis &
+\texttt{actor\_scope\_ddpg} &
+FPP A+C pending \\
+Derived Technical Supplement summaries &
+\texttt{technical\_supplement} &
+Open fixed-target pending \\
+FPP diagnostics &
+\texttt{fpp\_diagnostic} & Complete \\
+DrawerClose diagnostics &
+\texttt{drawerclose\_diagnostic} & Complete \\
+DrawerOpen fixed-target diagnostics &
+\texttt{draweropen\_fixed\_target} & Pending \\
+FPP TD3 runtime profile &
+\texttt{fpp\_td3\_runtime} & Complete \\
+\bottomrule
+\end{tabular}
+\caption{Artifact index. Keys resolve to repository-relative package paths in
+\texttt{artifact\_index.csv}. Canonical artifacts include manifests that bind
+source files by repository-relative path and SHA256.}
+\label{tab:supp-artifact-index}
+\end{table*}

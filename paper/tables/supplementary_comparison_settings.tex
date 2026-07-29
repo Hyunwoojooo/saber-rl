@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llll}
+\toprule
+Method & Selection changed & Loss coefficient & Correction \\
+\midrule
+HER & None beyond uniform replay and HER relabeling & Uniform & None \\
+SABER & None & Current-policy local-support weight & Unit minibatch mean \\
+HGR & Episode and transition--future-goal pair & HGR importance weight & Two-stage IS \\
+PER & Replay transition & PER importance weight & Annealed IS \\
+TD-error weighting & None & TD-error-derived weight & Unit minibatch mean \\
+\bottomrule
+\end{tabular}
+\caption{Operational intervention points. HGR uses priority exponents
+\(\alpha_{\mathrm{episode}}=\alpha_{\mathrm{pair}}=0.6\), while PER uses
+\(\alpha=0.6\). Both anneal \(\beta\) linearly from \(0.4\) to \(1.0\) over
+critic-update progress and use priority offset \(10^{-6}\). TD-error weighting
+retains uniform replay and is therefore the closest allocation-stage control.}
+\label{tab:supp-comparison-settings}
+\end{table*}
