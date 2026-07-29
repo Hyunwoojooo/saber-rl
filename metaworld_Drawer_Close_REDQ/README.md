@@ -81,3 +81,15 @@ TARGET_Q_MIN=-50 TARGET_Q_MAX=0 SAC_AUTO_ALPHA=true bash REDQ-HER-TQB-B0-2M.sh
 ```
 
 Results are written under `results_2m/<variant>`, and logs under `logs_2m/<variant>`.
+
+## Paper Artifact
+
+The compact paper artifact is generated from the repository root with:
+
+    python paper/analysis/build_drawerclose_redq_reference.py
+
+It is written to
+`metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/`.
+The package contains exact-grid seed and aggregate summaries, validation
+metadata, and source manifests. Raw run outputs are referenced by
+repository-relative path and SHA256 rather than duplicated.

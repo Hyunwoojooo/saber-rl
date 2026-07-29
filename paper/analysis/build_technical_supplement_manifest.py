@@ -34,6 +34,8 @@ CANONICAL_SOURCES = (
     "fpp_sac_aer_noher_seeds1_5_1m/results/method_summary.csv",
     "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/"
     "common_grid_50k/artifact_manifest.json",
+    "metaworld_Drawer_Close_REDQ/paper_artifacts/"
+    "drawer_close_redq_her_tqb_utd4_2m/artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
     "fpp_sac_her_per_style_loss_weighting_ls512_1m/artifact_manifest.json",
 )

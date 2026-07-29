@@ -1,0 +1,28 @@
+{
+  "complete": true,
+  "evaluation_grid_end": 2000000,
+  "evaluation_grid_start": 10000,
+  "evaluation_grid_stride": 10000,
+  "evaluation_points_per_seed": 200,
+  "forward_filling": false,
+  "interpolation": false,
+  "resource_matched_to_ddpg_saber": false,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "smoothing": false,
+  "source_commit": "0c72f95707e0befb19190a56c778332c1e2bbeb4",
+  "training_steps_per_seed": 2000000,
+  "updates_per_seed": 7980004,
+  "validation_checks": [
+    "five complete seed runs",
+    "exact 200-point evaluation grid",
+    "configuration parity across REDQ seeds",
+    "stored and recomputed AUC agreement",
+    "2M environment steps and 7,980,004 updates per seed"
+  ]
+}

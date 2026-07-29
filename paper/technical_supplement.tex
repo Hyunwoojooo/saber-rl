@@ -232,12 +232,21 @@ realized support indicators are not assumed to be identical across runs.
 
 \input{tables/supplementary_aer_noher_table}
 \input{tables/supplementary_sac_scaling_table}
+\input{tables/supplementary_drawerclose_redq_table}
 
+For both REDQ-HER TQB references, TQB denotes target-Q bounding: the sampled
+target-critic backup is clipped to the sparse-reward range \([-50,0]\) before
+the Bellman target is formed.
 The no-HER AER comparisons test a different setting from the paper's
 post-HER question. The high-replay-ratio and REDQ-HER results demonstrate
 that additional updates and a larger critic ensemble can be stronger on FPP
 SAC, but they change UTD or architecture and therefore do not replace the
-matched UTD-1 comparison.
+matched UTD-1 comparison. On DrawerClose, all REDQ-HER seeds reach Hit90,
+but its mean final-quarter AUC is 0.098 and mean final success is 0.100,
+compared with 0.277 and 0.280 for DDPG SABER. This reference exhibits strong
+early threshold crossing without retaining the same success level late in
+training; because algorithm, UTD, and critic architecture all differ, it is
+not interpreted as a one-factor comparison with SABER.
 
 \FloatBarrier
 \section{Support-Signal Diagnostic Details}

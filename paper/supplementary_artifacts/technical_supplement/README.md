@@ -48,6 +48,8 @@ not measured rather than estimated.
   experiment_FPP/paper_artifacts/fpp_*_aer_noher_seeds1_5_1m/.
 - FPP SAC shared-grid scaling artifact:
   experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/.
+- DrawerClose REDQ-HER UTD-4 scaling artifact:
+  metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/.
 
 Raw files are not duplicated here. Their canonical artifact manifests retain
 the corresponding source and provenance records.

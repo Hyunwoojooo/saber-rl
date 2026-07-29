@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "bytes": 854,
+      "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/README.md",
+      "sha256": "9027850c5fa17db6ebc9e050f87ba275be3e72aa4237999c9ab8a800ada3094d"
+    },
+    {
+      "bytes": 849,
+      "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/aggregate_metrics.csv",
+      "sha256": "9f6248bacdde0ace91610320828fde33d251c20a08265d9a48293201bf022324"
+    },
+    {
+      "bytes": 1576,
+      "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/per_seed_metrics.csv",
+      "sha256": "d916604d1b1013b704b1bd155bedaa19016642981a26c3138a3ebcf34476fe40"
+    },
+    {
+      "bytes": 8627,
+      "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/source_manifest.json",
+      "sha256": "cf59365323e66fa029293587ada77b13703aafc18af0cac17bed71d26112ec05"
+    },
+    {
+      "bytes": 713,
+      "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/validation.json",
+      "sha256": "0e50c710f5e97f2461ed02e2acb6ca2a3cc24b47608e0f42a0d7b0b96cd29b1d"
+    }
+  ],
+  "root": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m"
+}

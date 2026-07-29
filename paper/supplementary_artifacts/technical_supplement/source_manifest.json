@@ -110,6 +110,11 @@
       "sha256": "e3a89d148c7ace6afb9f031e6d214baba716811a69e845537c063fcea2fcdec1"
     },
     {
+      "bytes": 1258,
+      "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/artifact_manifest.json",
+      "sha256": "7224e653ecbe331d1731a976761471d588deb1b9405203f16dc011e9da8eb8de"
+    },
+    {
       "bytes": 12656749,
       "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s1_2m_cuda/metrics.csv",
       "sha256": "4cbf4fa5cbcdf4bb2e009ea979c59a71824ccb7f5095f3f56d8141534ba0398c"
