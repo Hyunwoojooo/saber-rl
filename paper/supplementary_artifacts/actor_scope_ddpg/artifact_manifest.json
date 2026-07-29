@@ -1,0 +1,35 @@
+{
+  "files": [
+    {
+      "bytes": 355,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/README.md",
+      "sha256": "a15bcdfdc35fe9b588306b5b918030e4eb5c1d7e78eaea270a1d5073b78118b5"
+    },
+    {
+      "bytes": 1372,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/aggregate_metrics.csv",
+      "sha256": "6ce80cf7d1fb23928ae499888852a5b5de42d6c3b6d68a2b6b7bfbc5f68160d1"
+    },
+    {
+      "bytes": 280,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/missing_sources.json",
+      "sha256": "49bdbd33d702f346286b0c58fad2bc4471c0a894cda02e889908545f478c3448"
+    },
+    {
+      "bytes": 1200,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/paired_statistics.csv",
+      "sha256": "2d407c3615fdcf4ccdb92351089842950c0a31481463df08198f7e3b490b2bc8"
+    },
+    {
+      "bytes": 3229,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/per_seed_metrics.csv",
+      "sha256": "95eaedc58fd8fab9e69b46c29b224856476ab9170669d6c15fbb36b7caa85af7"
+    },
+    {
+      "bytes": 36277,
+      "path": "paper/supplementary_artifacts/actor_scope_ddpg/source_manifest.json",
+      "sha256": "1c52769880fe0e7b27660e6c35c1d051884fdecce0abcda5d150f6127136a171"
+    }
+  ],
+  "root": "paper/supplementary_artifacts/actor_scope_ddpg"
+}

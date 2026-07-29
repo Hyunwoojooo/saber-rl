@@ -1,0 +1,11 @@
+task,comparison,metric,mean_difference,ci95_low,ci95_high,positive_pairs,n_pairs
+FPP,critic_only_minus_actor_only,auc,0.0202020202020202,-0.024242424242424242,0.06303030303030303,3,5
+FPP,critic_only_minus_actor_only,final_quarter_auc,0.008999999999999985,-0.0038000000000000035,0.026999999999999958,3,5
+DrawerOpen,critic_only_minus_actor_only,auc,0.14125628140703517,-0.05140703517587939,0.47809045226130653,2,5
+DrawerOpen,critic_only_minus_actor_only,final_quarter_auc,0.22699999999999995,-0.005600000000000005,0.6264,4,5
+DrawerOpen,critic_only_minus_actor_critic,auc,0.0256532663316583,-0.04758793969849242,0.09115577889447235,3,5
+DrawerOpen,critic_only_minus_actor_critic,final_quarter_auc,-0.004500000000000015,-0.021200000000000017,0.007299999999999996,3,5
+DrawerClose,critic_only_minus_actor_only,auc,0.01733668341708543,-0.025829145728643234,0.07798994974874372,3,5
+DrawerClose,critic_only_minus_actor_only,final_quarter_auc,-0.021700000000000007,-0.0839,0.08279999999999998,1,5
+DrawerClose,critic_only_minus_actor_critic,auc,0.026306532663316572,-0.04336683417085428,0.09050251256281405,3,5
+DrawerClose,critic_only_minus_actor_critic,final_quarter_auc,0.036699999999999997,-0.1313,0.1737,3,5

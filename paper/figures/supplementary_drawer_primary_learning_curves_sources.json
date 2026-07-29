@@ -1,0 +1,52 @@
+{
+  "aggregation": "checkpoint-wise mean and sample standard deviation",
+  "evaluation_grid": "10k--2M by 10k",
+  "figure": "paper/figures/supplementary_drawer_primary_learning_curves.pdf",
+  "interpolation": false,
+  "methods": [
+    "HER",
+    "SABER",
+    "HGR",
+    "PER"
+  ],
+  "panels": [
+    [
+      "DrawerOpen",
+      "DDPG",
+      "(a) DrawerOpen - DDPG"
+    ],
+    [
+      "DrawerOpen",
+      "TD3",
+      "(b) DrawerOpen - TD3"
+    ],
+    [
+      "DrawerClose",
+      "DDPG",
+      "(c) DrawerClose - DDPG"
+    ],
+    [
+      "DrawerClose",
+      "TD3",
+      "(d) DrawerClose - TD3"
+    ]
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "smoothing": false,
+  "source_files": [
+    {
+      "path": "paper/supplementary_artifacts/primary_seed_results/mean_learning_curves.csv",
+      "sha256": "80987d3adebd651cd81e387b45e56fc1264f76eaf93c3c572ab265e2e23e5e60"
+    },
+    {
+      "path": "paper/supplementary_artifacts/primary_seed_results/source_manifest.json",
+      "sha256": "7f404bbfb481e80e8d97ea9f5d0a7ff5cd3ac97255376b692542e25360264c92"
+    }
+  ]
+}
