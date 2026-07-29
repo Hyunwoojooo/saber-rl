@@ -51,5 +51,18 @@ not measured rather than estimated.
 - DrawerClose REDQ-HER UTD-4 scaling artifact:
   metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/.
 
+The artifact index also resolves the FPP TD3 ten-seed confirmation,
+inclusive-future sensitivity, and FPP SAC update-budget references directly
+to their canonical compact artifacts.
+
 Raw files are not duplicated here. Their canonical artifact manifests retain
 the corresponding source and provenance records.
+
+## Reproducibility boundaries
+
+Paired seed indices deterministically map to environment, PyTorch, NumPy,
+action-noise, support-weight, and evaluation streams as documented in the
+Technical Supplement. Exact hardware/software metadata is available for the
+dedicated FPP TD3 runtime profile. Historical primary-run hardware identifiers
+and peak memory were not uniformly recorded; the supplement states this
+boundary rather than inferring missing metadata.

@@ -1,6 +1,7 @@
 \documentclass[10pt,letterpaper]{article}
 \usepackage[T1]{fontenc}
 \usepackage{newtxtext}
+\renewcommand{\ttdefault}{lmtt}
 \usepackage[left=0.62in,right=0.62in,top=0.55in,bottom=0.58in]{geometry}
 \usepackage[hyphens]{url}
 \usepackage{graphicx}
@@ -101,6 +102,17 @@ A successfully relabeled transition is treated as nonterminal for bootstrap
 purposes. Time-limit transitions also bootstrap. This convention is identical
 across methods within each cohort.
 
+\paragraph{Development scope and seed mapping.}
+We did not conduct an exhaustive joint hyperparameter search. The Main SABER
+settings were fixed for the matched comparisons, and no control received
+variant-specific tuning. The \(K\in\{3,7\}\) runs are reported as sensitivity
+checks around Main \(K=5\), not as a per-task model-selection sweep. For paired
+seed \(s\), the environment, PyTorch, NumPy, and action-noise streams use \(s\);
+the support-weight stream uses \(20000+s\), and evaluation uses base seed
+\(10000+s\). Training resets advance deterministically with the episode index,
+and evaluation resets use a deterministic checkpoint- and episode-indexed
+offset. All methods in a paired cohort use the same seed mapping.
+
 \subsection{Support Context and Retrieval}
 
 \input{tables/supplementary_support_contexts}
@@ -180,6 +192,7 @@ seeds 1--5 on the exact 10k grid. No smoothing or interpolation is applied.}
 \label{fig:supp-drawer-primary-curves}
 \end{figure}
 
+\FloatBarrier
 \subsection{Time to Threshold}
 
 \input{tables/supplementary_primary_hit90_table}
@@ -187,6 +200,7 @@ seeds 1--5 on the exact 10k grid. No smoothing or interpolation is applied.}
 Hit90 is a threshold-crossing summary rather than a stability measure.
 Coverage is especially important when only a subset of seeds reaches 0.9.
 
+\FloatBarrier
 \subsection{FPP TD3 Confirmatory and HER-Indexing Sensitivity Results}
 
 \input{tables/supplementary_fpp_td3_n10_table}
@@ -198,6 +212,7 @@ matched HER--SABER difference otherwise unchanged. Its positive observed mean
 direction does not constitute an equivalence test between HER indexing
 conventions.
 
+\FloatBarrier
 \section{Additional Controls and Sensitivities}
 
 \subsection{Allocation Signal}
@@ -209,6 +224,7 @@ Table~\ref{tab:supp-td-error-weighting}, SABER has higher observed mean AUC
 than TD-error critic-loss weighting. These controls isolate the weighting
 signal more closely than PER because both retain uniform replay.
 
+\FloatBarrier
 \subsection{Action-Bin Resolution}
 
 \input{tables/supplementary_action_bin_sensitivity_table}
@@ -218,6 +234,7 @@ Both \(K=3\) and \(K=7\) lower FPP TD3 mean AUC relative to the Main
 show that bin resolution also changes activation frequency; this experiment
 does not isolate bin geometry from support density.
 
+\FloatBarrier
 \subsection{Actor and Critic Weight Scope}
 
 \input{tables/supplementary_actor_scope_table}
@@ -228,6 +245,7 @@ Bellman losses; Actor-Only applies it to per-sample actor terms; Actor+Critic
 applies it to both. Because each scope induces its own training trajectory,
 realized support indicators are not assumed to be identical across runs.
 
+\FloatBarrier
 \subsection{Secondary Replay and Update-Budget References}
 
 \input{tables/supplementary_aer_noher_table}
@@ -296,16 +314,17 @@ independent causal test of long-horizon performance.
 \FloatBarrier
 \section{Runtime and Resource Measurements}
 
+\input{tables/supplementary_runtime_environment_table}
 \input{tables/supplementary_runtime_components_table}
 \input{tables/supplementary_hgr_throughput_table}
 
-The dedicated profile uses one hardware/software stack, one seed, and the
-20k--100k interval. It supports attribution of implementation overhead but
-not a claim about asymptotic complexity or end-to-end learning efficiency.
-The broader HGR comparison uses recorded training throughput and lacks
-uniform hardware metadata; only within-cohort ratios are interpreted. Peak
-memory was not recorded and is therefore reported as not measured rather
-than estimated.
+The dedicated profile sequentially executes HER and SABER on the recorded
+stack, using one seed and the 20k--100k interval. It supports attribution of
+implementation overhead but not a claim about asymptotic complexity or
+end-to-end learning efficiency. Exact hardware and software identifiers were
+not retained uniformly for the historical primary and HGR runs; their
+throughput is therefore descriptive rather than compute-matched. Peak memory
+was not recorded and is reported as not measured rather than estimated.
 
 \FloatBarrier
 \section{Artifact and Provenance Index}

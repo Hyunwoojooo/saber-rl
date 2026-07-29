@@ -1,14 +1,14 @@
 {
   "files": [
     {
-      "bytes": 2451,
+      "bytes": 3090,
       "path": "paper/supplementary_artifacts/technical_supplement/README.md",
-      "sha256": "86444edfc62aa545c706b51ae44ab4cb7c100ecb17b596be0726886c7de234f2"
+      "sha256": "20d2f59f8565aa9c7c4713d15a0170833cbb6533ab18656618b5186ac4a04c70"
     },
     {
-      "bytes": 990,
+      "bytes": 1273,
       "path": "paper/supplementary_artifacts/technical_supplement/artifact_index.csv",
-      "sha256": "eca6bdf36700f61d745ea3cfdc73d657b674c2878b914eec0e65c464320fb561"
+      "sha256": "d0c0f8467abb72220a374e9014608e81d7ade21a3f577b8bed06ba7f48c65549"
     },
     {
       "bytes": 1389,

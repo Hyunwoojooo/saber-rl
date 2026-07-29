@@ -5,12 +5,16 @@ Regenerate the derived analyses and manifests from the repository root:
     .venv/bin/python paper/analysis/build_supplementary_results.py
     .venv/bin/python paper/analysis/build_technical_supplement_manifest.py
 
-Build from the repository root with the AAAI-27 author-kit style on the TeX
-search path:
+Build with Tectonic:
 
     cd paper
-    TEXINPUTS=../AuthorKit27: pdflatex -interaction=nonstopmode technical_supplement.tex
-    TEXINPUTS=../AuthorKit27: pdflatex -interaction=nonstopmode technical_supplement.tex
+    tectonic technical_supplement.tex
+
+Alternatively, use two pdfLaTeX passes to resolve references:
+
+    cd paper
+    pdflatex -interaction=nonstopmode -halt-on-error technical_supplement.tex
+    pdflatex -interaction=nonstopmode -halt-on-error technical_supplement.tex
 
 The current working draft intentionally contains two visible pending result
 slots:

@@ -13,6 +13,7 @@ Support and weighting & 0.000 & 15.028 & \(+15.028\) & 62.3\% \\
 Critic update & 2.945 & 2.832 & \(-0.113\) & 11.7\% \\
 Actor + target update & 1.384 & 1.292 & \(-0.091\) & 5.4\% \\
 Evaluation/logging amortized & 0.080 & 0.085 & \(+0.005\) & 0.4\% \\
+Other loop overhead & 0.633 & 1.066 & \(+0.434\) & 4.4\% \\
 \midrule
 Total training loop & 8.063 & 24.133 & \(+16.070\) & 100.0\% \\
 \bottomrule
@@ -20,7 +21,9 @@ Total training loop & 8.063 & 24.133 & \(+16.070\) & 100.0\% \\
 \caption{Hardware-specific FPP TD3 implementation profile over the
 20k--100k window of seed 1. HER and SABER achieve 124.0 and 41.4 environment
 steps/s excluding evaluation, respectively. The profile identifies current
-support retrieval as the dominant overhead; it is not a learning-performance
-claim and is not extrapolated to 1M steps.}
+support retrieval as the dominant overhead. Other loop overhead is the
+difference between total loop time and the explicitly instrumented
+components. The profile is not a learning-performance claim and is not
+extrapolated to 1M steps.}
 \label{tab:supp-runtime-components}
 \end{table*}
