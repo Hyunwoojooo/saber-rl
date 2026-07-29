@@ -1,40 +1,69 @@
-\documentclass[letterpaper]{article}
-\usepackage[submission]{aaai2027}
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage[left=0.62in,right=0.62in,top=0.55in,bottom=0.58in]{geometry}
 \usepackage[hyphens]{url}
 \usepackage{graphicx}
 \graphicspath{{./}{../}}
 \urlstyle{rm}
 \def\UrlFont{\rm}
-\usepackage{caption}
+\usepackage[font=small,labelfont=bf,skip=4pt]{caption}
 \frenchspacing
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{placeins}
 
-\ifdefined\pdfinfo
-\pdfinfo{
-/TemplateVersion (2027.1)
-}
-\fi
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{7pt plus 2pt minus 2pt}
+\setlength{\intextsep}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setcounter{topnumber}{6}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.90}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.82}
+
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{0pt}%
+  {1.5ex plus 0.5ex minus 0.2ex}{0.6ex}%
+  {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{0pt}%
+  {1.2ex plus 0.4ex minus 0.2ex}{0.4ex}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{0pt}%
+  {0.9ex plus 0.3ex minus 0.2ex}{-0.6em}%
+  {\normalfont\normalsize\bfseries}}
+% Legacy full-width tables become ordinary flexible floats in one-column mode.
+\renewenvironment{table*}[1][tbp]
+  {\begin{table}[!htbp]}
+  {\end{table}}
+\makeatother
 
 \setcounter{secnumdepth}{2}
 
-\title{Technical Supplement for SABER: Support-Conditioned Adaptive Bellman
-Error Reweighting for Sparse HER Actor-Critic}
-\author{Anonymous Submission}
-\affiliations{}
-
 \begin{document}
-\maketitle
+\suppressfloats[t]
+\begin{center}
+{\LARGE\bfseries Technical Supplement}\\[2pt]
+{\large\bfseries SABER: Support-Conditioned Adaptive Bellman Error
+Reweighting for Sparse HER Actor-Critic}\\[3pt]
+{\normalsize Anonymous Submission}
+\end{center}
+\vspace{2pt}
 
-\begin{abstract}
+\noindent\textbf{Overview.}
 This supplement provides complete experimental settings, seed-level primary
 results, sensitivity and scope controls, support-signal diagnostic details,
 runtime measurements, and an index of the anonymous code-and-data artifacts.
 It uses the terminology and method definitions of the main paper.
-\end{abstract}
 
 \noindent\textbf{Working-draft completion status.}
 Two result slots are intentionally marked \emph{pending}: FPP DDPG
@@ -72,8 +101,6 @@ A successfully relabeled transition is treated as nonterminal for bootstrap
 purposes. Time-limit transitions also bootstrap. This convention is identical
 across methods within each cohort.
 
-\FloatBarrier
-
 \subsection{Support Context and Retrieval}
 
 \input{tables/supplementary_support_contexts}
@@ -91,8 +118,6 @@ For the Drawer phase definitions, let \(d_h\) be hand--handle distance and
 \(d_g\leq0.05\); the opening or closing phase requires \(d_h\leq0.08\) and
 \(0.05<d_g\leq0.12\); contact requires \(d_h\leq0.08\) and \(d_g>0.12\);
 remaining samples are approach. Phases use the relabeled training goal.
-
-\FloatBarrier
 
 \subsection{Comparison Methods}
 
@@ -119,8 +144,6 @@ stored control used independent target-policy smoothing noise for weight
 construction and optimized residuals, preventing the intended matched-signal
 interpretation.
 
-\FloatBarrier
-
 \subsection{Metrics and Statistical Analysis}
 
 Let \(q_j\in[0,1]\) be deterministic evaluation success at exact shared
@@ -143,20 +166,19 @@ resamples with pseudorandom seed 2027. Sample standard deviations use
 \(n-1\) in the denominator. No curve is smoothed, interpolated,
 extrapolated, or forward-filled.
 
+\FloatBarrier
 \section{Primary Comparison Details}
 
 \subsection{Drawer Learning Curves}
 
-\begin{figure*}[t]
+\begin{figure}[!tbp]
 \centering
 \includegraphics[width=\textwidth]{figures/supplementary_drawer_primary_learning_curves.pdf}
 \caption{DrawerOpen and DrawerClose learning curves for DDPG and TD3.
 Lines are seed means and bands are sample standard deviations over paired
 seeds 1--5 on the exact 10k grid. No smoothing or interpolation is applied.}
 \label{fig:supp-drawer-primary-curves}
-\end{figure*}
-
-\FloatBarrier
+\end{figure}
 
 \subsection{Time to Threshold}
 
@@ -164,8 +186,6 @@ seeds 1--5 on the exact 10k grid. No smoothing or interpolation is applied.}
 
 Hit90 is a threshold-crossing summary rather than a stability measure.
 Coverage is especially important when only a subset of seeds reaches 0.9.
-
-\FloatBarrier
 
 \subsection{FPP TD3 Confirmatory and HER-Indexing Sensitivity Results}
 
@@ -178,8 +198,6 @@ matched HER--SABER difference otherwise unchanged. Its positive observed mean
 direction does not constitute an equivalence test between HER indexing
 conventions.
 
-\FloatBarrier
-
 \section{Additional Controls and Sensitivities}
 
 \subsection{Allocation Signal}
@@ -191,8 +209,6 @@ Table~\ref{tab:supp-td-error-weighting}, SABER has higher observed mean AUC
 than TD-error critic-loss weighting. These controls isolate the weighting
 signal more closely than PER because both retain uniform replay.
 
-\FloatBarrier
-
 \subsection{Action-Bin Resolution}
 
 \input{tables/supplementary_action_bin_sensitivity_table}
@@ -201,8 +217,6 @@ Both \(K=3\) and \(K=7\) lower FPP TD3 mean AUC relative to the Main
 \(K=5\) setting in this paired sensitivity. The accompanying support rates
 show that bin resolution also changes activation frequency; this experiment
 does not isolate bin geometry from support density.
-
-\FloatBarrier
 
 \subsection{Actor and Critic Weight Scope}
 
@@ -213,8 +227,6 @@ minibatch normalization fixed. Critic-Only applies \(\Omega_i\) only to
 Bellman losses; Actor-Only applies it to per-sample actor terms; Actor+Critic
 applies it to both. Because each scope induces its own training trajectory,
 realized support indicators are not assumed to be identical across runs.
-
-\FloatBarrier
 
 \subsection{Secondary Replay and Update-Budget References}
 
@@ -228,7 +240,6 @@ SAC, but they change UTD or architecture and therefore do not replace the
 matched UTD-1 comparison.
 
 \FloatBarrier
-
 \section{Support-Signal Diagnostic Details}
 
 \subsection{Instrumentation and Aggregation}
@@ -264,8 +275,6 @@ breaks ties, so the selected set has exactly the intended size. The modest
 Pearson correlations and enrichment above one show that support and TD error
 are related but not identical rankings.
 
-\FloatBarrier
-
 \subsection{Phase-Conditioned Allocation}
 
 \input{tables/supplementary_phase_diagnostics_table}
@@ -276,7 +285,6 @@ phase analysis describes where the indicator activates; it is not an
 independent causal test of long-horizon performance.
 
 \FloatBarrier
-
 \section{Runtime and Resource Measurements}
 
 \input{tables/supplementary_runtime_components_table}
@@ -291,7 +299,6 @@ memory was not recorded and is therefore reported as not measured rather
 than estimated.
 
 \FloatBarrier
-
 \section{Artifact and Provenance Index}
 
 \input{tables/supplementary_artifact_index_table}
