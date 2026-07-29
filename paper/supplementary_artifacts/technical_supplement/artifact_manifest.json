@@ -1,14 +1,14 @@
 {
   "files": [
     {
-      "bytes": 3090,
+      "bytes": 3762,
       "path": "paper/supplementary_artifacts/technical_supplement/README.md",
-      "sha256": "20d2f59f8565aa9c7c4713d15a0170833cbb6533ab18656618b5186ac4a04c70"
+      "sha256": "0b1c84f312a85d02447c1ddbf2473f4540cc2feb299a28647ba610866f23a01d"
     },
     {
-      "bytes": 1273,
+      "bytes": 1380,
       "path": "paper/supplementary_artifacts/technical_supplement/artifact_index.csv",
-      "sha256": "d0c0f8467abb72220a374e9014608e81d7ade21a3f577b8bed06ba7f48c65549"
+      "sha256": "ff88320e51d6277e92a8eb6a0fe4ec8ff1578756a4072342b0e1e7b83735f2bc"
     },
     {
       "bytes": 1389,
@@ -19,6 +19,16 @@
       "bytes": 1683,
       "path": "paper/supplementary_artifacts/technical_supplement/drawerclose_phase_summary.csv",
       "sha256": "3f7c9bd6c2ba77cd5147a89efb5519a9bf898c12ade3abf911beda78dbb3ba53"
+    },
+    {
+      "bytes": 1280,
+      "path": "paper/supplementary_artifacts/technical_supplement/execution_environment_summary.csv",
+      "sha256": "ac58b188633cd1a45f8d49450223458a4a03ab294740a682176f186f76ebbbd6"
+    },
+    {
+      "bytes": 4231,
+      "path": "paper/supplementary_artifacts/technical_supplement/execution_host_mapping.csv",
+      "sha256": "45ddac0dd3f1609aa4dd5b0d12bd7900c490dd61fa3bb04d3e6bc3f6b2ec7bab"
     },
     {
       "bytes": 1495,

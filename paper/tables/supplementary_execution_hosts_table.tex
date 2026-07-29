@@ -1,0 +1,38 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.10\textwidth}
+                >{\raggedright\arraybackslash}p{0.25\textwidth}
+                >{\raggedright\arraybackslash}p{0.28\textwidth}
+                >{\raggedright\arraybackslash}p{0.28\textwidth}}
+\toprule
+Host & Hardware and OS & Audited current software stack & Provenance boundary \\
+\midrule
+A &
+20-core ARM (10 Cortex-X925 + 10 Cortex-A725), 121 GiB RAM, NVIDIA GB10,
+Ubuntu 24.04.4, kernel 6.17.0-1014-nvidia &
+Python 3.12.3; PyTorch 2.11.0+cu130; CUDA 13.0; cuDNN 9.19; Gymnasium 1.3.0;
+Gymnasium-Robotics 1.4.2; MuJoCo 3.8.1; Meta-World 3.0.0 &
+Package metadata did not change after the confirmed runs, but no
+contemporaneous full environment freeze was retained. The pending FPP
+Actor+Critic run is a non-exact checkpoint continuation. \\
+\midrule
+B &
+20-core ARM (10 Cortex-X925 + 10 Cortex-A725), 121 GiB RAM, NVIDIA GB10,
+Ubuntu 24.04.4, kernel 6.17.0-1026-nvidia &
+Python 3.12.3; PyTorch 2.12.1+cu130; CUDA 13.0; cuDNN 9.2; Gymnasium 1.3.0;
+Gymnasium-Robotics 1.4.2; MuJoCo 3.3.0; Meta-World 3.1.1 &
+Exactness varies by run family: stored commits or frozen source snapshots
+identify confirmed code, but the current package environment is not assigned
+retroactively to early or artifact-only runs. \\
+\bottomrule
+\end{tabular}
+\caption{Post hoc audit of two confirmed execution hosts. GB10 memory is
+CUDA-addressable unified memory (approximately 121.6 GiB), not dedicated VRAM.
+The table reports audited current stacks and their provenance boundaries; it
+does not assert that every historical run used the listed current package
+versions. Detailed run-family mappings are provided in
+\texttt{execution\_host\_mapping.csv}.}
+\label{tab:supp-execution-hosts}
+\end{table*}

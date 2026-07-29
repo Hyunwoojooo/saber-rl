@@ -42,6 +42,18 @@ The HGR/SABER table is descriptive within cohort because hardware identifiers
 are not uniformly available. Peak memory was not recorded and is reported as
 not measured rather than estimated.
 
+## Execution-host audit
+
+'execution_environment_summary.csv' records sanitized hardware and current
+software summaries for two audited GB10 hosts. 'execution_host_mapping.csv'
+maps only run families supported by local logs, configurations, completion
+records, or frozen source snapshots. The mapping preserves 'not exact',
+'uncertain', and 'varies' labels rather than assigning a current environment
+retroactively. Host-side 'pip freeze' and 'torch collect_env' outputs were
+collected after training but are not copied into this repository snapshot.
+Consequently, this audit improves traceability without changing the stated
+partial environment-reproducibility boundary.
+
 ## Secondary-reference sources
 
 - FPP DDPG/TD3/SAC no-HER AER artifacts under

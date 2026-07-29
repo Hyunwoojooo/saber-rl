@@ -314,6 +314,21 @@ independent causal test of long-horizon performance.
 \FloatBarrier
 \section{Runtime and Resource Measurements}
 
+\subsection{Execution-Environment Audit}
+
+\input{tables/supplementary_execution_hosts_table}
+
+The audit maps only run families supported by local launch logs, configurations,
+completion records, or frozen source snapshots. It does not assign either
+current host environment to artifacts whose execution host is uncertain. Full
+sanitized mappings, including source-provenance and environment-exactness
+fields, are provided in \texttt{execution\_host\_mapping.csv}. Because
+contemporaneous environment freezes were not retained uniformly, environment
+reproducibility remains partial rather than complete.
+
+\FloatBarrier
+\subsection{Dedicated Runtime Profile}
+
 \input{tables/supplementary_runtime_environment_table}
 \input{tables/supplementary_runtime_components_table}
 \input{tables/supplementary_hgr_throughput_table}
