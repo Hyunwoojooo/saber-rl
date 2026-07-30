@@ -1,10 +1,9 @@
-% FPP TD3 inclusive-future HER indexing sensitivity. Values are generated from
-% experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m.
-\begin{table}[t]
+% FPP TD3 inclusive-future sensitivity. This fragment is placed in the right
+% minipage of the paired extension/sensitivity float.
 \centering
 \small
-\setlength{\tabcolsep}{5pt}
-\begin{tabular}{@{}lccc@{}}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}rccc@{}}
 \toprule
 Seed & HER AUC & SABER AUC & Difference \\
 \midrule
@@ -17,9 +16,7 @@ Seed & HER AUC & SABER AUC & Difference \\
 Mean & 0.3261 & 0.3935 & $+0.0674$ \\
 \bottomrule
 \end{tabular}
-\caption{FPP TD3 sensitivity to inclusive future-goal indexing, which also
-admits $m(s_{t+1})$. AUC uses the exact 10k--1M evaluation grid. The
-final-quarter AUC difference is $+0.1854$ (95\% CI $[-0.0212,0.3920]$), and
-the final-success difference is $+0.2200$ (95\% CI $[-0.2000,0.5200]$).}
+\captionof{table}{FPP TD3 inclusive-future sensitivity, also admitting
+$m(s_{t+1})$. AUC uses the exact 10k--1M grid. FQ-AUC: $+0.1854$ (95\% CI
+$[-0.0212,0.3920]$); final: $+0.2200$ (95\% CI $[-0.2000,0.5200]$).}
 \label{tab:supp-fpp-td3-inclusive-future}
-\end{table}

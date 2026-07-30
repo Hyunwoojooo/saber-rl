@@ -1,10 +1,9 @@
-% Frozen FPP TD3 confirmatory extension. Values are generated from
-% experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m.
-\begin{table}[t]
+% Frozen FPP TD3 confirmatory extension. This fragment is placed in the
+% left minipage of the paired extension/sensitivity float.
 \centering
 \small
-\setlength{\tabcolsep}{5pt}
-\begin{tabular}{@{}lccc@{}}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}rccc@{}}
 \toprule
 Seed & HER AUC & SABER AUC & Difference \\
 \midrule
@@ -22,8 +21,7 @@ Seed & HER AUC & SABER AUC & Difference \\
 Mean & 0.3826 & 0.4293 & $+0.0467$ \\
 \bottomrule
 \end{tabular}
-\caption{Frozen FPP TD3 confirmatory extension over ten paired seeds. AUC is
-computed on the exact 10k--1M evaluation grid without smoothing,
-interpolation, or filling.}
+\captionof{table}{Frozen FPP TD3 confirmatory extension over ten paired
+seeds. AUC uses the exact 10k--1M grid without smoothing, interpolation, or
+filling.}
 \label{tab:supp-fpp-td3-n10}
-\end{table}
