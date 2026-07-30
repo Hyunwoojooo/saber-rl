@@ -1,0 +1,46 @@
+{
+  "collection_caveat": "The software snapshot was collected after completion rather than embedded in each process at launch.",
+  "collection_status": "Post-run collection from the same physical machine and virtual environment used by the runs.",
+  "cpu": {
+    "logical_count": 20,
+    "platform_processor": "aarch64"
+  },
+  "cudnn": 92000,
+  "gpu": {
+    "count": 1,
+    "cuda_addressable_memory_bytes": 130602450944,
+    "cuda_capability": [
+      12,
+      1
+    ],
+    "memory_architecture_note": "GB10 uses unified memory; this is CUDA-addressable memory, not separately reported discrete VRAM.",
+    "model": "NVIDIA GB10"
+  },
+  "memory": {
+    "system_total_bytes": 130602450944
+  },
+  "nvidia_driver": "580.95.05",
+  "os": {
+    "architecture": "aarch64",
+    "kernel": "6.11.0-1016-nvidia",
+    "name": "Ubuntu 24.04.3 LTS"
+  },
+  "packages": {
+    "gymnasium": "1.3.0",
+    "gymnasium-robotics": "1.4.2",
+    "llvmlite": "0.48.0",
+    "metaworld": "3.0.0",
+    "mujoco": "3.9.0",
+    "numba": "0.66.0",
+    "numpy": "2.3.5",
+    "scipy": "1.17.1",
+    "torch": "2.12.0"
+  },
+  "python": "3.12.3",
+  "pytorch": "2.12.0+cu130",
+  "pytorch_cuda": "13.0",
+  "run_completed_kst": "2026-07-29T22:39:11+09:00",
+  "run_started_kst": "2026-07-28T19:52:39+09:00",
+  "site_package_metadata_modified_after_launch": [],
+  "site_package_metadata_unchanged_after_launch": true
+}

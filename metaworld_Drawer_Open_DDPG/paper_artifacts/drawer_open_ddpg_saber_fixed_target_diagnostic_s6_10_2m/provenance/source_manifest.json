@@ -1,0 +1,146 @@
+{
+  "all_execution_files_match_commit": true,
+  "execution_commit": "22015c0a3743d4a10f72197752022ed0e08ee730",
+  "files": [
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
+      "size_bytes": 48
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/agent.py",
+      "sha256": "deea89296830d47e7ae9e0add5d8d39fcd4e3e14af6cf6ea724fb249a9fb79de",
+      "size_bytes": 9226
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/config.py",
+      "sha256": "5cea452a5bc727b8a05c54d44893fe43f1f2ab7ef0352457cb954d59ae5f037c",
+      "size_bytes": 17686
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/envs.py",
+      "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+      "size_bytes": 12291
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+      "size_bytes": 47402
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+      "size_bytes": 4334
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+      "size_bytes": 996
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+      "size_bytes": 15300
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+      "size_bytes": 14842
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+      "size_bytes": 19844
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+      "size_bytes": 9112
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+      "size_bytes": 7237
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+      "size_bytes": 4807
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+      "size_bytes": 8674
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+      "size_bytes": 7037
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+      "size_bytes": 14815
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+      "size_bytes": 6273
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "9e41335616d4fb9f8aa1b46af790ce98dba8fe91bf39f4700eec9d06028925ca",
+      "size_bytes": 84391
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/weights.py",
+      "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0",
+      "size_bytes": 76516
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/test_context_count_only_ddpg_loss_scope.py",
+      "sha256": "8d8aa88e4ac103bc72cab7e6e1faa959b067fee2c3d8533bd113a476d4e41e3b",
+      "size_bytes": 3899
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/test_context_count_only_drawer_open.py",
+      "sha256": "e6d8414db74f388f93c48d57ed7faf4c48d42d6c7d9dba4f60b4fc07b2e13870",
+      "size_bytes": 12937
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/test_drawer_open_fixed_target_diagnostic.py",
+      "sha256": "4c406b58c63c2dd97788c2bc128a03e372f0e7f44f5871d7d410cabfd2221d3b",
+      "size_bytes": 7205
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/train_drawer_open_lite_v0.py",
+      "sha256": "cdb154ed523062060979765c1917b03c5aee5e7cf13c2c453b1c3080dbcb3471",
+      "size_bytes": 19278
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/.gitignore",
+      "sha256": "52bc2fdd7287dd2d0b4ab3fc0cd71224295a623cebe040280b4ebbe9769cc47a",
+      "size_bytes": 63
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/README.md",
+      "sha256": "b5694315a1d221517c099c13cc5279865bce76a08628c65827ed3b6a919f7be8",
+      "size_bytes": 3213
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/requirements-runtime.txt",
+      "sha256": "c6696f45878defe7be99af88b6421c18f7e38c6356eb2d19305370fe5291a8b9",
+      "size_bytes": 44
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/run_5seeds_parallel.sh",
+      "sha256": "33204941d4fd5c3f8585d9e347eca4c648d0172dc58c503e3ff5921ce9d17d43",
+      "size_bytes": 5580
+    },
+    {
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/validate_completed_runs.py",
+      "sha256": "30bca534a9d75cb8356425cbf00e000d121b20a250fafee74f95d629971a1754",
+      "size_bytes": 4171
+    }
+  ]
+}

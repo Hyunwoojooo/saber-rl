@@ -1,0 +1,76 @@
+{
+  "all_runs_validated": true,
+  "runs": [
+    {
+      "audit_mismatch_rate": 0.0,
+      "diagnostic_cadence": 200,
+      "diagnostic_first_step": 5000,
+      "diagnostic_last_step": 2000000,
+      "diagnostic_snapshot_count": 9976,
+      "eval_row_count": 200,
+      "exact_top10_count": 26,
+      "fixed_target_from_pre_update": true,
+      "numba_fallback_rate": 0.0,
+      "same_minibatch_one_update": true,
+      "seed": 6,
+      "total_steps": 2000000
+    },
+    {
+      "audit_mismatch_rate": 0.0,
+      "diagnostic_cadence": 200,
+      "diagnostic_first_step": 5000,
+      "diagnostic_last_step": 2000000,
+      "diagnostic_snapshot_count": 9976,
+      "eval_row_count": 200,
+      "exact_top10_count": 26,
+      "fixed_target_from_pre_update": true,
+      "numba_fallback_rate": 0.0,
+      "same_minibatch_one_update": true,
+      "seed": 7,
+      "total_steps": 2000000
+    },
+    {
+      "audit_mismatch_rate": 0.0,
+      "diagnostic_cadence": 200,
+      "diagnostic_first_step": 5000,
+      "diagnostic_last_step": 2000000,
+      "diagnostic_snapshot_count": 9976,
+      "eval_row_count": 200,
+      "exact_top10_count": 26,
+      "fixed_target_from_pre_update": true,
+      "numba_fallback_rate": 0.0,
+      "same_minibatch_one_update": true,
+      "seed": 8,
+      "total_steps": 2000000
+    },
+    {
+      "audit_mismatch_rate": 0.0,
+      "diagnostic_cadence": 200,
+      "diagnostic_first_step": 5000,
+      "diagnostic_last_step": 2000000,
+      "diagnostic_snapshot_count": 9976,
+      "eval_row_count": 200,
+      "exact_top10_count": 26,
+      "fixed_target_from_pre_update": true,
+      "numba_fallback_rate": 0.0,
+      "same_minibatch_one_update": true,
+      "seed": 9,
+      "total_steps": 2000000
+    },
+    {
+      "audit_mismatch_rate": 0.0,
+      "diagnostic_cadence": 200,
+      "diagnostic_first_step": 5000,
+      "diagnostic_last_step": 2000000,
+      "diagnostic_snapshot_count": 9976,
+      "eval_row_count": 200,
+      "exact_top10_count": 26,
+      "fixed_target_from_pre_update": true,
+      "numba_fallback_rate": 0.0,
+      "same_minibatch_one_update": true,
+      "seed": 10,
+      "total_steps": 2000000
+    }
+  ],
+  "seed_count": 5
+}
