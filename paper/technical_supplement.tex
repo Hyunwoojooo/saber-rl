@@ -49,6 +49,7 @@
 \makeatother
 
 \setcounter{secnumdepth}{2}
+\newcounter{saberalgorithm}
 
 \begin{document}
 \suppressfloats[t]
@@ -61,16 +62,19 @@ for Sparse-Reward Hindsight Experience Replay}\\[3pt]
 \vspace{2pt}
 
 \noindent\textbf{Overview.}
-This supplement provides complete experimental settings, seed-level primary
-results, sensitivity and scope controls, support-signal diagnostic details,
-runtime measurements, and an index of the anonymous code-and-data artifacts.
-It uses the terminology and method definitions of the main paper.
+This supplement gives a complete mathematical specification and pseudocode
+for SABER, followed by experimental settings, seed-level primary results,
+sensitivity and scope controls, support-signal diagnostics, runtime
+measurements, and an index of the anonymous code-and-data artifacts.
 
 \noindent\textbf{Working-draft completion status.}
 One result slot remains \emph{pending}: FPP DDPG Actor+Critic. No value is
 inferred from its incomplete run. This marker and paragraph must be removed
 after a complete, validated five-seed artifact replaces the remaining slot.
 
+\input{supplementary_saber_specification}
+
+\FloatBarrier
 \section{Experimental and Reproducibility Details}
 
 \subsection{Tasks, Cohorts, and Shared Training Settings}
@@ -82,24 +86,6 @@ primary cohort because a complete matched HER--SABER pair was not collected.
 
 \input{tables/supplementary_experimental_settings}
 
-\paragraph{HER convention.}
-For an episode with transitions indexed by \(t=0,\ldots,T-1\), a transition
-selected for relabeling samples
-\[
-u\sim\operatorname{Unif}\{t+1,\ldots,T-1\},\qquad
-\widetilde g=m(s_{u+1}).
-\]
-The original desired goal is retained when the eligible set is empty or when
-relabeling is not selected. Reward is recomputed using \(\widetilde g\).
-Consequently, the nominal relabeling probability is \(0.8\), while the
-realized fraction may be slightly lower near an episode boundary. Matched
-HER--SABER cohorts execute the same replay and relabeling code.
-
-\paragraph{Terminal convention.}
-A successfully relabeled transition is treated as nonterminal for bootstrap
-purposes. Time-limit transitions also bootstrap. This convention is identical
-across methods within each cohort.
-
 \paragraph{Development scope and seed mapping.}
 We did not conduct an exhaustive joint hyperparameter search. The Main SABER
 settings were fixed for the matched comparisons, and no control received
@@ -110,24 +96,6 @@ the support-weight stream uses \(20000+s\), and evaluation uses base seed
 \(10000+s\). Training resets advance deterministically with the episode index,
 and evaluation resets use a deterministic checkpoint- and episode-indexed
 offset. All methods in a paired cohort use the same seed mapping.
-
-\subsection{Support Context and Retrieval}
-
-\input{tables/supplementary_support_contexts}
-
-The replay index returns at most \(N_{\mathrm{scan}}\) slots associated with a
-coarse retrieval key in implementation-defined index order. Those candidates
-are filtered by exact component-wise equality of the full context. The current
-implementation does not guarantee temporal recency after circular-buffer
-wraparound; no claim relies on candidates being the most recent transitions.
-The sampled transition remains eligible to appear in its own local replay
-set.
-
-For the Drawer phase definitions, let \(d_h\) be hand--handle distance and
-\(d_g\) be handle--goal distance. The terminal phase is open or closed when
-\(d_g\leq0.05\); the opening or closing phase requires \(d_h\leq0.08\) and
-\(0.05<d_g\leq0.12\); contact requires \(d_h\leq0.08\) and \(d_g>0.12\);
-remaining samples are approach. Phases use the relabeled training goal.
 
 \subsection{Comparison Methods}
 

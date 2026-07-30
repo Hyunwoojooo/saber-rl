@@ -1,0 +1,30 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.10\textwidth}
+                >{\centering\arraybackslash}p{0.06\textwidth}
+                >{\raggedright\arraybackslash}p{0.22\textwidth}
+                >{\raggedright\arraybackslash}p{0.28\textwidth}
+                >{\raggedright\arraybackslash}p{0.24\textwidth}}
+\toprule
+Backbone & \(n_Q\) & Support-query action \(a_i^\pi\) &
+Continuation value \(V_i^{\mathsf A}\) & Update retained from backbone \\
+\midrule
+DDPG & 1 & Deterministic actor \(\mu_\theta(x_i)\) &
+Target critic at target-actor action &
+Actor and Polyak target updates at every critic update \\
+TD3 & 2 & Deterministic actor \(\mu_\theta(x_i)\) &
+Minimum target critic at clipped, noise-perturbed target action &
+Delayed actor and target updates \\
+SAC & 2 & Deterministic squashed actor mean &
+Minimum target critic minus entropy term at a stochastic policy sample &
+Stochastic actor, temperature, and target-critic updates \\
+\bottomrule
+\end{tabular}
+\caption{Backbone integration. The support-query action is detached and used
+only to compute the discrete indicator. Target construction, actor objectives,
+temperature optimization, and target-network schedules are not reweighted or
+otherwise changed by Main SABER.}
+\label{tab:supp-saber-backbone-integration}
+\end{table*}

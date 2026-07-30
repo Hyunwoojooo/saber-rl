@@ -1,0 +1,300 @@
+\section{Complete SABER Specification}
+\label{sec:supp-complete-saber}
+
+\subsection{Scope, Problem Setting, and Notation}
+
+SABER is a critic-loss allocation rule for replay-based off-policy
+actor--critic learning. It is neither a replay sampler nor a network module.
+Consider a finite-horizon goal-conditioned MDP
+\[
+\mathcal M=(\mathcal S,\mathcal A,\mathcal G,P,r,\gamma,H).
+\]
+The agent receives observation \(o_t\), desired goal \(g\), and network input
+\(x_t=(o_t,g)\). The achieved-goal map is \(m:\mathcal S\rightarrow\mathcal G\).
+The sparse reward used in the experiments is
+\begin{equation}
+r(s_t,a_t,s_{t+1},g)=
+\begin{cases}
+0, & d\!\left(m(s_{t+1}),g\right)\leq\epsilon_g,\\
+-1, & \text{otherwise}.
+\end{cases}
+\label{eq:supp-sparse-reward}
+\end{equation}
+Replay stores the executed action \(a_i^r\). We reserve \(a_i^\pi\) for the
+detached current-policy action used only by SABER's discrete support query.
+There are \(n_Q=1\) critics for DDPG and \(n_Q=2\) for TD3 and SAC.
+
+\subsection{Future-Goal HER Batch and Unchanged Bellman Targets}
+\label{sec:supp-her-batch}
+
+Let an episode contain states \(s_0,\ldots,s_T\) and transitions indexed by
+\(t=0,\ldots,T-1\). When transition \(t\) is selected for relabeling and has
+an eligible later stored transition, the implemented future-goal convention
+samples
+\begin{equation}
+\begin{aligned}
+u &\sim \operatorname{Unif}\{t+1,\ldots,T-1\},\\
+\widetilde g_i &= m(s_{u+1}),\\
+\widetilde r_i &= r(s_t,a_t,s_{t+1},\widetilde g_i).
+\end{aligned}
+\label{eq:supp-her-relabel}
+\end{equation}
+If the eligible set is empty, or if relabeling is not selected, the original
+desired goal and its corresponding reward are retained. Thus the nominal
+relabeling probability is \(p_{\mathrm{HER}}=0.8\), while the realized
+fraction can be slightly lower near an episode boundary. The relabeled
+network inputs are
+\[
+x_i=(o_i,\widetilde g_i),
+\qquad
+x_i'=(o_i',\widetilde g_i).
+\]
+
+Let \(\chi_i\in\{0,1\}\) be the bootstrap mask. Successful relabeled
+transitions and time-limit transitions use \(\chi_i=1\); genuine terminating
+transitions use \(\chi_i=0\). For backbone \(\mathsf A\), define
+\begin{equation}
+y_i^{\mathsf A}
+=\widetilde r_i+\gamma\chi_iV_i^{\mathsf A}(x_i'),
+\label{eq:supp-generic-target}
+\end{equation}
+where target values are evaluated without gradient. Writing barred parameters
+for target networks, the implemented continuation values have the standard
+forms
+\begin{align}
+V_i^{\mathrm{DDPG}}
+&=Q_{\bar\phi_1}\!\left(
+x_i',\mu_{\bar\theta}(x_i')\right),
+\label{eq:supp-ddpg-target}\\
+\varepsilon_i
+&\sim\operatorname{clip}\!\left(
+\mathcal N(0,\sigma_{\mathrm{targ}}^2I),-c,c\right),\nonumber\\
+\widetilde a_i'
+&=\operatorname{clip}_{\mathcal A}\!\left(
+\mu_{\bar\theta}(x_i')+\varepsilon_i\right),\nonumber\\
+V_i^{\mathrm{TD3}}
+&=\min_{k\in\{1,2\}}
+Q_{\bar\phi_k}(x_i',\widetilde a_i'),
+\label{eq:supp-td3-target}\\
+a_i'&\sim\pi_\theta(\cdot\mid x_i'),\nonumber\\
+V_i^{\mathrm{SAC}}
+&=\min_{k\in\{1,2\}}Q_{\bar\phi_k}(x_i',a_i')
+-\alpha\log\pi_\theta(a_i'\mid x_i').
+\label{eq:supp-sac-target}
+\end{align}
+SABER does not change any quantity in
+Eqs.~\eqref{eq:supp-her-relabel}--\eqref{eq:supp-sac-target}. For critic \(k\),
+the replay-action Bellman residual remains
+\begin{equation}
+\delta_{ik}
+=Q_{\phi_k}(x_i,a_i^r)-y_i^{\mathsf A}.
+\label{eq:supp-residual}
+\end{equation}
+Under ordinary uniformly sampled HER, every squared residual has explicit
+coefficient one.
+
+\subsection{Current-Policy Local Support}
+\label{sec:supp-local-support}
+
+For each relabeled sample, SABER forms the full discrete
+observation--goal--horizon context
+\begin{equation}
+c_i=C(o_i,\widetilde g_i,h_i),
+\label{eq:supp-full-context}
+\end{equation}
+where \(h_i\) is the remaining horizon. A lower-dimensional retrieval key
+\(C^{\mathrm{ret}}(o_i,h_i)\) is used only to query the replay index. Let
+\(\mathbf J_i^{\mathrm{ret}}\) be the resulting ordered list of currently
+valid, unique replay slots. Invalid entries and duplicate slot identifiers
+are removed in maintained index order, retaining the first valid occurrence.
+The bounded scan is
+\begin{equation}
+S_i=
+\operatorname{Tail}_{N_{\mathrm{scan}}}
+\!\left(\mathbf J_i^{\mathrm{ret}}\right),
+\qquad |S_i|\leq N_{\mathrm{scan}}.
+\label{eq:supp-bounded-scan}
+\end{equation}
+The tail refers to deterministic maintained index order, not guaranteed
+temporal recency after circular-buffer wraparound. The coarse key is only an
+acceleration device. Support eligibility is determined by exact
+component-wise equality of the full context:
+\begin{equation}
+I_i=
+\left\{
+j\in S_i:
+C(o_j,\widetilde g_i,h_j)
+=C(o_i,\widetilde g_i,h_i)
+\right\}.
+\label{eq:supp-local-set}
+\end{equation}
+The query's relabeled goal \(\widetilde g_i\) is used on both sides; a
+candidate's originally stored desired goal is not used for matching. The
+sampled transition is not removed from consideration and may therefore occur
+in \(I_i\).
+
+For action dimension \(d\), let \(\ell_d\) and \(u_d\) be its environment
+bounds. SABER first maps the action to
+\begin{equation}
+z_d(a)=
+\operatorname{clip}\!\left(
+\frac{a_d-\ell_d}{u_d-\ell_d},0,1\right)
+\label{eq:supp-action-normalization}
+\end{equation}
+and assigns the discrete component
+\begin{equation}
+b_{K,d}(a)=
+\min\!\left\{K-1,\left\lfloor Kz_d(a)\right\rfloor\right\}.
+\label{eq:supp-action-bin-component}
+\end{equation}
+The multidimensional bin \(b_K(a)\) is the tuple of these components; the
+implementation stores its equivalent base-\(K\) integer encoding. The local
+set of occupied replay-action bins is
+\begin{equation}
+\mathcal U_i=
+\left\{b_K(a_j^r):j\in I_i\right\},
+\qquad n_i=|I_i|.
+\label{eq:supp-occupied-bins}
+\end{equation}
+The binary support indicator is
+\begin{equation}
+\psi_i=
+\mathbf 1\!\left\{n_i\geq N_{\mathrm{local}}\right\}
+\mathbf 1\!\left\{b_K(a_i^\pi)\in\mathcal U_i\right\}.
+\label{eq:supp-support-indicator}
+\end{equation}
+If retrieval returns no candidates, exact matching yields too few candidates,
+or the policy bin is unoccupied, then \(\psi_i=0\). Main SABER uses
+\[
+K=5,\qquad N_{\mathrm{scan}}=512,\qquad N_{\mathrm{local}}=4.
+\]
+DDPG and TD3 use their deterministic actor output as \(a_i^\pi\). SAC uses
+the deterministic squashed actor mean for this query only; its target and
+actor updates continue to use stochastic policy samples. No gradient passes
+through \(a_i^\pi\), action binning, retrieval, or \(\psi_i\).
+
+\input{tables/supplementary_support_contexts}
+
+For the Drawer phase definitions, let \(d_h\) be hand--handle distance and
+\(d_g\) be handle--goal distance. The terminal phase is open or closed when
+\(d_g\leq0.05\); opening or closing requires \(d_h\leq0.08\) and
+\(0.05<d_g\leq0.12\); contact requires \(d_h\leq0.08\) and \(d_g>0.12\);
+remaining samples are approach. Phases use the relabeled training goal.
+
+\subsection{Mean-Normalized Critic-Only Objective}
+\label{sec:supp-saber-objective}
+
+SABER assigns the raw coefficient
+\begin{equation}
+w_i^{\mathrm{raw}}=1+\lambda_S\psi_i
+\label{eq:supp-raw-weight}
+\end{equation}
+and normalizes it by the minibatch mean:
+\begin{equation}
+\bar w_B=
+\frac{1}{|B|}\sum_{j\in B}w_j^{\mathrm{raw}},
+\qquad
+\Omega_i=
+\frac{w_i^{\mathrm{raw}}}
+{\max(\epsilon_w,\bar w_B)}.
+\label{eq:supp-normalized-weight}
+\end{equation}
+We use \(\lambda_S=1\) and \(\epsilon_w=10^{-8}\). The safeguard is inactive
+because \(w_i^{\mathrm{raw}}\geq1\). If
+\(p_B=|B|^{-1}\sum_i\psi_i\), then
+\begin{equation}
+\Omega_i=
+\begin{cases}
+\dfrac{1+\lambda_S}{1+\lambda_Sp_B}, & \psi_i=1,\\[2mm]
+\dfrac{1}{1+\lambda_Sp_B}, & \psi_i=0.
+\end{cases}
+\label{eq:supp-closed-form-weight}
+\end{equation}
+Hence every sample remains in the update with a positive coefficient, the
+minibatch mean coefficient is one, and support-positive samples receive
+relative weight \(1+\lambda_S\) compared with support-negative samples. If all
+indicators in a minibatch are equal, then every normalized coefficient is
+exactly one.
+
+The critic objective is
+\begin{equation}
+\mathcal L_Q^{\mathrm{SABER}}
+=\frac{1}{|B|}
+\sum_{i\in B}\Omega_i
+\sum_{k=1}^{n_Q}\delta_{ik}^2.
+\label{eq:supp-saber-critic-loss}
+\end{equation}
+For TD3 and SAC, the same \(\Omega_i\) multiplies both critic residuals. The
+main variant is critic-only:
+\begin{equation}
+\mathcal L_\pi^{\mathrm{SABER}}
+=\mathcal L_\pi^{\mathsf A}.
+\label{eq:supp-unchanged-actor}
+\end{equation}
+Mean-one normalization preserves the average explicit coefficient, but does
+not imply an unchanged numerical loss or gradient norm because support may
+correlate with residual magnitude.
+
+\subsection{End-to-End Update}
+\label{sec:supp-saber-algorithm}
+
+Algorithm~\ref{alg:supp-saber-update} states one complete learning update.
+The replay index is maintained as transitions enter or overwrite replay
+slots. Candidate retrieval supplies only a bounded list; exact full-context
+matching determines support eligibility.
+
+\refstepcounter{saberalgorithm}
+\noindent\begin{minipage}{\textwidth}
+\label{alg:supp-saber-update}
+\small
+\textbf{Algorithm \thesaberalgorithm: One SABER update}\par
+\smallskip\hrule\smallskip
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}r@{\hspace{0.7em}}>{\raggedright\arraybackslash}p{0.90\linewidth}@{}}
+ & \textbf{Require:} replay \(\mathcal D\) and index \(\mathcal R\); actor
+ \(\pi_\theta\); critics \(\{Q_{\phi_k}\}_{k=1}^{n_Q}\); target networks \\
+ & \textbf{Require:} context maps \(C,C^{\mathrm{ret}}\);
+ \(K,N_{\mathrm{scan}},N_{\mathrm{local}},\lambda_S\) \\
+1 & \(B\gets\operatorname{UniformSample}(\mathcal D)\) \\
+2 & Apply Eq.~\eqref{eq:supp-her-relabel} where selected and eligible;
+recompute rewards. \\
+3 & \textbf{for each} relabeled sample \(i\in B\) \textbf{do} \\
+4 & \hspace*{1em}Construct \(x_i,x_i'\), bootstrap mask \(\chi_i\), and
+detached \(y_i^{\mathsf A}\) using
+Eqs.~\eqref{eq:supp-generic-target}--\eqref{eq:supp-sac-target}. \\
+5 & \hspace*{1em}\(a_i^\pi\gets
+\operatorname{sg}[\operatorname{QueryAction}_{\mathsf A}(x_i)]\) \\
+6 & \hspace*{1em}\(q_i^{\mathrm{ret}}\gets C^{\mathrm{ret}}(o_i,h_i)\) \\
+7 & \hspace*{1em}\(\mathbf J_i^{\mathrm{ret}}\gets
+\mathcal R[q_i^{\mathrm{ret}}]\) \\
+8 & \hspace*{1em}Remove invalid and duplicate slots from
+\(\mathbf J_i^{\mathrm{ret}}\). \\
+9 & \hspace*{1em}\(S_i\gets\operatorname{Tail}_{N_{\mathrm{scan}}}
+(\mathbf J_i^{\mathrm{ret}})\) \\
+10 & \hspace*{1em}\(I_i\gets\{j\in S_i:
+C(o_j,\widetilde g_i,h_j)=C(o_i,\widetilde g_i,h_i)\}\) \\
+11 & \hspace*{1em}\(\mathcal U_i\gets\{b_K(a_j^r):j\in I_i\}\) \\
+12 & \hspace*{1em}\(\psi_i\gets
+\mathbf1\{|I_i|\geq N_{\mathrm{local}}\}
+\mathbf1\{b_K(a_i^\pi)\in\mathcal U_i\}\) \\
+13 & \hspace*{1em}\(w_i^{\mathrm{raw}}\gets1+\lambda_S\psi_i\) \\
+14 & \textbf{end for} \\
+15 & \(\Omega_i\gets w_i^{\mathrm{raw}}/
+\max(\epsilon_w,|B|^{-1}\sum_{j\in B}w_j^{\mathrm{raw}})\) for every \(i\). \\
+16 & Compute replay-action residuals using Eq.~\eqref{eq:supp-residual}. \\
+17 & Update all critics with Eq.~\eqref{eq:supp-saber-critic-loss}. \\
+18 & Apply the backbone's unchanged actor, temperature, delayed-update, and
+target-network rules. \\
+\end{tabular}
+\smallskip\hrule
+\end{minipage}
+
+\input{tables/supplementary_saber_backbone_integration_table}
+
+The algorithm introduces no auxiliary target and never regresses the critic
+at \(a_i^\pi\). It does not alter minibatch membership, HER relabeling,
+reward recomputation, exploration, network architecture, optimizer, or UTD.
+The indicator is a binary occupancy proxy, not an estimate of density,
+uncertainty, target accuracy, target variance, or TD-error rank. Finally,
+SABER cannot mark an action as locally supported unless its action bin is
+already represented by replay actions in the matched context.
