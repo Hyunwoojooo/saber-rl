@@ -47,12 +47,15 @@ not recorded and is reported as not measured rather than estimated.
 ## Execution-host audit
 
 'execution_environment_summary.csv' records sanitized hardware for four
-physically distinct GB10 hosts and the verified common production-library
-stack. 'execution_host_mapping.csv' maps run families supported by local logs,
-configurations, completion records, or frozen source snapshots. Each paired
-HER--SABER cohort and all of its paired seeds ran on one physical host; no
-paired cohort was split across machines. Hardware-specific throughput remains
-descriptive and is not interpreted across hosts.
+physically distinct GB10 hosts and the stack validated for reproduction.
+'execution_host_mapping.csv' maps run families supported by local logs,
+configurations, completion records, or frozen source snapshots. Its
+`environment_exactness` field records the completeness of retained launch-time
+environment snapshots rather than a within-cohort software mismatch. Each
+paired task--backbone cohort and all compared methods and paired seeds ran on
+one physical host under a matched environment; no paired cohort was split
+across machines. Hardware-specific throughput remains descriptive and is not
+interpreted across hosts.
 
 ## Secondary-reference sources
 
@@ -86,7 +89,8 @@ the corresponding source and provenance records.
 
 Paired seed indices deterministically map to environment, PyTorch, NumPy,
 action-noise, support-weight, and evaluation streams as documented in the
-Technical Supplement. All paired HER--SABER runs use the verified common
-software stack within a single physical host. Exact hardware/software metadata
-is additionally available for the dedicated FPP TD3 runtime profile. Peak
-process and accelerator memory were not measured and are not estimated.
+Technical Supplement. The common stack was validated for reproduction, and
+each paired task--backbone cohort used a matched environment within a single
+physical host. Exact hardware/software metadata is additionally available for
+the dedicated FPP TD3 runtime profile. Peak process and accelerator memory
+were not measured and are not estimated.

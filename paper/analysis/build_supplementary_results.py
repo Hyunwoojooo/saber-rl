@@ -733,7 +733,7 @@ def build_actor_scope() -> None:
             "\\caption{DDPG actor-scope ablations over paired seeds 1--5. "
             "Values are mean $\\pm$ sample standard deviation. Hit90 reports "
             "the number of reaching seeds and the reached-seed median step. "
-            "Steps/s is the descriptive seed mean defined in Section~1.3. "
+            "Steps/s is the descriptive seed mean defined in Section~2.3. "
             "The final column gives Main-minus-variant paired AUC differences "
             "with 95\\% bootstrap confidence intervals. Pending cells are "
             "left unreported until a complete five-seed cohort is available.}",

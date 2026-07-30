@@ -286,7 +286,7 @@ def write_table(rows: Sequence[Mapping[str, object]]) -> None:
             "environment step and a 10-critic ensemble with two target "
             "critics sampled per backup, so it is not a resource-matched "
             "SABER comparison. Steps/s is the descriptive seed mean defined "
-            "in Section~1.3.}",
+            "in Section~2.3.}",
             "\\label{tab:supp-drawerclose-redq}",
             "\\end{table*}",
             "",
