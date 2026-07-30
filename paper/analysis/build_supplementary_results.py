@@ -791,10 +791,10 @@ def write_primary_seed_tables(rows: Sequence[Mapping[str, object]]) -> None:
                 "\\begin{table*}[t]",
                 "\\centering",
                 "\\small",
-                "\\setlength{\\tabcolsep}{7pt}",
+                "\\setlength{\\tabcolsep}{1pt}",
                 "\\begin{tabular}{llcccc}",
                 "\\toprule",
-                "Method & Seed & AUC & FQ-AUC & Final & Hit90 step \\\\",
+                "Method & Seed & AUC & FQ-AUC & Final & Hit90 \\\\",
                 "\\midrule",
             ]
         )
@@ -802,24 +802,22 @@ def write_primary_seed_tables(rows: Sequence[Mapping[str, object]]) -> None:
             for seed in SEEDS:
                 row = by_key[(task, backbone, method, seed)]
                 method_cell = method if seed == SEEDS[0] else ""
-                hit = "--" if row["hit90_step"] is None else f"{int(row['hit90_step']) / 1_000_000:.3f}M"
+                hit = "--" if row["hit90_step"] is None else f"{int(row['hit90_step']) / 1_000_000:.2f}M"
                 tex.append(
-                    f"{method_cell} & {seed} & {float(row['auc']):.6f} & "
-                    f"{float(row['final_quarter_auc']):.6f} & "
+                    f"{method_cell} & {seed} & {float(row['auc']):.5f} & "
+                    f"{float(row['final_quarter_auc']):.5f} & "
                     f"{float(row['final_success']):.3f} & {hit} \\\\"
                 )
             if method_index != len(METHODS) - 1:
-                tex.append("\\addlinespace[2pt]")
+                tex.append("\\addlinespace[1pt]")
         tex.extend(
             [
                 "\\bottomrule",
                 "\\end{tabular}",
-                f"\\caption{{Seed-level primary results for {task} with {backbone}. "
-                "Metrics use the exact shared checkpoint grid without smoothing "
-                "or interpolation.}",
+                f"\\caption{{Seed-level {task} {backbone} results on the exact shared grid "
+                "(no smoothing or interpolation).}",
                 f"\\label{{tab:supp-seeds-{label_task}-{backbone.lower()}}}",
                 "\\end{table*}",
-                "",
             ]
         )
     (TABLE_ROOT / "supplementary_primary_seed_results.tex").write_text(

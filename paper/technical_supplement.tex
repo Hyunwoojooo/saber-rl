@@ -695,8 +695,32 @@ additional independent experiment. They make the direction and uncertainty
 of each paired cohort auditable without changing the seed as the unit of
 statistical analysis.
 
-\input{tables/supplementary_primary_seed_results}
+\begingroup
+\newcount\seedtableindex
+\seedtableindex=0
+\renewenvironment{table*}[1][t]{%
+  \global\advance\seedtableindex by 1
+  \ifodd\seedtableindex
+    \par\noindent
+  \else
+    \hfill
+  \fi
+  \begin{minipage}[t]{0.495\textwidth}%
+  \vspace{0pt}%
+  \captionsetup{type=table,font=footnotesize,skip=3pt}%
+}{%
+  \end{minipage}%
+  \ifodd\seedtableindex
+  \else
+    \par\vspace{6pt}%
+    \ifnum\seedtableindex=4
+      \newpage
+    \fi
+  \fi
+}
 
+\input{tables/supplementary_primary_seed_results}
 \input{tables/supplementary_phase_seed_counts_table}
+\endgroup
 
 \end{document}
