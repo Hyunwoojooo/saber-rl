@@ -18,12 +18,8 @@ Other loop overhead & 0.633 & 1.066 & \(+0.434\) & 4.4\% \\
 Total training loop & 8.063 & 24.133 & \(+16.070\) & 100.0\% \\
 \bottomrule
 \end{tabular}
-\caption{Hardware-specific FPP TD3 implementation profile over the
-20k--100k window of seed 1. HER and SABER achieve 124.0 and 41.4 environment
-steps/s excluding evaluation, respectively. The profile identifies current
-support retrieval as the dominant overhead. Other loop overhead is the
-difference between total loop time and the explicitly instrumented
-components. The profile is not a learning-performance claim and is not
-extrapolated to 1M steps.}
+\caption{Hardware-specific component times for the FPP TD3 seed-1
+implementation profile over 20k--100k steps. Other loop overhead is the
+difference between total loop time and the explicitly instrumented components.}
 \label{tab:supp-runtime-components}
 \end{table*}

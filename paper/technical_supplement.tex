@@ -190,15 +190,10 @@ seeds 1--5 on the exact 10k grid. No smoothing or interpolation is applied.}
 \end{figure}
 
 \paragraph{Results.}
-DrawerOpen DDPG gives the clearest HER separation: SABER records AUC/FQ-AUC
-\(0.754/0.987\), versus \(0.207/0.393\) for HER. PER has the highest full-span
-AUC (\(0.825\)), while SABER, HGR, and PER all have late AUC above \(0.98\).
-DrawerOpen TD3 has mixed HGR--SABER--PER means and large seed dispersion.
-On DrawerClose DDPG, HGR has higher full-span AUC than SABER
-\(0.349\) versus \(0.324\), whereas SABER has higher FQ-AUC than HGR
-\(0.277\) versus \(0.226\); PER has the highest FQ-AUC (\(0.340\)).
-DrawerClose TD3 likewise shows mixed prioritization orderings and large
-between-seed variation.
+DrawerOpen DDPG shows the clearest separation from HER, whereas the TD3
+cohorts and comparisons with HGR and PER exhibit larger seed dispersion and
+mixed metric-dependent orderings. On DrawerClose DDPG, HGR leads full-span
+AUC but not FQ-AUC, illustrating that early and late summaries can disagree.
 
 \paragraph{Interpretation.}
 The trajectories support the matched HER result but do not establish a
@@ -267,12 +262,9 @@ only normalized critic-loss coefficients.
 \input{tables/supplementary_td_error_weighting_table}
 
 \paragraph{Results.}
-SABER has higher observed mean AUC in all four validated cohorts. The paired
-differences are \(+0.041\) for FPP DDPG, \(+0.038\) for DrawerOpen DDPG,
-\(+0.011\) for DrawerClose DDPG, and \(+0.040\) for FPP SAC. Every associated
-95\% interval includes zero. Late metrics are not uniformly ordered:
-TD-error weighting has higher FQ-AUC on DrawerClose and is essentially tied
-with SABER on DrawerOpen.
+SABER has higher observed mean AUC in all four validated cohorts, but every
+paired 95\% interval includes zero. Late metrics are mixed, including higher
+FQ-AUC for TD-error weighting on DrawerClose.
 
 \paragraph{Interpretation.}
 The common mean direction distinguishes SABER from this specific TD-error
@@ -291,11 +283,9 @@ frequency of support activation.
 \input{tables/supplementary_action_bin_sensitivity_table}
 
 \paragraph{Results.}
-On FPP TD3, Main \(K=5\) reaches mean AUC \(0.442\), compared with \(0.353\)
-for \(K=3\) and \(0.361\) for \(K=7\). Main-minus-variant differences are
-\(+0.089\,[0.070,0.109]\) and \(+0.081\,[0.067,0.093]\), respectively.
-Support-positive rates move from \(0.396\) at \(K=3\) to \(0.219\) at \(K=5\)
-and \(0.148\) at \(K=7\).
+Main \(K=5\) has higher mean AUC than both \(K=3\) and \(K=7\), with both
+Main-minus-variant 95\% intervals excluding zero. The support-positive rate
+decreases as \(K\) increases.
 
 \paragraph{Interpretation.}
 The evaluated \(K=5\) setting is favored over both adjacent resolutions in
@@ -428,18 +418,15 @@ progression and whether it merely follows the most frequent phase.
 \input{tables/supplementary_phase_diagnostics_table}
 
 \paragraph{Results.}
-For DrawerOpen seeds 1--5, approach and contact support rates are \(0.745\)
-and \(0.698\), compared with \(0.306\) in the open phase even though open
-accounts for \(0.730\) of samples. The 6--10 extension retains the ordering
-between approach (\(0.754\)) and open (\(0.387\)). For DrawerClose, approach
-and contact rates are \(0.549/0.710\) in seeds 1--5 and \(0.569/0.727\) in
-the extension, versus \(0.212/0.204\) in the dominant closed phase.
+In both Drawer tasks and in both primary and extension cohorts, approach
+and contact have higher support-positive rates than the dominant terminal
+phase, even though the terminal phase accounts for roughly three quarters
+of logged samples.
 
 \paragraph{Interpretation.}
-Activation does not simply track phase frequency: SABER more often marks
-samples during approach and contact than during the dominant terminal phase.
-The task-specific phase labels localize the signal but do not constitute an
-independent causal test of long-horizon performance.
+Activation therefore does not simply track phase frequency. The task-specific
+phase labels localize the signal but do not constitute an independent causal
+test of long-horizon performance.
 
 \FloatBarrier
 \section{Runtime and Resource Measurements}
@@ -467,7 +454,6 @@ The paired performance differences are not created by moving HER and SABER
 across machines within a cohort. Hardware still differs across cohorts, so
 historical throughput is descriptive and is not used for cross-host ranking.
 
-\FloatBarrier
 \subsection{Dedicated Runtime Profile}
 
 \paragraph{Purpose.}
@@ -478,14 +464,12 @@ dominates that overhead. It runs HER and SABER for FPP TD3 seed 1 over the
 
 \input{tables/supplementary_runtime_environment_table}
 \input{tables/supplementary_runtime_components_table}
-\input{tables/supplementary_hgr_throughput_table}
 
 \paragraph{Results.}
 HER and SABER achieve 124.0 and 41.4 environment steps/s, corresponding to
 8.063 and 24.133 ms per training step. Support and weighting account for
 15.028 ms/step, or 62.3\% of SABER's measured loop time, and explain most of
-the \(+16.070\) ms/step difference. Separately recorded cohort means show
-SABER throughput \(1.76\times\) to \(3.47\times\) that of HGR.
+the \(+16.070\) ms/step difference.
 
 \paragraph{Interpretation.}
 The profile attributes the dominant measured cost to the current support
