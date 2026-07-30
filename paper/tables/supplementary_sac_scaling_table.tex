@@ -1,22 +1,24 @@
 \begin{table*}[t]
 \centering
 \small
-\setlength{\tabcolsep}{5pt}
-\begin{tabular}{lcccccc}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llccccc}
 \toprule
-Method & UTD & Critic configuration & AUC & Final & Hit90 & Steps/s \\
+Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s \\
 \midrule
-HER & 1 & 2 critics & \(0.471\pm0.079\) & \(0.790\pm0.288\) &
-3/5 (0.80M) & 38.9 \\
-SABER & 1 & 2 critics & \(0.583\pm0.030\) & \(0.990\pm0.022\) &
-5/5 (0.75M) & 29.1 \\
-HER high-RR & 4 & 2 critics & \(0.768\pm0.097\) & \(0.960\pm0.042\) &
-5/5 (0.45M) & 5.9 \\
-REDQ-HER TQB & 4 & 10 critics, 2 sampled & \(0.867\pm0.052\) &
-\(1.000\pm0.000\) & 5/5 (0.30M) & 3.1 \\
+FPP--SAC & \shortstack[l]{HER\\UTD 1; 2 critics} & \(0.471\pm0.079\) &
+\(0.735\pm0.247\) & \(0.790\pm0.288\) & 3/5 (0.800M) & 38.9 \\
+ & \shortstack[l]{SABER\\UTD 1; 2 critics} & \(0.583\pm0.030\) &
+\(0.986\pm0.011\) & \(0.990\pm0.022\) & 5/5 (0.750M) & 29.1 \\
+ & \shortstack[l]{HER high-RR\\UTD 4; 2 critics} & \(0.768\pm0.097\) &
+\(0.963\pm0.021\) & \(0.960\pm0.042\) & 5/5 (0.450M) & 5.9 \\
+FPP--REDQ & \shortstack[l]{REDQ-HER TQB\\UTD 4; 10 critics/2 target} &
+\(0.867\pm0.052\) & \(0.993\pm0.008\) & \(1.000\pm0.000\) &
+5/5 (0.300M) & 3.1 \\
 \bottomrule
 \end{tabular}
-\caption{FPP SAC scaling references on the exact shared 50k--1M grid.
+\caption{FPP SAC and REDQ scaling references on the exact shared 50k--1M
+grid. Values are mean $\pm$ sample SD over seeds 1--5.
 High-replay-ratio HER and REDQ-HER change the update budget, and REDQ-HER
 also changes critic architecture; they are not matched post-HER
 loss-allocation controls. Steps/s is the descriptive seed mean defined in

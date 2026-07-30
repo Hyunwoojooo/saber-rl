@@ -5,35 +5,35 @@
 \setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{llccccc}
 \toprule
-Cohort & Seeds & Support rate & Pearson \(r\) & Top-10\% enrich. &
-Pre-TD \(+/-\) & Fixed \(\Delta|\delta|\) \(+/-\) \\
+Cohort & Seeds & Support+ rate & Pearson \(r\) & Top-10\% enrich. &
+Pre-update \(|\delta|\) \((+/-)\) & One-step \(\Delta|\delta|\) \((+/-)\) \\
 \midrule
-FPP DDPG & 1--5 & \(0.367\pm0.011\) & \(0.116\) & \(1.409\times\) &
+FPP--DDPG & 1--5 & \(0.367\pm0.011\) & \(0.116\) & \(1.409\times\) &
 \(1.42\times\) & \(2.39\times\) \\
-FPP TD3 & 1--5 & \(0.219\pm0.009\) & \(0.128\) & \(1.670\times\) &
+FPP--TD3 & 1--5 & \(0.219\pm0.009\) & \(0.128\) & \(1.670\times\) &
 \(1.62\times\) & \(3.30\times\) \\
-FPP SAC & 1--5 & \(0.197\pm0.013\) & \(0.143\) & \(1.828\times\) &
+FPP--SAC & 1--5 & \(0.197\pm0.013\) & \(0.143\) & \(1.828\times\) &
 \(1.74\times\) & \(3.94\times\) \\
 \addlinespace[2pt]
-DrawerOpen DDPG & 1--5 & \(0.417\pm0.021\) & \(0.084\) & \(1.379\times\) &
+DrawerOpen--DDPG & 1--5 & \(0.417\pm0.021\) & \(0.084\) & \(1.379\times\) &
 \(1.16\times\) & \(1.79\times\) \\
-DrawerOpen DDPG & 6--10 extension & \(0.475\pm0.094\) & \(0.095\) &
+DrawerOpen--DDPG & 6--10 extension & \(0.475\pm0.094\) & \(0.095\) &
 \(1.440\times\) & \(1.13\times\) & \(1.91\times\) \\
-DrawerOpen DDPG & 1--10 pooled & \(0.446\pm0.071\) & \(0.090\) &
+DrawerOpen--DDPG & 1--10 pooled & \(0.446\pm0.071\) & \(0.090\) &
 \(1.409\times\) & \(1.15\times\) & \(1.83\times\) \\
 \addlinespace[2pt]
-DrawerClose DDPG & 1--5 & \(0.298\pm0.018\) & \(0.104\) & \(1.534\times\) &
+DrawerClose--DDPG & 1--5 & \(0.298\pm0.018\) & \(0.104\) & \(1.534\times\) &
 \(1.42\times\) & \(2.94\times\) \\
-DrawerClose DDPG & 6--10 extension & \(0.299\pm0.007\) & \(0.118\) &
+DrawerClose--DDPG & 6--10 extension & \(0.299\pm0.007\) & \(0.118\) &
 \(1.602\times\) & \(1.48\times\) & \(4.23\times\) \\
-DrawerClose DDPG & 1--10 pooled & \(0.298\pm0.013\) & \(0.111\) &
+DrawerClose--DDPG & 1--10 pooled & \(0.298\pm0.013\) & \(0.111\) &
 \(1.568\times\) & \(1.45\times\) & \(3.48\times\) \\
 \bottomrule
 \end{tabular}
 \caption{Support-signal diagnostics. Statistics are first aggregated within
 seed, after which seeds are independent units. Support rates are mean
 \(\pm\) sample SD. The last two columns divide support-positive by
-support-negative cohort means. Fixed \(\Delta|\delta|\) evaluates the same
+support-negative cohort means. One-step \(\Delta|\delta|\) evaluates the same
 minibatch after one critic step while retaining the pre-update Bellman target.
 Seeds 1--5 are the primary diagnostic cohorts, seeds 6--10 are separate
 extensions, and pooled ten-seed rows are descriptive.}

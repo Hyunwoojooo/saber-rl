@@ -2,24 +2,34 @@
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{llccc}
+\begin{tabular}{llccccc}
 \toprule
-Backbone & No-HER replay & AUC & Final & Steps/s \\
+Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s \\
 \midrule
-DDPG & ER & \(0.148\pm0.039\) & \(0.460\pm0.188\) & 68.4 \\
- & Annealing ER & \(0.129\pm0.111\) & \(0.340\pm0.363\) & 68.0 \\
- & AER & \(0.044\pm0.002\) & \(0.000\pm0.000\) & 67.0 \\
+FPP--DDPG & ER & \(0.148\pm0.039\) & \(0.354\pm0.124\) &
+\(0.460\pm0.188\) & 0/5 & 68.4 \\
+ & Annealing ER & \(0.129\pm0.111\) & \(0.259\pm0.251\) &
+\(0.340\pm0.363\) & 1/5 (0.960M) & 68.0 \\
+ & AER & \(0.044\pm0.002\) & \(0.045\pm0.004\) &
+\(0.000\pm0.000\) & 0/5 & 67.0 \\
 \addlinespace[2pt]
-TD3 & ER & \(0.039\pm0.002\) & \(0.000\pm0.000\) & 21.0 \\
- & Annealing ER & \(0.039\pm0.002\) & \(0.000\pm0.000\) & 19.6 \\
- & AER & \(0.039\pm0.002\) & \(0.000\pm0.000\) & 26.2 \\
+FPP--TD3 & ER & \(0.039\pm0.002\) & \(0.043\pm0.002\) &
+\(0.000\pm0.000\) & 0/5 & 21.0 \\
+ & Annealing ER & \(0.039\pm0.002\) & \(0.043\pm0.002\) &
+\(0.000\pm0.000\) & 0/5 & 19.6 \\
+ & AER & \(0.039\pm0.002\) & \(0.043\pm0.002\) &
+\(0.000\pm0.000\) & 0/5 & 26.2 \\
 \addlinespace[2pt]
-SAC & ER & \(0.064\pm0.042\) & \(0.130\pm0.199\) & 39.4 \\
- & Annealing ER & \(0.041\pm0.002\) & \(0.000\pm0.000\) & 39.5 \\
- & AER & \(0.040\pm0.003\) & \(0.000\pm0.000\) & 39.3 \\
+FPP--SAC & ER & \(0.064\pm0.042\) & \(0.114\pm0.135\) &
+\(0.130\pm0.199\) & 0/5 & 39.4 \\
+ & Annealing ER & \(0.041\pm0.002\) & \(0.047\pm0.008\) &
+\(0.000\pm0.000\) & 0/5 & 39.5 \\
+ & AER & \(0.040\pm0.003\) & \(0.044\pm0.002\) &
+\(0.000\pm0.000\) & 0/5 & 39.3 \\
 \bottomrule
 \end{tabular}
-\caption{FPP no-HER replay references over seeds 1--5. These runs omit
+\caption{FPP no-HER replay references over seeds 1--5. Values are mean
+$\pm$ sample SD on the exact 10k--1M grid. These runs omit
 hindsight relabeling and are context references rather than matched post-HER
 mechanism controls. Steps/s is the descriptive seed mean defined in
 Section~1.3.}

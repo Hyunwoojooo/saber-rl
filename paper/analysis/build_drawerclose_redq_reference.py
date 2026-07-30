@@ -238,7 +238,7 @@ def format_hit90(row: Mapping[str, object]) -> str:
     median = row["hit90_median_reached"]
     if median is None:
         return f"{reached}/{total}"
-    return f"{reached}/{total} ({float(median) / 1_000_000:.2f}M)"
+    return f"{reached}/{total} ({float(median) / 1_000_000:.3f}M)"
 
 
 def write_table(rows: Sequence[Mapping[str, object]]) -> None:
@@ -248,15 +248,23 @@ def write_table(rows: Sequence[Mapping[str, object]]) -> None:
         "\\centering",
         "\\small",
         "\\setlength{\\tabcolsep}{4pt}",
-        "\\begin{tabular}{lclccccc}",
+        "\\begin{tabular}{llccccc}",
         "\\toprule",
-        "Method & UTD & Critics & AUC & FQ-AUC & Final & Hit90 & Steps/s \\\\",
+        "Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s \\\\",
         "\\midrule",
     ]
+    display = {
+        "HER (DDPG)": ("DrawerClose--DDPG", r"\shortstack[l]{HER\\UTD 1; 1 critic}"),
+        "SABER (DDPG)": ("", r"\shortstack[l]{SABER\\UTD 1; 1 critic}"),
+        "REDQ-HER TQB": (
+            "DrawerClose--REDQ",
+            r"\shortstack[l]{REDQ-HER TQB\\UTD 4; 10 critics/2 target}",
+        ),
+    }
     for row in rows:
+        cohort, method = display[str(row["method"])]
         lines.append(
-            f"{row['method']} & {row['utd']} & "
-            f"{row['critic_configuration']} & "
+            f"{cohort} & {method} & "
             f"${float(row['auc_mean']):.3f} \\pm "
             f"{float(row['auc_sample_sd']):.3f}$ & "
             f"${float(row['final_quarter_auc_mean']):.3f} \\pm "

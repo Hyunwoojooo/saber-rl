@@ -43,7 +43,7 @@
     {
       "bytes": 8259,
       "path": "paper/supplementary_artifacts/technical_supplement/source_manifest.json",
-      "sha256": "57a68606b9cf0ef2ccc9c86b03ca6a4a54263c68188ba111583cbcc3dbbf7fa3"
+      "sha256": "f5b53f2e80afa0c1fad11045f9bffe4053675b8208c1bfdaa8b1349012720df3"
     }
   ],
   "root": "paper/supplementary_artifacts/technical_supplement"

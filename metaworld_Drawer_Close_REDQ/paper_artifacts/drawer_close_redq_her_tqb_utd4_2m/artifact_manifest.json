@@ -6,19 +6,19 @@
       "sha256": "9027850c5fa17db6ebc9e050f87ba275be3e72aa4237999c9ab8a800ada3094d"
     },
     {
-      "bytes": 849,
+      "bytes": 995,
       "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/aggregate_metrics.csv",
-      "sha256": "9f6248bacdde0ace91610320828fde33d251c20a08265d9a48293201bf022324"
+      "sha256": "abc8d236f8d37fa6994811da445bffe4a9d275401c8bfa42a2efa7e9ec97b7f9"
     },
     {
-      "bytes": 1576,
+      "bytes": 1930,
       "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/per_seed_metrics.csv",
-      "sha256": "d916604d1b1013b704b1bd155bedaa19016642981a26c3138a3ebcf34476fe40"
+      "sha256": "a497f6dbe437b4743648f1bc8e8f19ef6866ba235b5c4a37327fbd01903b5feb"
     },
     {
-      "bytes": 8627,
+      "bytes": 11147,
       "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/source_manifest.json",
-      "sha256": "cf59365323e66fa029293587ada77b13703aafc18af0cac17bed71d26112ec05"
+      "sha256": "b0fbd5093e800bc9db86068e8d2f9b197467fd3896672ebd456fe723d44e4f8c"
     },
     {
       "bytes": 713,

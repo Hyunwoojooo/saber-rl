@@ -6,9 +6,9 @@
       "sha256": "75bf9382af7f20d9270d2e7ca4d33edfd5538389829e7c843c802acb8fc57dd0"
     },
     {
-      "bytes": 1372,
+      "bytes": 1723,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/aggregate_metrics.csv",
-      "sha256": "6ce80cf7d1fb23928ae499888852a5b5de42d6c3b6d68a2b6b7bfbc5f68160d1"
+      "sha256": "525d44eaa03f796a72036d0c3aed9e60606effe941a1f2dde2efd754048c0bfa"
     },
     {
       "bytes": 948,
@@ -21,9 +21,9 @@
       "sha256": "2d407c3615fdcf4ccdb92351089842950c0a31481463df08198f7e3b490b2bc8"
     },
     {
-      "bytes": 3229,
+      "bytes": 3990,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/per_seed_metrics.csv",
-      "sha256": "95eaedc58fd8fab9e69b46c29b224856476ab9170669d6c15fbb36b7caa85af7"
+      "sha256": "a08a2b88006fe154532b65aac7f6d10d6b006167f6d488b3b5b0beafc4e9647d"
     },
     {
       "bytes": 36955,

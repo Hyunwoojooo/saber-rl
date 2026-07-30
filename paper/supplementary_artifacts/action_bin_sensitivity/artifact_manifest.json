@@ -6,19 +6,19 @@
       "sha256": "76570be640aaaf045c29895b0ee6d417daee0860507d1d7a87bc3a20ab5872ac"
     },
     {
-      "bytes": 757,
+      "bytes": 917,
       "path": "paper/supplementary_artifacts/action_bin_sensitivity/aggregate_metrics.csv",
-      "sha256": "194092de0b47723a5837ea27924f700b001dbbdb2422004dabd0e16fbb2cb8db"
+      "sha256": "1040e9d2b26ae806ffc75d33bb7700712847d8dc9936890f4e3e98ab4a7b2772"
     },
     {
-      "bytes": 428,
+      "bytes": 416,
       "path": "paper/supplementary_artifacts/action_bin_sensitivity/paired_statistics.csv",
-      "sha256": "563e9d4efaf2ff4db6411bfd3bd688d07f647eedb420130f3c682afd1928bad4"
+      "sha256": "88793a6ac563475a6f29ca648f5abd7a8b4960a19fc4d4dfee6d7afa1ba9523a"
     },
     {
-      "bytes": 1018,
+      "bytes": 1309,
       "path": "paper/supplementary_artifacts/action_bin_sensitivity/per_seed_metrics.csv",
-      "sha256": "5cfb18b09e8f3429fec958a03e7b1530f8cf2406e69ee5cd5e6fd63ab93ec60e"
+      "sha256": "9a2dd9de7136f1f0e3b9d027ecad69f1645ee415bf2e6f16f9e666eaab4e14fe"
     },
     {
       "bytes": 17252,

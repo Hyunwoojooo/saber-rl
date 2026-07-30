@@ -4,28 +4,42 @@
 \begin{table*}[t]
 \centering
 \small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllcccc@{}}
+\setlength{\tabcolsep}{2.3pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcccccc@{}}
 \toprule
-Task & Backbone & Method & Final & AUC & Hit90 & Steps/s \\
+Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s &
+$\Delta$AUC \\
 \midrule
-FetchPickAndPlace & DDPG & SABER & $0.960\pm0.042$ & $0.609\pm0.038$ & 540k (5/5) & 41.7 \\
-FetchPickAndPlace & DDPG & TD-error & $0.930\pm0.104$ & $0.568\pm0.069$ & 630k (5/5) & 61.1 \\
+FPP--DDPG & SABER (Main) & $0.609\pm0.038$ & $0.961\pm0.014$ &
+$0.960\pm0.042$ & 5/5 (0.540M) & 41.7 & $--$ \\
+ & TD-error weighting & $0.568\pm0.069$ & $0.910\pm0.119$ &
+$0.930\pm0.104$ & 5/5 (0.630M) & 61.1 &
+$+0.041\;[-0.018,0.123]$ \\
 \addlinespace
-DrawerOpen & DDPG & SABER & $1.000\pm0.000$ & $0.754\pm0.044$ & 500k (5/5) & 23.3 \\
-DrawerOpen & DDPG & TD-error & $0.800\pm0.447$ & $0.715\pm0.090$ & 610k (5/5) & 39.0 \\
+DrawerOpen--DDPG & SABER (Main) & $0.754\pm0.044$ & $0.987\pm0.018$ &
+$1.000\pm0.000$ & 5/5 (0.500M) & 23.3 & $--$ \\
+ & TD-error weighting & $0.715\pm0.090$ & $0.988\pm0.011$ &
+$0.800\pm0.447$ & 5/5 (0.610M) & 39.0 &
+$+0.038\;[-0.015,0.091]$ \\
 \addlinespace
-DrawerClose & DDPG & SABER & $0.280\pm0.251$ & $0.324\pm0.082$ & 20k (5/5) & 24.0 \\
-DrawerClose & DDPG & TD-error & $0.400\pm0.166$ & $0.313\pm0.098$ & 130k (5/5) & 38.9 \\
+DrawerClose--DDPG & SABER (Main) & $0.324\pm0.082$ & $0.277\pm0.100$ &
+$0.280\pm0.251$ & 5/5 (0.020M) & 24.0 & $--$ \\
+ & TD-error weighting & $0.313\pm0.098$ & $0.351\pm0.218$ &
+$0.400\pm0.166$ & 5/5 (0.130M) & 38.9 &
+$+0.011\;[-0.079,0.074]$ \\
 \addlinespace
-FetchPickAndPlace & SAC & SABER & $0.990\pm0.022$ & $0.583\pm0.030$ & 750k (5/5) & 29.1 \\
-FetchPickAndPlace & SAC & TD-error & $0.990\pm0.022$ & $0.544\pm0.068$ & 800k (5/5) & 38.2 \\
+FPP--SAC & SABER (Main) & $0.583\pm0.030$ & $0.986\pm0.011$ &
+$0.990\pm0.022$ & 5/5 (0.750M) & 29.1 & $--$ \\
+ & TD-error weighting & $0.544\pm0.068$ & $0.901\pm0.167$ &
+$0.990\pm0.022$ & 5/5 (0.800M) & 38.2 &
+$+0.040\;[-0.016,0.095]$ \\
 \bottomrule
 \end{tabular*}
-\caption{Validated TD-error critic-loss weighting controls. Replay sampling
-remains uniform, and only critic-loss coefficients are changed. Values are
-mean $\pm$ sample standard deviation over paired seeds 1--5. SABER rows
-reproduce the matched main-method values; TD-error rows use TD-error
-critic-loss weighting. For SAC, the priority signal is
+\caption{Validated TD-error critic-loss weighting controls over paired seeds
+1--5. Replay remains uniform, and only critic-loss coefficients change.
+Values are mean $\pm$ sample SD. The final column reports SABER-minus-control
+paired AUC differences with 95\% bootstrap CIs; positive values favor SABER.
+For SAC, the priority signal is
 $\min(|\delta_{i1}|,|\delta_{i2}|)$, and the resulting normalized
 coefficient is applied to both critic losses. Steps/s is the descriptive seed
 mean defined in Section~1.3.}

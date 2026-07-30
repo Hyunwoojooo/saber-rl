@@ -384,6 +384,7 @@ def build_action_bin_sensitivity() -> None:
             if missing:
                 raise ValueError(f"{path}: missing support snapshots {missing[:10]}")
             row["support_positive_rate"] = statistics.fmean(support[step] for step in grid)
+            row["steps_per_second"] = final_steps_per_second(path)
             rows.append(row)
             bind_run_sources(sources, path)
 
@@ -404,13 +405,13 @@ def build_action_bin_sensitivity() -> None:
         candidate = {int(row["seed"]): row for row in rows if row["variant"] == variant}
         for field in ("auc", "final_quarter_auc"):
             differences = [
-                float(candidate[seed][field]) - float(main_by_seed[seed][field])
+                float(main_by_seed[seed][field]) - float(candidate[seed][field])
                 for seed in SEEDS
             ]
             low, high = paired_bootstrap(differences)
             paired_rows.append(
                 {
-                    "comparison": f"{variant}_minus_k5_main",
+                    "comparison": f"k5_main_minus_{variant}",
                     "metric": field,
                     "mean_difference": statistics.fmean(differences),
                     "ci95_low": low,
@@ -423,13 +424,15 @@ def build_action_bin_sensitivity() -> None:
     per_fields = (
         "variant", "label", "action_bins_per_dim", "seed", "auc",
         "final_quarter_auc", "final_success", "hit90_step", "support_positive_rate",
+        "steps_per_second",
     )
     aggregate_fields = (
         "variant", "label", "action_bins_per_dim", "n_seeds", "auc_mean",
         "auc_sample_sd", "final_quarter_auc_mean", "final_quarter_auc_sample_sd",
         "final_success_mean", "final_success_sample_sd", "hit90_reached",
         "hit90_total", "hit90_median_reached", "support_positive_rate_mean",
-        "support_positive_rate_sample_sd",
+        "support_positive_rate_sample_sd", "steps_per_second_mean",
+        "steps_per_second_sample_sd",
     )
     paired_fields = (
         "comparison", "metric", "mean_difference", "ci95_low", "ci95_high",
@@ -467,7 +470,7 @@ def build_action_bin_sensitivity() -> None:
 
     agg_by_variant = {str(row["variant"]): row for row in aggregates}
     pair_by_variant = {
-        str(row["comparison"]).split("_minus_")[0]: row
+        str(row["comparison"]).split("k5_main_minus_", 1)[1]: row
         for row in paired_rows if row["metric"] == "auc"
     }
     tex = [
@@ -475,10 +478,11 @@ def build_action_bin_sensitivity() -> None:
         "\\begin{table*}[t]",
         "\\centering",
         "\\small",
-        "\\setlength{\\tabcolsep}{5pt}",
-        "\\begin{tabular}{lccccc}",
+        "\\setlength{\\tabcolsep}{2pt}",
+        "\\begin{tabular}{llccccccc}",
         "\\toprule",
-        "Action bins & Support-positive rate & AUC & FQ-AUC & Final & $\\Delta$AUC vs. $K=5$ \\\\",
+        "Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s & "
+        "Support+ & $\\Delta$AUC \\\\",
         "\\midrule",
     ]
     for variant in ("k3", "k5_main", "k7"):
@@ -487,28 +491,34 @@ def build_action_bin_sensitivity() -> None:
         if variant != "k5_main":
             pair = pair_by_variant[variant]
             delta = (
-                f"{float(pair['mean_difference']):+.3f} "
+                f"{float(pair['mean_difference']):+.3f}\\; "
                 f"[{float(pair['ci95_low']):.3f},{float(pair['ci95_high']):.3f}]"
             )
+        cohort = "FPP--TD3" if variant == "k3" else ""
+        variant_label = f"$K={int(row['action_bins_per_dim'])}$"
+        if variant == "k5_main":
+            variant_label += " (Main)"
         tex.append(
-            f"{row['label']} & "
-            f"${fmt(float(row['support_positive_rate_mean']))} \\pm "
-            f"{fmt(float(row['support_positive_rate_sample_sd']))}$ & "
+            f"{cohort} & {variant_label} & "
             f"${fmt(float(row['auc_mean']))} \\pm {fmt(float(row['auc_sample_sd']))}$ & "
             f"${fmt(float(row['final_quarter_auc_mean']))} \\pm "
             f"{fmt(float(row['final_quarter_auc_sample_sd']))}$ & "
             f"${fmt(float(row['final_success_mean']))} \\pm "
-            f"{fmt(float(row['final_success_sample_sd']))}$ & ${delta}$ \\\\"
+            f"{fmt(float(row['final_success_sample_sd']))}$ & "
+            f"{hit90_text(row)} & {float(row['steps_per_second_mean']):.1f} & "
+            f"${fmt(float(row['support_positive_rate_mean']))} \\pm "
+            f"{fmt(float(row['support_positive_rate_sample_sd']))}$ & "
+            f"${delta}$ \\\\"
         )
     tex.extend(
         [
             "\\bottomrule",
             "\\end{tabular}",
             "\\caption{FPP TD3 action-bin sensitivity over paired seeds 1--5. "
-            "Values are mean $\\pm$ sample standard deviation; FQ-AUC is the "
-            "final-quarter normalized success AUC. The final column reports "
-            "variant-minus-Main paired AUC differences with 10,000-resample "
-            "percentile-bootstrap 95\\% confidence intervals.}",
+            "Values are mean $\\pm$ sample SD. Support+ is the support-positive "
+            "rate. The final column reports Main-minus-variant paired AUC "
+            "differences with 10,000-resample percentile-bootstrap 95\\% CIs; "
+            "positive values favor Main $K=5$.}",
             "\\label{tab:supp-action-bin-sensitivity}",
             "\\end{table*}",
             "",
@@ -683,13 +693,14 @@ def build_actor_scope() -> None:
         "\\setlength{\\tabcolsep}{3pt}",
         "\\begin{tabular}{llcccccc}",
         "\\toprule",
-        "Task & Scope & AUC & FQ-AUC & Final & Hit90 & Steps/s & $\\Delta$AUC (Main--scope) \\\\",
+        "Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s & "
+        "$\\Delta$AUC (Main--variant) \\\\",
         "\\midrule",
     ]
     for task in ("FPP", "DrawerOpen", "DrawerClose"):
         for scope in ("critic_only", "actor_only", "actor_critic"):
             row = agg.get((task, scope))
-            task_cell = task if scope == "critic_only" else ""
+            task_cell = f"{task}--DDPG" if scope == "critic_only" else ""
             if row is None:
                 tex.append(
                     f"{task_cell} & {SCOPE_LABELS[scope]} & "
@@ -723,7 +734,7 @@ def build_actor_scope() -> None:
             "Values are mean $\\pm$ sample standard deviation. Hit90 reports "
             "the number of reaching seeds and the reached-seed median step. "
             "Steps/s is the descriptive seed mean defined in Section~1.3. "
-            "The final column gives Main-minus-scope paired AUC differences "
+            "The final column gives Main-minus-variant paired AUC differences "
             "with 95\\% bootstrap confidence intervals. Pending cells are "
             "left unreported until a complete five-seed cohort is available.}",
             "\\label{tab:supp-actor-scope}",

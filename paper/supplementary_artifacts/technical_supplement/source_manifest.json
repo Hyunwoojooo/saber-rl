@@ -109,9 +109,9 @@
       "sha256": "e3a89d148c7ace6afb9f031e6d214baba716811a69e845537c063fcea2fcdec1"
     },
     {
-      "bytes": 1258,
+      "bytes": 1259,
       "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/artifact_manifest.json",
-      "sha256": "7224e653ecbe331d1731a976761471d588deb1b9405203f16dc011e9da8eb8de"
+      "sha256": "3dfa5809d695e80262d54de1bb3bb0093bb742c757775605a4a9530e5cc9af6d"
     },
     {
       "bytes": 1323,
@@ -146,12 +146,12 @@
     {
       "bytes": 1115,
       "path": "paper/supplementary_artifacts/action_bin_sensitivity/artifact_manifest.json",
-      "sha256": "ddf72f35f286584227f93bf14b3440f286cb329f74d1c26bc05e6ea02aa51078"
+      "sha256": "3725ad9f1f24654778d33889e5a7dab48eec580ef0b7145cc77895b00d0913b4"
     },
     {
       "bytes": 1282,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/artifact_manifest.json",
-      "sha256": "f834fb1e8200e69e8bab68b28b65cfce8d1fe723081e4f24f1acff76aa1e3c64"
+      "sha256": "90b0b5f8bad03d3ad708afc56006825bad2b4615af84302d050cbe52fbe18f27"
     },
     {
       "bytes": 1317,
