@@ -380,26 +380,36 @@ training trajectory, so realized support masks need not remain identical.
 
 \paragraph{Purpose.}
 These references place SABER outside the strictly matched UTD-1 comparison:
-no-HER replay variants test whether replay filtering alone solves FPP, while
-high-replay-ratio HER and REDQ-HER test larger update budgets and critic
-ensembles. REDQ-HER TQB clips the sampled target-critic backup to the
-sparse-reward range \([-50,0]\) before forming the Bellman target.
+the no-HER comparison separates uniform experience replay (ER), uniform
+replay with AER's actor/critic learning-rate schedule (Annealing ER), and
+Attentive Experience Replay (AER). AER ranks an enlarged uniform candidate
+set by cosine similarity to the current online state and trains on the 256
+most similar transitions. The three arms therefore test attentive selection
+beyond its shared schedule and whether replay selection alone can solve
+sparse FPP. High-replay-ratio HER and REDQ-HER instead test larger update
+budgets and critic ensembles. REDQ-HER TQB clips the sampled target-critic
+backup to the sparse-reward range \([-50,0]\) before forming the Bellman
+target.
 
 \input{tables/supplementary_aer_noher_table}
 \input{tables/supplementary_sac_scaling_table}
 \input{tables/supplementary_drawerclose_redq_table}
 
 \paragraph{Results.}
-Without HER, the best mean AUC is \(0.148\) on FPP DDPG, \(0.039\) on FPP
-TD3, and \(0.064\) on FPP SAC. On FPP SAC, high-replay-ratio HER and REDQ-HER
-reach AUC \(0.768\) and \(0.867\), respectively, above SABER's \(0.583\), but
-use UTD 4 and REDQ also uses ten critics. On DrawerClose, REDQ-HER reaches
+Without HER, AER/Annealing ER/ER obtain mean AUCs of \(0.044/0.129/0.148\)
+with DDPG, \(0.039/0.039/0.039\) with TD3, and \(0.040/0.041/0.064\) with
+SAC. AER therefore has no higher observed mean AUC than either replay control
+in these three backbones. On FPP SAC, high-replay-ratio HER and REDQ-HER reach
+AUC \(0.768\) and \(0.867\), respectively, above SABER's \(0.583\), but use
+UTD 4 and REDQ also uses ten critics. On DrawerClose, REDQ-HER reaches
 Hit90 in all seeds at 20k but records AUC/FQ-AUC \(0.188/0.098\), compared
 with \(0.324/0.277\) for DDPG SABER.
 
 \paragraph{Interpretation.}
-The no-HER runs show that replay filtering in the evaluated forms does not
-replace hindsight relabeling on these sparse-reward tasks. Increased update
+In these matched transfers, state-similarity replay neither substitutes for
+hindsight relabeling nor improves mean AUC over schedule-matched uniform
+replay. This is not a general replication or rejection of AER; it isolates
+transferred AER components under the present FPP backbones. Increased update
 budget and ensemble size can be stronger on FPP SAC but are not uniformly
 stronger across tasks. Because HER use, UTD, algorithm, and architecture
 differ, these tables are scaling and context references rather than
