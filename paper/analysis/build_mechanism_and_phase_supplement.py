@@ -40,7 +40,7 @@ TASK_SPECS = {
 }
 
 VARIANT_LABELS = {
-    "main": "SABER (Main)",
+    "main": "SABER (Ours)",
     "replay_action": "Replay-Action Query",
     "shuffled_policy": "Shuffled-Policy Query",
     "random_support": "Random-Support",
@@ -359,9 +359,9 @@ def build_mechanism_controls() -> None:
     )
     (out / "README.md").write_text(
         "# DDPG mechanism controls\n\n"
-        "Exact-grid metrics for SABER Main and the four mechanism controls on "
+        "Exact-grid metrics for SABER (Ours) and the four mechanism controls on "
         "FPP, DrawerOpen, and DrawerClose over paired seeds 1--5. The paired "
-        "statistics reproduce the Main Table 2 Main-minus-control AUC "
+        "statistics reproduce the Main Table 2 Ours-minus-control AUC "
         "differences. No curve is smoothed or interpolated.\n",
         encoding="utf-8",
     )
@@ -403,9 +403,9 @@ def build_mechanism_controls() -> None:
             "\\end{tabular}",
             "\\caption{DDPG mechanism controls over paired seeds 1--5. Values are mean "
             "$\\pm$ sample SD on each task's exact grid. Hit90 gives reaching seeds and "
-            "their reached-seed median step. The final column reports SABER Main-minus-control "
-            "AUC differences with frozen paired-bootstrap 95\\% CIs; positive values "
-            "favor Main. FPP uses 10,000 seeded resamples and Drawer controls enumerate "
+            "their reached-seed median step. The final column reports AUC differences between "
+            "SABER (Ours) and each control with frozen paired-bootstrap 95\\% CIs; positive values "
+            "favor SABER (Ours). FPP uses 10,000 seeded resamples and Drawer controls enumerate "
             "all $5^5$ paired resamples, matching the validated source artifacts. Steps/s "
             "is descriptive rather than hardware-normalized.}",
             "\\label{tab:supp-mechanism-controls}",

@@ -6,25 +6,25 @@
 \toprule
 Cohort & Method/Control & AUC & FQ-AUC & Final & Hit90 & Steps/s & $\Delta$AUC \\
 \midrule
-FPP--DDPG & SABER (Main) & $0.609 \pm 0.038$ & $0.961 \pm 0.014$ & $0.960 \pm 0.042$ & 5/5 (0.540M) & 41.7 & $--$ \\
+FPP--DDPG & SABER (Ours) & $0.609 \pm 0.038$ & $0.961 \pm 0.014$ & $0.960 \pm 0.042$ & 5/5 (0.540M) & 41.7 & $--$ \\
  & \shortstack[l]{Replay-Action\\Query} & $0.598 \pm 0.027$ & $0.950 \pm 0.015$ & $0.970 \pm 0.045$ & 5/5 (0.570M) & 14.6 & $+0.011 [-0.028,0.059]$ \\
  & \shortstack[l]{Shuffled-Policy\\Query} & $0.566 \pm 0.036$ & $0.958 \pm 0.016$ & $0.950 \pm 0.071$ & 5/5 (0.630M) & 40.2 & $+0.043 [-0.002,0.085]$ \\
  & Random-Support & $0.553 \pm 0.056$ & $0.946 \pm 0.035$ & $0.960 \pm 0.055$ & 5/5 (0.630M) & 40.4 & $+0.056 [0.014,0.101]$ \\
  & \shortstack[l]{Context-Eligible\\Count-Matched} & $0.577 \pm 0.032$ & $0.961 \pm 0.016$ & $0.980 \pm 0.027$ & 5/5 (0.590M) & 15.7 & $+0.033 [-0.006,0.076]$ \\
 \addlinespace[2pt]
-DrawerOpen--DDPG & SABER (Main) & $0.754 \pm 0.044$ & $0.987 \pm 0.018$ & $1.000 \pm 0.000$ & 5/5 (0.500M) & 23.3 & $--$ \\
+DrawerOpen--DDPG & SABER (Ours) & $0.754 \pm 0.044$ & $0.987 \pm 0.018$ & $1.000 \pm 0.000$ & 5/5 (0.500M) & 23.3 & $--$ \\
  & \shortstack[l]{Replay-Action\\Query} & $0.318 \pm 0.437$ & $0.399 \pm 0.546$ & $0.400 \pm 0.548$ & 2/5 (0.405M) & 25.0 & $+0.436 [0.121,0.729]$ \\
  & \shortstack[l]{Shuffled-Policy\\Query} & $0.648 \pm 0.246$ & $0.980 \pm 0.026$ & $1.000 \pm 0.000$ & 5/5 (0.630M) & 17.1 & $+0.105 [-0.080,0.335]$ \\
  & Random-Support & $0.706 \pm 0.122$ & $0.997 \pm 0.003$ & $1.000 \pm 0.000$ & 5/5 (0.510M) & 22.6 & $+0.047 [-0.042,0.136]$ \\
  & \shortstack[l]{Context-Eligible\\Count-Matched} & $0.605 \pm 0.345$ & $0.799 \pm 0.446$ & $0.800 \pm 0.447$ & 4/5 (0.515M) & 27.0 & $+0.149 [-0.042,0.442]$ \\
 \addlinespace[2pt]
-DrawerClose--DDPG & SABER (Main) & $0.324 \pm 0.082$ & $0.277 \pm 0.100$ & $0.280 \pm 0.251$ & 5/5 (0.020M) & 24.0 & $--$ \\
+DrawerClose--DDPG & SABER (Ours) & $0.324 \pm 0.082$ & $0.277 \pm 0.100$ & $0.280 \pm 0.251$ & 5/5 (0.020M) & 24.0 & $--$ \\
  & \shortstack[l]{Replay-Action\\Query} & $0.276 \pm 0.016$ & $0.226 \pm 0.048$ & $0.290 \pm 0.192$ & 5/5 (0.050M) & 28.4 & $+0.049 [-0.006,0.128]$ \\
  & \shortstack[l]{Shuffled-Policy\\Query} & $0.292 \pm 0.056$ & $0.264 \pm 0.052$ & $0.320 \pm 0.422$ & 5/5 (0.060M) & 27.4 & $+0.033 [-0.063,0.119]$ \\
  & Random-Support & $0.277 \pm 0.050$ & $0.326 \pm 0.134$ & $0.240 \pm 0.429$ & 5/5 (0.040M) & 23.8 & $+0.048 [-0.004,0.115]$ \\
  & \shortstack[l]{Context-Eligible\\Count-Matched} & $0.295 \pm 0.063$ & $0.325 \pm 0.111$ & $0.330 \pm 0.460$ & 5/5 (0.070M) & 27.8 & $+0.030 [-0.033,0.092]$ \\
 \bottomrule
 \end{tabular}
-\caption{DDPG mechanism controls over paired seeds 1--5. Values are mean $\pm$ sample SD on each task's exact grid. Hit90 gives reaching seeds and their reached-seed median step. The final column reports SABER Main-minus-control AUC differences with frozen paired-bootstrap 95\% CIs; positive values favor Main. FPP uses 10,000 seeded resamples and Drawer controls enumerate all $5^5$ paired resamples, matching the validated source artifacts. Steps/s is descriptive rather than hardware-normalized.}
+\caption{DDPG mechanism controls over paired seeds 1--5. Values are mean $\pm$ sample SD on each task's exact grid. Hit90 gives reaching seeds and their reached-seed median step. The final column reports AUC differences between SABER (Ours) and each control with frozen paired-bootstrap 95\% CIs; positive values favor SABER (Ours). FPP uses 10,000 seeded resamples and Drawer controls enumerate all $5^5$ paired resamples, matching the validated source artifacts. Steps/s is descriptive rather than hardware-normalized.}
 \label{tab:supp-mechanism-controls}
 \end{table*}

@@ -801,7 +801,8 @@ def write_primary_seed_tables(rows: Sequence[Mapping[str, object]]) -> None:
         for method_index, method in enumerate(METHODS):
             for seed in SEEDS:
                 row = by_key[(task, backbone, method, seed)]
-                method_cell = method if seed == SEEDS[0] else ""
+                display_method = "SABER (Ours)" if method == "SABER" else method
+                method_cell = display_method if seed == SEEDS[0] else ""
                 hit = "--" if row["hit90_step"] is None else f"{int(row['hit90_step']) / 1_000_000:.2f}M"
                 tex.append(
                     f"{method_cell} & {seed} & {float(row['auc']):.5f} & "

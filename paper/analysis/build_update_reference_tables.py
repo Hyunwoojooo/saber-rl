@@ -256,6 +256,11 @@ def write_redq_table(indexed: Mapping[tuple[str, str], Mapping[str, object]]) ->
             task_cell = task if method_index == 0 else ""
             if method == "REDQ-HER TQB":
                 display = r"\shortstack[l]{REDQ-HER TQB\\UTD 4; 10 critics/2 target}"
+            elif method == "SABER":
+                display = (
+                    f"\\shortstack[l]{{SABER (Ours)\\\\"
+                    f"{backbone}; UTD 1; {critic_text}}}"
+                )
             else:
                 display = (
                     f"\\shortstack[l]{{{method} ({backbone})\\\\"
