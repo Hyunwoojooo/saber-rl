@@ -10,14 +10,14 @@ Profile item & Recorded value \\
 Execution protocol & Sequential FPP TD3 HER and SABER, seed 1, 20k--100k \\
 GPU & NVIDIA GB10, compute capability 12.1, 121.7 GiB CUDA-addressable memory \\
 CPU/platform & 20 logical CPUs, AArch64 Linux 6.17.0-1026-nvidia, glibc 2.39 \\
-Software & Python 3.12.3, PyTorch 2.12.1+cu130, CUDA 13.0, cuDNN 9.2 \\
-Primary-run boundary & Exact hardware/software identifiers were not retained uniformly \\
+Software & Python 3.12.3, PyTorch 2.12.1+cu130, CUDA 13.0, cuDNN 9.20.0 \\
+Comparison boundary & The dedicated profile is not extrapolated to historical primary runs \\
 Memory boundary & Peak process and accelerator memory were not measured \\
 \bottomrule
 \end{tabular}
 \caption{Recorded infrastructure for the dedicated same-hardware runtime
 profile. CUDA-addressable memory is reported because the GB10 uses unified
-memory. These identifiers characterize the runtime profile only and are not
-retroactively assigned to historical primary runs.}
+memory. These identifiers characterize the dedicated runtime profile;
+historical steps/s values in other tables are descriptive cohort measurements.}
 \label{tab:supp-runtime-environment}
 \end{table}

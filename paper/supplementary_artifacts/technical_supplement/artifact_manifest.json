@@ -1,14 +1,14 @@
 {
   "files": [
     {
-      "bytes": 3905,
+      "bytes": 3813,
       "path": "paper/supplementary_artifacts/technical_supplement/README.md",
-      "sha256": "568aa784a506b5dcc93cd0bc02f67e95c6be1b1d6bb71f56a47f48da5e0912ae"
+      "sha256": "26b1b5992646717844cb4991de70188f21e46c813b2a8d569826f75ab8e80acb"
     },
     {
-      "bytes": 1357,
+      "bytes": 1338,
       "path": "paper/supplementary_artifacts/technical_supplement/artifact_index.csv",
-      "sha256": "f74f6b5f75639407675290b779616ba599cb67be1ab3f155b680aa3a6123d827"
+      "sha256": "802d5f4b9f3a598a2668eef939ec0e1eda99c1390db03f1d9d73ec4e78dfcdc1"
     },
     {
       "bytes": 1686,
@@ -21,14 +21,14 @@
       "sha256": "3f7c9bd6c2ba77cd5147a89efb5519a9bf898c12ade3abf911beda78dbb3ba53"
     },
     {
-      "bytes": 1280,
+      "bytes": 1589,
       "path": "paper/supplementary_artifacts/technical_supplement/execution_environment_summary.csv",
-      "sha256": "ac58b188633cd1a45f8d49450223458a4a03ab294740a682176f186f76ebbbd6"
+      "sha256": "633dcb11aff0b045ca6f4cc8c62539239662d644716994a04861d63479b0b579"
     },
     {
-      "bytes": 4231,
+      "bytes": 4740,
       "path": "paper/supplementary_artifacts/technical_supplement/execution_host_mapping.csv",
-      "sha256": "45ddac0dd3f1609aa4dd5b0d12bd7900c490dd61fa3bb04d3e6bc3f6b2ec7bab"
+      "sha256": "3398932394f6d023a042c3c9996c147fbc7a5416eeda3355e91493b93620eaa4"
     },
     {
       "bytes": 1495,

@@ -278,13 +278,15 @@ an independent causal test of long-horizon performance.
 
 \input{tables/supplementary_execution_hosts_table}
 
-The audit maps only run families supported by local launch logs, configurations,
-completion records, or frozen source snapshots. It does not assign either
-current host environment to artifacts whose execution host is uncertain. Full
-sanitized mappings, including source-provenance and environment-exactness
-fields, are provided in \texttt{execution\_host\_mapping.csv}. Because
-contemporaneous environment freezes were not retained uniformly, environment
-reproducibility remains partial rather than complete.
+All four hosts used the verified common experiment-library stack: Python 3.12.3,
+PyTorch 2.12.1+cu130, CUDA 13.0, cuDNN 9.20.0, Gymnasium 1.3.0,
+Gymnasium-Robotics 1.4.2, MuJoCo 3.3.0, Meta-World 3.1.1, NumPy 2.3.5,
+and SciPy 1.18.0. For each paired HER--SABER cohort, both methods and all paired
+seeds were executed on one physical host under this stack; no paired cohort was
+split across machines. Hardware differs across cohorts, so throughput values
+remain descriptive and are not interpreted across hosts. Sanitized run-family
+and source-provenance records are provided in
+\texttt{execution\_host\_mapping.csv}.
 
 \FloatBarrier
 \subsection{Dedicated Runtime Profile}
@@ -296,10 +298,10 @@ reproducibility remains partial rather than complete.
 The dedicated profile sequentially executes HER and SABER on the recorded
 stack, using one seed and the 20k--100k interval. It supports attribution of
 implementation overhead but not a claim about asymptotic complexity or
-end-to-end learning efficiency. Exact hardware and software identifiers were
-not retained uniformly for the historical primary and HGR runs; their
-throughput is therefore descriptive rather than compute-matched. Peak memory
-was not recorded and is reported as not measured rather than estimated.
+end-to-end learning efficiency. Historical throughput values in the result
+tables were not collected under this dedicated sequential profiling protocol;
+they are therefore descriptive rather than compute-matched. Peak memory was
+not recorded and is reported as not measured rather than estimated.
 
 \FloatBarrier
 \section{Artifact and Provenance Index}

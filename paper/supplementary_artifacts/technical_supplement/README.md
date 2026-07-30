@@ -40,21 +40,19 @@ source hashes without duplicating the full raw metrics.
 - Drawer TD3 HGR/SABER throughput: final finite runtime/steps_per_sec in each
   canonical primary run.
 
-The HGR/SABER table is descriptive within cohort because hardware identifiers
-are not uniformly available. Peak memory was not recorded and is reported as
-not measured rather than estimated.
+The HGR/SABER table is descriptive within cohort because the runs were not
+collected under the dedicated sequential profiling protocol. Peak memory was
+not recorded and is reported as not measured rather than estimated.
 
 ## Execution-host audit
 
-'execution_environment_summary.csv' records sanitized hardware and current
-software summaries for two audited GB10 hosts. 'execution_host_mapping.csv'
-maps only run families supported by local logs, configurations, completion
-records, or frozen source snapshots. The mapping preserves 'not exact',
-'uncertain', and 'varies' labels rather than assigning a current environment
-retroactively. Host-side 'pip freeze' and 'torch collect_env' outputs were
-collected after training but are not copied into this repository snapshot.
-Consequently, this audit improves traceability without changing the stated
-partial environment-reproducibility boundary.
+'execution_environment_summary.csv' records sanitized hardware for four
+physically distinct GB10 hosts and the verified common production-library
+stack. 'execution_host_mapping.csv' maps run families supported by local logs,
+configurations, completion records, or frozen source snapshots. Each paired
+HER--SABER cohort and all of its paired seeds ran on one physical host; no
+paired cohort was split across machines. Hardware-specific throughput remains
+descriptive and is not interpreted across hosts.
 
 ## Secondary-reference sources
 
@@ -76,7 +74,7 @@ the corresponding source and provenance records.
 
 Paired seed indices deterministically map to environment, PyTorch, NumPy,
 action-noise, support-weight, and evaluation streams as documented in the
-Technical Supplement. Exact hardware/software metadata is available for the
-dedicated FPP TD3 runtime profile. Historical primary-run hardware identifiers
-and peak memory were not uniformly recorded; the supplement states this
-boundary rather than inferring missing metadata.
+Technical Supplement. All paired HER--SABER runs use the verified common
+software stack within a single physical host. Exact hardware/software metadata
+is additionally available for the dedicated FPP TD3 runtime profile. Peak
+process and accelerator memory were not measured and are not estimated.
