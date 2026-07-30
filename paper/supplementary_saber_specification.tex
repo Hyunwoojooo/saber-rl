@@ -235,6 +235,17 @@ Mean-one normalization preserves the average explicit coefficient, but does
 not imply an unchanged numerical loss or gradient norm because support may
 correlate with residual magnitude.
 
+\paragraph{Weight-range invariant.}
+For the Main choice \(\lambda_S=1\), the support-negative and support-positive
+coefficients in any mixed minibatch with \(0<p_B<1\) satisfy
+\[
+\tfrac12<\Omega_i^{-}<1<\Omega_i^{+}<2,
+\qquad \sum_{i\in B}\Omega_i=|B|.
+\]
+Thus SABER neither drops a sample nor assigns an unbounded coefficient. It
+reduces exactly to the uniformly weighted HER critic objective when all
+indicators are zero or all are one.
+
 \subsection{End-to-End Update}
 \label{sec:supp-saber-algorithm}
 
@@ -296,3 +307,14 @@ The indicator is a binary occupancy proxy, not an estimate of density,
 uncertainty, target accuracy, target variance, or TD-error rank. Finally,
 SABER cannot mark an action as locally supported unless its action bin is
 already represented by replay actions in the matched context.
+
+\paragraph{Operational and cost boundary.}
+The support path is a detached, non-neural lookup and introduces no trainable
+parameter or optimizer state. For minibatch $B$, at most
+$|B|N_{\mathrm{scan}}$ slots enter exact full-context matching and action-bin
+occupancy after retrieval; under the Main setting this is at most
+$256\times512=131{,}072$ slot checks per update. This bound applies to the
+post-retrieval scan, not to all index maintenance or candidate-list processing,
+whose cost can depend on retrieval-key occupancy. Once $\Omega_i$ is formed,
+the backbone follows its ordinary critic, actor, temperature, delayed-update,
+and target-network rules.

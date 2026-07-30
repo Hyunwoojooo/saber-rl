@@ -92,6 +92,12 @@ primary cohort because a complete matched HER--SABER pair was not collected.
 
 \input{tables/supplementary_experimental_settings}
 
+\paragraph{Tuning boundary.}
+We did not conduct an exhaustive joint hyperparameter search. The Main SABER
+settings were fixed for the matched comparisons, and no control received
+variant-specific tuning. The \(K\in\{3,7\}\) runs are sensitivity checks around
+Main \(K=5\), not a per-task model-selection sweep.
+
 \paragraph{Interpretation boundary.}
 Within each paired cohort, HER and SABER share the task, seed, training budget,
 replay and relabeling code, backbone, optimizer, exploration process, UTD, and
@@ -155,20 +161,63 @@ Hit90 is the first exact checkpoint with \(q_j\geq0.9\); its median is
 computed only over seeds that reach the threshold, so reached-seed coverage
 is always reported.
 
+\paragraph{Checkpoint alignment and unit of inference.}
+For seed $s$, checkpoint success is the mean of 20 binary outcomes from
+deterministic-policy evaluation episodes. Before computing a comparison, we
+restrict every included method to the intersection of its available checkpoint
+labels; AUC, FQ-AUC, and final success for that comparison use this same grid.
+The statistical unit is the seed rather than an episode or checkpoint. Thus a
+paired comparison first forms one difference $d_s$ per shared seed, and the
+paired bootstrap resamples the vector of seed-indexed differences. Evaluation
+episodes and checkpoints are never treated as independent replicates. A seed
+that does not reach success $0.9$ contributes to reached-seed coverage but is
+not assigned an artificial Hit90 time.
+
+\paragraph{Evaluation isolation.}
+Evaluation uses the deterministic policy with exploration disabled and a
+seed stream separate from training. Evaluation transitions are not inserted
+into replay and trigger no optimizer or target-network update. Checkpoint
+labels count training environment interactions only, so evaluation frequency
+does not change the stated training budget or replay contents.
+
+\paragraph{Cohort separation.}
+Primary claims use the paired five-seed cohorts only. The frozen FPP TD3
+ten-seed cohort, indexing sensitivity, and Drawer diagnostic seeds 6--10 are
+reported as confirmatory, sensitivity, or diagnostic extensions and are not
+silently pooled into primary confidence intervals. Where a pooled ten-seed
+diagnostic summary is shown, it is labeled descriptive.
+
 For paired comparisons, each seed contributes one method difference. The
 reported 95\% intervals are percentile intervals from 10,000 paired bootstrap
 resamples with pseudorandom seed 2027. Sample standard deviations use
 \(n-1\) in the denominator. No curve is smoothed, interpolated,
 extrapolated, or forward-filled.
 
+\paragraph{Metric and uncertainty boundary.}
+The trapezoidal AUC weights each interval by elapsed environment steps, so a
+denser checkpoint schedule does not receive extra mass merely by containing
+more checkpoints. Normalized AUC and FQ-AUC remain in \([0,1]\). Method-wise
+mean and sample SD describe across-seed level and dispersion, whereas paired
+intervals quantify uncertainty in within-seed differences. An interval that
+includes zero is treated as inconclusive rather than as evidence of
+equivalence. Hit90 uses only an observed checkpoint crossing and is never
+interpolated between evaluations.
+
+\paragraph{AUC boundary handling.}
+The full-span integral begins at the first shared recorded checkpoint \(t_1\)
+and ends at \(t_m\); we do not prepend a synthetic zero-step success value.
+FQ-AUC restricts the same checkpoint sequence to the stated task-specific
+window and normalizes by that window's observed elapsed span. The exact grids
+contain the window endpoints, so neither metric requires a fractional or
+interpolated checkpoint. Final success is \(q_m\) on the same shared grid.
+These rules are applied unchanged to every method in a reported comparison.
+
 \paragraph{Interpretation boundary.}
-Where reported, Steps/s is the arithmetic mean over seeds 1--5 of each run's
-completed environment steps divided by total training runtime. These historical
-measurements were not hardware-normalized across run families and are therefore
-descriptive implementation measurements, not learning-efficiency claims.
-Control and reference tables use the common order Cohort, Method/Variant, AUC,
-FQ-AUC, Final, Hit90, and Steps/s; diagnostic tables retain signal-specific
-columns.
+Where reported, Steps/s is the seed-1--5 mean of completed training steps
+divided by runtime. Because historical runs were not hardware-normalized across
+families, it is descriptive rather than a learning-efficiency claim. Control
+and reference tables use a common metric order; diagnostic tables retain
+signal-specific columns.
 
 \FloatBarrier
 \section{Primary Comparison Details}
@@ -489,12 +538,9 @@ from references, extensions, and pending work.
 
 \input{tables/supplementary_artifact_index_table}
 
-\paragraph{Development scope and seed mapping.}
-We did not conduct an exhaustive joint hyperparameter search. The Main SABER
-settings were fixed for the matched comparisons, and no control received
-variant-specific tuning. The \(K\in\{3,7\}\) runs are sensitivity checks around
-Main \(K=5\), not a per-task model-selection sweep. For paired seed \(s\), the
-environment, PyTorch, NumPy, and action-noise streams use \(s\); the
+\paragraph{Seed mapping.}
+For paired seed \(s\), the environment, PyTorch, NumPy, and action-noise streams
+use \(s\); the
 support-weight stream uses \(20000+s\), and evaluation uses \(10000+s\).
 Training and evaluation resets advance by deterministic episode- and
 checkpoint-indexed offsets. All methods in a paired cohort use this mapping.
