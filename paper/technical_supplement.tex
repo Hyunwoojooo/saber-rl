@@ -86,32 +86,16 @@ primary cohort because a complete matched HER--SABER pair was not collected.
 
 \input{tables/supplementary_experimental_settings}
 
-\paragraph{Development scope and seed mapping.}
-We did not conduct an exhaustive joint hyperparameter search. The Main SABER
-settings were fixed for the matched comparisons, and no control received
-variant-specific tuning. The \(K\in\{3,7\}\) runs are reported as sensitivity
-checks around Main \(K=5\), not as a per-task model-selection sweep. For paired
-seed \(s\), the environment, PyTorch, NumPy, and action-noise streams use \(s\);
-the support-weight stream uses \(20000+s\), and evaluation uses base seed
-\(10000+s\). Training resets advance deterministically with the episode index,
-and evaluation resets use a deterministic checkpoint- and episode-indexed
-offset. All methods in a paired cohort use the same seed mapping.
-
 \subsection{Comparison Methods}
 
 \input{tables/supplementary_comparison_settings}
 
-\paragraph{HGR.}
-The implementation prioritizes an episode and then a transition--future-goal
-pair. The two importance factors are multiplied and normalized on relabeled
-samples; the original-goal branch retains coefficient one. The episode and
-pair priority exponents are both \(0.6\).
-
-\paragraph{PER.}
-Replay transitions are sampled by TD-error priority with exponent \(0.6\).
-The importance exponent increases linearly from \(0.4\) to \(1.0\) over the
-training budget. PER changes realized minibatch membership, unlike SABER and
-the TD-error critic-loss weighting control.
+\paragraph{Prioritization controls.}
+HGR prioritizes an episode and then a transition--future-goal pair, multiplies
+the two normalized importance factors on relabeled samples, and leaves the
+original-goal coefficient at one. PER samples replay transitions with
+TD-error priority and annealed importance correction. Both change realized
+selection, unlike SABER and the TD-error critic-loss weighting control.
 
 \paragraph{TD-error critic-loss weighting.}
 This control preserves uniform replay and changes only normalized per-sample
@@ -149,7 +133,7 @@ extrapolated, or forward-filled.
 
 \subsection{Drawer Learning Curves}
 
-\begin{figure}[!tbp]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/supplementary_drawer_primary_learning_curves.pdf}
 \caption{DrawerOpen and DrawerClose learning curves for DDPG and TD3.
@@ -313,6 +297,16 @@ was not recorded and is reported as not measured rather than estimated.
 \section{Artifact and Provenance Index}
 
 \input{tables/supplementary_artifact_index_table}
+
+\paragraph{Development scope and seed mapping.}
+We did not conduct an exhaustive joint hyperparameter search. The Main SABER
+settings were fixed for the matched comparisons, and no control received
+variant-specific tuning. The \(K\in\{3,7\}\) runs are sensitivity checks around
+Main \(K=5\), not a per-task model-selection sweep. For paired seed \(s\), the
+environment, PyTorch, NumPy, and action-noise streams use \(s\); the
+support-weight stream uses \(20000+s\), and evaluation uses \(10000+s\).
+Training and evaluation resets advance by deterministic episode- and
+checkpoint-indexed offsets. All methods in a paired cohort use this mapping.
 
 Generated analysis directories contain compact CSV summaries, a
 repository-relative source manifest, and a self-excluding artifact manifest.
