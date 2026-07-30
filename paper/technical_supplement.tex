@@ -54,7 +54,7 @@
 \suppressfloats[t]
 \begin{center}
 {\LARGE\bfseries Technical Supplement}\\[2pt]
-{\large\bfseries SABER: Support-Conditioned Bellman Error Reweighting\\
+{\large\bfseries SABER: Support-Conditioned Adaptive Bellman Error Reweighting\\
 for Sparse-Reward Hindsight Experience Replay}\\[3pt]
 {\normalsize Anonymous Submission}
 \end{center}
@@ -67,11 +67,9 @@ runtime measurements, and an index of the anonymous code-and-data artifacts.
 It uses the terminology and method definitions of the main paper.
 
 \noindent\textbf{Working-draft completion status.}
-Two result slots are intentionally marked \emph{pending}: FPP DDPG
-Actor+Critic and DrawerOpen DDPG fixed-target diagnostics. No value is
-inferred from an incomplete run or from the earlier live-target diagnostic.
-These markers and this paragraph must be removed only after complete,
-validated artifacts have replaced both slots.
+One result slot remains \emph{pending}: FPP DDPG Actor+Critic. No value is
+inferred from its incomplete run. This marker and paragraph must be removed
+after a complete, validated five-seed artifact replaces the remaining slot.
 
 \section{Experimental and Reproducibility Details}
 
@@ -300,16 +298,18 @@ Top-10\% enrichment is the support-positive rate among the exact
 divided by the full-minibatch support-positive rate. Stable descending order
 breaks ties, so the selected set has exactly the intended size. The modest
 Pearson correlations and enrichment above one show that support and TD error
-are related but not identical rankings.
+are related but not identical rankings. For DrawerOpen, fixed-target residual
+reduction is larger for support-positive samples in all five primary seeds and
+all five extension seeds.
 
 \subsection{Phase-Conditioned Allocation}
 
 \input{tables/supplementary_phase_diagnostics_table}
 
-For DrawerClose, both the primary seeds and the extension show higher support
-activation in approach and contact than in the dominant closed phase. This
-phase analysis describes where the indicator activates; it is not an
-independent causal test of long-horizon performance.
+For both Drawer tasks, the primary seeds and the extensions show higher
+support activation in approach and contact than in the dominant terminal
+phase. This phase analysis describes where the indicator activates; it is not
+an independent causal test of long-horizon performance.
 
 \FloatBarrier
 \section{Runtime and Resource Measurements}

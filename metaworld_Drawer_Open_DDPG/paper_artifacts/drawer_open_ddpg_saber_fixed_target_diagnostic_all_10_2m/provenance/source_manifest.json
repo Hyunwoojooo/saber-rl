@@ -1,0 +1,175 @@
+{
+  "execution_commit": "22015c0a3743d4a10f72197752022ed0e08ee730",
+  "extension_artifact": {
+    "manifest_sha256": "0881238928e738f4560a5fcdbbf9c177ba1f52ba84e9be27d395b991fbe2051f",
+    "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_s6_10_2m"
+  },
+  "raw_metrics_duplicated": false,
+  "sources": [
+    {
+      "files": [
+        {
+          "bytes": 25713543,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s1_2m_fixed_target_diag_cuda/metrics.csv",
+          "sha256": "ef4e5e371d870768341e9e9dd9368df7bb77290e617e04fa2031350083f1373e"
+        },
+        {
+          "bytes": 5533,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s1_2m_fixed_target_diag_cuda/config.json",
+          "sha256": "b678636ba9b0b7a067ce8b33187262b87ce1fdca64f38e4276df00d0124b1384"
+        },
+        {
+          "bytes": 11096,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s1_2m_fixed_target_diag_cuda/summary.json",
+          "sha256": "b64ab478193cf6ea11a4ced5f4958322ef78b4d78c10292ff8f4d85142f1ce9c"
+        }
+      ],
+      "seed": 1,
+      "source_kind": "canonical_completed_run",
+      "source_run": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s1_2m_fixed_target_diag_cuda"
+    },
+    {
+      "files": [
+        {
+          "bytes": 25694643,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s2_2m_fixed_target_diag_cuda/metrics.csv",
+          "sha256": "47eda69bce938acb670932ccec2967c69a4caf68e2435e977502d9e21778e607"
+        },
+        {
+          "bytes": 5533,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s2_2m_fixed_target_diag_cuda/config.json",
+          "sha256": "83d0b7e6653b7d778c0c41dadf805c1445e8d124dd0329299f484a1fbaf8adf5"
+        },
+        {
+          "bytes": 11164,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s2_2m_fixed_target_diag_cuda/summary.json",
+          "sha256": "04eace06268824b47b73265a43de69472d1c5b088d3738071752109f7f2187da"
+        }
+      ],
+      "seed": 2,
+      "source_kind": "canonical_completed_run",
+      "source_run": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s2_2m_fixed_target_diag_cuda"
+    },
+    {
+      "files": [
+        {
+          "bytes": 25729702,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s3_2m_fixed_target_diag_cuda/metrics.csv",
+          "sha256": "4b6c31ee773b5bce5b2f19b860b1baee753092c2f98a254b6b08a76c70b9485f"
+        },
+        {
+          "bytes": 5533,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s3_2m_fixed_target_diag_cuda/config.json",
+          "sha256": "a596b2b408b89865860ed76df5fd51adb051d29eaeaab9eeff2347e210eae591"
+        },
+        {
+          "bytes": 11056,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s3_2m_fixed_target_diag_cuda/summary.json",
+          "sha256": "7242532e2971247ad8c6780c200422f88d09d4206f3c5a50b18533a44d175a46"
+        }
+      ],
+      "seed": 3,
+      "source_kind": "canonical_completed_run",
+      "source_run": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s3_2m_fixed_target_diag_cuda"
+    },
+    {
+      "files": [
+        {
+          "bytes": 25751032,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s4_2m_fixed_target_diag_cuda/metrics.csv",
+          "sha256": "82fff7bd9bc4c362c06f08ecd8ccafe3a7a87272a39b17fa20263f20bd46b536"
+        },
+        {
+          "bytes": 5533,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s4_2m_fixed_target_diag_cuda/config.json",
+          "sha256": "5fc1536c29d2cbaa8ec460483b6ddca2d37b76bacdfb6c279ba146156279dfe3"
+        },
+        {
+          "bytes": 10999,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s4_2m_fixed_target_diag_cuda/summary.json",
+          "sha256": "ce9a130677b509cb18c0f4d230982896e339b47476e993fefa964890ae878c68"
+        }
+      ],
+      "seed": 4,
+      "source_kind": "canonical_completed_run",
+      "source_run": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s4_2m_fixed_target_diag_cuda"
+    },
+    {
+      "files": [
+        {
+          "bytes": 25544447,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s5_2m_fixed_target_diag_cuda/metrics.csv",
+          "sha256": "205971666e9a61dc7fd39684021e16ac7ec22c8e4c7603777a85b0c3bdfd1e4a"
+        },
+        {
+          "bytes": 5533,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s5_2m_fixed_target_diag_cuda/config.json",
+          "sha256": "a94dbb9d276bde9a5a686610bc93f64d4684509c6ee88cc9db2212bd17e5c0a2"
+        },
+        {
+          "bytes": 11082,
+          "path": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s5_2m_fixed_target_diag_cuda/summary.json",
+          "sha256": "0fd61c02d43cc38c87e543f4a33b1455ac3e8cf51767f41180ada9e32043a7b6"
+        }
+      ],
+      "seed": 5,
+      "source_kind": "canonical_completed_run",
+      "source_run": "drawer_open_DDPG-HER-SABER-fixed-target-diagnostic_s5_2m_fixed_target_diag_cuda"
+    },
+    {
+      "files": [
+        {
+          "bytes": 6492360,
+          "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_s6_10_2m/data/seeds/seed_06/metrics.csv.gz",
+          "sha256": "0b19797e0ce3085dbaf8a0d9862d5471283a083edf5e2cbaa07f1311c1a2250c"
+        }
+      ],
+      "seed": 6,
+      "source_kind": "committed_extension_artifact"
+    },
+    {
+      "files": [
+        {
+          "bytes": 7391066,
+          "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_s6_10_2m/data/seeds/seed_07/metrics.csv.gz",
+          "sha256": "2df8731ce27abf91cecaf98c7127f5487641fca0025421c48e96bbdc0dff24b0"
+        }
+      ],
+      "seed": 7,
+      "source_kind": "committed_extension_artifact"
+    },
+    {
+      "files": [
+        {
+          "bytes": 6668378,
+          "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_s6_10_2m/data/seeds/seed_08/metrics.csv.gz",
+          "sha256": "79c22ada13f887a2ae2f2d389f84a2ac3def3de62986a1034595365d38a1ba07"
+        }
+      ],
+      "seed": 8,
+      "source_kind": "committed_extension_artifact"
+    },
+    {
+      "files": [
+        {
+          "bytes": 7464454,
+          "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_s6_10_2m/data/seeds/seed_09/metrics.csv.gz",
+          "sha256": "1dafd115fdd7276056dabae16c9312ca0c2d586b5e56cec9fcd6c28be6f0e0e6"
+        }
+      ],
+      "seed": 9,
+      "source_kind": "committed_extension_artifact"
+    },
+    {
+      "files": [
+        {
+          "bytes": 7465471,
+          "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_s6_10_2m/data/seeds/seed_10/metrics.csv.gz",
+          "sha256": "574ed1154554b55a2d8263f25881305c207a5a62cc40bfc1301298fa20b67621"
+        }
+      ],
+      "seed": 10,
+      "source_kind": "committed_extension_artifact"
+    }
+  ]
+}

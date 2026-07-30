@@ -20,6 +20,9 @@ CANONICAL_SOURCES = (
     "metaworld_Drawer_Close_DDPG/experiments/"
     "DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact_all_10/"
     "artifact_manifest.json",
+    "metaworld_Drawer_Open_DDPG/paper_artifacts/"
+    "drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/"
+    "artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
     "fpp_td3_her_vs_saber_runtime_profile_100k/artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
@@ -43,10 +46,7 @@ CANONICAL_SOURCES = (
 PENDING = (
     "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/"
     "fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s{seed}_"
-    "1000000_ls512/metrics_selected_10k.csv",
-    "metaworld_Drawer_Open_DDPG/experiments/"
-    "DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/"
-    "diagnostic_artifact_all_10/artifact_manifest.json",
+    "1000000_ls512/metrics_selected_10k.csv"
 )
 
 
@@ -86,9 +86,7 @@ def main() -> None:
     source_manifest = {
         "scope": "Technical Supplement derived summaries",
         "sources": [digest(path) for path in sorted(source_paths)],
-        "pending": [
-            PENDING[0].format(seed=seed) for seed in range(1, 6)
-        ] + [PENDING[1]],
+        "pending": [PENDING.format(seed=seed) for seed in range(1, 6)],
     }
     (OUTPUT / "source_manifest.json").write_text(
         json.dumps(source_manifest, indent=2, sort_keys=True) + "\n",

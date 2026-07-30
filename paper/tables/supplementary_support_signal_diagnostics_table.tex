@@ -1,5 +1,4 @@
-% FPP and DrawerClose values are bound to validated diagnostic artifacts.
-% DrawerOpen remains intentionally pending until the fixed-target rerun.
+% Values are bound to validated diagnostic artifacts.
 \begin{table*}[t]
 \centering
 \small
@@ -16,9 +15,12 @@ FPP TD3 & 1--5 & \(0.219\pm0.009\) & \(0.128\) & \(1.670\times\) &
 FPP SAC & 1--5 & \(0.197\pm0.013\) & \(0.143\) & \(1.828\times\) &
 \(1.74\times\) & \(3.94\times\) \\
 \addlinespace[2pt]
-DrawerOpen DDPG & 1--5 & \multicolumn{5}{c}{\textit{pending fixed-target result}} \\
-DrawerOpen DDPG & 6--10 extension & \multicolumn{5}{c}{\textit{pending fixed-target result}} \\
-DrawerOpen DDPG & 1--10 pooled & \multicolumn{5}{c}{\textit{pending fixed-target result}} \\
+DrawerOpen DDPG & 1--5 & \(0.417\pm0.021\) & \(0.084\) & \(1.379\times\) &
+\(1.16\times\) & \(1.79\times\) \\
+DrawerOpen DDPG & 6--10 extension & \(0.475\pm0.094\) & \(0.095\) &
+\(1.440\times\) & \(1.13\times\) & \(1.91\times\) \\
+DrawerOpen DDPG & 1--10 pooled & \(0.446\pm0.071\) & \(0.090\) &
+\(1.409\times\) & \(1.15\times\) & \(1.83\times\) \\
 \addlinespace[2pt]
 DrawerClose DDPG & 1--5 & \(0.298\pm0.018\) & \(0.104\) & \(1.534\times\) &
 \(1.42\times\) & \(2.94\times\) \\
@@ -33,7 +35,7 @@ seed, after which seeds are independent units. Support rates are mean
 \(\pm\) sample SD. The last two columns divide support-positive by
 support-negative cohort means. Fixed \(\Delta|\delta|\) evaluates the same
 minibatch after one critic step while retaining the pre-update Bellman target.
-DrawerOpen values are intentionally unreported until its fixed-target
-diagnostic rerun is complete.}
+Seeds 1--5 are the primary diagnostic cohorts, seeds 6--10 are separate
+extensions, and pooled ten-seed rows are descriptive.}
 \label{tab:supp-support-signal-diagnostics}
 \end{table*}

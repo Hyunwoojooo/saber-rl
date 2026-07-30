@@ -1,0 +1,51 @@
+{
+  "artifact_id": "drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m",
+  "execution_commit": "22015c0a3743d4a10f72197752022ed0e08ee730",
+  "files": [
+    {
+      "bytes": 528,
+      "path": "README.md",
+      "sha256": "19b0c41fa15e603ecffe01ab4786503e1ce8f059d63b8fc79a7f6940200db644"
+    },
+    {
+      "bytes": 7089,
+      "path": "provenance/source_manifest.json",
+      "sha256": "1a90e1eac9f188d1a34d02d4bb3da55f43b8bdc2de5b5646739e82c56edc945d"
+    },
+    {
+      "bytes": 4092,
+      "path": "results/diagnostic_by_seed.csv",
+      "sha256": "64ae6a9776d4f9d0c11081d59f9997902dfcf8cc16bbcf4d0f85944c9c9515e4"
+    },
+    {
+      "bytes": 934,
+      "path": "results/diagnostic_cohort_summary.csv",
+      "sha256": "46a9937ae20b60acf84eb6a1ff9717a2c408828297a9dccb058978dd3e00e9fe"
+    },
+    {
+      "bytes": 1383,
+      "path": "results/phase_cohort_summary.csv",
+      "sha256": "c7adddeeab747601475484a070b657c4948ee2a44ec99f3540164d1356823bd4"
+    },
+    {
+      "bytes": 339,
+      "path": "validation/validation_summary.json",
+      "sha256": "00389b98edc67e95cbc9851d2f187924ffd5f3a0059a2e8981f8e570cd2f27b0"
+    }
+  ],
+  "manifest_self_excluded": true,
+  "raw_metrics_duplicated": false,
+  "schema_version": 1,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ]
+}

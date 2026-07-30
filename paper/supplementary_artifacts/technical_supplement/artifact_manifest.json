@@ -1,19 +1,19 @@
 {
   "files": [
     {
-      "bytes": 3762,
+      "bytes": 3905,
       "path": "paper/supplementary_artifacts/technical_supplement/README.md",
-      "sha256": "0b1c84f312a85d02447c1ddbf2473f4540cc2feb299a28647ba610866f23a01d"
+      "sha256": "568aa784a506b5dcc93cd0bc02f67e95c6be1b1d6bb71f56a47f48da5e0912ae"
     },
     {
-      "bytes": 1380,
+      "bytes": 1357,
       "path": "paper/supplementary_artifacts/technical_supplement/artifact_index.csv",
-      "sha256": "ff88320e51d6277e92a8eb6a0fe4ec8ff1578756a4072342b0e1e7b83735f2bc"
+      "sha256": "f74f6b5f75639407675290b779616ba599cb67be1ab3f155b680aa3a6123d827"
     },
     {
-      "bytes": 1389,
+      "bytes": 1686,
       "path": "paper/supplementary_artifacts/technical_supplement/diagnostic_cohort_summary.csv",
-      "sha256": "a53d96a01c182f17b8c9fc455283d2c9a5812adc30c6c51eae55d2639b621c84"
+      "sha256": "ec38d6ac772d1a153134c9b30352ef96ab6257892e33cd765efdd9fc9ccd0676"
     },
     {
       "bytes": 1683,
@@ -41,9 +41,9 @@
       "sha256": "d4bbbb3ce65aee79b08ab0cc733447d14be5990dd09790fa13c2a92ed0d8b04a"
     },
     {
-      "bytes": 8149,
+      "bytes": 8259,
       "path": "paper/supplementary_artifacts/technical_supplement/source_manifest.json",
-      "sha256": "fa8da7e72617373c973d5f96e36ecd4ac55d8db3c8e5782066321a89ea00b18e"
+      "sha256": "57a68606b9cf0ef2ccc9c86b03ca6a4a54263c68188ba111583cbcc3dbbf7fa3"
     }
   ],
   "root": "paper/supplementary_artifacts/technical_supplement"

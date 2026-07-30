@@ -4,8 +4,7 @@
     "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
     "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
     "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
-    "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/diagnostic_artifact_all_10/artifact_manifest.json"
+    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv"
   ],
   "scope": "Technical Supplement derived summaries",
   "sources": [
@@ -113,6 +112,11 @@
       "bytes": 1258,
       "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/artifact_manifest.json",
       "sha256": "7224e653ecbe331d1731a976761471d588deb1b9405203f16dc011e9da8eb8de"
+    },
+    {
+      "bytes": 1323,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/artifact_manifest.json",
+      "sha256": "cf487ddbf351904a965d65c73539ddc75bb17c8ebb64b1fdd4b7e6bfb175c6f2"
     },
     {
       "bytes": 12656749,
