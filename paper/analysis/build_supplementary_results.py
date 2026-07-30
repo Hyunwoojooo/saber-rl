@@ -175,6 +175,17 @@ def read_config(path: Path) -> dict[str, object]:
     return payload
 
 
+def final_steps_per_second(metrics_path: Path) -> float:
+    summary_path = metrics_path.parent / "summary.json"
+    if not summary_path.is_file():
+        raise FileNotFoundError(summary_path)
+    summary = read_config(summary_path)
+    value = finite(summary.get("final_steps_per_sec"))
+    if value is None or value <= 0.0:
+        raise ValueError(f"{summary_path}: missing positive final_steps_per_sec")
+    return value
+
+
 def config_seed(config: Mapping[str, object], path: Path) -> int:
     seeds = config.get("seeds")
     if not isinstance(seeds, dict) or "env_seed" not in seeds:
@@ -310,6 +321,11 @@ def aggregate_metric_rows(
         result["hit90_reached"] = len(hits)
         result["hit90_total"] = len(rows)
         result["hit90_median_reached"] = statistics.median(hits) if hits else None
+        if all(row.get("steps_per_second") is not None for row in rows):
+            speeds = [float(row["steps_per_second"]) for row in rows]
+            result["steps_per_second_mean"], result[
+                "steps_per_second_sample_sd"
+            ] = mean_sd(speeds)
         output.append(result)
     return output
 
@@ -558,6 +574,7 @@ def build_actor_scope() -> None:
                     "scope_label": SCOPE_LABELS[scope],
                     "seed": seed,
                     **metrics(curve, budget, 10_000),
+                    "steps_per_second": final_steps_per_second(path),
                 }
             )
             bind_run_sources(sources, path)
@@ -609,12 +626,14 @@ def build_actor_scope() -> None:
     per_fields = (
         "task", "backbone", "scope", "scope_label", "seed", "auc",
         "final_quarter_auc", "final_success", "hit90_step",
+        "steps_per_second",
     )
     aggregate_fields = (
         "task", "backbone", "scope", "scope_label", "n_seeds", "auc_mean",
         "auc_sample_sd", "final_quarter_auc_mean", "final_quarter_auc_sample_sd",
         "final_success_mean", "final_success_sample_sd", "hit90_reached",
-        "hit90_total", "hit90_median_reached",
+        "hit90_total", "hit90_median_reached", "steps_per_second_mean",
+        "steps_per_second_sample_sd",
     )
     paired_fields = (
         "task", "comparison", "metric", "mean_difference", "ci95_low",
@@ -661,10 +680,10 @@ def build_actor_scope() -> None:
         "\\begin{table*}[t]",
         "\\centering",
         "\\small",
-        "\\setlength{\\tabcolsep}{4pt}",
-        "\\begin{tabular}{llccccc}",
+        "\\setlength{\\tabcolsep}{3pt}",
+        "\\begin{tabular}{llcccccc}",
         "\\toprule",
-        "Task & Scope & AUC & FQ-AUC & Final & Hit90 & $\\Delta$AUC (Main--scope) \\\\",
+        "Task & Scope & AUC & FQ-AUC & Final & Hit90 & Steps/s & $\\Delta$AUC (Main--scope) \\\\",
         "\\midrule",
     ]
     for task in ("FPP", "DrawerOpen", "DrawerClose"):
@@ -674,7 +693,7 @@ def build_actor_scope() -> None:
             if row is None:
                 tex.append(
                     f"{task_cell} & {SCOPE_LABELS[scope]} & "
-                    "\\multicolumn{5}{c}{\\textit{pending}} \\\\"
+                    "\\multicolumn{6}{c}{\\textit{pending}} \\\\"
                 )
                 continue
             delta = "--"
@@ -691,7 +710,8 @@ def build_actor_scope() -> None:
                 f"{fmt(float(row['final_quarter_auc_sample_sd']))}$ & "
                 f"${fmt(float(row['final_success_mean']))} \\pm "
                 f"{fmt(float(row['final_success_sample_sd']))}$ & "
-                f"{hit90_text(row)} & ${delta}$ \\\\"
+                f"{hit90_text(row)} & "
+                f"{float(row['steps_per_second_mean']):.1f} & ${delta}$ \\\\"
             )
         if task != "DrawerClose":
             tex.append("\\addlinespace[2pt]")
@@ -702,6 +722,7 @@ def build_actor_scope() -> None:
             "\\caption{DDPG actor-scope ablations over paired seeds 1--5. "
             "Values are mean $\\pm$ sample standard deviation. Hit90 reports "
             "the number of reaching seeds and the reached-seed median step. "
+            "Steps/s is the descriptive seed mean defined in Section~1.3. "
             "The final column gives Main-minus-scope paired AUC differences "
             "with 95\\% bootstrap confidence intervals. Pending cells are "
             "left unreported until a complete five-seed cohort is available.}",

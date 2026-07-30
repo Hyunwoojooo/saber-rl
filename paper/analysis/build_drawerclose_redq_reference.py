@@ -42,6 +42,17 @@ OUTPUT = (
 )
 TABLE = ROOT / "paper" / "tables" / "supplementary_drawerclose_redq_table.tex"
 PRIMARY_ROOT = ROOT / "paper" / "supplementary_artifacts" / "primary_seed_results"
+PRIMARY_SUMMARY_TEMPLATES = {
+    "HER": (
+        "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/"
+        "drawer_close_DDPG-HER-B0-2M_s{seed}_2m_cuda/summary.json"
+    ),
+    "SABER": (
+        "metaworld_Drawer_Close_DDPG/results_2m/"
+        "DDPG-HER-B3-Critic-Only-2M/"
+        "drawer_close_DDPG-HER-B3-Critic-Only-2M_s{seed}_2m_cuda/summary.json"
+    ),
+}
 SOURCE_COMMIT = "0c72f95707e0befb19190a56c778332c1e2bbeb4"
 SEEDS = tuple(range(1, 6))
 BUDGET = 2_000_000
@@ -120,20 +131,29 @@ def load_primary_rows() -> list[dict[str, object]]:
                 continue
             if row["method"] not in {"HER", "SABER"}:
                 continue
+            seed = int(row["seed"])
+            summary_path = ROOT / PRIMARY_SUMMARY_TEMPLATES[row["method"]].format(
+                seed=seed
+            )
+            summary = read_config(summary_path)
+            speed = float(summary.get("final_steps_per_sec", float("nan")))
+            runtime = float(summary.get("runtime_total_sec", float("nan")))
+            if not math.isfinite(speed) or speed <= 0.0:
+                raise ValueError(f"{summary_path}: invalid final_steps_per_sec")
             rows.append(
                 {
                     "task": "DrawerClose",
                     "backbone": "DDPG",
                     "method": f"{row['method']} (DDPG)",
-                    "seed": int(row["seed"]),
+                    "seed": seed,
                     "utd": 1,
                     "critic_configuration": "1 critic",
                     "auc": float(row["auc"]),
                     "final_quarter_auc": float(row["final_quarter_auc"]),
                     "final_success": float(row["final_success"]),
                     "hit90_step": int(float(row["hit90_step"])),
-                    "runtime_hours": None,
-                    "steps_per_second": None,
+                    "runtime_hours": runtime / 3600.0 if math.isfinite(runtime) else None,
+                    "steps_per_second": speed,
                 }
             )
     expected = {
@@ -227,10 +247,10 @@ def write_table(rows: Sequence[Mapping[str, object]]) -> None:
         "\\begin{table*}[t]",
         "\\centering",
         "\\small",
-        "\\setlength{\\tabcolsep}{5pt}",
-        "\\begin{tabular}{lclcccc}",
+        "\\setlength{\\tabcolsep}{4pt}",
+        "\\begin{tabular}{lclccccc}",
         "\\toprule",
-        "Method & UTD & Critics & AUC & FQ-AUC & Final & Hit90 \\\\",
+        "Method & UTD & Critics & AUC & FQ-AUC & Final & Hit90 & Steps/s \\\\",
         "\\midrule",
     ]
     for row in rows:
@@ -243,7 +263,8 @@ def write_table(rows: Sequence[Mapping[str, object]]) -> None:
             f"{float(row['final_quarter_auc_sample_sd']):.3f}$ & "
             f"${float(row['final_success_mean']):.3f} \\pm "
             f"{float(row['final_success_sample_sd']):.3f}$ & "
-            f"{format_hit90(row)} \\\\"
+            f"{format_hit90(row)} & "
+            f"{float(row['steps_per_second_mean']):.1f} \\\\"
         )
     lines.extend(
         [
@@ -256,7 +277,8 @@ def write_table(rows: Sequence[Mapping[str, object]]) -> None:
             "and their median first-hit step. REDQ-HER uses four updates per "
             "environment step and a 10-critic ensemble with two target "
             "critics sampled per backup, so it is not a resource-matched "
-            "SABER comparison.}",
+            "SABER comparison. Steps/s is the descriptive seed mean defined "
+            "in Section~1.3.}",
             "\\label{tab:supp-drawerclose-redq}",
             "\\end{table*}",
             "",
@@ -327,6 +349,13 @@ def main() -> None:
             "summary.json",
         ):
             path = directory / name
+            if not path.is_file():
+                raise FileNotFoundError(path)
+            sources[str(path.relative_to(ROOT))] = source_entry(path)
+
+    for template in PRIMARY_SUMMARY_TEMPLATES.values():
+        for seed in SEEDS:
+            path = ROOT / template.format(seed=seed)
             if not path.is_file():
                 raise FileNotFoundError(path)
             sources[str(path.relative_to(ROOT))] = source_entry(path)
