@@ -1,51 +1,25 @@
 % Supplementary time-to-threshold results for the primary comparisons.
-\begin{table*}[t]
+\begin{table*}[!b]
 \centering
 \small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllccc@{}}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc@{}}
 \toprule
-Task & Backbone & Method & Median Hit90 & Reached seeds & Steps/s \\
+Task--Backbone & SABER & HER & HGR & PER \\
 \midrule
-FetchPickAndPlace & DDPG & SABER & 540k & 5/5 & 41.7 \\
- & & HER & 600k & 5/5 & 65.0 \\
- & & HGR & 930k & 2/5 & 16.9 \\
- & & PER & 640k & 4/5 & 58.0 \\
-\addlinespace
-FetchPickAndPlace & TD3 & SABER & 840k & 5/5 & 41.2 \\
- & & HER & 980k & 3/5 & 65.3 \\
- & & HGR & 630k & 1/5 & 12.9 \\
- & & PER & 1.00M & 1/5 & 50.8 \\
-\addlinespace
-FetchPickAndPlace & SAC & SABER & 750k & 5/5 & 29.1 \\
- & & HER & 800k & 3/5 & 38.9 \\
- & & HGR & 800k & 2/5 & 8.4 \\
- & & PER & 550k & 5/5 & 34.8 \\
-\addlinespace
-DrawerOpen & DDPG & SABER & 500k & 5/5 & 23.3 \\
- & & HER & 960k & 2/5 & 41.1 \\
- & & HGR & 530k & 5/5 & 13.2 \\
- & & PER & 330k & 5/5 & 34.0 \\
-\addlinespace
-DrawerOpen & TD3 & SABER & 780k & 3/5 & 21.6 \\
- & & HER & 740k & 1/5 & 41.5 \\
- & & HGR & 760k & 3/5 & 11.6 \\
- & & PER & 720k & 3/5 & 34.6 \\
-\addlinespace
-DrawerClose & DDPG & SABER & 20k & 5/5 & 24.0 \\
- & & HER & 70k & 5/5 & 41.2 \\
- & & HGR & 100k & 5/5 & 13.2 \\
- & & PER & 60k & 5/5 & 33.9 \\
-\addlinespace
-DrawerClose & TD3 & SABER & 80k & 5/5 & 22.5 \\
- & & HER & 70k & 5/5 & 41.7 \\
- & & HGR & 80k & 5/5 & 11.8 \\
- & & PER & 120k & 5/5 & 34.4 \\
+FPP--DDPG & 540k / 5/5 / 41.7 & 600k / 5/5 / 65.0 & 930k / 2/5 / 16.9 & 640k / 4/5 / 58.0 \\
+FPP--TD3 & 840k / 5/5 / 41.2 & 980k / 3/5 / 65.3 & 630k / 1/5 / 12.9 & 1.00M / 1/5 / 50.8 \\
+FPP--SAC & 750k / 5/5 / 29.1 & 800k / 3/5 / 38.9 & 800k / 2/5 / 8.4 & 550k / 5/5 / 34.8 \\
+\addlinespace[1pt]
+DrawerOpen--DDPG & 500k / 5/5 / 23.3 & 960k / 2/5 / 41.1 & 530k / 5/5 / 13.2 & 330k / 5/5 / 34.0 \\
+DrawerOpen--TD3 & 780k / 3/5 / 21.6 & 740k / 1/5 / 41.5 & 760k / 3/5 / 11.6 & 720k / 3/5 / 34.6 \\
+DrawerClose--DDPG & 20k / 5/5 / 24.0 & 70k / 5/5 / 41.2 & 100k / 5/5 / 13.2 & 60k / 5/5 / 33.9 \\
+DrawerClose--TD3 & 80k / 5/5 / 22.5 & 70k / 5/5 / 41.7 & 80k / 5/5 / 11.8 & 120k / 5/5 / 34.4 \\
 \bottomrule
 \end{tabular*}
 \caption{Hit90 for the primary comparisons. Hit90 is the first exact-grid
 checkpoint at which deterministic evaluation success reaches at least 0.9.
-Medians use only reached seeds, so reached-seed coverage is reported
-separately. Steps/s is the descriptive seed mean defined in
-Section~2.3.}
+Each method cell reports median Hit90 / reached seeds / descriptive steps/s.
+Medians use only reached seeds; Steps/s is defined in Section~2.3.}
 \label{tab:supp-primary-hit90}
 \end{table*}
