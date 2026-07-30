@@ -380,6 +380,12 @@ training trajectory, so realized support masks need not remain identical.
 
 \paragraph{Purpose.}
 These references place SABER outside the strictly matched UTD-1 comparison:
+AER is included because it also exploits similarity between the agent's
+current interaction context and stored replay states, but uses that signal to
+change minibatch membership. SABER instead preserves the sampled HER
+minibatch and changes only critic-loss allocation. AER therefore serves as a
+secondary intervention-point reference rather than a matched SABER
+baseline.
 the no-HER comparison separates uniform experience replay (ER), uniform
 replay with AER's actor/critic learning-rate schedule (Annealing ER), and
 Attentive Experience Replay (AER). AER ranks an enlarged uniform candidate
