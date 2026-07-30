@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "bytes": 276,
+      "path": "paper/supplementary_artifacts/mechanism_controls_ddpg/README.md",
+      "sha256": "6db03fb0cbb71e53231fdb84c5a6ca2aadb919afec7902522a68e02fd71cd48d"
+    },
+    {
+      "bytes": 3136,
+      "path": "paper/supplementary_artifacts/mechanism_controls_ddpg/aggregate_metrics.csv",
+      "sha256": "4fecf6a3ad0351598c266f401a143e710318f91206c193d3f8df340213fff0e1"
+    },
+    {
+      "bytes": 2426,
+      "path": "paper/supplementary_artifacts/mechanism_controls_ddpg/paired_statistics.csv",
+      "sha256": "e9f680be26551a86432e7a56ee4099c31a44e17e4359348234bdf9d34cf05656"
+    },
+    {
+      "bytes": 7813,
+      "path": "paper/supplementary_artifacts/mechanism_controls_ddpg/per_seed_metrics.csv",
+      "sha256": "318f43279a341ca2e63824600f88a5de480001bcc88501ea438cc66ad0c7f64e"
+    },
+    {
+      "bytes": 68189,
+      "path": "paper/supplementary_artifacts/mechanism_controls_ddpg/source_manifest.json",
+      "sha256": "c16a160d3c7fc0b23ca354ea045f094e7bb90582e255d58d185578b3e80d5fbd"
+    }
+  ],
+  "root": "paper/supplementary_artifacts/mechanism_controls_ddpg"
+}

@@ -13,8 +13,12 @@ OUTPUT = ROOT / "paper" / "supplementary_artifacts" / "technical_supplement"
 
 CANONICAL_SOURCES = (
     "paper/supplementary_artifacts/primary_seed_results/artifact_manifest.json",
+    "paper/supplementary_artifacts/mechanism_controls_ddpg/artifact_manifest.json",
+    "paper/supplementary_artifacts/phase_seed_results/artifact_manifest.json",
     "paper/supplementary_artifacts/action_bin_sensitivity/artifact_manifest.json",
     "paper/supplementary_artifacts/actor_scope_ddpg/artifact_manifest.json",
+    "paper/supplementary_artifacts/update_budget_references/"
+    "artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
     "fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/artifact_manifest.json",
     "metaworld_Drawer_Close_DDPG/experiments/"

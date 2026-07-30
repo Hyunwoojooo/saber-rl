@@ -549,9 +549,24 @@
       "sha256": "90b0b5f8bad03d3ad708afc56006825bad2b4615af84302d050cbe52fbe18f27"
     },
     {
+      "bytes": 1123,
+      "path": "paper/supplementary_artifacts/mechanism_controls_ddpg/artifact_manifest.json",
+      "sha256": "353626642339489bb22a13907c131bb6c4ab3065dd0f06e58f50d147f306ac1b"
+    },
+    {
+      "bytes": 886,
+      "path": "paper/supplementary_artifacts/phase_seed_results/artifact_manifest.json",
+      "sha256": "16bdb722a4078ddf46e6c788ee12d010a2b79c3ed83681c2cdc5fa72d1ac6a31"
+    },
+    {
       "bytes": 1317,
       "path": "paper/supplementary_artifacts/primary_seed_results/artifact_manifest.json",
       "sha256": "271529c2fe2541dc045c2387a371774852aaa5c38836a905a62c304e213378cf"
+    },
+    {
+      "bytes": 918,
+      "path": "paper/supplementary_artifacts/update_budget_references/artifact_manifest.json",
+      "sha256": "9a973e2cceffb40af5a1d4043814ed76dd15279f521002529415eff7a808b967"
     }
   ]
 }

@@ -1,0 +1,15 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccccc}
+\toprule
+Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s \\
+\midrule
+FPP--SAC & \shortstack[l]{HER\\UTD 1; 2 critics} & $0.471 \pm 0.079$ & $0.735 \pm 0.247$ & $0.790 \pm 0.288$ & 3/5 (0.800M) & 38.9 \\
+ & \shortstack[l]{HER high-RR\\UTD 4; 2 critics} & $0.768 \pm 0.097$ & $0.963 \pm 0.021$ & $0.960 \pm 0.042$ & 5/5 (0.450M) & 5.9 \\
+\bottomrule
+\end{tabular}
+\caption{FPP SAC update-ratio reference over seeds 1--5 on the exact shared 50k--1M grid. High-RR changes only the number of updates per environment step from one to four within HER. It was evaluated only on FPP SAC and is not a task-wide or wall-clock-matched control. Steps/s is descriptive.}
+\label{tab:supp-high-rr}
+\end{table*}

@@ -1,0 +1,705 @@
+{
+  "scope": "FPP high-RR and task-wide REDQ scaling references",
+  "sources": [
+    {
+      "bytes": 5405,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s1_1000000/config.json",
+      "sha256": "cc4988848bdad84bbf95b9d11d3c9ef649776d09422d73de085ff6e64d8b1d59"
+    },
+    {
+      "bytes": 245251,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s1_1000000/metrics_selected_10k.csv",
+      "sha256": "7f6d50842a33d3963ed39c75f5177d29cd9de004a64643535c358529daf212bf"
+    },
+    {
+      "bytes": 6241,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s1_1000000/summary.json",
+      "sha256": "1f40a4b4bb64a10420a90cdfda011b8dc2c121c6d786ba5449c4cd7b4129f2d6"
+    },
+    {
+      "bytes": 5405,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s2_1000000/config.json",
+      "sha256": "3bc864eb741622713540a69dcd4ba3ccb02bcb044db7437fa48c7cfe3ee366f0"
+    },
+    {
+      "bytes": 244495,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s2_1000000/metrics_selected_10k.csv",
+      "sha256": "24c02d520a3c0c5274c38567541c9aa0a54ba98921d60fb1184af61b868ae5ca"
+    },
+    {
+      "bytes": 6249,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s2_1000000/summary.json",
+      "sha256": "1ba3fec45aa49ff2fa92dc8afd8792eacd20d4e293cd3b7f647c83210df1ab40"
+    },
+    {
+      "bytes": 5405,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s3_1000000/config.json",
+      "sha256": "5dcff607059325df2df23cba16cf05535814668c83c708755345c769d22bfda6"
+    },
+    {
+      "bytes": 244551,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s3_1000000/metrics_selected_10k.csv",
+      "sha256": "c0dd2a2a02c909242944f70b7c19c529e0eaf227264bf90678b7f22f66e06411"
+    },
+    {
+      "bytes": 6245,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s3_1000000/summary.json",
+      "sha256": "1166135a003f3daeffb4c34ee5bc0afb7da4eb13bf34f76642fe57c1671ae81f"
+    },
+    {
+      "bytes": 5405,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s4_1000000/config.json",
+      "sha256": "0590a4f563dfc4747f436ad69dc3195c1c5e86dcbe5bd070771643d96ae329b9"
+    },
+    {
+      "bytes": 244691,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s4_1000000/metrics_selected_10k.csv",
+      "sha256": "50e84784ac4033b514c4dc1e2278866d4b242783ace1190d81ea03c423d5248d"
+    },
+    {
+      "bytes": 6251,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s4_1000000/summary.json",
+      "sha256": "b28990b9ebefe0d54630eda47bbd7a2d8d0044db3fa4ef00d3c3609b03f9e006"
+    },
+    {
+      "bytes": 5405,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s5_1000000/config.json",
+      "sha256": "17b9d5fcd484748f0506a727c78418fb0bbfe9b8bccfba051200b0dec06d7418"
+    },
+    {
+      "bytes": 244710,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s5_1000000/metrics_selected_10k.csv",
+      "sha256": "6151b23d7b6e328d41340e734b7f2b8fc3865ace93ba60890e71dc0dcbea1f64"
+    },
+    {
+      "bytes": 6262,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/redq_her_utd4_n10_m2_tqbound_ls512_1m/fetch_pick_and_place_redq_her_utd4_n10_m2_tqbound_ls512_s5_1000000/summary.json",
+      "sha256": "3d2b74937e56e7e811ef14fb5a86034c0f4b366b2dbbb7a8eb7f4addd42a4dc4"
+    },
+    {
+      "bytes": 5136,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s1_1000000_ls512/config.json",
+      "sha256": "bf56ada12fbe4e20619ae64d713379d09af15015e75246dca53747f7170200e0"
+    },
+    {
+      "bytes": 123431,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "c5f003a5d414017df5e257d506fa03b675efafb1e8e417a885e0a325cbe5f98c"
+    },
+    {
+      "bytes": 5446,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s1_1000000_ls512/summary.json",
+      "sha256": "a1c47874ab993bcf4ded32578949598950517c8efd62ab4c1f04fcb9378c4dec"
+    },
+    {
+      "bytes": 5136,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s2_1000000_ls512/config.json",
+      "sha256": "15f9c7be844f4232ab862824054f2ffc8ec3da300693eedd722790d32167ccb7"
+    },
+    {
+      "bytes": 123692,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "0932e137b45e82f7af713ab0b64d487d6169e153ef8b70248dbd38a460918c00"
+    },
+    {
+      "bytes": 5445,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s2_1000000_ls512/summary.json",
+      "sha256": "f7dbdcd7f3f6270dac6a0d06a982f96c47e04bc4e4e629650264634be8ff08ef"
+    },
+    {
+      "bytes": 5136,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s3_1000000_ls512/config.json",
+      "sha256": "a25b379ab30c5da55f8fca92975cd10d9b438ac95f4777ef8df434920afc7c84"
+    },
+    {
+      "bytes": 123341,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "d5175a58a8be0d4db8d472dba517711e1d254311eb45cbfe1ea8b27921fe145f"
+    },
+    {
+      "bytes": 5442,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s3_1000000_ls512/summary.json",
+      "sha256": "8a87c5116e9464e66ae6246e1cca166a53c285a948be59401f21930e46c3ac09"
+    },
+    {
+      "bytes": 5136,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s4_1000000_ls512/config.json",
+      "sha256": "e33b8a4d9b4a4e0bcbf5b991a465147a03b80190ec4fc778edba36f32607f172"
+    },
+    {
+      "bytes": 123645,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "ba5f8c8fbd7cd89b038adc1de56a75f93441966c16573745a2e8ade93487a85b"
+    },
+    {
+      "bytes": 5446,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s4_1000000_ls512/summary.json",
+      "sha256": "3f5014246cacd1a23544db134573f3c5d198cf4acf29491a9f7822c97d7a3b99"
+    },
+    {
+      "bytes": 5136,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s5_1000000_ls512/config.json",
+      "sha256": "ef1f0f0195bb07f798051b827f6c72683929b34e828649b3c7296293327e7fe7"
+    },
+    {
+      "bytes": 123412,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "28c757ed6c08a0d216f5bca7f547f3913e8d804b5d58a1e44d2fe66909b262b1"
+    },
+    {
+      "bytes": 5456,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_baseline_ls512/fetch_pick_and_place_sac_her_baseline_ls512_s5_1000000_ls512/summary.json",
+      "sha256": "b99c73443add2560b30ce1d38080cb4987ef14f0f7a734cc1e45512fed5132d6"
+    },
+    {
+      "bytes": 5368,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s1_1000000_ls512/config.json",
+      "sha256": "2ae2f1813107cd36881c64affc70ef425b87230b3e7b68f58498f7d11f718e81"
+    },
+    {
+      "bytes": 145382,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "ca465a4d022742c080581b169b52464b40c6af8d7bd8cd79a76c47860d5ce5fc"
+    },
+    {
+      "bytes": 5546,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s1_1000000_ls512/summary.json",
+      "sha256": "8af6ac9468912b01b81bed5ea239e90bf35550ff3661f9f154233dd6a3cb5a2c"
+    },
+    {
+      "bytes": 5368,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s2_1000000_ls512/config.json",
+      "sha256": "0bb03c8a526d1b87c369e9e342367980da7451fd703b98d8eb9e8404a80e992f"
+    },
+    {
+      "bytes": 145637,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "eb5f67183c3494badecb7788acf8b3185e5437561713ced2537cb0d5790c1ce2"
+    },
+    {
+      "bytes": 5550,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s2_1000000_ls512/summary.json",
+      "sha256": "19e92b560ad521e3394eadc02b5cfaf83559824dd16c63a233f5e5364e012e2e"
+    },
+    {
+      "bytes": 5368,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s3_1000000_ls512/config.json",
+      "sha256": "55494365ece4b2d48020416fd2a1a0b4362539d2cc97d7f8e7396ab3dd0265e5"
+    },
+    {
+      "bytes": 145393,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "95a0d064dea0caab3f886ead6ba11abaf57d88f95f35420082386526b702a05e"
+    },
+    {
+      "bytes": 5544,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s3_1000000_ls512/summary.json",
+      "sha256": "33d1d9f1a288e1f7e8c5cd5b10991b25711a724cae449d30be99e392335ef799"
+    },
+    {
+      "bytes": 5368,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s4_1000000_ls512/config.json",
+      "sha256": "44b5b4fb7dd7173c43d9cd1ed95b9de784492eb06b4a8dc9d20bb5550aeb8748"
+    },
+    {
+      "bytes": 145744,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "afaac863b8a8d09ab2709fb2c11999a7548ac59bb2a9cd673dee09c34b429a5d"
+    },
+    {
+      "bytes": 5552,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s4_1000000_ls512/summary.json",
+      "sha256": "63cf61f0c7522a2d6aa9c56fe7c666e24747f46a39210d61a4f788bbfdf74975"
+    },
+    {
+      "bytes": 5368,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s5_1000000_ls512/config.json",
+      "sha256": "c33d1c7ccf190fcb926f51dc3d2b4154037df5aa2af05ce139152add313f9b9b"
+    },
+    {
+      "bytes": 146059,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "4605abc264c0d3c977f8b3f92d1173f59a74020c0fd004302b7fbf778c738b0f"
+    },
+    {
+      "bytes": 5535,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_her_high_replay_ratio_x4/fetch_pick_and_place_sac_her_high_rr_x4_s5_1000000_ls512/summary.json",
+      "sha256": "1afae61203a78ffc68cee189d0aa075392707395141e0824c97127dcf03db998"
+    },
+    {
+      "bytes": 5216,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s1_1000000_ls512/config.json",
+      "sha256": "a1dfa1bd015cc45e7da140169ff8efd1bec40ca25af8aa8e6a5e6babb86e5a2c"
+    },
+    {
+      "bytes": 218419,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "d6efa3cf1e39eacd18d376373d20f7cfa1950d5c805f79c8f48adc31eae3ab3c"
+    },
+    {
+      "bytes": 7762,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s1_1000000_ls512/summary.json",
+      "sha256": "02f9cc1228d7e0b4b9e7567c521690e6db36c094a6940ddcecf8a3ca16b19852"
+    },
+    {
+      "bytes": 5216,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s2_1000000_ls512/config.json",
+      "sha256": "a3231f52237d0e18bc01368129de0d374e017125c21e40b37f24020e70354b94"
+    },
+    {
+      "bytes": 218440,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "44393f8100ec49daf222d8513878876f9c8f0fd23614440d74510c18a4a65e53"
+    },
+    {
+      "bytes": 7855,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s2_1000000_ls512/summary.json",
+      "sha256": "b0c2ce6b4b3695b75c398b4febbe8506e97822b512b59982204a138a7eb39797"
+    },
+    {
+      "bytes": 5216,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s3_1000000_ls512/config.json",
+      "sha256": "a8030a7088a58ae5e5f59a2f74c88daeef855149f6d04d096abcf82c4ebc3912"
+    },
+    {
+      "bytes": 217979,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "6bbbc1ed3bd95a640404be14952cdc3b47c3c4147a59660833e56977df81eaa8"
+    },
+    {
+      "bytes": 7932,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s3_1000000_ls512/summary.json",
+      "sha256": "7794dcd849ef1e434bbb23ec05aaf2de861a99c8cb5f49b8348ffbb97f1b6d70"
+    },
+    {
+      "bytes": 5216,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s4_1000000_ls512/config.json",
+      "sha256": "92b2ab0d821b596735982e55d885b24023658c192ddd7a4c455807d8d79c5a70"
+    },
+    {
+      "bytes": 218233,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "2e1e10f8783b0b0459ab47c81ea7ddd25b9745013a8a988be40c72c1f85c8cc4"
+    },
+    {
+      "bytes": 7850,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s4_1000000_ls512/summary.json",
+      "sha256": "ebaeb5094f8d3a17bc1b634401389436a628daf4582d32bed7c4094d1acbc266"
+    },
+    {
+      "bytes": 5216,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s5_1000000_ls512/config.json",
+      "sha256": "fb86c0b204aeba1715814efbd09ffb1bcbae15b65b2da5884234aea920aed01b"
+    },
+    {
+      "bytes": 217908,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv",
+      "sha256": "0a983f6c6dad47c31f5d12e636ce62080ac00c49680b76c4cbe7a5123818a4ae"
+    },
+    {
+      "bytes": 7760,
+      "path": "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/sac_saber_critic_only_v4_ls512/fetch_pick_and_place_sac_saber_critic_only_v4_ls512_s5_1000000_ls512/summary.json",
+      "sha256": "a522e4f6b0371dd80554dbd36aed70a3f2373fa210d1935f24aac233de16855a"
+    },
+    {
+      "bytes": 9839277,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "5454a576248f3516cd752f580309c083243a7c95c9382b28a3000b029ff6bb0c"
+    },
+    {
+      "bytes": 5588,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s1_2m_cuda/summary.json",
+      "sha256": "423da92b08af0dcc70c218074cb7539a403e9d977c3f36c1ad19bc68218ca5ab"
+    },
+    {
+      "bytes": 9841470,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "8e8e659adbd1119d25a61068a252ef8cf06122d174f144cee1606e7d982f539d"
+    },
+    {
+      "bytes": 5582,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s2_2m_cuda/summary.json",
+      "sha256": "759a54ede3a6c07a19c1da6377406e898a6ed6936d8cfc7eed828b00df4a2f65"
+    },
+    {
+      "bytes": 9831932,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "935a8d342a3fb82cf8f5d3fde0435fc287717173a440ed84e75afdd0e505894a"
+    },
+    {
+      "bytes": 5584,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s3_2m_cuda/summary.json",
+      "sha256": "4364e4db6e8bc120e997b674cba6eae973dee2cb509136d30d3114ec8f0812de"
+    },
+    {
+      "bytes": 9842094,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "10b91d15b5061fe675f2e84520fcdf957f1c55737d98cef56ae9006f0ea49c5e"
+    },
+    {
+      "bytes": 5587,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s4_2m_cuda/summary.json",
+      "sha256": "48622dd3c6d37efd0e65199a9417368905021836d8500cf55c644b4e9ce5cf95"
+    },
+    {
+      "bytes": 9833778,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "6c77f990c9638c8680d5f92f033427d7f5ccda59f5a7f8d62d93f1e2e47b8a80"
+    },
+    {
+      "bytes": 5575,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B0-2M/drawer_close_DDPG-HER-B0-2M_s5_2m_cuda/summary.json",
+      "sha256": "e16f21acb5d756398f2539ac5e68d248a56c63bfd1640d35cd8cb9ca7c6e967a"
+    },
+    {
+      "bytes": 17764627,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "22e30c1354778cd01ae2a89809f700cb94f7f440b3a63e72f0b147697d7f41cc"
+    },
+    {
+      "bytes": 7902,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json",
+      "sha256": "61774eb73f26167715872d46ec81bdef3726675af3f45f3994e84acb45d05e7d"
+    },
+    {
+      "bytes": 17942749,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "957df43ec129d6a1af42cc8210a88e45fa212536b89706b385e5f08171325f15"
+    },
+    {
+      "bytes": 7987,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json",
+      "sha256": "5c7405ffcc89ace2f7f58de00c8b1637bbd83404986f2512e8ec58fb78994893"
+    },
+    {
+      "bytes": 17929813,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "0a54df538006c345cff66c8cc17624595f05b4cf04f39a2cc50e5a98de048faa"
+    },
+    {
+      "bytes": 7863,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json",
+      "sha256": "19c3867c112887269b68a7213529448c1c432e9c31fbe80d5dc002bd3183653e"
+    },
+    {
+      "bytes": 18084346,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "236060460cc296df64ee72399eddafe309da05f6e85934e6b7895e0e210d2730"
+    },
+    {
+      "bytes": 8099,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json",
+      "sha256": "56ba491ffc54fad70a39b96b3551443490d6490d541c53ee71d648f463658529"
+    },
+    {
+      "bytes": 17825981,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "e88ff0cd59967f79f74c8b17fc10a6dadab0f57b2397ec2eca4ca203cb6e5ef5"
+    },
+    {
+      "bytes": 7979,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json",
+      "sha256": "22a2b288b38bdf23a9ccebed15a0a4ad25cf294516644bd884b4e45a0f4a8c54"
+    },
+    {
+      "bytes": 5574,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s1_2m_cuda/config.json",
+      "sha256": "47a811cda888df5b425b3327878df45cc7e92a221ebf4fc9e1f377d088987485"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s1_2m_cuda/env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6"
+    },
+    {
+      "bytes": 10443245,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "fff1cab95f893170a44e50edf1203efd2dd7df0c0c9893d579e73cac4b906a87"
+    },
+    {
+      "bytes": 5940,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s1_2m_cuda/summary.json",
+      "sha256": "87bcb52bb450499b3c13210da9c92971ffbaf8bc9f3d08fcae12262ba3801de0"
+    },
+    {
+      "bytes": 5574,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s2_2m_cuda/config.json",
+      "sha256": "e203dc8d5315d3c42144613e18ac530f62f952c97cd89ea032316ccce224cd7d"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s2_2m_cuda/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9"
+    },
+    {
+      "bytes": 10447280,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "a9d47d77d7f8d4b2c130075a4beb1f702eeb830581d4e759cf87d3fda6d5faf5"
+    },
+    {
+      "bytes": 5932,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s2_2m_cuda/summary.json",
+      "sha256": "cc644a78f5524b6dbcddec4bddfc8ce6aa9d424dbe05b37c358be62f7aebd543"
+    },
+    {
+      "bytes": 5574,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s3_2m_cuda/config.json",
+      "sha256": "a5c5d794f371d29b59de8ea0d59ae2b22c2ce81b5a9016fedfe7883261a28047"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s3_2m_cuda/env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363"
+    },
+    {
+      "bytes": 10454091,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "4188028b5aef648caac855191797cf3d677f4c8215b82c3ffeaf5c653f7eac6a"
+    },
+    {
+      "bytes": 5926,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s3_2m_cuda/summary.json",
+      "sha256": "b6356ce8e7d10ff71f1ebbbfb8c73d4a36614208728c61a16c2f2be917950800"
+    },
+    {
+      "bytes": 5574,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s4_2m_cuda/config.json",
+      "sha256": "096c2049a707fbe99560b615115b43d967182af68334fce6adfba26749f04fe7"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s4_2m_cuda/env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a"
+    },
+    {
+      "bytes": 10453861,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "562cf82e5aeda809d4bbaa9164fe260a54580e6b4bd642ce8f6fd3e5c19fd9f1"
+    },
+    {
+      "bytes": 5943,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s4_2m_cuda/summary.json",
+      "sha256": "540c331f2c7f6b3bd8bededa0f0b53fe2d02d329694eb806352dcd3d1a4b25ef"
+    },
+    {
+      "bytes": 5574,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s5_2m_cuda/config.json",
+      "sha256": "3a5103efe6cb4b874cdcbee4b833d5780ea1d17fc67227ffad3da9641169e3ec"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s5_2m_cuda/env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65"
+    },
+    {
+      "bytes": 10446255,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "27c333866acdf928b6da9f34c07361e66a06a13d950d6ae772f95d199e88284c"
+    },
+    {
+      "bytes": 5943,
+      "path": "metaworld_Drawer_Close_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_close_REDQ-HER-TQB-B0-2M_s5_2m_cuda/summary.json",
+      "sha256": "52475a479924750ada015c53af1fd988ebd359cfe845e31569a7ab6c26d56475"
+    },
+    {
+      "bytes": 9934611,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "93a185413e916d92ad36d7db064f609c860815cebaa4af6aa5f4b20c47994334"
+    },
+    {
+      "bytes": 5574,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/summary.json",
+      "sha256": "fd3b5fe75a73f919c919f9b00db2e2ebbac5104a20712ed29ea40028763073bc"
+    },
+    {
+      "bytes": 9826639,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "c7a8f94618a6075145ea427652aa809197674133e47b8b1f60b84467eabeac22"
+    },
+    {
+      "bytes": 5509,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/summary.json",
+      "sha256": "2b8fe95a07f2a08f4decddc02f86532dd02abcfc4284c5945cb4ab5775e3bc48"
+    },
+    {
+      "bytes": 9835484,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "ea50e0a0b07fe6adee44990d44efa9936b8b44c0779f1d293e6474a9a32798d7"
+    },
+    {
+      "bytes": 5521,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/summary.json",
+      "sha256": "4c746f54997f5fcab2f76a253fd931bf6042869a3709f53cc4ae935ac39334a6"
+    },
+    {
+      "bytes": 9832980,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "ad4a8116fd31f5fd904b6127f3447d4b340cef6f08acde11c543a1753b8e18f7"
+    },
+    {
+      "bytes": 5520,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/summary.json",
+      "sha256": "cfc54c6c03632346b9c497abd46c227073a84eb18eeaf62e422e547342aa090c"
+    },
+    {
+      "bytes": 9932514,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "a9d4cd0ca0d04e119e2ed47e83a235fd7817818ee9cb3dbed1f7387165df0ce8"
+    },
+    {
+      "bytes": 5570,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/summary.json",
+      "sha256": "871712bfba33f72252c92f0ca20e88fc62fe85ee86432a292d264ae8c1130cc5"
+    },
+    {
+      "bytes": 18532549,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4"
+    },
+    {
+      "bytes": 8036,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json",
+      "sha256": "5fee923b4e9eb5f1534f3468ac6a8fad53ac13597bf7ba3cf8f0c2c705c0827a"
+    },
+    {
+      "bytes": 18562822,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80"
+    },
+    {
+      "bytes": 8079,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json",
+      "sha256": "0a29a60e427940a336a7ef20bbe03376b93bd01abf37888ad5909ad4f7e22e0f"
+    },
+    {
+      "bytes": 18492864,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5"
+    },
+    {
+      "bytes": 8008,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json",
+      "sha256": "2638514f929a6193bd78c46760da05a9a691494f4936df59e3363b8357367056"
+    },
+    {
+      "bytes": 18547465,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515"
+    },
+    {
+      "bytes": 8084,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json",
+      "sha256": "424511a2482b017f2d59b0381515a6464cf1a57fd5e872a9c8d66b81ca516648"
+    },
+    {
+      "bytes": 18586425,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac"
+    },
+    {
+      "bytes": 8103,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json",
+      "sha256": "59cd952ce6a973a98a125c0f4febdda325ba79ee3bc2c809c1063ddce2ff625d"
+    },
+    {
+      "bytes": 5575,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/config.json",
+      "sha256": "f273ac474f334106d1298e8e3dd5086d18886334b3ada6e84bba2cb7447bd648"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/env_snapshot.json",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b"
+    },
+    {
+      "bytes": 10646363,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "fe71a7660533700531a3d1d3541e9549f3f47ae70450a1b4e20a9c06e54a2d85"
+    },
+    {
+      "bytes": 5911,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s1_2m_cuda/summary.json",
+      "sha256": "677b1153ce8cb91de06be05edc4e71aff00d8b44b404d0842a709da9893d671d"
+    },
+    {
+      "bytes": 5575,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/config.json",
+      "sha256": "d01641d06356fb37ec985df4583ded85846f7e95dab76d5826befaca285f7df9"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b"
+    },
+    {
+      "bytes": 10648956,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "61ade4263687ef3dd48f270649c40c15df7948b9c0c40416731d548aac0599f7"
+    },
+    {
+      "bytes": 5911,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s2_2m_cuda/summary.json",
+      "sha256": "86b7eb28984759b0f6d4b66356947479ddd6a90569b1ddade859f38e8a1e701b"
+    },
+    {
+      "bytes": 5575,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/config.json",
+      "sha256": "fa4c7bf6c745e5f8f19f9ec43c52cbd5f4621565a27dd7d9c3b2e5f1e3ef2afd"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d"
+    },
+    {
+      "bytes": 10621295,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "74806bee58fee5af329c923f03c733e3a351590eafbaf9d11e946b4f1893ac64"
+    },
+    {
+      "bytes": 5903,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s3_2m_cuda/summary.json",
+      "sha256": "07f47bb04818a2ffaaabcd9f02ef7aaa9e921b7d27d8cf872e9c2e6f48c75309"
+    },
+    {
+      "bytes": 5575,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/config.json",
+      "sha256": "302d987c4bce79b3bc428a3fa5eb93bc128484c9eb1a8ecb153208cbbcd46f08"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/env_snapshot.json",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2"
+    },
+    {
+      "bytes": 10649771,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "da3eaf67897a947184500e23dea236f4ed52028e959014229565f04b4c4ece50"
+    },
+    {
+      "bytes": 5918,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s4_2m_cuda/summary.json",
+      "sha256": "0c9ce6596222eace67b2535b2e463bf64060184b6d24ce182b17c635c0ee2626"
+    },
+    {
+      "bytes": 5575,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/config.json",
+      "sha256": "d0be83f0e4681ae538dbc9bdfa5c5375a45cedb880d77223390840445e600357"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/env_snapshot.json",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442"
+    },
+    {
+      "bytes": 10599231,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "9c6d3d0e87e3cc8f3fcad9d5b163a78c7a5ab8fdbdf45ddacdec3869ee7c8010"
+    },
+    {
+      "bytes": 5906,
+      "path": "metaworld_Drawer_Open_REDQ/results_2m/REDQ-HER-TQB-B0-2M/drawer_open_REDQ-HER-TQB-B0-2M_s5_2m_cuda/summary.json",
+      "sha256": "92a5f792b264e2e61f5f7298b17bff7973673c5d58e7fe5930ec144dbd865b0c"
+    }
+  ]
+}

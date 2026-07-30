@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "bytes": 374,
+      "path": "paper/supplementary_artifacts/update_budget_references/README.md",
+      "sha256": "bf00b1cebf4ac468b6ccbfbcf366366801a252a9142e6544cc5ee0861b5b2e20"
+    },
+    {
+      "bytes": 2191,
+      "path": "paper/supplementary_artifacts/update_budget_references/aggregate_metrics.csv",
+      "sha256": "ffe8bfdce082ad0fd39c06328b7cb7271570fff82611e9f1b4f4f0e55d4452e2"
+    },
+    {
+      "bytes": 5334,
+      "path": "paper/supplementary_artifacts/update_budget_references/per_seed_metrics.csv",
+      "sha256": "7ce216645aa4cb629ae9be8ba41e9447f40b494f7a439bb5e0c60281c7edc93a"
+    },
+    {
+      "bytes": 38431,
+      "path": "paper/supplementary_artifacts/update_budget_references/source_manifest.json",
+      "sha256": "1d7af0b106a24e9eea630cd2a26f9436cfb7d30f366216ebd123530a006e6966"
+    }
+  ],
+  "root": "paper/supplementary_artifacts/update_budget_references"
+}

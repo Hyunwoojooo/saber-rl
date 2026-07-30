@@ -187,11 +187,13 @@ reported as confirmatory, sensitivity, or diagnostic extensions and are not
 silently pooled into primary confidence intervals. Where a pooled ten-seed
 diagnostic summary is shown, it is labeled descriptive.
 
-For paired comparisons, each seed contributes one method difference. The
-reported 95\% intervals are percentile intervals from 10,000 paired bootstrap
-resamples with pseudorandom seed 2027. Sample standard deviations use
-\(n-1\) in the denominator. No curve is smoothed, interpolated,
-extrapolated, or forward-filled.
+For paired comparisons, each seed contributes one method difference. Primary
+and newly derived intervals use 10,000 paired percentile-bootstrap resamples
+with pseudorandom seed 2027. The frozen mechanism-control intervals reproduce
+their validated source artifacts: FPP uses 10,000 resamples with seed 27027,
+whereas Drawer controls enumerate all \(5^5\) paired bootstrap assignments.
+Sample standard deviations use \(n-1\) in the denominator. No curve is
+smoothed, interpolated, extrapolated, or forward-filled.
 
 \paragraph{Metric and uncertainty boundary.}
 The trapezoidal AUC weights each interval by elapsed environment steps, so a
@@ -243,12 +245,41 @@ DrawerOpen DDPG shows the clearest separation from HER, whereas the TD3
 cohorts and comparisons with HGR and PER exhibit larger seed dispersion and
 mixed metric-dependent orderings. On DrawerClose DDPG, HGR leads full-span
 AUC but not FQ-AUC, illustrating that early and late summaries can disagree.
+DrawerClose TD3 has wide AUC dispersion for every method (sample SD
+\(0.305\)--\(0.422\)); DDPG dispersion is method-dependent
+(\(0.030\)--\(0.184\)).
 
 \paragraph{Interpretation.}
 The trajectories support the matched HER result but do not establish a
 universal ranking against HGR or PER. They also show why full-span AUC,
 FQ-AUC, and final success are retained separately: early learning, late
 occupancy, and a single final checkpoint need not order methods identically.
+All four methods are HER-based and SABER changes only critic-loss allocation,
+so the observed DrawerClose variability is not unique to SABER; these curves
+do not by themselves identify HER as its cause.
+
+\FloatBarrier
+\subsection{Paired Uncertainty against HGR and PER}
+
+\paragraph{Purpose.}
+The aggregate primary table reports method-wise dispersion. This analysis
+instead quantifies uncertainty in the within-seed SABER--HGR and SABER--PER
+differences for both full-span and final-quarter AUC.
+
+\input{tables/supplementary_primary_paired_comparisons_table}
+
+\paragraph{Results.}
+The AUC intervals favor SABER over HGR for all three FPP backbones and over
+PER for FPP TD3. PER is higher with intervals excluding zero on FPP SAC and
+both DrawerOpen backbones. All DrawerClose AUC and FQ-AUC intervals include
+zero. For FQ-AUC, SABER is higher than HGR across FPP and higher than PER on
+FPP DDPG and TD3, while the FPP SAC SABER--PER interval includes zero.
+
+\paragraph{Interpretation.}
+The paired intervals reinforce a task-, backbone-, and metric-dependent
+ordering rather than a universal advantage over prioritization. HGR and PER
+also change realized selection, so these comparisons establish competitive
+operating regimes rather than isolate critic-loss allocation alone.
 
 \FloatBarrier
 \subsection{Time to Threshold}
@@ -308,6 +339,30 @@ test between indexing conventions.
 
 \FloatBarrier
 \section{Additional Controls and Sensitivities}
+
+\subsection{Mechanism Controls}
+
+\paragraph{Purpose.}
+The four DDPG controls test the query action, sample--query alignment, and the
+location of high critic weights while exposing the absolute performance
+metrics underlying the paired AUC differences in the main paper.
+
+\input{tables/supplementary_mechanism_controls_table}
+
+\paragraph{Results.}
+SABER Main has higher observed mean full-span AUC than every control on FPP,
+DrawerOpen, and DrawerClose. The Main-minus-control interval excludes zero
+for FPP Random-Support and DrawerOpen Replay-Action Query; the other ten
+intervals include zero. Late metrics are less uniform: for example,
+Random-Support and Context-Eligible Count-Matched have higher mean FQ-AUC than
+Main on DrawerClose.
+
+\paragraph{Interpretation.}
+The controls show that query identity and weight placement can affect learning
+and that SABER's AUC ordering is not explained solely by the number of high
+weights. Most five-seed intervals remain inconclusive, however, and the
+absolute metrics show that a full-span AUC direction need not extend to every
+late or final-checkpoint measure.
 
 \subsection{Allocation Signal}
 
@@ -376,31 +431,21 @@ weighting is intrinsically harmful. Each scope changes the subsequent
 training trajectory, so realized support masks need not remain identical.
 
 \FloatBarrier
-\subsection{Secondary Replay and Update-Budget References}
+\subsection{No-HER Replay References}
 
 \paragraph{Purpose.}
-These references place SABER outside the strictly matched UTD-1 comparison:
 AER is included because it also exploits similarity between the agent's
 current interaction context and stored replay states, but uses that signal to
 change minibatch membership. SABER instead preserves the sampled HER
-minibatch and changes only critic-loss allocation. AER therefore serves as a
-secondary intervention-point reference rather than a matched SABER
-baseline.
-The no-HER comparison separates uniform experience replay (ER), uniform
-replay with AER's actor/critic learning-rate schedule (Annealing ER), and
-Attentive Experience Replay (AER). AER ranks an enlarged uniform candidate
-set by cosine similarity to the current online state and trains on the 256
-most similar transitions. The three arms therefore test attentive selection
-beyond its shared schedule and whether replay selection alone can solve
-these sparse tasks. High-replay-ratio HER and REDQ-HER instead test larger update
-budgets and critic ensembles. REDQ-HER TQB clips the sampled target-critic
-backup to the sparse-reward range \([-50,0]\) before forming the Bellman
-target.
+minibatch and changes only critic-loss allocation. The comparison separates
+uniform experience replay (ER), uniform replay with AER's actor/critic
+learning-rate schedule (Annealing ER), and Attentive Experience Replay (AER).
+AER ranks an enlarged uniform candidate set by cosine similarity to the
+current online state and trains on the 256 most similar transitions. The three
+arms therefore test attentive selection beyond its shared schedule and whether
+replay selection alone can solve these sparse tasks.
 
 \input{tables/supplementary_aer_noher_table}
-\input{tables/supplementary_drawer_aer_noher_table}
-\input{tables/supplementary_sac_scaling_table}
-\input{tables/supplementary_drawerclose_redq_table}
 
 \paragraph{Results.}
 Without HER, FPP AER/Annealing ER/ER obtain mean AUCs of
@@ -408,24 +453,47 @@ Without HER, FPP AER/Annealing ER/ER obtain mean AUCs of
 \(0.040/0.041/0.064\) with SAC. On DrawerOpen, the corresponding values are
 \(0.000/0.111/0.579\) with DDPG and \(0.000/0.000/0.089\) with TD3; on
 DrawerClose they are \(0.194/0.199/0.150\) and \(0.169/0.176/0.251\).
-AER therefore never has a higher observed mean AUC than Annealing ER in these
-seven transferred cohorts. On FPP SAC, high-replay-ratio HER and REDQ-HER
-reach AUC \(0.768\) and \(0.867\), respectively, above SABER's \(0.583\),
-but use UTD 4 and REDQ also uses ten critics. On DrawerClose, REDQ-HER reaches
-Hit90 in all seeds at 20k but records AUC/FQ-AUC \(0.188/0.098\), compared
-with \(0.324/0.277\) for DDPG SABER.
+AER has no higher observed mean AUC than Annealing ER in these seven
+transferred cohorts.
 
 \paragraph{Interpretation.}
 Across these no-HER transfers, state-similarity replay does not improve
 observed mean AUC over its schedule-matched uniform-replay control. The
-DrawerOpen fixed-learning-rate ER results further show that schedule and
-sampling effects cannot be separated without a fixed-learning-rate AER arm.
-This is not a general replication or rejection of AER; it isolates transferred
-AER components under the present tasks and backbones. Increased update budget
-and ensemble size can be stronger on FPP SAC but are not uniformly stronger
-across tasks. Because HER use, UTD, algorithm, and architecture differ, these
-tables are scaling and context references rather than one-factor tests of
-SABER.
+three-arm design isolates attentive selection beyond AER's annealed schedule.
+Without a fixed-learning-rate AER arm, however, it does not identify a
+schedule-by-selection interaction. This is not a general replication or
+rejection of AER; it isolates transferred AER components under the present
+tasks and backbones.
+
+\FloatBarrier
+\subsection{Update-Budget and Architecture References}
+
+\paragraph{Purpose.}
+The FPP SAC High-RR comparison changes HER's update-to-data ratio from one to
+four while retaining its two-critic SAC architecture. REDQ-HER is a broader
+architecture-and-compute reference evaluated on FPP, DrawerOpen, and
+DrawerClose: it uses UTD 4, ten critics, a random two-critic target subset,
+and target-Q bounding. REDQ-HER TQB clips the sampled target-critic backup to
+the sparse-reward range \([-50,0]\) before forming the Bellman target.
+
+\input{tables/supplementary_high_rr_table}
+\input{tables/supplementary_redq_references_table}
+\FloatBarrier
+
+\paragraph{Results.}
+On FPP SAC, increasing HER from UTD 1 to UTD 4 raises observed mean AUC from
+\(0.471\) to \(0.768\). REDQ-HER records AUC \(0.867\) on FPP, \(0.672\) on
+DrawerOpen, and \(0.188\) on DrawerClose. The corresponding SABER values are
+\(0.583\), \(0.754\), and \(0.324\). DrawerOpen REDQ-HER reaches Hit90 in all
+seeds at a median 0.370M steps and has FQ-AUC \(0.952\), whereas DrawerClose
+REDQ-HER reaches Hit90 at 0.020M but has FQ-AUC \(0.098\).
+
+\paragraph{Interpretation.}
+A larger update budget and critic ensemble can be stronger on FPP SAC, but
+REDQ is not uniformly stronger across tasks. High-RR is an FPP-only
+update-ratio reference, while REDQ changes UTD, algorithm, architecture,
+target construction, and entropy optimization. These results therefore
+provide scaling context rather than matched one-factor tests of SABER.
 
 \FloatBarrier
 \section{Support-Signal Diagnostic Details}
@@ -495,13 +563,24 @@ long-term learning performance.
 The phase analysis asks where support activation occurs during Drawer
 progression and whether it merely follows the most frequent phase.
 
+\paragraph{Phase definitions.}
+Let \(d_h\) be the Euclidean hand--handle distance and \(d_g\) the
+handle--relabeled-goal distance. Open/Closed denotes \(d_g\leq0.05\).
+Opening/Closing denotes \(d_g>0.05\), \(d_h\leq0.08\), and
+\(d_g\leq0.12\). Contact denotes \(d_h\leq0.08\) and \(d_g>0.12\);
+Approach contains the remaining samples. These mutually exclusive rules
+reproduce the implementation's terminal-to-approach assignment precedence.
+
 \input{tables/supplementary_phase_diagnostics_table}
+\input{tables/supplementary_phase_seed_counts_table}
 
 \paragraph{Results.}
 In both Drawer tasks and in both primary and extension cohorts, approach
 and contact have higher support-positive rates than the dominant terminal
 phase, even though the terminal phase accounts for roughly three quarters
-of logged samples.
+of logged samples. Table~\ref{tab:supp-phase-seed-counts} reports the exact
+phase counts and support-positive rate for each primary seed; the accompanying
+artifact also contains exact support-positive counts and seeds 6--10 rows.
 
 \paragraph{Interpretation.}
 Activation therefore does not simply track phase frequency. The task-specific

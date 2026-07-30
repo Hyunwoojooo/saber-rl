@@ -3,6 +3,8 @@
 Regenerate the derived analyses and manifests from the repository root:
 
     .venv/bin/python paper/analysis/build_supplementary_results.py
+    .venv/bin/python paper/analysis/build_mechanism_and_phase_supplement.py
+    .venv/bin/python paper/analysis/build_update_reference_tables.py
     .venv/bin/python paper/analysis/build_draweropen_fixed_target_summary.py \
         --primary-root <completed-seeds-1-5-results-root> \
         --output-root <empty-output-root>

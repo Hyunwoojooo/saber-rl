@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llcccc}
+\toprule
+Task & Seed & Approach & Contact & Opening/Closing & Open/Closed \\
+\midrule
+DrawerOpen & 1 & 438,206 (0.748) & 122,496 (0.656) & 115,761 (0.608) & 1,877,393 (0.274) \\
+ & 2 & 401,044 (0.712) & 122,944 (0.774) & 126,568 (0.708) & 1,903,300 (0.311) \\
+ & 3 & 398,226 (0.767) & 135,453 (0.742) & 116,080 (0.670) & 1,904,097 (0.299) \\
+ & 4 & 494,562 (0.761) & 125,903 (0.655) & 136,042 (0.617) & 1,797,349 (0.298) \\
+ & 5 & 491,933 (0.737) & 118,160 (0.662) & 98,851 (0.575) & 1,844,912 (0.348) \\
+\addlinespace[2pt]
+DrawerClose & 1 & 558,542 (0.551) & 31,777 (0.705) & 42,182 (0.412) & 1,921,355 (0.226) \\
+ & 2 & 553,344 (0.566) & 42,221 (0.724) & 49,685 (0.420) & 1,908,606 (0.213) \\
+ & 3 & 554,128 (0.569) & 46,533 (0.748) & 51,350 (0.420) & 1,901,845 (0.215) \\
+ & 4 & 551,833 (0.494) & 48,093 (0.689) & 61,006 (0.482) & 1,892,924 (0.183) \\
+ & 5 & 564,592 (0.564) & 39,549 (0.686) & 36,610 (0.392) & 1,913,105 (0.223) \\
+\bottomrule
+\end{tabular}
+\caption{Primary Drawer phase counts and seed-level support activation. Each cell gives the exact number of logged samples in the phase, followed by the support-positive rate in parentheses. Each seed contributes 2,553,856 samples (9,976 minibatches of size 256). Opening/Open apply to DrawerOpen and Closing/Closed to DrawerClose. Exact seeds 6--10 extension rows and support-positive counts are provided in the phase artifact.}
+\label{tab:supp-phase-seed-counts}
+\end{table*}

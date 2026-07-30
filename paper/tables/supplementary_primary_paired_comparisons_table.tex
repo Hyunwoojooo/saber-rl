@@ -1,0 +1,33 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{llcc}
+\toprule
+Cohort & Comparator & $\Delta$AUC (95\% CI) & $\Delta$FQ-AUC (95\% CI) \\
+\midrule
+FPP--DDPG & HGR & $+0.271 [0.197,0.405]$ & $+0.480 [0.286,0.717]$ \\
+ & PER & $+0.149 [-0.001,0.349]$ & $+0.196 [0.014,0.555]$ \\
+\addlinespace[1pt]
+FPP--TD3 & HGR & $+0.075 [0.065,0.085]$ & $+0.270 [0.216,0.318]$ \\
+ & PER & $+0.073 [0.051,0.096]$ & $+0.242 [0.181,0.300]$ \\
+\addlinespace[1pt]
+FPP--SAC & HGR & $+0.100 [0.029,0.159]$ & $+0.322 [0.133,0.482]$ \\
+ & PER & $-0.106 [-0.124,-0.085]$ & $+0.000 [-0.009,0.013]$ \\
+\addlinespace[1pt]
+DrawerOpen--DDPG & HGR & $+0.065 [-0.047,0.219]$ & $+0.005 [-0.021,0.038]$ \\
+ & PER & $-0.071 [-0.104,-0.014]$ & $+0.006 [-0.009,0.021]$ \\
+\addlinespace[1pt]
+DrawerOpen--TD3 & HGR & $-0.009 [-0.489,0.471]$ & $+0.001 [-0.795,0.798]$ \\
+ & PER & $-0.045 [-0.101,-0.002]$ & $+0.002 [-0.001,0.007]$ \\
+\addlinespace[1pt]
+DrawerClose--DDPG & HGR & $-0.025 [-0.225,0.132]$ & $+0.052 [-0.045,0.149]$ \\
+ & PER & $+0.016 [-0.059,0.094]$ & $-0.062 [-0.152,0.052]$ \\
+\addlinespace[1pt]
+DrawerClose--TD3 & HGR & $-0.053 [-0.470,0.255]$ & $+0.074 [-0.452,0.518]$ \\
+ & PER & $+0.025 [-0.365,0.466]$ & $-0.049 [-0.598,0.517]$ \\
+\bottomrule
+\end{tabular}
+\caption{Paired SABER-minus-prioritization differences over seeds 1--5. Positive values favor SABER. Intervals are 10,000-resample paired percentile-bootstrap 95\% CIs computed from within-seed differences.}
+\label{tab:supp-prioritization-paired}
+\end{table*}

@@ -68,14 +68,15 @@ descriptive and is not interpreted across hosts.
   metaworld_Drawer_Close_TD3_AER/results_2m/.
   The source manifest binds every run's metrics, summary, final evaluation,
   configuration, and environment snapshot.
-- FPP SAC shared-grid scaling artifact:
-  experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/.
-- DrawerClose REDQ-HER UTD-4 scaling artifact:
-  metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/.
+- Unified High-RR and REDQ reference artifact:
+  paper/supplementary_artifacts/update_budget_references/.
+  It binds the FPP SAC High-RR runs and REDQ-HER runs for FPP, DrawerOpen,
+  and DrawerClose to exact-grid seed and aggregate summaries without
+  duplicating raw metrics.
 
 The artifact index also resolves the FPP TD3 ten-seed confirmation,
-inclusive-future sensitivity, and FPP SAC update-budget references directly
-to their canonical compact artifacts. Drawer no-HER AER references are
+inclusive-future sensitivity, and the unified update-budget references
+directly to their canonical compact artifacts. Drawer no-HER AER references are
 reported as transferred pipeline-level comparisons rather than SABER controls.
 
 Raw files are not duplicated here. Their canonical artifact manifests retain
