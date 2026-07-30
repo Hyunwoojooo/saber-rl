@@ -58,6 +58,16 @@ descriptive and is not interpreted across hosts.
 
 - FPP DDPG/TD3/SAC no-HER AER artifacts under
   experiment_FPP/paper_artifacts/fpp_*_aer_noher_seeds1_5_1m/.
+- DrawerOpen DDPG/TD3 no-HER AER artifacts under
+  metaworld_Drawer_Open_DDPG_AER/paper_artifacts/drawer_open_ddpg_aer_noher_2m/
+  and
+  metaworld_Drawer_Open_TD3_AER/paper_artifacts/drawer_open_td3_aer_noher_2m/.
+- DrawerClose DDPG no-HER AER artifact under
+  metaworld_Drawer_Close_DDPG_AER/paper_artifacts/drawer_close_ddpg_aer_noher_2m/.
+- DrawerClose TD3 no-HER AER committed run records under
+  metaworld_Drawer_Close_TD3_AER/results_2m/.
+  The source manifest binds every run's metrics, summary, final evaluation,
+  configuration, and environment snapshot.
 - FPP SAC shared-grid scaling artifact:
   experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/common_grid_50k/.
 - DrawerClose REDQ-HER UTD-4 scaling artifact:
@@ -65,7 +75,8 @@ descriptive and is not interpreted across hosts.
 
 The artifact index also resolves the FPP TD3 ten-seed confirmation,
 inclusive-future sensitivity, and FPP SAC update-budget references directly
-to their canonical compact artifacts.
+to their canonical compact artifacts. Drawer no-HER AER references are
+reported as transferred pipeline-level comparisons rather than SABER controls.
 
 Raw files are not duplicated here. Their canonical artifact manifests retain
 the corresponding source and provenance records.

@@ -386,40 +386,46 @@ change minibatch membership. SABER instead preserves the sampled HER
 minibatch and changes only critic-loss allocation. AER therefore serves as a
 secondary intervention-point reference rather than a matched SABER
 baseline.
-the no-HER comparison separates uniform experience replay (ER), uniform
+The no-HER comparison separates uniform experience replay (ER), uniform
 replay with AER's actor/critic learning-rate schedule (Annealing ER), and
 Attentive Experience Replay (AER). AER ranks an enlarged uniform candidate
 set by cosine similarity to the current online state and trains on the 256
 most similar transitions. The three arms therefore test attentive selection
 beyond its shared schedule and whether replay selection alone can solve
-sparse FPP. High-replay-ratio HER and REDQ-HER instead test larger update
+these sparse tasks. High-replay-ratio HER and REDQ-HER instead test larger update
 budgets and critic ensembles. REDQ-HER TQB clips the sampled target-critic
 backup to the sparse-reward range \([-50,0]\) before forming the Bellman
 target.
 
 \input{tables/supplementary_aer_noher_table}
+\input{tables/supplementary_drawer_aer_noher_table}
 \input{tables/supplementary_sac_scaling_table}
 \input{tables/supplementary_drawerclose_redq_table}
 
 \paragraph{Results.}
-Without HER, AER/Annealing ER/ER obtain mean AUCs of \(0.044/0.129/0.148\)
-with DDPG, \(0.039/0.039/0.039\) with TD3, and \(0.040/0.041/0.064\) with
-SAC. AER therefore has no higher observed mean AUC than either replay control
-in these three backbones. On FPP SAC, high-replay-ratio HER and REDQ-HER reach
-AUC \(0.768\) and \(0.867\), respectively, above SABER's \(0.583\), but use
-UTD 4 and REDQ also uses ten critics. On DrawerClose, REDQ-HER reaches
+Without HER, FPP AER/Annealing ER/ER obtain mean AUCs of
+\(0.044/0.129/0.148\) with DDPG, \(0.039/0.039/0.039\) with TD3, and
+\(0.040/0.041/0.064\) with SAC. On DrawerOpen, the corresponding values are
+\(0.000/0.111/0.579\) with DDPG and \(0.000/0.000/0.089\) with TD3; on
+DrawerClose they are \(0.194/0.199/0.150\) and \(0.169/0.176/0.251\).
+AER therefore never has a higher observed mean AUC than Annealing ER in these
+seven transferred cohorts. On FPP SAC, high-replay-ratio HER and REDQ-HER
+reach AUC \(0.768\) and \(0.867\), respectively, above SABER's \(0.583\),
+but use UTD 4 and REDQ also uses ten critics. On DrawerClose, REDQ-HER reaches
 Hit90 in all seeds at 20k but records AUC/FQ-AUC \(0.188/0.098\), compared
 with \(0.324/0.277\) for DDPG SABER.
 
 \paragraph{Interpretation.}
-In these matched transfers, state-similarity replay neither substitutes for
-hindsight relabeling nor improves mean AUC over schedule-matched uniform
-replay. This is not a general replication or rejection of AER; it isolates
-transferred AER components under the present FPP backbones. Increased update
-budget and ensemble size can be stronger on FPP SAC but are not uniformly
-stronger across tasks. Because HER use, UTD, algorithm, and architecture
-differ, these tables are scaling and context references rather than
-one-factor tests of SABER.
+Across these no-HER transfers, state-similarity replay does not improve
+observed mean AUC over its schedule-matched uniform-replay control. The
+DrawerOpen fixed-learning-rate ER results further show that schedule and
+sampling effects cannot be separated without a fixed-learning-rate AER arm.
+This is not a general replication or rejection of AER; it isolates transferred
+AER components under the present tasks and backbones. Increased update budget
+and ensemble size can be stronger on FPP SAC but are not uniformly stronger
+across tasks. Because HER use, UTD, algorithm, and architecture differ, these
+tables are scaling and context references rather than one-factor tests of
+SABER.
 
 \FloatBarrier
 \section{Support-Signal Diagnostic Details}

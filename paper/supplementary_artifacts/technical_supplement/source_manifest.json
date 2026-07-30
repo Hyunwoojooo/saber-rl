@@ -109,9 +109,394 @@
       "sha256": "e3a89d148c7ace6afb9f031e6d214baba716811a69e845537c063fcea2fcdec1"
     },
     {
+      "bytes": 18007,
+      "path": "metaworld_Drawer_Close_DDPG_AER/paper_artifacts/drawer_close_ddpg_aer_noher_2m/artifact_manifest.json",
+      "sha256": "67da2ab1bd51e9eabc588c600d1de491817580f7ccc0cdeed424bc6bb469d0a4"
+    },
+    {
       "bytes": 1259,
       "path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/artifact_manifest.json",
       "sha256": "3dfa5809d695e80262d54de1bb3bb0093bb742c757775605a4a9530e5cc9af6d"
+    },
+    {
+      "bytes": 6581,
+      "path": "metaworld_Drawer_Close_TD3_AER/README.md",
+      "sha256": "79b6dcfa90166089756007ff14f5b121e3d0d5448a0a96edeca57fa4c82b4933"
+    },
+    {
+      "bytes": 5452,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed1/config.json",
+      "sha256": "5b0c221ce0a2f0de87a1fd8ae34d1ebb3dcb2ae67e5d6f3510e58aff2c62b518"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed1/env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6"
+    },
+    {
+      "bytes": 1424,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed1/final_eval_fixed.json",
+      "sha256": "53b97e1642ce3abb75b9267fe585d0a6b2357b52c539b49921514ca634be3252"
+    },
+    {
+      "bytes": 13105098,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed1/metrics.csv",
+      "sha256": "bc8bb20cabea55820279fb3244f05afca117a4c430db02ac34437f25ca6fde0f"
+    },
+    {
+      "bytes": 7093,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed1/summary.json",
+      "sha256": "019e2bd6b29ef83a2d3d70e91607734fcdb8c3557cf4b5142803967f513823d1"
+    },
+    {
+      "bytes": 5452,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed2/config.json",
+      "sha256": "f2fe7d1c7f45b3fb5c13f2f8b74d2577765b0c58aa8a6d4fcf35ab44d0e74b24"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed2/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9"
+    },
+    {
+      "bytes": 1422,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed2/final_eval_fixed.json",
+      "sha256": "310eb2243e0f999e0f36f7f3819f428ddc2a2070a2b1040c98fb6eb15d560fd4"
+    },
+    {
+      "bytes": 13020189,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed2/metrics.csv",
+      "sha256": "fdcc469f908682ad675ee345f5167ca166156ba5711958641c96d8c1752362ca"
+    },
+    {
+      "bytes": 7109,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed2/summary.json",
+      "sha256": "4750f08442b61bab44777903f1c75234956b0ee4eab6c3d1b1b37ef140ba5bd0"
+    },
+    {
+      "bytes": 5452,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed3/config.json",
+      "sha256": "f3d8febbeabe311b4521d35409dfd80a9fa7139d1fb432d62a4ed8ee9359fa99"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed3/env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363"
+    },
+    {
+      "bytes": 1425,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed3/final_eval_fixed.json",
+      "sha256": "79ff0c364d9d3f2f244438aedb948ac814b7d0f89fc9590a1d18434604e44f08"
+    },
+    {
+      "bytes": 13183371,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed3/metrics.csv",
+      "sha256": "0a87d0bebb5b7e17704522f7030689430dc0af1d2d41bc06396bc800e25e3cda"
+    },
+    {
+      "bytes": 7101,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed3/summary.json",
+      "sha256": "32c6bd6dab94263a5c4096ad18154906037da46bbac097099602cc016637fd0e"
+    },
+    {
+      "bytes": 5452,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed4/config.json",
+      "sha256": "635940ea887b96ad08bb109c1a95a3ee5093a515d4e173fb7fcb1a762e713b01"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed4/env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a"
+    },
+    {
+      "bytes": 1493,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed4/final_eval_fixed.json",
+      "sha256": "edb62ec131666a95fb735a9b63ade98a71b2781fee3a3b83f25f15d6dcf3f731"
+    },
+    {
+      "bytes": 13149723,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed4/metrics.csv",
+      "sha256": "00611aa79162ddb92b9b6ffd7031dd2df4ff1444816163847b740f4b06a8f42a"
+    },
+    {
+      "bytes": 7109,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed4/summary.json",
+      "sha256": "cbbc356d2d5460da9ca339f65a173a26444f21ccbebeb23eff964e05c9b91adb"
+    },
+    {
+      "bytes": 5452,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed5/config.json",
+      "sha256": "e255486593f49fc1437d94dc644c9567829f9faa3ae0667a32f16767ebb5fadd"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed5/env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65"
+    },
+    {
+      "bytes": 1444,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed5/final_eval_fixed.json",
+      "sha256": "7c791b40c4c4e7144d07660d0942724d5fd6ce6fcc1301b22a95050661abb802"
+    },
+    {
+      "bytes": 13187376,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed5/metrics.csv",
+      "sha256": "b1bd9c801857df3fe77749783bae64fd2c5e0520c106d2975194641a6b79c331"
+    },
+    {
+      "bytes": 7110,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AER-2M-seed5/summary.json",
+      "sha256": "62ec36d89f6f74b2e7f18bb0a24f8462e55c5fc1b5126300d1aedf60e2bea6f2"
+    },
+    {
+      "bytes": 5469,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed1/config.json",
+      "sha256": "15b174a9203c3d5c2c3ddf09889881c70511cffb1cf863b0ee2556ee0155e0e8"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed1/env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6"
+    },
+    {
+      "bytes": 1493,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed1/final_eval_fixed.json",
+      "sha256": "e614c0efea3b842e5f67471c7fb366ebd5ef557c19d5c0fff6bce1e17bfafe36"
+    },
+    {
+      "bytes": 11794945,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed1/metrics.csv",
+      "sha256": "b92b367cbc63979d019e00ecf179914be00b94306f8e2338fb3c927af0eaf696"
+    },
+    {
+      "bytes": 6992,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed1/summary.json",
+      "sha256": "5cd3e1c1d907b9395aac4e7a54b2a54561e85ad212b344c8c2a787abb3311f63"
+    },
+    {
+      "bytes": 5469,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed2/config.json",
+      "sha256": "ed5e701033913c73fcfe3808397f17b7a36c10856fef1e6de2f4ec3b6c4252a2"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed2/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9"
+    },
+    {
+      "bytes": 1425,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed2/final_eval_fixed.json",
+      "sha256": "c28ce5f2e2d2f042b7e02b9f6b9a8df8fa389d271371e8fecbc817ecdf50f66d"
+    },
+    {
+      "bytes": 11790154,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed2/metrics.csv",
+      "sha256": "a8e1a77cb2a3a043d87221524979293b6343b810c8a12bcec3327d35f4491b95"
+    },
+    {
+      "bytes": 6983,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed2/summary.json",
+      "sha256": "4a7deb64fe7cbb97fe85a1f8482f2041b1632645e1e5ccfaffb7fac2f085023f"
+    },
+    {
+      "bytes": 5469,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed3/config.json",
+      "sha256": "89b2bbf4cefb301f214ca9ef931f0d02a1eea72aeef0ef146e45949c504f3f69"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed3/env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363"
+    },
+    {
+      "bytes": 1422,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed3/final_eval_fixed.json",
+      "sha256": "a11cc59ce2aa4d5dd1b7fc1246b4ab4065c8c4a45718f0b1a7c6aa0c1da1f45b"
+    },
+    {
+      "bytes": 11804572,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed3/metrics.csv",
+      "sha256": "615694e9237df0f285e97214787457bac206230c5233b8d2d6d999483ebaf78d"
+    },
+    {
+      "bytes": 6994,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed3/summary.json",
+      "sha256": "baa22f0e201d42e48c855a108fefbcbd1c03d8ff9e4d8ba6b15117faa1e820ef"
+    },
+    {
+      "bytes": 5469,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed4/config.json",
+      "sha256": "50b78fdbd8870816296767d55159c2b6284d234a73a9630adcc2d69a427117c8"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed4/env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a"
+    },
+    {
+      "bytes": 1423,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed4/final_eval_fixed.json",
+      "sha256": "903471c49cfcfeb5fb6d61cd3cd4bdd2bd92aab8a94b3a1d53f0f55b712341f7"
+    },
+    {
+      "bytes": 11732392,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed4/metrics.csv",
+      "sha256": "70fff114d19dcb280d032233a994a9308d18295224cd583a8d1eb7115b5cf4ff"
+    },
+    {
+      "bytes": 6995,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed4/summary.json",
+      "sha256": "329c8860159a34df281f8e989fbe64c3b2b446dcd7cc4c69d18b15ba4f0c4865"
+    },
+    {
+      "bytes": 5469,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed5/config.json",
+      "sha256": "98090364cd0510a72852a65c9d2b4bc02d47e2c2788582c9cb7c2aec67495a2a"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed5/env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65"
+    },
+    {
+      "bytes": 1422,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed5/final_eval_fixed.json",
+      "sha256": "bfacb12fd990fe2de9d9a25aa665f6c63f793f39347b4b4171c488dd883e23ed"
+    },
+    {
+      "bytes": 11819343,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed5/metrics.csv",
+      "sha256": "afab16006c6e155625d8c82afd8545cb5d192345344579ede87986b8855dddf7"
+    },
+    {
+      "bytes": 7002,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-AnnealingER-2M-seed5/summary.json",
+      "sha256": "5834061dc67f8f503af73b483d49722434c14c48a5ee33eeef407ca546e24467"
+    },
+    {
+      "bytes": 5450,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed1/config.json",
+      "sha256": "80406b29c8e83f53c28945479549837f50863c31f313ea0b7243aa7d2088fea1"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed1/env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6"
+    },
+    {
+      "bytes": 1484,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed1/final_eval_fixed.json",
+      "sha256": "85f49e7e377abba4b5b2cb2ef1b379abb291cd22d6e130664eb127d4baec6d67"
+    },
+    {
+      "bytes": 11570859,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed1/metrics.csv",
+      "sha256": "5c965e07d7398716ffd13bb833f98535b387d69c5025643c242f5a0ef7111db9"
+    },
+    {
+      "bytes": 6983,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed1/summary.json",
+      "sha256": "3fa8c489630e14a7eb652e442368b8e7b4d4b81a8b825c22cfab6b6094fc04c8"
+    },
+    {
+      "bytes": 5450,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed2/config.json",
+      "sha256": "267336c6de1d4ee9bd39b29cb2804182eec5736e7cfed13e92b13f72e327b681"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed2/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9"
+    },
+    {
+      "bytes": 1491,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed2/final_eval_fixed.json",
+      "sha256": "bcbeaa3636139fdecabbfa8aefeb0d63ae77ae7b25209e935ec5ffa549763ba6"
+    },
+    {
+      "bytes": 11531532,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed2/metrics.csv",
+      "sha256": "5eca55952e0291aa693a1d2b6e0318b44af0ea03cce8a690c09fa772e5da3dbd"
+    },
+    {
+      "bytes": 6981,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed2/summary.json",
+      "sha256": "067773cf30029603a0e8a747946b163d608caa861b752685bc56eb7b0ba2a2e6"
+    },
+    {
+      "bytes": 5450,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed3/config.json",
+      "sha256": "8a863041323cac08ce11e9a4ec936ca571994db3ed1292fdedf44ea55c4dd464"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed3/env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363"
+    },
+    {
+      "bytes": 1422,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed3/final_eval_fixed.json",
+      "sha256": "e315cc8d0d161e2b7b3f11d98a2cd9ee5926e411485f5286841d2d16cf0891c4"
+    },
+    {
+      "bytes": 11573166,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed3/metrics.csv",
+      "sha256": "3fd64738c4a5fb8195c6924da2ddad86d358340fa2847557d344d56030db0b2e"
+    },
+    {
+      "bytes": 6987,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed3/summary.json",
+      "sha256": "15951784720f78496f595b27eb7a2d347efe2697eb2a17eafb418bd58d086c0f"
+    },
+    {
+      "bytes": 5450,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed4/config.json",
+      "sha256": "8053da903d3496156399793049cc7cd790dfee6135d10bd97e4c0c87aaaf18cc"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed4/env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a"
+    },
+    {
+      "bytes": 1488,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed4/final_eval_fixed.json",
+      "sha256": "455a2a7eb795bc3c086a7dbc978858ed8025216d4786e830cbe12d2c99c6bdf1"
+    },
+    {
+      "bytes": 11536503,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed4/metrics.csv",
+      "sha256": "0f5250b34a052eb2f3dd46238d5ac16059809263f4bc6cf08f185c868a50e649"
+    },
+    {
+      "bytes": 6972,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed4/summary.json",
+      "sha256": "f42117b0fa3c9149dde844786551526d19db538fecf856d78f9aadbe7be2b3c8"
+    },
+    {
+      "bytes": 5450,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed5/config.json",
+      "sha256": "e0c83be4f0cb598c1170d2eeee05432e8da19231e9a44dce9e1bda8ea24059b4"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed5/env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65"
+    },
+    {
+      "bytes": 1490,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed5/final_eval_fixed.json",
+      "sha256": "ccc51ba783a30acd3b2b6d80a94ff76643526b841340f37dfd96f6c51ba4a2cb"
+    },
+    {
+      "bytes": 11548395,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed5/metrics.csv",
+      "sha256": "3ac131f98941a8c499400f1b699c7b473b5c3ede3ac6d2b44c617943ea9b0358"
+    },
+    {
+      "bytes": 6992,
+      "path": "metaworld_Drawer_Close_TD3_AER/results_2m/TD3-ER-2M-seed5/summary.json",
+      "sha256": "704ca55462a7ae8478e9c9d05c570bc02f0c9111c881243211c9059b17ca120b"
     },
     {
       "bytes": 1323,
@@ -142,6 +527,16 @@
       "bytes": 12548179,
       "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Style-2M/drawer_open_DDPG-HER-PER-Style-2M_s5_2m_cuda/metrics.csv",
       "sha256": "bece55c35a16cae71525ea345c58c664953e49c2be515d8087d8e81ad7db17aa"
+    },
+    {
+      "bytes": 17931,
+      "path": "metaworld_Drawer_Open_DDPG_AER/paper_artifacts/drawer_open_ddpg_aer_noher_2m/artifact_manifest.json",
+      "sha256": "1d4d08eb207ed04f42a470a144fd5f05f27a52229e98cc1941171403fae981c8"
+    },
+    {
+      "bytes": 17774,
+      "path": "metaworld_Drawer_Open_TD3_AER/paper_artifacts/drawer_open_td3_aer_noher_2m/artifact_manifest.json",
+      "sha256": "dddadcb43beffcbde312a082331f8f22bbeeba96a8415db2fd73cf397f8d0c5b"
     },
     {
       "bytes": 1115,

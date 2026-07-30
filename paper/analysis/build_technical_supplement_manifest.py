@@ -35,6 +35,12 @@ CANONICAL_SOURCES = (
     "fpp_td3_aer_noher_seeds1_5_1m/analysis/method_summary.csv",
     "experiment_FPP/paper_artifacts/"
     "fpp_sac_aer_noher_seeds1_5_1m/results/method_summary.csv",
+    "metaworld_Drawer_Open_DDPG_AER/paper_artifacts/"
+    "drawer_open_ddpg_aer_noher_2m/artifact_manifest.json",
+    "metaworld_Drawer_Open_TD3_AER/paper_artifacts/"
+    "drawer_open_td3_aer_noher_2m/artifact_manifest.json",
+    "metaworld_Drawer_Close_DDPG_AER/paper_artifacts/"
+    "drawer_close_ddpg_aer_noher_2m/artifact_manifest.json",
     "experiment_FPP/paper_artifacts/fpp_sac_controls_and_redq_1m/"
     "common_grid_50k/artifact_manifest.json",
     "metaworld_Drawer_Close_REDQ/paper_artifacts/"
@@ -77,8 +83,37 @@ def td_error_sources() -> list[str]:
     return sources
 
 
+def drawerclose_td3_aer_sources() -> list[str]:
+    root = ROOT / "metaworld_Drawer_Close_TD3_AER" / "results_2m"
+    run_dirs = sorted(path for path in root.iterdir() if path.is_dir())
+    if len(run_dirs) != 15:
+        raise RuntimeError(f"expected 15 DrawerClose TD3 AER runs, found {len(run_dirs)}")
+
+    filenames = (
+        "config.json",
+        "env_snapshot.json",
+        "final_eval_fixed.json",
+        "metrics.csv",
+        "summary.json",
+    )
+    sources = ["metaworld_Drawer_Close_TD3_AER/README.md"]
+    for run_dir in run_dirs:
+        for filename in filenames:
+            sources.append(
+                str((run_dir / filename).relative_to(ROOT))
+            )
+    return sources
+
+
 def main() -> None:
-    source_paths = [ROOT / path for path in (*CANONICAL_SOURCES, *td_error_sources())]
+    source_paths = [
+        ROOT / path
+        for path in (
+            *CANONICAL_SOURCES,
+            *td_error_sources(),
+            *drawerclose_td3_aer_sources(),
+        )
+    ]
     missing = [str(path.relative_to(ROOT)) for path in source_paths if not path.is_file()]
     if missing:
         raise FileNotFoundError(f"missing canonical sources: {missing}")

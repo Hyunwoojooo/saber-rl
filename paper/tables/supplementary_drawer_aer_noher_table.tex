@@ -1,0 +1,44 @@
+\begin{table}[t]
+\ContinuedFloat
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccccc}
+\toprule
+Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s \\
+\midrule
+DrawerOpen--DDPG & ER & \(0.579\pm0.342\) & \(0.799\pm0.446\) &
+\(0.800\pm0.447\) & 4/5 (0.525M) & 58.9 \\
+ & Annealing ER & \(0.111\pm0.248\) & \(0.200\pm0.447\) &
+\(0.200\pm0.447\) & 1/5 (0.910M) & 58.8 \\
+ & AER & \(0.000\pm0.000\) & \(0.000\pm0.000\) &
+\(0.000\pm0.000\) & 0/5 & 57.4 \\
+\addlinespace[2pt]
+DrawerOpen--TD3 & ER & \(0.089\pm0.122\) & \(0.338\pm0.463\) &
+\(0.400\pm0.548\) & 2/5 (1.530M) & 59.5 \\
+ & Annealing ER & \(0.000\pm0.000\) & \(0.000\pm0.000\) &
+\(0.000\pm0.000\) & 0/5 & 59.6 \\
+ & AER & \(0.000\pm0.000\) & \(0.000\pm0.000\) &
+\(0.000\pm0.000\) & 0/5 & 58.4 \\
+\addlinespace[2pt]
+DrawerClose--DDPG & ER & \(0.150\pm0.054\) & \(0.150\pm0.140\) &
+\(0.000\pm0.000\) & 5/5 (0.280M) & 58.7 \\
+ & Annealing ER & \(0.199\pm0.122\) & \(0.249\pm0.269\) &
+\(0.330\pm0.391\) & 5/5 (0.380M) & 58.8 \\
+ & AER & \(0.194\pm0.067\) & \(0.197\pm0.246\) &
+\(0.200\pm0.447\) & 5/5 (0.160M) & 57.5 \\
+\addlinespace[2pt]
+DrawerClose--TD3 & ER & \(0.251\pm0.088\) & \(0.203\pm0.100\) &
+\(0.220\pm0.286\) & 5/5 (0.180M) & 48.9 \\
+ & Annealing ER & \(0.176\pm0.137\) & \(0.063\pm0.081\) &
+\(0.020\pm0.045\) & 5/5 (0.070M) & 48.9 \\
+ & AER & \(0.169\pm0.110\) & \(0.158\pm0.184\) &
+\(0.400\pm0.548\) & 5/5 (0.070M) & 48.3 \\
+\bottomrule
+\end{tabular}
+\caption{Drawer no-HER replay references over seeds 1--5 (continued). Values are mean $\pm$ sample SD on the exact
+10k--2M grid. These context references omit hindsight relabeling and are not
+matched post-HER mechanism controls. Steps/s is the descriptive seed mean
+defined in Section~1.3.}
+\label{tab:supp-drawer-aer-noher}
+\end{table}
