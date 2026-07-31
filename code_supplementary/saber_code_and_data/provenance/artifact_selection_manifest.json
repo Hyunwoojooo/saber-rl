@@ -2,7 +2,7 @@
   "artifacts": [
     {
       "artifact": "derived_supplement_results",
-      "bytes": 565367,
+      "bytes": 565494,
       "file_count": 50,
       "package_path": "results/derived"
     },

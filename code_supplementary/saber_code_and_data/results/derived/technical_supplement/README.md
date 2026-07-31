@@ -72,9 +72,11 @@ interpreted across hosts.
 - FPP DDPG/TD3 High-RR compact raw artifact:
   experiment_FPP/paper_artifacts/fpp_ddpg_td3_her_high_rr_x4_1m/.
   It contains sanitized seed records, exact curves, recomputed FQ-AUC and
-  segmented-runtime throughput, source hashes, retained Git-blob parity, and
-  explicit TD3 resume/missing-800k provenance. DDPG's execution snapshot was not
-  retained; TD3 uninterrupted-trajectory equivalence is not claimed.
+  segmented-runtime throughput, source hashes, retained launch metadata, and
+  explicit stale-metadata/missing-800k provenance. All DDPG and TD3 runs began
+  from scratch and completed without checkpoint continuation. Resume-oriented
+  TD3 fields and runtime-counter resets are stale logging metadata and do not
+  indicate a resumed training trajectory.
 - Unified High-RR and REDQ reference artifact:
   paper/supplementary_artifacts/update_budget_references/.
   It binds FPP DDPG, TD3, and SAC High-RR references and REDQ-HER runs for FPP,

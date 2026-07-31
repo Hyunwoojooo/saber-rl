@@ -94,7 +94,7 @@
     {
       "bytes": 1581,
       "path": "provenance/artifact_selection_manifest.json",
-      "sha256": "bf6007877bb562e1b28cc0099e47827a9e0aa9c3d23b236e7b144461579799d3"
+      "sha256": "2babbd20c7c87b44efea9412946d8c13b26f72727aa028f9a4811537e8b3d980"
     },
     {
       "bytes": 877,
@@ -272,9 +272,9 @@
       "sha256": "7f404bbfb481e80e8d97ea9f5d0a7ff5cd3ac97255376b692542e25360264c92"
     },
     {
-      "bytes": 5397,
+      "bytes": 5524,
       "path": "results/derived/technical_supplement/README.md",
-      "sha256": "74dfa176662e63e9212b9fa5cbfb87582d7434e7a2a3e7c1033c9d0d8846ed6d"
+      "sha256": "a24d90805ac36fd228717a12b0f6583e6ffc3ea208bd659a74a4f7386f4ad54d"
     },
     {
       "bytes": 2224,
@@ -284,7 +284,7 @@
     {
       "bytes": 1833,
       "path": "results/derived/technical_supplement/artifact_manifest.json",
-      "sha256": "6407cb6616ca729f7d85dcfc83ac977e413ad04e9586200718e23ef446a5284b"
+      "sha256": "e25733f71526372fb3e6dde4947c4b4f7d37d30712f9e3037b3f7990338bfb6f"
     },
     {
       "bytes": 1686,
@@ -3028,5 +3028,5 @@
     }
   ],
   "inventory_scope": "All package files present before package_manifest.json and MANIFEST.sha256 are written.",
-  "total_bytes": 12847366
+  "total_bytes": 12847493
 }
