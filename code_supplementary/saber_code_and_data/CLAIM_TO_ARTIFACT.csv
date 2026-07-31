@@ -1,0 +1,16 @@
+claim_id,paper_claim,evidence_path,reproduction_command
+C1,Primary seven-cohort HER-SABER comparison,results/derived/primary_seed_results/per_seed_metrics.csv,python reviewer_tools/reproduce_main_results.py --check
+C2,Primary aggregate means and sample SDs,results/derived/primary_seed_results/aggregate_metrics.csv,python reviewer_tools/reproduce_main_results.py --check
+C3,Paired 95 percent bootstrap intervals,results/derived/primary_seed_results/paired_statistics.csv,python reviewer_tools/reproduce_main_results.py --check
+C4,Mechanism controls,results/derived/mechanism_controls_ddpg,python reviewer_tools/reproduce_supplement_results.py --check
+C5,Phase-conditioned allocation,results/derived/phase_seed_results,python reviewer_tools/reproduce_supplement_results.py --check
+C6,Action-bin K sensitivity,results/derived/action_bin_sensitivity,python reviewer_tools/reproduce_supplement_results.py --check
+C7,Actor versus critic weighting scope,results/derived/actor_scope_ddpg,python reviewer_tools/reproduce_supplement_results.py --check
+C8,High-RR and REDQ references,results/derived/update_budget_references,python reviewer_tools/reproduce_supplement_results.py --check
+C9,DrawerOpen fixed-target diagnostic,results/selected_artifacts/drawer_open_fixed_target_diagnostic_all10,python reviewer_tools/verify_package.py
+C10a,Inclusive-future HER sensitivity seeds 1-5,results/selected_artifacts/fpp_inclusive_future_s1_5,python reviewer_tools/verify_package.py
+C10b,Inclusive-future HER sensitivity seeds 6-10,results/selected_artifacts/fpp_inclusive_future_s6_10,python reviewer_tools/verify_package.py
+C11,FPP TD3 ten-seed extension,results/selected_artifacts/fpp_td3_primary_n10,python reviewer_tools/verify_package.py
+C12,FPP DDPG and TD3 high-RR x4,results/selected_artifacts/fpp_high_rr_x4,python reviewer_tools/verify_package.py
+C13,FPP DDPG Actor+Critic scope,results/selected_artifacts/fpp_actor_critic,python reviewer_tools/verify_package.py
+C14,FPP one-update diagnostics,results/selected_artifacts/fpp_diagnostics,python reviewer_tools/verify_package.py

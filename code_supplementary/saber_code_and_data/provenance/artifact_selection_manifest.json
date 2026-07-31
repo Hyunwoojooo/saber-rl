@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "artifact": "derived_supplement_results",
+      "bytes": 565458,
+      "file_count": 50,
+      "package_path": "results/derived",
+      "repository_path": "paper/supplementary_artifacts"
+    },
+    {
+      "artifact": "fpp_td3_primary_n10",
+      "bytes": 5600843,
+      "file_count": 25,
+      "package_path": "results/selected_artifacts/fpp_td3_primary_n10",
+      "repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m"
+    },
+    {
+      "artifact": "fpp_inclusive_future_s1_5",
+      "bytes": 55809,
+      "file_count": 12,
+      "package_path": "results/selected_artifacts/fpp_inclusive_future_s1_5",
+      "repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m"
+    },
+    {
+      "artifact": "fpp_inclusive_future_s6_10",
+      "bytes": 58708,
+      "file_count": 12,
+      "package_path": "results/selected_artifacts/fpp_inclusive_future_s6_10",
+      "repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m"
+    },
+    {
+      "artifact": "fpp_high_rr_x4",
+      "bytes": 329824,
+      "file_count": 77,
+      "package_path": "results/selected_artifacts/fpp_high_rr_x4",
+      "repository_path": "experiment_FPP/paper_artifacts/fpp_ddpg_td3_her_high_rr_x4_1m"
+    },
+    {
+      "artifact": "fpp_actor_critic",
+      "bytes": 840676,
+      "file_count": 90,
+      "package_path": "results/selected_artifacts/fpp_actor_critic",
+      "repository_path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m"
+    },
+    {
+      "artifact": "fpp_diagnostics",
+      "bytes": 874590,
+      "file_count": 12,
+      "package_path": "results/selected_artifacts/fpp_diagnostics",
+      "repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m"
+    },
+    {
+      "artifact": "drawer_open_fixed_target_diagnostic_all10",
+      "bytes": 15688,
+      "file_count": 7,
+      "package_path": "results/selected_artifacts/drawer_open_fixed_target_diagnostic_all10",
+      "repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m"
+    },
+    {
+      "artifact": "drawer_close_redq",
+      "bytes": 16898,
+      "file_count": 6,
+      "package_path": "results/selected_artifacts/drawer_close_redq",
+      "repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m"
+    }
+  ]
+}

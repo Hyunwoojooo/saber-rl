@@ -1,0 +1,23 @@
+Verified reproduction stack
+===========================
+
+Architecture: aarch64
+OS family: Ubuntu 24.04 LTS
+Python: 3.12.3
+PyTorch: 2.12.1+cu130
+PyTorch CUDA build: 13.0
+CUDA runtime family: 13.0
+cuDNN: 9.20.0
+Gymnasium: 1.3.0
+Gymnasium-Robotics: 1.4.2
+MuJoCo: 3.3.0
+Meta-World: 3.1.1
+NumPy: 2.3.5
+SciPy: 1.18.0
+Numba: 0.66.0
+llvmlite: 0.48.0
+
+The four execution hosts were NVIDIA GB10 systems with 20-core ARM CPUs and
+unified memory. Each paired HER-SABER cohort used one physical host and a
+matched software environment. This stack was independently validated for
+installation, smoke tests, SABER weight/loss contracts, and table regeneration.

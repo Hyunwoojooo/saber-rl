@@ -1,0 +1,8 @@
+preset_id,task,backbone,source_snapshot,entrypoint,seeds,environment_steps_per_seed,her_ratio,utd,weight_scope
+drawer_close_ddpg,DrawerClose,DDPG,source/drawer_close_ddpg,train_drawer_close_lite_v0.py,1-5,2000000,0.8,1,critic_only
+drawer_close_td3,DrawerClose,TD3,source/drawer_close_td3,train_drawer_close_lite_v0.py,1-5,2000000,0.8,1,critic_only
+drawer_open_ddpg,DrawerOpen,DDPG,source/drawer_open_ddpg,train_drawer_open_lite_v0.py,1-5,2000000,0.8,1,critic_only
+drawer_open_td3,DrawerOpen,TD3,source/drawer_open_td3,train_drawer_open_lite_v0.py,1-5,2000000,0.8,1,critic_only
+fpp_ddpg,FPP,DDPG,source/fpp_ddpg,train_fetch_pick_and_place_lite_v0.py,1-5,1000000,0.8,1,critic_only
+fpp_sac,FPP,SAC,source/fpp_sac,train_fetch_pick_and_place_lite_v0.py,1-5,1000000,0.8,1,critic_only
+fpp_td3,FPP,TD3,source/fpp_td3,train_fetch_pick_and_place_lite_v0.py,1-5,1000000,0.8,1,critic_only

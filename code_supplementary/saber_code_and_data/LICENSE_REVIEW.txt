@@ -1,0 +1,12 @@
+LICENSE REVIEW
+==============
+
+1. Original SABER source, reviewer tools, tests, documentation, and preset
+   files in this archive are distributed under the MIT License in `LICENSE`.
+2. Third-party Python packages and simulators are dependencies, not bundled
+   copies. Their upstream licenses remain controlling; see
+   `THIRD_PARTY_NOTICES.md`.
+3. Included CSV and JSON files contain derived numerical experiment results
+   and provenance. The work introduces no new human-subject or scraped data.
+4. Model checkpoints, replay buffers, and raw simulator logs are intentionally
+   omitted. See `provenance/omitted_large_sources.csv`.
