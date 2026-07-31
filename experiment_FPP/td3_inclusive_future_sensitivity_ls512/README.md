@@ -56,3 +56,20 @@ indexing, while the five-seed interval included zero.
 The compact result artifact, including exact evaluation curves, seed-level
 metrics, paired statistics, and sanitized provenance, is available at
 [`../paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/`](../paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/).
+
+## Seeds 6--10 extension
+
+The paired extension used the same training source and configuration with only
+the seed cohort and non-overwriting output root changed. It is launched with:
+
+```bash
+MAX_PARALLEL=7 ./run_sensitivity_1m_seeds6_10_parallel.sh
+```
+
+All ten extension runs completed. Mean normalized success AUC was `0.3274`
+for HER and `0.3388` for SABER. The paired SABER-minus-HER difference was
+`+0.0114` (95% paired-bootstrap CI `[-0.0507, 0.0950]`; 2/5 positive
+pairs). The interval includes zero and the seed directions are mixed.
+
+The compact extension artifact is available at
+[`../paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/`](../paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/).
