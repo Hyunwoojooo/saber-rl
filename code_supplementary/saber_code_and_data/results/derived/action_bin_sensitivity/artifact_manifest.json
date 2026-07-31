@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "bytes": 332,
+      "path": "paper/supplementary_artifacts/action_bin_sensitivity/README.md",
+      "sha256": "76570be640aaaf045c29895b0ee6d417daee0860507d1d7a87bc3a20ab5872ac"
+    },
+    {
+      "bytes": 917,
+      "path": "paper/supplementary_artifacts/action_bin_sensitivity/aggregate_metrics.csv",
+      "sha256": "1040e9d2b26ae806ffc75d33bb7700712847d8dc9936890f4e3e98ab4a7b2772"
+    },
+    {
+      "bytes": 416,
+      "path": "paper/supplementary_artifacts/action_bin_sensitivity/paired_statistics.csv",
+      "sha256": "88793a6ac563475a6f29ca648f5abd7a8b4960a19fc4d4dfee6d7afa1ba9523a"
+    },
+    {
+      "bytes": 1309,
+      "path": "paper/supplementary_artifacts/action_bin_sensitivity/per_seed_metrics.csv",
+      "sha256": "9a2dd9de7136f1f0e3b9d027ecad69f1645ee415bf2e6f16f9e666eaab4e14fe"
+    },
+    {
+      "bytes": 17252,
+      "path": "paper/supplementary_artifacts/action_bin_sensitivity/source_manifest.json",
+      "sha256": "03de45a22d47f2f426eb2dbbdda220a4a03e9ed21dabbe05bd9f7b142cf7c03c"
+    }
+  ],
+  "root": "paper/supplementary_artifacts/action_bin_sensitivity"
+}

@@ -1,0 +1,16 @@
+algorithm,critic_family,seed,run_name,total_steps,total_updates,diagnostic_batch_count,full_batch_observation_count,first_diagnostic_step,last_diagnostic_step,evaluation_point_count,target_fixed_from_pre_update,diagnostic_rng_isolated
+ddpg,ddpg_single,1,fetch_pick_and_place_b3_saber_diagnostic_ls512_s1_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+ddpg,ddpg_single,2,fetch_pick_and_place_b3_saber_diagnostic_ls512_s2_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+ddpg,ddpg_single,3,fetch_pick_and_place_b3_saber_diagnostic_ls512_s3_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+ddpg,ddpg_single,4,fetch_pick_and_place_b3_saber_diagnostic_ls512_s4_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+ddpg,ddpg_single,5,fetch_pick_and_place_b3_saber_diagnostic_ls512_s5_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+td3,td3_twin,1,fetch_pick_and_place_td3_saber_diagnostic_ls512_s1_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+td3,td3_twin,2,fetch_pick_and_place_td3_saber_diagnostic_ls512_s2_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+td3,td3_twin,3,fetch_pick_and_place_td3_saber_diagnostic_ls512_s3_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+td3,td3_twin,4,fetch_pick_and_place_td3_saber_diagnostic_ls512_s4_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+td3,td3_twin,5,fetch_pick_and_place_td3_saber_diagnostic_ls512_s5_1000000,1000000,995001,100,25600,10000,1000000,100,1,1
+sac,sac_twin,1,fetch_pick_and_place_sac_saber_diagnostic_ls512_s1_1000000_ls512,1000000,995001,100,25600,10000,1000000,100,1,1
+sac,sac_twin,2,fetch_pick_and_place_sac_saber_diagnostic_ls512_s2_1000000_ls512,1000000,995001,100,25600,10000,1000000,100,1,1
+sac,sac_twin,3,fetch_pick_and_place_sac_saber_diagnostic_ls512_s3_1000000_ls512,1000000,995001,100,25600,10000,1000000,100,1,1
+sac,sac_twin,4,fetch_pick_and_place_sac_saber_diagnostic_ls512_s4_1000000_ls512,1000000,995001,100,25600,10000,1000000,100,1,1
+sac,sac_twin,5,fetch_pick_and_place_sac_saber_diagnostic_ls512_s5_1000000_ls512,1000000,995001,100,25600,10000,1000000,100,1,1

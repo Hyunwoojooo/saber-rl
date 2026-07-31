@@ -1,0 +1,13 @@
+task,backbone,comparison,control_variant,control_label,metric,mean_difference,ci95_low,ci95_high,interval_method,bootstrap_resamples,bootstrap_seed,positive_pairs,n_pairs
+FPP,DDPG,main_minus_replay_action,replay_action,Replay-Action Query,auc,0.011414141414141387,-0.028080808080808106,0.05880176767676743,paired_percentile_bootstrap,10000,27027,3,5
+FPP,DDPG,main_minus_shuffled_policy,shuffled_policy,Shuffled-Policy Query,auc,0.04277777777777778,-0.001515151515151536,0.08515151515151513,paired_percentile_bootstrap,10000,27027,4,5
+FPP,DDPG,main_minus_random_support,random_support,Random-Support,auc,0.056161616161616155,0.013686868686868681,0.10085858585858584,paired_percentile_bootstrap,10000,27027,5,5
+FPP,DDPG,main_minus_context_eligible,context_eligible,Context-Eligible Count-Matched,auc,0.03252525252525253,-0.006262626262626236,0.07555555555555557,paired_percentile_bootstrap,10000,27027,4,5
+DrawerOpen,DDPG,main_minus_replay_action,replay_action,Replay-Action Query,auc,0.43587939698492467,0.12050251256281408,0.7291457286432161,exact_paired_bootstrap_enumeration,3125,,4,5
+DrawerOpen,DDPG,main_minus_shuffled_policy,shuffled_policy,Shuffled-Policy Query,auc,0.10537688442211057,-0.0801507537688442,0.33512562814070357,exact_paired_bootstrap_enumeration,3125,,3,5
+DrawerOpen,DDPG,main_minus_random_support,random_support,Random-Support,auc,0.04718592964824122,-0.04201005025125628,0.1363819095477387,exact_paired_bootstrap_enumeration,3125,,3,5
+DrawerOpen,DDPG,main_minus_context_eligible,context_eligible,Context-Eligible Count-Matched,auc,0.1485929648241206,-0.04170854271356783,0.4420100502512563,exact_paired_bootstrap_enumeration,3125,,4,5
+DrawerClose,DDPG,main_minus_replay_action,replay_action,Replay-Action Query,auc,0.04866834170854271,-0.005552763819095486,0.12839195979899495,exact_paired_bootstrap_enumeration,3125,,3,5
+DrawerClose,DDPG,main_minus_shuffled_policy,shuffled_policy,Shuffled-Policy Query,auc,0.032914572864321597,-0.0627386934673367,0.11907035175879395,exact_paired_bootstrap_enumeration,3125,,4,5
+DrawerClose,DDPG,main_minus_random_support,random_support,Random-Support,auc,0.04773869346733668,-0.0040703517587939555,0.11472361809045226,exact_paired_bootstrap_enumeration,3125,,3,5
+DrawerClose,DDPG,main_minus_context_eligible,context_eligible,Context-Eligible Count-Matched,auc,0.029623115577889443,-0.03319095477386933,0.09243718592964821,exact_paired_bootstrap_enumeration,3125,,3,5

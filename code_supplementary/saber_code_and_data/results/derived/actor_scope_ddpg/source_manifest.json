@@ -1,0 +1,823 @@
+{
+  "missing": [],
+  "protocol": {
+    "backbone": "DDPG",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 2027,
+    "evaluation_grids": {
+      "Drawer": "10k--2M",
+      "FPP": "10k--1M"
+    },
+    "interpolation": false,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "smoothing": false
+  },
+  "sources": [
+    {
+      "bytes": 9996,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_1/metrics_selected_10k.csv",
+      "sha256": "788c578b0797c5b470e2f558b124ce7d699288a1c0b7f307ad72261197947bdf"
+    },
+    {
+      "bytes": 4674,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_1/config.json",
+      "sha256": "68b787ccf331d82a1e36e97506143a5efa1c8f1e0d5862e28f2e51364cf65269"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7854,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_1/summary.json",
+      "sha256": "6feb16808ee86df7d9177ffe54096c338c236385150d3debfe0584392fa31302"
+    },
+    {
+      "bytes": 9913,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_2/metrics_selected_10k.csv",
+      "sha256": "047afead976f8933835eff8c9ff56574c40481acee3d5f08a8579c7b040bb180"
+    },
+    {
+      "bytes": 4674,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_2/config.json",
+      "sha256": "d39dca1297735dd2aee03099860ee67d639ad11ea99f0e5f2db90317e31ea2a3"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7735,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_2/summary.json",
+      "sha256": "a5739439dc22935f906733cff77872633d79d3e446d5f1f436248f6732c889d1"
+    },
+    {
+      "bytes": 10023,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_3/metrics_selected_10k.csv",
+      "sha256": "65d0adb6d71a1c37b7a08a4c016c09df1775528e9edeb471ccf77fd54a8ca6bb"
+    },
+    {
+      "bytes": 4674,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_3/config.json",
+      "sha256": "1b97735c76a739935bc92612c70edd81bd512adae3091d92fe2861ac5b4c2047"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7808,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_3/summary.json",
+      "sha256": "90fe2b33f1b4a7078acd66dff5a03eb3d1d71f605e764ef9ea18e369d0eda75c"
+    },
+    {
+      "bytes": 10027,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_4/metrics_selected_10k.csv",
+      "sha256": "99b905155461cd4c9a934aebfdb1dc67f8991076a4832951419d7818588287a6"
+    },
+    {
+      "bytes": 4674,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_4/config.json",
+      "sha256": "e15969cc1a511e67368f41bc29e7b44b11a449893e10de9fedbae06034a3f8b2"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7808,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_4/summary.json",
+      "sha256": "2bf11fcd7be7810dc5e9512f223cabf98f369fcaee5f44d62348fa09648870ee"
+    },
+    {
+      "bytes": 10014,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_5/metrics_selected_10k.csv",
+      "sha256": "c883207875144f822f0cbec7e4b0c17e353efab350ccd206a92e11d74d055bf3"
+    },
+    {
+      "bytes": 4674,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_5/config.json",
+      "sha256": "8f1588dcbed55a7ec98920cb7729aaa10ea1e8ae879194835477d73178d31262"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7756,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/critic_only/seed_5/summary.json",
+      "sha256": "8e27ddea0ba9777ca51a842ca8e97891b81817ed89f2f772292262faa26ababd"
+    },
+    {
+      "bytes": 10037,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_1/metrics_selected_10k.csv",
+      "sha256": "e57bac2ff0f4a5a8b1fb3c6c6dfa4297037a132b1c03341abe5b2ddebeecf258"
+    },
+    {
+      "bytes": 4635,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_1/config.json",
+      "sha256": "79764989f6122605a4be0a76dbaa997e9e388a717869e313ba3f3e78aa00936f"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7696,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_1/summary.json",
+      "sha256": "9073de6bc2c136c9b692d9f34597fefbde212d0f8a7dd3f7e5c1ab13f104318e"
+    },
+    {
+      "bytes": 10028,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_2/metrics_selected_10k.csv",
+      "sha256": "f6f067a582bd7fa20b527231678e963bd5f402bf4852817ca29cd8fe700ae1cb"
+    },
+    {
+      "bytes": 4635,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_2/config.json",
+      "sha256": "f610752f29d4876960dad738c03c9551c6587b5d63e48f9b2e11648b8db8dbd1"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7630,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_2/summary.json",
+      "sha256": "c3577e9c90178dcf53b4ba35062cfd73a5ac60eb1383b5ed33b087c7ae46b81c"
+    },
+    {
+      "bytes": 9957,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_3/metrics_selected_10k.csv",
+      "sha256": "cbe906d6b4b25f800e89fd8f54e5797994a8b3f278d46ed5bf3a1240be4eb3a7"
+    },
+    {
+      "bytes": 4635,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_3/config.json",
+      "sha256": "5c4527cffa447d05aa0fd6871bb21dad36c268a25d7ce3ef9b40ca8243f01c57"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7690,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_3/summary.json",
+      "sha256": "45fce6ef1bd91fbd79a299fd46d0b3a418431d8b3e1ed5f5d114198410793cef"
+    },
+    {
+      "bytes": 9968,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_4/metrics_selected_10k.csv",
+      "sha256": "cc47d640cfef1a4a53cd6d13c1408b03db7191fdd08a619426e14d1aef22bf32"
+    },
+    {
+      "bytes": 4635,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_4/config.json",
+      "sha256": "f61cccb56c15582f2cf0f867b94cb3ca0a6c2262859bdeb80c4dca568ea755ea"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7594,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_4/summary.json",
+      "sha256": "39b1b32f634a220dc54d011494b205cedcf60345dfd216e4495e612a4e93ec74"
+    },
+    {
+      "bytes": 10040,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_5/metrics_selected_10k.csv",
+      "sha256": "2fc33d081e4e96fe67cb7fd8b5edf2cefa1a7969f7764b9611dfd51120b3f4a7"
+    },
+    {
+      "bytes": 4635,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_5/config.json",
+      "sha256": "4e1c455b24e5019cfe6871af36b05cecc7dc679c207a7e8fcd486b5a99d7a06e"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7683,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_5/summary.json",
+      "sha256": "c84c353cc13ba236c0ae951bc2d29f64b85347e2e3edd6c48d56549b8bc4c10f"
+    },
+    {
+      "bytes": 9858,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/metrics_selected_10k.csv",
+      "sha256": "81bab2737a0ad13b2435006292ef24fcf371cf251123572c0284d82ff4809d5f"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/config.json",
+      "sha256": "9b498a387891df02fc83204cd5e2ec226cb1624ffc5f35bad6d0366b787dd61f"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7588,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/summary.json",
+      "sha256": "bcfbe553f6028f2f1921536f8dfe99c6a442f9049ad7b56e37fa0efe3dd6b496"
+    },
+    {
+      "bytes": 9985,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/metrics_selected_10k.csv",
+      "sha256": "a62b5b5561bd8d31352f1d9687786e39b72a868817a6b01784dafb184e766b5f"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/config.json",
+      "sha256": "bea65659adc26d4f7fc69e8c7559160785ea169e6cf6614f728f09bdb32d98ad"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7609,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/summary.json",
+      "sha256": "824622db06bcd00cc18ae89142decd8258367cf8895f45cd5523f0dd33786ac0"
+    },
+    {
+      "bytes": 10044,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/metrics_selected_10k.csv",
+      "sha256": "e4293783e1f23f37e118c0d4993d7a2cc8113e5be48807fd14d3120f3b9325e1"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/config.json",
+      "sha256": "5c93d8c4111f1b88d369f6873774a2f5cea21019c4106c5b94e8019c7af57e3b"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7596,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/summary.json",
+      "sha256": "484e58914f23c28b4b47c05226e9ac29a8cf7281792cad0088783794e61abdd1"
+    },
+    {
+      "bytes": 9990,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/metrics_selected_10k.csv",
+      "sha256": "c3dab28e149ef9a013ad17a2c1a9e5f8be8c546a08db3fe99c712306513bce44"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/config.json",
+      "sha256": "27fdbb971242c6a874c1cfcd1dabd3388d3ca9613c57c40de15ccc824aff4b45"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7579,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/summary.json",
+      "sha256": "d8bd34690f1ad0dd0e90015c24cc3a550efec3fb3bad2fbfb4b910a8a5119101"
+    },
+    {
+      "bytes": 10001,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/metrics_selected_10k.csv",
+      "sha256": "658e2cf8247cdd84d74b42fc231f9e41fb7971f0a8e7e4ad070e29940fc03fb7"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/config.json",
+      "sha256": "26c5917e1fcced31819bb1636972f032b6094c3f96f4633a19d992e46fb74229"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7595,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/summary.json",
+      "sha256": "4886da2ccc11ff5fb8e1c663ec73f014e70d985b1022365b76e4e6fe7eff0d34"
+    },
+    {
+      "bytes": 18532549,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4"
+    },
+    {
+      "bytes": 8036,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json",
+      "sha256": "5fee923b4e9eb5f1534f3468ac6a8fad53ac13597bf7ba3cf8f0c2c705c0827a"
+    },
+    {
+      "bytes": 18562822,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80"
+    },
+    {
+      "bytes": 8079,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json",
+      "sha256": "0a29a60e427940a336a7ef20bbe03376b93bd01abf37888ad5909ad4f7e22e0f"
+    },
+    {
+      "bytes": 18492864,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5"
+    },
+    {
+      "bytes": 8008,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json",
+      "sha256": "2638514f929a6193bd78c46760da05a9a691494f4936df59e3363b8357367056"
+    },
+    {
+      "bytes": 18547465,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515"
+    },
+    {
+      "bytes": 8084,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json",
+      "sha256": "424511a2482b017f2d59b0381515a6464cf1a57fd5e872a9c8d66b81ca516648"
+    },
+    {
+      "bytes": 18586425,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac"
+    },
+    {
+      "bytes": 8103,
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json",
+      "sha256": "59cd952ce6a973a98a125c0f4febdda325ba79ee3bc2c809c1063ddce2ff625d"
+    },
+    {
+      "bytes": 450670,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_1/metrics_selected_10k.csv",
+      "sha256": "0815ce10569d916c7a18de65018c379b255fda44ad1eea8cfaa81ebd6ec46a3b"
+    },
+    {
+      "bytes": 5331,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_1/config.json",
+      "sha256": "a8fea0a8a43144dd2c889a6f0bf96f3973d547bab9a8e12bc7f8c7cb4325b2f2"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_1/env_snapshot.json",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b"
+    },
+    {
+      "bytes": 9069,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_1/summary.json",
+      "sha256": "254078b5841e7dfabdae8770b20eaf6a8cf149d16699c6ace8e47cd8cb3a6942"
+    },
+    {
+      "bytes": 452511,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_2/metrics_selected_10k.csv",
+      "sha256": "605d2ac577c629e003f489a68ee38c6b178cd75266850c30b4173a65ff5f4b6d"
+    },
+    {
+      "bytes": 5331,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_2/config.json",
+      "sha256": "f4b99c9d8543a879a561ce65ab50294c6422ab834add32eaa87ba6d9b4d22bb7"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_2/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b"
+    },
+    {
+      "bytes": 9042,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_2/summary.json",
+      "sha256": "fcb01374a5a5b51cef2e60a5daf6c2ee03f5e7c797f9c363801df630e871675b"
+    },
+    {
+      "bytes": 453852,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_3/metrics_selected_10k.csv",
+      "sha256": "8b69d1a029bfb8e9669f50f1fc1120a5c7638acecf277a8e4a35a9029be8ad6d"
+    },
+    {
+      "bytes": 5331,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_3/config.json",
+      "sha256": "df4b2765c09ba76e361e430a07b974ca566a1fe3c362dac0ebd51467934a8a99"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_3/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d"
+    },
+    {
+      "bytes": 9083,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_3/summary.json",
+      "sha256": "64a1e41cf6ab480c9f8aae4a7004e157b9c32e085bae263eab69acfddba20749"
+    },
+    {
+      "bytes": 453729,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_4/metrics_selected_10k.csv",
+      "sha256": "958c4e7f1cb90cd8c77e05e9434afdd9f5af011b2f7119ddc7c65f73892bd12a"
+    },
+    {
+      "bytes": 5331,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_4/config.json",
+      "sha256": "bc7f27ca911399f46a134b55996a99d17a7fafb620bfddf7179b207e1eec840c"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_4/env_snapshot.json",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2"
+    },
+    {
+      "bytes": 9079,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_4/summary.json",
+      "sha256": "c4996ce5aa6bc1ac0ea0cf57cf8100581ff188fb31a06986940048a23ac8c70c"
+    },
+    {
+      "bytes": 404587,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_5/metrics_selected_10k.csv",
+      "sha256": "d591085c0019d9410b68cf7db44e75e0c579ba1fe41731f619203b764eaaa360"
+    },
+    {
+      "bytes": 5331,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_5/config.json",
+      "sha256": "77f392ddcf496d16ff9a4d6b70e57f15554884fd2dfc6339f58dee8dc8b41588"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_5/env_snapshot.json",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442"
+    },
+    {
+      "bytes": 8688,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_only_2m/data/actor_only/seed_5/summary.json",
+      "sha256": "20a020c643fd49b4efbf9d44eb76b376b0920c2361d4b02c8e740121d035691c"
+    },
+    {
+      "bytes": 455013,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/metrics_selected_10k.csv",
+      "sha256": "ebe727741e068c3f2b6709763911b28d9427d2d32178f6a7e4ce85ed350eea7a"
+    },
+    {
+      "bytes": 5335,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/config.json",
+      "sha256": "9c72f5b934beddad5573f0ca6e8257d0657f7f8328f0c1adbfc5ce48c4d1168f"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/env_snapshot.json",
+      "sha256": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b"
+    },
+    {
+      "bytes": 9104,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/summary.json",
+      "sha256": "91cb6e1676ea4d7a101c4874190dfba1a3d469173a5e5737b5be262ff45ab55a"
+    },
+    {
+      "bytes": 460367,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/metrics_selected_10k.csv",
+      "sha256": "7b93b64724158929a5e7d13688eb7082e5e3cb382c34619cec13e9faef4f3f41"
+    },
+    {
+      "bytes": 5335,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/config.json",
+      "sha256": "7547e56b688a4512b84765ef362a5ad122d4a28d65d7cf0d65cdc0e3f704b704"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/env_snapshot.json",
+      "sha256": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b"
+    },
+    {
+      "bytes": 9005,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/summary.json",
+      "sha256": "4da73abfe5e5995ae903fbd1ac1e4e60ed3e23a8e37e13187bbe82cc50501510"
+    },
+    {
+      "bytes": 453843,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/metrics_selected_10k.csv",
+      "sha256": "8f3c31c69e3105100971d40c36b5010b458eb0efe50fde82f66ba1e110cd16d5"
+    },
+    {
+      "bytes": 5335,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/config.json",
+      "sha256": "00269c1dad96a0dd67c1aaf18e6e8250ced97fc5cc67a07de1400d249803d19e"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/env_snapshot.json",
+      "sha256": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d"
+    },
+    {
+      "bytes": 9100,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/summary.json",
+      "sha256": "76a90646e5b99d3f5deb2b0b92aa2a0fd6a8d3c4152c40b3ae6a7b80a794f977"
+    },
+    {
+      "bytes": 459618,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/metrics_selected_10k.csv",
+      "sha256": "e93d7b50437bb0dc9f162cc7a2b9b09dc5e90a69b63da4ba36633c3721fff99c"
+    },
+    {
+      "bytes": 5335,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/config.json",
+      "sha256": "7e00b741c1706b1bf09aef51fc395e31612510707fa8d1d88f4b266d29c18e6f"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/env_snapshot.json",
+      "sha256": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2"
+    },
+    {
+      "bytes": 9128,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/summary.json",
+      "sha256": "e0dfdd6c0a51031f518e1d3e1f69cd181381f1bc061d81c1be80a7bde9e9013d"
+    },
+    {
+      "bytes": 456664,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/metrics_selected_10k.csv",
+      "sha256": "cc44d1bdbdbd45bc1c02b5f3334f92ea1315523a0dd43fbbbeb2d46148cfcc40"
+    },
+    {
+      "bytes": 5335,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/config.json",
+      "sha256": "1f51556d9f1a7fb6536fdcdf6891a6402d2c187ac31f4df2b662a4326b60eada"
+    },
+    {
+      "bytes": 2746,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/env_snapshot.json",
+      "sha256": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442"
+    },
+    {
+      "bytes": 9131,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/summary.json",
+      "sha256": "2573247138de48f400aa368d89b3220ebf7a5de7f1d01977da9dc4b09f31f962"
+    },
+    {
+      "bytes": 17764627,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "sha256": "22e30c1354778cd01ae2a89809f700cb94f7f440b3a63e72f0b147697d7f41cc"
+    },
+    {
+      "bytes": 7902,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/summary.json",
+      "sha256": "61774eb73f26167715872d46ec81bdef3726675af3f45f3994e84acb45d05e7d"
+    },
+    {
+      "bytes": 17942749,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "sha256": "957df43ec129d6a1af42cc8210a88e45fa212536b89706b385e5f08171325f15"
+    },
+    {
+      "bytes": 7987,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/summary.json",
+      "sha256": "5c7405ffcc89ace2f7f58de00c8b1637bbd83404986f2512e8ec58fb78994893"
+    },
+    {
+      "bytes": 17929813,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "sha256": "0a54df538006c345cff66c8cc17624595f05b4cf04f39a2cc50e5a98de048faa"
+    },
+    {
+      "bytes": 7863,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/summary.json",
+      "sha256": "19c3867c112887269b68a7213529448c1c432e9c31fbe80d5dc002bd3183653e"
+    },
+    {
+      "bytes": 18084346,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "sha256": "236060460cc296df64ee72399eddafe309da05f6e85934e6b7895e0e210d2730"
+    },
+    {
+      "bytes": 8099,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/summary.json",
+      "sha256": "56ba491ffc54fad70a39b96b3551443490d6490d541c53ee71d648f463658529"
+    },
+    {
+      "bytes": 17825981,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "sha256": "e88ff0cd59967f79f74c8b17fc10a6dadab0f57b2397ec2eca4ca203cb6e5ef5"
+    },
+    {
+      "bytes": 7979,
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/summary.json",
+      "sha256": "22a2b288b38bdf23a9ccebed15a0a4ad25cf294516644bd884b4e45a0f4a8c54"
+    },
+    {
+      "bytes": 389850,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_1/metrics_selected_10k.csv",
+      "sha256": "b0247b42237597f582c778ac57af0b092b774d869ec11740dbfc0698f229cb5c"
+    },
+    {
+      "bytes": 5350,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_1/config.json",
+      "sha256": "aa7546670743ceb4b006752484a64fdf76d4f75c9fd7c3c71e589f5ebdf268cc"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_1/env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6"
+    },
+    {
+      "bytes": 7801,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_1/summary.json",
+      "sha256": "c0203de1e6d2f218125d4f8f8a4784755f37cdbc6d30f098c24ebe7f0c7a776d"
+    },
+    {
+      "bytes": 385618,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_2/metrics_selected_10k.csv",
+      "sha256": "7a0a4f17be52dc1f99c7d85bf9fcec2cbfcffe4d4f9d9c3a9d39fa42cdf25435"
+    },
+    {
+      "bytes": 5350,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_2/config.json",
+      "sha256": "d74fd036f079636c38d1fed78dc5dac8aac34321259dfd40bd55f5c9b119d515"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_2/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9"
+    },
+    {
+      "bytes": 7873,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_2/summary.json",
+      "sha256": "01faeb9358d804a7b7cc6127597519fc059cb43c05270fa8bb8556ce270c4f66"
+    },
+    {
+      "bytes": 388292,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_3/metrics_selected_10k.csv",
+      "sha256": "37b35f173e342cbddbc21be81a0c0bf5b1f04d1bfb0df91aca4799295964eda6"
+    },
+    {
+      "bytes": 5350,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_3/config.json",
+      "sha256": "7da299c1bf1d0333d355904caeab825bc7e4f2856be63a1dea9790fd094130ea"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_3/env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363"
+    },
+    {
+      "bytes": 8008,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_3/summary.json",
+      "sha256": "2f503939bb5ec9c78c185540c6d9836f73fe55f8ac232c73b0ec4706a9a7e763"
+    },
+    {
+      "bytes": 383683,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_4/metrics_selected_10k.csv",
+      "sha256": "b98b7ab4e9149c8c139f8a86e123795ad00571b0203b8719b40d9d31ae8b48d4"
+    },
+    {
+      "bytes": 5350,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_4/config.json",
+      "sha256": "73cc5438dd6b10d16da7363d224982a8cdb8929a4322596793b790ad0ef692e7"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_4/env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a"
+    },
+    {
+      "bytes": 7919,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_4/summary.json",
+      "sha256": "4588d448cd8c1056ff6a062d886a6952cf238d57b39b25108799c0c92e48097e"
+    },
+    {
+      "bytes": 383415,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_5/metrics_selected_10k.csv",
+      "sha256": "bb5a7036099ded913ff0ce015733d48a2939d3fe00493bc662ea865b5877bd77"
+    },
+    {
+      "bytes": 5350,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_5/config.json",
+      "sha256": "bc47cd9d3804c6a944ad5adc1c3f3d1a2e3354425f170ec808b19e424521c3a9"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_5/env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65"
+    },
+    {
+      "bytes": 8014,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_only_2m/data/actor_only/seed_5/summary.json",
+      "sha256": "a07b2354f7554ed70c599a3558f10514eaedce73c056570172e4a5ee1dd2a791"
+    },
+    {
+      "bytes": 387159,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/metrics_selected_10k.csv",
+      "sha256": "226c9a37cf918a61f6e7528c38a0f2d733d1e0386ff66228759e3ff93d200bd6"
+    },
+    {
+      "bytes": 5356,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/config.json",
+      "sha256": "29b1887c248b32ebf65fa44d0c2e1251451af495308d5c6c7a77a7a7e50fead2"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/env_snapshot.json",
+      "sha256": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6"
+    },
+    {
+      "bytes": 7912,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_1/summary.json",
+      "sha256": "4bd415bcca042e902b33fc6fc073b20c65c668565f7133ae3b4839bfea0e9e3f"
+    },
+    {
+      "bytes": 383902,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/metrics_selected_10k.csv",
+      "sha256": "bc69fe2258671a283868ae6f86544f034a22e3912ec680131b3047d6128a35cd"
+    },
+    {
+      "bytes": 5356,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/config.json",
+      "sha256": "8875325a3221708322bceca73b5a015000a966d6dbf82551989ff53e5f2d49ff"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/env_snapshot.json",
+      "sha256": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9"
+    },
+    {
+      "bytes": 7973,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_2/summary.json",
+      "sha256": "e9a8c7dbdd7f9195577730b3fee34734b8190abc876c17e9018e0316441b5811"
+    },
+    {
+      "bytes": 382243,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/metrics_selected_10k.csv",
+      "sha256": "ab611fbc7328cd3c0bc4734d609db1572e83324b1ab443310c1ae048bb954f3f"
+    },
+    {
+      "bytes": 5356,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/config.json",
+      "sha256": "8ab4424dacde923db42b60076abf633989d0da432836946e77eec8b6fcdba698"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/env_snapshot.json",
+      "sha256": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363"
+    },
+    {
+      "bytes": 7889,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_3/summary.json",
+      "sha256": "33c28bbf8e03c80df11fcde65ab86eef554f8ce386aeee80edfa2684a3722369"
+    },
+    {
+      "bytes": 384234,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/metrics_selected_10k.csv",
+      "sha256": "5857ed8e29dc78ac8e789fe10e55da86782dc35b58d93400879b332e31c04fbf"
+    },
+    {
+      "bytes": 5356,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/config.json",
+      "sha256": "d4ca193903857f65c1d57201405e3a8cf2bc39f40d58225acb70fa9b0bd3f433"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/env_snapshot.json",
+      "sha256": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a"
+    },
+    {
+      "bytes": 8068,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_4/summary.json",
+      "sha256": "dac68cd1e4512db44c93c359ccf8957feedc25f01de835e04e6464095f0a8fd5"
+    },
+    {
+      "bytes": 384521,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/metrics_selected_10k.csv",
+      "sha256": "583f6c068160b6f21179ea89474495bbc3e4fc84f061b786629115ce895fee5b"
+    },
+    {
+      "bytes": 5356,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/config.json",
+      "sha256": "f10aba198ebca110aacd6bcab56a6637e3e43ff8c8804ab29c0655e666d03657"
+    },
+    {
+      "bytes": 2755,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/env_snapshot.json",
+      "sha256": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65"
+    },
+    {
+      "bytes": 7800,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_actor_critic_2m/data/actor_critic/seed_5/summary.json",
+      "sha256": "61ad01e39113d8d564f7156b36eab5cc91344cf5d9ee55cd256f905b7242c8ef"
+    }
+  ]
+}

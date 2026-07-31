@@ -1,0 +1,11 @@
+arm,weight_scope,seed,run_name,total_steps,eval_grid_points,success_auc,final_success,best_success,first_hit_0.90,hit90_reached
+actor_critic,actor_critic,1,fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s1_1000000_ls512,1000000,100,0.5426767676767676,1.0,1.0,720000,1
+actor_critic,actor_critic,2,fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s2_1000000_ls512,1000000,100,0.5568181818181818,1.0,1.0,730000,1
+actor_critic,actor_critic,3,fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s3_1000000_ls512,1000000,100,0.6121212121212121,0.95,1.0,540000,1
+actor_critic,actor_critic,4,fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s4_1000000_ls512,1000000,100,0.6015151515151516,1.0,1.0,530000,1
+actor_critic,actor_critic,5,fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512,1000000,100,0.5964646464646465,0.95,1.0,550000,1
+critic_only,critic_only,1,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s1_1000000_ls512,1000000,100,0.656060606060606,0.95,1.0,480000,1
+critic_only,critic_only,2,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s2_1000000_ls512,1000000,100,0.6151515151515151,0.95,1.0,540000,1
+critic_only,critic_only,3,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s3_1000000_ls512,1000000,100,0.5648989898989899,1.0,1.0,630000,1
+critic_only,critic_only,4,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s4_1000000_ls512,1000000,100,0.6318181818181818,1.0,1.0,480000,1
+critic_only,critic_only,5,fetch_pick_and_place_b3_critic_only_runtime_opt_v4_ls512_s5_1000000_ls512,1000000,100,0.5775252525252526,0.9,1.0,610000,1

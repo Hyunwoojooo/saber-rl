@@ -1,0 +1,17 @@
+profile,task,backbone,method,seeds_or_window,steps_per_sec_mean,steps_per_sec_sample_sd,interpretation
+dedicated,FPP,TD3,HER,seed1 20k-100k,124.022785873,,same-hardware implementation profile
+dedicated,FPP,TD3,SABER,seed1 20k-100k,41.436326938,,same-hardware implementation profile
+recorded,FPP,DDPG,HGR,seeds1-5,16.932745120,0.062321471,within-cohort descriptive
+recorded,FPP,DDPG,SABER,seeds1-5,41.719897215,0.203257009,within-cohort descriptive
+recorded,FPP,TD3,HGR,seeds1-5,12.941087280,0.228241937,within-cohort descriptive
+recorded,FPP,TD3,SABER,seeds1-5,41.248486497,0.592412824,within-cohort descriptive
+recorded,FPP,SAC,HGR,seeds1-5,8.388332891,0.081412991,within-cohort descriptive
+recorded,FPP,SAC,SABER,seeds1-5,29.096081313,0.124524434,within-cohort descriptive
+recorded,DrawerOpen,DDPG,HGR,seeds1-5,13.243059782,0.010563018,within-cohort descriptive
+recorded,DrawerOpen,DDPG,SABER,seeds1-5,23.332962524,0.967746736,within-cohort descriptive
+recorded,DrawerOpen,TD3,HGR,seeds1-5,11.647012396,0.011046097,within-cohort descriptive
+recorded,DrawerOpen,TD3,SABER,seeds1-5,21.569770334,1.542353321,within-cohort descriptive
+recorded,DrawerClose,DDPG,HGR,seeds1-5,13.221004758,0.017756630,within-cohort descriptive
+recorded,DrawerClose,DDPG,SABER,seeds1-5,23.958450886,0.343989648,within-cohort descriptive
+recorded,DrawerClose,TD3,HGR,seeds1-5,11.806817985,0.012528827,within-cohort descriptive
+recorded,DrawerClose,TD3,SABER,seeds1-5,22.491494986,1.461611719,within-cohort descriptive

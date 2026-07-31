@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 528,
+      "path": "README.md",
+      "sha256": "19b0c41fa15e603ecffe01ab4786503e1ce8f059d63b8fc79a7f6940200db644",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/README.md"
+    },
+    {
+      "bytes": 1323,
+      "path": "artifact_manifest.json",
+      "sha256": "cf487ddbf351904a965d65c73539ddc75bb17c8ebb64b1fdd4b7e6bfb175c6f2",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/artifact_manifest.json"
+    },
+    {
+      "bytes": 7089,
+      "path": "provenance/source_manifest.json",
+      "sha256": "1a90e1eac9f188d1a34d02d4bb3da55f43b8bdc2de5b5646739e82c56edc945d",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/provenance/source_manifest.json"
+    },
+    {
+      "bytes": 4092,
+      "path": "results/diagnostic_by_seed.csv",
+      "sha256": "64ae6a9776d4f9d0c11081d59f9997902dfcf8cc16bbcf4d0f85944c9c9515e4",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/results/diagnostic_by_seed.csv"
+    },
+    {
+      "bytes": 934,
+      "path": "results/diagnostic_cohort_summary.csv",
+      "sha256": "46a9937ae20b60acf84eb6a1ff9717a2c408828297a9dccb058978dd3e00e9fe",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/results/diagnostic_cohort_summary.csv"
+    },
+    {
+      "bytes": 1383,
+      "path": "results/phase_cohort_summary.csv",
+      "sha256": "c7adddeeab747601475484a070b657c4948ee2a44ec99f3540164d1356823bd4",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/results/phase_cohort_summary.csv"
+    },
+    {
+      "bytes": 339,
+      "path": "validation/validation_summary.json",
+      "sha256": "00389b98edc67e95cbc9851d2f187924ffd5f3a0059a2e8981f8e570cd2f27b0",
+      "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/validation/validation_summary.json"
+    }
+  ],
+  "selection_patterns": [
+    "**"
+  ],
+  "source_repository_path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m"
+}

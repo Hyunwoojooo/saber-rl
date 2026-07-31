@@ -1,0 +1,23 @@
+{
+  "all_runs_validated": true,
+  "cadence": 200,
+  "exact_top10_count": 26,
+  "first_step": 5000,
+  "fixed_target_from_pre_update": true,
+  "last_step": 2000000,
+  "same_minibatch_one_update": true,
+  "seed_count": 10,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "snapshots_per_seed": 9976
+}

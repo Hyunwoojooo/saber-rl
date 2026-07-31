@@ -1,0 +1,288 @@
+{
+  "note": "Besides updates_per_step, retained configs differ in procedural, runtime, naming, device, recorded resume fields (audited as stale metadata), diagnostic, and SAC evaluation-cadence fields; Table 16 is a scaling reference.",
+  "per_seed_difference_keys": [
+    {
+      "backbone": "DDPG",
+      "keys": [
+        "device",
+        "output_root",
+        "run_name",
+        "updates_per_step"
+      ],
+      "seed": 1
+    },
+    {
+      "backbone": "DDPG",
+      "keys": [
+        "device",
+        "output_root",
+        "run_name",
+        "updates_per_step"
+      ],
+      "seed": 2
+    },
+    {
+      "backbone": "DDPG",
+      "keys": [
+        "device",
+        "output_root",
+        "run_name",
+        "updates_per_step"
+      ],
+      "seed": 3
+    },
+    {
+      "backbone": "DDPG",
+      "keys": [
+        "device",
+        "output_root",
+        "run_name",
+        "updates_per_step"
+      ],
+      "seed": 4
+    },
+    {
+      "backbone": "DDPG",
+      "keys": [
+        "device",
+        "output_root",
+        "run_name",
+        "updates_per_step"
+      ],
+      "seed": 5
+    },
+    {
+      "backbone": "TD3",
+      "keys": [
+        "diagnostic_freq",
+        "diagnostic_full_batch_metrics",
+        "diagnostic_log_samples",
+        "diagnostic_samples_per_log",
+        "local_scan_cache_enabled",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_cache_enabled",
+        "support_diagnostic_audit_interval",
+        "support_predicate_early_exit",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 1
+    },
+    {
+      "backbone": "TD3",
+      "keys": [
+        "diagnostic_freq",
+        "diagnostic_full_batch_metrics",
+        "diagnostic_log_samples",
+        "diagnostic_samples_per_log",
+        "local_scan_cache_enabled",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_cache_enabled",
+        "support_diagnostic_audit_interval",
+        "support_predicate_early_exit",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 2
+    },
+    {
+      "backbone": "TD3",
+      "keys": [
+        "diagnostic_freq",
+        "diagnostic_full_batch_metrics",
+        "diagnostic_log_samples",
+        "diagnostic_samples_per_log",
+        "local_scan_cache_enabled",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_cache_enabled",
+        "support_diagnostic_audit_interval",
+        "support_predicate_early_exit",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 3
+    },
+    {
+      "backbone": "TD3",
+      "keys": [
+        "diagnostic_freq",
+        "diagnostic_full_batch_metrics",
+        "diagnostic_log_samples",
+        "diagnostic_samples_per_log",
+        "local_scan_cache_enabled",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_cache_enabled",
+        "support_diagnostic_audit_interval",
+        "support_predicate_early_exit",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 4
+    },
+    {
+      "backbone": "TD3",
+      "keys": [
+        "diagnostic_freq",
+        "diagnostic_full_batch_metrics",
+        "diagnostic_log_samples",
+        "diagnostic_samples_per_log",
+        "local_scan_cache_enabled",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_cache_enabled",
+        "support_diagnostic_audit_interval",
+        "support_predicate_early_exit",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 5
+    },
+    {
+      "backbone": "SAC",
+      "keys": [
+        "eval_freq",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "random_fixed_count_k",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_predicate_early_exit",
+        "support_runtime_impl",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 1
+    },
+    {
+      "backbone": "SAC",
+      "keys": [
+        "eval_freq",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "random_fixed_count_k",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_predicate_early_exit",
+        "support_runtime_impl",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 2
+    },
+    {
+      "backbone": "SAC",
+      "keys": [
+        "eval_freq",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "random_fixed_count_k",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_predicate_early_exit",
+        "support_runtime_impl",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 3
+    },
+    {
+      "backbone": "SAC",
+      "keys": [
+        "eval_freq",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "random_fixed_count_k",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_predicate_early_exit",
+        "support_runtime_impl",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 4
+    },
+    {
+      "backbone": "SAC",
+      "keys": [
+        "eval_freq",
+        "method",
+        "numba_support_scan",
+        "output_root",
+        "random_fixed_count_k",
+        "resume",
+        "resume_path",
+        "run_name",
+        "save_step_checkpoints",
+        "support_predicate_early_exit",
+        "support_runtime_impl",
+        "support_short_circuit",
+        "updates_per_step"
+      ],
+      "seed": 5
+    }
+  ],
+  "shared_analysis_grid": [
+    50000,
+    100000,
+    150000,
+    200000,
+    250000,
+    300000,
+    350000,
+    400000,
+    450000,
+    500000,
+    550000,
+    600000,
+    650000,
+    700000,
+    750000,
+    850000,
+    900000,
+    950000,
+    1000000
+  ],
+  "status": "passed_with_documented_differences",
+  "strict_one_factor_control": false
+}

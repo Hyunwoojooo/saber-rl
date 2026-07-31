@@ -1,0 +1,103 @@
+# Technical Supplement derived summaries
+
+This directory contains compact, non-raw summaries used by
+paper/technical_supplement.tex. The actor-scope analysis uses complete paired
+five-seed cohorts for all reported FPP and Drawer comparisons; partially
+present cohorts fail closed rather than being inferred.
+
+`artifact_index.csv` maps the short keys printed in the supplement to exact
+repository-relative paths in the anonymous code-and-data package.
+`source_manifest.json` binds canonical inputs by SHA256, and the self-excluding
+`artifact_manifest.json` binds this directory. Regenerate both with
+`paper/analysis/build_technical_supplement_manifest.py`.
+
+## Diagnostic sources
+
+- FPP:
+  experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/
+- DrawerClose:
+  metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact_all_10/
+- DrawerOpen fixed-target:
+  metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/
+
+FPP values come from results/aggregate_by_backbone.csv. Drawer subgroup values
+are computed from validated seed summaries, first aggregating within seed and
+then treating seeds as independent units. Seeds 1--5 are the primary
+diagnostic group; seeds 6--10 are a separate extension, and pooled ten-seed
+rows are descriptive. The DrawerOpen artifact contains compact summaries and
+source hashes without duplicating the full raw metrics.
+
+## Runtime sources
+
+- Dedicated same-hardware FPP TD3 profile:
+  experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_runtime_profile_100k/
+- FPP HGR/SABER throughput: final finite runtime/steps_per_sec in each
+  canonical primary run.
+- Drawer DDPG HGR/SABER throughput: the HGR comparison artifacts'
+  aggregate_results.csv.
+- Drawer TD3 HGR/SABER throughput: final finite runtime/steps_per_sec in each
+  canonical primary run.
+
+The HGR/SABER table is descriptive within cohort because the runs were not
+collected under the dedicated sequential profiling protocol. Peak memory was
+not recorded and is reported as not measured rather than estimated.
+
+## Execution-host audit
+
+'execution_environment_summary.csv' records sanitized hardware for four
+physically distinct GB10 hosts and the stack validated for reproduction.
+'execution_host_mapping.csv' maps run families supported by local logs,
+configurations, completion records, or frozen source snapshots. Its
+`environment_exactness` field records the completeness of retained launch-time
+environment snapshots rather than a within-cohort software mismatch. Each
+paired task--backbone cohort and all compared methods and paired seeds ran on
+one physical host under a matched environment; no paired cohort was split
+across machines. Hardware-specific throughput remains descriptive and is not
+interpreted across hosts.
+
+## Secondary-reference sources
+
+- FPP DDPG/TD3/SAC no-HER AER artifacts under
+  experiment_FPP/paper_artifacts/fpp_*_aer_noher_seeds1_5_1m/.
+- DrawerOpen DDPG/TD3 no-HER AER artifacts under
+  metaworld_Drawer_Open_DDPG_AER/paper_artifacts/drawer_open_ddpg_aer_noher_2m/
+  and
+  metaworld_Drawer_Open_TD3_AER/paper_artifacts/drawer_open_td3_aer_noher_2m/.
+- DrawerClose DDPG no-HER AER artifact under
+  metaworld_Drawer_Close_DDPG_AER/paper_artifacts/drawer_close_ddpg_aer_noher_2m/.
+- DrawerClose TD3 no-HER AER committed run records under
+  metaworld_Drawer_Close_TD3_AER/results_2m/.
+  The source manifest binds every run's metrics, summary, final evaluation,
+  configuration, and environment snapshot.
+- FPP DDPG/TD3 High-RR compact raw artifact:
+  experiment_FPP/paper_artifacts/fpp_ddpg_td3_her_high_rr_x4_1m/.
+  It contains sanitized seed records, exact curves, recomputed FQ-AUC and
+  segmented-runtime throughput, source hashes, retained Git-blob parity, and
+  explicit TD3 resume/missing-800k provenance. DDPG's execution commit was not
+  retained; TD3 uninterrupted-trajectory equivalence is not claimed.
+- Unified High-RR and REDQ reference artifact:
+  paper/supplementary_artifacts/update_budget_references/.
+  It binds FPP DDPG, TD3, and SAC High-RR references and REDQ-HER runs for FPP,
+  DrawerOpen, and DrawerClose to exact-grid seed and aggregate summaries
+  without duplicating raw metrics. `high_rr_config_difference_audit.json`
+  fail-closes on the retained UTD-1/UTD-4 config differences and records that
+  High-RR is not a strict one-factor control.
+
+The artifact index also resolves the FPP DDPG Actor+Critic cohort, the FPP TD3
+ten-seed confirmation, both inclusive-future sensitivity cohorts, and the
+unified update-budget references directly to their canonical compact
+artifacts. Drawer no-HER AER references are reported as transferred
+pipeline-level comparisons rather than SABER controls.
+
+Raw files are not duplicated here. Their canonical artifact manifests retain
+the corresponding source and provenance records.
+
+## Reproducibility boundaries
+
+Paired seed indices deterministically map to environment, PyTorch, NumPy,
+action-noise, support-weight, and evaluation streams as documented in the
+Technical Supplement. The common stack was validated for reproduction, and
+each paired task--backbone cohort used a matched environment within a single
+physical host. Exact hardware/software metadata is additionally available for
+the dedicated FPP TD3 runtime profile. Peak process and accelerator memory
+were not measured and are not estimated.

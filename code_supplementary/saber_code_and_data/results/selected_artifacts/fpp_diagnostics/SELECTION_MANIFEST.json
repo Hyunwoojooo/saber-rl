@@ -1,0 +1,82 @@
+{
+  "files": [
+    {
+      "bytes": 6742,
+      "path": "METRICS.md",
+      "sha256": "1d2d0a61a42624d67dc2abff49e509c34a31420be826bb6e057a7f5ca1d2729e",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/METRICS.md"
+    },
+    {
+      "bytes": 7004,
+      "path": "README.md",
+      "sha256": "07233660a06a8d9a3e8206e6a701e27cce8a03494b26068e2090de76df7dec5e",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/README.md"
+    },
+    {
+      "bytes": 8438,
+      "path": "results/aggregate_by_backbone.csv",
+      "sha256": "1c98b09bdfb05dbe6c2bc7a55f2b2dd221a61cf3533cfcabf938959f31d87000",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/aggregate_by_backbone.csv"
+    },
+    {
+      "bytes": 29214,
+      "path": "results/analysis_results.json",
+      "sha256": "10929270736b153e8679bde94c2f5e28a12c34b460487ef20d0663f666a19a04",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/analysis_results.json"
+    },
+    {
+      "bytes": 4383,
+      "path": "results/config_summary.csv",
+      "sha256": "d68fcdc94d8634e6dc77f353a1991b996bf2f17fd0855046aca8f54a7fec2abc",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/config_summary.csv"
+    },
+    {
+      "bytes": 2095,
+      "path": "results/data_coverage.csv",
+      "sha256": "d0fa8d39cf0743d9998dc55add6272b96b7e8b57850247943a1c5dc1c42d8e40",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/data_coverage.csv"
+    },
+    {
+      "bytes": 792474,
+      "path": "results/diagnostic_by_step.csv",
+      "sha256": "77c5ce9301ffd31faf541bf9719fa170963d8ad1e1330f50e95057ce6ce13150",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/diagnostic_by_step.csv"
+    },
+    {
+      "bytes": 9608,
+      "path": "results/per_seed_diagnostics.csv",
+      "sha256": "622de78f70862eb7faa72a2782977ee028881da26f3b58455f929891b5231458",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/per_seed_diagnostics.csv"
+    },
+    {
+      "bytes": 9388,
+      "path": "results/residual_reduction.csv",
+      "sha256": "d086009d3317fd8bae2879cc833a924c7e532c269c016e714d6b0bf67d27c563",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/residual_reduction.csv"
+    },
+    {
+      "bytes": 1696,
+      "path": "results/schema_compatibility.csv",
+      "sha256": "2a1587ad1f16ae316ea9bb50abc04b11d31824826e6e484251771162a9c49624",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/schema_compatibility.csv"
+    },
+    {
+      "bytes": 842,
+      "path": "results/support_rate.csv",
+      "sha256": "895e765f9614ec0a7d4dc9a8112b32b2f733d42c497ca6d64abe9223101b849f",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/support_rate.csv"
+    },
+    {
+      "bytes": 2706,
+      "path": "results/td_error_enrichment.csv",
+      "sha256": "8f19fc50436327a97f2f0a81d20bc66d810caac1b1e23eb07da8889cce741b25",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/results/td_error_enrichment.csv"
+    }
+  ],
+  "selection_patterns": [
+    "README.md",
+    "METRICS.md",
+    "results/**"
+  ],
+  "source_repository_path": "experiment_FPP/paper_artifacts/fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m"
+}

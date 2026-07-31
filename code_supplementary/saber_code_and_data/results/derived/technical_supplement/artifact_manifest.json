@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 5395,
+      "path": "paper/supplementary_artifacts/technical_supplement/README.md",
+      "sha256": "fee0b0bfd6298e93c5442547a20c18b86106d436e2d11db00f55d10c0a521eb7"
+    },
+    {
+      "bytes": 2325,
+      "path": "paper/supplementary_artifacts/technical_supplement/artifact_index.csv",
+      "sha256": "c1c1cada646ba3b0c1cbbfbb402344c957b6ed52bf6cd76c55b0287958ff1c1f"
+    },
+    {
+      "bytes": 1686,
+      "path": "paper/supplementary_artifacts/technical_supplement/diagnostic_cohort_summary.csv",
+      "sha256": "ec38d6ac772d1a153134c9b30352ef96ab6257892e33cd765efdd9fc9ccd0676"
+    },
+    {
+      "bytes": 1683,
+      "path": "paper/supplementary_artifacts/technical_supplement/drawerclose_phase_summary.csv",
+      "sha256": "3f7c9bd6c2ba77cd5147a89efb5519a9bf898c12ade3abf911beda78dbb3ba53"
+    },
+    {
+      "bytes": 1589,
+      "path": "paper/supplementary_artifacts/technical_supplement/execution_environment_summary.csv",
+      "sha256": "633dcb11aff0b045ca6f4cc8c62539239662d644716994a04861d63479b0b579"
+    },
+    {
+      "bytes": 5440,
+      "path": "paper/supplementary_artifacts/technical_supplement/execution_host_mapping.csv",
+      "sha256": "e2554909bd0fb6f784d0a6138e3cb8265df55e2ec288367916f55d2b19290dec"
+    },
+    {
+      "bytes": 1495,
+      "path": "paper/supplementary_artifacts/technical_supplement/runtime_summary.csv",
+      "sha256": "2fef336813bd83a52a8f44ea98a2c22bc81c9c3f98bb6f9ab54e65e1b586ca59"
+    },
+    {
+      "bytes": 2247,
+      "path": "paper/supplementary_artifacts/technical_supplement/secondary_reference_summary.csv",
+      "sha256": "c6e2dea0dab0227f8f881d75e4e8ce1f105c85f75ca60f0b640fd04548fb858a"
+    },
+    {
+      "bytes": 25541,
+      "path": "paper/supplementary_artifacts/technical_supplement/source_manifest.json",
+      "sha256": "02f47a307c24e592fc0b2d360ff31260d499193d8983570a39fd157ef96a87cf"
+    }
+  ],
+  "root": "paper/supplementary_artifacts/technical_supplement"
+}

@@ -1,0 +1,26 @@
+{
+  "batch_size": 256,
+  "scope": "Drawer phase counts and seed-level support rates",
+  "sources": [
+    {
+      "bytes": 4092,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_fixed_target_diagnostic_all_10_2m/results/diagnostic_by_seed.csv",
+      "sha256": "64ae6a9776d4f9d0c11081d59f9997902dfcf8cc16bbcf4d0f85944c9c9515e4"
+    },
+    {
+      "bytes": 7910,
+      "path": "metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact_all_10/results/diagnostic_by_seed.csv",
+      "sha256": "85e35e261e18befd2c59b286606d3319819ac9cabea7e8415932eb426856dfe8"
+    },
+    {
+      "bytes": 9112,
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
+    },
+    {
+      "bytes": 9123,
+      "path": "metaworld_Drawer_Close_DDPG/experiments/DDPG-HER-B3-Critic-Only-Diagnostic-2M/code/src/metacog_lite_v0/task_drawer_close.py",
+      "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296"
+    }
+  ]
+}

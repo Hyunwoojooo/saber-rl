@@ -1,0 +1,80 @@
+{
+  "files": [
+    {
+      "bytes": 3194,
+      "path": "README.md",
+      "sha256": "8e8bd77df5cafd639eb29c4d6b26beebc5a487f9079d460a5105a6e2bb31791d",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/README.md"
+    },
+    {
+      "bytes": 1870,
+      "path": "artifact_manifest.json",
+      "sha256": "9387ff24cec19b589815ed6ff419394e2f08c9185950e3a2ac2d1d9bb1402810",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/artifact_manifest.json"
+    },
+    {
+      "bytes": 16741,
+      "path": "code/build_artifact.py",
+      "sha256": "1d478a42e1a2bc1d7f7cbf20609608ef7952c2adee734f7742cf8f9b993aa186",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/code/build_artifact.py"
+    },
+    {
+      "bytes": 4247,
+      "path": "code/verify_artifact.py",
+      "sha256": "6e28c565b1b28102b54240ce58d98cd71668bdc621c8e30976a862c5374dbcb7",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/code/verify_artifact.py"
+    },
+    {
+      "bytes": 18638,
+      "path": "data/evaluation_curves.csv",
+      "sha256": "916d4cc810bf118b18fa8e41e3eee82e5c6f9a9deb19f9ea140e591910284e24",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/data/evaluation_curves.csv"
+    },
+    {
+      "bytes": 587,
+      "path": "provenance/execution.json",
+      "sha256": "ea45ced067a36ffdc784d838aba4c574874a326a10230e47a4642a2f928b878d",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/provenance/execution.json"
+    },
+    {
+      "bytes": 10707,
+      "path": "provenance/run_contracts.json",
+      "sha256": "15f962b841596d8ac1a9060cc988d62e23aa844e9e7c09c69495f371180f4d78",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/provenance/run_contracts.json"
+    },
+    {
+      "bytes": 324,
+      "path": "results/aggregate_metrics.csv",
+      "sha256": "78c7ad208ae1edef2c9329ca3c5af0d644ba0b64eb9cea35eb29703afa49cbf1",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/results/aggregate_metrics.csv"
+    },
+    {
+      "bytes": 816,
+      "path": "results/paired_seed_metrics.csv",
+      "sha256": "cedd445d1ffe10175e0ca2641c9f09892e2bf6c98003233275985bcd03647df8",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/results/paired_seed_metrics.csv"
+    },
+    {
+      "bytes": 382,
+      "path": "results/paired_statistics.csv",
+      "sha256": "7caa154c7ec298d5fb28b781845499647bb39b3445238d53675a0f986f065e57",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/results/paired_statistics.csv"
+    },
+    {
+      "bytes": 897,
+      "path": "results/per_seed_metrics.csv",
+      "sha256": "10043bc9d10731a0cff812a22cbb7e0b01a5d3c2ce2d36eecb0c78bfc2c9575f",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/results/per_seed_metrics.csv"
+    },
+    {
+      "bytes": 305,
+      "path": "validation_summary.json",
+      "sha256": "a1514cf51621da9d9a2363d9d344d1ad749d37f3f0f3c2ab07b03820fccac8d6",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/validation_summary.json"
+    }
+  ],
+  "selection_patterns": [
+    "**"
+  ],
+  "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m"
+}

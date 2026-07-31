@@ -1,0 +1,80 @@
+{
+  "files": [
+    {
+      "bytes": 2929,
+      "path": "README.md",
+      "sha256": "b365e67434bb857de3f13c966a4871fec073827878ac7eaed49789326e3f1fe7",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/README.md"
+    },
+    {
+      "bytes": 1860,
+      "path": "artifact_manifest.json",
+      "sha256": "4ceb6d0591c4739fe125850685d54d2dbcbc8bc66a769e252fe540d07a596c8c",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/artifact_manifest.json"
+    },
+    {
+      "bytes": 15874,
+      "path": "code/build_artifact.py",
+      "sha256": "44591422b2635f691f35d7d679047f22e828761b5b6d6c0e428604a0da11ca26",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/code/build_artifact.py"
+    },
+    {
+      "bytes": 2937,
+      "path": "code/verify_artifact.py",
+      "sha256": "99750f495bf73bda32758623fa33a05b6d69dab3fc8d07c7aef5bbd79f3ed868",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/code/verify_artifact.py"
+    },
+    {
+      "bytes": 18415,
+      "path": "data/evaluation_curves.csv",
+      "sha256": "392a6a855f04aa44fa8b7fd75931c785b222211561de954b305e644531ce5cc1",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/data/evaluation_curves.csv"
+    },
+    {
+      "bytes": 420,
+      "path": "provenance/execution.json",
+      "sha256": "7abc50962f0d0f527b1635818a03ce2af3d46109aa836a3f4e5934f02bdcb63a",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/provenance/execution.json"
+    },
+    {
+      "bytes": 10700,
+      "path": "provenance/run_contracts.json",
+      "sha256": "ea6956a1e5b8a4932e23cb12f95705d85a506087c842b76e0419a93fa02fb31f",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/provenance/run_contracts.json"
+    },
+    {
+      "bytes": 323,
+      "path": "results/aggregate_metrics.csv",
+      "sha256": "3fb2278b0c2e4e784c72fedb15ee1801844a94d8d0cbd84f1489f8d9d2ed617a",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/results/aggregate_metrics.csv"
+    },
+    {
+      "bytes": 779,
+      "path": "results/paired_seed_metrics.csv",
+      "sha256": "6d3cdce847605562725ce2770dbbdce3ba924af0c31fa3d8f117526a48983f19",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/results/paired_seed_metrics.csv"
+    },
+    {
+      "bytes": 361,
+      "path": "results/paired_statistics.csv",
+      "sha256": "315eb14606fd331d8c895e5c53dd8e82b62999deff52e9de09492f03b18891a1",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/results/paired_statistics.csv"
+    },
+    {
+      "bytes": 906,
+      "path": "results/per_seed_metrics.csv",
+      "sha256": "b5f1960d03c4fb3446dd054624bc8edc63839e60ce47eadfa8ab7abb16ea5bec",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/results/per_seed_metrics.csv"
+    },
+    {
+      "bytes": 305,
+      "path": "validation_summary.json",
+      "sha256": "a1514cf51621da9d9a2363d9d344d1ad749d37f3f0f3c2ab07b03820fccac8d6",
+      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/validation_summary.json"
+    }
+  ],
+  "selection_patterns": [
+    "**"
+  ],
+  "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m"
+}
