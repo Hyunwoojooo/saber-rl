@@ -12,6 +12,10 @@ import sys
 from pathlib import Path
 from typing import Any
 
+# The verifier is shipped inside the checksummed artifact. Prevent importing its
+# sibling analysis module from mutating that artifact with ``__pycache__`` files.
+sys.dont_write_bytecode = True
+
 from scope_ablation import (
     ACTOR_KEY,
     ARTIFACT_ID,

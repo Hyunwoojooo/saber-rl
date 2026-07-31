@@ -5,6 +5,7 @@ import csv
 import json
 import math
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -277,6 +278,17 @@ class ScopeAnalysisTests(unittest.TestCase):
             self.assertEqual(len(list(csv.DictReader(handle))), 200)
         self.assertFalse(any(path.suffix == ".pt" for path in artifact.rglob("*")))
         self.assertEqual(verify_artifact(artifact)["frozen_source"], "verified")
+
+        process = subprocess.run(
+            [sys.executable, "code/verify_artifact.py", "--artifact-root", "."],
+            cwd=artifact,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        self.assertEqual(process.returncode, 0, process.stderr)
+        self.assertFalse((artifact / "code/__pycache__").exists())
 
         analysis_json = artifact / "analysis/analysis_results.json"
         analysis_json.write_text(analysis_json.read_text() + " ", encoding="utf-8")
