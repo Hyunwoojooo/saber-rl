@@ -1,5 +1,5 @@
 {
-  "note": "Besides updates_per_step, retained configs differ in procedural, runtime, naming, device, resume/checkpoint, diagnostic, and SAC evaluation-cadence fields; Table 16 is a scaling reference.",
+  "note": "Besides updates_per_step, retained configs differ in procedural, runtime, naming, device, recorded resume fields (audited as stale metadata), diagnostic, and SAC evaluation-cadence fields; Table 16 is a scaling reference.",
   "per_seed_difference_keys": [
     {
       "backbone": "DDPG",

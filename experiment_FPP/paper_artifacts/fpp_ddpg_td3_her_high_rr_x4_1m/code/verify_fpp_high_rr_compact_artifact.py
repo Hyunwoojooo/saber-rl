@@ -256,21 +256,20 @@ def verify_provenance(root: Path) -> None:
             )
         if record.get("first_retained_results_commit") != commit:
             raise ArtifactError(f"{method}: retained commit mismatch")
-    if methods["ddpg"].get("trajectory_status") != (
-        "completed_uninterrupted"
+    for method in ("ddpg", "td3"):
+        if methods[method].get("trajectory_status") != (
+            "completed_uninterrupted"
+        ):
+            raise ArtifactError(f"{method}: trajectory status mismatch")
+    correction = provenance.get("execution_metadata_correction")
+    if (
+        not isinstance(correction, dict)
+        or correction.get("checkpoint_continuation") is not False
+        or correction.get("operator_audit_status") != "confirmed"
+        or correction.get("recorded_td3_resume_fields")
+        != "stale_logging_metadata"
     ):
-        raise ArtifactError("DDPG trajectory status mismatch")
-    if methods["td3"].get("trajectory_status") != "completed_resumed":
-        raise ArtifactError("TD3 trajectory status mismatch")
-    expected_resume = {
-        "1": 800001,
-        "2": 800001,
-        "3": 800001,
-        "4": 800001,
-        "5": 630001,
-    }
-    if provenance.get("td3_resume_points") != expected_resume:
-        raise ArtifactError("TD3 resume map mismatch")
+        raise ArtifactError("execution metadata correction mismatch")
     contract = provenance.get("metric_contract")
     if not isinstance(contract, dict):
         raise ArtifactError("metric contract missing")
@@ -306,6 +305,14 @@ def verify_sources(root: Path) -> None:
         or manifest.get("artifact_id") != ARTIFACT_ID
     ):
         raise ArtifactError("source manifest identity mismatch")
+    correction = manifest.get("execution_metadata_correction")
+    if (
+        not isinstance(correction, dict)
+        or correction.get("checkpoint_continuation") is not False
+        or correction.get("recorded_td3_resume_fields")
+        != "stale_logging_metadata"
+    ):
+        raise ArtifactError("source metadata correction mismatch")
     raw_runs = manifest.get("raw_runs")
     if not isinstance(raw_runs, dict) or set(raw_runs) != {
         "ddpg",
@@ -426,9 +433,11 @@ def verify_metrics(root: Path) -> None:
                 raise ArtifactError(
                     f"{backbone} seed {seed}: summary protocol mismatch"
                 )
+            # Preserve the recorded TD3 flag as audited stale metadata; it is
+            # not interpreted as evidence of checkpoint continuation.
             if config.get("resume") is not (backbone == "TD3"):
                 raise ArtifactError(
-                    f"{backbone} seed {seed}: resume flag mismatch"
+                    f"{backbone} seed {seed}: recorded resume field mismatch"
                 )
             curve = read_compact_curve(data / "eval_curve_10k.csv")
             native_grid = tuple(sorted(curve))
@@ -455,22 +464,13 @@ def verify_metrics(root: Path) -> None:
                     f"{backbone} seed {seed}: runtime segments mismatch"
                 )
             active_runtime = sum(segments)
-            resume_step = (
-                None
-                if backbone == "DDPG"
-                else (630001 if seed == 5 else 800001)
-            )
             expected_rows[(backbone, seed)] = {
                 "backbone": backbone,
                 "method": "HER high-RR",
                 "seed": seed,
                 "utd": 4,
-                "trajectory_status": (
-                    "uninterrupted"
-                    if backbone == "DDPG"
-                    else "resumed_after_reboot"
-                ),
-                "resume_step": resume_step,
+                "trajectory_status": "uninterrupted",
+                "resume_step": None,
                 "native_grid_points": len(native_grid),
                 "native_auc": native_auc,
                 "common_grid_points": len(TABLE_GRID),
@@ -631,6 +631,27 @@ def verify_validation(root: Path) -> None:
         if not isinstance(gate, dict) or gate.get("passed") is not True:
             raise ArtifactError(f"validation gate failed: {name}")
 
+    correction = gates.get("execution_metadata_correction")
+    expected_keys = {
+        f"{backbone}_seed_{seed}"
+        for backbone in ("ddpg", "td3")
+        for seed in SEEDS
+    }
+    if not isinstance(correction, dict) or set(correction) != expected_keys:
+        raise ArtifactError("execution metadata correction gate mismatch")
+    for key, record in correction.items():
+        if (
+            not isinstance(record, dict)
+            or record.get("passed") is not True
+            or record.get("status") != "uninterrupted"
+            or record.get("checkpoint_continuation") is not False
+            or record.get("resume_step") is not None
+        ):
+            raise ArtifactError(f"invalid execution correction: {key}")
+        expected_stale = key.startswith("td3_")
+        if record.get("recorded_resume_metadata_stale") is not expected_stale:
+            raise ArtifactError(f"stale-metadata status mismatch: {key}")
+
 
 def verify_public_sanitization(root: Path) -> None:
     forbidden_patterns = (
@@ -678,7 +699,7 @@ def main() -> None:
     verify(arguments.artifact_root.resolve())
     print(
         f"Verified {ARTIFACT_ID}: passed_with_caveats "
-        "(DDPG uninterrupted; TD3 resumed)"
+        "(DDPG/TD3 uninterrupted; stale TD3 resume metadata documented)"
     )
 
 

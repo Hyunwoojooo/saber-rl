@@ -154,8 +154,9 @@ def high_rr_config_difference_audit() -> dict[str, object]:
         "shared_analysis_grid": list(HIGH_RR_GRID),
         "note": (
             "Besides updates_per_step, retained configs differ in procedural, "
-            "runtime, naming, device, resume/checkpoint, diagnostic, and SAC "
-            "evaluation-cadence fields; Table 16 is a scaling reference."
+            "runtime, naming, device, recorded resume fields (audited as stale "
+            "metadata), diagnostic, and SAC evaluation-cadence fields; Table "
+            "16 is a scaling reference."
         ),
         "per_seed_difference_keys": rows,
     }
@@ -434,10 +435,9 @@ def write_high_rr_table(
             row = indexed[(backbone, method)]
             cohort = f"FPP--{backbone}" if method_index == 0 else ""
             if method == "HER high-RR":
-                resume_mark = "$^{\\dagger}$" if backbone == "TD3" else ""
                 display = (
                     f"\\shortstack[l]{{HER high-RR \\(4\\times\\)"
-                    f"{resume_mark}\\\\{critic_text[backbone]}}}"
+                    f"\\\\{critic_text[backbone]}}}"
                 )
             else:
                 display = (
@@ -462,11 +462,9 @@ def write_high_rr_table(
             "retained configs also differ in "
             "procedural/runtime fields and SAC evaluation cadence; this is "
             "not a strict one-factor or wall-clock-matched control. "
-            "$^{\\dagger}$ TD3 High-RR resumed after "
-            "reboot at step 800001 (seeds 1--4) or 630001 (seed 5); exact "
-            "equivalence to uninterrupted runs is not claimed. High-RR "
-            "DDPG/TD3 steps/s values sum retained active-runtime segments and "
-            "exclude reboot downtime and unretained discarded work. "
+            "High-RR DDPG/TD3 steps/s values sum retained monotonic runtime-"
+            "counter segments; TD3 segment boundaries reflect logging resets, "
+            "not checkpoint continuation. "
             "Steps/s is descriptive.}",
             "\\label{tab:supp-high-rr}",
             "\\end{table*}",
@@ -658,9 +656,9 @@ def main() -> None:
         "Exact-grid metrics for FPP DDPG, TD3, and SAC HER High-RR references "
         "and REDQ-HER TQB on FPP, DrawerOpen, and DrawerClose. Table 16 uses "
         "one exact 19-point FPP grid (50k--1M excluding 800k) for all six "
-        "UTD1/UTD4 rows, without interpolation. The TD3 High-RR cohort is a "
-        "resumed trajectory and is labeled accordingly. Its throughput sums "
-        "retained active-runtime segments. REDQ changes UTD, critic "
+        "UTD1/UTD4 rows, without interpolation. All High-RR trajectories "
+        "were uninterrupted; stale TD3 resume fields and runtime-counter "
+        "resets are treated as logging metadata. REDQ changes UTD, critic "
         "architecture, target construction, and entropy optimization. "
         "The retained UTD1/UTD4 configs also differ in procedural/runtime "
         "fields and SAC evaluation cadence, so High-RR is not a strict "

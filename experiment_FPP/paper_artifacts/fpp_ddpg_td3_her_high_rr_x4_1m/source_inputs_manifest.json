@@ -1,5 +1,9 @@
 {
   "artifact_id": "fpp_ddpg_td3_her_high_rr_x4_1m",
+  "execution_metadata_correction": {
+    "checkpoint_continuation": false,
+    "recorded_td3_resume_fields": "stale_logging_metadata"
+  },
   "launch_snapshots": {
     "ddpg": [
       {
@@ -84,7 +88,7 @@
       {
         "logical_path": "machine_local/experiment_FPP/td3_her_high_replay_ratio_x4/run_fpp_td3_her_high_rr_x4_resume_after_reboot.sh",
         "packaged_path": "source/td3/run_fpp_td3_her_high_rr_x4_resume_after_reboot.sh",
-        "role": "launch_snapshot",
+        "role": "stale_resume_launcher_snapshot",
         "sha256": "6948260ff1b08e89eaf35b9b7666af1c15e2d5679bfccb1b0a22c5c01d8247f9",
         "size_bytes": 1613
       },
@@ -143,7 +147,9 @@
           }
         ],
         "resume": {
+          "checkpoint_continuation": false,
           "checkpoint_kind": null,
+          "recorded_resume_metadata_stale": false,
           "resume_step": null,
           "status": "uninterrupted"
         },
@@ -211,7 +217,9 @@
           }
         ],
         "resume": {
+          "checkpoint_continuation": false,
           "checkpoint_kind": null,
+          "recorded_resume_metadata_stale": false,
           "resume_step": null,
           "status": "uninterrupted"
         },
@@ -279,7 +287,9 @@
           }
         ],
         "resume": {
+          "checkpoint_continuation": false,
           "checkpoint_kind": null,
+          "recorded_resume_metadata_stale": false,
           "resume_step": null,
           "status": "uninterrupted"
         },
@@ -347,7 +357,9 @@
           }
         ],
         "resume": {
+          "checkpoint_continuation": false,
           "checkpoint_kind": null,
+          "recorded_resume_metadata_stale": false,
           "resume_step": null,
           "status": "uninterrupted"
         },
@@ -415,7 +427,9 @@
           }
         ],
         "resume": {
+          "checkpoint_continuation": false,
           "checkpoint_kind": null,
+          "recorded_resume_metadata_stale": false,
           "resume_step": null,
           "status": "uninterrupted"
         },
@@ -479,15 +493,19 @@
           },
           {
             "logical_path": "machine_local/experiment_FPP/logs/td3_her_high_replay_ratio_x4_resume_after_reboot/seed1.log",
-            "role": "resume_log",
+            "role": "stale_resume_log",
             "sha256": "2cb9c82a4dac4ae1fa8d4e60a3fbc38814aea40aed91e37ebb82e9a8bb35d8ec",
             "size_bytes": 33609
           }
         ],
         "resume": {
-          "checkpoint_kind": "checkpoint.pt",
-          "resume_step": 800001,
-          "status": "resumed_after_reboot"
+          "checkpoint_continuation": false,
+          "checkpoint_kind": null,
+          "recorded_checkpoint_kind": "checkpoint.pt",
+          "recorded_resume_metadata_stale": true,
+          "recorded_resume_step": 800001,
+          "resume_step": null,
+          "status": "uninterrupted"
         },
         "retained_history": {
           "compact_curve_blob_id": "e9deb87de42f865e9a0bd5603e3bea84bf6e453e",
@@ -547,15 +565,19 @@
           },
           {
             "logical_path": "machine_local/experiment_FPP/logs/td3_her_high_replay_ratio_x4_resume_after_reboot/seed2.log",
-            "role": "resume_log",
+            "role": "stale_resume_log",
             "sha256": "276d119758d546ba276859e07d2a8622784bf50d26082e841be356e3d316b2e0",
             "size_bytes": 33565
           }
         ],
         "resume": {
-          "checkpoint_kind": "checkpoint.pt",
-          "resume_step": 800001,
-          "status": "resumed_after_reboot"
+          "checkpoint_continuation": false,
+          "checkpoint_kind": null,
+          "recorded_checkpoint_kind": "checkpoint.pt",
+          "recorded_resume_metadata_stale": true,
+          "recorded_resume_step": 800001,
+          "resume_step": null,
+          "status": "uninterrupted"
         },
         "retained_history": {
           "compact_curve_blob_id": "c0d060ef21fe452d5cea52ba243f6707c0dca0b8",
@@ -615,15 +637,19 @@
           },
           {
             "logical_path": "machine_local/experiment_FPP/logs/td3_her_high_replay_ratio_x4_resume_after_reboot/seed3.log",
-            "role": "resume_log",
+            "role": "stale_resume_log",
             "sha256": "0c4b356aa33f03b442b0dde4c78c8ef6636c7d9e2fa6ed9b27bb2a450d1bc110",
             "size_bytes": 33584
           }
         ],
         "resume": {
-          "checkpoint_kind": "checkpoint.pt",
-          "resume_step": 800001,
-          "status": "resumed_after_reboot"
+          "checkpoint_continuation": false,
+          "checkpoint_kind": null,
+          "recorded_checkpoint_kind": "checkpoint.pt",
+          "recorded_resume_metadata_stale": true,
+          "recorded_resume_step": 800001,
+          "resume_step": null,
+          "status": "uninterrupted"
         },
         "retained_history": {
           "compact_curve_blob_id": "27000aeef18f264d8d32e34c7b4fba3fa877c5ac",
@@ -683,15 +709,19 @@
           },
           {
             "logical_path": "machine_local/experiment_FPP/logs/td3_her_high_replay_ratio_x4_resume_after_reboot/seed4.log",
-            "role": "resume_log",
+            "role": "stale_resume_log",
             "sha256": "4fd9c94495156f64477ffe5820d4095ca4623d8ba9e2d633ec9cc3963ddfa6ff",
             "size_bytes": 33583
           }
         ],
         "resume": {
-          "checkpoint_kind": "checkpoint.pt",
-          "resume_step": 800001,
-          "status": "resumed_after_reboot"
+          "checkpoint_continuation": false,
+          "checkpoint_kind": null,
+          "recorded_checkpoint_kind": "checkpoint.pt",
+          "recorded_resume_metadata_stale": true,
+          "recorded_resume_step": 800001,
+          "resume_step": null,
+          "status": "uninterrupted"
         },
         "retained_history": {
           "compact_curve_blob_id": "3f99b096a4ad31aafefd25db36da24809fed5c68",
@@ -751,15 +781,19 @@
           },
           {
             "logical_path": "machine_local/experiment_FPP/logs/td3_her_high_replay_ratio_x4_resume_after_reboot/seed5.log",
-            "role": "resume_log",
+            "role": "stale_resume_log",
             "sha256": "50f9f78ce00d1b7b7fd0de48ca0aef4eff0d5e2426d609622dbd8824740da451",
             "size_bytes": 59849
           }
         ],
         "resume": {
-          "checkpoint_kind": "best_checkpoint.pt",
-          "resume_step": 630001,
-          "status": "resumed_after_reboot"
+          "checkpoint_continuation": false,
+          "checkpoint_kind": null,
+          "recorded_checkpoint_kind": "best_checkpoint.pt",
+          "recorded_resume_metadata_stale": true,
+          "recorded_resume_step": 630001,
+          "resume_step": null,
+          "status": "uninterrupted"
         },
         "retained_history": {
           "compact_curve_blob_id": "5a94eca1b3cd96ea6d2e583671e1a4186d1e175e",

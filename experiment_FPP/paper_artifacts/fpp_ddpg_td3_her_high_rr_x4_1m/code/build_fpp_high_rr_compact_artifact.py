@@ -285,24 +285,30 @@ def parse_resume_metadata(
             "status": "uninterrupted",
             "resume_step": None,
             "checkpoint_kind": None,
+            "checkpoint_continuation": False,
+            "recorded_resume_metadata_stale": False,
         }, None
     log = raw_repo / str(spec["resume_log_root"]) / f"seed{seed}.log"
     matches = RESUME_RE.findall(log.read_text(encoding="utf-8"))
     if len(matches) != 1:
-        raise ArtifactError(f"{log}: expected one resume record")
+        raise ArtifactError(f"{log}: expected one stale resume record")
     checkpoint_path, step_text = matches[0]
-    resume_step = int(step_text)
-    checkpoint_kind = Path(checkpoint_path).name
-    if resume_step != spec["resume_steps"][seed]:
-        raise ArtifactError(f"{log}: unexpected resume step {resume_step}")
-    if checkpoint_kind != spec["resume_checkpoint_names"][seed]:
+    recorded_step = int(step_text)
+    recorded_kind = Path(checkpoint_path).name
+    if recorded_step != spec["resume_steps"][seed]:
+        raise ArtifactError(f"{log}: unexpected recorded step {recorded_step}")
+    if recorded_kind != spec["resume_checkpoint_names"][seed]:
         raise ArtifactError(
-            f"{log}: unexpected checkpoint kind {checkpoint_kind}"
+            f"{log}: unexpected recorded checkpoint kind {recorded_kind}"
         )
     return {
-        "status": "resumed_after_reboot",
-        "resume_step": resume_step,
-        "checkpoint_kind": checkpoint_kind,
+        "status": "uninterrupted",
+        "resume_step": None,
+        "checkpoint_kind": None,
+        "checkpoint_continuation": False,
+        "recorded_resume_metadata_stale": True,
+        "recorded_resume_step": recorded_step,
+        "recorded_checkpoint_kind": recorded_kind,
     }, log
 
 
@@ -636,7 +642,7 @@ def build(
                         file_record(
                             resume_log,
                             logical_raw_path(resume_log, raw_repo),
-                            role="resume_log",
+                            role="stale_resume_log",
                         )
                     )
                 source_runs[method_key].append(
@@ -824,7 +830,11 @@ def build(
                     file_record(
                         source,
                         logical_raw_path(source, raw_repo),
-                        role="launch_snapshot",
+                        role=(
+                            "stale_resume_launcher_snapshot"
+                            if "resume_after_reboot" in source.name
+                            else "launch_snapshot"
+                        ),
                         packaged_path=packaged.as_posix(),
                     )
                 )
@@ -852,11 +862,7 @@ def build(
                         "backbone": spec["backbone"],
                         "variant": "HER high-RR x4",
                         "updates_per_step": 4,
-                        "trajectory_status": (
-                            "completed_uninterrupted"
-                            if key == "ddpg"
-                            else "completed_resumed"
-                        ),
+                        "trajectory_status": "completed_uninterrupted",
                         "execution_source_commit": (
                             spec["execution_source_commit"]
                             or "not retained"
@@ -868,9 +874,13 @@ def build(
                     }
                     for key, spec in METHOD_SPECS.items()
                 },
-                "td3_resume_points": {
-                    str(seed): METHOD_SPECS["td3"]["resume_steps"][seed]
-                    for seed in SEEDS
+                "execution_metadata_correction": {
+                    "checkpoint_continuation": False,
+                    "operator_audit_status": "confirmed",
+                    "recorded_td3_resume_fields": "stale_logging_metadata",
+                    "runtime_segment_interpretation": (
+                        "monotonic counter segments, not process restarts"
+                    ),
                 },
                 "metric_contract": {
                     "native_auc": (
@@ -890,8 +900,8 @@ def build(
                     ),
                     "steps_per_second": (
                         "1,000,000 divided by the sum of monotonic "
-                        "runtime/total_sec segment maxima; reboot downtime "
-                        "and unretained discarded work are excluded"
+                        "runtime/total_sec segment maxima; TD3 counter resets "
+                        "are logging metadata, not process restarts"
                     ),
                 },
                 "raw_integrity": {
@@ -911,8 +921,8 @@ def build(
                 "limitations": [
                     "DDPG execution source commit was not retained.",
                     (
-                        "TD3 used checkpoint continuation; equivalence to "
-                        "an uninterrupted trajectory is not claimed."
+                        "TD3 config resume fields and runtime-counter resets "
+                        "are stale logging metadata; all runs were uninterrupted."
                     ),
                     (
                         "TD3 seeds 1, 3, and 4 lack an 800k evaluation; "
@@ -920,9 +930,9 @@ def build(
                         "method and seed."
                     ),
                     (
-                        "Recomputed throughput sums retained active-runtime "
-                        "segments and excludes reboot downtime and any "
-                        "discarded work not present in the retained metrics."
+                        "Recomputed throughput sums retained monotonic runtime "
+                        "segments; segment boundaries are logging resets, not "
+                        "checkpoint-continuation boundaries."
                     ),
                 ],
             },
@@ -937,6 +947,10 @@ def build(
                     "relative; no hostname, username, IP, UUID, serial, or "
                     "absolute home path is retained"
                 ),
+                "execution_metadata_correction": {
+                    "checkpoint_continuation": False,
+                    "recorded_td3_resume_fields": "stale_logging_metadata",
+                },
                 "raw_runs": source_runs,
                 "launch_snapshots": launch_records,
             },
@@ -968,7 +982,7 @@ def build(
                     "retained_git_history_parity": history_validation,
                     "exact_evaluation_grids": grid_validation,
                     "runtime_recalculation": runtime_validation,
-                    "resume_provenance": resume_validation,
+                    "execution_metadata_correction": resume_validation,
                     "standard_json_and_public_path_sanitization": {
                         "passed": True
                     },
@@ -976,8 +990,8 @@ def build(
                 "caveats": [
                     "DDPG execution source commit not retained.",
                     (
-                        "TD3 completed via checkpoint continuation; "
-                        "uninterrupted-trajectory equivalence is uncertain."
+                        "TD3 resume fields and counter resets are confirmed "
+                        "stale logging metadata; all runs were uninterrupted."
                     ),
                     (
                         "The common table grid excludes 800k because that "
@@ -995,19 +1009,19 @@ def build(
             "throughput, retained launch snapshots, and cryptographic "
             "source bindings. Raw metrics, logs, checkpoints, replay "
             "buffers, and model weights are excluded.\n\n"
-            "DDPG completed without resume. TD3 resumed after reboot at "
-            "step 800001 for seeds 1–4 and at step 630001 from "
-            "`best_checkpoint.pt` for seed 5. Exact equivalence to an "
-            "uninterrupted TD3 trajectory is not claimed. TD3 seeds 1, 3, "
+            "Both DDPG and TD3 began from scratch and completed without "
+            "checkpoint continuation. TD3 configs and retained logs contain "
+            "stale resume fields; operator audit confirmed that these fields "
+            "do not describe execution. TD3 seeds 1, 3, "
             "and 4 lack an 800k evaluation, so the Table 16 common grid is "
             "the exact 50k–1M grid with 800k removed for every row; no "
             "interpolation, smoothing, extrapolation, or forward-fill is "
             "used.\n\n"
-            "The prior TD3 summary throughput used only the post-resume "
-            "runtime counter. `analysis/per_seed_metrics.csv` instead "
+            "The TD3 summary throughput retained only the final runtime-"
+            "counter segment. `analysis/per_seed_metrics.csv` instead "
             "computes steps/s from the sum of retained monotonic runtime "
-            "segments. Reboot downtime and unretained discarded work are "
-            "not estimated.\n\n"
+            "segments. Segment boundaries are logger resets, not process "
+            "restart or checkpoint-continuation boundaries.\n\n"
             "Verify from this directory with "
             "`python3 code/verify_fpp_high_rr_compact_artifact.py "
             "--artifact-root .`.\n",

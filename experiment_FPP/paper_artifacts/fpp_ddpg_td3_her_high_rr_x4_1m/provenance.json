@@ -1,10 +1,16 @@
 {
   "artifact_id": "fpp_ddpg_td3_her_high_rr_x4_1m",
+  "execution_metadata_correction": {
+    "checkpoint_continuation": false,
+    "operator_audit_status": "confirmed",
+    "recorded_td3_resume_fields": "stale_logging_metadata",
+    "runtime_segment_interpretation": "monotonic counter segments, not process restarts"
+  },
   "limitations": [
     "DDPG execution source commit was not retained.",
-    "TD3 used checkpoint continuation; equivalence to an uninterrupted trajectory is not claimed.",
+    "TD3 config resume fields and runtime-counter resets are stale logging metadata; all runs were uninterrupted.",
     "TD3 seeds 1, 3, and 4 lack an 800k evaluation; the shared Table 16 grid excludes 800k for every method and seed.",
-    "Recomputed throughput sums retained active-runtime segments and excludes reboot downtime and any discarded work not present in the retained metrics."
+    "Recomputed throughput sums retained monotonic runtime segments; segment boundaries are logging resets, not checkpoint-continuation boundaries."
   ],
   "methods": {
     "ddpg": {
@@ -21,7 +27,7 @@
       "execution_source_commit": "not retained",
       "first_retained_results_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd",
       "source_retention": "execution commit not retained; the first retained results commit includes the frozen launch package and byte-identical result/control blobs",
-      "trajectory_status": "completed_resumed",
+      "trajectory_status": "completed_uninterrupted",
       "updates_per_step": 4,
       "variant": "HER high-RR x4"
     }
@@ -35,7 +41,7 @@
       1000000
     ],
     "native_auc": "normalized trapezoidal AUC on each retained exact 10k evaluation grid",
-    "steps_per_second": "1,000,000 divided by the sum of monotonic runtime/total_sec segment maxima; reboot downtime and unretained discarded work are excluded",
+    "steps_per_second": "1,000,000 divided by the sum of monotonic runtime/total_sec segment maxima; TD3 counter resets are logging metadata, not process restarts",
     "table_common_grid": [
       50000,
       100000,
@@ -118,12 +124,5 @@
   ],
   "source_machine_label": "host_a",
   "steps_per_seed": 1000000,
-  "task": "FetchPickAndPlace-v4",
-  "td3_resume_points": {
-    "1": 800001,
-    "2": 800001,
-    "3": 800001,
-    "4": 800001,
-    "5": 630001
-  }
+  "task": "FetchPickAndPlace-v4"
 }

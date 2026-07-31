@@ -10,12 +10,12 @@ FPP--DDPG & \shortstack[l]{HER\\UTD 1; 1 critic} & $0.555 \pm 0.125$ & $0.887 \p
  & \shortstack[l]{HER high-RR \(4\times\)\\1 critic} & $0.649 \pm 0.077$ & $0.962 \pm 0.032$ & $0.990 \pm 0.022$ & 5/5 (0.550M) & 17.2 \\
 \addlinespace[2pt]
 FPP--TD3 & \shortstack[l]{HER\\UTD 1; 2 critics} & $0.381 \pm 0.043$ & $0.549 \pm 0.102$ & $0.840 \pm 0.188$ & 3/5 (1.000M) & 65.3 \\
- & \shortstack[l]{HER high-RR \(4\times\)$^{\dagger}$\\2 critics} & $0.467 \pm 0.095$ & $0.551 \pm 0.220$ & $0.610 \pm 0.243$ & 1/5 (0.700M) & 13.3 \\
+ & \shortstack[l]{HER high-RR \(4\times\)\\2 critics} & $0.467 \pm 0.095$ & $0.551 \pm 0.220$ & $0.610 \pm 0.243$ & 1/5 (0.700M) & 13.3 \\
 \addlinespace[2pt]
 FPP--SAC & \shortstack[l]{HER\\UTD 1; 2 critics} & $0.464 \pm 0.082$ & $0.709 \pm 0.256$ & $0.790 \pm 0.288$ & 3/5 (0.850M) & 38.9 \\
  & \shortstack[l]{HER high-RR \(4\times\)\\2 critics} & $0.768 \pm 0.096$ & $0.964 \pm 0.016$ & $0.960 \pm 0.042$ & 5/5 (0.450M) & 5.9 \\
 \bottomrule
 \end{tabular}
-\caption{FPP HER update-ratio references over seeds 1--5 on one exact shared 19-point grid: 50k--1M at 50k intervals, excluding 800k because that evaluation was not retained for TD3 High-RR seeds 1, 3, and 4. No value is interpolated. High-RR \(4\times\) uses four gradient updates per environment step instead of one within each backbone, but retained configs also differ in procedural/runtime fields and SAC evaluation cadence; this is not a strict one-factor or wall-clock-matched control. $^{\dagger}$ TD3 High-RR resumed after reboot at step 800001 (seeds 1--4) or 630001 (seed 5); exact equivalence to uninterrupted runs is not claimed. High-RR DDPG/TD3 steps/s values sum retained active-runtime segments and exclude reboot downtime and unretained discarded work. Steps/s is descriptive.}
+\caption{FPP HER update-ratio references over seeds 1--5 on one exact shared 19-point grid: 50k--1M at 50k intervals, excluding 800k because that evaluation was not retained for TD3 High-RR seeds 1, 3, and 4. No value is interpolated. High-RR \(4\times\) uses four gradient updates per environment step instead of one within each backbone, but retained configs also differ in procedural/runtime fields and SAC evaluation cadence; this is not a strict one-factor or wall-clock-matched control. High-RR DDPG/TD3 steps/s values sum retained monotonic runtime-counter segments; TD3 segment boundaries reflect logging resets, not checkpoint continuation. Steps/s is descriptive.}
 \label{tab:supp-high-rr}
 \end{table*}

@@ -8,8 +8,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "51aca681870cbb37007624bacb2581572cec90f8d946cb7da7537cc5c3fab961",
-      "size_bytes": 1201
+      "sha256": "afc6990b41e4e37b23b15ef18f26e9217404a950ffe85f7ea8a65c9c3b841d47",
+      "size_bytes": 1233
     },
     {
       "path": "analysis/aggregate_metrics.csv",
@@ -28,13 +28,13 @@
     },
     {
       "path": "analysis/per_seed_metrics.csv",
-      "sha256": "6a385cf614c375916e55dca011c4f1ced1cf7af28f24522dd21e84880ecc39fe",
-      "size_bytes": 1991
+      "sha256": "e378fba2e154c503e4d21298b70c6902e147690e608c283ee2a8681ca72989ac",
+      "size_bytes": 1926
     },
     {
       "path": "code/build_fpp_high_rr_compact_artifact.py",
-      "sha256": "b8ef5854669b8215ebd3acbb1d79c135043a0779f3886788deebec8b20a54587",
-      "size_bytes": 41284
+      "sha256": "2ade344bd760387997ea99e3c6b604207a72b161b3cf7d664edea13520772acf",
+      "size_bytes": 42115
     },
     {
       "path": "code/fpp_high_rr_artifact.py",
@@ -43,8 +43,8 @@
     },
     {
       "path": "code/verify_fpp_high_rr_compact_artifact.py",
-      "sha256": "bb745bb627b87dbddb196dad5e6fa28cac65d19a069ce878faafc343f59a8219",
-      "size_bytes": 25323
+      "sha256": "253c6e7ade0ab7fceb7f62847765485729b8d9febc41c5b63b7e85ce84ed9f17",
+      "size_bytes": 26593
     },
     {
       "path": "data/ddpg/seed_1/config.json",
@@ -298,8 +298,8 @@
     },
     {
       "path": "provenance.json",
-      "sha256": "1b5916731ca8b079db36a1dcc2d593ef7010b12c07eeedfb8779e2b625be5c44",
-      "size_bytes": 3772
+      "sha256": "0e85c92cbc725df9a996ac8cfdf05af437920a498224a1ce047b7d8cd4eccb5a",
+      "size_bytes": 3948
     },
     {
       "path": "source/README.md",
@@ -373,13 +373,13 @@
     },
     {
       "path": "source_inputs_manifest.json",
-      "sha256": "938c77f6e31df1343a31f55dd43c6f605d906f4d970174ce8c6f6b600c56767c",
-      "size_bytes": 38961
+      "sha256": "20bd5d788cdaad2667d744f40f7096cce73064d416468f9707eacc0e27d988ff",
+      "size_bytes": 40475
     },
     {
       "path": "validation.json",
-      "sha256": "3683c210f6d7d87646ea1ac082a5bbf6a55be188bea05131e70cb759cc944a63",
-      "size_bytes": 10415
+      "sha256": "895e074f2ea12caf87ff1ca9898383e5fb2f5b483fda5eb648a2ff5158a29afc",
+      "size_bytes": 11707
     }
   ],
   "manifest_self_excluded": true,
@@ -413,6 +413,6 @@
     950000,
     1000000
   ],
-  "total_size_bytes": 303846,
+  "total_size_bytes": 308896,
   "validation_status": "passed_with_caveats"
 }

@@ -487,8 +487,9 @@ one to four within DDPG, TD3, and SAC while retaining each backbone's
 architecture. All six UTD-1/High-RR rows use one exact shared 19-point grid
 (50k--1M at 50k intervals, excluding 800k); no value is interpolated. The
 exclusion is necessary because the 800k evaluation was not retained for TD3
-High-RR seeds 1, 3, and 4. The TD3 High-RR trajectories resumed after reboot
-and are not asserted to equal uninterrupted runs. Retained UTD-1/High-RR
+High-RR seeds 1, 3, and 4. Recorded TD3 resume fields and runtime-counter
+resets were confirmed to be stale logging metadata; all runs began from
+scratch and completed without checkpoint continuation. Retained UTD-1/High-RR
 configs also differ in procedural and runtime fields and in SAC evaluation
 cadence (25k versus 10k), so High-RR is a scaling reference rather than a
 strict one-factor control. REDQ-HER is a broader
@@ -508,8 +509,8 @@ mean AUC from \(0.555\) to \(0.649\) for DDPG, \(0.381\) to \(0.467\) for TD3,
 and \(0.464\) to \(0.768\) for SAC. Corresponding FQ-AUC changes are
 \(0.887\) to \(0.962\), \(0.549\) to \(0.551\), and \(0.709\) to \(0.964\).
 Segment-aware High-RR \(4\times\) throughput is 17.2 steps/s for DDPG and
-13.3 steps/s for the resumed TD3 cohort; the latter sums retained pre- and
-post-reboot active runtime rather than using only the post-resume counter.
+13.3 steps/s for TD3; the latter sums retained monotonic runtime-counter
+segments rather than using only the final counter segment.
 REDQ-HER records AUC
 \(0.867\) on FPP, \(0.672\) on DrawerOpen, and \(0.188\) on DrawerClose. The
 corresponding SABER values are \(0.583\), \(0.754\), and \(0.324\). DrawerOpen
@@ -520,9 +521,9 @@ REDQ-HER reaches Hit90 in all seeds at a median 0.370M steps and has FQ-AUC
 \paragraph{Interpretation.}
 The observed High-RR \(4\times\) AUC increase is largest for SAC and smaller
 for DDPG and TD3; TD3's final-quarter mean is essentially unchanged on this
-grid. The TD3 result remains descriptive because checkpoint continuation,
-missing 800k evaluations, and unretained discarded work prevent an
-uninterrupted-run or wall-clock-matched claim. REDQ is not uniformly stronger across tasks and
+grid. The TD3 result remains descriptive because missing 800k evaluations and
+procedural/runtime configuration differences prevent a strict one-factor or
+wall-clock-matched claim. REDQ is not uniformly stronger across tasks and
 changes UTD, algorithm, architecture, target construction, and entropy
 optimization. These references therefore provide scaling context rather than
 matched one-factor tests of SABER.

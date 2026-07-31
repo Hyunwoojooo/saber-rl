@@ -3,7 +3,7 @@
     {
       "bytes": 752,
       "path": "paper/supplementary_artifacts/update_budget_references/README.md",
-      "sha256": "2d53d7dff2e4d2d0fef9bf2fff1de25c74533641280ca6c0628864e64073608e"
+      "sha256": "0b6e0d94743e9babebca80b688439ef51b0a0b89b1c35588d2b663d28e0cdae5"
     },
     {
       "bytes": 2191,
@@ -16,9 +16,9 @@
       "sha256": "5d161aded801f2915b2ab423b4d9dc2858fc729983af0a9a596603d21c4265c3"
     },
     {
-      "bytes": 6564,
+      "bytes": 6597,
       "path": "paper/supplementary_artifacts/update_budget_references/high_rr_config_difference_audit.json",
-      "sha256": "19d6f4b240915d34a267de4b615b8543724dca42cb615bc32ca24f33f74b07c0"
+      "sha256": "ac1da463c015630caeb03b937a5a7a9083be76930b155b38886e455ce7f69de5"
     },
     {
       "bytes": 3655,
@@ -33,7 +33,7 @@
     {
       "bytes": 59471,
       "path": "paper/supplementary_artifacts/update_budget_references/source_manifest.json",
-      "sha256": "668a3103c2b3cf7fe09cefbd21da5af19b811f966d675928f289b6220b5a07d0"
+      "sha256": "615535f6d762bbf10118d0a9503e4bfad4c232723dec7da6559b142a40b2b343"
     }
   ],
   "root": "paper/supplementary_artifacts/update_budget_references"
