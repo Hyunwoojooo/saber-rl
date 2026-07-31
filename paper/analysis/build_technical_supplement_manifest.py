@@ -17,6 +17,8 @@ CANONICAL_SOURCES = (
     "paper/supplementary_artifacts/phase_seed_results/artifact_manifest.json",
     "paper/supplementary_artifacts/action_bin_sensitivity/artifact_manifest.json",
     "paper/supplementary_artifacts/actor_scope_ddpg/artifact_manifest.json",
+    "experiment_FPP/paper_artifacts/"
+    "fpp_ddpg_td3_her_high_rr_x4_1m/artifact_manifest.json",
     "paper/supplementary_artifacts/update_budget_references/"
     "artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"

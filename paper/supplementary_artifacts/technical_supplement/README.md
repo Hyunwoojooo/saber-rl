@@ -69,11 +69,19 @@ interpreted across hosts.
   metaworld_Drawer_Close_TD3_AER/results_2m/.
   The source manifest binds every run's metrics, summary, final evaluation,
   configuration, and environment snapshot.
+- FPP DDPG/TD3 High-RR compact raw artifact:
+  experiment_FPP/paper_artifacts/fpp_ddpg_td3_her_high_rr_x4_1m/.
+  It contains sanitized seed records, exact curves, recomputed FQ-AUC and
+  segmented-runtime throughput, source hashes, retained Git-blob parity, and
+  explicit TD3 resume/missing-800k provenance. DDPG's execution commit was not
+  retained; TD3 uninterrupted-trajectory equivalence is not claimed.
 - Unified High-RR and REDQ reference artifact:
   paper/supplementary_artifacts/update_budget_references/.
-  It binds the FPP SAC High-RR runs and REDQ-HER runs for FPP, DrawerOpen,
-  and DrawerClose to exact-grid seed and aggregate summaries without
-  duplicating raw metrics.
+  It binds FPP DDPG, TD3, and SAC High-RR references and REDQ-HER runs for FPP,
+  DrawerOpen, and DrawerClose to exact-grid seed and aggregate summaries
+  without duplicating raw metrics. `high_rr_config_difference_audit.json`
+  fail-closes on the retained UTD-1/UTD-4 config differences and records that
+  High-RR is not a strict one-factor control.
 
 The artifact index also resolves the FPP DDPG Actor+Critic cohort, the FPP TD3
 ten-seed confirmation, both inclusive-future sensitivity cohorts, and the
