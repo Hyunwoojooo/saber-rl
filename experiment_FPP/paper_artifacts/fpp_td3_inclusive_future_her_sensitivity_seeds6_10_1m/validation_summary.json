@@ -1,0 +1,12 @@
+{
+  "absolute_paths_in_generated_data": false,
+  "checkpoints_per_run": 100,
+  "complete_runs": 10,
+  "exact_grid_runs": 10,
+  "expected_runs": 10,
+  "native_auc_matches": 10,
+  "pair_config_contracts_valid": 5,
+  "seed_contracts_valid": 10,
+  "status": "PASS",
+  "within_arm_config_contracts_valid": 8
+}

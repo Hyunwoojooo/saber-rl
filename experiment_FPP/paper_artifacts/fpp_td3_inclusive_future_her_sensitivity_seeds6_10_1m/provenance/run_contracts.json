@@ -1,0 +1,473 @@
+{
+  "backbone": "TD3",
+  "evaluation_grid": {
+    "count": 100,
+    "start": 10000,
+    "stop": 1000000,
+    "stride": 10000
+  },
+  "execution_source_commit": "70fb7041f4b5142ce91bfd207142e361cced17b8",
+  "intended_arm_differences": {
+    "lambda_support": {
+      "her": 0.0,
+      "saber": 1.0
+    },
+    "method": {
+      "her": "td3_her",
+      "saber": "td3_saber_runtime_opt"
+    },
+    "support_diagnostic_audit_interval": {
+      "her": 100,
+      "saber": 0
+    },
+    "weight_scope": {
+      "her": "none",
+      "saber": "critic_only"
+    }
+  },
+  "relabeling_convention": "Candidate transition indices satisfy u >= t and relabeling uses the candidate transition's next_achieved_goal.",
+  "schema_version": 1,
+  "seeds": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "shared_config": {
+    "M_B": 16,
+    "M_Q_min": 4,
+    "N_gap_min": 128,
+    "N_local_min": 4,
+    "U_PER_max": 2.0,
+    "U_P_max": 1.0,
+    "U_TD_max": 1.0,
+    "action_bins_per_dim": 5,
+    "actor_lr": 0.0003,
+    "apple_goal_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "apple_z_bins": [
+      0.75,
+      0.85,
+      1.0
+    ],
+    "backend": null,
+    "batch_size": 256,
+    "buffer_capacity": 300000,
+    "checkpoint_every_steps": 50000,
+    "control_mode": null,
+    "critic_lr": 0.0003,
+    "d_contact": 0.08,
+    "d_goal_near": 0.05,
+    "d_reach": 0.08,
+    "device": "cuda",
+    "ee_obj_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "env_id": "FetchPickAndPlace-v4",
+    "eps": 1e-08,
+    "eps_G": 1e-06,
+    "eps_PER": 1e-06,
+    "eval_episodes": 20,
+    "eval_freq": 10000,
+    "gamma": 0.98,
+    "gap_q_high": 0.95,
+    "gap_q_low": 0.6,
+    "gap_window": 50000,
+    "grip_close_thresh": 0.04,
+    "hand_apple_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "her_ratio": 0.8,
+    "hidden_dim": 256,
+    "horizon_bins": [
+      10,
+      25,
+      50,
+      100
+    ],
+    "l2_action_penalty": 0.0,
+    "lambda_P": 1.0,
+    "lambda_TD": 1.0,
+    "local_scan_cache_enabled": true,
+    "local_scan_cache_max_entries": 50000,
+    "local_search_max": 512,
+    "log_every_steps": 1000,
+    "max_episode_steps": 50,
+    "noise_std": 0.2,
+    "num_envs": 1,
+    "numba_support_scan": true,
+    "obj_goal_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "obs_mode": "state",
+    "per_alpha": 0.6,
+    "pick_cube_goal_bins": [
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.7
+    ],
+    "pick_cube_tcp_cube_bins": [
+      0.03,
+      0.05,
+      0.08,
+      0.12,
+      0.2,
+      0.4
+    ],
+    "pick_cube_z_bins": [
+      0.04,
+      0.07,
+      0.1,
+      0.15,
+      0.25,
+      0.4
+    ],
+    "pick_cube_z_lift_min": null,
+    "pick_gripper_gap_bins": [
+      0.02,
+      0.05,
+      0.08
+    ],
+    "pick_hand_obj_bins": [
+      0.03,
+      0.05,
+      0.08,
+      0.12,
+      0.2,
+      0.4
+    ],
+    "pick_obj_goal_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.7
+    ],
+    "pick_object_z_bins": [
+      0.43,
+      0.48,
+      0.55,
+      0.65,
+      0.75
+    ],
+    "policy_action_radius": 0.35,
+    "policy_support_mode": "bin",
+    "push_t_ang_vel_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      1.0
+    ],
+    "push_t_ang_vel_thresh": 0.1,
+    "push_t_contact_thresh": 0.06,
+    "push_t_obj_goal_dist_bins": [
+      0.03,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.7
+    ],
+    "push_t_obj_speed_bins": [
+      0.01,
+      0.03,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "push_t_pos_near_thresh": 0.05,
+    "push_t_pos_success_thresh": 0.05,
+    "push_t_rot_err_bins_rad": [
+      0.15,
+      0.3,
+      0.52,
+      0.78,
+      1.57,
+      3.14
+    ],
+    "push_t_rot_large_thresh": 0.5235987755982988,
+    "push_t_rot_near_thresh": 0.2617993877991494,
+    "push_t_rot_success_thresh": 0.2617993877991494,
+    "push_t_rot_weight": 0.25,
+    "push_t_speed_thresh": 0.03,
+    "push_t_tcp_obj_bins": [
+      0.03,
+      0.06,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "render": false,
+    "resolved_env_id": "FetchPickAndPlace-v4",
+    "resume": false,
+    "reward_type": "sparse",
+    "robot_uids": "panda",
+    "save_step_checkpoints": true,
+    "sim_backend": null,
+    "slide_d_contact": 0.08,
+    "slide_d_goal_near": 0.05,
+    "slide_ee_obj_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "slide_obj_goal_bins": [
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.7,
+      1.0
+    ],
+    "slide_obj_speed_bins": [
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "slide_v_fast": 0.15,
+    "slide_v_slide_min": 0.05,
+    "slide_vel_align_bins": [
+      -0.5,
+      0.0,
+      0.5,
+      0.8
+    ],
+    "smoke": false,
+    "start_steps": 10000,
+    "success_terminates": false,
+    "support_cache_enabled": true,
+    "support_cache_max_entries": 200000,
+    "support_predicate_early_exit": true,
+    "support_scan_mode": "deterministic_tail_v1",
+    "support_short_circuit": true,
+    "task_name": "fetch_pick_and_place",
+    "tau": 0.005,
+    "td3_policy_delay": 2,
+    "td3_target_noise_clip": 0.5,
+    "td3_target_policy_noise": 0.2,
+    "terminal_convention": {
+      "success_terminates": false,
+      "timeout_bootstrap": true
+    },
+    "thread_hint": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "timeout_bootstrap": true,
+    "total_steps": 1000000,
+    "unrestricted_candidate_std": 0.5,
+    "updates_per_step": 1,
+    "validate_random_policy_steps": 200,
+    "validate_steps": 200,
+    "verify_runtime_optimization": false,
+    "warmup_steps": 5000,
+    "weighting_mode": "batch_norm",
+    "z_lift_min": 0.48
+  },
+  "source_hashes": [
+    {
+      "arm": "her",
+      "seed": 6,
+      "sha256": "f7d6751a63e47a723ef6a8ac2d8bef179088dbc4ef86391e79f2348bd9f3a549",
+      "source_type": "config"
+    },
+    {
+      "arm": "her",
+      "seed": 6,
+      "sha256": "19786db4dc0840d7333462e6e1ffca99a0e8b6a6bf4197b9f08deb562f7c0eee",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "her",
+      "seed": 6,
+      "sha256": "f59f53ed68d79b764494d0950b1c5638d573c11b342491073c73b665e683e7ba",
+      "source_type": "summary"
+    },
+    {
+      "arm": "her",
+      "seed": 7,
+      "sha256": "fe5eeb4ccc4c057d1b062574ea1c1ab319b18798b7a47afaa26f5fe376ddcb4c",
+      "source_type": "config"
+    },
+    {
+      "arm": "her",
+      "seed": 7,
+      "sha256": "875bebb1e776c264376b6763ee3837f343187de309eaaf6d1200d495a4e14177",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "her",
+      "seed": 7,
+      "sha256": "a967955d0e8273d6451d079347f64f587d463fe55dd96b04b04cfabe16d37d9f",
+      "source_type": "summary"
+    },
+    {
+      "arm": "her",
+      "seed": 8,
+      "sha256": "ab2097bfdc345054b50ce007a5840dae61bc1d1a988e69c98c3bb6e484348816",
+      "source_type": "config"
+    },
+    {
+      "arm": "her",
+      "seed": 8,
+      "sha256": "57c05ad5013560b0622b61c19f563970f10d2534897a5cb7e02c7d46601d1e64",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "her",
+      "seed": 8,
+      "sha256": "3b6b7b58e601d29ed1af9dec92cd984afa716480328782924f0a9b310a14f602",
+      "source_type": "summary"
+    },
+    {
+      "arm": "her",
+      "seed": 9,
+      "sha256": "9c3844978b7dc6280be9599e32ba89fb601154661672c589642f8c4d7aed826d",
+      "source_type": "config"
+    },
+    {
+      "arm": "her",
+      "seed": 9,
+      "sha256": "1cc7481fad268cd5886bfd3f8a4e922e7dc1dec4455899ac20945d06bd2d9c5f",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "her",
+      "seed": 9,
+      "sha256": "def490d91db038c35a5e2bfaa643d358e3df10eaaa236bd1aa8a4fbd058f0462",
+      "source_type": "summary"
+    },
+    {
+      "arm": "her",
+      "seed": 10,
+      "sha256": "b3204b5f528ba5c80748747bc4b2e7e540483a060e33b3cb4e7c0ce02bfb0f88",
+      "source_type": "config"
+    },
+    {
+      "arm": "her",
+      "seed": 10,
+      "sha256": "92b5a7b14ee93e40d2f918935b14be8ca32f47d8461c8761cdf3a4f4b4561fb9",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "her",
+      "seed": 10,
+      "sha256": "b30b4e07d054e1f71f37f65379e991fe4724dcad11c6d1ea83db1f0974ce0acc",
+      "source_type": "summary"
+    },
+    {
+      "arm": "saber",
+      "seed": 6,
+      "sha256": "4ccbce68a144c8de36091e6ab1e2b06426669d6a8dfa43206bca5e6d443836fd",
+      "source_type": "config"
+    },
+    {
+      "arm": "saber",
+      "seed": 6,
+      "sha256": "2e6e26c3a7b400aee4ebef7432025c2776d26918f1895c0de596d1c67f83932b",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "saber",
+      "seed": 6,
+      "sha256": "72a6a405903dd86340a1e1c88f68e19b7b90b812e2d27a4324948082437f06db",
+      "source_type": "summary"
+    },
+    {
+      "arm": "saber",
+      "seed": 7,
+      "sha256": "2413caa3510a15bf4d187c95e3218630ef0b6aeff80422df4128d0a069e1d521",
+      "source_type": "config"
+    },
+    {
+      "arm": "saber",
+      "seed": 7,
+      "sha256": "51e5283d08798fa0973cd4d4b42f395d09fbd2f8f4cfb26cb844d41eddc1c58e",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "saber",
+      "seed": 7,
+      "sha256": "12b04b389289d6cff2a02e76a50f87345d4ac8d7ca8f3b27ec95114dce4c8d8d",
+      "source_type": "summary"
+    },
+    {
+      "arm": "saber",
+      "seed": 8,
+      "sha256": "a9b77c7ba32531cc3d6b8eea24767bc3b5af120f3defbf9cbcbd05cd6d84f3cc",
+      "source_type": "config"
+    },
+    {
+      "arm": "saber",
+      "seed": 8,
+      "sha256": "4b53e7ce6bfec987a71d38973f376ac0b1940e8eeec67482b66e4c2318fb4824",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "saber",
+      "seed": 8,
+      "sha256": "7c5423ec575293089007d55165fb5a5c5edfddb81a2fa232cd785e9aeffbf8b1",
+      "source_type": "summary"
+    },
+    {
+      "arm": "saber",
+      "seed": 9,
+      "sha256": "87fb63564cc7d1331e138799278a0ef0c28d4c3acdaf4fbe9fd3c197a6c7eab5",
+      "source_type": "config"
+    },
+    {
+      "arm": "saber",
+      "seed": 9,
+      "sha256": "c84e8f6ab9cd554541474f05885378fcf193087920ae1e47db41de323c307e36",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "saber",
+      "seed": 9,
+      "sha256": "d8322ec1030899b9b2c23fcc36822488108363e0dc115e678969436f4e979b87",
+      "source_type": "summary"
+    },
+    {
+      "arm": "saber",
+      "seed": 10,
+      "sha256": "a4905028b6e77142c6c46d27c63f0635618dd2f6b9e112b2bec11aff92e661d9",
+      "source_type": "config"
+    },
+    {
+      "arm": "saber",
+      "seed": 10,
+      "sha256": "b4a7cee1abeabddd87334e1c2221300978a86354545e2332ea50d326d98f60c9",
+      "source_type": "metrics"
+    },
+    {
+      "arm": "saber",
+      "seed": 10,
+      "sha256": "6b0d8a706d283048247b9c7c9d9f91c6449ce8ae59a143b40d7af537ad56a3a9",
+      "source_type": "summary"
+    }
+  ],
+  "task": "FetchPickAndPlace",
+  "total_steps": 1000000
+}

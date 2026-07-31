@@ -1,0 +1,14 @@
+{
+  "artifact_note": "Absolute run and log paths are intentionally omitted from the artifact.",
+  "device": "cuda",
+  "inclusive_replay_blob": "05ec87717586e6bc0823ff72b779515829580b84",
+  "launcher_blob": "2b4a6d7f960eb56d9013f4694abe0e6d14d2c441",
+  "max_parallel": "7",
+  "origin_main": "70fb7041f4b5142ce91bfd207142e361cced17b8",
+  "paired_arms": "her,saber",
+  "repo_head": "70fb7041f4b5142ce91bfd207142e361cced17b8",
+  "seeds": "6,7,8,9,10",
+  "source_reference_commit": "47343f4cb295f354df16733dca17f3a882a2b34a",
+  "steps": "1000000",
+  "timestamp_utc": "2026-07-30T08:25:22Z"
+}
