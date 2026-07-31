@@ -236,6 +236,18 @@ class ScopeAnalysisTests(unittest.TestCase):
             {"nan": None, "pos": None, "neg": None},
         )
 
+    def test_artifact_sanitizer_anonymizes_workspace_parent(self) -> None:
+        repo = Path("/home/researcher/private-workspace/saber-worktree")
+        replacements = (
+            (repo.as_posix(), "${REPO_ROOT}"),
+            (repo.parent.as_posix(), "${WORKSPACE}"),
+            ("/home/researcher", "${HOME}"),
+        )
+        self.assertEqual(
+            sanitize("/home/researcher/private-workspace/legacy/run", replacements),
+            "${WORKSPACE}/legacy/run",
+        )
+
     def test_config_parity_rejects_a_second_factor(self) -> None:
         run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))
         config = json.loads((run / "config.json").read_text())

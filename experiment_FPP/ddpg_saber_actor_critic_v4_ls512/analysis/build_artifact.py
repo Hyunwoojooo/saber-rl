@@ -161,6 +161,7 @@ def copy_json(source: Path, destination: Path, repo: Path, run_dir: Path) -> Non
     replacements = (
         (run_dir.resolve().as_posix(), "${SOURCE_RUN}"),
         (repo.resolve().as_posix(), "${REPO_ROOT}"),
+        (repo.parent.resolve().as_posix(), "${WORKSPACE}"),
         (Path.home().as_posix(), "${HOME}"),
         (socket.gethostname(), "${HOST}"),
     )
