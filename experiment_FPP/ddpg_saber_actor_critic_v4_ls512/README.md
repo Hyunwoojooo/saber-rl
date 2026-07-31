@@ -53,6 +53,12 @@ The first SHA records the repository state from which this new arm was prepared.
 The second is the original commit containing the completed canonical v4 LS512
 critic-only experiment copied into the current reference path.
 
+The completed actor+critic runs were launched with `MKL_NUM_THREADS=1`,
+`OMP_NUM_THREADS=1`, and `OPENBLAS_NUM_THREADS=1`; the earlier canonical
+critic-only result configs record those variables as unset. Analysis treats the
+result-config `thread_hint` object as disclosed runtime metadata, not as a
+trainer or environment hyperparameter.
+
 ## Paths and run names
 
 - Package: `experiment_FPP/ddpg_saber_actor_critic_v4_ls512`

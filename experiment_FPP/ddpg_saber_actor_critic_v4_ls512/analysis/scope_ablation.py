@@ -151,8 +151,13 @@ EXPECTED_ENV_CORE: Mapping[tuple[str, ...], Any] = {
 }
 
 # A paired run is intended to differ only in where the already-computed SABER
-# weight is applied.  These are the only run-config fields allowed to differ.
-PAIR_CONFIG_EXEMPT_KEYS = frozenset({"weight_scope", "run_name", "output_root"})
+# weight is applied. Run identity/output fields are expected to differ, while
+# ``thread_hint`` is recorded launch-time runtime metadata rather than a trainer
+# or environment setting. The canonical critic runs predate the strict launcher
+# that fixes the three CPU math-library thread variables to one.
+PAIR_CONFIG_EXEMPT_KEYS = frozenset(
+    {"weight_scope", "run_name", "output_root", "thread_hint"}
+)
 
 PER_SEED_FIELDS = (
     "arm",

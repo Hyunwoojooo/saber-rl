@@ -218,6 +218,17 @@ class ScopeAnalysisTests(unittest.TestCase):
         with self.assertRaisesRegex(MissingPairedRunsError, r"actor_critic seeds=\[5\]"):
             analyze_scope_ablation(self.fixture.actor, self.fixture.critic)
 
+    def test_config_parity_allows_recorded_thread_metadata(self) -> None:
+        run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))
+        config = json.loads((run / "config.json").read_text())
+        config["thread_hint"] = {
+            "MKL_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+        }
+        write_json(run / "config.json", config)
+        analyze_scope_ablation(self.fixture.actor, self.fixture.critic)
+
     def test_config_parity_rejects_a_second_factor(self) -> None:
         run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))
         config = json.loads((run / "config.json").read_text())

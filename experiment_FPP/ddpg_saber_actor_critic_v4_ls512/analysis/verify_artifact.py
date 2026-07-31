@@ -17,6 +17,7 @@ from scope_ablation import (
     ARTIFACT_ID,
     CRITIC_KEY,
     GRID,
+    PAIR_CONFIG_EXEMPT_KEYS,
     SEEDS,
     TOTAL_STEPS,
     TOTAL_UPDATES,
@@ -430,7 +431,7 @@ def _expected_validation_gates(
             "passed": True,
         },
         "config_parity": {
-            "only_differences": ["output_root", "run_name", "weight_scope"],
+            "only_differences": sorted(PAIR_CONFIG_EXEMPT_KEYS),
             "actual_differences_by_seed": actual_differences,
             "passed": True,
         },

@@ -31,6 +31,11 @@ its clean-worktree and head-match flags must both be true. Executable smoke
 launchers may be frozen under `source/`; smoke result payloads under `data/` are
 prohibited.
 
+Paired config parity permits `thread_hint` as runtime metadata because the new
+strict launcher fixed MKL, OpenMP, and OpenBLAS threads to one whereas the older
+canonical critic runs left them unset. All trainer, environment, replay, HER,
+optimizer, and seed settings remain subject to exact parity.
+
 Run tests:
 
 ```bash

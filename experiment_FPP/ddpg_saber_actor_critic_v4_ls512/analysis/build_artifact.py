@@ -23,6 +23,7 @@ from scope_ablation import (
     ARTIFACT_ID,
     CRITIC_KEY,
     GRID,
+    PAIR_CONFIG_EXEMPT_KEYS,
     SEEDS,
     TOTAL_STEPS,
     TOTAL_UPDATES,
@@ -305,7 +306,7 @@ def validation_payload(
                 "passed": True,
             },
             "config_parity": {
-                "only_differences": ["output_root", "run_name", "weight_scope"],
+                "only_differences": sorted(PAIR_CONFIG_EXEMPT_KEYS),
                 "actual_differences_by_seed": actual_differences,
                 "passed": True,
             },
@@ -347,6 +348,10 @@ def readme(source_commit: str) -> str:
 
 Compact paired seeds 1–5 artifact. Source commit: `{source_commit}`.
 Canonical critic source commit: `{CANONICAL_CRITIC_SOURCE_COMMIT}`.
+
+The recorded `thread_hint` differs between arms: the actor+critic launcher fixed
+MKL, OpenMP, and OpenBLAS threads to one, while the earlier canonical critic run
+left those variables unset. This is runtime metadata, not a trainer setting.
 
 The primary endpoint is normalized trapezoidal success AUC on the exact observed
 10k–1M grid (100 points, denominator 990k). There is no interpolation, smoothing,
