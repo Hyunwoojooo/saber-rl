@@ -1,0 +1,5 @@
+metric,delta_definition,direction_favoring_actor_critic,n_pairs,paired_seeds,missing_pair_seeds,mean_delta,sample_std_delta,bootstrap_ci95_low,bootstrap_ci95_high,bootstrap_resamples,bootstrap_seed,positive_count,negative_count,zero_count,exact_sign_flip_p_two_sided,exact_sign_flip_permutations
+success_auc,actor_critic - canonical_critic_only,positive,5,"1,2,3,4,5",,-0.02717171717171718,0.06339178589153736,-0.0759090909090909,0.020454545454545413,10000,27012027,2,3,0,0.4375,32
+final_success,actor_critic - canonical_critic_only,positive,5,"1,2,3,4,5",,0.019999999999999997,0.044721359549995815,-0.020000000000000018,0.05000000000000003,10000,27012027,3,1,1,0.625,32
+best_success,actor_critic - canonical_critic_only,positive,5,"1,2,3,4,5",,0.0,0.0,0.0,0.0,10000,27012027,0,0,5,1.0,32
+first_hit_0.90_step,actor_critic - canonical_critic_only,negative,5,"1,2,3,4,5",,66000.0,146731.0464761974,-50000.0,182000.0,10000,27012027,3,2,0,0.4375,32
