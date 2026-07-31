@@ -36,6 +36,10 @@ strict launcher fixed MKL, OpenMP, and OpenBLAS threads to one whereas the older
 canonical critic runs left them unset. All trainer, environment, replay, HER,
 optimizer, and seed settings remain subject to exact parity.
 
+When compact JSON copies are written, non-finite optional diagnostic values are
+normalized to JSON `null`. Raw file hashes and sizes remain recorded in
+`source_inputs_manifest.json`.
+
 Run tests:
 
 ```bash

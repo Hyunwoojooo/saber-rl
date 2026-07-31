@@ -14,7 +14,7 @@ HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-from build_artifact import build_artifact  # noqa: E402
+from build_artifact import build_artifact, sanitize  # noqa: E402
 from scope_ablation import (  # noqa: E402
     ACTOR_KEY,
     CRITIC_KEY,
@@ -228,6 +228,12 @@ class ScopeAnalysisTests(unittest.TestCase):
         }
         write_json(run / "config.json", config)
         analyze_scope_ablation(self.fixture.actor, self.fixture.critic)
+
+    def test_artifact_sanitizer_normalizes_nonfinite_json_numbers(self) -> None:
+        self.assertEqual(
+            sanitize({"nan": math.nan, "pos": math.inf, "neg": -math.inf}, ()),
+            {"nan": None, "pos": None, "neg": None},
+        )
 
     def test_config_parity_rejects_a_second_factor(self) -> None:
         run = next(self.fixture.actor.glob("*_s1_1000000_ls512"))

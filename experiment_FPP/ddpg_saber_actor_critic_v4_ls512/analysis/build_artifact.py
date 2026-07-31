@@ -148,6 +148,8 @@ def sanitize(value: Any, replacements: Sequence[tuple[str, str]]) -> Any:
         return {key: sanitize(item, replacements) for key, item in value.items()}
     if isinstance(value, list):
         return [sanitize(item, replacements) for item in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
     if isinstance(value, str):
         for before, after in replacements:
             if before:
@@ -352,6 +354,10 @@ Canonical critic source commit: `{CANONICAL_CRITIC_SOURCE_COMMIT}`.
 The recorded `thread_hint` differs between arms: the actor+critic launcher fixed
 MKL, OpenMP, and OpenBLAS threads to one, while the earlier canonical critic run
 left those variables unset. This is runtime metadata, not a trainer setting.
+
+Non-finite optional diagnostics in raw summaries are represented as JSON `null`
+in the compact copies. `source_inputs_manifest.json` retains each raw source
+file's SHA256 and size, so this standards-compliance normalization is auditable.
 
 The primary endpoint is normalized trapezoidal success AUC on the exact observed
 10k–1M grid (100 points, denominator 990k). There is no interpolation, smoothing,
