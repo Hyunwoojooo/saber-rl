@@ -6,4 +6,4 @@ Both DDPG and TD3 began from scratch and completed without checkpoint continuati
 
 The TD3 summary throughput retained only the final runtime-counter segment. `analysis/per_seed_metrics.csv` instead computes steps/s from the sum of retained monotonic runtime segments. Segment boundaries are logger resets, not process restart or checkpoint-continuation boundaries.
 
-Verify from this directory with `python3 code/verify_fpp_high_rr_compact_artifact.py --artifact-root .`.
+Verify this selection through `python reviewer_tools/verify_package.py` from the package root.

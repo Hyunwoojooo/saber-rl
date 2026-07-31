@@ -3,3 +3,4 @@ training_checkpoints,omitted,Large binary state is not needed to recompute repor
 replay_buffers,omitted,Large transient training state.,"Exact source snapshots, presets, and contract tests."
 full_raw_logs,omitted,Redundant and may contain host-local paths.,Sanitized selected metrics and derived result artifacts.
 repository_git_metadata,omitted,Anonymous review archive.,Source SHA256 inventory and experiment catalog.
+secondary_baseline_training_sources,partially_included,"The archive prioritizes SABER, matched HER, and mechanism-control source; not every secondary AER, HGR, PER, or REDQ launcher is bundled.",Compact seed-level evidence and analysis inputs.

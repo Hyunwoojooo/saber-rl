@@ -1,5 +1,5 @@
 {
-  "notes": "Repository-relative paths identify the frozen inputs used by the deterministic package builder; no host-local path is retained.",
+  "notes": "Anonymous snapshot IDs and per-file SHA256 values bind every frozen source input; no public Git or host-local identity is retained.",
   "source_snapshots": [
     {
       "bytes": 327572,
@@ -8,133 +8,111 @@
         {
           "bytes": 49,
           "path": "source/fpp_ddpg/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 6188,
           "path": "source/fpp_ddpg/metacog_lite_v0/agent.py",
-          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6"
         },
         {
           "bytes": 14999,
           "path": "source/fpp_ddpg/metacog_lite_v0/config.py",
-          "sha256": "3382eba8077245aafc215c138f38d353044ea5c3ec6c282e704ed1f2eae376e2",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "3382eba8077245aafc215c138f38d353044ea5c3ec6c282e704ed1f2eae376e2"
         },
         {
           "bytes": 3943,
           "path": "source/fpp_ddpg/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/fpp_ddpg/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/fpp_ddpg/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/fpp_ddpg/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14842,
           "path": "source/fpp_ddpg/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/fpp_ddpg/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/fpp_ddpg/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/fpp_ddpg/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/fpp_ddpg/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/fpp_ddpg/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/fpp_ddpg/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/fpp_ddpg/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 64848,
           "path": "source/fpp_ddpg/metacog_lite_v0/trainer.py",
-          "sha256": "ef174fc8d6ec0353992d91c3e7e1071df77a79aa8288e0262e38d0e1103edd39",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "ef174fc8d6ec0353992d91c3e7e1071df77a79aa8288e0262e38d0e1103edd39"
         },
         {
           "bytes": 61429,
           "path": "source/fpp_ddpg/metacog_lite_v0/weights.py",
-          "sha256": "20dc29452708dff4b5f0af40eae0ee18fff068f06be69e180e1e53cf43e32a11",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "20dc29452708dff4b5f0af40eae0ee18fff068f06be69e180e1e53cf43e32a11"
         },
         {
           "bytes": 9355,
           "path": "source/fpp_ddpg/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 6296,
           "path": "source/fpp_ddpg/test_numba_runtime_opt_fpp.py",
-          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea"
         },
         {
           "bytes": 9128,
           "path": "source/fpp_ddpg/test_numba_support_scan_fpp.py",
-          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4"
         },
         {
           "bytes": 15382,
           "path": "source/fpp_ddpg/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "7c6cf655209d1695d339572ca6e7b4609fce813707ed9a9098ca260df3cfb94f",
-          "source_repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "7c6cf655209d1695d339572ca6e7b4609fce813707ed9a9098ca260df3cfb94f"
         }
       ],
       "package_path": "source/fpp_ddpg",
-      "repository_path": "experiment_FPP/b3_critic_only_runtime_opt_v4_ls512/code/src",
-      "snapshot": "fpp_ddpg"
+      "source_snapshot_id": "snapshot_fpp_ddpg_v1"
     },
     {
       "bytes": 338436,
@@ -143,133 +121,111 @@
         {
           "bytes": 49,
           "path": "source/fpp_td3/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 15279,
           "path": "source/fpp_td3/metacog_lite_v0/agent.py",
-          "sha256": "b67bf22d5da893a7e7b0f2039e12275dc8a20fd6fcaaa06d43a65a4ae82695c4",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "b67bf22d5da893a7e7b0f2039e12275dc8a20fd6fcaaa06d43a65a4ae82695c4"
         },
         {
           "bytes": 15290,
           "path": "source/fpp_td3/metacog_lite_v0/config.py",
-          "sha256": "80eb1a4a589422c2cae11e2e915cf5af04376e12767790765f0ce21665943ef6",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "80eb1a4a589422c2cae11e2e915cf5af04376e12767790765f0ce21665943ef6"
         },
         {
           "bytes": 3943,
           "path": "source/fpp_td3/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/fpp_td3/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/fpp_td3/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/fpp_td3/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14842,
           "path": "source/fpp_td3/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/fpp_td3/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/fpp_td3/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/fpp_td3/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/fpp_td3/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/fpp_td3/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/fpp_td3/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/fpp_td3/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 65924,
           "path": "source/fpp_td3/metacog_lite_v0/trainer.py",
-          "sha256": "3b1d264f2102b31808fb549bdb33c17ddabde487d1f62d82cb8657d65ad29fda",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "3b1d264f2102b31808fb549bdb33c17ddabde487d1f62d82cb8657d65ad29fda"
         },
         {
           "bytes": 61616,
           "path": "source/fpp_td3/metacog_lite_v0/weights.py",
-          "sha256": "c118b41b9c477c93b18758db9bda9935aba33104b0bceca7389b7c53345764c0",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "c118b41b9c477c93b18758db9bda9935aba33104b0bceca7389b7c53345764c0"
         },
         {
           "bytes": 9355,
           "path": "source/fpp_td3/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 6296,
           "path": "source/fpp_td3/test_numba_runtime_opt_fpp.py",
-          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea"
         },
         {
           "bytes": 9128,
           "path": "source/fpp_td3/test_numba_support_scan_fpp.py",
-          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4"
         },
         {
           "bytes": 15601,
           "path": "source/fpp_td3/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "614bae7dbb04ca990da2fb8071146244f80837a430784e308c9e9bdd343ba06c",
-          "source_repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "614bae7dbb04ca990da2fb8071146244f80837a430784e308c9e9bdd343ba06c"
         }
       ],
       "package_path": "source/fpp_td3",
-      "repository_path": "experiment_FPP/td3_saber_critic_only_v4_ls512/code/src",
-      "snapshot": "fpp_td3"
+      "source_snapshot_id": "snapshot_fpp_td3_v1"
     },
     {
       "bytes": 353180,
@@ -278,133 +234,111 @@
         {
           "bytes": 49,
           "path": "source/fpp_sac/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 27255,
           "path": "source/fpp_sac/metacog_lite_v0/agent.py",
-          "sha256": "d65bcc588f92e1f73202390c5c6b2b5860fb1f77ba5fcfe7acf68b8bbc54769e",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "d65bcc588f92e1f73202390c5c6b2b5860fb1f77ba5fcfe7acf68b8bbc54769e"
         },
         {
           "bytes": 15471,
           "path": "source/fpp_sac/metacog_lite_v0/config.py",
-          "sha256": "13e6de73c756c980e483f744d7ca5e9648dfaec0bebf617795a63b0e849aea20",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "13e6de73c756c980e483f744d7ca5e9648dfaec0bebf617795a63b0e849aea20"
         },
         {
           "bytes": 3943,
           "path": "source/fpp_sac/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/fpp_sac/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/fpp_sac/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/fpp_sac/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14842,
           "path": "source/fpp_sac/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/fpp_sac/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/fpp_sac/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/fpp_sac/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/fpp_sac/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/fpp_sac/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/fpp_sac/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/fpp_sac/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 67255,
           "path": "source/fpp_sac/metacog_lite_v0/trainer.py",
-          "sha256": "6a4bc953a91d93a8f91b1a30e21d687c557d80f6bc6e494646d71e4813c9d69e",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "6a4bc953a91d93a8f91b1a30e21d687c557d80f6bc6e494646d71e4813c9d69e"
         },
         {
           "bytes": 61731,
           "path": "source/fpp_sac/metacog_lite_v0/weights.py",
-          "sha256": "823bede077e45aa8596275560414dd4be95371a05b35db3240dcf86d72082223",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "823bede077e45aa8596275560414dd4be95371a05b35db3240dcf86d72082223"
         },
         {
           "bytes": 9355,
           "path": "source/fpp_sac/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 6296,
           "path": "source/fpp_sac/test_numba_runtime_opt_fpp.py",
-          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea"
         },
         {
           "bytes": 9128,
           "path": "source/fpp_sac/test_numba_support_scan_fpp.py",
-          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4"
         },
         {
           "bytes": 16742,
           "path": "source/fpp_sac/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "66708bf6a7f77947efd4ed14107f36a073e42eaa596fc6e83658300fe6f387b6",
-          "source_repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "66708bf6a7f77947efd4ed14107f36a073e42eaa596fc6e83658300fe6f387b6"
         }
       ],
       "package_path": "source/fpp_sac",
-      "repository_path": "experiment_FPP/sac_saber_critic_only_v4_ls512/code/src",
-      "snapshot": "fpp_sac"
+      "source_snapshot_id": "snapshot_fpp_sac_v1"
     },
     {
       "bytes": 389408,
@@ -413,139 +347,116 @@
         {
           "bytes": 49,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 8354,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/agent.py",
-          "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/agent.py"
+          "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e"
         },
         {
           "bytes": 17686,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/config.py",
-          "sha256": "5cea452a5bc727b8a05c54d44893fe43f1f2ab7ef0352457cb954d59ae5f037c",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/config.py"
+          "sha256": "5cea452a5bc727b8a05c54d44893fe43f1f2ab7ef0352457cb954d59ae5f037c"
         },
         {
           "bytes": 12291,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/envs.py",
-          "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/envs.py"
+          "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b"
         },
         {
           "bytes": 47402,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4334,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/io_utils.py",
-          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
         },
         {
           "bytes": 996,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 15300,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/numba_support_scan_drawer_open.py",
-          "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
+          "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d"
         },
         {
           "bytes": 14842,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 9112,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_drawer_open.py",
-          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_drawer_open.py"
+          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
         },
         {
           "bytes": 7237,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 77725,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/trainer.py",
-          "sha256": "03381971826ff740b51c5ac26b3266dc7c258e10d96ba31df33e0a8f12ad5a3d",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "03381971826ff740b51c5ac26b3266dc7c258e10d96ba31df33e0a8f12ad5a3d"
         },
         {
           "bytes": 76516,
           "path": "source/drawer_open_ddpg/metacog_lite_v0/weights.py",
-          "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/weights.py"
+          "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0"
         },
         {
           "bytes": 3899,
           "path": "source/drawer_open_ddpg/test_context_count_only_ddpg_loss_scope.py",
-          "sha256": "8d8aa88e4ac103bc72cab7e6e1faa959b067fee2c3d8533bd113a476d4e41e3b",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/test_context_count_only_ddpg_loss_scope.py"
+          "sha256": "8d8aa88e4ac103bc72cab7e6e1faa959b067fee2c3d8533bd113a476d4e41e3b"
         },
         {
           "bytes": 12937,
           "path": "source/drawer_open_ddpg/test_context_count_only_drawer_open.py",
-          "sha256": "e6d8414db74f388f93c48d57ed7faf4c48d42d6c7d9dba4f60b4fc07b2e13870",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/test_context_count_only_drawer_open.py"
+          "sha256": "e6d8414db74f388f93c48d57ed7faf4c48d42d6c7d9dba4f60b4fc07b2e13870"
         },
         {
           "bytes": 19278,
           "path": "source/drawer_open_ddpg/train_drawer_open_lite_v0.py",
-          "sha256": "cdb154ed523062060979765c1917b03c5aee5e7cf13c2c453b1c3080dbcb3471",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/code/src/train_drawer_open_lite_v0.py"
+          "sha256": "cdb154ed523062060979765c1917b03c5aee5e7cf13c2c453b1c3080dbcb3471"
         }
       ],
       "package_path": "source/drawer_open_ddpg",
-      "repository_path": "metaworld_Drawer_Open_DDPG/code/src",
-      "snapshot": "drawer_open_ddpg"
+      "source_snapshot_id": "snapshot_drawer_open_ddpg_v1"
     },
     {
       "bytes": 386594,
@@ -554,151 +465,126 @@
         {
           "bytes": 49,
           "path": "source/drawer_open_td3/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 10637,
           "path": "source/drawer_open_td3/metacog_lite_v0/agent.py",
-          "sha256": "9c5f0beb8241400b58b27a293da2932950b20c2d345c68f3ae87c0719c959692",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/agent.py"
+          "sha256": "9c5f0beb8241400b58b27a293da2932950b20c2d345c68f3ae87c0719c959692"
         },
         {
           "bytes": 16960,
           "path": "source/drawer_open_td3/metacog_lite_v0/config.py",
-          "sha256": "c0ea93c0ad9c0f1e17ec3f06e22c37663b0c100c9d9883c14c6f10be51dba87c",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/config.py"
+          "sha256": "c0ea93c0ad9c0f1e17ec3f06e22c37663b0c100c9d9883c14c6f10be51dba87c"
         },
         {
           "bytes": 12291,
           "path": "source/drawer_open_td3/metacog_lite_v0/envs.py",
-          "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/envs.py"
+          "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b"
         },
         {
           "bytes": 47402,
           "path": "source/drawer_open_td3/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4334,
           "path": "source/drawer_open_td3/metacog_lite_v0/io_utils.py",
-          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
         },
         {
           "bytes": 996,
           "path": "source/drawer_open_td3/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14812,
           "path": "source/drawer_open_td3/metacog_lite_v0/numba_support_scan_drawer_open.py",
-          "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
+          "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36"
         },
         {
           "bytes": 14842,
           "path": "source/drawer_open_td3/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/drawer_open_td3/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 9112,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_drawer_open.py",
-          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_drawer_open.py"
+          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
         },
         {
           "bytes": 7237,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/drawer_open_td3/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 66910,
           "path": "source/drawer_open_td3/metacog_lite_v0/trainer.py",
-          "sha256": "de72618685989d1f9a90b759a8a30eddc3d14c259f5a70e04c5828133659dce5",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "de72618685989d1f9a90b759a8a30eddc3d14c259f5a70e04c5828133659dce5"
         },
         {
           "bytes": 66530,
           "path": "source/drawer_open_td3/metacog_lite_v0/weights.py",
-          "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/weights.py"
+          "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0"
         },
         {
           "bytes": 9355,
           "path": "source/drawer_open_td3/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 6296,
           "path": "source/drawer_open_td3/test_numba_runtime_opt_fpp.py",
-          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea"
         },
         {
           "bytes": 9161,
           "path": "source/drawer_open_td3/test_numba_support_scan_drawer_open.py",
-          "sha256": "aa9f1c67737344b3111f4aa813629d0cb5fad83f0dd1b50d8383d37127429ee9",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/test_numba_support_scan_drawer_open.py"
+          "sha256": "aa9f1c67737344b3111f4aa813629d0cb5fad83f0dd1b50d8383d37127429ee9"
         },
         {
           "bytes": 9128,
           "path": "source/drawer_open_td3/test_numba_support_scan_fpp.py",
-          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4"
         },
         {
           "bytes": 19092,
           "path": "source/drawer_open_td3/train_drawer_open_lite_v0.py",
-          "sha256": "36f00ec758ebe19719a381e441dd2109b52fd07a03b13d54fce39e1bf6ede4ed",
-          "source_repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src/train_drawer_open_lite_v0.py"
+          "sha256": "36f00ec758ebe19719a381e441dd2109b52fd07a03b13d54fce39e1bf6ede4ed"
         }
       ],
       "package_path": "source/drawer_open_td3",
-      "repository_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src",
-      "snapshot": "drawer_open_td3"
+      "source_snapshot_id": "snapshot_drawer_open_td3_v1"
     },
     {
       "bytes": 365919,
@@ -707,139 +593,116 @@
         {
           "bytes": 49,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 8354,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/agent.py",
-          "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/agent.py"
+          "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e"
         },
         {
           "bytes": 17113,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/config.py",
-          "sha256": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/config.py"
+          "sha256": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6"
         },
         {
           "bytes": 13693,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/envs.py",
-          "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/envs.py"
+          "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8"
         },
         {
           "bytes": 47402,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4334,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/io_utils.py",
-          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
         },
         {
           "bytes": 996,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14812,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/numba_support_scan_drawer_open.py",
-          "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
+          "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36"
         },
         {
           "bytes": 14842,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 9123,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_drawer_close.py",
-          "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_drawer_close.py"
+          "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296"
         },
         {
           "bytes": 9112,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_drawer_open.py",
-          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_drawer_open.py"
+          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
         },
         {
           "bytes": 7237,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 68202,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/trainer.py",
-          "sha256": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c"
         },
         {
           "bytes": 66530,
           "path": "source/drawer_close_ddpg/metacog_lite_v0/weights.py",
-          "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/weights.py"
+          "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0"
         },
         {
           "bytes": 3569,
           "path": "source/drawer_close_ddpg/test_actor_scope_ddpg.py",
-          "sha256": "dfed206f473a028e8d3781fb95b1b64930fa83740b3cd9b684be2741a4bd9e62",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/test_actor_scope_ddpg.py"
+          "sha256": "dfed206f473a028e8d3781fb95b1b64930fa83740b3cd9b684be2741a4bd9e62"
         },
         {
           "bytes": 19101,
           "path": "source/drawer_close_ddpg/train_drawer_close_lite_v0.py",
-          "sha256": "679ed88a0e168d53634e1271f90d52eb55744c2362ebea93acfa2d024ad5fed3",
-          "source_repository_path": "metaworld_Drawer_Close_DDPG/code/src/train_drawer_close_lite_v0.py"
+          "sha256": "679ed88a0e168d53634e1271f90d52eb55744c2362ebea93acfa2d024ad5fed3"
         }
       ],
       "package_path": "source/drawer_close_ddpg",
-      "repository_path": "metaworld_Drawer_Close_DDPG/code/src",
-      "snapshot": "drawer_close_ddpg"
+      "source_snapshot_id": "snapshot_drawer_close_ddpg_v1"
     },
     {
       "bytes": 417665,
@@ -848,163 +711,136 @@
         {
           "bytes": 49,
           "path": "source/drawer_close_td3/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 10637,
           "path": "source/drawer_close_td3/metacog_lite_v0/agent.py",
-          "sha256": "9c5f0beb8241400b58b27a293da2932950b20c2d345c68f3ae87c0719c959692",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/agent.py"
+          "sha256": "9c5f0beb8241400b58b27a293da2932950b20c2d345c68f3ae87c0719c959692"
         },
         {
           "bytes": 17113,
           "path": "source/drawer_close_td3/metacog_lite_v0/config.py",
-          "sha256": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/config.py"
+          "sha256": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6"
         },
         {
           "bytes": 13693,
           "path": "source/drawer_close_td3/metacog_lite_v0/envs.py",
-          "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/envs.py"
+          "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8"
         },
         {
           "bytes": 47402,
           "path": "source/drawer_close_td3/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4334,
           "path": "source/drawer_close_td3/metacog_lite_v0/io_utils.py",
-          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
         },
         {
           "bytes": 996,
           "path": "source/drawer_close_td3/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14812,
           "path": "source/drawer_close_td3/metacog_lite_v0/numba_support_scan_drawer_open.py",
-          "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
+          "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36"
         },
         {
           "bytes": 14842,
           "path": "source/drawer_close_td3/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/drawer_close_td3/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 9123,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_drawer_close.py",
-          "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_drawer_close.py"
+          "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296"
         },
         {
           "bytes": 9112,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_drawer_open.py",
-          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_drawer_open.py"
+          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
         },
         {
           "bytes": 7237,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/drawer_close_td3/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 68202,
           "path": "source/drawer_close_td3/metacog_lite_v0/trainer.py",
-          "sha256": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c"
         },
         {
           "bytes": 66530,
           "path": "source/drawer_close_td3/metacog_lite_v0/weights.py",
-          "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/metacog_lite_v0/weights.py"
+          "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0"
         },
         {
           "bytes": 9355,
           "path": "source/drawer_close_td3/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 6296,
           "path": "source/drawer_close_td3/test_numba_runtime_opt_fpp.py",
-          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea"
         },
         {
           "bytes": 9161,
           "path": "source/drawer_close_td3/test_numba_support_scan_drawer_open.py",
-          "sha256": "aa9f1c67737344b3111f4aa813629d0cb5fad83f0dd1b50d8383d37127429ee9",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/test_numba_support_scan_drawer_open.py"
+          "sha256": "aa9f1c67737344b3111f4aa813629d0cb5fad83f0dd1b50d8383d37127429ee9"
         },
         {
           "bytes": 9128,
           "path": "source/drawer_close_td3/test_numba_support_scan_fpp.py",
-          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4"
         },
         {
           "bytes": 19101,
           "path": "source/drawer_close_td3/train_drawer_close_lite_v0.py",
-          "sha256": "679ed88a0e168d53634e1271f90d52eb55744c2362ebea93acfa2d024ad5fed3",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/train_drawer_close_lite_v0.py"
+          "sha256": "679ed88a0e168d53634e1271f90d52eb55744c2362ebea93acfa2d024ad5fed3"
         },
         {
           "bytes": 19092,
           "path": "source/drawer_close_td3/train_drawer_open_lite_v0.py",
-          "sha256": "36f00ec758ebe19719a381e441dd2109b52fd07a03b13d54fce39e1bf6ede4ed",
-          "source_repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src/train_drawer_open_lite_v0.py"
+          "sha256": "36f00ec758ebe19719a381e441dd2109b52fd07a03b13d54fce39e1bf6ede4ed"
         }
       ],
       "package_path": "source/drawer_close_td3",
-      "repository_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src",
-      "snapshot": "drawer_close_td3"
+      "source_snapshot_id": "snapshot_drawer_close_td3_v1"
     },
     {
       "bytes": 365867,
@@ -1013,157 +849,131 @@
         {
           "bytes": 49,
           "path": "source/control_replay_action/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 6188,
           "path": "source/control_replay_action/metacog_lite_v0/agent.py",
-          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6"
         },
         {
           "bytes": 15521,
           "path": "source/control_replay_action/metacog_lite_v0/config.py",
-          "sha256": "c81f187f16b91a82b123d3d959c9aa2bbbaac104ee1d90c77f3ca5736b8b9114",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "c81f187f16b91a82b123d3d959c9aa2bbbaac104ee1d90c77f3ca5736b8b9114"
         },
         {
           "bytes": 3943,
           "path": "source/control_replay_action/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/control_replay_action/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/control_replay_action/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/control_replay_action/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 15330,
           "path": "source/control_replay_action/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a"
         },
         {
           "bytes": 19844,
           "path": "source/control_replay_action/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/control_replay_action/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/control_replay_action/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/control_replay_action/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/control_replay_action/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/control_replay_action/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/control_replay_action/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 66677,
           "path": "source/control_replay_action/metacog_lite_v0/trainer.py",
-          "sha256": "fa5b768fda0e1d634030b403edd8138cede4710b57c08f1d818305cb98fe516c",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "fa5b768fda0e1d634030b403edd8138cede4710b57c08f1d818305cb98fe516c"
         },
         {
           "bytes": 72645,
           "path": "source/control_replay_action/metacog_lite_v0/weights.py",
-          "sha256": "2b7c68c8c1eebf65159eb057a0241086e58cdd4efcf7ee985a4a5c9e4f4f2875",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "2b7c68c8c1eebf65159eb057a0241086e58cdd4efcf7ee985a4a5c9e4f4f2875"
         },
         {
           "bytes": 9355,
           "path": "source/control_replay_action/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 2079,
           "path": "source/control_replay_action/test_current_policy_legacy_parity.py",
-          "sha256": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_current_policy_legacy_parity.py"
+          "sha256": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311"
         },
         {
           "bytes": 3656,
           "path": "source/control_replay_action/test_ddpg_query_loss_isolation.py",
-          "sha256": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_ddpg_query_loss_isolation.py"
+          "sha256": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635"
         },
         {
           "bytes": 7152,
           "path": "source/control_replay_action/test_numba_runtime_opt_fpp.py",
-          "sha256": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e"
         },
         {
           "bytes": 10020,
           "path": "source/control_replay_action/test_numba_support_scan_fpp.py",
-          "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586"
         },
         {
           "bytes": 11934,
           "path": "source/control_replay_action/test_support_query_modes.py",
-          "sha256": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/test_support_query_modes.py"
+          "sha256": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f"
         },
         {
           "bytes": 15702,
           "path": "source/control_replay_action/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "a52c35a8e1583149cfd5050d9a57dabf9ebf12276996dcac9483034bab73ab3b",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "a52c35a8e1583149cfd5050d9a57dabf9ebf12276996dcac9483034bab73ab3b"
         },
         {
           "bytes": 4503,
           "path": "source/control_replay_action/weight_parity_fixture.py",
-          "sha256": "c6f288d47908023853cf074f7ef6ecb4ef82d81f246fcdb1fabc686e22900b63",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src/weight_parity_fixture.py"
+          "sha256": "c6f288d47908023853cf074f7ef6ecb4ef82d81f246fcdb1fabc686e22900b63"
         }
       ],
       "package_path": "source/control_replay_action",
-      "repository_path": "experiment_FPP/ddpg_saber_query_replay_ls512/code/src",
-      "snapshot": "control_replay_action"
+      "source_snapshot_id": "snapshot_control_replay_action_v1"
     },
     {
       "bytes": 365443,
@@ -1172,157 +982,131 @@
         {
           "bytes": 48,
           "path": "source/control_shuffled_policy/metacog_lite_v0/__init__.py",
-          "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4"
         },
         {
           "bytes": 6188,
           "path": "source/control_shuffled_policy/metacog_lite_v0/agent.py",
-          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6"
         },
         {
           "bytes": 15283,
           "path": "source/control_shuffled_policy/metacog_lite_v0/config.py",
-          "sha256": "890e0fddd8cc5b1abb67326308dc572823b154633abb9344836f5371a5a23518",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "890e0fddd8cc5b1abb67326308dc572823b154633abb9344836f5371a5a23518"
         },
         {
           "bytes": 3943,
           "path": "source/control_shuffled_policy/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/control_shuffled_policy/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/control_shuffled_policy/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/control_shuffled_policy/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 14842,
           "path": "source/control_shuffled_policy/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/control_shuffled_policy/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/control_shuffled_policy/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/control_shuffled_policy/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/control_shuffled_policy/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/control_shuffled_policy/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/control_shuffled_policy/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/control_shuffled_policy/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 67284,
           "path": "source/control_shuffled_policy/metacog_lite_v0/trainer.py",
-          "sha256": "ea987306108314b5999983c79159e35b676798a04a83f22b5a01e745e34bf4f6",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "ea987306108314b5999983c79159e35b676798a04a83f22b5a01e745e34bf4f6"
         },
         {
           "bytes": 72289,
           "path": "source/control_shuffled_policy/metacog_lite_v0/weights.py",
-          "sha256": "004f46c9f0649caa8cb959470ddb52375e9689fad8538f00fde66e2320047b3a",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "004f46c9f0649caa8cb959470ddb52375e9689fad8538f00fde66e2320047b3a"
         },
         {
           "bytes": 9355,
           "path": "source/control_shuffled_policy/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 1467,
           "path": "source/control_shuffled_policy/test_current_policy_legacy_parity.py",
-          "sha256": "21aedb174e26910ca9c3ec64aa692666c461f636357ebcc2349012ac81cb5a10",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/test_current_policy_legacy_parity.py"
+          "sha256": "21aedb174e26910ca9c3ec64aa692666c461f636357ebcc2349012ac81cb5a10"
         },
         {
           "bytes": 7251,
           "path": "source/control_shuffled_policy/test_ddpg_query_invariants.py",
-          "sha256": "9b96502f6d64924a3e667aa102533d26dd3f1e46a5623099136cf17f2b0979c4",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/test_ddpg_query_invariants.py"
+          "sha256": "9b96502f6d64924a3e667aa102533d26dd3f1e46a5623099136cf17f2b0979c4"
         },
         {
           "bytes": 6296,
           "path": "source/control_shuffled_policy/test_numba_runtime_opt_fpp.py",
-          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "a4a52e35c9846e00355e5cf8aabb48634a7af116ca34029bcdc1f6cd35dfd1ea"
         },
         {
           "bytes": 9128,
           "path": "source/control_shuffled_policy/test_numba_support_scan_fpp.py",
-          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "b177c5804188f686d7325126130fde05aa2db99e7ffa2bd0f942af82bfcbf8c4"
         },
         {
           "bytes": 10936,
           "path": "source/control_shuffled_policy/test_support_query_modes.py",
-          "sha256": "c0af20f3c00b1c91f2ae6f9068d443d41d3e64d629bef27a9ae953ab9f8e0a11",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/test_support_query_modes.py"
+          "sha256": "c0af20f3c00b1c91f2ae6f9068d443d41d3e64d629bef27a9ae953ab9f8e0a11"
         },
         {
           "bytes": 15604,
           "path": "source/control_shuffled_policy/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "10e658d99f2a71c900298a66c5b74f2ce9aa4ee2614fb92afccd5090719d13a7",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "10e658d99f2a71c900298a66c5b74f2ce9aa4ee2614fb92afccd5090719d13a7"
         },
         {
           "bytes": 4416,
           "path": "source/control_shuffled_policy/weight_parity_fixture.py",
-          "sha256": "02f970c07177c4869c5dcecfd357a2b97866838d44d3c47f8c32a619b238c954",
-          "source_repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src/weight_parity_fixture.py"
+          "sha256": "02f970c07177c4869c5dcecfd357a2b97866838d44d3c47f8c32a619b238c954"
         }
       ],
       "package_path": "source/control_shuffled_policy",
-      "repository_path": "experiment_FPP/ddpg_saber_query_shuffled_ls512/code/src",
-      "snapshot": "control_shuffled_policy"
+      "source_snapshot_id": "snapshot_control_shuffled_policy_v1"
     },
     {
       "bytes": 487588,
@@ -1331,193 +1115,161 @@
         {
           "bytes": 49,
           "path": "source/control_random_support/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 6188,
           "path": "source/control_random_support/metacog_lite_v0/agent.py",
-          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6"
         },
         {
           "bytes": 13142,
           "path": "source/control_random_support/metacog_lite_v0/assignment_diagnostics.py",
-          "sha256": "7dd60b310018d0e5b428e8dc63d71d4fd80f069fad6125fc91b5e7ace3c8c493",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/assignment_diagnostics.py"
+          "sha256": "7dd60b310018d0e5b428e8dc63d71d4fd80f069fad6125fc91b5e7ace3c8c493"
         },
         {
           "bytes": 17577,
           "path": "source/control_random_support/metacog_lite_v0/config.py",
-          "sha256": "a775c40f7520d42f55cbd2cdd2a9efbefb89e9d779ae59b3a8508a0fe033902f",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "a775c40f7520d42f55cbd2cdd2a9efbefb89e9d779ae59b3a8508a0fe033902f"
         },
         {
           "bytes": 3943,
           "path": "source/control_random_support/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/control_random_support/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/control_random_support/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/control_random_support/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 15330,
           "path": "source/control_random_support/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a"
         },
         {
           "bytes": 19844,
           "path": "source/control_random_support/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/control_random_support/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/control_random_support/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/control_random_support/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/control_random_support/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/control_random_support/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/control_random_support/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 93786,
           "path": "source/control_random_support/metacog_lite_v0/trainer.py",
-          "sha256": "ad34bcda4898b0b90bf6c4e0b591251b07697d24089e062d7593f0b97de20f73",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "ad34bcda4898b0b90bf6c4e0b591251b07697d24089e062d7593f0b97de20f73"
         },
         {
           "bytes": 87024,
           "path": "source/control_random_support/metacog_lite_v0/weights.py",
-          "sha256": "5bec8ce0fd49377489ea7a8964db5abb8b469399cda243e2bf23e4a847604d79",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "5bec8ce0fd49377489ea7a8964db5abb8b469399cda243e2bf23e4a847604d79"
         },
         {
           "bytes": 9355,
           "path": "source/control_random_support/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 17861,
           "path": "source/control_random_support/test_batch_wide_count_matched.py",
-          "sha256": "7fbfd4df86877e55de75775f712d87be06929b665a7375667012f757cc25917d",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_batch_wide_count_matched.py"
+          "sha256": "7fbfd4df86877e55de75775f712d87be06929b665a7375667012f757cc25917d"
         },
         {
           "bytes": 20003,
           "path": "source/control_random_support/test_context_eligible_count_matched.py",
-          "sha256": "01391f462405ca3d6d53ee717ff3d82e8ed79b9ba2d7e90cd69ab0f47652c9b7",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_context_eligible_count_matched.py"
+          "sha256": "01391f462405ca3d6d53ee717ff3d82e8ed79b9ba2d7e90cd69ab0f47652c9b7"
         },
         {
           "bytes": 2079,
           "path": "source/control_random_support/test_current_policy_legacy_parity.py",
-          "sha256": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_current_policy_legacy_parity.py"
+          "sha256": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311"
         },
         {
           "bytes": 3656,
           "path": "source/control_random_support/test_ddpg_query_loss_isolation.py",
-          "sha256": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_ddpg_query_loss_isolation.py"
+          "sha256": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635"
         },
         {
           "bytes": 2302,
           "path": "source/control_random_support/test_ddpg_random_support_loss_scope.py",
-          "sha256": "0ccadac0ef245977916d1837ed8d8a75a0860119f9d76f44fe6142dd09b9695d",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_ddpg_random_support_loss_scope.py"
+          "sha256": "0ccadac0ef245977916d1837ed8d8a75a0860119f9d76f44fe6142dd09b9695d"
         },
         {
           "bytes": 7152,
           "path": "source/control_random_support/test_numba_runtime_opt_fpp.py",
-          "sha256": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e"
         },
         {
           "bytes": 10020,
           "path": "source/control_random_support/test_numba_support_scan_fpp.py",
-          "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586"
         },
         {
           "bytes": 13331,
           "path": "source/control_random_support/test_resume_output_rollback.py",
-          "sha256": "cfc29159eefcbb60d3bb29f082189294ba0a976de6cba77490cc4572c3c04130",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_resume_output_rollback.py"
+          "sha256": "cfc29159eefcbb60d3bb29f082189294ba0a976de6cba77490cc4572c3c04130"
         },
         {
           "bytes": 11934,
           "path": "source/control_random_support/test_support_query_modes.py",
-          "sha256": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_support_query_modes.py"
+          "sha256": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f"
         },
         {
           "bytes": 10281,
           "path": "source/control_random_support/test_trainer_resume_contract.py",
-          "sha256": "9015ea3931886507bd68390e315454ae2814c238d9fcba08dfec71cfe43b62f5",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/test_trainer_resume_contract.py"
+          "sha256": "9015ea3931886507bd68390e315454ae2814c238d9fcba08dfec71cfe43b62f5"
         },
         {
           "bytes": 16550,
           "path": "source/control_random_support/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "d8a3f9c52c9fd89c0520d4b4aebb72225872b4cabfd40a285e564f78e8b4a135",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "d8a3f9c52c9fd89c0520d4b4aebb72225872b4cabfd40a285e564f78e8b4a135"
         },
         {
           "bytes": 4912,
           "path": "source/control_random_support/weight_parity_fixture.py",
-          "sha256": "dbe7618e06628095d764820348bc31f21ee18f741a1f0304b5269005bde7ab71",
-          "source_repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src/weight_parity_fixture.py"
+          "sha256": "dbe7618e06628095d764820348bc31f21ee18f741a1f0304b5269005bde7ab71"
         }
       ],
       "package_path": "source/control_random_support",
-      "repository_path": "experiment_FPP/ddpg_saber_random_support_count_matched_ls512/code/src",
-      "snapshot": "control_random_support"
+      "source_snapshot_id": "snapshot_control_random_support_v1"
     },
     {
       "bytes": 458235,
@@ -1526,187 +1278,156 @@
         {
           "bytes": 49,
           "path": "source/control_strict_count_matched/metacog_lite_v0/__init__.py",
-          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
         },
         {
           "bytes": 6188,
           "path": "source/control_strict_count_matched/metacog_lite_v0/agent.py",
-          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/agent.py"
+          "sha256": "50d805233f8e3ae3923f27a2a90b7feffafb1b1cadda5ef0924f57475a5f13c6"
         },
         {
           "bytes": 11361,
           "path": "source/control_strict_count_matched/metacog_lite_v0/assignment_diagnostics.py",
-          "sha256": "f11d982c80129ea34559f490f5ebf2d3da0ec6da23070af9712a1e511ba06931",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/assignment_diagnostics.py"
+          "sha256": "f11d982c80129ea34559f490f5ebf2d3da0ec6da23070af9712a1e511ba06931"
         },
         {
           "bytes": 17389,
           "path": "source/control_strict_count_matched/metacog_lite_v0/config.py",
-          "sha256": "d1b475ef15c4c63c2d69c8d8bee4d4c22222ec6dae626f5359f0c2f6175df651",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/config.py"
+          "sha256": "d1b475ef15c4c63c2d69c8d8bee4d4c22222ec6dae626f5359f0c2f6175df651"
         },
         {
           "bytes": 3943,
           "path": "source/control_strict_count_matched/metacog_lite_v0/envs.py",
-          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/envs.py"
+          "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
         },
         {
           "bytes": 47402,
           "path": "source/control_strict_count_matched/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4028,
           "path": "source/control_strict_count_matched/metacog_lite_v0/io_utils.py",
-          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
         },
         {
           "bytes": 996,
           "path": "source/control_strict_count_matched/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 15330,
           "path": "source/control_strict_count_matched/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "4be4be463a54deddd0a2bc9a94ead3d821c768e1e8fa1dd1a72d652081d6d28a"
         },
         {
           "bytes": 19844,
           "path": "source/control_strict_count_matched/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 7237,
           "path": "source/control_strict_count_matched/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/control_strict_count_matched/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/control_strict_count_matched/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/control_strict_count_matched/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/control_strict_count_matched/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/control_strict_count_matched/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 93743,
           "path": "source/control_strict_count_matched/metacog_lite_v0/trainer.py",
-          "sha256": "489909f7ce9c182634427d5fefcc9a57a975568501a860b3f57619185dfba8ac",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "489909f7ce9c182634427d5fefcc9a57a975568501a860b3f57619185dfba8ac"
         },
         {
           "bytes": 83293,
           "path": "source/control_strict_count_matched/metacog_lite_v0/weights.py",
-          "sha256": "2194d173a6f4b159f2eaad74ada54d0dc8d8a80d39b6360435ae1f3423300de7",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/metacog_lite_v0/weights.py"
+          "sha256": "2194d173a6f4b159f2eaad74ada54d0dc8d8a80d39b6360435ae1f3423300de7"
         },
         {
           "bytes": 9355,
           "path": "source/control_strict_count_matched/test_b3_runtime_opt_lookup.py",
-          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_b3_runtime_opt_lookup.py"
+          "sha256": "0d9a6802ac6fcf8f593b2e30117a9bd267a30d74d6c4a3fd9b4553704ee4ce4c"
         },
         {
           "bytes": 19803,
           "path": "source/control_strict_count_matched/test_context_eligible_count_matched.py",
-          "sha256": "0143b97fed053d77b987bddff6a2947e65a354ea5a732c9e7a882e3ecdf95920",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_context_eligible_count_matched.py"
+          "sha256": "0143b97fed053d77b987bddff6a2947e65a354ea5a732c9e7a882e3ecdf95920"
         },
         {
           "bytes": 2079,
           "path": "source/control_strict_count_matched/test_current_policy_legacy_parity.py",
-          "sha256": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_current_policy_legacy_parity.py"
+          "sha256": "a70c69541a06b707b6539597d82a20f2c8dd0bd888f2514540c214d8dc522311"
         },
         {
           "bytes": 3656,
           "path": "source/control_strict_count_matched/test_ddpg_query_loss_isolation.py",
-          "sha256": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_ddpg_query_loss_isolation.py"
+          "sha256": "7497115b2973bae495971bc0ce420fdeb180a308e8eb0cda135045b4e7e5c635"
         },
         {
           "bytes": 2088,
           "path": "source/control_strict_count_matched/test_ddpg_strict_loss_scope.py",
-          "sha256": "10882b5f85dba67843fc91ba962d6070572854d8c5fabcc6af2beb01584164f6",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_ddpg_strict_loss_scope.py"
+          "sha256": "10882b5f85dba67843fc91ba962d6070572854d8c5fabcc6af2beb01584164f6"
         },
         {
           "bytes": 7152,
           "path": "source/control_strict_count_matched/test_numba_runtime_opt_fpp.py",
-          "sha256": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_numba_runtime_opt_fpp.py"
+          "sha256": "f1cb0a74934b07b22a66b621b1cbc892afc534894b8322a890208c16c2a78c4e"
         },
         {
           "bytes": 10020,
           "path": "source/control_strict_count_matched/test_numba_support_scan_fpp.py",
-          "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_numba_support_scan_fpp.py"
+          "sha256": "7e5e85e9559764f7adb53324015321ed3635ad926f8968c8b22f3478964c7586"
         },
         {
           "bytes": 13331,
           "path": "source/control_strict_count_matched/test_resume_output_rollback.py",
-          "sha256": "cfc29159eefcbb60d3bb29f082189294ba0a976de6cba77490cc4572c3c04130",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_resume_output_rollback.py"
+          "sha256": "cfc29159eefcbb60d3bb29f082189294ba0a976de6cba77490cc4572c3c04130"
         },
         {
           "bytes": 11934,
           "path": "source/control_strict_count_matched/test_support_query_modes.py",
-          "sha256": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_support_query_modes.py"
+          "sha256": "05e43fbaed78f3beef55fde723e51fcfae39488eb9acbc9677b4ceedc4eeee4f"
         },
         {
           "bytes": 4976,
           "path": "source/control_strict_count_matched/test_trainer_resume_contract.py",
-          "sha256": "c6f8f117b55853c9fffc7daa32b11e1b620ee0c774f7e8d8a5cb52fc697734f3",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/test_trainer_resume_contract.py"
+          "sha256": "c6f8f117b55853c9fffc7daa32b11e1b620ee0c774f7e8d8a5cb52fc697734f3"
         },
         {
           "bytes": 16520,
           "path": "source/control_strict_count_matched/train_fetch_pick_and_place_lite_v0.py",
-          "sha256": "2d177829b3c0c24256df33134f7da9291bc32bfa5c69421ed14d005542d07752",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/train_fetch_pick_and_place_lite_v0.py"
+          "sha256": "2d177829b3c0c24256df33134f7da9291bc32bfa5c69421ed14d005542d07752"
         },
         {
           "bytes": 4912,
           "path": "source/control_strict_count_matched/weight_parity_fixture.py",
-          "sha256": "dbe7618e06628095d764820348bc31f21ee18f741a1f0304b5269005bde7ab71",
-          "source_repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src/weight_parity_fixture.py"
+          "sha256": "dbe7618e06628095d764820348bc31f21ee18f741a1f0304b5269005bde7ab71"
         }
       ],
       "package_path": "source/control_strict_count_matched",
-      "repository_path": "experiment_FPP/ddpg_saber_context_eligible_count_matched_ls512/code/src",
-      "snapshot": "control_strict_count_matched"
+      "source_snapshot_id": "snapshot_control_strict_count_matched_v1"
     },
     {
       "bytes": 404150,
@@ -1715,145 +1436,121 @@
         {
           "bytes": 48,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/__init__.py",
-          "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/__init__.py"
+          "sha256": "e5aebe9c41e721ddfb6900f6961c8cdea12ed8e8cfe9288ab4ab8b35756ffba4"
         },
         {
           "bytes": 9226,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/agent.py",
-          "sha256": "deea89296830d47e7ae9e0add5d8d39fcd4e3e14af6cf6ea724fb249a9fb79de",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/agent.py"
+          "sha256": "deea89296830d47e7ae9e0add5d8d39fcd4e3e14af6cf6ea724fb249a9fb79de"
         },
         {
           "bytes": 17686,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/config.py",
-          "sha256": "5cea452a5bc727b8a05c54d44893fe43f1f2ab7ef0352457cb954d59ae5f037c",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/config.py"
+          "sha256": "5cea452a5bc727b8a05c54d44893fe43f1f2ab7ef0352457cb954d59ae5f037c"
         },
         {
           "bytes": 12291,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/envs.py",
-          "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/envs.py"
+          "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b"
         },
         {
           "bytes": 47402,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/envs_maniskill.py",
-          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/envs_maniskill.py"
+          "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
         },
         {
           "bytes": 4334,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/io_utils.py",
-          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/io_utils.py"
+          "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
         },
         {
           "bytes": 996,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/networks.py",
-          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/networks.py"
+          "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
         },
         {
           "bytes": 15300,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/numba_support_scan_drawer_open.py",
-          "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py"
+          "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d"
         },
         {
           "bytes": 14842,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/numba_support_scan_fpp.py",
-          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/numba_support_scan_fpp.py"
+          "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
         },
         {
           "bytes": 19844,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/replay.py",
-          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/replay.py"
+          "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
         },
         {
           "bytes": 9112,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_drawer_open.py",
-          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_drawer_open.py"
+          "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
         },
         {
           "bytes": 7237,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_fetch_pick_and_place.py",
-          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_fetch_pick_and_place.py"
+          "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
         },
         {
           "bytes": 4807,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_fetch_push.py",
-          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_fetch_push.py"
+          "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
         },
         {
           "bytes": 8674,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_fetch_slide.py",
-          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_fetch_slide.py"
+          "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
         },
         {
           "bytes": 7037,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_pick_cube.py",
-          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_pick_cube.py"
+          "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
         },
         {
           "bytes": 14815,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_push_t.py",
-          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_push_t.py"
+          "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
         },
         {
           "bytes": 6273,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/task_unitree_apple.py",
-          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/task_unitree_apple.py"
+          "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
         },
         {
           "bytes": 84391,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/trainer.py",
-          "sha256": "9e41335616d4fb9f8aa1b46af790ce98dba8fe91bf39f4700eec9d06028925ca",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/trainer.py"
+          "sha256": "9e41335616d4fb9f8aa1b46af790ce98dba8fe91bf39f4700eec9d06028925ca"
         },
         {
           "bytes": 76516,
           "path": "source/drawer_open_fixed_target_diagnostic/metacog_lite_v0/weights.py",
-          "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/metacog_lite_v0/weights.py"
+          "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0"
         },
         {
           "bytes": 3899,
           "path": "source/drawer_open_fixed_target_diagnostic/test_context_count_only_ddpg_loss_scope.py",
-          "sha256": "8d8aa88e4ac103bc72cab7e6e1faa959b067fee2c3d8533bd113a476d4e41e3b",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/test_context_count_only_ddpg_loss_scope.py"
+          "sha256": "8d8aa88e4ac103bc72cab7e6e1faa959b067fee2c3d8533bd113a476d4e41e3b"
         },
         {
           "bytes": 12937,
           "path": "source/drawer_open_fixed_target_diagnostic/test_context_count_only_drawer_open.py",
-          "sha256": "e6d8414db74f388f93c48d57ed7faf4c48d42d6c7d9dba4f60b4fc07b2e13870",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/test_context_count_only_drawer_open.py"
+          "sha256": "e6d8414db74f388f93c48d57ed7faf4c48d42d6c7d9dba4f60b4fc07b2e13870"
         },
         {
           "bytes": 7205,
           "path": "source/drawer_open_fixed_target_diagnostic/test_drawer_open_fixed_target_diagnostic.py",
-          "sha256": "4c406b58c63c2dd97788c2bc128a03e372f0e7f44f5871d7d410cabfd2221d3b",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/test_drawer_open_fixed_target_diagnostic.py"
+          "sha256": "4c406b58c63c2dd97788c2bc128a03e372f0e7f44f5871d7d410cabfd2221d3b"
         },
         {
           "bytes": 19278,
           "path": "source/drawer_open_fixed_target_diagnostic/train_drawer_open_lite_v0.py",
-          "sha256": "cdb154ed523062060979765c1917b03c5aee5e7cf13c2c453b1c3080dbcb3471",
-          "source_repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src/train_drawer_open_lite_v0.py"
+          "sha256": "cdb154ed523062060979765c1917b03c5aee5e7cf13c2c453b1c3080dbcb3471"
         }
       ],
       "package_path": "source/drawer_open_fixed_target_diagnostic",
-      "repository_path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Critic-Only-Fixed-Target-Diagnostic-2M/code/src",
-      "snapshot": "drawer_open_fixed_target_diagnostic"
+      "source_snapshot_id": "snapshot_drawer_open_fixed_target_diagnostic_v1"
     }
   ]
 }

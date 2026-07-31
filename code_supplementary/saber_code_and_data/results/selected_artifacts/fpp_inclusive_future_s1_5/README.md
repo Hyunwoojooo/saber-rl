@@ -56,6 +56,6 @@ python3 \
   experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/code/verify_artifact.py
 ```
 
-The execution source commit is `47343f4cb295f354df16733dca17f3a882a2b34a`.
+The execution source snapshot is `snapshot_reference_010`.
 The frozen experiment source is tracked at
 `experiment_FPP/td3_inclusive_future_sensitivity_ls512/`.

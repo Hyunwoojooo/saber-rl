@@ -61,7 +61,7 @@ The original `diagnostic_samples.jsonl` files contain only an isolated-RNG
 128-of-256 sample subset from each diagnostic minibatch. They are secondary
 exploratory logs, are excluded from headline calculations, and are not copied
 into this compact artifact. All 15 excluded files remain recoverable from
-their immutable data-introduction commits; their source paths, Git blob IDs,
+their immutable data snapshots; their source paths, retained source file IDs,
 sizes, and SHA256 values are recorded in
 `provenance/external_raw_samples.json`. Their combined size is 228,710,866
 bytes.
@@ -132,16 +132,16 @@ and the documented provenance boundary. None of these commands runs training.
 
 ## Provenance
 
-The artifact distinguishes a data-introduction commit from a verified
-execution-source commit:
+The artifact distinguishes a data snapshot from a verified
+execution-source snapshot:
 
-DDPG and SAC execution-source commits are unverified. The TD3 execution-source commit is verified.
+DDPG and SAC execution-source snapshots are unverified. The TD3 execution-source snapshot is verified.
 
-| Backbone | Repository | Data-introduction commit | Execution-source status |
+| Backbone | Repository | data snapshot | Execution-source status |
 |---|---|---|---|
-| DDPG | `Hyunwoojooo/metacog-rl` | `a30660506c2ca39ef1280f3fbbff2bd4ac97eaab` | Unverified: no execution SHA was recorded |
-| TD3 | `Hyunwoojooo/metacog-rl` | `e27438c1ea288fdb7bd6c75c49283d347fee77d9` | Verified at the same commit |
-| SAC | `Hyunwoojooo/saber-rl` | `04833bb8b7613e7e1b60e335d83ad21376e62eaa` | Unverified: no execution SHA was recorded |
+| DDPG | `anonymous_repository/source_a` | `snapshot_reference_016` | Unverified: no execution snapshot ID was recorded |
+| TD3 | `anonymous_repository/source_a` | `snapshot_fpp_ddpg_high_rr_v1` | Verified at the same anonymous snapshot |
+| SAC | `anonymous_repository/source_b` | `snapshot_reference_017` | Unverified: no execution snapshot ID was recorded |
 
 For DDPG and SAC, the package preserves candidate launcher, configuration, and
 trainer snapshots with SHA256 hashes under `provenance/source_snapshots/`.
@@ -149,7 +149,7 @@ Those snapshots are useful for auditing the logged schema, but this artifact
 does not relabel them as proven execution source. Consequently,
 `validation.json` reports partial execution-source provenance even when every
 data and analysis invariant passes. TD3 is the only backbone here with a
-verified execution-source commit.
+verified execution-source snapshot.
 
 The preserved `legacy_analyzer.py` files are historical formula references;
 only `code/rebuild_results.py` is canonical for this integrated artifact.

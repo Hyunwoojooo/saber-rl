@@ -15,7 +15,7 @@
     5
   ],
   "smoothing": false,
-  "source_commit": "0c72f95707e0befb19190a56c778332c1e2bbeb4",
+  "source_snapshot_id": "snapshot_reference_018",
   "training_steps_per_seed": 2000000,
   "updates_per_seed": 7980004,
   "validation_checks": [

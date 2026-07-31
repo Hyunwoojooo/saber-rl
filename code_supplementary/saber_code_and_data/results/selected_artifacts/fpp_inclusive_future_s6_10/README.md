@@ -57,9 +57,9 @@ python3 \
 ```
 
 The execution checkout was
-`70fb7041f4b5142ce91bfd207142e361cced17b8`. Its training source is
-byte-identical to the validated source commit
-`47343f4cb295f354df16733dca17f3a882a2b34a`. The executed launcher is bound
-by Git blob `2b4a6d7f960eb56d9013f4694abe0e6d14d2c441`. The experiment source is
+`snapshot_reference_013`. Its training source is
+byte-identical to the validated source snapshot
+`snapshot_reference_010`. The executed launcher is bound
+by retained source file `snapshot_reference_014`. The experiment source is
 tracked at
 `experiment_FPP/td3_inclusive_future_sensitivity_ls512/`.

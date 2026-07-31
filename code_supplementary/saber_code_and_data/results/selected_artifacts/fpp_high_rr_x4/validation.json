@@ -1,7 +1,7 @@
 {
   "artifact_id": "fpp_ddpg_td3_her_high_rr_x4_1m",
   "caveats": [
-    "DDPG execution source commit not retained.",
+    "DDPG execution source snapshot not retained.",
     "TD3 resume fields and counter resets are confirmed stale logging metadata; all runs were uninterrupted.",
     "The common table grid excludes 800k because that evaluation is absent for TD3 seeds 1, 3, and 4."
   ],
@@ -215,52 +215,52 @@
       "ddpg_seed_1": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9"
+        "retained_commit": "snapshot_fpp_ddpg_high_rr_v1"
       },
       "ddpg_seed_2": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9"
+        "retained_commit": "snapshot_fpp_ddpg_high_rr_v1"
       },
       "ddpg_seed_3": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9"
+        "retained_commit": "snapshot_fpp_ddpg_high_rr_v1"
       },
       "ddpg_seed_4": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9"
+        "retained_commit": "snapshot_fpp_ddpg_high_rr_v1"
       },
       "ddpg_seed_5": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9"
+        "retained_commit": "snapshot_fpp_ddpg_high_rr_v1"
       },
       "td3_seed_1": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd"
+        "retained_commit": "snapshot_fpp_td3_high_rr_v1"
       },
       "td3_seed_2": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd"
+        "retained_commit": "snapshot_fpp_td3_high_rr_v1"
       },
       "td3_seed_3": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd"
+        "retained_commit": "snapshot_fpp_td3_high_rr_v1"
       },
       "td3_seed_4": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd"
+        "retained_commit": "snapshot_fpp_td3_high_rr_v1"
       },
       "td3_seed_5": {
         "control_files_byte_identical": true,
         "raw_curve_matches_retained_compact": true,
-        "retained_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd"
+        "retained_commit": "snapshot_fpp_td3_high_rr_v1"
       }
     },
     "runtime_recalculation": {

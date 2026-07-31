@@ -1,6 +1,6 @@
 {
   "artifact_id": "fpp_ddpg_saber_actor_critic_v4_ls512_1m",
-  "canonical_critic_source_commit": "c43d40502b84ae713924ebf995be623e7acc7ca8",
+  "canonical_critic_source_snapshot_id": "snapshot_reference_015",
   "gates": {
     "config_parity": {
       "actual_differences_by_seed": {
@@ -1206,10 +1206,10 @@
       "smoke": true
     },
     "execution_metadata": {
-      "head_matches_origin_main": true,
-      "origin_main": "2d52b29666233616c7b1e2029aa8090e7d74bd66",
+      "head_matches_canonical_snapshot_id": true,
+      "canonical_snapshot_id": "snapshot_fpp_actor_critic_source_v1",
       "passed": true,
-      "repo_head": "2d52b29666233616c7b1e2029aa8090e7d74bd66",
+      "repository_snapshot_id": "snapshot_fpp_actor_critic_source_v1",
       "worktree_clean": true
     },
     "finite_core_metrics": {
@@ -1293,7 +1293,7 @@
     "source_frozen": {
       "included": true,
       "passed": true,
-      "source_commit_recorded": "2d52b29666233616c7b1e2029aa8090e7d74bd66"
+      "source_snapshot_id_recorded": "snapshot_fpp_actor_critic_source_v1"
     },
     "total_updates": {
       "actual_by_arm": {
@@ -1317,6 +1317,6 @@
     }
   },
   "schema_version": 1,
-  "source_commit": "2d52b29666233616c7b1e2029aa8090e7d74bd66",
+  "source_snapshot_id": "snapshot_fpp_actor_critic_source_v1",
   "status": "passed"
 }

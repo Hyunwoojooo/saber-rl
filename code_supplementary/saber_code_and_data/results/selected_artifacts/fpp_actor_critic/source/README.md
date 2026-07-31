@@ -45,9 +45,9 @@ validator rejects any extra configuration or production-source change.
 
 ## Provenance
 
-- Package preparation base: repository SHA `e062064a5b08783c7d4147eaf072198a7874f09b`
+- Package preparation base: repository SHA `snapshot_reference_008`
 - Canonical reference source/results origin: commit
-  `c43d40502b84ae713924ebf995be623e7acc7ca8`
+  `snapshot_reference_015`
 
 The first SHA records the repository state from which this new arm was prepared.
 The second is the original commit containing the completed canonical v4 LS512

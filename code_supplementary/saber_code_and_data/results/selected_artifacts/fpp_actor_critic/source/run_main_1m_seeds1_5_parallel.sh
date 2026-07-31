@@ -62,11 +62,11 @@ for seed in "${SEEDS[@]}"; do
   fi
 done
 
-if ! REPO_HEAD="$(git -C "${REPO_ROOT}" rev-parse HEAD)"; then
+if ! repository_snapshot_id="$(git -C "${REPO_ROOT}" rev-parse HEAD)"; then
   echo "Unable to resolve repository HEAD." >&2
   exit 2
 fi
-if ! ORIGIN_MAIN="$(git -C "${REPO_ROOT}" rev-parse origin/main)"; then
+if ! canonical_snapshot_id="$(git -C "${REPO_ROOT}" rev-parse origin/main)"; then
   echo "Unable to resolve origin/main; update repository refs before launching." >&2
   exit 2
 fi
@@ -79,10 +79,10 @@ if [[ -z "${WORKTREE_STATUS}" ]]; then
 else
   WORKTREE_CLEAN=false
 fi
-if [[ "${REPO_HEAD}" == "${ORIGIN_MAIN}" ]]; then
-  HEAD_MATCHES_ORIGIN_MAIN=true
+if [[ "${repository_snapshot_id}" == "${canonical_snapshot_id}" ]]; then
+  HEAD_MATCHES_canonical_snapshot_id=true
 else
-  HEAD_MATCHES_ORIGIN_MAIN=false
+  HEAD_MATCHES_canonical_snapshot_id=false
 fi
 TIMESTAMP_UTC="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
 
@@ -93,9 +93,9 @@ METADATA_TMP="${METADATA_PATH}.tmp.$$"
   printf '  "schema_version": 1,\n'
   printf '  "experiment": "ddpg_saber_actor_critic_v4_ls512",\n'
   printf '  "timestamp_utc": "%s",\n' "${TIMESTAMP_UTC}"
-  printf '  "repo_head": "%s",\n' "${REPO_HEAD}"
-  printf '  "origin_main": "%s",\n' "${ORIGIN_MAIN}"
-  printf '  "head_matches_origin_main": %s,\n' "${HEAD_MATCHES_ORIGIN_MAIN}"
+  printf '  "repository_snapshot_id": "%s",\n' "${repository_snapshot_id}"
+  printf '  "canonical_snapshot_id": "%s",\n' "${canonical_snapshot_id}"
+  printf '  "head_matches_canonical_snapshot_id": %s,\n' "${HEAD_MATCHES_canonical_snapshot_id}"
   printf '  "worktree_clean": %s,\n' "${WORKTREE_CLEAN}"
   printf '  "steps": %s,\n' "${STEPS}"
   printf '  "seeds": [1, 2, 3, 4, 5],\n'
@@ -104,8 +104,8 @@ METADATA_TMP="${METADATA_PATH}.tmp.$$"
 } >"${METADATA_TMP}"
 mv "${METADATA_TMP}" "${METADATA_PATH}"
 
-if [[ "${HEAD_MATCHES_ORIGIN_MAIN}" != true ]]; then
-  echo "Refusing to launch: HEAD (${REPO_HEAD}) does not match origin/main (${ORIGIN_MAIN})." >&2
+if [[ "${HEAD_MATCHES_canonical_snapshot_id}" != true ]]; then
+  echo "Refusing to launch: HEAD (${repository_snapshot_id}) does not match origin/main (${canonical_snapshot_id})." >&2
   echo "Launch metadata recorded at ${METADATA_PATH}." >&2
   exit 2
 fi

@@ -6,7 +6,7 @@
     "stop": 1000000,
     "stride": 10000
   },
-  "execution_source_commit": "70fb7041f4b5142ce91bfd207142e361cced17b8",
+  "execution_source_snapshot_id": "snapshot_reference_013",
   "intended_arm_differences": {
     "lambda_support": {
       "her": 0.0,

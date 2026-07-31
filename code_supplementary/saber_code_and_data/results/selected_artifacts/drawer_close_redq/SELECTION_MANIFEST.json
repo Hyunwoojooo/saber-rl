@@ -1,44 +1,29 @@
 {
+  "artifact_snapshot_id": "artifact_drawer_close_redq_v1",
   "files": [
     {
       "bytes": 854,
       "path": "README.md",
-      "sha256": "9027850c5fa17db6ebc9e050f87ba275be3e72aa4237999c9ab8a800ada3094d",
-      "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/README.md"
+      "sha256": "9027850c5fa17db6ebc9e050f87ba275be3e72aa4237999c9ab8a800ada3094d"
     },
     {
       "bytes": 995,
       "path": "aggregate_metrics.csv",
-      "sha256": "abc8d236f8d37fa6994811da445bffe4a9d275401c8bfa42a2efa7e9ec97b7f9",
-      "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/aggregate_metrics.csv"
-    },
-    {
-      "bytes": 1259,
-      "path": "artifact_manifest.json",
-      "sha256": "3dfa5809d695e80262d54de1bb3bb0093bb742c757775605a4a9530e5cc9af6d",
-      "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/artifact_manifest.json"
+      "sha256": "abc8d236f8d37fa6994811da445bffe4a9d275401c8bfa42a2efa7e9ec97b7f9"
     },
     {
       "bytes": 1930,
       "path": "per_seed_metrics.csv",
-      "sha256": "a497f6dbe437b4743648f1bc8e8f19ef6866ba235b5c4a37327fbd01903b5feb",
-      "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/per_seed_metrics.csv"
+      "sha256": "a497f6dbe437b4743648f1bc8e8f19ef6866ba235b5c4a37327fbd01903b5feb"
     },
     {
-      "bytes": 11147,
-      "path": "source_manifest.json",
-      "sha256": "b0fbd5093e800bc9db86068e8d2f9b197467fd3896672ebd456fe723d44e4f8c",
-      "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/source_manifest.json"
-    },
-    {
-      "bytes": 713,
+      "bytes": 700,
       "path": "validation.json",
-      "sha256": "0e50c710f5e97f2461ed02e2acb6ca2a3cc24b47608e0f42a0d7b0b96cd29b1d",
-      "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m/validation.json"
+      "sha256": "230c7f3d74f5fd0aec825c90ace8351690c7b6fbc3ad2e32460541e08003ae02"
     }
   ],
+  "package_path": "results/selected_artifacts/drawer_close_redq",
   "selection_patterns": [
     "**"
-  ],
-  "source_repository_path": "metaworld_Drawer_Close_REDQ/paper_artifacts/drawer_close_redq_her_tqb_utd4_2m"
+  ]
 }

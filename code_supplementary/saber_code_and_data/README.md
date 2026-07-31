@@ -48,15 +48,29 @@ See `QUICKSTART.md` for installation and training commands.
 - `reviewer_tools/`: integrity, anonymity, result-reproduction, and launch
   interfaces.
 - `tests/`: package-level scientific contract tests.
-- `provenance/`: experiment catalog, source hashes, package inventory, and
+- `provenance/`: anonymous snapshot IDs, SHA-256 source hashes, package inventory, and
   omitted-large-source disclosure.
 
 ## Scope and caveats
+
+Public Git identifiers are intentionally absent. Anonymous snapshot IDs provide
+human-readable bindings, while `provenance/source_snapshot_manifest.json`, each
+selected artifact's `SELECTION_MANIFEST.json`, and `MANIFEST.sha256` provide
+cryptographic integrity through SHA-256.
+
+All FPP DDPG and TD3 High-RR x4 runs began from step 0 and completed without
+checkpoint continuation. Resume-oriented fields in retained TD3 configurations
+and runtime-counter resets are stale logging metadata. The unused resume launcher
+is excluded; see the selected artifact's `PROVENANCE_CORRECTION.md`.
 
 The package contains no checkpoints, replay buffers, or full raw training logs.
 Those files are unnecessary for the reported aggregate tables and would make
 the reviewer archive impractically large. Their omission is recorded in
 `provenance/omitted_large_sources.csv`.
+
+Source coverage is complete for SABER, its matched HER configuration, and the
+four mechanism controls. Compact evidence is included for secondary baselines,
+but not every AER, HGR, PER, or REDQ production launcher is bundled.
 
 The verified reproduction stack is documented in `environment/`. Each paired
 HER-SABER cohort was executed on one physical host under a matched environment.

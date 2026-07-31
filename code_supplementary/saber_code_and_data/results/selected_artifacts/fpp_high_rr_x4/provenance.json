@@ -2,12 +2,16 @@
   "artifact_id": "fpp_ddpg_td3_her_high_rr_x4_1m",
   "execution_metadata_correction": {
     "checkpoint_continuation": false,
+    "fresh_run_scope": "all DDPG and TD3 seeds began from step 0",
     "operator_audit_status": "confirmed",
+    "recorded_resume_metadata_stale": true,
     "recorded_td3_resume_fields": "stale_logging_metadata",
+    "resume_launcher_used_for_production": false,
+    "runtime_counter_resets_are_process_restarts": false,
     "runtime_segment_interpretation": "monotonic counter segments, not process restarts"
   },
   "limitations": [
-    "DDPG execution source commit was not retained.",
+    "DDPG execution source snapshot was not retained.",
     "TD3 config resume fields and runtime-counter resets are stale logging metadata; all runs were uninterrupted.",
     "TD3 seeds 1, 3, and 4 lack an 800k evaluation; the shared Table 16 grid excludes 800k for every method and seed.",
     "Recomputed throughput sums retained monotonic runtime segments; segment boundaries are logging resets, not checkpoint-continuation boundaries."
@@ -15,18 +19,18 @@
   "methods": {
     "ddpg": {
       "backbone": "DDPG",
-      "execution_source_commit": "not retained",
-      "first_retained_results_commit": "e27438c1ea288fdb7bd6c75c49283d347fee77d9",
-      "source_retention": "execution source commit not retained; current-machine launch snapshot is packaged, and result/control blobs are bound to the first retained results commit",
+      "execution_source_snapshot_id": "not retained",
+      "first_retained_results_snapshot_id": "snapshot_fpp_ddpg_high_rr_v1",
+      "source_retention": "execution source snapshot not retained; current-machine launch snapshot is packaged, and result/control blobs are bound to the first retained results snapshot",
       "trajectory_status": "completed_uninterrupted",
       "updates_per_step": 4,
       "variant": "HER high-RR x4"
     },
     "td3": {
       "backbone": "TD3",
-      "execution_source_commit": "not retained",
-      "first_retained_results_commit": "783a34cfeddfddf03bc5a5d18700f39e92e507dd",
-      "source_retention": "execution commit not retained; the first retained results commit includes the frozen launch package and byte-identical result/control blobs",
+      "execution_source_snapshot_id": "not retained",
+      "first_retained_results_snapshot_id": "snapshot_fpp_td3_high_rr_v1",
+      "source_retention": "execution snapshot not retained; the first retained results snapshot includes the frozen launch package and byte-identical result/control blobs",
       "trajectory_status": "completed_uninterrupted",
       "updates_per_step": 4,
       "variant": "HER high-RR x4"

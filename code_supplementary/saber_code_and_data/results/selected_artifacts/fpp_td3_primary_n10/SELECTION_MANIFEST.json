@@ -1,160 +1,136 @@
 {
+  "artifact_snapshot_id": "artifact_fpp_td3_primary_n10_v1",
   "files": [
     {
       "bytes": 628,
       "path": "README.md",
-      "sha256": "bd76b64ad4d64dd9a7ed6e71aab10820e7b705c9aeb46e7de4c796aa1f6b25b4",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/README.md"
+      "sha256": "bd76b64ad4d64dd9a7ed6e71aab10820e7b705c9aeb46e7de4c796aa1f6b25b4"
     },
     {
       "bytes": 354,
       "path": "analysis/aggregate_results.csv",
-      "sha256": "2236d90bc30d4598634c55ea3a1fa4dbe0735e714af8551ae8936367107019d3",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/analysis/aggregate_results.csv"
+      "sha256": "2236d90bc30d4598634c55ea3a1fa4dbe0735e714af8551ae8936367107019d3"
     },
     {
       "bytes": 2595,
       "path": "analysis/analysis_results.json",
-      "sha256": "624925f8182b928619f15862dcba60e5506893efae4d79e584e76f637d5d1062",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/analysis/analysis_results.json"
+      "sha256": "624925f8182b928619f15862dcba60e5506893efae4d79e584e76f637d5d1062"
     },
     {
       "bytes": 9205,
       "path": "analysis/analyze_td3_n10.py",
-      "sha256": "7cd90af063e9368a53248e6d0422c7ce19e95ecae731c8a29e7cd7dbcd9834a1",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/analysis/analyze_td3_n10.py"
+      "sha256": "7cd90af063e9368a53248e6d0422c7ce19e95ecae731c8a29e7cd7dbcd9834a1"
     },
     {
       "bytes": 1204,
       "path": "analysis/paired_results.csv",
-      "sha256": "141c71e43b66022bfdf363a48cb2550fea57fa39ff261c32f6d5f2be3e6d2c3d",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/analysis/paired_results.csv"
+      "sha256": "141c71e43b66022bfdf363a48cb2550fea57fa39ff261c32f6d5f2be3e6d2c3d"
     },
     {
       "bytes": 200968,
       "path": "data/td3_her/1/metrics_selected_10k.csv",
-      "sha256": "b7cd9dc8108b53225fa2521510988bdaf6764f425347c307d70bcdb4b9191697",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/1/metrics_selected_10k.csv"
+      "sha256": "b7cd9dc8108b53225fa2521510988bdaf6764f425347c307d70bcdb4b9191697"
     },
     {
       "bytes": 201585,
       "path": "data/td3_her/10/metrics_selected_10k.csv",
-      "sha256": "0ff8354b492515a5dbe2190301b4457b44b1d9ccac7c02473100e289e6762983",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/10/metrics_selected_10k.csv"
+      "sha256": "0ff8354b492515a5dbe2190301b4457b44b1d9ccac7c02473100e289e6762983"
     },
     {
       "bytes": 201733,
       "path": "data/td3_her/2/metrics_selected_10k.csv",
-      "sha256": "a58b39c1475b85d2d8be8cd8d810574bec56b3e5ea4f9d3b3fa39ede6d0484e1",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/2/metrics_selected_10k.csv"
+      "sha256": "a58b39c1475b85d2d8be8cd8d810574bec56b3e5ea4f9d3b3fa39ede6d0484e1"
     },
     {
       "bytes": 201125,
       "path": "data/td3_her/3/metrics_selected_10k.csv",
-      "sha256": "49caf2edad39cf031c3b553d281910d54ad8d1c2c5b0365da169660d6bac6118",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/3/metrics_selected_10k.csv"
+      "sha256": "49caf2edad39cf031c3b553d281910d54ad8d1c2c5b0365da169660d6bac6118"
     },
     {
       "bytes": 201304,
       "path": "data/td3_her/4/metrics_selected_10k.csv",
-      "sha256": "e51304cab06dff67196b14a3e07d64d622dc8b5e510dbeaed9598bfb7fbb85a8",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/4/metrics_selected_10k.csv"
+      "sha256": "e51304cab06dff67196b14a3e07d64d622dc8b5e510dbeaed9598bfb7fbb85a8"
     },
     {
       "bytes": 201467,
       "path": "data/td3_her/5/metrics_selected_10k.csv",
-      "sha256": "98e683aeac55c3f0429a65147a6ac62951d964414f13f595e2f08a407934330b",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/5/metrics_selected_10k.csv"
+      "sha256": "98e683aeac55c3f0429a65147a6ac62951d964414f13f595e2f08a407934330b"
     },
     {
       "bytes": 201136,
       "path": "data/td3_her/6/metrics_selected_10k.csv",
-      "sha256": "1eed8cd8458a3a56739d2a17a5f8fbc3c4214c97e561f8ec1448b201c4aee3f4",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/6/metrics_selected_10k.csv"
+      "sha256": "1eed8cd8458a3a56739d2a17a5f8fbc3c4214c97e561f8ec1448b201c4aee3f4"
     },
     {
       "bytes": 201330,
       "path": "data/td3_her/7/metrics_selected_10k.csv",
-      "sha256": "4c7d62daf7fb89210c77376dc10ac0dd52637b61b34d0178ed879494b30a1df8",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/7/metrics_selected_10k.csv"
+      "sha256": "4c7d62daf7fb89210c77376dc10ac0dd52637b61b34d0178ed879494b30a1df8"
     },
     {
       "bytes": 201089,
       "path": "data/td3_her/8/metrics_selected_10k.csv",
-      "sha256": "04b40436e034b78cfebaac21e2e8a6c15ca6c08e13ddcb8f91c2ba58460a4894",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/8/metrics_selected_10k.csv"
+      "sha256": "04b40436e034b78cfebaac21e2e8a6c15ca6c08e13ddcb8f91c2ba58460a4894"
     },
     {
       "bytes": 202268,
       "path": "data/td3_her/9/metrics_selected_10k.csv",
-      "sha256": "e3c2f911ef5fcf134adcb919238e7402b46d34aa165353df03af77a7a7427877",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_her/9/metrics_selected_10k.csv"
+      "sha256": "e3c2f911ef5fcf134adcb919238e7402b46d34aa165353df03af77a7a7427877"
     },
     {
       "bytes": 358699,
       "path": "data/td3_saber/1/metrics_selected_10k.csv",
-      "sha256": "db0037df3a85b106967b6d39f54009dddc04aaa032304bfae5712e07a14f6ab1",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/1/metrics_selected_10k.csv"
+      "sha256": "db0037df3a85b106967b6d39f54009dddc04aaa032304bfae5712e07a14f6ab1"
     },
     {
       "bytes": 350562,
       "path": "data/td3_saber/10/metrics_selected_10k.csv",
-      "sha256": "24b4929e99d70295080113e160f0518575d47cb34a8765bd824bdc900554195b",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/10/metrics_selected_10k.csv"
+      "sha256": "24b4929e99d70295080113e160f0518575d47cb34a8765bd824bdc900554195b"
     },
     {
       "bytes": 359178,
       "path": "data/td3_saber/2/metrics_selected_10k.csv",
-      "sha256": "21c696013b9b7e718978e627fe14a41d96cbfe70fa3a5bc6456d8e33a6287fe6",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/2/metrics_selected_10k.csv"
+      "sha256": "21c696013b9b7e718978e627fe14a41d96cbfe70fa3a5bc6456d8e33a6287fe6"
     },
     {
       "bytes": 358549,
       "path": "data/td3_saber/3/metrics_selected_10k.csv",
-      "sha256": "bf8695cf1ff235a70b19cfd8324f08727c6301392bb92cb4f38aee9c4bb82cc8",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/3/metrics_selected_10k.csv"
+      "sha256": "bf8695cf1ff235a70b19cfd8324f08727c6301392bb92cb4f38aee9c4bb82cc8"
     },
     {
       "bytes": 355384,
       "path": "data/td3_saber/4/metrics_selected_10k.csv",
-      "sha256": "c0e49a23d700d9ec545f6088200ac7e04fa549b698d9895d000e63992f644ef0",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/4/metrics_selected_10k.csv"
+      "sha256": "c0e49a23d700d9ec545f6088200ac7e04fa549b698d9895d000e63992f644ef0"
     },
     {
       "bytes": 361450,
       "path": "data/td3_saber/5/metrics_selected_10k.csv",
-      "sha256": "e0e15b646eead38805d82797aae83c323807bfd3494e9d9858a35f101c6b9235",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/5/metrics_selected_10k.csv"
+      "sha256": "e0e15b646eead38805d82797aae83c323807bfd3494e9d9858a35f101c6b9235"
     },
     {
       "bytes": 358761,
       "path": "data/td3_saber/6/metrics_selected_10k.csv",
-      "sha256": "fd627a5845d9c90dce29c216b5414d5509f226e7d6b138ecc2a7b8640022a4d8",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/6/metrics_selected_10k.csv"
+      "sha256": "fd627a5845d9c90dce29c216b5414d5509f226e7d6b138ecc2a7b8640022a4d8"
     },
     {
       "bytes": 361166,
       "path": "data/td3_saber/7/metrics_selected_10k.csv",
-      "sha256": "081f51611ea01c49ac911f44f2cc313145800df6691fd6abddf0d369945cb047",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/7/metrics_selected_10k.csv"
+      "sha256": "081f51611ea01c49ac911f44f2cc313145800df6691fd6abddf0d369945cb047"
     },
     {
       "bytes": 352115,
       "path": "data/td3_saber/8/metrics_selected_10k.csv",
-      "sha256": "5794b50d27c0263258dd8e62cb608361e13af7feeff293a7cf9bcc03d436de2e",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/8/metrics_selected_10k.csv"
+      "sha256": "5794b50d27c0263258dd8e62cb608361e13af7feeff293a7cf9bcc03d436de2e"
     },
     {
       "bytes": 356988,
       "path": "data/td3_saber/9/metrics_selected_10k.csv",
-      "sha256": "603c1294c67fe1a76ba9cffe79da755b137bfe2127ee538b539e0d1c7c5f4c9d",
-      "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m/data/td3_saber/9/metrics_selected_10k.csv"
+      "sha256": "603c1294c67fe1a76ba9cffe79da755b137bfe2127ee538b539e0d1c7c5f4c9d"
     }
   ],
+  "package_path": "results/selected_artifacts/fpp_td3_primary_n10",
   "selection_patterns": [
     "README.md",
     "analysis/**",
     "data/**/metrics_selected_10k.csv"
-  ],
-  "source_repository_path": "experiment_FPP/paper_artifacts/fpp_td3_her_vs_saber_n10_1m"
+  ]
 }

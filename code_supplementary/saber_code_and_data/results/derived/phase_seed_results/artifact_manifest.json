@@ -2,24 +2,24 @@
   "files": [
     {
       "bytes": 389,
-      "path": "paper/supplementary_artifacts/phase_seed_results/README.md",
+      "path": "results/derived/phase_seed_results/README.md",
       "sha256": "ce214cbf72b392accd152fce50b52e75e728dea648c0538b13beb96388c55c6c"
     },
     {
       "bytes": 8534,
-      "path": "paper/supplementary_artifacts/phase_seed_results/phase_by_seed.csv",
+      "path": "results/derived/phase_seed_results/phase_by_seed.csv",
       "sha256": "e00c45d7caf9990741f40c65f61d21f0da6afb25f7dab9f832532b9713df28a1"
     },
     {
       "bytes": 1699,
-      "path": "paper/supplementary_artifacts/phase_seed_results/phase_cohort_counts.csv",
+      "path": "results/derived/phase_seed_results/phase_cohort_counts.csv",
       "sha256": "99fefe743ec5338b3fa1816ef5e9c6f55dda9e2226537b52fca104e851ea9a97"
     },
     {
       "bytes": 1168,
-      "path": "paper/supplementary_artifacts/phase_seed_results/source_manifest.json",
+      "path": "results/derived/phase_seed_results/source_manifest.json",
       "sha256": "c88817c5f8779e2f803e16803007deb0ad49a175f77094dee7bad5136a891bf6"
     }
   ],
-  "root": "paper/supplementary_artifacts/phase_seed_results"
+  "root": "results/derived/phase_seed_results"
 }
