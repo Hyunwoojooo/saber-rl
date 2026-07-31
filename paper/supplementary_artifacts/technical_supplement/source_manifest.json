@@ -1,17 +1,16 @@
 {
-  "pending": [
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv"
-  ],
+  "pending": [],
   "scope": "Technical Supplement derived summaries",
   "sources": [
     {
       "bytes": 865,
       "path": "experiment_FPP/paper_artifacts/fpp_ddpg_aer_noher_seeds1_5_1m/results/method_summary.csv",
       "sha256": "d3c4afd09e8911657d00c69fc5d41792aadbafda9f0422e00b5d78b5c5b4bf59"
+    },
+    {
+      "bytes": 16319,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/artifact_manifest.json",
+      "sha256": "373205e08d8a6c32b145521b590f586302efa2f44e7b4abbcc601c81b81ee729"
     },
     {
       "bytes": 25585,
@@ -52,6 +51,11 @@
       "bytes": 1860,
       "path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_1m/artifact_manifest.json",
       "sha256": "4ceb6d0591c4739fe125850685d54d2dbcbc8bc66a769e252fe540d07a596c8c"
+    },
+    {
+      "bytes": 1870,
+      "path": "experiment_FPP/paper_artifacts/fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/artifact_manifest.json",
+      "sha256": "9387ff24cec19b589815ed6ff419394e2f08c9185950e3a2ac2d1d9bb1402810"
     },
     {
       "bytes": 251972,
@@ -544,9 +548,9 @@
       "sha256": "3725ad9f1f24654778d33889e5a7dab48eec580ef0b7145cc77895b00d0913b4"
     },
     {
-      "bytes": 1282,
+      "bytes": 1280,
       "path": "paper/supplementary_artifacts/actor_scope_ddpg/artifact_manifest.json",
-      "sha256": "90b0b5f8bad03d3ad708afc56006825bad2b4615af84302d050cbe52fbe18f27"
+      "sha256": "da271805964bdd4bfba60e7222ad1ce1abbec68e2a8f2dfc7bae1e71e344b6af"
     },
     {
       "bytes": 1123,

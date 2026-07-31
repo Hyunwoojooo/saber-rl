@@ -1,19 +1,5 @@
 {
-  "missing": [
-    {
-      "backbone": "DDPG",
-      "expected_metrics": [
-        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s1_1000000_ls512/metrics_selected_10k.csv",
-        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s2_1000000_ls512/metrics_selected_10k.csv",
-        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s3_1000000_ls512/metrics_selected_10k.csv",
-        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s4_1000000_ls512/metrics_selected_10k.csv",
-        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s5_1000000_ls512/metrics_selected_10k.csv"
-      ],
-      "scope": "actor_critic",
-      "status": "pending_completed_results",
-      "task": "FPP"
-    }
-  ],
+  "missing": [],
   "protocol": {
     "backbone": "DDPG",
     "bootstrap_resamples": 10000,
@@ -232,6 +218,106 @@
       "bytes": 7683,
       "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_only_v4_ls512_1m/data/actor_only/seed_5/summary.json",
       "sha256": "c84c353cc13ba236c0ae951bc2d29f64b85347e2e3edd6c48d56549b8bc4c10f"
+    },
+    {
+      "bytes": 9858,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/metrics_selected_10k.csv",
+      "sha256": "81bab2737a0ad13b2435006292ef24fcf371cf251123572c0284d82ff4809d5f"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/config.json",
+      "sha256": "9b498a387891df02fc83204cd5e2ec226cb1624ffc5f35bad6d0366b787dd61f"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7588,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_1/summary.json",
+      "sha256": "bcfbe553f6028f2f1921536f8dfe99c6a442f9049ad7b56e37fa0efe3dd6b496"
+    },
+    {
+      "bytes": 9985,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/metrics_selected_10k.csv",
+      "sha256": "a62b5b5561bd8d31352f1d9687786e39b72a868817a6b01784dafb184e766b5f"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/config.json",
+      "sha256": "bea65659adc26d4f7fc69e8c7559160785ea169e6cf6614f728f09bdb32d98ad"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7609,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_2/summary.json",
+      "sha256": "824622db06bcd00cc18ae89142decd8258367cf8895f45cd5523f0dd33786ac0"
+    },
+    {
+      "bytes": 10044,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/metrics_selected_10k.csv",
+      "sha256": "e4293783e1f23f37e118c0d4993d7a2cc8113e5be48807fd14d3120f3b9325e1"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/config.json",
+      "sha256": "5c93d8c4111f1b88d369f6873774a2f5cea21019c4106c5b94e8019c7af57e3b"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7596,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_3/summary.json",
+      "sha256": "484e58914f23c28b4b47c05226e9ac29a8cf7281792cad0088783794e61abdd1"
+    },
+    {
+      "bytes": 9990,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/metrics_selected_10k.csv",
+      "sha256": "c3dab28e149ef9a013ad17a2c1a9e5f8be8c546a08db3fe99c712306513bce44"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/config.json",
+      "sha256": "27fdbb971242c6a874c1cfcd1dabd3388d3ca9613c57c40de15ccc824aff4b45"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7579,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_4/summary.json",
+      "sha256": "d8bd34690f1ad0dd0e90015c24cc3a550efec3fb3bad2fbfb4b910a8a5119101"
+    },
+    {
+      "bytes": 10001,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/metrics_selected_10k.csv",
+      "sha256": "658e2cf8247cdd84d74b42fc231f9e41fb7971f0a8e7e4ad070e29940fc03fb7"
+    },
+    {
+      "bytes": 4641,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/config.json",
+      "sha256": "26c5917e1fcced31819bb1636972f032b6094c3f96f4633a19d992e46fb74229"
+    },
+    {
+      "bytes": 2349,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/env_snapshot.json",
+      "sha256": "4b4e12939e8ee0b53d45f4eb5947ff98dc70279d9e4b19919d2a34f8e5884a89"
+    },
+    {
+      "bytes": 7595,
+      "path": "experiment_FPP/paper_artifacts/fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/seed_5/summary.json",
+      "sha256": "4886da2ccc11ff5fb8e1c663ec73f014e70d985b1022365b76e4e6fe7eff0d34"
     },
     {
       "bytes": 18532549,

@@ -20,6 +20,8 @@ CANONICAL_SOURCES = (
     "paper/supplementary_artifacts/update_budget_references/"
     "artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
+    "fpp_ddpg_saber_actor_critic_v4_ls512_1m/artifact_manifest.json",
+    "experiment_FPP/paper_artifacts/"
     "fpp_saber_diagnostic_ddpg_td3_sac_ls512_1m/artifact_manifest.json",
     "metaworld_Drawer_Close_DDPG/experiments/"
     "DDPG-HER-B3-Critic-Only-Diagnostic-2M/diagnostic_artifact_all_10/"
@@ -33,6 +35,9 @@ CANONICAL_SOURCES = (
     "fpp_td3_her_vs_saber_n10_1m/artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
     "fpp_td3_inclusive_future_her_sensitivity_1m/artifact_manifest.json",
+    "experiment_FPP/paper_artifacts/"
+    "fpp_td3_inclusive_future_her_sensitivity_seeds6_10_1m/"
+    "artifact_manifest.json",
     "experiment_FPP/paper_artifacts/"
     "fpp_ddpg_aer_noher_seeds1_5_1m/results/method_summary.csv",
     "experiment_FPP/paper_artifacts/"
@@ -52,13 +57,6 @@ CANONICAL_SOURCES = (
     "experiment_FPP/paper_artifacts/"
     "fpp_sac_her_per_style_loss_weighting_ls512_1m/artifact_manifest.json",
 )
-
-PENDING = (
-    "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/"
-    "fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s{seed}_"
-    "1000000_ls512/metrics_selected_10k.csv"
-)
-
 
 def digest(path: Path) -> dict[str, object]:
     return {
@@ -125,7 +123,7 @@ def main() -> None:
     source_manifest = {
         "scope": "Technical Supplement derived summaries",
         "sources": [digest(path) for path in sorted(source_paths)],
-        "pending": [PENDING.format(seed=seed) for seed in range(1, 6)],
+        "pending": [],
     }
     (OUTPUT / "source_manifest.json").write_text(
         json.dumps(source_manifest, indent=2, sort_keys=True) + "\n",

@@ -67,11 +67,6 @@ for SABER, followed by experimental settings, seed-level primary results,
 sensitivity and scope controls, support-signal diagnostics, runtime
 measurements, and an index of the anonymous code-and-data artifacts.
 
-\noindent\textbf{Working-draft completion status.}
-One result slot remains \emph{pending}: FPP DDPG Actor+Critic. No value is
-inferred from its incomplete run. This marker and paragraph must be removed
-after a complete, validated five-seed artifact replaces the remaining slot.
-
 \input{supplementary_saber_specification}
 
 \FloatBarrier
@@ -338,15 +333,21 @@ that direction is specific to excluding \(m(s_{t+1})\) from future goals.
 In the ten-seed cohort, SABER exceeds HER in 8/10 pairs, with mean AUC
 difference \(+0.0467\), paired-bootstrap 95\% CI
 \([0.0085,0.0783]\), and exact sign-flip \(p=0.0527\). Under inclusive-future
-indexing, the five-seed mean difference is \(+0.0674\), with 3/5 positive
-pairs, 95\% CI \([-0.0068,0.1416]\), and sign-flip \(p=0.25\), compared with
-\(+0.0708\) under the primary convention.
+indexing, the original five-seed mean difference is \(+0.0674\) (95\% CI
+\([-0.0068,0.1416]\)); the seeds 6--10 extension yields \(+0.0114\) (95\% CI
+\([-0.0507,0.0950]\)). Descriptively pooling all ten paired seeds gives
+\(+0.0394\) (95\% CI \([-0.0122,0.0960]\)); the pooled descriptive FQ-AUC
+and final-success differences are \(+0.0795\) (95\% CI
+\([-0.0455,0.2213]\)) and \(+0.0650\) (95\% CI
+\([-0.1700,0.2950]\)), respectively.
 
 \paragraph{Interpretation.}
-The extension narrows the estimated TD3 gain while preserving positive paired
-bootstrap interval evidence. The inclusive variant preserves the observed
-mean direction, but it is a five-seed sensitivity rather than an equivalence
-test between indexing conventions.
+The confirmatory extension narrows the estimated TD3 gain while preserving
+positive paired bootstrap interval evidence. Both inclusive-future halves retain a positive
+observed mean AUC direction, although the second is substantially smaller and
+its final-quarter AUC and final-success means favor HER. This sensitivity does
+not establish equivalence between indexing conventions or a robust gain under
+the inclusive convention.
 
 \section{Additional Controls and Sensitivities}
 
@@ -428,11 +429,13 @@ losses; Actor-Only weights per-sample actor terms; Actor+Critic weights both.
 \input{tables/supplementary_actor_scope_table}
 
 \paragraph{Results.}
-Critic-Only has the highest observed mean AUC in each of the five completed
+Critic-Only has the highest observed mean AUC in each of the six completed
 Main-versus-scope comparisons. Main-minus-variant differences range from
 \(+0.017\) to \(+0.141\), but every 95\% interval includes zero. DrawerOpen
 Actor-Only also has substantial seed dispersion
-\((0.612\pm0.343)\). FPP Actor+Critic remains pending and is not inferred.
+\((0.612\pm0.343)\). On FPP, Actor+Critic obtains \(0.582\pm0.030\) AUC
+versus \(0.609\pm0.038\) for Critic-Only, a Main-minus-variant difference of
+\(+0.027\) with 95\% CI \([-0.020,0.076]\).
 
 \paragraph{Interpretation.}
 The available results are consistent with using critic-only weighting as the
@@ -653,7 +656,7 @@ neither quantity is inferred.
 \paragraph{Purpose.}
 This index connects each reported experiment to a validation status and
 repository-relative artifact location, so completed evidence is distinguishable
-from references, extensions, and pending work.
+from secondary references and extensions.
 
 \input{tables/supplementary_artifact_index_table}
 

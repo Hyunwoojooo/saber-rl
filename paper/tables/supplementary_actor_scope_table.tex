@@ -9,7 +9,7 @@ Cohort & Method/Variant & AUC & FQ-AUC & Final & Hit90 & Steps/s & $\Delta$AUC (
 \midrule
 FPP--DDPG & Critic-Only (Main) & $0.609 \pm 0.038$ & $0.961 \pm 0.014$ & $0.960 \pm 0.042$ & 5/5 (0.540M) & 41.7 & $--$ \\
  & Actor-Only & $0.589 \pm 0.032$ & $0.952 \pm 0.016$ & $0.960 \pm 0.022$ & 5/5 (0.600M) & 15.8 & $+0.020 [-0.024,0.063]$ \\
- & Actor+Critic & \multicolumn{6}{c}{\textit{pending}} \\
+ & Actor+Critic & $0.582 \pm 0.030$ & $0.968 \pm 0.007$ & $0.980 \pm 0.027$ & 5/5 (0.550M) & 16.9 & $+0.027 [-0.020,0.076]$ \\
 \addlinespace[2pt]
 DrawerOpen--DDPG & Critic-Only (Main) & $0.754 \pm 0.044$ & $0.987 \pm 0.018$ & $1.000 \pm 0.000$ & 5/5 (0.500M) & 23.3 & $--$ \\
  & Actor-Only & $0.612 \pm 0.343$ & $0.760 \pm 0.433$ & $0.800 \pm 0.447$ & 4/5 (0.470M) & 18.6 & $+0.141 [-0.051,0.478]$ \\
@@ -20,6 +20,6 @@ DrawerClose--DDPG & Critic-Only (Main) & $0.324 \pm 0.082$ & $0.277 \pm 0.100$ &
  & Actor+Critic & $0.298 \pm 0.071$ & $0.241 \pm 0.119$ & $0.440 \pm 0.370$ & 5/5 (0.050M) & 23.7 & $+0.026 [-0.043,0.091]$ \\
 \bottomrule
 \end{tabular}
-\caption{DDPG actor-scope ablations over paired seeds 1--5. Values are mean $\pm$ sample standard deviation. Hit90 reports the number of reaching seeds and the reached-seed median step. Steps/s is the descriptive seed mean defined in Section~2.3. The final column gives Main-minus-variant paired AUC differences with 95\% bootstrap confidence intervals. Pending cells are left unreported until a complete five-seed cohort is available.}
+\caption{DDPG actor-scope ablations over paired seeds 1--5. Values are mean $\pm$ sample standard deviation. Hit90 reports the number of reaching seeds and the reached-seed median step. Steps/s is the descriptive seed mean defined in Section~2.3. The final column gives Main-minus-variant paired AUC differences with 95\% bootstrap confidence intervals.}
 \label{tab:supp-actor-scope}
 \end{table*}

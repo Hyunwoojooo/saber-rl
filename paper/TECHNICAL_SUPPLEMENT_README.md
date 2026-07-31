@@ -21,13 +21,9 @@ Alternatively, use two pdfLaTeX passes to resolve references:
     pdflatex -interaction=nonstopmode -halt-on-error technical_supplement.tex
     pdflatex -interaction=nonstopmode -halt-on-error technical_supplement.tex
 
-The current working draft intentionally contains one visible pending result
-slot:
-
-1. FPP DDPG Actor+Critic.
-
-Do not submit the Technical Supplement until this slot is replaced and the
-working-draft completion paragraph is removed. DrawerOpen fixed-target tables
-are bound to the validated all-ten-seed artifact; the earlier live-target
-diagnostic is not used. Analysis commands fail rather than silently mixing a
-partial five-seed cohort into a completed table.
+The actor-scope analysis is bound to complete paired five-seed artifacts for
+FPP, DrawerOpen, and DrawerClose. DrawerOpen fixed-target tables are bound to
+the validated all-ten-seed artifact; the earlier live-target diagnostic is not
+used. The inclusive-future table reports its original seeds 1--5 cohort and a
+separate seeds 6--10 extension. Analysis commands fail rather than silently
+mixing a partial cohort into a completed table.

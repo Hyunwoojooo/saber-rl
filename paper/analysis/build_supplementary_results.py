@@ -83,9 +83,9 @@ ACTOR_SCOPE_SPECS = {
     ),
     ("FPP", "actor_critic"): (
         1_000_000,
-        "experiment_FPP/runs/ddpg_saber_actor_critic_v4_ls512/"
-        "fetch_pick_and_place_ddpg_saber_actor_critic_v4_ls512_s{seed}_"
-        "1000000_ls512/metrics_selected_10k.csv",
+        "experiment_FPP/paper_artifacts/"
+        "fpp_ddpg_saber_actor_critic_v4_ls512_1m/data/actor_critic/"
+        "seed_{seed}/metrics_selected_10k.csv",
     ),
     ("DrawerOpen", "critic_only"): (
         2_000_000,
@@ -672,10 +672,9 @@ def build_actor_scope() -> None:
     (out / "README.md").write_text(
         "# DDPG actor-scope ablations\n\n"
         "Integrated exact-grid analysis for Critic-Only (Main), Actor-Only, "
-        "and Actor+Critic on FPP, DrawerOpen, and DrawerClose. Conditions with "
-        "no completed five-seed cohort are recorded in `missing_sources.json` "
-        "rather than inferred; partially present cohorts fail closed. All "
-        "reported cells use paired seeds 1--5.\n",
+        "and Actor+Critic on FPP, DrawerOpen, and DrawerClose. All six "
+        "Main-versus-scope comparisons use complete paired seeds 1--5. "
+        "Partially present cohorts fail closed rather than being inferred.\n",
         encoding="utf-8",
     )
     artifact_manifest(out)
@@ -735,8 +734,7 @@ def build_actor_scope() -> None:
             "the number of reaching seeds and the reached-seed median step. "
             "Steps/s is the descriptive seed mean defined in Section~2.3. "
             "The final column gives Main-minus-variant paired AUC differences "
-            "with 95\\% bootstrap confidence intervals. Pending cells are "
-            "left unreported until a complete five-seed cohort is available.}",
+            "with 95\\% bootstrap confidence intervals.}",
             "\\label{tab:supp-actor-scope}",
             "\\end{table*}",
             "",
