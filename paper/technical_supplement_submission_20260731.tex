@@ -1,0 +1,858 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage[left=0.62in,right=0.62in,top=0.55in,bottom=0.58in]{geometry}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\graphicspath{{./}{../}}
+\urlstyle{rm}
+\def\UrlFont{\rm}
+\usepackage[font=small,labelfont=bf,skip=4pt]{caption}
+\frenchspacing
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{placeins}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{7pt plus 2pt minus 2pt}
+\setlength{\intextsep}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setcounter{topnumber}{6}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.90}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.82}
+
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{0pt}%
+  {1.5ex plus 0.5ex minus 0.2ex}{0.6ex}%
+  {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{0pt}%
+  {1.2ex plus 0.4ex minus 0.2ex}{0.4ex}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{0pt}%
+  {0.9ex plus 0.3ex minus 0.2ex}{-0.6em}%
+  {\normalfont\normalsize\bfseries}}
+% Legacy full-width tables become ordinary flexible floats in one-column mode.
+\renewenvironment{table*}[1][tbp]
+  {\begin{table}[!htbp]}
+  {\end{table}}
+\makeatother
+
+\setcounter{secnumdepth}{2}
+\newcounter{saberalgorithm}
+% Align adjacent metrics with the first line of multi-line method labels.
+\newcommand{\sabertopshortstack}[2][c]{%
+  \begin{tabular}[t]{@{}#1@{}}#2\end{tabular}}
+
+\begin{document}
+\suppressfloats[t]
+\begin{center}
+{\LARGE\bfseries Technical Supplement}\\[2pt]
+{\large\bfseries SABER: Support-Conditioned Adaptive Bellman Error Reweighting\\
+for Sparse-Reward Hindsight Experience Replay}\\[3pt]
+{\normalsize Anonymous Submission}
+\end{center}
+\vspace{2pt}
+
+\noindent\textbf{Overview.}
+This supplement gives a complete mathematical specification and pseudocode
+for SABER, followed by experimental settings, seed-level primary results,
+sensitivity and scope controls, support-signal diagnostics, runtime
+measurements, and an index of the anonymous code-and-data artifacts.
+
+\input{supplementary_saber_specification}
+
+\FloatBarrier
+\section{Experimental and Reproducibility Details}
+
+\subsection{Tasks, Cohorts, and Shared Training Settings}
+
+\paragraph{Purpose.}
+This section fixes the experimental scope before any method is compared. Its
+purpose is to identify which quantities are paired, which quantities are shared,
+and which task--backbone combinations support a matched SABER claim.
+
+\paragraph{Protocol.}
+Tables~\ref{tab:supp-task-cohorts}--\ref{tab:supp-backbone-settings} give the
+settings shared within each matched cohort. The primary comparison contains
+seven task--backbone cohorts and uses paired seeds 1--5. Drawer SAC is not a
+primary cohort because a complete matched HER--SABER pair was not collected.
+
+\input{tables/supplementary_experimental_settings}
+
+\paragraph{Tuning boundary.}
+We did not conduct an exhaustive joint hyperparameter search. The Main SABER
+settings were fixed for the matched comparisons, and no control received
+variant-specific tuning. The \(K\in\{3,7\}\) runs are sensitivity checks around
+Main \(K=5\), not a per-task model-selection sweep.
+
+\paragraph{Interpretation boundary.}
+Within each paired cohort, HER and SABER share the task, seed, training budget,
+replay and relabeling code, backbone, optimizer, exploration process, UTD, and
+evaluation grid. Their intended algorithmic difference is therefore the
+per-sample critic-loss coefficient. Absolute AUC values are not compared across
+tasks because horizons and training budgets differ.
+
+\subsection{Comparison Methods}
+
+\paragraph{Purpose.}
+The comparison suite separates three operational intervention points after
+experience collection: hindsight selection, replay-transition selection, and
+fixed-minibatch critic-loss allocation.
+
+\paragraph{Protocol.}
+\input{tables/supplementary_comparison_settings}
+
+\paragraph{Prioritization controls.}
+HGR prioritizes an episode and then a transition--future-goal pair, multiplies
+the two normalized importance factors on relabeled samples, and leaves the
+original-goal coefficient at one. PER samples replay transitions with
+TD-error priority and annealed importance correction. Both change realized
+selection, unlike SABER and the TD-error critic-loss weighting control.
+
+\paragraph{TD-error critic-loss weighting.}
+This control preserves uniform replay and changes only normalized per-sample
+critic coefficients. DDPG uses its single absolute TD error. SAC uses
+\(\min(|\delta_{i1}|,|\delta_{i2}|)\) as the signal and applies the resulting
+coefficient to both critic losses. For signal \(e_i\), the implementation
+computes
+\[
+p_i=(e_i+10^{-6})^{0.6},\qquad
+u_i=\operatorname{clip}\!\left(
+\frac{p_i}{|B|^{-1}\sum_{j\in B}p_j},\,0,\,2\right),\qquad
+\Omega_i=\frac{u_i}{\max(10^{-8},\,|B|^{-1}\sum_{j\in B}u_j)}.
+\]
+Thus the uncapped priorities are mean-normalized before clipping and the
+clipped coefficients are normalized again to unit minibatch mean. TD3 results
+are not reported because the stored control used independent target-policy
+smoothing noise for weight
+construction and optimized residuals, preventing the intended matched-signal
+interpretation.
+
+\paragraph{Interpretation boundary.}
+HER is the direct matched baseline. HGR and PER are broader prioritization
+comparisons because they alter realized selection, whereas TD-error weighting
+is the closest alternative allocation-signal control where validated. Thus an
+ordering against HGR or PER does not isolate loss allocation alone, while an
+ordering against TD-error weighting does not establish superiority over every
+possible weighting signal.
+
+\subsection{Metrics and Statistical Analysis}
+
+\paragraph{Purpose.}
+The metrics distinguish full-training performance, late-training performance,
+final-checkpoint behavior, and threshold-reaching time without smoothing away
+seed variability.
+
+\paragraph{Protocol.}
+Let \(q_j\in[0,1]\) be deterministic evaluation success at exact shared
+checkpoint \(t_j\). Normalized success AUC is
+\[
+\operatorname{AUC}
+=\frac{1}{t_m-t_1}
+\sum_{j=1}^{m-1}
+\frac{q_j+q_{j+1}}{2}(t_{j+1}-t_j).
+\]
+Final-quarter AUC applies the same calculation to 750k--1M for FPP and
+1.5M--2M for Drawer tasks. Final success is the value at the final checkpoint.
+Hit90 is the first exact checkpoint with \(q_j\geq0.9\); its median is
+computed only over seeds that reach the threshold, so reached-seed coverage
+is always reported.
+
+\paragraph{Checkpoint alignment and unit of inference.}
+For seed $s$, checkpoint success is the mean of 20 binary outcomes from
+deterministic-policy evaluation episodes. Before computing a comparison, we
+restrict every included method to the intersection of its available checkpoint
+labels; AUC, FQ-AUC, and final success for that comparison use this same grid.
+The statistical unit is the seed rather than an episode or checkpoint. Thus a
+paired comparison first forms one difference $d_s$ per shared seed, and the
+paired bootstrap resamples the vector of seed-indexed differences. Evaluation
+episodes and checkpoints are never treated as independent replicates. A seed
+that does not reach success $0.9$ contributes to reached-seed coverage but is
+not assigned an artificial Hit90 time.
+
+\paragraph{Evaluation isolation.}
+Evaluation uses the deterministic policy with exploration disabled and a
+seed stream separate from training. Evaluation transitions are not inserted
+into replay and trigger no optimizer or target-network update. Checkpoint
+labels count training environment interactions only, so evaluation frequency
+does not change the stated training budget or replay contents.
+
+\paragraph{Cohort separation.}
+Primary claims use the paired five-seed cohorts only. The frozen FPP TD3
+ten-seed cohort, indexing sensitivity, and Drawer diagnostic seeds 6--10 are
+reported as confirmatory, sensitivity, or diagnostic extensions and are not
+silently pooled into primary confidence intervals. Where a pooled ten-seed
+diagnostic summary is shown, it is labeled descriptive.
+
+For paired comparisons, each seed contributes one method difference. Primary
+and newly derived intervals use 10,000 paired percentile-bootstrap resamples
+with pseudorandom seed 2027. The frozen mechanism-control intervals reproduce
+their validated source artifacts: FPP uses 10,000 resamples with seed 27027,
+whereas Drawer controls use exact empirical-bootstrap enumeration over all
+\(5^5=3125\) paired bootstrap assignments.
+Sample standard deviations use \(n-1\) in the denominator. No curve is
+smoothed, interpolated, extrapolated, or forward-filled.
+
+\paragraph{Metric and uncertainty boundary.}
+The trapezoidal AUC weights each interval by elapsed environment steps, so a
+denser checkpoint schedule does not receive extra mass merely by containing
+more checkpoints. Normalized AUC and FQ-AUC remain in \([0,1]\). Method-wise
+mean and sample SD describe across-seed level and dispersion, whereas paired
+intervals quantify uncertainty in within-seed differences. An interval that
+includes zero is treated as inconclusive rather than as evidence of
+equivalence. Hit90 uses only an observed checkpoint crossing and is never
+interpolated between evaluations.
+
+\paragraph{AUC boundary handling.}
+The full-span integral begins at the first shared recorded checkpoint \(t_1\)
+and ends at \(t_m\); we do not prepend a synthetic zero-step success value.
+FQ-AUC restricts the same checkpoint sequence to the stated task-specific
+window and normalizes by that window's observed elapsed span. The exact grids
+contain the window endpoints, so neither metric requires a fractional or
+interpolated checkpoint. Final success is \(q_m\) on the same shared grid.
+These rules are applied unchanged to every method in a reported comparison.
+
+\paragraph{Interpretation boundary.}
+Where reported, Steps/s is the seed-1--5 mean of completed training steps
+divided by runtime. Because historical runs were not hardware-normalized across
+families, it is descriptive rather than a learning-efficiency claim. Control
+and reference tables use a common metric order; diagnostic tables retain
+signal-specific columns.
+
+\FloatBarrier
+\section{Primary Comparison Details}
+
+\subsection{Drawer Learning Curves}
+
+\paragraph{Purpose.}
+Full-span AUC compresses the learning trajectory into one number. The Drawer
+curves expose when success emerges, whether gains persist late in training,
+and how much of each aggregate ordering is driven by seed variability.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/supplementary_drawer_primary_learning_curves.pdf}
+\caption{DrawerOpen and DrawerClose learning curves for DDPG and TD3.
+Lines are seed means and bands are sample standard deviations over paired
+seeds 1--5 on the exact 10k grid. No smoothing or interpolation is applied.}
+\label{fig:supp-drawer-primary-curves}
+\end{figure}
+
+\paragraph{Results.}
+DrawerOpen DDPG shows the clearest separation from HER, whereas the TD3
+cohorts and comparisons with HGR and PER exhibit larger seed dispersion and
+mixed metric-dependent orderings. On DrawerClose DDPG, HGR leads full-span
+AUC but not FQ-AUC, illustrating that early and late summaries can disagree.
+DrawerClose TD3 has wide AUC dispersion for every method (sample SD
+\(0.305\)--\(0.422\)); DDPG dispersion is method-dependent
+(\(0.030\)--\(0.184\)).
+
+\paragraph{Interpretation.}
+The trajectories support the matched HER result but do not establish a
+universal ranking against HGR or PER. They also show why full-span AUC,
+FQ-AUC, and final success are retained separately: early learning, late
+occupancy, and a single final checkpoint need not order methods identically.
+All four methods are HER-based and SABER changes only critic-loss allocation,
+so the observed DrawerClose variability is not unique to SABER; these curves
+do not by themselves identify HER as its cause.
+
+\FloatBarrier
+\subsection{Paired Uncertainty against HGR and PER}
+
+\paragraph{Purpose.}
+The aggregate primary table reports method-wise dispersion. This analysis
+instead quantifies uncertainty in the within-seed SABER--HGR and SABER--PER
+differences for both full-span and final-quarter AUC.
+
+\input{tables/supplementary_primary_paired_comparisons_table}
+
+\paragraph{Results.}
+The AUC intervals favor SABER over HGR for all three FPP backbones and over
+PER for FPP TD3. PER is higher with intervals excluding zero on FPP SAC and
+both DrawerOpen backbones. All DrawerClose AUC and FQ-AUC intervals include
+zero. For FQ-AUC, SABER is higher than HGR across FPP and higher than PER on
+FPP DDPG and TD3, while the FPP SAC SABER--PER interval includes zero.
+
+\paragraph{Interpretation.}
+The paired intervals reinforce a task-, backbone-, and metric-dependent
+ordering rather than a universal advantage over prioritization. HGR and PER
+also change realized selection, so these comparisons establish competitive
+operating regimes rather than isolate critic-loss allocation alone.
+
+\FloatBarrier
+\subsection{Time to Threshold}
+
+\paragraph{Purpose.}
+Hit90 tests whether a method reaches a practically high success level and how
+early it first does so, complementing metrics that average over checkpoints.
+
+\input{tables/supplementary_primary_hit90_table}
+
+\paragraph{Results.}
+Across the three FPP backbones, SABER reaches Hit90 in all 15 runs, compared
+with 11/15 for HER, 5/15 for HGR, and 10/15 for PER. On DrawerOpen DDPG,
+SABER reaches in 5/5 seeds at a reached-seed median of 500k, whereas HER
+reaches in 2/5 at 960k. On DrawerClose, every primary method reaches Hit90 in
+all seeds for both backbones, despite substantial differences in later
+performance.
+
+\paragraph{Interpretation.}
+Hit90 is a threshold-crossing summary rather than a stability measure. Its
+conditional median is meaningful only together with reached-seed coverage,
+and early threshold crossing cannot substitute for FQ-AUC or final success.
+
+\FloatBarrier
+\subsection{FPP TD3 Confirmatory and HER-Indexing Sensitivity Results}
+
+\paragraph{Purpose.}
+The ten-seed extension tests whether the primary five-seed FPP TD3 direction
+persists under a larger frozen cohort. The indexing sensitivity asks whether
+that direction is specific to excluding \(m(s_{t+1})\) from future goals.
+
+\begin{table}[!t]
+\centering
+\begin{minipage}[t]{0.485\textwidth}
+\vspace{0pt}
+\input{tables/supplementary_fpp_td3_n10_table}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.485\textwidth}
+\vspace{0pt}
+\input{tables/supplementary_fpp_td3_inclusive_future_sensitivity_table}
+\end{minipage}
+\end{table}
+
+\paragraph{Results.}
+In the ten-seed cohort, SABER exceeds HER in 8/10 pairs, with mean AUC
+difference \(+0.0467\), paired-bootstrap 95\% CI
+\([0.0085,0.0783]\), and exact sign-flip \(p=0.0527\). Under inclusive-future
+indexing, the original five-seed mean difference is \(+0.0674\) (95\% CI
+\([-0.0068,0.1416]\)); the seeds 6--10 extension yields \(+0.0114\) (95\% CI
+\([-0.0507,0.0950]\)). Descriptively pooling all ten paired seeds gives
+\(+0.0394\) (95\% CI \([-0.0122,0.0960]\)); the pooled descriptive FQ-AUC
+and final-success differences are \(+0.0795\) (95\% CI
+\([-0.0455,0.2213]\)) and \(+0.0650\) (95\% CI
+\([-0.1700,0.2950]\)), respectively.
+
+\paragraph{Interpretation.}
+The confirmatory extension narrows the estimated TD3 gain while preserving
+positive paired bootstrap interval evidence. Both inclusive-future halves retain a positive
+observed mean AUC direction, although the second is substantially smaller and
+its final-quarter AUC and final-success means favor HER. This sensitivity does
+not establish equivalence between indexing conventions or a robust gain under
+the inclusive convention.
+
+\section{Additional Controls and Sensitivities}
+
+\subsection{Mechanism Controls}
+
+\paragraph{Purpose.}
+The four DDPG controls test the query action, sample--query alignment, and the
+location of high critic weights while exposing the absolute performance
+metrics underlying the paired AUC differences in the main paper.
+
+\begingroup
+\let\shortstack\sabertopshortstack
+\input{tables/supplementary_mechanism_controls_table}
+\endgroup
+
+\paragraph{Results.}
+SABER Main has higher observed mean full-span AUC than every control on FPP,
+DrawerOpen, and DrawerClose. The Main-minus-control interval excludes zero
+for FPP Random-Support and DrawerOpen Replay-Action Query; the other ten
+intervals include zero. Late metrics are less uniform: for example,
+Random-Support and Context-Eligible Count-Matched have higher mean FQ-AUC than
+Main on DrawerClose.
+
+\paragraph{Interpretation.}
+The controls show that query identity and weight placement can affect learning
+and that SABER's AUC ordering is not explained solely by the number of high
+weights. Most five-seed intervals remain inconclusive, however, and the
+absolute metrics show that a full-span AUC direction need not extend to every
+late or final-checkpoint measure.
+
+\subsection{Allocation Signal}
+
+\paragraph{Purpose.}
+This control asks whether SABER benefits merely from assigning unequal critic
+coefficients, or whether current-policy local support provides a different
+allocation signal from TD error. Both methods retain uniform replay and change
+only normalized critic-loss coefficients.
+
+\input{tables/supplementary_td_error_weighting_table}
+
+\paragraph{Results.}
+SABER has higher observed mean AUC in all four validated cohorts, but every
+paired 95\% interval includes zero. Late metrics are mixed, including higher
+FQ-AUC for TD-error weighting on DrawerClose.
+
+\paragraph{Interpretation.}
+The common mean direction distinguishes SABER from this specific TD-error
+allocation control, but the five-seed intervals do not establish a conclusive
+per-cohort advantage. TD3 is omitted because its stored control does not
+support the intended matched-signal comparison.
+
+\FloatBarrier
+\subsection{Action-Bin Resolution}
+
+\paragraph{Purpose.}
+This sensitivity tests whether the Main action discretization \(K=5\) is
+robust to coarser and finer bins and records how bin resolution changes the
+frequency of support activation.
+
+\input{tables/supplementary_action_bin_sensitivity_table}
+
+\paragraph{Results.}
+Main \(K=5\) has higher mean AUC than both \(K=3\) and \(K=7\), with both
+Main-minus-variant 95\% intervals excluding zero. The support-positive rate
+decreases as \(K\) increases.
+
+\paragraph{Interpretation.}
+The evaluated \(K=5\) setting is favored over both adjacent resolutions in
+this cohort. Because \(K\) simultaneously changes action-bin geometry and
+activation density, the experiment does not identify either factor alone or
+establish \(K=5\) as universally optimal.
+
+\FloatBarrier
+\subsection{Actor and Critic Weight Scope}
+
+\paragraph{Purpose.}
+This ablation tests whether the support coefficient should modify the critic,
+the actor, or both. All variants retain the support query, support
+hyperparameters, and minibatch normalization. Critic-Only weights Bellman
+losses; Actor-Only weights per-sample actor terms; Actor+Critic weights both.
+
+\input{tables/supplementary_actor_scope_table}
+
+\paragraph{Results.}
+Critic-Only has the highest observed mean AUC in each of the six completed
+Main-versus-scope comparisons. Main-minus-variant differences range from
+\(+0.017\) to \(+0.141\), but every 95\% interval includes zero. DrawerOpen
+Actor-Only also has substantial seed dispersion
+\((0.612\pm0.343)\). On FPP, Actor+Critic obtains \(0.582\pm0.030\) AUC
+versus \(0.609\pm0.038\) for Critic-Only, a Main-minus-variant difference of
+\(+0.027\) with 95\% CI \([-0.020,0.076]\).
+
+\paragraph{Interpretation.}
+The available results are consistent with using critic-only weighting as the
+conservative main design, while providing no decisive evidence that actor
+weighting is intrinsically harmful. Each scope changes the subsequent
+training trajectory, so realized support masks need not remain identical.
+
+\FloatBarrier
+\subsection{No-HER Replay References}
+
+\paragraph{Purpose.}
+AER is included because it also exploits similarity between the agent's
+current interaction context and stored replay states, but uses that signal to
+change minibatch membership. SABER instead preserves the sampled HER
+minibatch and changes only critic-loss allocation. The comparison separates
+uniform experience replay (ER), uniform replay with AER's actor/critic
+learning-rate schedule (Annealing ER), and Attentive Experience Replay (AER).
+AER ranks an enlarged uniform candidate set by cosine similarity to the
+current online state and trains on the 256 most similar transitions. The three
+arms therefore test attentive selection beyond its shared schedule and whether
+replay selection alone can solve these sparse tasks.
+
+\input{tables/supplementary_aer_noher_table}
+
+\paragraph{Results.}
+Without HER, FPP AER/Annealing ER/ER obtain mean AUCs of
+\(0.044/0.129/0.148\) with DDPG, \(0.039/0.039/0.039\) with TD3, and
+\(0.040/0.041/0.064\) with SAC. On DrawerOpen, the corresponding values are
+\(0.000/0.111/0.579\) with DDPG and \(0.000/0.000/0.089\) with TD3; on
+DrawerClose they are \(0.194/0.199/0.150\) and \(0.169/0.176/0.251\).
+AER has no higher observed mean AUC than Annealing ER in these seven
+transferred cohorts.
+
+\paragraph{Interpretation.}
+Across these no-HER transfers, state-similarity replay does not improve
+observed mean AUC over its schedule-matched uniform-replay control. The
+three-arm design isolates attentive selection beyond AER's annealed schedule.
+Without a fixed-learning-rate AER arm, however, it does not identify a
+schedule-by-selection interaction. This is not a general replication or
+rejection of AER; it isolates transferred AER components under the present
+tasks and backbones.
+
+\FloatBarrier
+\subsection{Update-Budget and Architecture References}
+
+\paragraph{Purpose.}
+The FPP High-RR \(4\times\) comparisons change HER's update-to-data ratio from
+one to four within DDPG, TD3, and SAC while retaining each backbone's
+architecture. All six UTD-1/High-RR rows use one exact shared 19-point grid
+(50k--1M at 50k intervals, excluding 800k); no value is interpolated. The
+exclusion is necessary because the 800k evaluation was not retained for TD3
+High-RR seeds 1, 3, and 4. Recorded TD3 resume fields and runtime-counter
+resets were confirmed to be stale logging metadata; all runs began from
+scratch and completed without checkpoint continuation. Retained UTD-1/High-RR
+configs also differ in procedural and runtime fields and in SAC evaluation
+cadence (25k versus 10k), so High-RR is a scaling reference rather than a
+strict one-factor control. REDQ-HER is a broader
+architecture-and-compute reference
+evaluated on FPP, DrawerOpen, and DrawerClose: it uses UTD 4, ten critics, a
+random two-critic target subset, and target-Q bounding. REDQ-HER TQB clips the
+sampled target-critic backup to the sparse-reward range \([-50,0]\) before
+forming the Bellman target.
+
+\begingroup
+\let\shortstack\sabertopshortstack
+\input{tables/supplementary_high_rr_table}
+\input{tables/supplementary_redq_references_table}
+\endgroup
+\FloatBarrier
+
+\paragraph{Results.}
+On the shared FPP grid, increasing HER from UTD 1 to UTD 4 changes observed
+mean AUC from \(0.555\) to \(0.649\) for DDPG, \(0.381\) to \(0.467\) for TD3,
+and \(0.464\) to \(0.768\) for SAC. Corresponding FQ-AUC changes are
+\(0.887\) to \(0.962\), \(0.549\) to \(0.551\), and \(0.709\) to \(0.964\).
+Segment-aware High-RR \(4\times\) throughput is 17.2 steps/s for DDPG and
+13.3 steps/s for TD3; the latter sums retained monotonic runtime-counter
+segments rather than using only the final counter segment.
+REDQ-HER records AUC
+\(0.867\) on FPP, \(0.672\) on DrawerOpen, and \(0.188\) on DrawerClose. The
+corresponding SABER values are \(0.583\), \(0.754\), and \(0.324\). DrawerOpen
+REDQ-HER reaches Hit90 in all seeds at a median 0.370M steps and has FQ-AUC
+\(0.952\), whereas DrawerClose REDQ-HER reaches Hit90 at 0.020M but has FQ-AUC
+\(0.098\).
+
+\paragraph{Interpretation.}
+The observed High-RR \(4\times\) AUC increase is largest for SAC and smaller
+for DDPG and TD3; TD3's final-quarter mean is essentially unchanged on this
+grid. The TD3 result remains descriptive because missing 800k evaluations and
+procedural/runtime configuration differences prevent a strict one-factor or
+wall-clock-matched claim. REDQ is not uniformly stronger across tasks and
+changes UTD, algorithm, architecture, target construction, and entropy
+optimization. These references therefore provide scaling context rather than
+matched one-factor tests of SABER.
+
+\FloatBarrier
+\section{Support-Signal Diagnostic Details}
+
+\subsection{Instrumentation and Aggregation}
+
+\paragraph{Purpose.}
+The diagnostics test whether SABER's support rule activates in practice,
+whether it is redundant with TD-error ranking, and whether the resulting
+weights alter immediate critic fitting in the intended direction.
+
+\paragraph{Protocol.}
+Diagnostic logging introduces no gradient term and does not change replay
+sampling, objectives, or parameter-update order. FPP logs one full minibatch
+every 10k environment steps for DDPG, TD3, and SAC seeds 1--5: 100 batches
+per run, 500 per backbone, and 1,500 total. Drawer diagnostics use a
+200-step cadence from 5k through 2M, producing 9,976 persisted snapshots per
+seed. Snapshot quantities are aggregated within seed before cohort
+statistics are computed.
+
+For each persisted minibatch, the diagnostic stores the pre-update absolute
+Bellman residual, support membership, and the residual after one critic
+update. The fixed-target residual is
+\[
+\Delta|\delta_i|
+=\left|Q_{\phi}^{\mathrm{pre}}(x_i,a_i^r)-y_i^{\mathrm{pre}}\right|
+-\left|Q_{\phi}^{\mathrm{post}}(x_i,a_i^r)-y_i^{\mathrm{pre}}\right|.
+\]
+Thus the target and minibatch are held fixed while the critic parameters
+change. Live-target quantities, where available, are retained only for audit
+and are not mixed with the fixed-target statistic.
+
+\paragraph{Interpretation boundary.}
+These measurements audit activation and one-update optimization behavior on
+persisted minibatches. They do not by themselves identify the independent
+cause of a long-horizon return difference.
+
+\subsection{Cohort-Level Results}
+
+\paragraph{Purpose.}
+The cohort summary jointly measures activation frequency, association with
+pre-update error, and support-conditioned residual reduction under a common
+fixed-target definition.
+
+\input{tables/supplementary_support_signal_diagnostics_table}
+
+\paragraph{Results.}
+Primary-cohort support-positive rates range from \(0.197\) to \(0.417\), so
+the indicator is neither nearly absent nor nearly constant. Primary Pearson
+correlations are modest (\(0.084\)--\(0.143\)), while exact top-decile
+enrichment ranges from \(1.379\times\) to \(1.828\times\). The
+support-positive/support-negative one-step residual-reduction ratio ranges
+from \(1.79\times\) to \(3.94\times\) in the primary cohorts. Both Drawer
+extensions preserve enrichment above one and a larger reduction for
+support-positive samples. The support-positive mean reduction is larger in
+all 25 primary backbone--seed runs.
+
+\paragraph{Interpretation.}
+Support-positive samples are enriched among high-error samples, but the weak
+linear correlations show that support does not reduce to a TD-error ranking.
+The one-step statistic verifies that the normalized coefficients redistribute
+immediate critic fitting as intended; it is not a standalone explanation of
+long-term learning performance.
+
+\subsection{Phase-Conditioned Allocation}
+
+\paragraph{Purpose.}
+The phase analysis asks where support activation occurs during Drawer
+progression and whether it merely follows the most frequent phase.
+
+\paragraph{Phase definitions.}
+Let \(d_h\) be the Euclidean hand--handle distance and \(d_g\) the
+handle--relabeled-goal distance. Open/Closed denotes \(d_g\leq0.05\).
+Opening/Closing denotes \(d_g>0.05\), \(d_h\leq0.08\), and
+\(d_g\leq0.12\). Contact denotes \(d_h\leq0.08\) and \(d_g>0.12\);
+Approach contains the remaining samples. These mutually exclusive rules
+reproduce the implementation's terminal-to-approach assignment precedence.
+
+\input{tables/supplementary_phase_diagnostics_table}
+
+\paragraph{Results.}
+In both Drawer tasks and in both primary and extension cohorts, approach
+and contact have higher support-positive rates than the dominant terminal
+phase, even though the terminal phase accounts for roughly three quarters
+of logged samples. Table~\ref{tab:supp-phase-seed-counts} reports the exact
+phase counts and support-positive rate for each primary seed; the accompanying
+artifact also contains exact support-positive counts and seeds 6--10 rows.
+
+\paragraph{Interpretation.}
+Activation therefore does not simply track phase frequency. The task-specific
+phase labels localize the signal but do not constitute an independent causal
+test of long-horizon performance.
+
+\section{Runtime and Resource Measurements}
+
+\subsection{Execution-Environment Audit}
+
+\paragraph{Purpose.}
+The audit records the execution boundary needed to assess paired fairness and
+to distinguish software-controlled comparisons from hardware-specific
+throughput observations.
+
+\input{tables/supplementary_execution_hosts_table}
+
+\paragraph{Results.}
+The common stack was validated for reproduction. Within each paired
+task--backbone cohort, all compared methods and paired seeds were executed on
+one physical host under a matched environment; no paired cohort was split
+across machines. The validated reproduction stack is Python 3.12.3, PyTorch
+2.12.1+cu130, CUDA 13.0, cuDNN 9.20.0, Gymnasium 1.3.0,
+Gymnasium-Robotics 1.4.2, MuJoCo 3.3.0, Meta-World 3.1.1, NumPy 2.3.5, and
+SciPy 1.18.0. Sanitized provenance is recorded in the accompanying execution-host mapping.
+
+\paragraph{Interpretation.}
+The paired performance differences are not created by moving HER and SABER
+across machines within a cohort. Hardware still differs across cohorts, so
+historical throughput is descriptive and is not used for cross-host ranking.
+
+\subsection{Dedicated Runtime Profile}
+
+\paragraph{Purpose.}
+The dedicated profile quantifies the current implementation overhead under a
+sequential same-hardware comparison and identifies which pipeline component
+dominates that overhead. It runs HER and SABER for FPP TD3 seed 1 over the
+20k--100k interval.
+
+\input{tables/supplementary_runtime_environment_table}
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{lcccc}
+\toprule
+Component & HER ms/step & SABER (Ours) ms/step & Difference & SABER (Ours) share \\
+\midrule
+Interaction & 1.000 & 1.071 & \(+0.070\) & 4.4\% \\
+Replay + HER & 1.925 & 2.651 & \(+0.726\) & 11.0\% \\
+Batch preparation & 0.096 & 0.108 & \(+0.012\) & 0.4\% \\
+Support and weighting & 0.000 & 15.028 & \(+15.028\) & 62.3\% \\
+Critic update & 2.945 & 2.832 & \(-0.113\) & 11.7\% \\
+Actor + target update & 1.384 & 1.292 & \(-0.091\) & 5.4\% \\
+Evaluation/logging amortized & 0.080 & 0.085 & \(+0.005\) & 0.4\% \\
+Other loop overhead & 0.633 & 1.066 & \(+0.434\) & 4.4\% \\
+\midrule
+Total training loop & 8.063 & 24.133 & \(+16.070\) & 100.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Hardware-specific component times for the FPP TD3 seed-1
+implementation profile over 20k--100k steps. Other loop overhead is the
+difference between total loop time and the explicitly instrumented components.}
+\label{tab:supp-runtime-components}
+\end{table*}
+
+\paragraph{Results.}
+HER and SABER achieve 124.0 and 41.4 environment steps/s, corresponding to
+8.063 and 24.133 ms per training step. Support and weighting account for
+15.028 ms/step, or 62.3\% of SABER's measured loop time, and explain most of
+the \(+16.070\) ms/step difference.
+
+\paragraph{Interpretation.}
+The profile attributes the dominant measured cost to the current support
+retrieval implementation, motivating faster retrieval. It is one
+hardware-specific, early-training profile rather than an asymptotic or
+end-to-end learning-efficiency result. Historical steps/s values were not
+collected under this sequential protocol, and peak memory was not measured;
+neither quantity is inferred.
+
+\FloatBarrier
+\section{Artifact and Provenance Index}
+
+\paragraph{Purpose.}
+This index connects each reported experiment to a validation status and
+repository-relative artifact location, so completed evidence is distinguishable
+from secondary references and extensions.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.34\textwidth}
+                >{\raggedright\arraybackslash}p{0.39\textwidth}
+                >{\raggedright\arraybackslash}p{0.18\textwidth}}
+\toprule
+Content & Artifact key & Status \\
+\midrule
+Primary seed metrics and curves &
+\texttt{primary\_seed\_results} & Complete \\
+DDPG mechanism controls &
+\texttt{mechanism\_controls\_ddpg} & Complete \\
+TD-error weighting controls &
+\texttt{td\_error\_weighting\_controls} & Complete \\
+Drawer phase counts and seed rows &
+\texttt{phase\_seed\_results} & Complete \\
+Action-bin sensitivity &
+\texttt{action\_bin\_sensitivity} & Complete \\
+DDPG actor-scope analysis &
+\texttt{actor\_scope\_ddpg} & Complete \\
+Derived Technical Supplement summaries &
+\texttt{technical\_supplement} & Complete \\
+FPP DDPG Actor+Critic &
+\texttt{fpp\_ddpg\_actor\_critic} & Complete \\
+FPP diagnostics &
+\texttt{fpp\_diagnostic} & Complete \\
+DrawerClose diagnostics &
+\texttt{drawerclose\_diagnostic} & Complete \\
+DrawerOpen fixed-target diagnostics &
+\texttt{draweropen\_fixed\_target} & Complete \\
+FPP TD3 runtime profile &
+\texttt{fpp\_td3\_runtime} & Complete \\
+Execution-environment audit &
+\texttt{execution\_environment\_audit} & Complete \\
+FPP TD3 ten-seed confirmation &
+\texttt{fpp\_td3\_n10} & Complete \\
+FPP TD3 inclusive-future sensitivity &
+\texttt{fpp\_td3\_inclusive} & Complete \\
+FPP TD3 inclusive-future extension &
+\texttt{fpp\_td3\_inclusive\_extension} & Complete \\
+FPP DDPG/TD3 High-RR raw compact artifact &
+\texttt{fpp\_ddpg\_td3\_high\_rr\_x4} & Complete \\
+High-RR and task-wide REDQ references &
+\texttt{update\_budget\_references} & Complete \\
+FPP DDPG/TD3/SAC no-HER AER &
+\texttt{fpp\_aer\_noher} & Complete \\
+DrawerOpen DDPG no-HER AER &
+\texttt{draweropen\_ddpg\_aer\_noher} & Complete \\
+DrawerOpen TD3 no-HER AER &
+\texttt{draweropen\_td3\_aer\_noher} & Complete \\
+DrawerClose DDPG no-HER AER &
+\texttt{drawerclose\_ddpg\_aer\_noher} & Complete \\
+DrawerClose TD3 no-HER AER &
+\texttt{drawerclose\_td3\_aer\_noher} & Complete \\
+\bottomrule
+\end{tabular}
+\caption{Artifact index. Keys resolve to repository-relative package paths in
+\texttt{artifact\_index.csv}. Canonical artifacts include manifests that bind
+source files by repository-relative path and SHA256.}
+\label{tab:supp-artifact-index}
+\end{table*}
+
+\paragraph{Seed mapping.}
+For paired seed \(s\), the environment, PyTorch, NumPy, and action-noise streams
+use \(s\); the
+support-weight stream uses \(20000+s\), and evaluation uses \(10000+s\).
+Training and evaluation resets advance by deterministic episode- and
+checkpoint-indexed offsets. All methods in a paired cohort use this mapping.
+
+\paragraph{Interpretation boundary.}
+Generated analysis directories contain compact CSV summaries, a
+repository-relative source manifest, and a self-excluding artifact manifest.
+Canonical experiment artifacts retain configuration, environment snapshot,
+source provenance, and validation records where available. Raw result files
+are referenced rather than duplicated in the derived summaries. An indexed
+artifact establishes traceability to the reported result; it does not convert
+a secondary reference into a matched causal comparison.
+
+\FloatBarrier
+\appendix
+\section{Primary Seed-Level Results}
+
+\paragraph{Purpose.}
+The seed-level appendix exposes every observation underlying the primary
+aggregate table, allowing readers to inspect paired directions and
+between-seed dispersion directly.
+
+\paragraph{Results.}
+SABER has higher observed mean AUC than matched HER in all seven primary
+cohorts, and four paired 95\% intervals exclude zero. The individual rows show
+that this aggregate statement coexists with negative or near-zero seed pairs
+and especially large dispersion on the Drawer TD3 cohorts. AUC and
+final-quarter AUC use each cohort's exact common grid.
+
+\paragraph{Interpretation.}
+These rows are the observations used in the primary analysis, not an
+additional independent experiment. They make the direction and uncertainty
+of each paired cohort auditable without changing the seed as the unit of
+statistical analysis.
+
+\begingroup
+\newcount\seedtableindex
+\seedtableindex=0
+\renewenvironment{table*}[1][t]{%
+  \global\advance\seedtableindex by 1
+  \ifodd\seedtableindex
+    \par\noindent
+  \else
+    \hfill
+  \fi
+  \begin{minipage}[t]{0.495\textwidth}%
+  \vspace{0pt}%
+  \captionsetup{type=table,font=footnotesize,skip=3pt}%
+}{%
+  \end{minipage}%
+  \ifodd\seedtableindex
+  \else
+    \par\vspace{6pt}%
+    \ifnum\seedtableindex=4
+      \newpage
+    \fi
+  \fi
+}
+
+\begingroup
+\let\saberoriginaltabular\tabular
+\let\endsaberoriginaltabular\endtabular
+\renewenvironment{tabular}[1]
+  {\saberoriginaltabular{lccccc}}
+  {\endsaberoriginaltabular}
+\input{tables/supplementary_primary_seed_results}
+\endgroup
+\begingroup
+\let\saberoriginaltabular\tabular
+\let\endsaberoriginaltabular\endtabular
+\renewenvironment{tabular}[1]
+  {\saberoriginaltabular{@{}lccccc@{}}}
+  {\endsaberoriginaltabular}
+\input{tables/supplementary_phase_seed_counts_table}
+\endgroup
+\endgroup
+
+\end{document}
