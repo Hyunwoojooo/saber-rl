@@ -436,8 +436,8 @@ def write_high_rr_table(
             if method == "HER high-RR":
                 resume_mark = "$^{\\dagger}$" if backbone == "TD3" else ""
                 display = (
-                    f"\\shortstack[l]{{HER high-RR{resume_mark}\\\\"
-                    f"UTD 4; {critic_text[backbone]}}}"
+                    f"\\shortstack[l]{{HER high-RR \\(4\\times\\)"
+                    f"{resume_mark}\\\\{critic_text[backbone]}}}"
                 )
             else:
                 display = (
@@ -457,8 +457,9 @@ def write_high_rr_table(
             "on one exact shared 19-point grid: 50k--1M at 50k intervals, "
             "excluding 800k because that evaluation was not retained for "
             "TD3 High-RR seeds 1, 3, and 4. No value is interpolated. "
-            "High-RR changes updates per environment step from one to four "
-            "within each backbone, but retained configs also differ in "
+            "High-RR \\(4\\times\\) uses four gradient updates per "
+            "environment step instead of one within each backbone, but "
+            "retained configs also differ in "
             "procedural/runtime fields and SAC evaluation cadence; this is "
             "not a strict one-factor or wall-clock-matched control. "
             "$^{\\dagger}$ TD3 High-RR resumed after "
