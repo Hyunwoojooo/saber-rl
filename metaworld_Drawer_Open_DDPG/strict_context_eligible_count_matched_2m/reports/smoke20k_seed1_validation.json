@@ -1,0 +1,16 @@
+{
+  "mode": "smoke20k_seed1",
+  "passed": true,
+  "seeds": [
+    {
+      "eval_points": 2,
+      "passed": true,
+      "run_dir": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/runs/smoke_20k_seed1/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_20k_smoke_seed1_cuda",
+      "seed": 1,
+      "steps": 20000,
+      "strict_diagnostic_windows": 16,
+      "strict_metric_rows_checked": 102,
+      "updates": 15001
+    }
+  ]
+}

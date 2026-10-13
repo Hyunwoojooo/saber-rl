@@ -1,0 +1,16 @@
+{
+  "mode": "correctness5k",
+  "passed": true,
+  "seeds": [
+    {
+      "eval_points": 5,
+      "passed": true,
+      "run_dir": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/metaworld_Drawer_Open_DDPG/strict_context_eligible_count_matched_2m/runs/correctness_5k/drawer_open_DDPG-HER-B3-Strict-Context-Eligible-Count-Matched-2M_s1_5k_correctness_cuda",
+      "seed": 1,
+      "steps": 5000,
+      "strict_diagnostic_windows": 5,
+      "strict_metric_rows_checked": 30,
+      "updates": 4001
+    }
+  ]
+}
