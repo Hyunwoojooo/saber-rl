@@ -3,43 +3,43 @@
   "snapshot_kst": "2026-10-19T14:52:33.729730+09:00",
   "experiments": [
     {
-      "directory": "2026-09-25_draweropen_ddpg_assignment",
-      "title": "Support / Random / TD-error Top-k assignment",
+      "directory": "draweropen_ddpg_saber_vs_random_vs_td_topk",
+      "title": "DrawerOpen / DDPG: SABER vs Random vs TD-error Top-k",
       "status": "completed",
       "new_production_runs_planned": 30,
       "source_file_count": 62
     },
     {
-      "directory": "2026-10-01_draweropen_ddpg_pal_v2",
-      "title": "HER + PAL comparison",
+      "directory": "draweropen_ddpg_saber_vs_pal",
+      "title": "DrawerOpen / DDPG: SABER vs PAL",
       "status": "completed",
       "new_production_runs_planned": 10,
       "source_file_count": 77
     },
     {
-      "directory": "2026-10-04_draweropen_retrieval_failure_diagnostics_v2",
-      "title": "Offline retrieval and failure/saturation diagnostics",
+      "directory": "draweropen_ddpg_retrieval_and_failure_diagnostics",
+      "title": "DrawerOpen / DDPG: Retrieval and Failure Diagnostics",
       "status": "completed_offline",
       "new_production_runs_planned": 0,
       "source_file_count": 43
     },
     {
-      "directory": "2026-10-04_draweropen_ddpg_retrieval_v1",
-      "title": "Online Tail-512 / Random-512 retrieval",
+      "directory": "draweropen_ddpg_saber_tail_vs_random512",
+      "title": "DrawerOpen / DDPG: SABER Tail vs Random-512 Retrieval",
       "status": "completed",
       "new_production_runs_planned": 10,
       "source_file_count": 74
     },
     {
-      "directory": "2026-10-12_drawer_sac_fpp_v2_recovery_s1_5",
-      "title": "Drawer SAC HER / SABER completed cohort",
+      "directory": "draweropen_drawerclose_sac_her_vs_saber",
+      "title": "DrawerOpen and DrawerClose / SAC: HER vs SABER",
       "status": "completed",
       "new_production_runs_planned": 20,
       "source_file_count": 83
     },
     {
-      "directory": "2026-10-16_drawer_sac_hgr_per_s1_5",
-      "title": "Drawer SAC HGR / PER extension",
+      "directory": "draweropen_drawerclose_sac_hgr_per",
+      "title": "DrawerOpen and DrawerClose / SAC: HGR and PER",
       "status": "in_progress",
       "new_production_runs_planned": 20,
       "source_file_count": 158

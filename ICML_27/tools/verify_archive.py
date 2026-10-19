@@ -72,6 +72,8 @@ def check_experiment_index(root, index):
     names = [entry["directory"] for entry in entries]
     if len(names) != len(set(names)) or any(Path(n).name != n or n in {"", ".", ".."} for n in names):
         raise ValueError("Invalid or duplicate experiment directory")
+    if any(re.search(r"^\d{4}-\d{2}-\d{2}|(?:^|_)v\d+(?:_|$)|(?:^|_)s\d+_\d+(?:_|$)", n) for n in names):
+        raise ValueError("Use benchmark/backbone/method names, not dates, versions or seed ranges")
     if any(e["status"] not in {"completed", "completed_offline", "in_progress"} for e in entries):
         raise ValueError("Only executed experiments may be published")
     actual = {p.name for p in (root / "experiments").iterdir() if p.is_dir()}

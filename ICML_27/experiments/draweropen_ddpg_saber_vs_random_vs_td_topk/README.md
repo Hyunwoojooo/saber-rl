@@ -1,19 +1,21 @@
-# HER + PAL comparison
+# DrawerOpen / DDPG: SABER vs Random vs TD-error Top-k
 
 Status: **completed**. Snapshot: **2026-10-19T05:52:33.729730+00:00 UTC / 2026-10-19T14:52:33.729730+09:00 KST**.
 
 | Method | Mean AUC | AUC SD | Mean final success |
 | --- | ---: | ---: | ---: |
-| HER + PAL | 0.545352 | 0.302841 | 0.800 |
 | SABER | 0.652613 | 0.248402 | 0.890 |
+| Context-eligible random assignment | 0.515678 | 0.359443 | 0.700 |
+| Context-eligible TD-error Top-k | 0.534623 | 0.380191 | 0.700 |
 
 All results use seeds 1-10, DrawerOpen-v3 / DDPG / HER, 2M steps per run, UTD=1.
 
-Question: does SABER offer value over a published uniform-replay loss-side baseline?
-PAL uses alpha=0.4, min_priority=1, and the detached minibatch normalizer.
-Only PAL's ten runs are new; the audited SABER reference is the assignment cohort.
-SABER minus PAL: +0.107261; 95% CI [-0.153141, 0.357651].
-Instrumentation differs; recorded runtime does not establish algorithmic time efficiency.
+Question: does support-based high-weight placement add value when context eligibility,
+the per-update high-weight count, 2:1 raw weights, and mean-one normalization are controlled?
+Each online run computes its own eligibility and count; buffers and counts are not shared between runs.
+
+- support_minus_random: delta AUC +0.136935; 95% CI [-0.127451, 0.384334]; Bonferroni 97.5% CI [-0.162888, 0.414626].
+- support_minus_td_topk: delta AUC +0.117990; 95% CI [-0.054866, 0.324917]; Bonferroni 97.5% CI [-0.071018, 0.360704].
 
 The intervals include zero: these descriptive mean differences do not establish
 statistical superiority, equivalence, universal necessity of support, or generality beyond this cohort.

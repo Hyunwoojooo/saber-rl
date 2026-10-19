@@ -4,13 +4,16 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from export_local_experiments import ASSIGN, PAL, DIAG, RETRIEVAL, RECOVERY, BASELINES, SPECS, auc, result_text, scrub
+from export_local_experiments import ASSIGN, PAL, DIAG, RETRIEVAL, RECOVERY, BASELINES, PUBLISHED_NAMES, SPECS, auc, result_text, scrub
+from materialize_sources import source_layout
 from verify_archive import check_experiment_index, check_hashes, close, digest
 
 
 class ArchiveTests(unittest.TestCase):
     def test_export_includes_only_the_six_executed_families(self):
         self.assertEqual(set(SPECS), {ASSIGN, PAL, DIAG, RETRIEVAL, RECOVERY, BASELINES})
+        self.assertEqual(set(PUBLISHED_NAMES), set(SPECS))
+        self.assertEqual(len(set(PUBLISHED_NAMES.values())), 6)
         self.assertEqual(sum(row[2] for row in SPECS.values()), 90)
         self.assertTrue(all(row[1] in {"completed", "completed_offline", "in_progress"} for row in SPECS.values()))
         with self.assertRaises(ValueError):
@@ -31,6 +34,25 @@ class ArchiveTests(unittest.TestCase):
             (experiments / "preparation").mkdir()
             with self.assertRaises(ValueError):
                 check_experiment_index(root, index)
+
+    def test_published_names_explain_benchmark_backbone_and_method(self):
+        for name in PUBLISHED_NAMES.values():
+            self.assertTrue(name.startswith("draweropen_"))
+            self.assertTrue("_ddpg_" in name or "_sac_" in name)
+            self.assertNotRegex(name, r"\d{4}-\d{2}-\d{2}|(?:^|_)v\d+(?:_|$)|(?:^|_)s\d+_\d+(?:_|$)")
+
+    def test_materialization_uses_provenance_not_published_folder_name(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            folder = root / "experiments" / PUBLISHED_NAMES[PAL]
+            folder.mkdir(parents=True)
+            (folder.parent / "index.json").write_text(json.dumps({"experiments": [{"directory": folder.name}]}))
+            provenance = folder / "provenance.json"
+            provenance.write_text(json.dumps({"original_directory": f"experiments_post_review/{PAL}"}))
+            self.assertEqual(source_layout(root), [(folder / "source", PAL)])
+            provenance.write_text(json.dumps({"original_directory": "experiments_post_review/../outside"}))
+            with self.assertRaises(ValueError):
+                source_layout(root)
 
     def test_auc_does_not_integrate_unobserved_zero_prefix(self):
         self.assertEqual(auc([(10000, 0), (2000000, 1)]), 0.5)

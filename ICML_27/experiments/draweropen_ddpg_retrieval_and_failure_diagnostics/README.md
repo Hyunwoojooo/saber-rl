@@ -1,4 +1,4 @@
-# Offline retrieval and failure/saturation diagnostics
+# DrawerOpen / DDPG: Retrieval and Failure Diagnostics
 
 Status: **completed_offline**. Snapshot: **2026-10-19T05:52:33.729730+00:00 UTC / 2026-10-19T14:52:33.729730+09:00 KST**.
 

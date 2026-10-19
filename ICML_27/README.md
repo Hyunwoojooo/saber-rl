@@ -10,18 +10,20 @@ They are not live dashboards. See [index.json](experiments/index.json) for the e
 
 | Experiment | Scope | Status |
 | --- | --- | --- |
-| [Support / Random / TD-error Top-k](experiments/2026-09-25_draweropen_ddpg_assignment/) | DrawerOpen DDPG; 3 x 10 seeds x 2M | Completed, 30 fresh runs |
-| [HER + PAL](experiments/2026-10-01_draweropen_ddpg_pal_v2/) | DrawerOpen DDPG; 10 seeds x 2M | Completed; reuses 10 SABER references |
-| [Offline retrieval and failure diagnostics](experiments/2026-10-04_draweropen_retrieval_failure_diagnostics_v2/) | 10 checkpoints and 30 training logs | Completed; no new training |
-| [Online Tail / Random-512 retrieval](experiments/2026-10-04_draweropen_ddpg_retrieval_v1/) | DrawerOpen DDPG; 10 new Random-512 runs | Completed; reuses 10 Tail references; includes final retrieval audits |
-| [Drawer SAC HER / SABER](experiments/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/) | Open/Close x 2 methods x 5 seeds x 2M | Completed, 20 unique runs |
-| [Drawer SAC HGR / PER](experiments/2026-10-16_drawer_sac_hgr_per_s1_5/) | Open/Close x 2 methods x 5 seeds x 2M | In progress; see timestamped per-seed table |
+| [SABER / Random / TD-error Top-k](experiments/draweropen_ddpg_saber_vs_random_vs_td_topk/) | DrawerOpen DDPG; 3 x 10 seeds x 2M | Completed, 30 fresh runs |
+| [SABER / PAL](experiments/draweropen_ddpg_saber_vs_pal/) | DrawerOpen DDPG; 10 new PAL seeds x 2M | Completed; reuses 10 SABER references |
+| [Offline retrieval and failure diagnostics](experiments/draweropen_ddpg_retrieval_and_failure_diagnostics/) | DrawerOpen DDPG; 10 checkpoints and 30 training logs | Completed; no new training |
+| [SABER Tail / Random-512 retrieval](experiments/draweropen_ddpg_saber_tail_vs_random512/) | DrawerOpen DDPG; 10 new Random-512 runs | Completed; reuses 10 Tail references; includes final retrieval audits |
+| [HER / SABER](experiments/draweropen_drawerclose_sac_her_vs_saber/) | DrawerOpen/DrawerClose SAC; 2 methods x 5 seeds x 2M per task | Completed, 20 unique runs |
+| [HGR / PER](experiments/draweropen_drawerclose_sac_hgr_per/) | DrawerOpen/DrawerClose SAC; 2 methods x 5 seeds x 2M per task | In progress; see timestamped per-seed table |
 
 Only these six executed experiment/analysis families are published: five training
 comparisons and one completed offline analysis. Unexecuted preparation versions,
 the superseded diagnostic pilot, and a duplicate SAC source directory are excluded.
-There is one published source folder per experiment, not a choice of v1/v2 variants.
-Version suffixes in the retained paths identify the exact executed snapshot.
+Folder names identify the benchmark, backbone and comparison or diagnostic.
+They do not contain dates, version suffixes or seed-range abbreviations. Each
+experiment has one source folder; seed sets are in its README and protocol, and
+original execution paths remain in provenance records.
 
 The SAC cohort includes three DrawerOpen HER runs completed before the power loss.
 All 78 files of their original exported source are byte-identical to files already
@@ -34,7 +36,7 @@ Its old local-workspace links and then-current progress are not the current arch
 
 ## What Is Included
 
-Each dated directory has a current `README.md`, frozen `source/`, compact `results/`
+Each experiment directory has a current `README.md`, frozen `source/`, compact `results/`
 where available, and `provenance.json`. Source, tests, upstream snapshots, original
 protocols, third-party notices, and source SHA256 manifests are copied without edits.
 The original `source/README.md` is deliberately preserved, including historical
@@ -55,8 +57,10 @@ python3 ICML_27/tools/verify_archive.py
 python3 ICML_27/tools/materialize_sources.py /tmp/saber-post-review-sources
 ```
 
-The second command copies the six retained sources into a NEW directory with their
-original sibling names under `experiments_post_review/`. It does not recreate the
+The second command uses `provenance.json` to copy the six retained sources into a
+NEW directory with their original sibling names under `experiments_post_review/`.
+This preserves frozen source references without using historical names for the
+GitHub folders. It does not recreate the
 excluded preparation or duplicate directories. It does not install dependencies,
 copy results into production paths, launch a queue, or train a model. Do not point it
 at a live experiment workspace. It refuses to overwrite an existing destination.

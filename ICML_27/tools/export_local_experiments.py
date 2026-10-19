@@ -15,13 +15,21 @@ DIAG = "2026-10-04_draweropen_retrieval_failure_diagnostics_v2"
 RETRIEVAL = "2026-10-04_draweropen_ddpg_retrieval_v1"
 RECOVERY = "2026-10-12_drawer_sac_fpp_v2_recovery_s1_5"
 BASELINES = "2026-10-16_drawer_sac_hgr_per_s1_5"
+PUBLISHED_NAMES = {
+    ASSIGN: "draweropen_ddpg_saber_vs_random_vs_td_topk",
+    PAL: "draweropen_ddpg_saber_vs_pal",
+    DIAG: "draweropen_ddpg_retrieval_and_failure_diagnostics",
+    RETRIEVAL: "draweropen_ddpg_saber_tail_vs_random512",
+    RECOVERY: "draweropen_drawerclose_sac_her_vs_saber",
+    BASELINES: "draweropen_drawerclose_sac_hgr_per",
+}
 SPECS = {
-    ASSIGN: ("Support / Random / TD-error Top-k assignment", "completed", 30),
-    PAL: ("HER + PAL comparison", "completed", 10),
-    DIAG: ("Offline retrieval and failure/saturation diagnostics", "completed_offline", 0),
-    RETRIEVAL: ("Online Tail-512 / Random-512 retrieval", "completed", 10),
-    RECOVERY: ("Drawer SAC HER / SABER completed cohort", "completed", 20),
-    BASELINES: ("Drawer SAC HGR / PER extension", "in_progress", 20),
+    ASSIGN: ("DrawerOpen / DDPG: SABER vs Random vs TD-error Top-k", "completed", 30),
+    PAL: ("DrawerOpen / DDPG: SABER vs PAL", "completed", 10),
+    DIAG: ("DrawerOpen / DDPG: Retrieval and Failure Diagnostics", "completed_offline", 0),
+    RETRIEVAL: ("DrawerOpen / DDPG: SABER Tail vs Random-512 Retrieval", "completed", 10),
+    RECOVERY: ("DrawerOpen and DrawerClose / SAC: HER vs SABER", "completed", 20),
+    BASELINES: ("DrawerOpen and DrawerClose / SAC: HGR and PER", "in_progress", 20),
 }
 REPORTS = {
     ASSIGN: ["outputs/analysis/report.json", "outputs/analysis/seed_metrics.csv",
@@ -273,7 +281,8 @@ def main():
     progress = capture_progress(origin / BASELINES, timestamp)
     entries = []
     for name, (title, status, planned) in SPECS.items():
-        root, dest = origin / name, destination / name
+        published_name = PUBLISHED_NAMES[name]
+        root, dest = origin / name, destination / published_name
         sources = copy_sources(root, dest)
         reports = copy_reports(root, dest, workspace)
         if name == BASELINES:
@@ -299,7 +308,7 @@ def main():
                    "source_files_sha256": sources, "reports": reports,
                    "report_transformations": ["workspace absolute path replaced with <WORKSPACE>", "JSON reserialized; nonfinite values become null"],
                    "omitted": ["checkpoints/replay", "raw metrics and logs", "live locks and production claims", "venv/caches", "environment credentials"]})
-        entries.append({"directory": name, "title": title, "status": status, "new_production_runs_planned": planned,
+        entries.append({"directory": published_name, "title": title, "status": status, "new_production_runs_planned": planned,
                         "source_file_count": len(sources)})
     write_json(destination / "index.json", {"snapshot_utc": timestamp, "snapshot_kst": timestamp_kst,
                "experiments": entries, "training_counts": {"planned": 90, "completed": 70 + progress["counts"].get("completed", 0),
