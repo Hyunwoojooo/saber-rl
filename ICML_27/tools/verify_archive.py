@@ -67,12 +67,29 @@ def check_links(path):
             raise ValueError(f"Broken current README link: {path.name}: {target}")
 
 
+def check_experiment_index(root, index):
+    entries = index["experiments"]
+    names = [entry["directory"] for entry in entries]
+    if len(names) != len(set(names)) or any(Path(n).name != n or n in {"", ".", ".."} for n in names):
+        raise ValueError("Invalid or duplicate experiment directory")
+    if any(e["status"] not in {"completed", "completed_offline", "in_progress"} for e in entries):
+        raise ValueError("Only executed experiments may be published")
+    actual = {p.name for p in (root / "experiments").iterdir() if p.is_dir()}
+    if actual != set(names):
+        raise ValueError("Experiment directories do not match the executed-only index")
+    if sum(e["new_production_runs_planned"] for e in entries) != index["training_counts"]["planned"]:
+        raise ValueError("Indexed production budget mismatch")
+
+
 def verify(root=ROOT):
     index = load(root / "experiments/index.json")
+    check_experiment_index(root, index)
     source_count = 0
     for entry in index["experiments"]:
         folder = root / "experiments" / entry["directory"]
         provenance = load(folder / "provenance.json")
+        if len(provenance["source_files_sha256"]) != entry["source_file_count"]:
+            raise ValueError(f"Source file count mismatch: {folder.name}")
         check_hashes(folder / "source", provenance["source_files_sha256"])
         for name in ("source_manifest.json", "recovery_manifest.json"):
             path = folder / "source" / name

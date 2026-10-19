@@ -17,7 +17,7 @@ See [the detailed report](results/outputs/final/REPORT.md) and the seed-level CS
 
 ## Code and provenance
 
-- [source/](source/) contains the frozen executed/prepared source, protocol, tests, upstream copies and manifests.
+- [source/](source/) contains the frozen executed source, protocol, tests, upstream copies and manifests.
 - [source/README.md](source/README.md) is the ORIGINAL historical instruction file; its old pending/status text is not this snapshot's status.
 - [provenance.json](provenance.json) records byte-identical source hashes and exported report hashes.
 - Checkpoints, replay buffers, raw training logs, virtual environments and live process control files are omitted.

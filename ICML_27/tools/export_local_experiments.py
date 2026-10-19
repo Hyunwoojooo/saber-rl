@@ -1,4 +1,4 @@
-"""Publish read-only experiment snapshots; never import or launch training code."""
+"""Publish executed experiment snapshots only; never import or launch training."""
 import argparse
 import csv
 import hashlib
@@ -17,13 +17,9 @@ RECOVERY = "2026-10-12_drawer_sac_fpp_v2_recovery_s1_5"
 BASELINES = "2026-10-16_drawer_sac_hgr_per_s1_5"
 SPECS = {
     ASSIGN: ("Support / Random / TD-error Top-k assignment", "completed", 30),
-    "2026-09-30_draweropen_ddpg_pal": ("PAL preparation v1", "superseded_before_production", 0),
     PAL: ("HER + PAL comparison", "completed", 10),
-    "2026-10-02_draweropen_retrieval_failure_diagnostics": ("Retrieval/failure diagnostics v1", "blocked_then_superseded", 0),
     DIAG: ("Offline retrieval and failure/saturation diagnostics", "completed_offline", 0),
     RETRIEVAL: ("Online Tail-512 / Random-512 retrieval", "completed", 10),
-    "2026-10-08_drawer_sac_fpp_v1": ("Drawer SAC preparation v1", "superseded_before_production", 0),
-    "2026-10-08_drawer_sac_fpp_v2_s1_5": ("Drawer SAC original execution", "interrupted_recovered_separately", 0),
     RECOVERY: ("Drawer SAC HER / SABER completed cohort", "completed", 20),
     BASELINES: ("Drawer SAC HGR / PER extension", "in_progress", 20),
 }
@@ -238,6 +234,7 @@ def result_text(name, root, progress):
                  "Three completed DrawerOpen HER seeds were reused after the power outage; five interrupted runs",
                  "were rerun from step zero. Seventeen runs in this recovery plus three retained runs form ONE",
                  "20-run cohort, not an additional independent replication. No curves were spliced and no checkpoint continuation was used.",
+                 "This is the single published SAC HER/SABER source folder. Its frozen scientific source also covers the three retained pre-outage runs.",
                  "See [final.json](results/analysis/final.json) for seed-level outcomes and the interruption inventory."]
         return "\n".join(text)
     if name == BASELINES:
@@ -257,16 +254,7 @@ def result_text(name, root, progress):
                  "There is no automatic expansion to seeds 6-10. This GitHub status is static, not live monitoring.",
                  "The HER/SABER reference is the completed recovery cohort; see [progress.json](results/progress.json)."]
         return "\n".join(text)
-    if name == "2026-09-30_draweropen_ddpg_pal":
-        return "Historical preparation only; no production cohort. Superseded by ../2026-10-01_draweropen_ddpg_pal_v2/. Do not count this as ten additional PAL runs."
-    if name == "2026-10-02_draweropen_retrieval_failure_diagnostics":
-        return "Historical offline attempt blocked at retrieval pilot. The corrected independent v2 completed the analyses; see ../2026-10-04_draweropen_retrieval_failure_diagnostics_v2/. This failure is not a failed training run."
-    if name == "2026-10-08_drawer_sac_fpp_v1":
-        return "Pre-production preparation; its waiting queue was stopped before production and replaced by v2. No performance results belong to this version."
-    return ("Original SAC execution interrupted by a power outage. DrawerOpen HER seeds 1-3 completed; "
-            "five other started runs were interrupted. Completed and interrupted attempts are recorded in "
-            "the recovery cohort's final analysis. The final 20-run result belongs to "
-            "../2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/ and must not be counted twice.")
+    raise ValueError(f"Not a published executed experiment: {name}")
 
 
 def main():
@@ -299,7 +287,7 @@ def main():
                       "A protocol-changing correction would require a separate matched experiment.\n")
         readme = (f"# {title}\n\nStatus: **{status}**. Snapshot: **{timestamp} UTC / {timestamp_kst} KST**.\n\n"
                   + result_text(name, root, progress) + notice + "\n\n## Code and provenance\n\n"
-                  "- [source/](source/) contains the frozen executed/prepared source, protocol, tests, upstream copies and manifests.\n"
+                  "- [source/](source/) contains the frozen executed source, protocol, tests, upstream copies and manifests.\n"
                   "- [source/README.md](source/README.md) is the ORIGINAL historical instruction file; its old pending/status text is not this snapshot's status.\n"
                   "- [provenance.json](provenance.json) records byte-identical source hashes and exported report hashes.\n"
                   "- Checkpoints, replay buffers, raw training logs, virtual environments and live process control files are omitted.\n"

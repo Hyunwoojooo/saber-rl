@@ -10,25 +10,11 @@
       "source_file_count": 62
     },
     {
-      "directory": "2026-09-30_draweropen_ddpg_pal",
-      "title": "PAL preparation v1",
-      "status": "superseded_before_production",
-      "new_production_runs_planned": 0,
-      "source_file_count": 74
-    },
-    {
       "directory": "2026-10-01_draweropen_ddpg_pal_v2",
       "title": "HER + PAL comparison",
       "status": "completed",
       "new_production_runs_planned": 10,
       "source_file_count": 77
-    },
-    {
-      "directory": "2026-10-02_draweropen_retrieval_failure_diagnostics",
-      "title": "Retrieval/failure diagnostics v1",
-      "status": "blocked_then_superseded",
-      "new_production_runs_planned": 0,
-      "source_file_count": 40
     },
     {
       "directory": "2026-10-04_draweropen_retrieval_failure_diagnostics_v2",
@@ -43,20 +29,6 @@
       "status": "completed",
       "new_production_runs_planned": 10,
       "source_file_count": 74
-    },
-    {
-      "directory": "2026-10-08_drawer_sac_fpp_v1",
-      "title": "Drawer SAC preparation v1",
-      "status": "superseded_before_production",
-      "new_production_runs_planned": 0,
-      "source_file_count": 78
-    },
-    {
-      "directory": "2026-10-08_drawer_sac_fpp_v2_s1_5",
-      "title": "Drawer SAC original execution",
-      "status": "interrupted_recovered_separately",
-      "new_production_runs_planned": 0,
-      "source_file_count": 78
     },
     {
       "directory": "2026-10-12_drawer_sac_fpp_v2_recovery_s1_5",

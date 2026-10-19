@@ -1,6 +1,6 @@
 # SABER: Post-AAAI Experiments for ICML 2027
 
-Research archive of the experiments following the September 25 AAAI reviews.
+Executed-experiment archive following the September 25 AAAI reviews.
 The submitted AAAI paper and its artifacts are not modified here.
 
 ## Experiment Index
@@ -17,12 +17,17 @@ They are not live dashboards. See [index.json](experiments/index.json) for the e
 | [Drawer SAC HER / SABER](experiments/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/) | Open/Close x 2 methods x 5 seeds x 2M | Completed, 20 unique runs |
 | [Drawer SAC HGR / PER](experiments/2026-10-16_drawer_sac_hgr_per_s1_5/) | Open/Close x 2 methods x 5 seeds x 2M | In progress; see timestamped per-seed table |
 
-Historical source versions are retained, not counted as extra completed experiments:
+Only these six executed experiment/analysis families are published: five training
+comparisons and one completed offline analysis. Unexecuted preparation versions,
+the superseded diagnostic pilot, and a duplicate SAC source directory are excluded.
+There is one published source folder per experiment, not a choice of v1/v2 variants.
+Version suffixes in the retained paths identify the exact executed snapshot.
 
-- [PAL v1 preparation](experiments/2026-09-30_draweropen_ddpg_pal/): superseded before production.
-- [Offline diagnostics v1](experiments/2026-10-02_draweropen_retrieval_failure_diagnostics/): blocked pilot, corrected in v2.
-- [SAC v1 preparation](experiments/2026-10-08_drawer_sac_fpp_v1/): stopped waiting queue, no production.
-- [SAC original v2 execution](experiments/2026-10-08_drawer_sac_fpp_v2_s1_5/): interrupted by power loss; three completed runs retained, five interrupted attempts rerun from scratch in the recovery cohort.
+The SAC cohort includes three DrawerOpen HER runs completed before the power loss.
+All 78 files of their original exported source are byte-identical to files already
+retained in the final SAC folder. Removing the duplicate directory does not remove
+those results or replace their implementation. The final report preserves the
+interruption/reuse history and all unfavorable completed results.
 
 The old [October 6 report](2026-10-06_post_review_experiment_status_ko.md) remains a historical record.
 Its old local-workspace links and then-current progress are not the current archive layout or current status.
@@ -50,8 +55,9 @@ python3 ICML_27/tools/verify_archive.py
 python3 ICML_27/tools/materialize_sources.py /tmp/saber-post-review-sources
 ```
 
-The second command copies sources into a NEW directory with the original sibling
-experiment names under `experiments_post_review/`. It does not install dependencies,
+The second command copies the six retained sources into a NEW directory with their
+original sibling names under `experiments_post_review/`. It does not recreate the
+excluded preparation or duplicate directories. It does not install dependencies,
 copy results into production paths, launch a queue, or train a model. Do not point it
 at a live experiment workspace. It refuses to overwrite an existing destination.
 
@@ -62,6 +68,9 @@ validated cross-platform environment. Original launchers that require historical
 raw records, checkpoints, validation gates, or repo-relative source origins will
 remain blocked until those dependencies are provided and validated. Compact reports
 support inspection of reported results, not full recomputation of all diagnostics.
+Historical audits against an excluded preparation snapshot (for example SAC's v1
+parity test) are not standalone tests of this reduced archive. The archive verifier
+checks the retained source hashes, results and links without those historical inputs.
 
 ## Interpretation and Open Work
 
@@ -83,7 +92,9 @@ and simulator assets are not redistributed; their licenses remain applicable.
 
 Do not edit the live experiment or its frozen source to update a README. Export into
 a separate workspace, review the selected diff, and publish only the scoped archive.
-`tools/export_local_experiments.py` performs a one-time read-only export from the
-original workspace into a new destination; it never launches training. Generated
+`tools/export_local_experiments.py` exports only the six executed families from the
+original workspace into a new destination; it never launches training or republishes
+preparation versions. Tests and upstream references used by the executed snapshots'
+validation are retained inside those snapshots, not listed as extra experiments. Generated
 reports are snapshots and require an explicit later update. SHA256 verification
 checks bytes, not scientific validity or reproducibility of omitted raw artifacts.

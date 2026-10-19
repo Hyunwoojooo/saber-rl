@@ -19,6 +19,7 @@ Neither interval excludes zero. DrawerClose has a negative mean difference; unfa
 Three completed DrawerOpen HER seeds were reused after the power outage; five interrupted runs
 were rerun from step zero. Seventeen runs in this recovery plus three retained runs form ONE
 20-run cohort, not an additional independent replication. No curves were spliced and no checkpoint continuation was used.
+This is the single published SAC HER/SABER source folder. Its frozen scientific source also covers the three retained pre-outage runs.
 See [final.json](results/analysis/final.json) for seed-level outcomes and the interruption inventory.
 ## Known observation-representation caveat
 
@@ -27,7 +28,7 @@ The inherited MetaWorld observation includes the original goal in its final thre
 
 ## Code and provenance
 
-- [source/](source/) contains the frozen executed/prepared source, protocol, tests, upstream copies and manifests.
+- [source/](source/) contains the frozen executed source, protocol, tests, upstream copies and manifests.
 - [source/README.md](source/README.md) is the ORIGINAL historical instruction file; its old pending/status text is not this snapshot's status.
 - [provenance.json](provenance.json) records byte-identical source hashes and exported report hashes.
 - Checkpoints, replay buffers, raw training logs, virtual environments and live process control files are omitted.

@@ -4,11 +4,34 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from export_local_experiments import auc, scrub
-from verify_archive import check_hashes, close, digest
+from export_local_experiments import ASSIGN, PAL, DIAG, RETRIEVAL, RECOVERY, BASELINES, SPECS, auc, result_text, scrub
+from verify_archive import check_experiment_index, check_hashes, close, digest
 
 
 class ArchiveTests(unittest.TestCase):
+    def test_export_includes_only_the_six_executed_families(self):
+        self.assertEqual(set(SPECS), {ASSIGN, PAL, DIAG, RETRIEVAL, RECOVERY, BASELINES})
+        self.assertEqual(sum(row[2] for row in SPECS.values()), 90)
+        self.assertTrue(all(row[1] in {"completed", "completed_offline", "in_progress"} for row in SPECS.values()))
+        with self.assertRaises(ValueError):
+            result_text("unused_preparation", Path("not_read"), None)
+
+    def test_index_rejects_preparation_and_unlisted_directories(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            experiments = root / "experiments"
+            (experiments / "production").mkdir(parents=True)
+            index = {"experiments": [{"directory": "production", "status": "completed", "new_production_runs_planned": 10}],
+                     "training_counts": {"planned": 10}}
+            check_experiment_index(root, index)
+            index["experiments"][0]["status"] = "superseded_before_production"
+            with self.assertRaises(ValueError):
+                check_experiment_index(root, index)
+            index["experiments"][0]["status"] = "completed"
+            (experiments / "preparation").mkdir()
+            with self.assertRaises(ValueError):
+                check_experiment_index(root, index)
+
     def test_auc_does_not_integrate_unobserved_zero_prefix(self):
         self.assertEqual(auc([(10000, 0), (2000000, 1)]), 0.5)
 

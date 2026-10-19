@@ -22,7 +22,7 @@ AUC uses the exact 10k-2M grid and denominator 2M-10k. See the full paired analy
 
 ## Code and provenance
 
-- [source/](source/) contains the frozen executed/prepared source, protocol, tests, upstream copies and manifests.
+- [source/](source/) contains the frozen executed source, protocol, tests, upstream copies and manifests.
 - [source/README.md](source/README.md) is the ORIGINAL historical instruction file; its old pending/status text is not this snapshot's status.
 - [provenance.json](provenance.json) records byte-identical source hashes and exported report hashes.
 - Checkpoints, replay buffers, raw training logs, virtual environments and live process control files are omitted.
