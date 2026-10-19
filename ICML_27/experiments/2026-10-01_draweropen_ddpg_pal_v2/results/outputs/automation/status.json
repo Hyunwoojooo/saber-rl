@@ -1,0 +1,207 @@
+{
+  "authorized_production": {
+    "arm": "pal",
+    "parallel": 5,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "steps_per_seed": 2000000
+  },
+  "checked_utc": "2026-10-03T20:26:51.596677+00:00",
+  "finished_utc": "2026-10-03T20:26:51.596674+00:00",
+  "pid": 2549402,
+  "reference": "<WORKSPACE>/experiments_post_review/2026-09-25_draweropen_ddpg_assignment",
+  "reference_pids": [],
+  "reference_progress": {
+    "complete": 30,
+    "pending": 0,
+    "running": 0,
+    "total": 30
+  },
+  "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+  "stage": "analysis",
+  "stages": [
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "static_check.py"
+      ],
+      "finished_utc": "2026-10-02T04:52:07.197861+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/static.log",
+      "name": "static",
+      "pid": 2834848,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:05.196050+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "validate.py",
+        "--run-tests"
+      ],
+      "finished_utc": "2026-10-02T04:52:09.218067+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/cpu_tests.log",
+      "name": "cpu_tests",
+      "pid": 2834849,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:07.216381+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "final_checks.py",
+        "--stage",
+        "reference"
+      ],
+      "finished_utc": "2026-10-02T04:52:13.239395+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/reference.log",
+      "name": "reference",
+      "pid": 2834855,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:09.236759+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "final_checks.py",
+        "--stage",
+        "cuda_loss"
+      ],
+      "finished_utc": "2026-10-02T04:52:15.283462+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/cuda_loss.log",
+      "name": "cuda_loss",
+      "pid": 2834886,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:13.281158+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "launch.py",
+        "--profile",
+        "smoke",
+        "--device",
+        "cuda",
+        "--seeds",
+        "1",
+        "--parallel",
+        "1",
+        "--output-root",
+        "outputs/automatic_cuda_smoke",
+        "--execute"
+      ],
+      "finished_utc": "2026-10-02T04:52:33.326787+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/cuda_smoke.log",
+      "name": "cuda_smoke",
+      "pid": 2834896,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:15.321582+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "validate.py",
+        "--run-tests",
+        "--smoke-root",
+        "outputs/automatic_cuda_smoke"
+      ],
+      "finished_utc": "2026-10-02T04:52:37.348269+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/smoke_gate.log",
+      "name": "smoke_gate",
+      "pid": 2834991,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:33.345562+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "final_checks.py",
+        "--stage",
+        "readiness",
+        "--smoke-root",
+        "outputs/automatic_cuda_smoke"
+      ],
+      "finished_utc": "2026-10-02T04:52:43.394445+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/readiness.log",
+      "name": "readiness",
+      "pid": 2835006,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:37.391646+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "launch.py",
+        "--profile",
+        "production",
+        "--device",
+        "cuda",
+        "--parallel",
+        "5",
+        "--dry-run"
+      ],
+      "finished_utc": "2026-10-02T04:52:45.415436+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/preview.log",
+      "name": "preview",
+      "pid": 2835021,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:43.413405+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "launch.py",
+        "--profile",
+        "production",
+        "--device",
+        "cuda",
+        "--parallel",
+        "5",
+        "--execute"
+      ],
+      "finished_utc": "2026-10-03T20:26:47.556570+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/production.log",
+      "name": "production",
+      "pid": 2835024,
+      "returncode": 0,
+      "started_utc": "2026-10-02T04:52:45.459193+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "analyze.py",
+        "--output-root",
+        "outputs",
+        "--saber-root",
+        "<WORKSPACE>/experiments_post_review/2026-09-25_draweropen_ddpg_assignment"
+      ],
+      "finished_utc": "2026-10-03T20:26:51.595830+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-01_draweropen_ddpg_pal_v2/outputs/automation/analysis.log",
+      "name": "analysis",
+      "pid": 3287836,
+      "returncode": 0,
+      "started_utc": "2026-10-03T20:26:47.576246+00:00"
+    }
+  ],
+  "started_utc": "2026-10-01T03:46:59.842909+00:00",
+  "status": "complete"
+}

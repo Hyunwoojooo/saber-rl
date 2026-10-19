@@ -1,0 +1,10 @@
+{
+  "recovery_id": "drawer_sac_fpp_v2_power_interruption_recovery_20261012",
+  "scientific_source_manifest_sha256": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede",
+  "sha256": {
+    "recovery/README.md": "b2406e2470da5e779cc064f5c48aa857efb9e9c46fcbaf468558fb227f93cf94",
+    "recovery/manage.py": "dedc4ec14e88d17a2e692f52a788e632ee1f6da97abb33ed04b5ae76ce554f3c",
+    "recovery/plan.json": "041863a69d216708522257e32bffb2d56a359b6ca90e114b37ef993d88310664",
+    "recovery/test_recovery.py": "a0b85265fd2e932d0b1011ad6b5b25de584b5750f128436e27c78435e954de19"
+  }
+}

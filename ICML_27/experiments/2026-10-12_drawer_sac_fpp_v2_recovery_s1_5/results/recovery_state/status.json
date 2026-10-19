@@ -1,0 +1,41 @@
+{
+  "status": "complete",
+  "pid": 18014,
+  "started_utc": "2026-10-12T06:55:37.613108+00:00",
+  "boot_id": "3c74c9ba-4404-4e89-9209-17804089266b",
+  "source_manifest_sha256": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede",
+  "recovery_manifest_sha256": "e4deec7afd36863bd42da072a8642798c946a247c5e77a653fc245596b1c23c4",
+  "reused_completed_runs": 3,
+  "fresh_runs_scheduled": 17,
+  "stages": [
+    {
+      "name": "production_drawer_open",
+      "returncode": 0,
+      "finished_utc": "2026-10-14T07:19:28.572403+00:00"
+    },
+    {
+      "name": "analysis_drawer_open",
+      "returncode": 0,
+      "finished_utc": "2026-10-14T07:19:38.619148+00:00"
+    },
+    {
+      "name": "production_drawer_close",
+      "returncode": 0,
+      "finished_utc": "2026-10-16T10:49:04.140433+00:00"
+    },
+    {
+      "name": "analysis_drawer_close",
+      "returncode": 0,
+      "finished_utc": "2026-10-16T10:49:14.151822+00:00"
+    },
+    {
+      "name": "final_analysis",
+      "returncode": 0,
+      "finished_utc": "2026-10-16T10:49:24.197999+00:00"
+    }
+  ],
+  "stage": "finished",
+  "stage_started_utc": "2026-10-16T10:49:14.195176+00:00",
+  "heartbeat_utc": "2026-10-16T10:49:24.235040+00:00",
+  "finished_utc": "2026-10-16T10:49:24.235024+00:00"
+}

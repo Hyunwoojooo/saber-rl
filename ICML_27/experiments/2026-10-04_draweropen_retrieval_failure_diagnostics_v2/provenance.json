@@ -1,0 +1,141 @@
+{
+  "snapshot_utc": "2026-10-19T05:52:33.729730+00:00",
+  "original_directory": "experiments_post_review/2026-10-04_draweropen_retrieval_failure_diagnostics_v2",
+  "source_policy": "byte-for-byte copies, including original README and manifests",
+  "source_files_sha256": {
+    ".gitignore": "72347142a7acb91091e4c8b019e82dae2a5a18da600191a5a7e1c7af826e7f57",
+    "PROTOCOL.md": "2e6288ded7a17cbb62db2ef3b0174294f02b46d7ea25cd6ba4bec391c72947ed",
+    "README.md": "4e27636313ff205f3f2cb81e750ed888035eb4bdf4cd0231995e85015d9932ae",
+    "RECOVERY.md": "e0709461cc0c6622b07c22bc5768b53f0b5106544e689357ccd1b15dea84bd01",
+    "after_pal.py": "5a5bd34696459fa9e755741e39cb4090b1927d73a0267dd4fae76e8dc8076b4a",
+    "analyze_failures.py": "e7ce3c080bc7e29ffc2c9c0e5d3ec107b54ce88e734143467edd38f1259651e5",
+    "common.py": "4a8bae154f3b6963c8e32897e3965138d090d8ac35cf78391af999fc51abdbd5",
+    "diagnose_retrieval.py": "f4c9d4f0e4352754b4f1a57aa80912a973c9f042e50d760e04c873ec0694c68b",
+    "freeze.py": "852422526649cb052c6f495c2352f1ce4b081f44302d96cf22275c47e560519d",
+    "retrieval_core.py": "011265656c0b71fc93072c105cf944f65e9b8dd2743c0257cd1b634f7121cf0a",
+    "source_manifest.json": "4d660f281ff0f2a63d16858ca7e2cf51756d9790b63f7514d03b27e88a8f204f",
+    "summarize.py": "5efbaf1c109070c7a530b37948e35a0c6bce1763c19e2b87fe2bfc32d13bd85b",
+    "tests/test_checkpoint_config.py": "17e1326ec2095d243f7234276a3e2b785fb5b1db2ba96ba84ff229acab1ccb38",
+    "tests/test_core.py": "7c3aecb583fe9fdff508da70c6b79cab1bcdd62295f240b857a920c86045e35c",
+    "tests/test_retrieval.py": "dc75c1f3773420842cccaf7f98d60ff99b68a6c7a2791318252e2c6985a41881",
+    "upstream/assignment_source_manifest.json": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+    "upstream/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+    "upstream/code/src/metacog_lite_v0/agent.py": "334a1d15cd7cb04b8a7f593190d031852b7836eda2370e15b5bf3e1bc11be293",
+    "upstream/code/src/metacog_lite_v0/assignment_comparison.py": "e9128fa6f83e61d706a18a7243c2e7e1aad380f90c92a9962a9e7f5f4d58615e",
+    "upstream/code/src/metacog_lite_v0/assignment_diagnostics.py": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5",
+    "upstream/code/src/metacog_lite_v0/config.py": "1338e48e8e0f8e9d9c203b577f99bd49791cebae0d57cca9751b418de1ec5cd7",
+    "upstream/code/src/metacog_lite_v0/envs.py": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+    "upstream/code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+    "upstream/code/src/metacog_lite_v0/io_utils.py": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+    "upstream/code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+    "upstream/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+    "upstream/code/src/metacog_lite_v0/numba_support_scan_fpp.py": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+    "upstream/code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+    "upstream/code/src/metacog_lite_v0/task_drawer_open.py": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+    "upstream/code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+    "upstream/code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+    "upstream/code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+    "upstream/code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+    "upstream/code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+    "upstream/code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+    "upstream/code/src/metacog_lite_v0/trainer.py": "3db3dcc3c7514137300a8dc85a2e55ac308f2041ccd34b128ea25aabdca5cdca",
+    "upstream/code/src/metacog_lite_v0/weights.py": "9c2ae980dde6136b9bdc7c6f41a080ad0d49b1488a172b2340966ed139c6d0b8",
+    "upstream/code/src/test_strict_config_resume_contract.py": "5266e63968c72f83db1aebcb1b2dc629669523dff03b2ee25ec8e621d7f0da05",
+    "upstream/code/src/test_strict_context_eligible_count_matched.py": "a5816bb24fcbd359d8ba210a868e3f70cf489a39c8edde04e03d7fc4d68266bb",
+    "upstream/code/src/test_strict_ddpg_loss_scope.py": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10",
+    "upstream/code/src/test_strict_drawer_open_scanner.py": "27ab9f4baf17d96e0527fad1cb3eb6b4792e89bbd60effaa93f54052336dd1a8",
+    "upstream/code/src/train_drawer_open_lite_v0.py": "81a939cd90f7bc2c21c279cc61a000c568078bd5dead40f17dec4a4d1d827086",
+    "upstream/diagnostic_v1_source_manifest.json": "96f1dc49b755490ccfcb374358b1c5226c1dc240cc77ae04fbf86b5a68308f4b"
+  },
+  "reports": [
+    {
+      "original_path": "outputs/automation/status.json",
+      "original_sha256": "bc05f903f6dcd290161049e4e5fd6c194f0cbca7b6ebafda2f1a20e34dd984e2",
+      "published_path": "results/outputs/automation/status.json",
+      "published_sha256": "2e730594776885ce43fc30f3552108bf8432dd10eef6610d7f802151673ae850"
+    },
+    {
+      "original_path": "outputs/failure_analysis/evaluation_curves.csv",
+      "original_sha256": "d161794b8470ad066f5f9f0d6b0acde45bba39936a37aac0002f3e0353842f18",
+      "published_path": "results/outputs/failure_analysis/evaluation_curves.csv",
+      "published_sha256": "d161794b8470ad066f5f9f0d6b0acde45bba39936a37aac0002f3e0353842f18"
+    },
+    {
+      "original_path": "outputs/failure_analysis/posthoc_groups.csv",
+      "original_sha256": "adc389000676fd3bf539a4d8db55f0072b20bb58d023861973089bc7d09a2eaf",
+      "published_path": "results/outputs/failure_analysis/posthoc_groups.csv",
+      "published_sha256": "adc389000676fd3bf539a4d8db55f0072b20bb58d023861973089bc7d09a2eaf"
+    },
+    {
+      "original_path": "outputs/failure_analysis/report.json",
+      "original_sha256": "894c415418fc7440412a857f681fb71202ddcfbc65f2dbd422ee3bca5726f2dd",
+      "published_path": "results/outputs/failure_analysis/report.json",
+      "published_sha256": "894c415418fc7440412a857f681fb71202ddcfbc65f2dbd422ee3bca5726f2dd"
+    },
+    {
+      "original_path": "outputs/failure_analysis/run_summary.csv",
+      "original_sha256": "1ab6404c1b564182f94efef49407233cb159db7783695a4744e0f21ffcd272ac",
+      "published_path": "results/outputs/failure_analysis/run_summary.csv",
+      "published_sha256": "1ab6404c1b564182f94efef49407233cb159db7783695a4744e0f21ffcd272ac"
+    },
+    {
+      "original_path": "outputs/failure_analysis/time_bands.csv",
+      "original_sha256": "ed154ab1126547ac11e8d1dc923c5daccf1b9559721fd58d71026026964aaf61",
+      "published_path": "results/outputs/failure_analysis/time_bands.csv",
+      "published_sha256": "ed154ab1126547ac11e8d1dc923c5daccf1b9559721fd58d71026026964aaf61"
+    },
+    {
+      "original_path": "outputs/final/REPORT.md",
+      "original_sha256": "f12757acc8f59edf2244b1bac8eb7747e37a0b333a8252ad19991e72fe8cafe3",
+      "published_path": "results/outputs/final/REPORT.md",
+      "published_sha256": "f12757acc8f59edf2244b1bac8eb7747e37a0b333a8252ad19991e72fe8cafe3"
+    },
+    {
+      "original_path": "outputs/final/report.json",
+      "original_sha256": "0b4c917a50d56c18c9b31d447b031cc0be67c6e8cda2528847fc377112654172",
+      "published_path": "results/outputs/final/report.json",
+      "published_sha256": "0b4c917a50d56c18c9b31d447b031cc0be67c6e8cda2528847fc377112654172"
+    },
+    {
+      "original_path": "outputs/recovery_verification/report.json",
+      "original_sha256": "aab8cd86f62ef44faa1782d37606dab4bb3a372e2e0401ac9231c4e21bc75de0",
+      "published_path": "results/outputs/recovery_verification/report.json",
+      "published_sha256": "aab8cd86f62ef44faa1782d37606dab4bb3a372e2e0401ac9231c4e21bc75de0"
+    },
+    {
+      "original_path": "outputs/retrieval/aggregate_summary.csv",
+      "original_sha256": "8d1aa4d5abc84f4abe13244d532e2e0d553833beedca31605838276233a79610",
+      "published_path": "results/outputs/retrieval/aggregate_summary.csv",
+      "published_sha256": "8d1aa4d5abc84f4abe13244d532e2e0d553833beedca31605838276233a79610"
+    },
+    {
+      "original_path": "outputs/retrieval/random_repeat_summary.csv",
+      "original_sha256": "088809ae56b433053f43aa83bfab2072ec6528f338a0423052d63b76aaf3d2a5",
+      "published_path": "results/outputs/retrieval/random_repeat_summary.csv",
+      "published_sha256": "088809ae56b433053f43aa83bfab2072ec6528f338a0423052d63b76aaf3d2a5"
+    },
+    {
+      "original_path": "outputs/retrieval/report.json",
+      "original_sha256": "21558518fb54a3cc3a0a689a547025fdfd6b075242618116b89694aafdc26d5c",
+      "published_path": "results/outputs/retrieval/report.json",
+      "published_sha256": "21558518fb54a3cc3a0a689a547025fdfd6b075242618116b89694aafdc26d5c"
+    },
+    {
+      "original_path": "outputs/retrieval/seed_summary.csv",
+      "original_sha256": "cd22fc632132ef4e7b74b74168e2abf6be9341010488b90fd8e1a0b0817c550d",
+      "published_path": "results/outputs/retrieval/seed_summary.csv",
+      "published_sha256": "cd22fc632132ef4e7b74b74168e2abf6be9341010488b90fd8e1a0b0817c550d"
+    }
+  ],
+  "report_transformations": [
+    "workspace absolute path replaced with <WORKSPACE>",
+    "JSON reserialized; nonfinite values become null"
+  ],
+  "omitted": [
+    "checkpoints/replay",
+    "raw metrics and logs",
+    "live locks and production claims",
+    "venv/caches",
+    "environment credentials"
+  ]
+}

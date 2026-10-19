@@ -1,0 +1,34 @@
+{
+  "assignment_source_unchanged": true,
+  "direct_full_replay_crosschecks": 160,
+  "full_audit_queries": 10240,
+  "independent_training_seeds": 10,
+  "input_checkpoint_hashes_verified": true,
+  "original_diagnostic_source_unchanged": true,
+  "original_failure_analysis_files_byte_identical": [
+    "evaluation_curves.csv",
+    "posthoc_groups.csv",
+    "report.json",
+    "run_summary.csv",
+    "time_bands.csv",
+    "window_trajectories.csv"
+  ],
+  "pal_source_unchanged": true,
+  "passed": true,
+  "pipeline_finished_utc": "2026-10-04T12:51:39.356035+00:00",
+  "random_repeats_per_query": 5,
+  "regression_tests_passed": 48,
+  "retrieval_measurements": 71680,
+  "source_snapshot_sha256": "4d660f281ff0f2a63d16858ca7e2cf51756d9790b63f7514d03b27e88a8f204f",
+  "summary_recomputed_independently": true,
+  "tail_parity_mismatches": 0,
+  "training_runs_added": 0,
+  "unique_input_and_output_files_rehashed": 218,
+  "unknown_config_fields_still_rejected": true,
+  "verified_artifact_families": [
+    "failure_analysis",
+    "retrieval_pilot",
+    "retrieval",
+    "final"
+  ]
+}

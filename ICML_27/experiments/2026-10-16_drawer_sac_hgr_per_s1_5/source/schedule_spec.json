@@ -1,0 +1,19 @@
+{
+  "predecessor": "../2026-10-12_drawer_sac_fpp_v2_recovery_s1_5",
+  "predecessor_source_manifest_sha256": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede",
+  "predecessor_recovery_manifest_sha256": "e4deec7afd36863bd42da072a8642798c946a247c5e77a653fc245596b1c23c4",
+  "predecessor_required_stages": ["production_drawer_open", "analysis_drawer_open", "production_drawer_close", "analysis_drawer_close", "final_analysis"],
+  "poll_seconds": 60,
+  "cuda_visible_devices": "0",
+  "validation_parallel": 4,
+  "validation_seed": 1,
+  "gpu_smoke_steps": 600,
+  "stability_steps": 100000,
+  "validation_timeout_seconds": 86400,
+  "production_parallel": 5,
+  "production_task_order": ["drawer_open", "drawer_close"],
+  "minimum_free_disk_gib": 30,
+  "minimum_available_ram_gib": 12,
+  "retry_failed_runs": false,
+  "reuse_validation_as_production": false
+}

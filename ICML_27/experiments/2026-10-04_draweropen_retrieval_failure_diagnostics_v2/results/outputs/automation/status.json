@@ -1,0 +1,102 @@
+{
+  "checked_utc": "2026-10-04T12:51:39.356037+00:00",
+  "finished_utc": "2026-10-04T12:51:39.356035+00:00",
+  "new_training_authorized": false,
+  "pal": {
+    "complete": 10,
+    "pal_stage": "analysis",
+    "pal_status": "complete",
+    "pending": 0,
+    "ready": true,
+    "running": 0
+  },
+  "pid": 3476958,
+  "source_manifest_sha256": "4d660f281ff0f2a63d16858ca7e2cf51756d9790b63f7514d03b27e88a8f204f",
+  "stage": "summary",
+  "stages": [
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "finished_utc": "2026-10-04T12:45:47.064642+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-04_draweropen_retrieval_failure_diagnostics_v2/outputs/automation/tests.log",
+      "name": "tests",
+      "pid": 3476966,
+      "returncode": 0,
+      "started_utc": "2026-10-04T12:45:45.061931+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "analyze_failures.py",
+        "--output-dir",
+        "outputs/failure_analysis"
+      ],
+      "finished_utc": "2026-10-04T12:45:59.114539+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-04_draweropen_retrieval_failure_diagnostics_v2/outputs/automation/failure_analysis.log",
+      "name": "failure_analysis",
+      "pid": 3476973,
+      "returncode": 0,
+      "started_utc": "2026-10-04T12:45:47.111669+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "diagnose_retrieval.py",
+        "--profile",
+        "pilot",
+        "--output-dir",
+        "outputs/retrieval_pilot"
+      ],
+      "finished_utc": "2026-10-04T12:46:09.162894+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-04_draweropen_retrieval_failure_diagnostics_v2/outputs/automation/retrieval_pilot.log",
+      "name": "retrieval_pilot",
+      "pid": 3477055,
+      "returncode": 0,
+      "started_utc": "2026-10-04T12:45:59.160541+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "diagnose_retrieval.py",
+        "--profile",
+        "full",
+        "--output-dir",
+        "outputs/retrieval"
+      ],
+      "finished_utc": "2026-10-04T12:51:37.289375+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-04_draweropen_retrieval_failure_diagnostics_v2/outputs/automation/retrieval.log",
+      "name": "retrieval",
+      "pid": 3477061,
+      "returncode": 0,
+      "started_utc": "2026-10-04T12:46:09.208656+00:00"
+    },
+    {
+      "command": [
+        "<WORKSPACE>/.venv/bin/python",
+        "-B",
+        "summarize.py"
+      ],
+      "finished_utc": "2026-10-04T12:51:39.355418+00:00",
+      "log": "<WORKSPACE>/experiments_post_review/2026-10-04_draweropen_retrieval_failure_diagnostics_v2/outputs/automation/summary.log",
+      "name": "summary",
+      "pid": 3478168,
+      "returncode": 0,
+      "started_utc": "2026-10-04T12:51:37.353603+00:00"
+    }
+  ],
+  "started_utc": "2026-10-04T12:45:44.968646+00:00",
+  "status": "complete",
+  "upstream_pal_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+  "upstream_pids": []
+}

@@ -1,0 +1,31 @@
+{
+  "status": "running",
+  "pid": 1117482,
+  "source_manifest_sha256": "8b9a3f9bfd79b0f973af801fb39f98b102b7e5352bcc629b454283cadb0e3304",
+  "started_utc": "2026-10-16T04:57:56.697346+00:00",
+  "stage": "production_drawer_open",
+  "stages": [
+    {
+      "name": "cpu_revalidation",
+      "returncode": 0,
+      "finished_utc": "2026-10-16T10:51:22.508862+00:00"
+    },
+    {
+      "name": "gpu_validation",
+      "returncode": 0,
+      "finished_utc": "2026-10-16T13:02:03.539495+00:00"
+    }
+  ],
+  "heartbeat_utc": "2026-10-19T05:52:31.760150+00:00",
+  "predecessor": {
+    "state": "ready",
+    "reason": "all 20 reference runs and final analysis validated"
+  },
+  "resources": {
+    "state": "ready",
+    "free_disk_gib": 3137.78409576416,
+    "available_ram_gib": 117.8353157043457
+  },
+  "stage_started_utc": "2026-10-16T13:02:03.906751+00:00",
+  "child_pid": 1211571
+}

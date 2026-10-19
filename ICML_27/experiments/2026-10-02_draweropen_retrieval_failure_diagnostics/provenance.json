@@ -1,0 +1,66 @@
+{
+  "snapshot_utc": "2026-10-19T05:52:33.729730+00:00",
+  "original_directory": "experiments_post_review/2026-10-02_draweropen_retrieval_failure_diagnostics",
+  "source_policy": "byte-for-byte copies, including original README and manifests",
+  "source_files_sha256": {
+    ".gitignore": "72347142a7acb91091e4c8b019e82dae2a5a18da600191a5a7e1c7af826e7f57",
+    "PROTOCOL.md": "2e6288ded7a17cbb62db2ef3b0174294f02b46d7ea25cd6ba4bec391c72947ed",
+    "README.md": "a0afc2465046d63eb59d52c232170b86ceece41982f7fb4656f037f32bbbcbd7",
+    "after_pal.py": "5a5bd34696459fa9e755741e39cb4090b1927d73a0267dd4fae76e8dc8076b4a",
+    "analyze_failures.py": "e7ce3c080bc7e29ffc2c9c0e5d3ec107b54ce88e734143467edd38f1259651e5",
+    "common.py": "4a8bae154f3b6963c8e32897e3965138d090d8ac35cf78391af999fc51abdbd5",
+    "diagnose_retrieval.py": "501905c7cf5640a18bcb580a3355af4983941ebaf3901808cffe2ecfc1859699",
+    "freeze.py": "510978bc4bcd2c86bc24faee0210d9e6172fdf5e7b330940e83c0ca9cd86ec05",
+    "retrieval_core.py": "011265656c0b71fc93072c105cf944f65e9b8dd2743c0257cd1b634f7121cf0a",
+    "source_manifest.json": "96f1dc49b755490ccfcb374358b1c5226c1dc240cc77ae04fbf86b5a68308f4b",
+    "summarize.py": "5efbaf1c109070c7a530b37948e35a0c6bce1763c19e2b87fe2bfc32d13bd85b",
+    "tests/test_core.py": "7c3aecb583fe9fdff508da70c6b79cab1bcdd62295f240b857a920c86045e35c",
+    "tests/test_retrieval.py": "dc75c1f3773420842cccaf7f98d60ff99b68a6c7a2791318252e2c6985a41881",
+    "upstream/assignment_source_manifest.json": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+    "upstream/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+    "upstream/code/src/metacog_lite_v0/agent.py": "334a1d15cd7cb04b8a7f593190d031852b7836eda2370e15b5bf3e1bc11be293",
+    "upstream/code/src/metacog_lite_v0/assignment_comparison.py": "e9128fa6f83e61d706a18a7243c2e7e1aad380f90c92a9962a9e7f5f4d58615e",
+    "upstream/code/src/metacog_lite_v0/assignment_diagnostics.py": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5",
+    "upstream/code/src/metacog_lite_v0/config.py": "1338e48e8e0f8e9d9c203b577f99bd49791cebae0d57cca9751b418de1ec5cd7",
+    "upstream/code/src/metacog_lite_v0/envs.py": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b",
+    "upstream/code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+    "upstream/code/src/metacog_lite_v0/io_utils.py": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+    "upstream/code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+    "upstream/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d",
+    "upstream/code/src/metacog_lite_v0/numba_support_scan_fpp.py": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+    "upstream/code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+    "upstream/code/src/metacog_lite_v0/task_drawer_open.py": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+    "upstream/code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+    "upstream/code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+    "upstream/code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+    "upstream/code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+    "upstream/code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+    "upstream/code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+    "upstream/code/src/metacog_lite_v0/trainer.py": "3db3dcc3c7514137300a8dc85a2e55ac308f2041ccd34b128ea25aabdca5cdca",
+    "upstream/code/src/metacog_lite_v0/weights.py": "9c2ae980dde6136b9bdc7c6f41a080ad0d49b1488a172b2340966ed139c6d0b8",
+    "upstream/code/src/test_strict_config_resume_contract.py": "5266e63968c72f83db1aebcb1b2dc629669523dff03b2ee25ec8e621d7f0da05",
+    "upstream/code/src/test_strict_context_eligible_count_matched.py": "a5816bb24fcbd359d8ba210a868e3f70cf489a39c8edde04e03d7fc4d68266bb",
+    "upstream/code/src/test_strict_ddpg_loss_scope.py": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10",
+    "upstream/code/src/test_strict_drawer_open_scanner.py": "27ab9f4baf17d96e0527fad1cb3eb6b4792e89bbd60effaa93f54052336dd1a8",
+    "upstream/code/src/train_drawer_open_lite_v0.py": "81a939cd90f7bc2c21c279cc61a000c568078bd5dead40f17dec4a4d1d827086"
+  },
+  "reports": [
+    {
+      "original_path": "outputs/automation/status.json",
+      "original_sha256": "53b51cb655f49652f06428562192400edc79881bd168d9e93ed702f4fc3af6fc",
+      "published_path": "results/outputs/automation/status.json",
+      "published_sha256": "82a86216fac86a0416fdea1867ed86e8bd69b36c5c6f8ca8909f6222dda74b52"
+    }
+  ],
+  "report_transformations": [
+    "workspace absolute path replaced with <WORKSPACE>",
+    "JSON reserialized; nonfinite values become null"
+  ],
+  "omitted": [
+    "checkpoints/replay",
+    "raw metrics and logs",
+    "live locks and production claims",
+    "venv/caches",
+    "environment credentials"
+  ]
+}

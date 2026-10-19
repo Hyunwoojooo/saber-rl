@@ -1,0 +1,195 @@
+{
+  "captured_utc": "2026-10-19T05:52:33.729730+00:00",
+  "automatic_live_update": false,
+  "total_planned": 20,
+  "counts": {
+    "completed": 9,
+    "pending": 10,
+    "running": 1
+  },
+  "total_steps_observed": 18964800,
+  "total_steps_planned": 40000000,
+  "runs": [
+    {
+      "task": "drawer_open",
+      "method": "hgr",
+      "seed": 1,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.7236180904522613,
+      "runtime_seconds": 172814.79332591797
+    },
+    {
+      "task": "drawer_open",
+      "method": "hgr",
+      "seed": 2,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.6600502512562814,
+      "runtime_seconds": 172749.890389389
+    },
+    {
+      "task": "drawer_open",
+      "method": "hgr",
+      "seed": 3,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.800251256281407,
+      "runtime_seconds": 172899.876002144
+    },
+    {
+      "task": "drawer_open",
+      "method": "hgr",
+      "seed": 4,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.7195979899497488,
+      "runtime_seconds": 169701.13756766095
+    },
+    {
+      "task": "drawer_open",
+      "method": "hgr",
+      "seed": 5,
+      "status": "running",
+      "step": 964800,
+      "eval_step": 960000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.23684210526315788,
+      "runtime_seconds": 79332.69585693092
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 1,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.8648241206030151,
+      "runtime_seconds": 55029.28832891502
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 2,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.8442211055276382,
+      "runtime_seconds": 55091.367513805046
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 3,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.7761306532663317,
+      "runtime_seconds": 49718.94670489
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 4,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.8201005025125628,
+      "runtime_seconds": 49296.308021439996
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 5,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.6826633165829146,
+      "runtime_seconds": 45472.01858087792
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 1,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 2,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 3,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 4,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 5,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 1,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 2,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 3,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 4,
+      "status": "pending",
+      "step": 0
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 5,
+      "status": "pending",
+      "step": 0
+    }
+  ],
+  "note": "Running AUC ends at eval_step, not at 2M; do not pool unequal horizons."
+}

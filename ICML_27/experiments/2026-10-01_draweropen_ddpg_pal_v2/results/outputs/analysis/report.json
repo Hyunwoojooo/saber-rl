@@ -1,0 +1,2255 @@
+{
+  "analysis_version": "pal-v2",
+  "arm_summary": {
+    "pal": {
+      "auc": {
+        "mean": 0.5453517587939698,
+        "sd": 0.3028406516030322
+      },
+      "final_success": {
+        "mean": 0.8,
+        "sd": 0.42163702135578396
+      },
+      "fq_auc": {
+        "mean": 0.7926,
+        "sd": 0.41788786374656384
+      },
+      "hit90": {
+        "coverage": 8,
+        "median_among_hits": 620000.0,
+        "of": 10
+      },
+      "runtime_sec": {
+        "mean": 71191.7825860357,
+        "sd": 803.8441641362404
+      },
+      "steps_per_second": {
+        "mean": 28.096353704419368,
+        "sd": 0.3172320250293868
+      }
+    },
+    "support": {
+      "auc": {
+        "mean": 0.6526130653266332,
+        "sd": 0.24840218588350135
+      },
+      "final_success": {
+        "mean": 0.89,
+        "sd": 0.31340424729448424
+      },
+      "fq_auc": {
+        "mean": 0.8929,
+        "sd": 0.31382450863854183
+      },
+      "hit90": {
+        "coverage": 9,
+        "median_among_hits": 470000.0,
+        "of": 10
+      },
+      "runtime_sec": {
+        "mean": 92861.12787922582,
+        "sd": 5564.202296608945
+      },
+      "steps_per_second": {
+        "mean": 21.604375045667087,
+        "sd": 1.241108201738819
+      }
+    }
+  },
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20260930,
+  "inference": {
+    "ci95": [
+      -0.15314070351758793,
+      0.3576507537688442
+    ],
+    "contrast": "SABER-minus-PAL full-span AUC",
+    "coverage": "approximate percentile bootstrap; not an equivalence test",
+    "mean": 0.1072613065326633,
+    "median": 0.06890703517587937,
+    "negative_pairs": 2,
+    "positive_pairs": 7,
+    "seed_differences": [
+      0.061557788944723635,
+      0.7449748743718593,
+      0.7890703517587939,
+      0.0,
+      0.08969849246231154,
+      0.07587939698492463,
+      -0.8092964824120603,
+      -0.11482412060301506,
+      0.061934673366834114,
+      0.1736180904522613
+    ],
+    "tied_pairs": 1
+  },
+  "problems": [],
+  "reference_reuse_audit_passed": true,
+  "reference_runs": [
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-26T16:40:31.889880+00:00",
+          "metrics": {
+            "auc": 0.7766331658291458,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 99.62166184377853,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 245.67453650399173,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9596661582187177,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 43.31687635129144,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.40572626018925045,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 43.31747502883457,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.26076220948436823,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4057182925987628,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 99.62166184377853,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.38914711657725987,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 51.2914600042807,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.33945619145906214,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5012389468675539,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 99.62166184377853,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 245.67453650399173,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9596661582187177,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 43.31687635129144,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.40572626018925045,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 43.31747502883457,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.26076220948436823,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4057182925987628,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 99.62166184377853,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.38914711657725987,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 51.2914600042807,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.33945619145906214,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5012389468675539,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 1.0,
+            "hit90": 460000,
+            "steps_per_second": 21.696308528004025
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 1,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-25T15:04:05.883353+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.7766331658291458,
+        "final_success": 1.0,
+        "fq_auc": 1.0,
+        "hit90": 460000,
+        "runtime_sec": 92181.57998714596,
+        "steps_per_second": 21.696308528004025
+      },
+      "seed": 1
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-26T15:55:28.323792+00:00",
+          "metrics": {
+            "auc": 0.7449748743718593,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 106.45246944738373,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995000
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995000
+                },
+                "eligible_count": {
+                  "mean": 246.1764214654529,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9616266463494254,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 5.01252881577503e-07,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 0.9999994987471185,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 50.85880811170266,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.43193305489269146,
+                  "valid_updates": 1995000
+                },
+                "random_intersection": {
+                  "mean": 50.86012387963715,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.2857513772257037,
+                  "valid_updates": 1995000
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4319537732374929,
+                  "valid_updates": 1995000
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 106.45246944738373,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4158299587788427,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 58.151756816162,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3608938967045915,
+                  "valid_updates": 1995000
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5234657439884598,
+                  "valid_updates": 1995000
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 106.45252280701754,
+                  "valid_updates": 1995000
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995000
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995000
+                },
+                "eligible_count": {
+                  "mean": 246.17642105263158,
+                  "valid_updates": 1995000
+                },
+                "eligible_rate": {
+                  "mean": 0.9616266447368421,
+                  "valid_updates": 1995000
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995000
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995000
+                },
+                "random_expected_intersection": {
+                  "mean": 50.85883360483955,
+                  "valid_updates": 1995000
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.43193305489269146,
+                  "valid_updates": 1995000
+                },
+                "random_intersection": {
+                  "mean": 50.860149373433586,
+                  "valid_updates": 1995000
+                },
+                "random_jaccard": {
+                  "mean": 0.2857513772257037,
+                  "valid_updates": 1995000
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4319537732374929,
+                  "valid_updates": 1995000
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995000
+                },
+                "support_count": {
+                  "mean": 106.45252280701754,
+                  "valid_updates": 1995000
+                },
+                "support_rate": {
+                  "mean": 0.4158301672149123,
+                  "valid_updates": 1995000
+                },
+                "td_intersection": {
+                  "mean": 58.15178596491228,
+                  "valid_updates": 1995000
+                },
+                "td_jaccard": {
+                  "mean": 0.3608938967045915,
+                  "valid_updates": 1995000
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5234657439884598,
+                  "valid_updates": 1995000
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 0.985,
+            "hit90": 520000,
+            "steps_per_second": 22.351858903398764
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 2,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-25T15:04:05.935953+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.7449748743718593,
+        "final_success": 1.0,
+        "fq_auc": 0.985,
+        "hit90": 520000,
+        "runtime_sec": 89478.01651055901,
+        "steps_per_second": 22.351858903398764
+      },
+      "seed": 2
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-27T16:53:45.618928+00:00",
+          "metrics": {
+            "auc": 0.7890703517587939,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 105.75394498549123,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 245.77907229119182,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9600745011374681,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 48.52851461382857,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.4307006596199127,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 48.528061890695795,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.28118729740037096,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.43069287466117007,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 105.75394498549123,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4131013475995751,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 56.06954131852566,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.35130255859094284,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5145233858879693,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 105.75394498549123,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 245.77907229119182,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9600745011374681,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 48.52851461382857,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.4307006596199127,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 48.528061890695795,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.28118729740037096,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.43069287466117007,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 105.75394498549123,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4131013475995751,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 56.06954131852566,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.35130255859094284,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5145233858879693,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 0.95,
+            "fq_auc": 0.9875,
+            "hit90": 450000,
+            "steps_per_second": 22.249240420605517
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 3,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-26T15:55:31.100099+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.7890703517587939,
+        "final_success": 0.95,
+        "fq_auc": 0.9875,
+        "hit90": 450000,
+        "runtime_sec": 89890.709174402,
+        "steps_per_second": 22.249240420605517
+      },
+      "seed": 3
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-27T19:59:46.088777+00:00",
+          "metrics": {
+            "auc": 0.8183417085427136,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 108.08259243980329,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 248.79774797105364,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9718662030119283,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 50.707234615595056,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.43456351811518923,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 50.70953748895364,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.2856968721047144,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4345894744232149,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 108.08259243980329,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4221976267179816,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 55.47466241871558,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.33269893691975194,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.492528469905752,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 108.08259243980329,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 248.79774797105364,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9718662030119283,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 50.707234615595056,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.43456351811518923,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 50.70953748895364,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.2856968721047144,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4345894744232149,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 108.08259243980329,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4221976267179816,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 55.47466241871558,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.33269893691975194,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.492528469905752,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 0.992,
+            "hit90": 350000,
+            "steps_per_second": 20.876267538910582
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 4,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-26T17:22:59.857518+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.8183417085427136,
+        "final_success": 1.0,
+        "fq_auc": 0.992,
+        "hit90": 350000,
+        "runtime_sec": 95802.56606082799,
+        "steps_per_second": 20.876267538910582
+      },
+      "seed": 4
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-28T21:18:36.858193+00:00",
+          "metrics": {
+            "auc": 0.6467336683417085,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 114.26248407895535,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 246.03722303898596,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9610829024960389,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 58.83690925038993,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.46533037593091686,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 58.83674694899902,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.317024289603717,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.46532199669546925,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 114.26248407895535,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.44633782843341935,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 62.11409818842196,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3479261535635737,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5025587017562578,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 114.26248407895535,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 246.03722303898596,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9610829024960389,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 58.83690925038993,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.46533037593091686,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 58.83674694899902,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.317024289603717,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.46532199669546925,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 114.26248407895535,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.44633782843341935,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 62.11409818842196,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3479261535635737,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5025587017562578,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 1.0,
+            "hit90": 720000,
+            "steps_per_second": 20.138112461037245
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 5,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-27T17:43:18.978615+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.6467336683417085,
+        "final_success": 1.0,
+        "fq_auc": 1.0,
+        "hit90": 720000,
+        "runtime_sec": 99314.17375235906,
+        "steps_per_second": 20.138112461037245
+      },
+      "seed": 5
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-29T16:16:41.740163+00:00",
+          "metrics": {
+            "auc": 0.7655778894472361,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 98.63166033500735,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 245.47782281813392,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9588977453833356,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 43.79381525999896,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.4016184807043524,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 43.79257504131577,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.2597116868130219,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.40161328482777087,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 98.63166033500735,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.3852799231836225,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 50.684032739833214,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3303719628888944,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.48927061848747483,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 98.63166033500735,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 245.47782281813392,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9588977453833356,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 43.79381525999896,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.4016184807043524,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 43.79257504131577,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.2597116868130219,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.40161328482777087,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 98.63166033500735,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.3852799231836225,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 50.684032739833214,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3303719628888944,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.48927061848747483,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 0.989,
+            "hit90": 470000,
+            "steps_per_second": 22.85166890303422
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 6,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-28T15:57:56.936334+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.7655778894472361,
+        "final_success": 1.0,
+        "fq_auc": 0.989,
+        "hit90": 470000,
+        "runtime_sec": 87520.96000018809,
+        "steps_per_second": 22.85166890303422
+      },
+      "seed": 6
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-30T02:13:28.180182+00:00",
+          "metrics": {
+            "auc": 0.0,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 143.24954674208183,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1994938
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1994938
+                },
+                "eligible_count": {
+                  "mean": 253.44422734625195,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9900165130712967,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 3.157893153938269e-05,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 0.7200958796511882,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 108.05139188015778,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.5648854826470446,
+                  "valid_updates": 1994938
+                },
+                "random_intersection": {
+                  "mean": 108.04874483772188,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.4776114680165091,
+                  "valid_updates": 1994938
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.5648603060974332,
+                  "valid_updates": 1994938
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.27987254141727247,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 143.24954674208183,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.5595685419612572,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 111.32102891176496,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.5252768413994987,
+                  "valid_updates": 1994938
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.6268300165218191,
+                  "valid_updates": 1994938
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 100.23744946373083,
+                  "valid_updates": 1436592
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1436592
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1436592
+                },
+                "eligible_count": {
+                  "mean": 253.25401575395102,
+                  "valid_updates": 1436592
+                },
+                "eligible_rate": {
+                  "mean": 0.9892734990388712,
+                  "valid_updates": 1436592
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1436592
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1436592
+                },
+                "random_expected_intersection": {
+                  "mean": 51.357632405238704,
+                  "valid_updates": 1436592
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.3957738279072484,
+                  "valid_updates": 1436592
+                },
+                "random_intersection": {
+                  "mean": 51.353956446924386,
+                  "valid_updates": 1436592
+                },
+                "random_jaccard": {
+                  "mean": 0.274579885438537,
+                  "valid_updates": 1436592
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.3957388662371788,
+                  "valid_updates": 1436592
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1436592
+                },
+                "support_count": {
+                  "mean": 100.23744946373083,
+                  "valid_updates": 1436592
+                },
+                "support_rate": {
+                  "mean": 0.39155253696769854,
+                  "valid_updates": 1436592
+                },
+                "td_intersection": {
+                  "mean": 55.89819030037756,
+                  "valid_updates": 1436592
+                },
+                "td_jaccard": {
+                  "mean": 0.34077088792630983,
+                  "valid_updates": 1436592
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.48179373092708644,
+                  "valid_updates": 1436592
+                }
+              }
+            },
+            "final_success": 0.0,
+            "fq_auc": 0.0,
+            "hit90": null,
+            "steps_per_second": 19.215036728965398
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 7,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-28T21:18:39.413598+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.0,
+        "final_success": 0.0,
+        "fq_auc": 0.0,
+        "hit90": null,
+        "runtime_sec": 104085.15103097004,
+        "steps_per_second": 19.215036728965398
+      },
+      "seed": 7
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-09-30T20:44:39.429913+00:00",
+          "metrics": {
+            "auc": 0.5763819095477387,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 103.77784823165503,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 247.18279289083063,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9655577847298071,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 47.94146287231709,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.42051416942212605,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 47.94455892503312,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.27597133845084204,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4205433791721518,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 103.77784823165503,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.40538221965490245,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 53.740554014759894,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.33071302927926466,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.48680637806200466,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 103.77784823165503,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 247.18279289083063,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9655577847298071,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 47.94146287231709,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.42051416942212605,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 47.94455892503312,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.27597133845084204,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4205433791721518,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 103.77784823165503,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.40538221965490245,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 53.740554014759894,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.33071302927926466,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.48680637806200466,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 0.998,
+            "hit90": 830000,
+            "steps_per_second": 21.17391052026078
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 8,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-29T18:30:19.827549+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.5763819095477387,
+        "final_success": 1.0,
+        "fq_auc": 0.998,
+        "hit90": 830000,
+        "runtime_sec": 94455.86341201595,
+        "steps_per_second": 21.17391052026078
+      },
+      "seed": 8
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-01T02:21:54.533696+00:00",
+          "metrics": {
+            "auc": 0.5709798994974874,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 103.51115813977036,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 248.25984648629247,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.96976502533708,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 48.01141449699803,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.4184387233268923,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 48.00991929327354,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.27459364006405557,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4184316209349572,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 103.51115813977036,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.40434046148347796,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 54.63529592215743,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3448118667977335,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5059230154422606,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 103.51115813977036,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 248.25984648629247,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.96976502533708,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 48.01141449699803,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.4184387233268923,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 48.00991929327354,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.27459364006405557,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.4184316209349572,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 103.51115813977036,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.40434046148347796,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 54.63529592215743,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.3448118667977335,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5059230154422606,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 0.95,
+            "fq_auc": 0.9775,
+            "hit90": 850000,
+            "steps_per_second": 23.01487764017113
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 9,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-09-30T02:13:30.572694+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.5709798994974874,
+        "final_success": 0.95,
+        "fq_auc": 0.9775,
+        "hit90": 850000,
+        "runtime_sec": 86900.30993295903,
+        "steps_per_second": 23.01487764017113
+      },
+      "seed": 9
+    },
+    {
+      "arm": "support",
+      "attempts": [
+        {
+          "arm": "support",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-02T03:05:02.748351+00:00",
+          "metrics": {
+            "auc": 0.8374371859296482,
+            "diagnostics": {
+              "all": {
+                "assigned_intersection": {
+                  "mean": 115.83751536966648,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 246.5348453459422,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9630267396325867,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 57.70009680541788,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.46977622713324235,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 57.70475653896915,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.3145749163189855,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.46982449497281764,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 115.83751536966648,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4524902944127597,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 64.46618573123523,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.376554010152126,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5428411242108641,
+                  "valid_updates": 1995001
+                }
+              },
+              "informative": {
+                "assigned_intersection": {
+                  "mean": 115.83751536966648,
+                  "valid_updates": 1995001
+                },
+                "assigned_jaccard": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "assigned_overlap_fraction": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "eligible_count": {
+                  "mean": 246.5348453459422,
+                  "valid_updates": 1995001
+                },
+                "eligible_rate": {
+                  "mean": 0.9630267396325867,
+                  "valid_updates": 1995001
+                },
+                "empty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "informative_update": {
+                  "mean": 1.0,
+                  "valid_updates": 1995001
+                },
+                "random_expected_intersection": {
+                  "mean": 57.70009680541788,
+                  "valid_updates": 1995001
+                },
+                "random_expected_overlap_fraction": {
+                  "mean": 0.46977622713324235,
+                  "valid_updates": 1995001
+                },
+                "random_intersection": {
+                  "mean": 57.70475653896915,
+                  "valid_updates": 1995001
+                },
+                "random_jaccard": {
+                  "mean": 0.3145749163189855,
+                  "valid_updates": 1995001
+                },
+                "random_overlap_fraction": {
+                  "mean": 0.46982449497281764,
+                  "valid_updates": 1995001
+                },
+                "saturated_nonempty_update": {
+                  "mean": 0.0,
+                  "valid_updates": 1995001
+                },
+                "support_count": {
+                  "mean": 115.83751536966648,
+                  "valid_updates": 1995001
+                },
+                "support_rate": {
+                  "mean": 0.4524902944127597,
+                  "valid_updates": 1995001
+                },
+                "td_intersection": {
+                  "mean": 64.46618573123523,
+                  "valid_updates": 1995001
+                },
+                "td_jaccard": {
+                  "mean": 0.376554010152126,
+                  "valid_updates": 1995001
+                },
+                "td_overlap_fraction": {
+                  "mean": 0.5428411242108641,
+                  "valid_updates": 1995001
+                }
+              }
+            },
+            "final_success": 1.0,
+            "fq_auc": 1.0,
+            "hit90": 340000,
+            "steps_per_second": 22.476468812283194
+          },
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 10,
+          "source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+          "started_utc": "2026-10-01T02:21:57.016981+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.8374371859296482,
+        "final_success": 1.0,
+        "fq_auc": 1.0,
+        "hit90": 340000,
+        "runtime_sec": 88981.94893083104,
+        "steps_per_second": 22.476468812283194
+      },
+      "seed": 10
+    }
+  ],
+  "runs": [
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T00:52:52.951557+00:00",
+          "metrics": {
+            "auc": 0.7150753768844221,
+            "final_success": 1.0,
+            "fq_auc": 0.998,
+            "hit90": 590000,
+            "runtime_sec": 72004.12879070092,
+            "steps_per_second": 27.776184971469203
+          },
+          "pid": 2835025,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 1,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-02T04:52:45.577551+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.7150753768844221,
+        "final_success": 1.0,
+        "fq_auc": 0.998,
+        "hit90": 590000,
+        "runtime_sec": 72004.12879070092,
+        "steps_per_second": 27.776184971469203
+      },
+      "seed": 1
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T00:53:05.888601+00:00",
+          "metrics": {
+            "auc": 0.0,
+            "final_success": 0.0,
+            "fq_auc": 0.0,
+            "hit90": null,
+            "runtime_sec": 72017.053053324,
+            "steps_per_second": 27.771200225578916
+          },
+          "pid": 2835026,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 2,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-02T04:52:45.549951+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.0,
+        "final_success": 0.0,
+        "fq_auc": 0.0,
+        "hit90": null,
+        "runtime_sec": 72017.053053324,
+        "steps_per_second": 27.771200225578916
+      },
+      "seed": 2
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T00:50:47.147775+00:00",
+          "metrics": {
+            "auc": 0.0,
+            "final_success": 0.0,
+            "fq_auc": 0.0,
+            "hit90": null,
+            "runtime_sec": 71878.37876361399,
+            "steps_per_second": 27.82477894468639
+          },
+          "pid": 2835027,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 3,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-02T04:52:45.566309+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.0,
+        "final_success": 0.0,
+        "fq_auc": 0.0,
+        "hit90": null,
+        "runtime_sec": 71878.37876361399,
+        "steps_per_second": 27.82477894468639
+      },
+      "seed": 3
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T00:52:16.295231+00:00",
+          "metrics": {
+            "auc": 0.8183417085427136,
+            "final_success": 1.0,
+            "fq_auc": 0.999,
+            "hit90": 400000,
+            "runtime_sec": 71967.62891001906,
+            "steps_per_second": 27.790272241712934
+          },
+          "pid": 2835028,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 4,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-02T04:52:45.549951+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.8183417085427136,
+        "final_success": 1.0,
+        "fq_auc": 0.999,
+        "hit90": 400000,
+        "runtime_sec": 71967.62891001906,
+        "steps_per_second": 27.790272241712934
+      },
+      "seed": 4
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T00:51:05.430584+00:00",
+          "metrics": {
+            "auc": 0.557035175879397,
+            "final_success": 1.0,
+            "fq_auc": 0.983,
+            "hit90": 850000,
+            "runtime_sec": 71896.59626150399,
+            "steps_per_second": 27.817728571260215
+          },
+          "pid": 2835029,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 5,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-02T04:52:45.551678+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.557035175879397,
+        "final_success": 1.0,
+        "fq_auc": 0.983,
+        "hit90": 850000,
+        "runtime_sec": 71896.59626150399,
+        "steps_per_second": 27.817728571260215
+      },
+      "seed": 5
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T20:25:59.811674+00:00",
+          "metrics": {
+            "auc": 0.6896984924623115,
+            "final_success": 1.0,
+            "fq_auc": 0.998,
+            "hit90": 640000,
+            "runtime_sec": 70507.64074623003,
+            "steps_per_second": 28.365720067111138
+          },
+          "pid": 3062679,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 6,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-03T00:50:49.542659+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.6896984924623115,
+        "final_success": 1.0,
+        "fq_auc": 0.998,
+        "hit90": 640000,
+        "runtime_sec": 70507.64074623003,
+        "steps_per_second": 28.365720067111138
+      },
+      "seed": 6
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T20:25:01.281369+00:00",
+          "metrics": {
+            "auc": 0.8092964824120603,
+            "final_success": 1.0,
+            "fq_auc": 0.995,
+            "hit90": 410000,
+            "runtime_sec": 70431.11140264699,
+            "steps_per_second": 28.396541814684962
+          },
+          "pid": 3062768,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 7,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-03T00:51:07.550881+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.8092964824120603,
+        "final_success": 1.0,
+        "fq_auc": 0.995,
+        "hit90": 410000,
+        "runtime_sec": 70431.11140264699,
+        "steps_per_second": 28.396541814684962
+      },
+      "seed": 7
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T20:26:03.730685+00:00",
+          "metrics": {
+            "auc": 0.6912060301507538,
+            "final_success": 1.0,
+            "fq_auc": 0.962,
+            "hit90": 600000,
+            "runtime_sec": 70422.64549964399,
+            "steps_per_second": 28.39995552297323
+          },
+          "pid": 3062937,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 8,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-03T00:52:18.559135+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.6912060301507538,
+        "final_success": 1.0,
+        "fq_auc": 0.962,
+        "hit90": 600000,
+        "runtime_sec": 70422.64549964399,
+        "steps_per_second": 28.39995552297323
+      },
+      "seed": 8
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T20:25:56.675201+00:00",
+          "metrics": {
+            "auc": 0.5090452261306533,
+            "final_success": 1.0,
+            "fq_auc": 0.993,
+            "hit90": 930000,
+            "runtime_sec": 70378.47507305199,
+            "steps_per_second": 28.41777969647715
+          },
+          "pid": 3063106,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 9,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-03T00:52:55.588226+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.5090452261306533,
+        "final_success": 1.0,
+        "fq_auc": 0.993,
+        "hit90": 930000,
+        "runtime_sec": 70378.47507305199,
+        "steps_per_second": 28.41777969647715
+      },
+      "seed": 9
+    },
+    {
+      "arm": "pal",
+      "attempts": [
+        {
+          "arm": "pal",
+          "checkpoint_continuation": false,
+          "finished_utc": "2026-10-03T20:26:45.334334+00:00",
+          "metrics": {
+            "auc": 0.6638190954773869,
+            "final_success": 1.0,
+            "fq_auc": 0.998,
+            "hit90": 650000,
+            "runtime_sec": 70414.16735962196,
+            "steps_per_second": 28.40337498823955
+          },
+          "pid": 3063116,
+          "profile": "production",
+          "retry_reason": null,
+          "seed": 10,
+          "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860",
+          "started_utc": "2026-10-03T00:53:08.595091+00:00",
+          "status": "complete"
+        }
+      ],
+      "metrics": {
+        "auc": 0.6638190954773869,
+        "final_success": 1.0,
+        "fq_auc": 0.998,
+        "hit90": 650000,
+        "runtime_sec": 70414.16735962196,
+        "steps_per_second": 28.40337498823955
+      },
+      "seed": 10
+    }
+  ],
+  "runtime_comparison_valid": false,
+  "runtime_note": "SABER has assignment instrumentation; do not rank methods by these runtimes",
+  "source_manifest_sha256": "05e08b06dd1938a839146cdd5ad0ccde2c09c309a017c3c77d8fe524061c8860"
+}

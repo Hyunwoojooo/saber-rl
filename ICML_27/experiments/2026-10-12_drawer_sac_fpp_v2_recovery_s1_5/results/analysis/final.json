@@ -1,0 +1,672 @@
+{
+  "status": "completed",
+  "tasks": [
+    "drawer_open",
+    "drawer_close"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "cohort_stage": "initial_five_seed_assessment",
+  "automatic_seed_extension": false,
+  "inference_scope": "exploratory_initial_five_seed_cohort",
+  "recovery_id": "drawer_sac_fpp_v2_power_interruption_recovery_20261012",
+  "original_attempts": [
+    {
+      "job": [
+        "drawer_open",
+        "her",
+        1
+      ],
+      "run_name": "drawer_open_sac_her_s1_2m",
+      "recorded_status": "completed",
+      "last_complete_step": 2000000,
+      "complete_records": 10200,
+      "null_padding_bytes": 0,
+      "partial_record_bytes": 0,
+      "disposition": "reused_completed",
+      "metrics": {
+        "auc": 0.8248743718592965,
+        "fq_auc": 1.0,
+        "final": 1.0,
+        "hit90": 340000,
+        "updates": 1995001,
+        "runtime_seconds": 57198.901710099075,
+        "steps_per_second": 34.9657063371005
+      }
+    },
+    {
+      "job": [
+        "drawer_open",
+        "saber",
+        1
+      ],
+      "run_name": "drawer_open_sac_saber_s1_2m",
+      "recorded_status": "running",
+      "last_complete_step": 1523600,
+      "complete_records": 7770,
+      "null_padding_bytes": 0,
+      "partial_record_bytes": 0,
+      "disposition": "interrupted_power_loss",
+      "retry_from_step": 0,
+      "checkpoint_continuation": false
+    },
+    {
+      "job": [
+        "drawer_open",
+        "her",
+        2
+      ],
+      "run_name": "drawer_open_sac_her_s2_2m",
+      "recorded_status": "completed",
+      "last_complete_step": 2000000,
+      "complete_records": 10200,
+      "null_padding_bytes": 0,
+      "partial_record_bytes": 0,
+      "disposition": "reused_completed",
+      "metrics": {
+        "auc": 0.0020100502512562816,
+        "fq_auc": 0.008,
+        "final": 0.0,
+        "hit90": null,
+        "updates": 1995001,
+        "runtime_seconds": 56936.65860742889,
+        "steps_per_second": 35.12675399147935
+      }
+    },
+    {
+      "job": [
+        "drawer_open",
+        "saber",
+        2
+      ],
+      "run_name": "drawer_open_sac_saber_s2_2m",
+      "recorded_status": "running",
+      "last_complete_step": 1465200,
+      "complete_records": 7472,
+      "null_padding_bytes": 1527,
+      "partial_record_bytes": 0,
+      "disposition": "interrupted_power_loss",
+      "retry_from_step": 0,
+      "checkpoint_continuation": false
+    },
+    {
+      "job": [
+        "drawer_open",
+        "her",
+        3
+      ],
+      "run_name": "drawer_open_sac_her_s3_2m",
+      "recorded_status": "completed",
+      "last_complete_step": 2000000,
+      "complete_records": 10200,
+      "null_padding_bytes": 0,
+      "partial_record_bytes": 0,
+      "disposition": "reused_completed",
+      "metrics": {
+        "auc": 0.001256281407035176,
+        "fq_auc": 0.005,
+        "final": 0.0,
+        "hit90": null,
+        "updates": 1995001,
+        "runtime_seconds": 56957.54791137297,
+        "steps_per_second": 35.11387117844396
+      }
+    },
+    {
+      "job": [
+        "drawer_open",
+        "saber",
+        3
+      ],
+      "run_name": "drawer_open_sac_saber_s3_2m",
+      "recorded_status": "running",
+      "last_complete_step": 569400,
+      "complete_records": 2903,
+      "null_padding_bytes": 2053,
+      "partial_record_bytes": 1412,
+      "disposition": "interrupted_power_loss",
+      "retry_from_step": 0,
+      "checkpoint_continuation": false
+    },
+    {
+      "job": [
+        "drawer_open",
+        "her",
+        4
+      ],
+      "run_name": "drawer_open_sac_her_s4_2m",
+      "recorded_status": "running",
+      "last_complete_step": 1076400,
+      "complete_records": 5489,
+      "null_padding_bytes": 1456,
+      "partial_record_bytes": 0,
+      "disposition": "interrupted_power_loss",
+      "retry_from_step": 0,
+      "checkpoint_continuation": false
+    },
+    {
+      "job": [
+        "drawer_open",
+        "saber",
+        4
+      ],
+      "run_name": "drawer_open_sac_saber_s4_2m",
+      "recorded_status": "running",
+      "last_complete_step": 600400,
+      "complete_records": 3062,
+      "null_padding_bytes": 1020,
+      "partial_record_bytes": 0,
+      "disposition": "interrupted_power_loss",
+      "retry_from_step": 0,
+      "checkpoint_continuation": false
+    },
+    {
+      "job": [
+        "drawer_open",
+        "her",
+        5
+      ],
+      "run_name": "drawer_open_sac_her_s5_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_open",
+        "saber",
+        5
+      ],
+      "run_name": "drawer_open_sac_saber_s5_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        1
+      ],
+      "run_name": "drawer_close_sac_her_s1_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        1
+      ],
+      "run_name": "drawer_close_sac_saber_s1_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        2
+      ],
+      "run_name": "drawer_close_sac_her_s2_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        2
+      ],
+      "run_name": "drawer_close_sac_saber_s2_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        3
+      ],
+      "run_name": "drawer_close_sac_her_s3_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        3
+      ],
+      "run_name": "drawer_close_sac_saber_s3_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        4
+      ],
+      "run_name": "drawer_close_sac_her_s4_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        4
+      ],
+      "run_name": "drawer_close_sac_saber_s4_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        5
+      ],
+      "run_name": "drawer_close_sac_her_s5_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        5
+      ],
+      "run_name": "drawer_close_sac_saber_s5_2m",
+      "disposition": "not_started"
+    }
+  ],
+  "runs": [
+    {
+      "task": "drawer_open",
+      "method": "her",
+      "seed": 1,
+      "reused_completed": true,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-08_drawer_sac_fpp_v2_s1_5/runs/drawer_open_sac_her_s1_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.8248743718592965,
+      "fq_auc": 1.0,
+      "final": 1.0,
+      "hit90": 340000,
+      "updates": 1995001,
+      "runtime_seconds": 57198.901710099075,
+      "steps_per_second": 34.9657063371005
+    },
+    {
+      "task": "drawer_open",
+      "method": "saber",
+      "seed": 1,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_saber_s1_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.7314070351758793,
+      "fq_auc": 1.0,
+      "final": 1.0,
+      "hit90": 590000,
+      "updates": 1995001,
+      "runtime_seconds": 105346.15169227301,
+      "steps_per_second": 18.98503142138696
+    },
+    {
+      "task": "drawer_open",
+      "method": "her",
+      "seed": 2,
+      "reused_completed": true,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-08_drawer_sac_fpp_v2_s1_5/runs/drawer_open_sac_her_s2_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.0020100502512562816,
+      "fq_auc": 0.008,
+      "final": 0.0,
+      "hit90": null,
+      "updates": 1995001,
+      "runtime_seconds": 56936.65860742889,
+      "steps_per_second": 35.12675399147935
+    },
+    {
+      "task": "drawer_open",
+      "method": "saber",
+      "seed": 2,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_saber_s2_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.0002512562814070352,
+      "fq_auc": 0.001,
+      "final": 0.0,
+      "hit90": null,
+      "updates": 1995001,
+      "runtime_seconds": 106507.727339924,
+      "steps_per_second": 18.77798024566719
+    },
+    {
+      "task": "drawer_open",
+      "method": "her",
+      "seed": 3,
+      "reused_completed": true,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-08_drawer_sac_fpp_v2_s1_5/runs/drawer_open_sac_her_s3_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.001256281407035176,
+      "fq_auc": 0.005,
+      "final": 0.0,
+      "hit90": null,
+      "updates": 1995001,
+      "runtime_seconds": 56957.54791137297,
+      "steps_per_second": 35.11387117844396
+    },
+    {
+      "task": "drawer_open",
+      "method": "saber",
+      "seed": 3,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_saber_s3_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.0,
+      "fq_auc": 0.0,
+      "final": 0.0,
+      "hit90": null,
+      "updates": 1995001,
+      "runtime_seconds": 106846.37138947901,
+      "steps_per_second": 18.718464408206724
+    },
+    {
+      "task": "drawer_open",
+      "method": "her",
+      "seed": 4,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_her_s4_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.7487437185929648,
+      "fq_auc": 0.995,
+      "final": 1.0,
+      "hit90": 430000,
+      "updates": 1995001,
+      "runtime_seconds": 48816.535371817,
+      "steps_per_second": 40.96972439290826
+    },
+    {
+      "task": "drawer_open",
+      "method": "saber",
+      "seed": 4,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_saber_s4_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.8035175879396985,
+      "fq_auc": 0.995,
+      "final": 1.0,
+      "hit90": 360000,
+      "updates": 1995001,
+      "runtime_seconds": 104690.917432704,
+      "steps_per_second": 19.103853983184482
+    },
+    {
+      "task": "drawer_open",
+      "method": "her",
+      "seed": 5,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_her_s5_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.6582914572864321,
+      "fq_auc": 0.996,
+      "final": 1.0,
+      "hit90": 570000,
+      "updates": 1995001,
+      "runtime_seconds": 46036.225873262,
+      "steps_per_second": 43.444047857137804
+    },
+    {
+      "task": "drawer_open",
+      "method": "saber",
+      "seed": 5,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_open_sac_saber_s5_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.707286432160804,
+      "fq_auc": 1.0,
+      "final": 1.0,
+      "hit90": 480000,
+      "updates": 1995001,
+      "runtime_seconds": 79343.267764716,
+      "steps_per_second": 25.20692752321201
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 1,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s1_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.10226130653266331,
+      "fq_auc": 0.03,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 57851.305657345016,
+      "steps_per_second": 34.571389137629126
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 1,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s1_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.1922110552763819,
+      "fq_auc": 0.025,
+      "final": 0.0,
+      "hit90": 110000,
+      "updates": 1995001,
+      "runtime_seconds": 101378.01103355401,
+      "steps_per_second": 19.728143998978652
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 2,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s2_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.13618090452261306,
+      "fq_auc": 0.104,
+      "final": 0.0,
+      "hit90": 50000,
+      "updates": 1995001,
+      "runtime_seconds": 58061.958179647016,
+      "steps_per_second": 34.44596191213334
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 2,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s2_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.11683417085427136,
+      "fq_auc": 0.025,
+      "final": 0.0,
+      "hit90": 20000,
+      "updates": 1995001,
+      "runtime_seconds": 100121.77541586399,
+      "steps_per_second": 19.975674539258183
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 3,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s3_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.12374371859296482,
+      "fq_auc": 0.106,
+      "final": 0.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 57927.312129949016,
+      "steps_per_second": 34.52602799027472
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 3,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s3_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.06407035175879397,
+      "fq_auc": 0.019,
+      "final": 0.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 95595.83983460299,
+      "steps_per_second": 20.921412516071193
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 4,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s4_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.7675879396984925,
+      "fq_auc": 0.953,
+      "final": 1.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 49614.74851524699,
+      "steps_per_second": 40.31059432630974
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 4,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s4_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.09547738693467336,
+      "fq_auc": 0.018,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 92915.05076394099,
+      "steps_per_second": 21.525038016512298
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 5,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s5_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.17336683417085427,
+      "fq_auc": 0.0445,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 44559.008038164,
+      "steps_per_second": 44.88430259235204
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 5,
+      "reused_completed": false,
+      "run_dir": "<WORKSPACE>/experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s5_2m",
+      "checkpoint_continuation": false,
+      "auc": 0.04798994974874372,
+      "fq_auc": 0.001,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 83965.16476358694,
+      "steps_per_second": 23.819401839217697
+    }
+  ],
+  "incomplete": [],
+  "source_manifest_sha256": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede",
+  "recovery_manifest_sha256": "e4deec7afd36863bd42da072a8642798c946a247c5e77a653fc245596b1c23c4",
+  "comparisons": {
+    "drawer_open": {
+      "n_pairs": 5,
+      "mean": 0.001457286432160801,
+      "positive_pairs": 2,
+      "ci95": [
+        -0.04663316582914574,
+        0.041282663316582535
+      ],
+      "ci97_5": [
+        -0.056683417085427144,
+        0.04241206030150754
+      ]
+    },
+    "drawer_close": {
+      "n_pairs": 5,
+      "mean": -0.15731155778894473,
+      "positive_pairs": 1,
+      "ci95": [
+        -0.419070351758794,
+        0.025025125628140705
+      ],
+      "ci97_5": [
+        -0.44027638190954776,
+        0.03816582914572865
+      ]
+    }
+  },
+  "aggregates": [
+    {
+      "task": "drawer_open",
+      "method": "her",
+      "auc_mean": 0.44703517587939695,
+      "auc_sd": 0.4108484831407905,
+      "fq_auc_mean": 0.6008,
+      "fq_auc_sd": 0.5425234557141285,
+      "final_mean": 0.6,
+      "final_sd": 0.5477225575051661,
+      "runtime_seconds_mean": 53189.17389479599,
+      "runtime_seconds_sd": 5352.729084412266,
+      "steps_per_second_mean": 37.92402075141398,
+      "steps_per_second_sd": 4.006877713456294,
+      "hit90_count": 3
+    },
+    {
+      "task": "drawer_open",
+      "method": "saber",
+      "auc_mean": 0.44849246231155776,
+      "auc_sd": 0.41082949070455593,
+      "fq_auc_mean": 0.5992,
+      "fq_auc_sd": 0.5465397515277366,
+      "final_mean": 0.6,
+      "final_sd": 0.5477225575051661,
+      "runtime_seconds_mean": 100546.88712381921,
+      "runtime_seconds_sd": 11885.017034274031,
+      "steps_per_second_mean": 20.158451516331475,
+      "steps_per_second_sd": 2.826458228458484,
+      "hit90_count": 3
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "auc_mean": 0.2606281407035176,
+      "auc_sd": 0.2845730517765682,
+      "fq_auc_mean": 0.2475,
+      "fq_auc_sd": 0.39587245420716,
+      "final_mean": 0.2,
+      "final_sd": 0.4472135954999579,
+      "runtime_seconds_mean": 53602.86650407041,
+      "runtime_seconds_sd": 6211.481804400176,
+      "steps_per_second_mean": 37.747655191739796,
+      "steps_per_second_sd": 4.7135209640058235,
+      "hit90_count": 5
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "auc_mean": 0.10331658291457287,
+      "auc_sd": 0.05645287501802331,
+      "fq_auc_mean": 0.0176,
+      "fq_auc_sd": 0.009838699100999075,
+      "final_mean": 0.0,
+      "final_sd": 0.0,
+      "runtime_seconds_mean": 94795.16836230978,
+      "runtime_seconds_sd": 6949.30671498814,
+      "steps_per_second_mean": 21.193934182007606,
+      "steps_per_second_sd": 1.6362820389911943,
+      "hit90_count": 5
+    }
+  ]
+}

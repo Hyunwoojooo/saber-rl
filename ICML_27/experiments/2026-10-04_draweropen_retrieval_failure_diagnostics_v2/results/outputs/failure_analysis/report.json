@@ -1,0 +1,212 @@
+{
+  "complete_runs": 30,
+  "notes": [
+    "Exploratory analysis chosen after seeing outcomes; no confirmatory p-values or causal claims.",
+    "All 30 runs and all evaluation checkpoints are retained, including zero-success runs.",
+    "Zero evaluation success, failure to reach Hit90, and execution failure are different concepts.",
+    "Saturation is k=|E|>0: all eligible positions are high-weight, not necessarily the entire minibatch.",
+    "The three assignment rules coincide at saturation only conditional on the same batch and models.",
+    "First saturation is interval-censored to a 1000-update window; its exact update is unknown.",
+    "Window-end bins allocate whole windows, not fractional reconstructions of unlogged updates.",
+    "Within-run diagnostic means use valid-update counts; group means give each seed equal weight.",
+    "Critic log averages use completed-training-episode snapshots, excluding duplicate eval rows; not all updates or true Q errors.",
+    "Early-window associations with final outcomes are not out-of-sample failure prediction.",
+    "PAL has no support instrumentation and is intentionally not assigned fabricated saturation values."
+  ],
+  "posthoc_groups": [
+    {
+      "arm": "support",
+      "auc_seed_mean": 0.0,
+      "eligible_rate_seed_mean": 0.9900165130712967,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 1,
+      "posthoc_outcome_group": "zero_evaluation",
+      "saturated_nonempty_update_seed_mean": 0.27987254141727247,
+      "seeds": "7",
+      "support_rate_seed_mean": 0.5595685419612572
+    },
+    {
+      "arm": "support",
+      "auc_seed_mean": 0.7251256281407035,
+      "eligible_rate_seed_mean": 0.9635070784773764,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 9,
+      "posthoc_outcome_group": "nonzero_evaluation",
+      "saturated_nonempty_update_seed_mean": 0.0,
+      "seeds": "1;2;3;4;5;6;8;9;10",
+      "support_rate_seed_mean": 0.4149007529824268
+    },
+    {
+      "arm": "support",
+      "auc_seed_mean": 0.7251256281407035,
+      "eligible_rate_seed_mean": 0.9635070784773764,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 9,
+      "posthoc_outcome_group": "hit90",
+      "saturated_nonempty_update_seed_mean": 0.0,
+      "seeds": "1;2;3;4;5;6;8;9;10",
+      "support_rate_seed_mean": 0.4149007529824268
+    },
+    {
+      "arm": "support",
+      "auc_seed_mean": 0.0,
+      "eligible_rate_seed_mean": 0.9900165130712967,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 1,
+      "posthoc_outcome_group": "not_hit90",
+      "saturated_nonempty_update_seed_mean": 0.27987254141727247,
+      "seeds": "7",
+      "support_rate_seed_mean": 0.5595685419612572
+    },
+    {
+      "arm": "random",
+      "auc_seed_mean": 0.0,
+      "eligible_rate_seed_mean": 0.9818063145968766,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 3,
+      "posthoc_outcome_group": "zero_evaluation",
+      "saturated_nonempty_update_seed_mean": 0.3792031516107845,
+      "seeds": "3;8;9",
+      "support_rate_seed_mean": 0.6438487459039285
+    },
+    {
+      "arm": "random",
+      "auc_seed_mean": 0.7366834170854272,
+      "eligible_rate_seed_mean": 0.9639459048315372,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 7,
+      "posthoc_outcome_group": "nonzero_evaluation",
+      "saturated_nonempty_update_seed_mean": 0.0,
+      "seeds": "1;2;4;5;6;7;10",
+      "support_rate_seed_mean": 0.4449988695404879
+    },
+    {
+      "arm": "random",
+      "auc_seed_mean": 0.7366834170854272,
+      "eligible_rate_seed_mean": 0.9639459048315372,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 7,
+      "posthoc_outcome_group": "hit90",
+      "saturated_nonempty_update_seed_mean": 0.0,
+      "seeds": "1;2;4;5;6;7;10",
+      "support_rate_seed_mean": 0.4449988695404879
+    },
+    {
+      "arm": "random",
+      "auc_seed_mean": 0.0,
+      "eligible_rate_seed_mean": 0.9818063145968766,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 3,
+      "posthoc_outcome_group": "not_hit90",
+      "saturated_nonempty_update_seed_mean": 0.3792031516107845,
+      "seeds": "3;8;9",
+      "support_rate_seed_mean": 0.6438487459039285
+    },
+    {
+      "arm": "td_topk",
+      "auc_seed_mean": 0.0,
+      "eligible_rate_seed_mean": 0.9842756938415486,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 3,
+      "posthoc_outcome_group": "zero_evaluation",
+      "saturated_nonempty_update_seed_mean": 0.4473950973792327,
+      "seeds": "6;7;8",
+      "support_rate_seed_mean": 0.7029350342953045
+    },
+    {
+      "arm": "td_topk",
+      "auc_seed_mean": 0.7637473079684135,
+      "eligible_rate_seed_mean": 0.9601084520692507,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 7,
+      "posthoc_outcome_group": "nonzero_evaluation",
+      "saturated_nonempty_update_seed_mean": 0.0,
+      "seeds": "1;2;3;4;5;9;10",
+      "support_rate_seed_mean": 0.42457132372454237
+    },
+    {
+      "arm": "td_topk",
+      "auc_seed_mean": 0.7637473079684135,
+      "eligible_rate_seed_mean": 0.9601084520692507,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 7,
+      "posthoc_outcome_group": "hit90",
+      "saturated_nonempty_update_seed_mean": 0.0,
+      "seeds": "1;2;3;4;5;9;10",
+      "support_rate_seed_mean": 0.42457132372454237
+    },
+    {
+      "arm": "td_topk",
+      "auc_seed_mean": 0.0,
+      "eligible_rate_seed_mean": 0.9842756938415486,
+      "first_100k_saturated_nonempty_update_seed_mean": 0.0,
+      "first_500k_saturated_nonempty_update_seed_mean": 0.0,
+      "n_runs": 3,
+      "posthoc_outcome_group": "not_hit90",
+      "saturated_nonempty_update_seed_mean": 0.4473950973792327,
+      "seeds": "6;7;8",
+      "support_rate_seed_mean": 0.7029350342953045
+    }
+  ],
+  "primary_inference_unchanged": {
+    "support_minus_random": {
+      "ci95": [
+        -0.12745131909547738,
+        0.38433448492462313
+      ],
+      "ci97_5_bonferroni": [
+        -0.16288803391959802,
+        0.41462578517588033
+      ],
+      "mean": 0.13693467336683418,
+      "positive_pairs": 7,
+      "seed_differences": [
+        -0.09271356783919593,
+        0.005527638190954698,
+        0.7890703517587939,
+        0.1276381909547739,
+        -0.07914572864321612,
+        0.050753768844221114,
+        -0.7326633165829146,
+        0.5763819095477387,
+        0.5709798994974874,
+        0.1535175879396985
+      ]
+    },
+    "support_minus_td_topk": {
+      "ci95": [
+        -0.05486557788944726,
+        0.32491677135678365
+      ],
+      "ci97_5_bonferroni": [
+        -0.07101805904522615,
+        0.36070351758793967
+      ],
+      "mean": 0.11798994974874373,
+      "positive_pairs": 4,
+      "seed_differences": [
+        -0.03090452261306531,
+        -0.04798994974874371,
+        0.2762562814070352,
+        0.0085427135678392,
+        -0.12663316582914574,
+        0.7655778894472361,
+        0.0,
+        0.5763819095477387,
+        -0.23756281407035185,
+        -0.0037688442211055717
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "status": "blocked",
+  "pid": 339027,
+  "source_manifest_sha256": "cf7fa5c82d3dd631c789abbe599ea1f53ae1989a3786d84e8932b494ce6f6d1c",
+  "started_utc": "2026-10-08T06:07:07.470296+00:00",
+  "stage": "waiting_for_predecessor",
+  "stages": [],
+  "heartbeat_utc": "2026-10-08T06:10:23.376309+00:00",
+  "predecessor": {
+    "state": "waiting",
+    "reason": "predecessor active",
+    "stage": "training"
+  },
+  "error": "InterruptedError('Queue stopped by signal 15; no automatic resume')",
+  "finished_utc": "2026-10-08T06:10:23.376297+00:00"
+}

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.nbc
+*.nbi
+outputs/
+validation/gate_*.json
+validation/tests.json
+validation/tests.log

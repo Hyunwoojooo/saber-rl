@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+# These compact published reports are intentionally tracked.
+!experiments/**/results/
+!experiments/**/results/**
