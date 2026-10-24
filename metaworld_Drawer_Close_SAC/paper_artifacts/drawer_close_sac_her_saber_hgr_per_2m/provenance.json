@@ -1,0 +1,480 @@
+{
+  "task": "drawer_close",
+  "exported_utc": "2026-10-24T11:58:14.006297+00:00",
+  "sources": {
+    "her_saber": {
+      "directory": "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source",
+      "source_manifest_sha256": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede"
+    },
+    "hgr_per": {
+      "directory": "ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source",
+      "source_manifest_sha256": "8b9a3f9bfd79b0f973af801fb39f98b102b7e5352bcc629b454283cadb0e3304"
+    }
+  },
+  "runs": [
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 1,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s1_2m",
+      "published_directory": "data/her/seed_1",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s1_2m/config.json": "37437851d556e15c5a1688b3eb730d1096916f0b6cc202fb00306864d0b9c4af",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s1_2m/summary.json": "b5c6c34166e099377e4aa21f2eb48156f82107ea205e542b0a4de4de9a2d2cf7",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s1_2m/env_snapshot.json": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s1_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s1_2m/status.json": "f3f275b5a3287ba81702ec238e783d77f8db97007fa69dd5d3590f9a2032d498",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s1_2m/metrics.csv": "d641dda182df68607bbdd067b4d396ae5578cfa120c042060175913e72ddc55e"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 2,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s2_2m",
+      "published_directory": "data/her/seed_2",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s2_2m/config.json": "06a6fe0d07fcc6a6edb2991d07bc0a064b55c8cce04a4683a209c784b27d9558",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s2_2m/summary.json": "e2c8c93f2d01b7f0b3627bd6967dbb6fbbd243bb132f52c254a45f8f765ff971",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s2_2m/env_snapshot.json": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s2_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s2_2m/status.json": "ce8077e6dd12cb15d96bb6cd1c5d1d30ef8757af7116a7689d97d5f438e21443",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s2_2m/metrics.csv": "3ff104ae45c4f93894e62142f4a8c3521a3e8a8dc8aa5a7393cded44b385742c"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 3,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s3_2m",
+      "published_directory": "data/her/seed_3",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s3_2m/config.json": "f121688aba6e94acbdd28652f9c986294d32416b0460dc3ae914e2943cb82826",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s3_2m/summary.json": "5e59b90149021ad73a2eeb59ad48596aca2d6dd435aa2f09791eb58408f9f600",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s3_2m/env_snapshot.json": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s3_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s3_2m/status.json": "15c303effd662098bac0c149087c7cd2b4f82b9717e35121ae0c1816b47a46e0",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s3_2m/metrics.csv": "042f971c5a4d0747963fac322f4361f91bfe7e2ea14a6d7187eac679ed39cba3"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 4,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s4_2m",
+      "published_directory": "data/her/seed_4",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s4_2m/config.json": "8c477c92e157026945313a55859b43d3bcdca7a5cf73ba820d4975fbf9d67965",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s4_2m/summary.json": "24a86e9578396a7b54980e795fcab2ee38d04d5332c0335bb3af8733c26d3ef8",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s4_2m/env_snapshot.json": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s4_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s4_2m/status.json": "ab617801f0ea4d0acba568a82a604922a9c2b1e0b2e02204c80e88e327dacb50",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s4_2m/metrics.csv": "fca68affcf7e3fa94de458677eb9b88af9327712dd876aac6b6d7f2dba68576c"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 5,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s5_2m",
+      "published_directory": "data/her/seed_5",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s5_2m/config.json": "fe0a526eef1c4bc3b4e708ead2aa962731ece4acb277855689dd4101757c1346",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s5_2m/summary.json": "ea5a56822aca5e766ab6473783cce94b7362b53427daa34832be59b22ca5408a",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s5_2m/env_snapshot.json": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s5_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_her_s5_2m/status.json": "fff5c44bef468feb229b94b1e439b6f745be48f465e0288954a1068761dd8066",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_her_s5_2m/metrics.csv": "3db330e11769f0f5054042b52e74dbc3b54b56fc5a2bf5288c7ce148ec55bc7b"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 1,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s1_2m",
+      "published_directory": "data/saber/seed_1",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s1_2m/config.json": "9219af77e639ec6efd669929096898ddaffb211fccf0de10d5cb71b1313d2a7a",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s1_2m/summary.json": "6c605e7b4180bfccdacc675be8008895964b5df8de33a76f6ddb6a2c73adeb82",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s1_2m/env_snapshot.json": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s1_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s1_2m/status.json": "3963fc55f3096806ab930e9c54c0e7313ec620bafd4ce72e5ee6927cd63ab8af",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s1_2m/metrics.csv": "72065a6fd9a2539152ab1d244828a1d3e850ed6279489dbebd22696ac74755df"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 2,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s2_2m",
+      "published_directory": "data/saber/seed_2",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s2_2m/config.json": "07dbd7d45750833e9c748993231ee42a0d2138437bc5d685efdbdc7930d22180",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s2_2m/summary.json": "48334358372c5e87406e7612db8c486a65b16945dea25eb427896c4a7f5b7f34",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s2_2m/env_snapshot.json": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s2_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s2_2m/status.json": "8f10c23b21020a1eaf03024e2d54dbf4a5c408a59dd7f1d09fdbb0c893e58d99",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s2_2m/metrics.csv": "b8f913a5c3885d327eb07b416555a1e67f5f409686972169cdcc4dce050e9aec"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 3,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s3_2m",
+      "published_directory": "data/saber/seed_3",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s3_2m/config.json": "c0523b4feaaaa820d780d71de4c60da50b72278998af028da2f9257894252535",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s3_2m/summary.json": "1bdc2a504d5dcb4180ff7d57ba337e45ac4ba3a77250061eb6b617539ff705c8",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s3_2m/env_snapshot.json": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s3_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s3_2m/status.json": "12c1bd9b3a81d7729cb52fc2d65b9dd7cf4d9dc5b9f2e762cdb48fca211ddacd",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s3_2m/metrics.csv": "7fa00de28b0ca9f27b9ccc94639acd72d6d63d13794d3294b2cf0f9461f67177"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 4,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s4_2m",
+      "published_directory": "data/saber/seed_4",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s4_2m/config.json": "f7ff94b8646567b11cc68a458e49f2c8151b86101892769e6eb9236ab85a9c7c",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s4_2m/summary.json": "c68c9aafa376e54b66489851dcb2e206c5dc5b0f58dad9601862ea468ef6422a",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s4_2m/env_snapshot.json": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s4_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s4_2m/status.json": "b5be695019b10b70313cc6088d7e0744234d19aea661c1bf9a986863859b348f",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s4_2m/metrics.csv": "c7c58dd266498c12e6daefbf2419e0a8f9e8c6baac45f6645510ca18148f1159"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 5,
+      "source_family": "her_saber",
+      "original_directory": "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s5_2m",
+      "published_directory": "data/saber/seed_5",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s5_2m/config.json": "c71cded54260dc787f5b7dfd47c954b1572c5fc3c95f7c132a5927977cbd4ef6",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s5_2m/summary.json": "11c21dbc79fcfc7e07cf2c9ee08a9ac26b5646a503b16a697b7312afac93c3d7",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s5_2m/env_snapshot.json": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s5_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/.production_claims/drawer_close_sac_saber_s5_2m/status.json": "e57fa49ced8dcb95ace4c86081a4654de4a99d8df08eef57f8fa0e579ed10fc8",
+        "experiments_post_review/2026-10-12_drawer_sac_fpp_v2_recovery_s1_5/runs/drawer_close_sac_saber_s5_2m/metrics.csv": "df990bfd5c1ec4d9eaa533560ae8d32379155c671773f78d8d54eee9ab69d882"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 1,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s1_2m",
+      "published_directory": "data/hgr/seed_1",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s1_2m/config.json": "6a6a14d89c5feed059e7d8e56f5e74958ec3f6628eaa3f85841edde4d89a88b2",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s1_2m/summary.json": "afd0af2d694b3c9a41f658b015cf32c5a07dfebf2021fac03b3994bff96490db",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s1_2m/env_snapshot.json": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s1_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s1_2m/status.json": "b5dbc21a3d997e7469f10763698484ed982849813162b7193a711423d013be82",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s1_2m/metrics.csv": "e9e4c11137f14c2fcc60b4204c5ceef0d2f3ba52c3681d89b1b5dc17a58e451d"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 2,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s2_2m",
+      "published_directory": "data/hgr/seed_2",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s2_2m/config.json": "0615f49b7c412dde878b452def15406f82ca4b79345fb5dd374bd79e7cbd1cd0",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s2_2m/summary.json": "c2be2d55815d1fc83176f6683e9de7e81f0569020bfabcddf4a0334a27da352b",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s2_2m/env_snapshot.json": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s2_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s2_2m/status.json": "b7833cb9cdf783ebab81cf7096534fa11e66e5045db50c85e39067d3f1dd629a",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s2_2m/metrics.csv": "bcf8742a83d8a553c1755cf0c43e1984daab29b14c00acafd376b966bdd0cf56"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 3,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s3_2m",
+      "published_directory": "data/hgr/seed_3",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s3_2m/config.json": "c34857b89a07d0d14c76b879a8b310a1cfd8b6ae35241d634df7968a55f3a506",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s3_2m/summary.json": "8b9887daaa5bdb1791a3a15fecb89a897798c7141acc31f9a07634456125d974",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s3_2m/env_snapshot.json": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s3_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s3_2m/status.json": "cb9a913e0e43631f1496195dfa67e81de10ac955e4dcf62200b9e065e6008aea",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s3_2m/metrics.csv": "10faeeb6b3c2a593d4b38bc3a4ed51bf014f78324cf75db9874c19190029ab43"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 4,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s4_2m",
+      "published_directory": "data/hgr/seed_4",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s4_2m/config.json": "4326fe0a78fafe95f1a418c354b3bf86c998e609bc95356488d63dfc9c02e052",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s4_2m/summary.json": "1e3404b756fdf747827d5bba9b93d0abd0df3148688b6324a30137b7a0d0843a",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s4_2m/env_snapshot.json": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s4_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s4_2m/status.json": "04cd96c4343165002e00c516b70983805f8d1bb9e9b1a2d9474bfa14da227d5c",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s4_2m/metrics.csv": "a97cd31219b2effd3e4e9b51aabc9c0094311999afbc3eed47e553427b1e1d0d"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "hgr",
+      "seed": 5,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s5_2m",
+      "published_directory": "data/hgr/seed_5",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s5_2m/config.json": "bffdc831351de5ed4aa412a769de4fcc45ad032ac22a29c92ae60a5585549f56",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s5_2m/summary.json": "bcdc03ae9e2f9f629da7fb80dd0188199c3c412536df796231dc919491d32bfe",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s5_2m/env_snapshot.json": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s5_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_hgr_s5_2m/status.json": "b7886dfc5effd519192b0149ed5381746db04472c8fc123d1622c2278b0b6d48",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_hgr_s5_2m/metrics.csv": "36e3ac222fe0462234321d78b50ff610d6d0f350e6f50b8d01a91a5d644b0707"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 1,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s1_2m",
+      "published_directory": "data/per/seed_1",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s1_2m/config.json": "caf6a29b40996a0e142130af3024520b1b9b425d00504c2724d842937ec39168",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s1_2m/summary.json": "eecdfedeb4e87f69d5850e2d3a1502c396e9d688c6dbfd1785e0df15180a625e",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s1_2m/env_snapshot.json": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s1_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s1_2m/status.json": "c170837420fb853c1003f4477678a0cf6565f79cf13d82d4c919f462a394b809",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s1_2m/metrics.csv": "02712c978090dd5bd3a3797c988f2e661815e2062281dfcecb64b84f0ec43f6d"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 2,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s2_2m",
+      "published_directory": "data/per/seed_2",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s2_2m/config.json": "b9230eca5c06b6b6b49034d4c0784efe0e44d562001e77d73ddd704cbe6a3823",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s2_2m/summary.json": "2ac585b29d447bf14cd9869d22c9cf434e355e79b6fa29a28a3aed1bd2785d9f",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s2_2m/env_snapshot.json": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s2_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s2_2m/status.json": "01b00b1de19d3834ea00581ac023dedcb029b0a63f385ced8a96e206bada49ff",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s2_2m/metrics.csv": "cd191e35482cae4de0f3539f16aa3c121932f08c36fb2c154b0778bdba776203"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 3,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s3_2m",
+      "published_directory": "data/per/seed_3",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s3_2m/config.json": "724f8a30bf2bb0ca4e97063ebdb4f25d3e5d721ebfab336db2531a76ed305ce3",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s3_2m/summary.json": "db0c7f52294c034dcada747bc2e6abb02336c840f8173a1aae432aba6ba548b2",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s3_2m/env_snapshot.json": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s3_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s3_2m/status.json": "fd65ac15e14bb40360bb6b3ee7f963ef180533036f360638b7a6cc94ac8800ac",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s3_2m/metrics.csv": "41fa5c8503bd78ef159dd8f8cc1fbadfc0c1f310786c0639e35dd620cc144e43"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 4,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s4_2m",
+      "published_directory": "data/per/seed_4",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s4_2m/config.json": "a04d839d8550b090ab9639b09694c2f6d3207c1787d352ea9101e9e1cf5ebd50",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s4_2m/summary.json": "407ad9c4c9eca2a81c03071b507a084ebd50a3c3529e4e24c9e84f73f832353a",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s4_2m/env_snapshot.json": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s4_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s4_2m/status.json": "073f9223c52ed40b660953d7a551a892fe49276de8ede8c512aa1b231f780ff3",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s4_2m/metrics.csv": "e01881fc6f98c7e0fba149597c34fa1ca40319595d57fd41e0e7630ce404e4dd"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "per",
+      "seed": 5,
+      "source_family": "hgr_per",
+      "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s5_2m",
+      "published_directory": "data/per/seed_5",
+      "checkpoint_continuation": false,
+      "reused_completed": false,
+      "original_files_sha256": {
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s5_2m/config.json": "05fcd81c4485214ef01c267dbdefbf5465770c2c0797f23eb5442e30a58f5ded",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s5_2m/summary.json": "04baf5e4af8e5a4bce50bcaff0992c0c05a479298b0e50a584794146bad3f434",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s5_2m/env_snapshot.json": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s5_2m/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/.production_claims/drawer_close_sac_per_s5_2m/status.json": "af692a2ce705d29ac525415d8e704130a27f5701dc35e24b6d2a08863f8c1d1b",
+        "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5/runs/drawer_close_sac_per_s5_2m/metrics.csv": "dae3d21550f94995cb7d08cbc606e348d589a2fc0ed66556226a3b1182934e3d"
+      }
+    }
+  ],
+  "original_analysis_sha256": "9c53b2c584ae92a06145713cdbc0472bc0d4e9aa010312cacd2471a2131ed6c7",
+  "original_attempts": [
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        1
+      ],
+      "run_name": "drawer_close_sac_her_s1_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        1
+      ],
+      "run_name": "drawer_close_sac_saber_s1_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        2
+      ],
+      "run_name": "drawer_close_sac_her_s2_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        2
+      ],
+      "run_name": "drawer_close_sac_saber_s2_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        3
+      ],
+      "run_name": "drawer_close_sac_her_s3_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        3
+      ],
+      "run_name": "drawer_close_sac_saber_s3_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        4
+      ],
+      "run_name": "drawer_close_sac_her_s4_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        4
+      ],
+      "run_name": "drawer_close_sac_saber_s4_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "her",
+        5
+      ],
+      "run_name": "drawer_close_sac_her_s5_2m",
+      "disposition": "not_started"
+    },
+    {
+      "job": [
+        "drawer_close",
+        "saber",
+        5
+      ],
+      "run_name": "drawer_close_sac_saber_s5_2m",
+      "disposition": "not_started"
+    }
+  ],
+  "transformations": [
+    "workspace prefix replaced with <WORKSPACE>",
+    "JSON nonfinite diagnostic fields replaced with null",
+    "CSV restricted to all evaluation rows and eval/runtime columns; numeric strings not rounded"
+  ],
+  "omitted": [
+    "checkpoint weights and replay buffers",
+    "full training logs",
+    "process locks",
+    "virtual environment"
+  ]
+}

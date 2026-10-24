@@ -48,8 +48,12 @@ def check_results(folder):
     report = folder / "results/analysis/final.json"
     if report.exists():
         data = load(report)
-        if data["status"] != "completed" or len(data["runs"]) != 20:
-            raise ValueError("SAC reference cohort is incomplete")
+        methods = {"her", "saber", "hgr", "per"} if folder.name.endswith("hgr_per") else {"her", "saber"}
+        expected = {(task, method, seed) for task in ("drawer_open", "drawer_close")
+                    for method in methods for seed in range(1, 6)}
+        keys = [(r["task"], r["method"], r["seed"]) for r in data["runs"]]
+        if data["status"] != "completed" or data.get("incomplete") or len(keys) != len(expected) or set(keys) != expected:
+            raise ValueError("SAC comparison cohort is incomplete or duplicated")
         for a in data["aggregates"]:
             runs = [r for r in data["runs"] if r["task"] == a["task"] and r["method"] == a["method"]]
             if sorted(r["seed"] for r in runs) != [1, 2, 3, 4, 5]:
@@ -108,7 +112,7 @@ def verify(root=ROOT):
     check_links(root / "README.md")
     progress_files = list((root / "experiments").glob("*/results/progress.json"))
     if len(progress_files) != 1:
-        raise ValueError("Expected exactly one in-progress cohort")
+        raise ValueError("Expected one HGR/PER progress snapshot, which may now be complete")
     p = load(progress_files[0])
     if len(p["runs"]) != 20 or sum(p["counts"].values()) != 20:
         raise ValueError("Progress population mismatch")
@@ -118,6 +122,9 @@ def verify(root=ROOT):
     for r in p["runs"]:
         if r["status"] == "completed" and (r["step"] != 2000000 or r["eval_step"] != 2000000):
             raise ValueError("Partial run represented as completed")
+    baseline = next(e for e in index["experiments"] if e["directory"].endswith("sac_hgr_per"))
+    if (baseline["status"] == "completed") != (p["counts"].get("completed", 0) == 20):
+        raise ValueError("Baseline completion status disagrees with snapshot")
     expected = {"planned": 90, "completed": 70 + p["counts"].get("completed", 0),
                 "running": p["counts"].get("running", 0), "pending": p["counts"].get("pending", 0)}
     if index["training_counts"] != expected or sum(expected[k] for k in ("completed", "running", "pending")) != 90:

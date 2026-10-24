@@ -122,6 +122,8 @@ def copy_reports(root, dest, workspace):
     for name in ("outputs/automation/status.json", "automation/status.json", "recovery_state/status.json"):
         if (root / name).is_file():
             paths.add(root / name)
+    if root.name == BASELINES and (root / "analysis/final.json").is_file():
+        paths.update(root / "analysis" / name for name in ("final.json", "drawer_open.json", "drawer_close.json"))
     provenance = []
     for p in sorted(paths):
         if p.stat().st_size > 8 * 1024 * 1024:
@@ -246,6 +248,23 @@ def result_text(name, root, progress):
                  "See [final.json](results/analysis/final.json) for seed-level outcomes and the interruption inventory."]
         return "\n".join(text)
     if name == BASELINES:
+        if progress["counts"].get("completed", 0) == 20:
+            report = read_json(root / "analysis/final.json")
+            text = ["Completed: 20 new HGR/PER runs plus 20 reused HER/SABER references; 40 unique SAC runs total.",
+                    "Both tasks use seeds 1-5 and 2M steps, with FPP-reference auto-temperature SAC.",
+                    "This is an exploratory extension after observing HER/SABER outcomes; no automatic seeds 6-10 extension.",
+                    "PER is full prioritized replay with IS critic weights, not loss-only TD weighting.", "",
+                    "| Task | Method | Mean AUC | AUC SD | Mean final success |",
+                    "| --- | --- | ---: | ---: | ---: |"]
+            for row in report["aggregates"]:
+                text.append(f"| {row['task']} | {row['method']} | {row['auc_mean']:.6f} | {row['auc_sd']:.6f} | {row['final_mean']:.3f} |")
+            text += ["", "SABER-minus-PER paired AUC intervals lie below zero for both tasks; unfavorable results are retained.",
+                     "Both SABER-minus-HER intervals include zero. This neither establishes superiority nor equivalence.",
+                     "DrawerClose's early Hit90 events must not be confused with sustained or final success.",
+                     "See [final.json](results/analysis/final.json) for all seed metrics and adjusted paired intervals.",
+                     "Compact evaluation data: [DrawerOpen](../../../metaworld_Drawer_Open_SAC/) and [DrawerClose](../../../metaworld_Drawer_Close_SAC/).",
+                     "Recorded runtimes include instrumentation and varying concurrent workloads, not controlled wall-clock comparisons."]
+            return "\n".join(text)
         text = ["Question: how do HER/SABER compare with HGR and full replay-prioritized PER under the matched Drawer SAC setup?",
                 "Seeds 1-5, 2M steps per run, two tasks x two new methods = 20 planned runs.",
                 "PER changes replay sampling; it is not the older PER-style loss-only control.", "",
@@ -281,6 +300,8 @@ def main():
     progress = capture_progress(origin / BASELINES, timestamp)
     entries = []
     for name, (title, status, planned) in SPECS.items():
+        if name == BASELINES and progress["counts"].get("completed", 0) == 20:
+            status = "completed"
         published_name = PUBLISHED_NAMES[name]
         root, dest = origin / name, destination / published_name
         sources = copy_sources(root, dest)

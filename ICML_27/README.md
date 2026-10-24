@@ -15,7 +15,7 @@ They are not live dashboards. See [index.json](experiments/index.json) for the e
 | [Offline retrieval and failure diagnostics](experiments/draweropen_ddpg_retrieval_and_failure_diagnostics/) | DrawerOpen DDPG; 10 checkpoints and 30 training logs | Completed; no new training |
 | [SABER Tail / Random-512 retrieval](experiments/draweropen_ddpg_saber_tail_vs_random512/) | DrawerOpen DDPG; 10 new Random-512 runs | Completed; reuses 10 Tail references; includes final retrieval audits |
 | [HER / SABER](experiments/draweropen_drawerclose_sac_her_vs_saber/) | DrawerOpen/DrawerClose SAC; 2 methods x 5 seeds x 2M per task | Completed, 20 unique runs |
-| [HGR / PER](experiments/draweropen_drawerclose_sac_hgr_per/) | DrawerOpen/DrawerClose SAC; 2 methods x 5 seeds x 2M per task | In progress; see timestamped per-seed table |
+| [HGR / PER](experiments/draweropen_drawerclose_sac_hgr_per/) | DrawerOpen/DrawerClose SAC; 2 methods x 5 seeds x 2M per task | Completed, 20 new runs; 20 HER/SABER references reused |
 
 Only these six executed experiment/analysis families are published: five training
 comparisons and one completed offline analysis. Unexecuted preparation versions,
@@ -34,6 +34,13 @@ interruption/reuse history and all unfavorable completed results.
 The old [October 6 report](2026-10-06_post_review_experiment_status_ko.md) remains a historical record.
 Its old local-workspace links and then-current progress are not the current archive layout or current status.
 
+Completed SAC compact results are organized by task alongside the repository's
+other task/backbone folders: [DrawerOpen SAC](../metaworld_Drawer_Open_SAC/) and
+[DrawerClose SAC](../metaworld_Drawer_Close_SAC/). Together they contain 40 unique
+2M-step runs, not 60: the HGR/PER analysis reuses the same HER/SABER reference runs.
+The six archived families now total 90 completed new training runs. This count
+does not include subsequently launched DDPG seed-extension experiments.
+
 ## What Is Included
 
 Each experiment directory has a current `README.md`, frozen `source/`, compact `results/`
@@ -44,8 +51,10 @@ pending-status text and local-machine instructions. The outer README is the stat
 
 Exported reports replace the originating workspace path with `<WORKSPACE>` and
 serialize nonfinite JSON values as `null`; provenance records both original and
-exported hashes. Raw metrics, checkpoints, replay buffers, process locks, validation
-certificates, and environments are not included. Missing these artifacts must not be
+exported hashes. Full training metrics, checkpoints, replay buffers, process locks and validation
+certificates are not included. The task-specific SAC artifacts additionally retain
+every evaluation checkpoint, configs, summaries and recorded execution environments.
+Missing other artifacts must not be
 mistaken for passing a production/reuse validation gate.
 
 ## Verify or Prepare the Code
@@ -75,6 +84,17 @@ support inspection of reported results, not full recomputation of all diagnostic
 Historical audits against an excluded preparation snapshot (for example SAC's v1
 parity test) are not standalone tests of this reduced archive. The archive verifier
 checks the retained source hashes, results and links without those historical inputs.
+
+The compact SAC artifacts support full reanalysis of performance metrics and paired
+AUC intervals from included evaluation CSVs, without historical raw directories:
+
+```bash
+python3 ICML_27/tools/sac_results.py verify
+```
+
+This command requires NumPy (recorded analysis version 2.3.5), uses CPU only, and
+does not import a trainer or start training. Frozen source and original records are
+not edited during verification.
 
 ## Interpretation and Open Work
 

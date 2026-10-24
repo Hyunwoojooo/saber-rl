@@ -1,6 +1,6 @@
 {
-  "snapshot_utc": "2026-10-19T05:52:33.729730+00:00",
-  "snapshot_kst": "2026-10-19T14:52:33.729730+09:00",
+  "snapshot_utc": "2026-10-24T11:58:31.855827+00:00",
+  "snapshot_kst": "2026-10-24T20:58:31.855827+09:00",
   "experiments": [
     {
       "directory": "draweropen_ddpg_saber_vs_random_vs_td_topk",
@@ -40,16 +40,16 @@
     {
       "directory": "draweropen_drawerclose_sac_hgr_per",
       "title": "DrawerOpen and DrawerClose / SAC: HGR and PER",
-      "status": "in_progress",
+      "status": "completed",
       "new_production_runs_planned": 20,
       "source_file_count": 158
     }
   ],
   "training_counts": {
     "planned": 90,
-    "completed": 79,
-    "running": 1,
-    "pending": 10
+    "completed": 90,
+    "running": 0,
+    "pending": 0
   },
   "counting_note": "Exclude reused references, preproduction versions, offline diagnostics, smoke tests and interrupted attempts."
 }

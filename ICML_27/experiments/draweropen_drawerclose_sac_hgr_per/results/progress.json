@@ -1,13 +1,11 @@
 {
-  "captured_utc": "2026-10-19T05:52:33.729730+00:00",
+  "captured_utc": "2026-10-24T11:58:31.855827+00:00",
   "automatic_live_update": false,
   "total_planned": 20,
   "counts": {
-    "completed": 9,
-    "pending": 10,
-    "running": 1
+    "completed": 20
   },
-  "total_steps_observed": 18964800,
+  "total_steps_observed": 40000000,
   "total_steps_planned": 40000000,
   "runs": [
     {
@@ -58,12 +56,12 @@
       "task": "drawer_open",
       "method": "hgr",
       "seed": 5,
-      "status": "running",
-      "step": 964800,
-      "eval_step": 960000,
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
       "last_success": 1.0,
-      "auc_to_eval_step": 0.23684210526315788,
-      "runtime_seconds": 79332.69585693092
+      "auc_to_eval_step": 0.6293969849246231,
+      "runtime_seconds": 161167.661454416
     },
     {
       "task": "drawer_open",
@@ -124,71 +122,111 @@
       "task": "drawer_close",
       "method": "hgr",
       "seed": 1,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.0,
+      "auc_to_eval_step": 0.10703517587939698,
+      "runtime_seconds": 172967.69252080098
     },
     {
       "task": "drawer_close",
       "method": "hgr",
       "seed": 2,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.0,
+      "auc_to_eval_step": 0.1663316582914573,
+      "runtime_seconds": 172909.62581704708
     },
     {
       "task": "drawer_close",
       "method": "hgr",
       "seed": 3,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.0,
+      "auc_to_eval_step": 0.27964824120603016,
+      "runtime_seconds": 172822.22944446502
     },
     {
       "task": "drawer_close",
       "method": "hgr",
       "seed": 4,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.15,
+      "auc_to_eval_step": 0.4079145728643216,
+      "runtime_seconds": 169507.254904532
     },
     {
       "task": "drawer_close",
       "method": "hgr",
       "seed": 5,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.0,
+      "auc_to_eval_step": 0.09798994974874371,
+      "runtime_seconds": 160555.93922616402
     },
     {
       "task": "drawer_close",
       "method": "per",
       "seed": 1,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.0,
+      "auc_to_eval_step": 0.3057788944723618,
+      "runtime_seconds": 54898.844024677994
     },
     {
       "task": "drawer_close",
       "method": "per",
       "seed": 2,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 1.0,
+      "auc_to_eval_step": 0.821356783919598,
+      "runtime_seconds": 55492.255806742935
     },
     {
       "task": "drawer_close",
       "method": "per",
       "seed": 3,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.0,
+      "auc_to_eval_step": 0.06934673366834171,
+      "runtime_seconds": 49572.02630033204
     },
     {
       "task": "drawer_close",
       "method": "per",
       "seed": 4,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.9,
+      "auc_to_eval_step": 0.7095477386934673,
+      "runtime_seconds": 49723.87837962306
     },
     {
       "task": "drawer_close",
       "method": "per",
       "seed": 5,
-      "status": "pending",
-      "step": 0
+      "status": "completed",
+      "step": 2000000,
+      "eval_step": 2000000,
+      "last_success": 0.85,
+      "auc_to_eval_step": 0.5305276381909547,
+      "runtime_seconds": 45664.77409887407
     }
   ],
   "note": "Running AUC ends at eval_step, not at 2M; do not pool unequal horizons."

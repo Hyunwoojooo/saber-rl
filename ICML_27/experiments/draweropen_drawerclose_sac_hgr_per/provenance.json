@@ -1,5 +1,5 @@
 {
-  "snapshot_utc": "2026-10-19T05:52:33.729730+00:00",
+  "snapshot_utc": "2026-10-24T11:58:31.855827+00:00",
   "original_directory": "experiments_post_review/2026-10-16_drawer_sac_hgr_per_s1_5",
   "source_policy": "byte-for-byte copies, including original README and manifests",
   "source_files_sha256": {
@@ -164,10 +164,28 @@
   },
   "reports": [
     {
+      "original_path": "analysis/drawer_close.json",
+      "original_sha256": "6b5793ced517c281937d4f2d6207d1cedeb13052f38ad53164492b936aaac932",
+      "published_path": "results/analysis/drawer_close.json",
+      "published_sha256": "8ea61ce0f92a8ae8f0a512f981983a495cc2e49506e4314f4c9425890a1dad35"
+    },
+    {
+      "original_path": "analysis/drawer_open.json",
+      "original_sha256": "09cb3b2c169506877958752cc249a5a2ea0d82e22842bcce9f886d257f66bb83",
+      "published_path": "results/analysis/drawer_open.json",
+      "published_sha256": "90d21f693c6b10ec26342c27b16f14bf78cb9a2fe79766b8db3f644c66938ecb"
+    },
+    {
+      "original_path": "analysis/final.json",
+      "original_sha256": "9c53b2c584ae92a06145713cdbc0472bc0d4e9aa010312cacd2471a2131ed6c7",
+      "published_path": "results/analysis/final.json",
+      "published_sha256": "f45f8a5e82e8718f240ad738063f2b9db20b0ea045f0c9fbed6b90b5036c3b22"
+    },
+    {
       "original_path": "automation/status.json",
-      "original_sha256": "dcb0fd558bd38dcf13a9a82a29d136a45a8575258449f16c94aaa9d07cc1dde4",
+      "original_sha256": "6ed16c21451984629221de3bb8ff917a5cd4b394bb2262a9767bac39da98b46d",
       "published_path": "results/automation/status.json",
-      "published_sha256": "dcb0fd558bd38dcf13a9a82a29d136a45a8575258449f16c94aaa9d07cc1dde4"
+      "published_sha256": "6ed16c21451984629221de3bb8ff917a5cd4b394bb2262a9767bac39da98b46d"
     }
   ],
   "report_transformations": [

@@ -1,5 +1,32 @@
 # MetaWorld DrawerOpen SAC Experiments
 
+## Completed Auto-Temperature SAC Results
+
+The post-AAAI FPP-reference SAC comparison is complete: **HER, SABER (Ours),
+HGR and full PER, seeds 1-5, 2M steps each (20 unique runs)**.
+
+See [the compact results and protocol](paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/README.md)
+for seed-level metrics, full evaluation curves, paired CIs, execution environments,
+source provenance and SHA256 verification. Unfavorable and zero-success results are
+retained. These results use automatic entropy-temperature tuning and must not be
+pooled with the fixed-temperature prototype below.
+
+Exact executed code is preserved in the [HER/SABER source](../ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/)
+and [HGR/PER source](../ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source/).
+The inherited observation/goal representation caveat is documented with the results.
+
+```bash
+python3 ICML_27/tools/sac_results.py verify --task drawer_open
+```
+
+Run verification from the repository root with Python 3.12 and NumPy. It does not train a model.
+
+## Legacy Fixed-Temperature Prototype
+
+The remaining instructions and results describe the older fixed-alpha prototype.
+Its `code/` and launchers are preserved unchanged; they did not produce the
+auto-temperature results linked above.
+
 Independent SAC+HER DrawerOpen experiment snapshot. This folder is intentionally separate from `metaworld_Drawer_Open_TD3` so SAC code changes do not mutate the TD3 DrawerOpen code path.
 
 ## Variants

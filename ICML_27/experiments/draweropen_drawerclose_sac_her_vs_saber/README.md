@@ -1,5 +1,10 @@
 # DrawerOpen and DrawerClose / SAC: HER vs SABER
 
+Compact performance data are also available under [DrawerOpen SAC](../../../metaworld_Drawer_Open_SAC/)
+and [DrawerClose SAC](../../../metaworld_Drawer_Close_SAC/), alongside the completed
+HGR/PER extension. These task-specific folders contain the same HER/SABER runs,
+not new replications, and include every evaluation checkpoint for metric reanalysis.
+
 Status: **completed**. Snapshot: **2026-10-19T05:52:33.729730+00:00 UTC / 2026-10-19T14:52:33.729730+09:00 KST**.
 
 Completed: 20 runs, seeds 1-5, 2M steps each; auto-temperature SAC follows the FPP reference.

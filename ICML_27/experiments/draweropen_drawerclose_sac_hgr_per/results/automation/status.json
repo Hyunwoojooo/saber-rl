@@ -1,9 +1,9 @@
 {
-  "status": "running",
+  "status": "complete",
   "pid": 1117482,
   "source_manifest_sha256": "8b9a3f9bfd79b0f973af801fb39f98b102b7e5352bcc629b454283cadb0e3304",
   "started_utc": "2026-10-16T04:57:56.697346+00:00",
-  "stage": "production_drawer_open",
+  "stage": "finished",
   "stages": [
     {
       "name": "cpu_revalidation",
@@ -14,9 +14,34 @@
       "name": "gpu_validation",
       "returncode": 0,
       "finished_utc": "2026-10-16T13:02:03.539495+00:00"
+    },
+    {
+      "name": "production_drawer_open",
+      "returncode": 0,
+      "finished_utc": "2026-10-20T04:36:23.189372+00:00"
+    },
+    {
+      "name": "analysis_drawer_open",
+      "returncode": 0,
+      "finished_utc": "2026-10-20T04:36:33.233153+00:00"
+    },
+    {
+      "name": "production_drawer_close",
+      "returncode": 0,
+      "finished_utc": "2026-10-23T20:03:20.155397+00:00"
+    },
+    {
+      "name": "analysis_drawer_close",
+      "returncode": 0,
+      "finished_utc": "2026-10-23T20:03:30.163371+00:00"
+    },
+    {
+      "name": "final_analysis",
+      "returncode": 0,
+      "finished_utc": "2026-10-23T20:03:40.206772+00:00"
     }
   ],
-  "heartbeat_utc": "2026-10-19T05:52:31.760150+00:00",
+  "heartbeat_utc": "2026-10-23T20:03:40.208953+00:00",
   "predecessor": {
     "state": "ready",
     "reason": "all 20 reference runs and final analysis validated"
@@ -26,6 +51,6 @@
     "free_disk_gib": 3137.78409576416,
     "available_ram_gib": 117.8353157043457
   },
-  "stage_started_utc": "2026-10-16T13:02:03.906751+00:00",
-  "child_pid": 1211571
+  "stage_started_utc": "2026-10-23T20:03:30.204494+00:00",
+  "finished_utc": "2026-10-23T20:03:40.208951+00:00"
 }
