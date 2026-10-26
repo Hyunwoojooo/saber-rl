@@ -1,0 +1,430 @@
+{
+  "status": "HER_SABER_complete_remaining_queue_incomplete",
+  "new_completed_runs": 10,
+  "reused_historical_runs": 10,
+  "cohorts": {
+    "historical_1_5": {
+      "summary": {
+        "her": {
+          "auc": {
+            "mean": 0.20731155778894475,
+            "sd": 0.28681804760951585
+          },
+          "final_quarter_auc": {
+            "mean": 0.3927,
+            "sd": 0.5377908050534148
+          },
+          "final_success": {
+            "mean": 0.39,
+            "sd": 0.5343220002957019
+          }
+        },
+        "saber": {
+          "auc": {
+            "mean": 0.7536683417085427,
+            "sd": 0.04437416407906994
+          },
+          "final_quarter_auc": {
+            "mean": 0.9873999999999998,
+            "sd": 0.018270194306574866
+          },
+          "final_success": {
+            "mean": 1.0,
+            "sd": 0.0
+          }
+        }
+      },
+      "paired": {
+        "auc": {
+          "n": 5,
+          "mean_difference": 0.546356783919598,
+          "ci95": [
+            0.3398743718592964,
+            0.7410050251256282
+          ],
+          "positive_pairs": 5,
+          "seed_differences": [
+            0.2969849246231156,
+            0.7869346733668342,
+            0.7050251256281407,
+            0.7130653266331658,
+            0.2297738693467336
+          ]
+        },
+        "final_quarter_auc": {
+          "n": 5,
+          "mean_difference": 0.5947,
+          "ci95": [
+            0.20529999999999998,
+            0.9827999999999999
+          ],
+          "positive_pairs": 5,
+          "seed_differences": [
+            0.030000000000000027,
+            0.977,
+            1.0,
+            0.96,
+            0.00649999999999995
+          ]
+        },
+        "final_success": {
+          "n": 5,
+          "mean_difference": 0.61,
+          "ci95": [
+            0.21000000000000002,
+            1.0
+          ],
+          "positive_pairs": 4,
+          "seed_differences": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            0.050000000000000044
+          ]
+        }
+      }
+    },
+    "extension_6_10": {
+      "summary": {
+        "her": {
+          "auc": {
+            "mean": 0.594824120603015,
+            "sd": 0.334348887097861
+          },
+          "final_quarter_auc": {
+            "mean": 0.7895,
+            "sd": 0.4416217272734665
+          },
+          "final_success": {
+            "mean": 0.8,
+            "sd": 0.4472135954999579
+          }
+        },
+        "saber": {
+          "auc": {
+            "mean": 0.5500753768844221,
+            "sd": 0.3289111183890019
+          },
+          "final_quarter_auc": {
+            "mean": 0.7929,
+            "sd": 0.44333373433565826
+          },
+          "final_success": {
+            "mean": 0.79,
+            "sd": 0.4421538193886829
+          }
+        }
+      },
+      "paired": {
+        "auc": {
+          "n": 5,
+          "mean_difference": -0.04474874371859296,
+          "ci95": [
+            -0.47811557788944725,
+            0.4560804020100502
+          ],
+          "positive_pairs": 1,
+          "seed_differences": [
+            -0.0170854271356784,
+            -0.7525125628140703,
+            -0.17562814070351762,
+            -0.11595477386934683,
+            0.8374371859296482
+          ]
+        },
+        "final_quarter_auc": {
+          "n": 5,
+          "mean_difference": 0.003400000000000003,
+          "ci95": [
+            -0.577,
+            0.5962
+          ],
+          "positive_pairs": 1,
+          "seed_differences": [
+            -0.0040000000000000036,
+            -0.96,
+            -0.0010000000000000009,
+            -0.018000000000000016,
+            1.0
+          ]
+        },
+        "final_success": {
+          "n": 5,
+          "mean_difference": -0.010000000000000009,
+          "ci95": [
+            -0.6,
+            0.5900000000000001
+          ],
+          "positive_pairs": 1,
+          "seed_differences": [
+            0.0,
+            -1.0,
+            0.0,
+            -0.050000000000000044,
+            1.0
+          ]
+        }
+      }
+    },
+    "pooled_1_10": {
+      "summary": {
+        "her": {
+          "auc": {
+            "mean": 0.40106783919597994,
+            "sd": 0.35771342484037455
+          },
+          "final_quarter_auc": {
+            "mean": 0.5911,
+            "sd": 0.5088789858328031
+          },
+          "final_success": {
+            "mean": 0.595,
+            "sd": 0.5123204292454305
+          }
+        },
+        "saber": {
+          "auc": {
+            "mean": 0.6518718592964824,
+            "sd": 0.24590684759910614
+          },
+          "final_quarter_auc": {
+            "mean": 0.8901499999999999,
+            "sd": 0.313065492793086
+          },
+          "final_success": {
+            "mean": 0.8949999999999999,
+            "sd": 0.31486328602885555
+          }
+        }
+      },
+      "paired": {
+        "auc": {
+          "n": 10,
+          "mean_difference": 0.2508040201005025,
+          "ci95": [
+            -0.06764321608040201,
+            0.5439331030150754
+          ],
+          "positive_pairs": 6,
+          "seed_differences": [
+            0.2969849246231156,
+            0.7869346733668342,
+            0.7050251256281407,
+            0.7130653266331658,
+            0.2297738693467336,
+            -0.0170854271356784,
+            -0.7525125628140703,
+            -0.17562814070351762,
+            -0.11595477386934683,
+            0.8374371859296482
+          ]
+        },
+        "final_quarter_auc": {
+          "n": 10,
+          "mean_difference": 0.29905,
+          "ci95": [
+            -0.09265124999999998,
+            0.689105
+          ],
+          "positive_pairs": 6,
+          "seed_differences": [
+            0.030000000000000027,
+            0.977,
+            1.0,
+            0.96,
+            0.00649999999999995,
+            -0.0040000000000000036,
+            -0.96,
+            -0.0010000000000000009,
+            -0.018000000000000016,
+            1.0
+          ]
+        },
+        "final_success": {
+          "n": 10,
+          "mean_difference": 0.3,
+          "ci95": [
+            -0.10499999999999998,
+            0.7
+          ],
+          "positive_pairs": 5,
+          "seed_differences": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            0.050000000000000044,
+            0.0,
+            -1.0,
+            0.0,
+            -0.050000000000000044,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "per_seed": [
+    {
+      "arm": "her",
+      "seed": 1,
+      "auc": 0.46030150753768845,
+      "final_quarter_auc": 0.97,
+      "final_success": 1.0,
+      "hit90_step": 1090000
+    },
+    {
+      "arm": "her",
+      "seed": 2,
+      "auc": 0.0,
+      "final_quarter_auc": 0.0,
+      "final_success": 0.0,
+      "hit90_step": null
+    },
+    {
+      "arm": "her",
+      "seed": 3,
+      "auc": 0.0,
+      "final_quarter_auc": 0.0,
+      "final_success": 0.0,
+      "hit90_step": null
+    },
+    {
+      "arm": "her",
+      "seed": 4,
+      "auc": 0.0,
+      "final_quarter_auc": 0.0,
+      "final_success": 0.0,
+      "hit90_step": null
+    },
+    {
+      "arm": "her",
+      "seed": 5,
+      "auc": 0.5762562814070352,
+      "final_quarter_auc": 0.9935,
+      "final_success": 0.95,
+      "hit90_step": 830000
+    },
+    {
+      "arm": "saber",
+      "seed": 1,
+      "auc": 0.757286432160804,
+      "final_quarter_auc": 1.0,
+      "final_success": 1.0,
+      "hit90_step": 510000
+    },
+    {
+      "arm": "saber",
+      "seed": 2,
+      "auc": 0.7869346733668342,
+      "final_quarter_auc": 0.977,
+      "final_success": 1.0,
+      "hit90_step": 420000
+    },
+    {
+      "arm": "saber",
+      "seed": 3,
+      "auc": 0.7050251256281407,
+      "final_quarter_auc": 1.0,
+      "final_success": 1.0,
+      "hit90_step": 580000
+    },
+    {
+      "arm": "saber",
+      "seed": 4,
+      "auc": 0.7130653266331658,
+      "final_quarter_auc": 0.96,
+      "final_success": 1.0,
+      "hit90_step": 500000
+    },
+    {
+      "arm": "saber",
+      "seed": 5,
+      "auc": 0.8060301507537688,
+      "final_quarter_auc": 1.0,
+      "final_success": 1.0,
+      "hit90_step": 400000
+    },
+    {
+      "arm": "her",
+      "seed": 6,
+      "auc": 0.7826633165829145,
+      "final_quarter_auc": 0.993,
+      "final_success": 1.0,
+      "hit90_step": 450000
+    },
+    {
+      "arm": "her",
+      "seed": 7,
+      "auc": 0.7525125628140703,
+      "final_quarter_auc": 0.96,
+      "final_success": 1.0,
+      "hit90_step": 470000
+    },
+    {
+      "arm": "her",
+      "seed": 8,
+      "auc": 0.7520100502512563,
+      "final_quarter_auc": 0.999,
+      "final_success": 1.0,
+      "hit90_step": 510000
+    },
+    {
+      "arm": "her",
+      "seed": 9,
+      "auc": 0.6869346733668342,
+      "final_quarter_auc": 0.9955,
+      "final_success": 1.0,
+      "hit90_step": 660000
+    },
+    {
+      "arm": "her",
+      "seed": 10,
+      "auc": 0.0,
+      "final_quarter_auc": 0.0,
+      "final_success": 0.0,
+      "hit90_step": null
+    },
+    {
+      "arm": "saber",
+      "seed": 6,
+      "auc": 0.7655778894472361,
+      "final_quarter_auc": 0.989,
+      "final_success": 1.0,
+      "hit90_step": 470000
+    },
+    {
+      "arm": "saber",
+      "seed": 7,
+      "auc": 0.0,
+      "final_quarter_auc": 0.0,
+      "final_success": 0.0,
+      "hit90_step": null
+    },
+    {
+      "arm": "saber",
+      "seed": 8,
+      "auc": 0.5763819095477387,
+      "final_quarter_auc": 0.998,
+      "final_success": 1.0,
+      "hit90_step": 830000
+    },
+    {
+      "arm": "saber",
+      "seed": 9,
+      "auc": 0.5709798994974874,
+      "final_quarter_auc": 0.9775,
+      "final_success": 0.95,
+      "hit90_step": 850000
+    },
+    {
+      "arm": "saber",
+      "seed": 10,
+      "auc": 0.8374371859296482,
+      "final_quarter_auc": 1.0,
+      "final_success": 1.0,
+      "hit90_step": 340000
+    }
+  ]
+}

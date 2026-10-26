@@ -1,5 +1,25 @@
 # MetaWorld DrawerOpen DDPG Experiments
 
+## Latest HER-SABER Seed Extension
+
+The October post-review extension has completed **HER and SABER seeds 6-10**
+(10 new executions at 2M steps each). The [separate result artifact](paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md)
+contains the original seeds 1-5, new seeds 6-10, pooled 1-10 results, exact-grid
+curves, paired CIs, executed source snapshots and a read-only verifier.
+
+Pooled mean AUC is **HER 0.4011 vs SABER 0.6519**; SABER-minus-HER is
+**+0.2508, paired 95% CI [-0.0676, +0.5439]**. The interval includes zero;
+the original five-seed superiority result does not persist in this pooled interval.
+HGR and the other extension controls are not final results yet. Their timestamped
+queue status is kept separate from completed-run statistics.
+
+The historical tables below are preserved, not overwritten. Earlier diagnostic
+executions and post-review assignment runs are not extra independent seeds in the
+new pooled estimate. Historical config/environment provenance limitations are
+documented in the artifact; no bitwise historical equivalence is claimed.
+
+## Original Experiment Snapshot
+
 This folder is an independent DrawerOpen DDPG code snapshot. It reuses the existing sparse MetaWorld DrawerOpen-v3 goal wrapper, HER replay path, and SABER/B3 support-weighting implementation from the TD3 DrawerOpen code, but replaces the actor-critic backend with single-critic DDPG.
 
 ## Experiments

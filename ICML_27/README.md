@@ -41,6 +41,16 @@ other task/backbone folders: [DrawerOpen SAC](../metaworld_Drawer_Open_SAC/) and
 The six archived families now total 90 completed new training runs. This count
 does not include subsequently launched DDPG seed-extension experiments.
 
+The later [DrawerOpen DDPG HER/SABER seed-extension artifact](../metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md)
+now reports 10 completed new executions (seeds 6-10 for each of HER and SABER)
+alongside 10 historical references. It separately records the still-incomplete
+eight-condition queue. These executions are not included in the six-family count
+above, and are not substituted for the earlier assignment experiment.
+
+```bash
+python3 ICML_27/tools/ddpg_seed_extension_results.py verify
+```
+
 ## What Is Included
 
 Each experiment directory has a current `README.md`, frozen `source/`, compact `results/`

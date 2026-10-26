@@ -1,0 +1,457 @@
+{
+  "arms": {
+    "her": {
+      "finished_utc": "2026-10-24T23:03:15.659729+00:00",
+      "seeds": {
+        "10": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-24T23:02:45.115000+00:00",
+          "last_write_age_sec": 24.773609399795532,
+          "nonfinite_loss": [],
+          "pid": 3425186,
+          "result": {
+            "arm": "her",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T11:39:09.748366+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "48.79588054275699"
+        },
+        "6": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-24T23:03:15.304842+00:00",
+          "last_write_age_sec": 11.429369449615479,
+          "nonfinite_loss": [],
+          "pid": 3425182,
+          "result": {
+            "arm": "her",
+            "auc": 0.7826633165829145,
+            "final_quarter_auc": 0.993,
+            "final_success": 1.0,
+            "hit90_step": 450000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T11:39:09.745210+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "48.74419324920467"
+        },
+        "7": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-24T23:02:14.714671+00:00",
+          "last_write_age_sec": 26.564276456832886,
+          "nonfinite_loss": [],
+          "pid": 3425183,
+          "result": {
+            "arm": "her",
+            "auc": 0.7525125628140703,
+            "final_quarter_auc": 0.96,
+            "final_success": 1.0,
+            "hit90_step": 470000,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T11:39:09.747595+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "48.834282690218274"
+        },
+        "8": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-24T23:02:14.935500+00:00",
+          "last_write_age_sec": 12.293129920959473,
+          "nonfinite_loss": [],
+          "pid": 3425184,
+          "result": {
+            "arm": "her",
+            "auc": 0.7520100502512563,
+            "final_quarter_auc": 0.999,
+            "final_success": 1.0,
+            "hit90_step": 510000,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T11:39:09.747925+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "48.81696123761371"
+        },
+        "9": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-24T23:03:15.485307+00:00",
+          "last_write_age_sec": 5.895826578140259,
+          "nonfinite_loss": [],
+          "pid": 3425185,
+          "result": {
+            "arm": "her",
+            "auc": 0.6869346733668342,
+            "final_quarter_auc": 0.9955,
+            "final_success": 1.0,
+            "hit90_step": 660000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T11:39:09.748150+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "48.737320385990095"
+        }
+      },
+      "started_utc": "2026-10-24T11:39:09.744727+00:00",
+      "status": "completed"
+    },
+    "hgr": {
+      "seeds": {
+        "10": {
+          "last_write_age_sec": 1.151914358139038,
+          "nonfinite_loss": [],
+          "pid": 3828939,
+          "started_utc": "2026-10-25T22:25:57.391763+00:00",
+          "status": "running",
+          "step": 340800,
+          "steps_per_sec": "13.428290317909573"
+        },
+        "6": {
+          "last_write_age_sec": 7.524093389511108,
+          "nonfinite_loss": [],
+          "pid": 3828935,
+          "started_utc": "2026-10-25T22:25:57.390084+00:00",
+          "status": "running",
+          "step": 340200,
+          "steps_per_sec": "13.40803139378946"
+        },
+        "7": {
+          "last_write_age_sec": 13.539288759231567,
+          "nonfinite_loss": [],
+          "pid": 3828936,
+          "started_utc": "2026-10-25T22:25:57.390464+00:00",
+          "status": "running",
+          "step": 341000,
+          "steps_per_sec": "13.442765723525836"
+        },
+        "8": {
+          "last_write_age_sec": 3.150522232055664,
+          "nonfinite_loss": [],
+          "pid": 3828937,
+          "started_utc": "2026-10-25T22:25:57.391070+00:00",
+          "status": "running",
+          "step": 340800,
+          "steps_per_sec": "13.429363805932148"
+        },
+        "9": {
+          "last_write_age_sec": 7.1297078132629395,
+          "nonfinite_loss": [],
+          "pid": 3828938,
+          "started_utc": "2026-10-25T22:25:57.391444+00:00",
+          "status": "running",
+          "step": 340600,
+          "steps_per_sec": "13.423601665128931"
+        }
+      },
+      "started_utc": "2026-10-25T22:25:57.389145+00:00",
+      "status": "running"
+    },
+    "per": {
+      "seeds": {
+        "10": {
+          "status": "queued",
+          "step": 0
+        },
+        "6": {
+          "status": "queued",
+          "step": 0
+        },
+        "7": {
+          "status": "queued",
+          "step": 0
+        },
+        "8": {
+          "status": "queued",
+          "step": 0
+        },
+        "9": {
+          "status": "queued",
+          "step": 0
+        }
+      },
+      "status": "queued"
+    },
+    "random_support": {
+      "seeds": {
+        "10": {
+          "status": "queued",
+          "step": 0
+        },
+        "6": {
+          "status": "queued",
+          "step": 0
+        },
+        "7": {
+          "status": "queued",
+          "step": 0
+        },
+        "8": {
+          "status": "queued",
+          "step": 0
+        },
+        "9": {
+          "status": "queued",
+          "step": 0
+        }
+      },
+      "status": "queued"
+    },
+    "replay_query": {
+      "seeds": {
+        "10": {
+          "status": "queued",
+          "step": 0
+        },
+        "6": {
+          "status": "queued",
+          "step": 0
+        },
+        "7": {
+          "status": "queued",
+          "step": 0
+        },
+        "8": {
+          "status": "queued",
+          "step": 0
+        },
+        "9": {
+          "status": "queued",
+          "step": 0
+        }
+      },
+      "status": "queued"
+    },
+    "saber": {
+      "finished_utc": "2026-10-25T22:25:57.379853+00:00",
+      "seeds": {
+        "10": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-25T19:34:55.565691+00:00",
+          "last_write_age_sec": 8.579032182693481,
+          "nonfinite_loss": [],
+          "pid": 3558297,
+          "result": {
+            "arm": "saber",
+            "auc": 0.8374371859296482,
+            "final_quarter_auc": 1.0,
+            "final_success": 1.0,
+            "hit90_step": 340000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T23:03:15.672135+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "27.06811338999089"
+        },
+        "6": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-25T18:25:24.673457+00:00",
+          "last_write_age_sec": 3.375680685043335,
+          "nonfinite_loss": [],
+          "pid": 3558293,
+          "result": {
+            "arm": "saber",
+            "auc": 0.7655778894472361,
+            "final_quarter_auc": 0.989,
+            "final_success": 1.0,
+            "hit90_step": 470000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T23:03:15.670459+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.685308837066398"
+        },
+        "7": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-25T22:25:57.167852+00:00",
+          "last_write_age_sec": 15.527565717697144,
+          "nonfinite_loss": [],
+          "pid": 3558294,
+          "result": {
+            "arm": "saber",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T23:03:15.670968+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "23.769256326360733"
+        },
+        "8": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-25T20:59:26.459096+00:00",
+          "last_write_age_sec": 30.06704306602478,
+          "nonfinite_loss": [],
+          "pid": 3558295,
+          "result": {
+            "arm": "saber",
+            "auc": 0.5763819095477387,
+            "final_quarter_auc": 0.998,
+            "final_success": 1.0,
+            "hit90_step": 830000,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T23:03:15.671300+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "25.336634775726317"
+        },
+        "9": {
+          "exit_code": 0,
+          "finished_utc": "2026-10-25T19:01:25.122644+00:00",
+          "last_write_age_sec": 15.375030994415283,
+          "nonfinite_loss": [],
+          "pid": 3558296,
+          "result": {
+            "arm": "saber",
+            "auc": 0.5709798994974874,
+            "final_quarter_auc": 0.9775,
+            "final_success": 0.95,
+            "hit90_step": 850000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-24T23:03:15.671719+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "27.827857996920212"
+        }
+      },
+      "started_utc": "2026-10-24T23:03:15.669084+00:00",
+      "status": "completed"
+    },
+    "shuffled_query": {
+      "seeds": {
+        "10": {
+          "status": "queued",
+          "step": 0
+        },
+        "6": {
+          "status": "queued",
+          "step": 0
+        },
+        "7": {
+          "status": "queued",
+          "step": 0
+        },
+        "8": {
+          "status": "queued",
+          "step": 0
+        },
+        "9": {
+          "status": "queued",
+          "step": 0
+        }
+      },
+      "status": "queued"
+    },
+    "strict_random": {
+      "seeds": {
+        "10": {
+          "status": "queued",
+          "step": 0
+        },
+        "6": {
+          "status": "queued",
+          "step": 0
+        },
+        "7": {
+          "status": "queued",
+          "step": 0
+        },
+        "8": {
+          "status": "queued",
+          "step": 0
+        },
+        "9": {
+          "status": "queued",
+          "step": 0
+        }
+      },
+      "status": "queued"
+    }
+  },
+  "current_arm": "hgr",
+  "protocol": {
+    "auc_denominator": 1990000,
+    "backbone": "DDPG",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 2027,
+    "evaluation_episodes": 20,
+    "evaluation_steps": {
+      "first": 10000,
+      "interval": 10000,
+      "last": 2000000
+    },
+    "failure_policy": "Stop queue on failed run, nonfinite recorded loss, configuration mismatch or incomplete evaluation grid. Preserve every attempt. No automatic production restart/resume and no outcome-based exclusions.",
+    "final_quarter_start": 1500000,
+    "gpu_smoke": {
+      "changes_from_production": [
+        "total_steps",
+        "run_name",
+        "output_root",
+        "seed"
+      ],
+      "included_in_results": false,
+      "seed": 11,
+      "steps": 6000
+    },
+    "historical_control_reference": "Submitted AAAI Table 2; original seeds 1-5",
+    "historical_primary_reference": "Submitted AAAI Table 1; original seeds 1-5",
+    "historical_provenance_limit": "HER/SABER/Random original full configs were not retained; use earliest retained canonical source and original launchers. PER uses retained frozen preset. Original-config parity is tested where configs survive. Historical bitwise environment identity is not asserted.",
+    "order": [
+      "her",
+      "saber",
+      "hgr",
+      "per",
+      "replay_query",
+      "shuffled_query",
+      "random_support",
+      "strict_random"
+    ],
+    "parallel_seeds": 5,
+    "power_failure_policy": "No reboot autostart. Audit partial runs before explicit restart authorization.",
+    "report_cohorts": [
+      "historical_1_5",
+      "extension_6_10",
+      "pooled_1_10"
+    ],
+    "seeds": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "statistics_note": "Primary metric definitions are unchanged. Extension and pooled comparisons use paired 10000-resample percentile bootstrap. Historical exact 3125-assignment mechanism intervals remain separately reported; they are not overwritten or claimed identical to Monte Carlo intervals. No selective stopping for significance.",
+    "steps_per_run": 2000000,
+    "success_metric": "eval/env_success_mean",
+    "task": "DrawerOpen-v3",
+    "total_environment_steps": 80000000,
+    "total_new_runs": 40
+  },
+  "queue_pid": 3425162,
+  "started_utc": "2026-10-24T11:39:09.738054+00:00",
+  "status": "running",
+  "updated_utc": "2026-10-26T05:29:00.731792+00:00"
+}
