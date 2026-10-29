@@ -1,17 +1,34 @@
 # MetaWorld DrawerOpen DDPG Experiments
 
-## Latest HER-SABER Seed Extension
+## Latest Main-Paper Seed Extension
 
-The October post-review extension has completed **HER and SABER seeds 6-10**
-(10 new executions at 2M steps each). The [separate result artifact](paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md)
-contains the original seeds 1-5, new seeds 6-10, pooled 1-10 results, exact-grid
-curves, paired CIs, executed source snapshots and a read-only verifier.
+At the **2026-10-29 06:03 UTC** snapshot, HER, SABER, HGR and PER have completed
+seeds 6-10. Replay-Action Query has completed seeds 6-9; seed 10 is still running.
+The [completed-result artifact](paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/README.md)
+contains 24 completed new executions at 2M steps, plus 25 historical references.
+This adds 14 completed results to the earlier HER/SABER publication, not 24
+additional independent runs. No unfinished output files are published.
 
-Pooled mean AUC is **HER 0.4011 vs SABER 0.6519**; SABER-minus-HER is
-**+0.2508, paired 95% CI [-0.0676, +0.5439]**. The interval includes zero;
-the original five-seed superiority result does not persist in this pooled interval.
-HGR and the other extension controls are not final results yet. Their timestamped
-queue status is kept separate from completed-run statistics.
+| Method | Pooled 1-10 mean AUC | Pooled mean final success |
+| --- | ---: | ---: |
+| HER | 0.401068 | 0.595 |
+| SABER (Ours) | 0.651872 | 0.895 |
+| HGR | 0.564899 | 0.750 |
+| PER | 0.650440 | 0.795 |
+
+SABER-minus-HER AUC is **+0.250804, paired 95% CI [-0.067643, +0.543933]**;
+SABER-minus-HGR is **+0.086972 [-0.181385, +0.344536]**; SABER-minus-PER is
+**+0.001432 [-0.104976, +0.148699]**. All three intervals include zero.
+These are pointwise, unadjusted intervals; superiority or equivalence is not established.
+Replay-Action Query is published only at seed level until all five new seeds finish.
+The other three controls remain queued. This is a dated snapshot, not live status.
+
+```bash
+python3 ICML_27/tools/ddpg_completed_extension_results.py verify
+```
+
+The [earlier HER/SABER artifact](paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md)
+is preserved as its original snapshot; its ten new runs overlap this artifact.
 
 The historical tables below are preserved, not overwritten. Earlier diagnostic
 executions and post-review assignment runs are not extra independent seeds in the

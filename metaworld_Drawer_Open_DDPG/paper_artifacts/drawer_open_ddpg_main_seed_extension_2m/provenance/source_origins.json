@@ -1,0 +1,190 @@
+{
+  "arms": {
+    "her": {
+      "basis": "Earliest retained primary trainer and original launcher; before added live-target diagnostic instrumentation.",
+      "git_ref": "823cebc",
+      "original_execution_commit_known": false,
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Open_DDPG/code/src"
+    },
+    "hgr": {
+      "basis": "Retained dedicated full baseline source and production preset",
+      "git_ref": "a62b096f3cce0067a152a4e4719a8aaa0b3c2b98",
+      "original_full_config_retained": true,
+      "path": "metaworld_Drawer_Open_DDPG_HGR"
+    },
+    "per": {
+      "basis": "Retained dedicated full baseline source and production preset",
+      "git_ref": "a62b096f3cce0067a152a4e4719a8aaa0b3c2b98",
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-PER-Full-2M"
+    },
+    "replay_query": {
+      "basis": "Artifact frozen source snapshot",
+      "git_ref": "a62b096f3cce0067a152a4e4719a8aaa0b3c2b98",
+      "original_full_config_retained": true,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/source_snapshot"
+    },
+    "saber": {
+      "basis": "Earliest retained primary trainer and original launcher; before added live-target diagnostic instrumentation.",
+      "git_ref": "823cebc",
+      "original_execution_commit_known": false,
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Open_DDPG/code/src"
+    }
+  },
+  "curves": [
+    {
+      "arm": "her",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s1_2m_cuda/metrics.csv",
+      "seed": 1,
+      "sha256": "93a185413e916d92ad36d7db064f609c860815cebaa4af6aa5f4b20c47994334"
+    },
+    {
+      "arm": "her",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s2_2m_cuda/metrics.csv",
+      "seed": 2,
+      "sha256": "c7a8f94618a6075145ea427652aa809197674133e47b8b1f60b84467eabeac22"
+    },
+    {
+      "arm": "her",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s3_2m_cuda/metrics.csv",
+      "seed": 3,
+      "sha256": "ea50e0a0b07fe6adee44990d44efa9936b8b44c0779f1d293e6474a9a32798d7"
+    },
+    {
+      "arm": "her",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s4_2m_cuda/metrics.csv",
+      "seed": 4,
+      "sha256": "ad4a8116fd31f5fd904b6127f3447d4b340cef6f08acde11c543a1753b8e18f7"
+    },
+    {
+      "arm": "her",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B0-2M/drawer_open_DDPG-HER-B0-2M_s5_2m_cuda/metrics.csv",
+      "seed": 5,
+      "sha256": "a9d4cd0ca0d04e119e2ed47e83a235fd7817818ee9cb3dbed1f7387165df0ce8"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "seed": 1,
+      "sha256": "9a58548e94d61a59fa78a78191d3f667d16145c39b9f89c28feb5aa55f53b5e4"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "seed": 2,
+      "sha256": "bae04559b41646e1838f322deac8ce4a931ac05ec5c623758d9153d8e9962a80"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "seed": 3,
+      "sha256": "385d1685caf794f31ebd37975e7a01e35e798b8d01e3335940c2b84b6ec1c7c5"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "seed": 4,
+      "sha256": "2187814e5954a958f07d1b7b1eeedd42f45505859d9afd576173e732eb5e4515"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_open_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "seed": 5,
+      "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_1/metrics_selected_10k.csv",
+      "seed": 1,
+      "sha256": "85ed44c3f8d9c074cb0dcd7de47b75f108892f45cf0b39a68b3d08823e1a03de"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_2/metrics_selected_10k.csv",
+      "seed": 2,
+      "sha256": "93504f3b263d018ca56d38f0ac90da3eed6e7f58cbbff852c22e8f9088f3a460"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_3/metrics_selected_10k.csv",
+      "seed": 3,
+      "sha256": "00cb9c264d0b3d1835b7bbdb4913ebba2ce050583623db0125b83ca02c854c23"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_4/metrics_selected_10k.csv",
+      "seed": 4,
+      "sha256": "2624887dd82018d5173212fe77a1557f550fe20ded62439ab840a923090ffceb"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_5/metrics_selected_10k.csv",
+      "seed": 5,
+      "sha256": "b73876db1ee1166098652e61303158b16eb7bd59dfd33e79f4fffb7398cf3812"
+    },
+    {
+      "arm": "hgr",
+      "path": "metaworld_Drawer_Open_DDPG_HGR/paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "seed": 1,
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417"
+    },
+    {
+      "arm": "hgr",
+      "path": "metaworld_Drawer_Open_DDPG_HGR/paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "seed": 2,
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417"
+    },
+    {
+      "arm": "hgr",
+      "path": "metaworld_Drawer_Open_DDPG_HGR/paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "seed": 3,
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417"
+    },
+    {
+      "arm": "hgr",
+      "path": "metaworld_Drawer_Open_DDPG_HGR/paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "seed": 4,
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417"
+    },
+    {
+      "arm": "hgr",
+      "path": "metaworld_Drawer_Open_DDPG_HGR/paper_artifacts/drawer_open_ddpg_hgr_pair_priority_is_2m/evaluation_curves_10k.csv",
+      "seed": 5,
+      "sha256": "0bd34a6cad8ff146dbacc2a75ee956a6b4ff03de08087f5d00e6f9a0b6e50417"
+    },
+    {
+      "arm": "per",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s1_2000000/metrics.csv",
+      "seed": 1,
+      "sha256": "92ab046b9bf5b488c9654f3cdbbf10bb214f34262b6d999ae9f4d6c6ac435b3c"
+    },
+    {
+      "arm": "per",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s2_2000000/metrics.csv",
+      "seed": 2,
+      "sha256": "9ccf57aaa3b48c9b69ca86dafc5d6e2713c20a7350fb4a7ff60435561de501c2"
+    },
+    {
+      "arm": "per",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s3_2000000/metrics.csv",
+      "seed": 3,
+      "sha256": "50ed56f67bd5333b5f9b63398b39c6f7242bc53ad781aaa7d7d2a0a68c5a4f25"
+    },
+    {
+      "arm": "per",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s4_2000000/metrics.csv",
+      "seed": 4,
+      "sha256": "88fc00165a35bc0ec899616e5b0772a53cd0aa5494719b70eb357af27cff8a45"
+    },
+    {
+      "arm": "per",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-PER-Full-2M/drawer_open_ddpg_her_per_full_s5_2000000/metrics.csv",
+      "seed": 5,
+      "sha256": "7a2285846ad347c6b52b75febd6b5c178fe27b3e490c093067791f73d5a19947"
+    }
+  ],
+  "historical_limit": "Some original execution configs and historical dependency locks were not retained. Launcher/source-contract reconstruction is not bit-for-bit historical execution verification. Report seeds 6-10 separately as well as the planned pooled 1-10 estimates. Do not substitute post-review assignment-cohort runs.",
+  "publication_head": "a62b096f3cce0067a152a4e4719a8aaa0b3c2b98"
+}

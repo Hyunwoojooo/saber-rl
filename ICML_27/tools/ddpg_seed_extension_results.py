@@ -71,39 +71,45 @@ def summarize(rows):
             "reused_historical_runs": 10, "cohorts": cohorts, "per_seed": rows}
 
 
+def published_run(root, entry, expected, queue):
+    """Validate one retained curve and its new-execution completion records."""
+    arm, seed = entry["arm"], entry["seed"]
+    folder = within(root, entry["published_directory"])
+    with (folder / "evaluation.csv").open(newline="") as stream:
+        points = [(int(r["step"]), float(r["success"])) for r in csv.DictReader(stream)]
+    metrics = measure(points)
+    if seed >= 6:
+        config, summary = read(folder / "config.json"), read(folder / "summary.json")
+        claim = read(folder / "launch_record.json")
+        state = queue["arms"][arm]["seeds"][str(seed)]
+        if state["status"] != "completed" or state["exit_code"] != 0 or config["resume"] or config.get("resume_path"):
+            raise ValueError("Incomplete or resumed extension run")
+        for key, value in expected[f"{arm}:{seed}"].items():
+            if key not in config and key in {"numba_support_scan", "support_predicate_early_exit", "support_diagnostic_audit_interval"}:
+                continue
+            assert_close(config.get(key), value)
+        assert_close(claim["arm"], arm)
+        assert_close(claim["seed"], seed)
+        assert_close(claim["resume"], False)
+        assert_close(summary["total_steps"], 2000000)
+        assert_close(summary["total_updates"], 1995001)
+        assert_close(metrics["auc"], summary["eval_AUC_success"])
+        assert_close(metrics["final_success"], summary["final_eval_env_success"])
+        if not summary["final_losses"] or any(v is None or not math.isfinite(v) for v in summary["final_losses"].values()):
+            raise ValueError("Nonfinite final training loss")
+        assert_close({k: state["result"][k] for k in metrics}, metrics)
+    return {"arm": arm, "seed": seed, **metrics}, points
+
+
 def products(root):
     provenance = read(root / "provenance.json")
     expected = read(root / "provenance/expected_configs.json")
     queue = read(root / "provenance/queue_snapshot.json")
     rows, curves = [], []
     for entry in provenance["runs"]:
-        arm, seed = entry["arm"], entry["seed"]
-        folder = within(root, entry["published_directory"])
-        with (folder / "evaluation.csv").open(newline="") as stream:
-            points = [(int(r["step"]), float(r["success"])) for r in csv.DictReader(stream)]
-        metrics = measure(points)
-        if seed >= 6:
-            config, summary = read(folder / "config.json"), read(folder / "summary.json")
-            claim = read(folder / "launch_record.json")
-            state = queue["arms"][arm]["seeds"][str(seed)]
-            if state["status"] != "completed" or state["exit_code"] != 0 or config["resume"] or config.get("resume_path"):
-                raise ValueError("Incomplete or resumed extension run")
-            for key, value in expected[f"{arm}:{seed}"].items():
-                if key not in config and key in {"numba_support_scan", "support_predicate_early_exit", "support_diagnostic_audit_interval"}:
-                    continue
-                assert_close(config.get(key), value)
-            assert_close(claim["arm"], arm)
-            assert_close(claim["seed"], seed)
-            assert_close(claim["resume"], False)
-            assert_close(summary["total_steps"], 2000000)
-            assert_close(summary["total_updates"], 1995001)
-            assert_close(metrics["auc"], summary["eval_AUC_success"])
-            assert_close(metrics["final_success"], summary["final_eval_env_success"])
-            if any(v is None or not math.isfinite(v) for v in summary["final_losses"].values()):
-                raise ValueError("Nonfinite final training loss")
-            assert_close({k: state["result"][k] for k in metrics}, metrics)
-        rows.append({"arm": arm, "seed": seed, **metrics})
-        curves.extend({"arm": arm, "seed": seed, "step": step, "success": success} for step, success in points)
+        row, points = published_run(root, entry, expected, queue)
+        rows.append(row)
+        curves.extend({"arm": row["arm"], "seed": row["seed"], "step": step, "success": success} for step, success in points)
     report = summarize(rows)
     assert_close(report, read(root / "reference_report.json"))
     aggregate, intervals = [], []
