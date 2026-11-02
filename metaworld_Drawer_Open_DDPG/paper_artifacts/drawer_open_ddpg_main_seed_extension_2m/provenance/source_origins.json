@@ -19,6 +19,13 @@
       "original_full_config_retained": false,
       "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-PER-Full-2M"
     },
+    "random_support": {
+      "basis": "Earliest retained primary trainer and original launcher; before added live-target diagnostic instrumentation.",
+      "git_ref": "823cebc",
+      "original_execution_commit_known": false,
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Open_DDPG/code/src"
+    },
     "replay_query": {
       "basis": "Artifact frozen source snapshot",
       "git_ref": "a62b096f3cce0067a152a4e4719a8aaa0b3c2b98",
@@ -31,6 +38,18 @@
       "original_execution_commit_known": false,
       "original_full_config_retained": false,
       "path": "metaworld_Drawer_Open_DDPG/code/src"
+    },
+    "shuffled_query": {
+      "basis": "Artifact-recorded frozen source commit",
+      "git_ref": "53e5dca5b84c90243aebb5a251c44aceb8f6f34b",
+      "original_full_config_retained": true,
+      "path": "metaworld_Drawer_Open_DDPG/experiments/DDPG-HER-B3-Shuffled-Policy-Query-2M"
+    },
+    "strict_random": {
+      "basis": "Artifact frozen source snapshot",
+      "git_ref": "a62b096f3cce0067a152a4e4719a8aaa0b3c2b98",
+      "original_full_config_retained": true,
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/source_snapshot"
     }
   },
   "curves": [
@@ -95,6 +114,36 @@
       "sha256": "fe157b195191a5a362e0b8945afc073fa5789eddffd0ef977501a4607c5d53ac"
     },
     {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s1_2m_cuda/metrics.csv",
+      "seed": 1,
+      "sha256": "316841e53578ead9f37bcabae7534a23cd9ce18aafce4e59fc0fc43ceb0f0328"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s2_2m_cuda/metrics.csv",
+      "seed": 2,
+      "sha256": "d3fe260da941b555b1c9c285799b4aea30a0bb915b516643d14eba3f8956afdc"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s3_2m_cuda/metrics.csv",
+      "seed": 3,
+      "sha256": "3848f5eaa775738056905de2c22d6ceb000e7ceaccb8828c3842c302932706ce"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s4_2m_cuda/metrics.csv",
+      "seed": 4,
+      "sha256": "101f5f2c1ca0f0c4c50e63542404c1e6d739d84d97c89ada09fe90bfffcce324"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Open_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_open_DDPG-HER-B3-Random-Support-2M_s5_2m_cuda/metrics.csv",
+      "seed": 5,
+      "sha256": "34027c35a696c3469c68a11d3f2a48f80ee1cd4cbf0fb88eae72c03a9749dc4b"
+    },
+    {
       "arm": "replay_query",
       "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_1/metrics_selected_10k.csv",
       "seed": 1,
@@ -123,6 +172,66 @@
       "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_replay_action_query_2m/data/replay/seed_5/metrics_selected_10k.csv",
       "seed": 5,
       "sha256": "b73876db1ee1166098652e61303158b16eb7bd59dfd33e79f4fffb7398cf3812"
+    },
+    {
+      "arm": "strict_random",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_1/metrics_selected_10k.csv",
+      "seed": 1,
+      "sha256": "f5994e97d32ae0bdd38835cfcb61c8f626ce6b44305e6af9301f76c082c2800d"
+    },
+    {
+      "arm": "strict_random",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_2/metrics_selected_10k.csv",
+      "seed": 2,
+      "sha256": "723b5799c0343aa9210019e5a6ff77f67f851db219ed796e283fa79bc7498114"
+    },
+    {
+      "arm": "strict_random",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_3/metrics_selected_10k.csv",
+      "seed": 3,
+      "sha256": "2af766bdf59cb01523d1582e658268bb45b8df91fbc145dee9f26e9058a192b4"
+    },
+    {
+      "arm": "strict_random",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_4/metrics_selected_10k.csv",
+      "seed": 4,
+      "sha256": "a4b2b3ef6e9cb5809da09f5ab4ccc1a3ed8a01331b5afe268961ac8c87712c69"
+    },
+    {
+      "arm": "strict_random",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/data/strict/seed_5/metrics_selected_10k.csv",
+      "seed": 5,
+      "sha256": "7e46435439edb9e53f6917252b26f5b27953d10e1ee43eed1b533b3fda116ab5"
+    },
+    {
+      "arm": "shuffled_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_shuffled_policy_query_2m/data/shuffled/seed_1/metrics_selected_10k.csv",
+      "seed": 1,
+      "sha256": "4424896e9384e7e45cbddafa89eb0dbcd60ac3c6eb7df1b19d268291666199eb"
+    },
+    {
+      "arm": "shuffled_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_shuffled_policy_query_2m/data/shuffled/seed_2/metrics_selected_10k.csv",
+      "seed": 2,
+      "sha256": "ee600036898a425eb72e8e3a1f54d78a4d885b75e2510b9ecb9c77b1d291583c"
+    },
+    {
+      "arm": "shuffled_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_shuffled_policy_query_2m/data/shuffled/seed_3/metrics_selected_10k.csv",
+      "seed": 3,
+      "sha256": "1575ab80f5208030cf515ad417fa4dd1ec9c5b65299162d92aa7aa32c240313b"
+    },
+    {
+      "arm": "shuffled_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_shuffled_policy_query_2m/data/shuffled/seed_4/metrics_selected_10k.csv",
+      "seed": 4,
+      "sha256": "7702720fa16edcd95976b9871dc18b0c1cd40c538cea2c1047df0ea92c61f34f"
+    },
+    {
+      "arm": "shuffled_query",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_shuffled_policy_query_2m/data/shuffled/seed_5/metrics_selected_10k.csv",
+      "seed": 5,
+      "sha256": "8fd27402b87af7fcf2f34a69b700f65fc5046335e558242c3169c319b85976ec"
     },
     {
       "arm": "hgr",

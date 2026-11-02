@@ -42,20 +42,27 @@ The six archived families now total 90 completed new training runs. This count
 does not include subsequently launched DDPG seed-extension experiments.
 
 The later [DrawerOpen DDPG main-paper seed-extension artifact](../metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/README.md)
-reports **24 completed new executions** at the **2026-10-29 06:03 UTC** snapshot:
-HER, SABER, HGR and PER seeds 6-10, plus Replay-Action Query seeds 6-9.
-It includes 25 historical references and keeps the still-running seed and queued
-controls out of final result aggregates. The four complete methods have separate
-historical, added-seed and pooled summaries and paired intervals.
+reports **all 40 completed new executions**, finished on **2026-11-01 07:47 UTC**:
+HER, SABER, HGR, PER, Replay-Action Query, Shuffled-Policy Query, Random-Support
+and Context-Eligible Count-Matched, each with seeds 6-10 at 2M steps.
+The queue has no remaining jobs. The artifact includes 40 historical references
+and separate historical, added-seed and pooled 1-10 summaries and paired intervals
+for all eight methods. Every completed zero/low-success outcome is retained.
 
-This is **14 newly published completed runs** beyond the preserved
-[HER/SABER snapshot](../metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md).
-The two artifacts overlap; do not add their run counts. Together with the six
-families above, the archive now contains **114 distinct completed post-review
+This update adds **16 newly published completed runs** beyond the October 29
+24-run snapshot: Replay-Action Query seed 10 and all five new seeds for each of
+Shuffled-Policy Query, Random-Support and Context-Eligible Count-Matched.
+The preserved [HER/SABER snapshot](../metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md)
+overlaps this artifact; do not add their run counts. Together with the six
+families above, the archive now contains **130 distinct completed post-review
 training executions**, excluding historical references. The extension is not
 substituted for the earlier assignment experiment or treated as extra independent
 seed observations within that experiment. The October 27 handoff report remains
 a historical snapshot, not the latest queue status.
+
+All seven pooled SABER-minus-comparator AUC intervals include zero. The full
+sample means, variability and seed-level outcomes remain useful evidence, but
+these approximate, pointwise intervals do not establish superiority or equivalence.
 
 ```bash
 python3 ICML_27/tools/ddpg_seed_extension_results.py verify

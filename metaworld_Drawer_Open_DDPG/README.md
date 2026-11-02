@@ -2,12 +2,13 @@
 
 ## Latest Main-Paper Seed Extension
 
-At the **2026-10-29 06:03 UTC** snapshot, HER, SABER, HGR and PER have completed
-seeds 6-10. Replay-Action Query has completed seeds 6-9; seed 10 is still running.
+All eight main-paper extension methods completed seeds 6-10 on
+**2026-11-01 07:47 UTC** (16:47 KST). The queue has no remaining jobs.
 The [completed-result artifact](paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/README.md)
-contains 24 completed new executions at 2M steps, plus 25 historical references.
-This adds 14 completed results to the earlier HER/SABER publication, not 24
-additional independent runs. No unfinished output files are published.
+contains **40 completed new executions** at 2M steps, plus 40 historical references.
+This adds 16 completed results since the October 29 publication: Replay-Action
+Query seed 10 and seeds 6-10 for Shuffled-Policy Query, Random-Support and
+Context-Eligible Count-Matched. No unfinished output files are published.
 
 | Method | Pooled 1-10 mean AUC | Pooled mean final success |
 | --- | ---: | ---: |
@@ -15,13 +16,26 @@ additional independent runs. No unfinished output files are published.
 | SABER (Ours) | 0.651872 | 0.895 |
 | HGR | 0.564899 | 0.750 |
 | PER | 0.650440 | 0.795 |
+| Replay-Action Query | 0.432889 | 0.600 |
+| Shuffled-Policy Query | 0.622776 | 0.895 |
+| Random-Support | 0.566106 | 0.800 |
+| Context-Eligible Count-Matched | 0.515678 | 0.700 |
 
-SABER-minus-HER AUC is **+0.250804, paired 95% CI [-0.067643, +0.543933]**;
-SABER-minus-HGR is **+0.086972 [-0.181385, +0.344536]**; SABER-minus-PER is
-**+0.001432 [-0.104976, +0.148699]**. All three intervals include zero.
-These are pointwise, unadjusted intervals; superiority or equivalence is not established.
-Replay-Action Query is published only at seed level until all five new seeds finish.
-The other three controls remain queued. This is a dated snapshot, not live status.
+| Pooled 1-10 AUC contrast | Mean difference | Paired 95% CI |
+| --- | ---: | --- |
+| SABER minus HER | +0.250804 | [-0.067643, +0.543933] |
+| SABER minus HGR | +0.086972 | [-0.181385, +0.344536] |
+| SABER minus PER | +0.001432 | [-0.104976, +0.148699] |
+| SABER minus Replay-Action Query | +0.218982 | [-0.091511, +0.515629] |
+| SABER minus Shuffled-Policy Query | +0.029095 | [-0.199656, +0.237319] |
+| SABER minus Random-Support | +0.085766 | [-0.023971, +0.219799] |
+| SABER minus Context-Eligible Count-Matched | +0.136193 | [-0.118720, +0.373855] |
+
+All seven intervals include zero. These are approximate, pointwise, unadjusted
+intervals; superiority or equivalence is not established. The artifact reports
+historical seeds 1-5, extension seeds 6-10 and pooled seeds 1-10 separately, with
+SDs, all per-seed results and exact evaluation curves. Zero-success runs are retained.
+This is a completed snapshot, not a live dashboard.
 
 ```bash
 python3 ICML_27/tools/ddpg_completed_extension_results.py verify

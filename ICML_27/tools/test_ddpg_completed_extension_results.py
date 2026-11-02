@@ -1,7 +1,9 @@
 """CPU-only checks that publication cannot promote incomplete cohorts."""
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
-from ddpg_completed_extension_results import ARMS, completed_keys, summarize
+from ddpg_completed_extension_results import ARMS, completed_keys, export, make_readme, summarize
 
 
 class CompletedPublicationTests(unittest.TestCase):
@@ -65,6 +67,38 @@ class CompletedPublicationTests(unittest.TestCase):
             q["arms"]["per"]["seeds"]["7"][key] = value
             with self.assertRaises(ValueError):
                 completed_keys(q)
+
+    def test_full_queue_keeps_all_eighty_rows_and_all_contrasts(self):
+        q, _ = self.fixture()
+        for arm in ARMS:
+            q["arms"][arm]["status"] = "completed"
+            for state in q["arms"][arm]["seeds"].values():
+                state.update(status="completed", step=2000000, exit_code=0)
+        rows = [{"arm": arm, "seed": seed, "auc": seed / 20,
+                 "final_quarter_auc": .5, "final_success": .5, "hit90_step": None}
+                for arm in ARMS for seed in range(1, 11)]
+        report = summarize(rows, q)
+        self.assertTrue(report["full_queue_completed"])
+        self.assertEqual(report["new_completed_runs"], 40)
+        self.assertEqual(report["historical_reference_runs"], 40)
+        self.assertEqual(len(report["per_seed"]), 80)
+        self.assertEqual(report["partial_arms"], [])
+        for cohort in report["cohorts"].values():
+            self.assertEqual(set(cohort["summary"]), set(ARMS))
+            self.assertEqual(set(cohort["paired"]), {f"saber_minus_{a}" for a in ARMS if a != "saber"})
+        self.assertIn("no remaining jobs", make_readme(report, q))
+
+    def test_export_refuses_existing_destination(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            with self.assertRaisesRegex(ValueError, "new artifact destination"):
+                export(root / "workspace", root)
+
+    def test_export_refuses_live_workspace_destination(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            with self.assertRaisesRegex(ValueError, "new artifact destination"):
+                export(root, root / "new_artifact")
 
 
 if __name__ == "__main__":

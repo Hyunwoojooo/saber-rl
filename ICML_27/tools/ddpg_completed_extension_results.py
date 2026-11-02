@@ -115,7 +115,9 @@ def make_readme(report, queue):
              f"This artifact contains **{report['new_completed_runs']} completed new runs** and "
              f"{report['historical_reference_runs']} historical seed-level references. Each new run has 2M steps.",
              "The earlier HER/SABER artifact's 10 new runs are included again for comparison, not counted as new independent observations.",
-             "Only completed production outputs are exported. A partially completed method has seed-level data only, not a final aggregate or paired CI.", "",
+             ("All eight methods have completed seeds 6-10; the queue is completed with no remaining jobs."
+              if report["full_queue_completed"] else
+              "Only completed production outputs are exported. A partially completed method has seed-level data only, not a final aggregate or paired CI."), "",
              "## Queue Coverage", "", "| Method | Completed new seeds | State at capture |", "| --- | --- | --- |"]
     selected = completed_keys(queue)
     for arm in ARMS:
@@ -151,7 +153,8 @@ def make_readme(report, queue):
               "- Final success is evaluated at 2M. Hit90 is the first evaluation >=0.90, not sustained task mastery. SD is across seeds with ddof=1.",
               "- Paired percentile bootstrap resamples seed rows 10,000 times using NumPy default_rng(2027); endpoints are 2.5% and 97.5%. These are approximate, pointwise, unadjusted intervals, not simultaneous guarantees. AUC is primary; other metrics are secondary.",
               "- Every completed zero/low-success run is retained. New runs began from scratch; no checkpoint continuation or outcome-based exclusions.",
-              "- Historical exact 3,125-assignment mechanism intervals are not overwritten: any later pooled control comparison will use the declared Monte Carlo procedure.",
+              "- Historical exact 3,125-assignment mechanism intervals in the submitted paper are not overwritten. All intervals recomputed in this artifact use the declared 10,000-resample Monte Carlo procedure, including historical and pooled control comparisons.",
+              "- Random-Support randomizes high-weight minibatch positions across the batch; Context-Eligible Count-Matched randomizes them only within context-eligible positions. Neither changes replay candidate retrieval to Random-512.",
               "- Original HER/SABER/Random full configs and exact historical environment locks were not retained. New configs follow the audited canonical-source/launcher reconstruction. Retained configs were checked where available; bitwise historical environment identity is not asserted.",
               "- Earlier diagnostic and assignment executions are not extra independent seeds in these cohorts. Source/result overlap across artifacts must not be counted twice.",
               "- Runtime records include instrumentation and are not evidence of a matched-cost algorithm ranking.", "",
@@ -164,7 +167,7 @@ def make_readme(report, queue):
               "- Checkpoints, replay buffers, raw training logs, caches, locks and unfinished output files are excluded. Workspace prefixes are redacted in exported JSON; unavailable optional diagnostics become null, never valid performance values.", "",
               "## Verification", "", "From the repository root with Python 3.12 and NumPy:", "", "```bash",
               "python3 ICML_27/tools/ddpg_completed_extension_results.py verify", "```", "",
-              "Read-only CPU verification recomputes all seed metrics and complete-cohort intervals, checks configs/completion/source hashes, and verifies every manifest entry. It does not import trainers or modify the running queue.", ""]
+              "Read-only CPU verification recomputes all seed metrics and complete-cohort intervals, checks configs/completion/source hashes, and verifies every manifest entry. It does not import trainers or modify the training queue.", ""]
     return "\n".join(lines)
 
 
@@ -187,10 +190,12 @@ def verify(root=ARTIFACT):
             "source_files": len(provenance["source_files_sha256"])}
 
 
-def export(workspace):
+def export(workspace, destination=ARTIFACT):
     workspace = workspace.resolve()
+    destination = destination.resolve()
     origin = within(workspace, EXPERIMENT)
-    if ARTIFACT.exists() or workspace == REPO.resolve():
+    if (destination.exists() or workspace == REPO.resolve() or
+            destination == workspace or workspace in destination.parents):
         raise ValueError("Use a separate publication checkout and a new artifact destination")
     sys.path.insert(0, str(origin))
     api = importlib.import_module("analysis")
@@ -214,19 +219,19 @@ def export(workspace):
             for metric, value in metrics.items():
                 assert_close(value, api.paired([indexed["saber", s][metric] for s in COHORTS[label]],
                                                [indexed[arm, s][metric] for s in COHORTS[label]]))
-    ARTIFACT.mkdir(parents=True)
+    destination.mkdir(parents=True)
     sources, entries = {}, []
     for name, digest in read(origin / "snapshot_manifest.json").items():
         if not any(name.startswith(f"sources/{a}/") for a in arms):
             continue
-        target = ARTIFACT / "source_snapshot" / Path(name).relative_to("sources")
+        target = destination / "source_snapshot" / Path(name).relative_to("sources")
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(origin / name, target)
-        sources[str(target.relative_to(ARTIFACT))] = digest
+        sources[str(target.relative_to(destination))] = digest
     for row in report["per_seed"]:
         arm, seed = row["arm"], row["seed"]
         cohort = "historical_1_5" if seed <= 5 else "extension_6_10"
-        dest = ARTIFACT / "data" / cohort / arm / f"seed_{seed}"
+        dest = destination / "data" / cohort / arm / f"seed_{seed}"
         dest.mkdir(parents=True)
         hashes = {}
         if seed <= 5:
@@ -246,16 +251,16 @@ def export(workspace):
             (dest / "evaluation.csv").write_text(csv_text(evaluations))
             hashes[str((run / "metrics.csv").relative_to(workspace))] = sha(run / "metrics.csv")
         entries.append({"arm": arm, "seed": seed, "cohort": cohort,
-                        "published_directory": str(dest.relative_to(ARTIFACT)), "original_files_sha256": hashes})
+                        "published_directory": str(dest.relative_to(destination)), "original_files_sha256": hashes})
     origins = read(origin / "provenance/source_origins.json")
     origins["arms"] = {k: v for k, v in origins["arms"].items() if k in arms}
     origins["curves"] = [r for r in origins["curves"] if r["arm"] in arms]
-    write_json(ARTIFACT / "provenance/source_origins.json", scrub(origins, workspace))
-    write_json(ARTIFACT / "provenance/expected_configs.json", scrub({f"{a}:{s}": expected[f"{a}:{s}"] for a, s in sorted(selected)}, workspace))
-    write_json(ARTIFACT / "provenance/queue_snapshot.json", scrub(queue, workspace))
-    write_json(ARTIFACT / "provenance/environment.json", scrub(read(origin / "outputs/validation/environment.json"), workspace))
-    shutil.copy2(origin / "protocol.json", ARTIFACT / "protocol.json")
-    write_json(ARTIFACT / "provenance.json", {"exported_utc": datetime.now(timezone.utc).isoformat(),
+    write_json(destination / "provenance/source_origins.json", scrub(origins, workspace))
+    write_json(destination / "provenance/expected_configs.json", scrub({f"{a}:{s}": expected[f"{a}:{s}"] for a, s in sorted(selected)}, workspace))
+    write_json(destination / "provenance/queue_snapshot.json", scrub(queue, workspace))
+    write_json(destination / "provenance/environment.json", scrub(read(origin / "outputs/validation/environment.json"), workspace))
+    shutil.copy2(origin / "protocol.json", destination / "protocol.json")
+    write_json(destination / "provenance.json", {"exported_utc": datetime.now(timezone.utc).isoformat(),
                "experiment": EXPERIMENT, "source_files_sha256": sources, "runs": entries,
                "original_snapshot_manifest_sha256": sha(origin / "snapshot_manifest.json"),
                "original_queue_snapshot_sha256": hashlib.sha256(queue_bytes).hexdigest(),
@@ -263,26 +268,29 @@ def export(workspace):
                "transformations": ["workspace path replaced with <WORKSPACE> in JSON", "unavailable optional nonfinite diagnostics serialized as null",
                                    "all 200 evaluation steps retained per completed run; training rows omitted"],
                "omitted": ["checkpoints", "replay buffers", "raw training logs", "unfinished result directories", "unexecuted trainers"]})
-    write_json(ARTIFACT / "reference_report.json", report)
-    for name, value in products(ARTIFACT).items():
-        path = ARTIFACT / name
+    write_json(destination / "reference_report.json", report)
+    for name, value in products(destination).items():
+        path = destination / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(value)
-    (ARTIFACT / "README.md").write_text(make_readme(report, queue))
-    (ARTIFACT / "MANIFEST.sha256").write_text(inventory(ARTIFACT))
-    print(json.dumps(verify(), indent=2))
+    (destination / "README.md").write_text(make_readme(report, queue))
+    (destination / "MANIFEST.sha256").write_text(inventory(destination))
+    print(json.dumps(verify(destination), indent=2))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("export").add_argument("--workspace", type=Path, required=True)
-    sub.add_parser("verify")
+    exporter = sub.add_parser("export")
+    exporter.add_argument("--workspace", type=Path, required=True)
+    exporter.add_argument("--output", type=Path, default=ARTIFACT,
+                          help="New destination outside the experiment workspace; existing paths are refused")
+    sub.add_parser("verify").add_argument("--root", type=Path, default=ARTIFACT)
     args = parser.parse_args()
     if args.command == "export":
-        export(args.workspace)
+        export(args.workspace, args.output)
     else:
-        print(json.dumps(verify(), indent=2))
+        print(json.dumps(verify(args.root.resolve()), indent=2))
 
 
 if __name__ == "__main__":

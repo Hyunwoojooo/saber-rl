@@ -322,40 +322,134 @@
       "status": "completed"
     },
     "random_support": {
+      "finished_utc": "2026-10-31T06:38:36.377788+00:00",
       "seeds": {
         "10": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-31T02:12:03.559036+00:00",
+          "last_write_age_sec": 10.810669422149658,
+          "nonfinite_loss": [],
+          "pid": 858337,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.6977386934673366,
+            "final_quarter_auc": 0.996,
+            "final_success": 1.0,
+            "hit90_step": 610000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-30T06:24:53.160339+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.083569292064023"
         },
         "6": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-31T03:24:34.511484+00:00",
+          "last_write_age_sec": 24.06525468826294,
+          "nonfinite_loss": [],
+          "pid": 858333,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.6751256281407035,
+            "final_quarter_auc": 1.0,
+            "final_success": 1.0,
+            "hit90_step": 660000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-30T06:24:53.159018+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "26.47123253539596"
         },
         "7": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-31T06:38:36.165262+00:00",
+          "last_write_age_sec": 3.346944808959961,
+          "nonfinite_loss": [],
+          "pid": 858334,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-30T06:24:53.159388+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "22.931555297973812"
         },
         "8": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-31T05:40:35.621776+00:00",
+          "last_write_age_sec": 15.997962951660156,
+          "nonfinite_loss": [],
+          "pid": 858335,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-30T06:24:53.159726+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "23.888335517419925"
         },
         "9": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-31T02:14:03.839086+00:00",
+          "last_write_age_sec": 26.993772745132446,
+          "nonfinite_loss": [],
+          "pid": 858336,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.7557788944723618,
+            "final_quarter_auc": 0.998,
+            "final_success": 1.0,
+            "hit90_step": 500000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-30T06:24:53.160019+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.042560620120067"
         }
       },
-      "status": "queued"
+      "started_utc": "2026-10-30T06:24:53.157634+00:00",
+      "status": "completed"
     },
     "replay_query": {
+      "finished_utc": "2026-10-29T07:55:10.293097+00:00",
       "seeds": {
         "10": {
-          "last_write_age_sec": 3.423264741897583,
+          "exit_code": 0,
+          "finished_utc": "2026-10-29T07:55:10.043552+00:00",
+          "last_write_age_sec": 3.964843511581421,
           "nonfinite_loss": [],
           "pid": 311806,
+          "result": {
+            "arm": "replay_query",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 10,
+            "total_updates": 1995001
+          },
           "started_utc": "2026-10-28T07:11:57.508991+00:00",
-          "status": "running",
-          "step": 1843200,
-          "steps_per_sec": "22.39752794495614"
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "22.475719449656548"
         },
         "6": {
           "exit_code": 0,
@@ -439,7 +533,7 @@
         }
       },
       "started_utc": "2026-10-28T07:11:57.506162+00:00",
-      "status": "running"
+      "status": "completed"
     },
     "saber": {
       "finished_utc": "2026-10-25T22:25:57.379853+00:00",
@@ -549,57 +643,222 @@
       "status": "completed"
     },
     "shuffled_query": {
+      "finished_utc": "2026-10-30T06:24:53.148643+00:00",
       "seeds": {
         "10": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-30T05:25:21.961740+00:00",
+          "last_write_age_sec": 27.87736177444458,
+          "nonfinite_loss": [],
+          "pid": 598563,
+          "result": {
+            "arm": "shuffled_query",
+            "auc": 0.757035175879397,
+            "final_quarter_auc": 0.999,
+            "final_success": 1.0,
+            "hit90_step": 490000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-29T07:55:10.340268+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "25.846423113520945"
         },
         "6": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-30T06:24:52.886144+00:00",
+          "last_write_age_sec": 28.326679706573486,
+          "nonfinite_loss": [],
+          "pid": 598559,
+          "result": {
+            "arm": "shuffled_query",
+            "auc": 0.7545226130653266,
+            "final_quarter_auc": 0.991,
+            "final_success": 1.0,
+            "hit90_step": 490000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-29T07:55:10.338654+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "24.706413188887147"
         },
         "7": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-30T04:12:20.977603+00:00",
+          "last_write_age_sec": 2.379732131958008,
+          "nonfinite_loss": [],
+          "pid": 598560,
+          "result": {
+            "arm": "shuffled_query",
+            "auc": 0.7286432160804021,
+            "final_quarter_auc": 0.984,
+            "final_success": 1.0,
+            "hit90_step": 550000,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-29T07:55:10.339065+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "27.38801051200439"
         },
         "8": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-30T06:21:52.595889+00:00",
+          "last_write_age_sec": 31.892661333084106,
+          "nonfinite_loss": [],
+          "pid": 598561,
+          "result": {
+            "arm": "shuffled_query",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-29T07:55:10.339577+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "24.762654355744505"
         },
         "9": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-10-30T04:56:21.506701+00:00",
+          "last_write_age_sec": 14.948493719100952,
+          "nonfinite_loss": [],
+          "pid": 598562,
+          "result": {
+            "arm": "shuffled_query",
+            "auc": 0.7461055276381909,
+            "final_quarter_auc": 0.9965,
+            "final_success": 0.95,
+            "hit90_step": 510000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-29T07:55:10.340066+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "26.43662568622498"
         }
       },
-      "status": "queued"
+      "started_utc": "2026-10-29T07:55:10.337386+00:00",
+      "status": "completed"
     },
     "strict_random": {
+      "finished_utc": "2026-11-01T07:47:20.425252+00:00",
       "seeds": {
         "10": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-01T04:08:48.666371+00:00",
+          "last_write_age_sec": 29.135701417922974,
+          "nonfinite_loss": [],
+          "pid": 1140981,
+          "result": {
+            "arm": "strict_random",
+            "auc": 0.6839195979899497,
+            "final_quarter_auc": 0.998,
+            "final_success": 1.0,
+            "hit90_step": 660000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-31T06:38:36.425077+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "25.84662909256874"
         },
         "6": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-01T02:25:47.141909+00:00",
+          "last_write_age_sec": 32.48806405067444,
+          "nonfinite_loss": [],
+          "pid": 1140977,
+          "result": {
+            "arm": "strict_random",
+            "auc": 0.714824120603015,
+            "final_quarter_auc": 0.993,
+            "final_success": 1.0,
+            "hit90_step": 590000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-31T06:38:36.423560+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.091997478528153"
         },
         "7": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-01T03:11:17.773119+00:00",
+          "last_write_age_sec": 8.327312231063843,
+          "nonfinite_loss": [],
+          "pid": 1140978,
+          "result": {
+            "arm": "strict_random",
+            "auc": 0.7326633165829146,
+            "final_quarter_auc": 0.993,
+            "final_success": 1.0,
+            "hit90_step": 550000,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-31T06:38:36.423939+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "27.045503856882743"
         },
         "8": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-01T07:47:20.167630+00:00",
+          "last_write_age_sec": 29.64364004135132,
+          "nonfinite_loss": [],
+          "pid": 1140979,
+          "result": {
+            "arm": "strict_random",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-31T06:38:36.424237+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "22.10176205358254"
         },
         "9": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-01T05:36:49.237954+00:00",
+          "last_write_age_sec": 14.06770920753479,
+          "nonfinite_loss": [],
+          "pid": 1140980,
+          "result": {
+            "arm": "strict_random",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-10-31T06:38:36.424513+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "24.191066324584384"
         }
       },
-      "status": "queued"
+      "started_utc": "2026-10-31T06:38:36.422504+00:00",
+      "status": "completed"
     }
   },
-  "current_arm": "replay_query",
+  "current_arm": null,
+  "finished_utc": "2026-11-01T07:47:29.295475+00:00",
   "protocol": {
     "auc_denominator": 1990000,
     "backbone": "DDPG",
@@ -660,6 +919,6 @@
   },
   "queue_pid": 3425162,
   "started_utc": "2026-10-24T11:39:09.738054+00:00",
-  "status": "running",
-  "updated_utc": "2026-10-29T06:03:39.383343+00:00"
+  "status": "completed",
+  "updated_utc": "2026-11-01T07:47:20.424432+00:00"
 }
