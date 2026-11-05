@@ -54,7 +54,7 @@ This update adds **16 newly published completed runs** beyond the October 29
 Shuffled-Policy Query, Random-Support and Context-Eligible Count-Matched.
 The preserved [HER/SABER snapshot](../metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_her_saber_seed_extension_2m/README.md)
 overlaps this artifact; do not add their run counts. Together with the six
-families above, the archive now contains **130 distinct completed post-review
+families above, these artifacts contain **130 distinct completed post-review
 training executions**, excluding historical references. The extension is not
 substituted for the earlier assignment experiment or treated as extra independent
 seed observations within that experiment. The October 27 handoff report remains
@@ -67,6 +67,24 @@ these approximate, pointwise intervals do not establish superiority or equivalen
 ```bash
 python3 ICML_27/tools/ddpg_seed_extension_results.py verify
 python3 ICML_27/tools/ddpg_completed_extension_results.py verify
+```
+
+### DrawerOpen TD3 Seed Extension
+
+The [TD3 main-paper seed-extension artifact](../metaworld_Drawer_Open_TD3/paper_artifacts/drawer_open_td3_main_seed_extension_2m/README.md)
+adds **five completed HER executions**, seeds 6-10 at 2M steps each, as of
+**2026-11-05 05:09 UTC**. All five runs completed on November 4, including four
+zero-success outcomes. Their mean AUC is **0.148291 +/- 0.331590**; final success
+is **0.200000 +/- 0.447214**. Historical and pooled HER results are separate.
+
+SABER is running; HGR and PER are queued. Their unfinished results are not
+published, and no new SABER-minus-HER CI is computed. The original submitted
+five-seed comparisons remain unchanged. The repository now contains **135
+distinct completed post-review training executions**, excluding reused references.
+The previous six-family index does not include these later DDPG/TD3 extensions.
+
+```bash
+python3 ICML_27/tools/td3_seed_extension_results.py verify
 ```
 
 ## What Is Included

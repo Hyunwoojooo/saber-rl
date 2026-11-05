@@ -1,5 +1,24 @@
 # MetaWorld DrawerOpen TD3 Experiments
 
+## Completed Seed-Extension Results
+
+The [main-paper seed-extension artifact](paper_artifacts/drawer_open_td3_main_seed_extension_2m/README.md)
+contains completed **HER seeds 6-10**, 2M steps per seed, with full evaluation
+curves, recorded configs and frozen executed source. Snapshot: November 5, 2026.
+
+| HER cohort | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
+| --- | ---: | ---: | ---: |
+| Historical seeds 1-5 | 0.126508 +/- 0.282739 | 0.190000 +/- 0.424853 | 1/5 |
+| New seeds 6-10 | 0.148291 +/- 0.331590 | 0.200000 +/- 0.447214 | 1/5 |
+| Pooled seeds 1-10 | 0.137399 +/- 0.290738 | 0.195000 +/- 0.411265 | 2/10 |
+
+SABER seeds 6-10 are running; HGR and PER are queued. Unfinished outputs are
+not included, and no new paired CI is available. All completed zero-success
+runs are retained. See the artifact for historical provenance limitations.
+The legacy code and result notes below remain unchanged.
+
+## Historical Experiment Layout
+
 This directory contains the prepared TD3 experiment code for MetaWorld
 `drawer-open-v3`. The final comparison set is:
 

@@ -1,0 +1,50 @@
+{
+  "arms": {
+    "her": {
+      "execution_commit_known": false,
+      "launcher_path": "metaworld_Drawer_Open_TD3/TD3-HER-B0-2M.sh",
+      "original_run_configs_retained": false,
+      "source_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src"
+    }
+  },
+  "curves": [
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 1,
+      "sha256": "a859c4d1520daa1f6db3e96cfff4d9d45aa5e2fa9e2d3d975a2bdaa1849d796d",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 2,
+      "sha256": "919bf01cc8a3d112b7c632e736f9c5c89eff3a29ca460259d507e3a2fdfe936b",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 3,
+      "sha256": "3c856b7c9feed6b55b0814fd39fd765c4dd0c24e08183535936e1bb71a52156a",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 4,
+      "sha256": "9af2fdfcc821aeb9b7c371efb1f8d869d1d701f48189a2a1ab0cf19237166475",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 5,
+      "sha256": "22416efa175ae657aa352f399bfb6753f421fa358a2382872559e3791a2fc0cb",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s5_2m_cuda/metrics.csv"
+    }
+  ],
+  "historical_limit": "Retained source/preset parity and published metric parity are audited. Original execution commit and byte-for-byte historical software environment are not asserted.",
+  "retained_source_commit": "88cbf4835fab9940b0220943376c9bdb3773ef53",
+  "source_selection": "Use the B3_v4_512_s1_5 TD3 source actually referenced by primary shell launchers; do not substitute DDPG or newer assignment-control code."
+}
