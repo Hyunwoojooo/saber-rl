@@ -1,0 +1,22 @@
+{
+  "arm": "random",
+  "auc": 0.09489795918367347,
+  "auc_end": 500000,
+  "auc_start": 10000,
+  "eligible_for_pilot_summary": true,
+  "final": 0.4,
+  "first_observed_all_tanh_zero_fixed_her": null,
+  "first_observed_all_tanh_zero_fixed_original": null,
+  "first_support_saturation_window_end": null,
+  "first_support_saturation_window_start": null,
+  "first_training_env_success_step": 82034,
+  "first_training_goal_success_step": 82032,
+  "hit90": null,
+  "probe_rows": 3300,
+  "profile": "pilot",
+  "scheduled_checkpoints": 13,
+  "seed": 103,
+  "updates": 495001,
+  "zero_evaluation_run": false,
+  "zero_gradient_censoring_step": 500000
+}

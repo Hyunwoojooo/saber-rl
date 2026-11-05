@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/her/seed_103/run/best_checkpoint.pt",
+  "eval_env_success_ever_mean": 0.0,
+  "eval_env_success_final_mean": 0.0,
+  "eval_env_success_mean": 0.0,
+  "eval_goal_success_ever_mean": 0.0,
+  "eval_goal_success_final_mean": 0.0,
+  "eval_goal_success_mean": 0.0,
+  "eval_return_mean": -200.0,
+  "eval_success_mean": 0.0,
+  "selection_metric": "eval_env_success_mean",
+  "step": 10000
+}

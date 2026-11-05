@@ -1,0 +1,14 @@
+{
+  "arm": "random",
+  "seed": 12,
+  "checkpoint": "final",
+  "step": 2000000,
+  "replay_size": 300000,
+  "index_integrity": true,
+  "support_parity_queries": 512,
+  "parity_mismatches": 0,
+  "cache_repeat_mismatches": 0,
+  "updates_before": 1995001,
+  "updates_after": 1995001,
+  "seconds": 2.9427840281277895
+}

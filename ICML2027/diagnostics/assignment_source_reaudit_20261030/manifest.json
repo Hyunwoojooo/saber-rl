@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-30T07:02:37.623500+00:00",
+  "github_commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+  "outputs_sha256": {
+    "REPORT_ko.md": "3aa708fc09a84b9acf6a680420e54beb4dcf0e8c9c44d77f19f946d8945c671f",
+    "actual_run_checks.json": "f71d773a6a290d3d26c842907a88520c10394dc93a0a6078b8123122611fa837",
+    "compare.py": "58ebef039e2aa341c32427f5a725f9ebddf0ee787771e09fdecb7cebdf4585d5",
+    "file_hashes.csv": "5ac87ebd2890042412e2d4abe7504c858dec046f7f660beb2d03feecbb161ccd",
+    "new_probe.json": "249a8073fb8cf909dd2fda745158dd58681341fbbc8419b836270bf6479155ba",
+    "old_probe.json": "ea026dc9b642f08bf89367c4ef8ab87d42b0e4370dde77fed63e58f0878fbeaf",
+    "probe_imports.py": "a3a24dda83cddfabc09fb2a88cdaf509a18f34ab21f26e4a14f9156ae87a7544",
+    "report.json": "086fc1e9b841d18d5857e4bbfad5770a31fb185429c69cadc0d5b0093ab6077d",
+    "source_diff.patch": "078b96e1d1abf5f6255fb09df0821093b942315c3582dd3728d0b5493f1a9512"
+  }
+}

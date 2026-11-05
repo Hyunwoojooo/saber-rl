@@ -1,0 +1,65 @@
+{
+  "created_utc": "2026-10-30T02:13:45.019100+00:00",
+  "scope": "Post-hoc read-only audit of completed DrawerOpen-DDPG assignment extension, seeds 11-20; no new training; original results unchanged.",
+  "verified": {
+    "native_training_code_matches_archived_original": true,
+    "new_scientific_config_matches_across_arms": true,
+    "new_installed_package_versions_match_all_30_runs": true,
+    "reported_metrics_match_recomputed_raw_evaluations": true,
+    "applied_assignment_mask_diagnostics_match_each_arm": true,
+    "first_10000_step_episode_outcomes_match_across_three_arms": true,
+    "original_cohort_raw_environment_parity_verified": false
+  },
+  "new_auc_by_metric": {
+    "support": {
+      "env": 0.30879396984924623,
+      "goal": 0.3101005025125628
+    },
+    "random": {
+      "env": 0.5374120603015076,
+      "goal": 0.5401005025125628
+    },
+    "td_topk": {
+      "env": 0.6093467336683417,
+      "goal": 0.6118090452261307
+    }
+  },
+  "support_zero_final": {
+    "seeds": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      20
+    ],
+    "original_goal_positive_training_episodes": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+    ],
+    "total_training_episodes_per_run": 10000,
+    "late_500k_mean_support": 0.9833595918745662,
+    "late_500k_mean_saturation": 1.0
+  },
+  "support_nonzero_final": {
+    "seeds": [
+      11,
+      12,
+      17,
+      19
+    ],
+    "late_500k_mean_support": 0.529440757524735
+  },
+  "interpretation": [
+    "Most of the observed mean decline coincides with more near-zero-performance runs, not slow learning in every run.",
+    "Replay support is an action-coverage proxy, not a guarantee of task competence or accurate Q-values.",
+    "Saturation was absent in the first 500k steps of all 30 runs; later association with failure does not identify causal direction.",
+    "Conditional groups defined by final outcome are descriptive only; do not exclude failed runs or replace primary all-seed metrics.",
+    "No specific implementation defect has been identified; these checks do not prove there are no bugs.",
+    "Different seeds and possibly differing historical execution settings remain inseparable without a bridge reproduction of old seeds."
+  ]
+}

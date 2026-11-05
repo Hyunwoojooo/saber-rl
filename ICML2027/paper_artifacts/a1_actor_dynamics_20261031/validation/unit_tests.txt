@@ -1,0 +1,19 @@
+test_batch_cancellation_distinguished_from_individual_zeros (__main__.A1Tests.test_batch_cancellation_distinguished_from_individual_zeros) ... ok
+test_checkpoint_schedule_before_learning (__main__.A1Tests.test_checkpoint_schedule_before_learning) ... ok
+test_config_only_declared_arm_difference (__main__.A1Tests.test_config_only_declared_arm_difference) ... ok
+test_double_reduction_preserves_tiny_gradient (__main__.A1Tests.test_double_reduction_preserves_tiny_gradient) ... ok
+test_empty_and_saturated_selection (__main__.A1Tests.test_empty_and_saturated_selection) ... ok
+test_execution_schedule (__main__.A1Tests.test_execution_schedule) ... ok
+test_hook_does_not_change_native_updates (__main__.A1Tests.test_hook_does_not_change_native_updates) ... ok
+test_probe_preserves_parameters_moments_grad_buffers_and_rng (__main__.A1Tests.test_probe_preserves_parameters_moments_grad_buffers_and_rng) ... ok
+test_rng_guard_restores_global_streams (__main__.A1Tests.test_rng_guard_restores_global_streams) ... ok
+test_saturated_actor_has_zero_gradient_despite_critic_gradient (__main__.A1Tests.test_saturated_actor_has_zero_gradient_despite_critic_gradient) ... ok
+test_selector_native_parity_and_rng (__main__.A1Tests.test_selector_native_parity_and_rng) ... ok
+test_smoke_preserves_scientific_settings (__main__.A1Tests.test_smoke_preserves_scientific_settings) ... ok
+test_uniform_does_not_use_support_for_coefficients (__main__.A1Tests.test_uniform_does_not_use_support_for_coefficients) ... ok
+test_uniform_matches_native_her_updates_and_moments (__main__.A1Tests.test_uniform_matches_native_her_updates_and_moments) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.563s
+
+OK

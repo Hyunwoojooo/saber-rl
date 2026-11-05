@@ -1,0 +1,22 @@
+{
+  "first_training_env_success_step": null,
+  "first_training_goal_success_step": null,
+  "policy_query_true_return_measured": false,
+  "probe_rng_independent": true,
+  "sampled_updates": 541,
+  "saved_steps": [
+    0,
+    4800,
+    5000,
+    6000,
+    8000,
+    10000,
+    20000,
+    50000,
+    100000,
+    200000,
+    300000,
+    400000,
+    500000
+  ]
+}

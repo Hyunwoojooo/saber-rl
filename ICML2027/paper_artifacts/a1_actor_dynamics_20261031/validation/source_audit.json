@@ -1,0 +1,86 @@
+{
+  "modified_working_files": [
+    "code/src/metacog_lite_v0/agent.py",
+    "code/src/metacog_lite_v0/assignment_comparison.py",
+    "code/src/metacog_lite_v0/config.py",
+    "code/src/metacog_lite_v0/trainer.py"
+  ],
+  "pilot_plan": [
+    {
+      "arm": "saber",
+      "block": 101,
+      "position": 1,
+      "seed": 101
+    },
+    {
+      "arm": "her",
+      "block": 101,
+      "position": 2,
+      "seed": 101
+    },
+    {
+      "arm": "random",
+      "block": 101,
+      "position": 3,
+      "seed": 101
+    },
+    {
+      "arm": "td_topk",
+      "block": 101,
+      "position": 4,
+      "seed": 101
+    },
+    {
+      "arm": "random",
+      "block": 102,
+      "position": 1,
+      "seed": 102
+    },
+    {
+      "arm": "td_topk",
+      "block": 102,
+      "position": 2,
+      "seed": 102
+    },
+    {
+      "arm": "saber",
+      "block": 102,
+      "position": 3,
+      "seed": 102
+    },
+    {
+      "arm": "her",
+      "block": 102,
+      "position": 4,
+      "seed": 102
+    },
+    {
+      "arm": "her",
+      "block": 103,
+      "position": 1,
+      "seed": 103
+    },
+    {
+      "arm": "random",
+      "block": 103,
+      "position": 2,
+      "seed": 103
+    },
+    {
+      "arm": "td_topk",
+      "block": 103,
+      "position": 3,
+      "seed": 103
+    },
+    {
+      "arm": "saber",
+      "block": 103,
+      "position": 4,
+      "seed": 103
+    }
+  ],
+  "pilot_training_started": false,
+  "reference_files_checked": 26,
+  "source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "upstream_files_unchanged": true
+}

@@ -1,0 +1,32 @@
+{
+  "confidence_intervals": null,
+  "limitation": "Observed probe time is not exact onset. Non-events are censored at 500k. No causal inference from temporal order alone.",
+  "n_seeds": 3,
+  "purpose": "A1 exploratory 500k event-tracking pilot",
+  "summary": {
+    "her": {
+      "auc_mean": 0.13163265306122449,
+      "auc_sd": 0.13479819707941224,
+      "final_mean": 0.6666666666666666,
+      "zero_evaluation_runs": 1
+    },
+    "random": {
+      "auc_mean": 0.07227891156462585,
+      "auc_sd": 0.06306818643735537,
+      "final_mean": 0.2833333333333334,
+      "zero_evaluation_runs": 0
+    },
+    "saber": {
+      "auc_mean": 0.01173469387755102,
+      "auc_sd": 0.010542846081516236,
+      "final_mean": 0.11666666666666665,
+      "zero_evaluation_runs": 1
+    },
+    "td_topk": {
+      "auc_mean": 0.1326530612244898,
+      "auc_sd": 0.2253577839322222,
+      "final_mean": 0.3333333333333333,
+      "zero_evaluation_runs": 1
+    }
+  }
+}

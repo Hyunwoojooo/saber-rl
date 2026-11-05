@@ -1,0 +1,45 @@
+{
+  "added_files": [
+    "completion.py"
+  ],
+  "changed_files": [
+    "PROTOCOL.md",
+    "README.md",
+    "freeze.py",
+    "launch.py",
+    "protocol.py",
+    "source_manifest.json",
+    "tests/test_assignment.py",
+    "train.py",
+    "validate.py"
+  ],
+  "checked_utc": "2026-10-30T07:02:37.623500+00:00",
+  "extension_actual_configuration_checks": 30,
+  "extension_source_manifest_sha256": "06d63f0f89347b28e884d569cccf519010441292c186fe96eea4cf7418822477",
+  "generated_config_reporting_fields": [
+    "terminal_convention",
+    "thread_hint"
+  ],
+  "github_commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+  "github_matches_preserved_original": true,
+  "github_source_path": "ICML_27/experiments/draweropen_ddpg_saber_vs_random_vs_td_topk/source/",
+  "historical_actual_device_verified": false,
+  "historical_actual_packages_verified": false,
+  "historical_method_schedule": "interleaved methods",
+  "historical_recorded_peak_active_attempts": 5,
+  "identical_native_files": 26,
+  "identical_upstream_files": 25,
+  "imported_module_origin_checks": 10,
+  "new_actual_device": "cpu",
+  "new_method_schedule": "support then random then td_topk",
+  "new_recorded_peak_active_attempts": 3,
+  "new_run_manifest_matches": 30,
+  "no_training_executed": true,
+  "old_run_manifest_matches": 30,
+  "original_files": 62,
+  "original_source_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+  "qualification": "Core learning code is byte-identical. Entire source folder and execution wrappers are not identical. Historical runtime parity remains unverified.",
+  "reconstructed_source_default_device": "cuda",
+  "same_seed_configuration_checks": 60,
+  "unchanged_original_files": 53
+}

@@ -1,0 +1,7 @@
+{
+  "conditional_assumption": "deterministic z action exactly +1; additive independent Normal(0,0.2^2), clipped to [-1,1]",
+  "probability_noisy_z_negative": 2.8665157187919344e-07,
+  "mean_steps_per_negative_z": 3488555.787237896,
+  "probability_behavior_same_4d_corner_bin_under_K5": 0.9120580520993946,
+  "interpretation": "Conditional calculation only; does not assert the policy was saturated for the entire historical training trajectory."
+}

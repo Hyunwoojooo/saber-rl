@@ -1,0 +1,12 @@
+{
+  "checkpoints": 36,
+  "queries": 18432,
+  "parity_mismatches": 0,
+  "index_failures": 0,
+  "cache_mismatches": 0,
+  "replayed_episodes": 120,
+  "rollout_environment_steps": 24000,
+  "paired_initial_states_identical": true,
+  "original_binary_final_success_reproduced": true,
+  "new_training_updates": 0
+}

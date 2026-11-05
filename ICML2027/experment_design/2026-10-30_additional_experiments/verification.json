@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-30T10:51:22.991953+00:00",
+  "status": "passed",
+  "scope": "Planning-document consistency and fixed source identity; no training or new inferential statistics.",
+  "unique_candidate_ids": 11,
+  "checked_local_link_targets": 15,
+  "source_hash_entries_verified": 28,
+  "budgets_recomputed": [
+    {
+      "id": "A1",
+      "runs": 12,
+      "steps": 6000000
+    },
+    {
+      "id": "B2",
+      "runs": 12,
+      "steps": 6000000
+    },
+    {
+      "id": "C1",
+      "runs": 9,
+      "steps": 9000000
+    },
+    {
+      "id": "D1",
+      "runs": 9,
+      "steps": 18000000
+    }
+  ],
+  "assignment_td_contrast_numbers_checked": 9,
+  "lambda_auc_means_checked": 3,
+  "new_training_runs_started": 0,
+  "new_training_runs_queued": 0,
+  "training_sources_or_results_edited": false,
+  "output_sha256": {
+    "README_ko.md": "3c5644d717b46029ce7c422d6c6ff2445d4c9f4696961147df9e0c0159b1fe49",
+    "agenda.json": "91e611ac53b875cc4e2fd89913a0e80d6644535b6eb58ce749059449818caae0",
+    "evidence_manifest.json": "15ed5a70ee99b18c768cf9888c30f80f86a495117098b91ab6997de066929148"
+  }
+}

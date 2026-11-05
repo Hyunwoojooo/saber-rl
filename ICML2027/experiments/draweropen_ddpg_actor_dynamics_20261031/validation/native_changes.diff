@@ -1,0 +1,140 @@
+--- reference/code/src/metacog_lite_v0/agent.py
++++ code/src/metacog_lite_v0/agent.py
+@@ -88,6 +88,7 @@
+         omega_actor: torch.Tensor,
+         critic_weight_selector=None,
+         fail_on_nonfinite: bool = False,
++        diagnostic_hook=None,
+     ) -> UpdateMetrics:
+         self.total_it += 1
+         reward = reward.reshape(-1)
+@@ -126,6 +127,9 @@
+         if fail_on_nonfinite and not torch.isfinite(critic_grad_norm_t):
+             raise FloatingPointError("Non-finite critic gradient")
+         self.critic_opt.step()
++
++        if diagnostic_hook is not None:
++            diagnostic_hook(self, state)
+ 
+         pred_action = self.actor(state)
+         q_policy = self.critic(state, pred_action)
+--- reference/code/src/metacog_lite_v0/assignment_comparison.py
++++ code/src/metacog_lite_v0/assignment_comparison.py
+@@ -7,7 +7,7 @@
+ import numpy as np
+ 
+ 
+-RULES = ("support", "random", "td_topk")
++RULES = ("support", "random", "td_topk", "uniform")
+ 
+ 
+ def validate_masks(eligible, support):
+@@ -97,7 +97,9 @@
+         random = random_mask(e, k, self.assignment_rng)
+         td = td_mask(e, k, td_abs, self.tie_rng)
+         masks = {"support": support, "random": random, "td_topk": td}
+-        assigned = masks[self.rule]
++        # Uniform HER still computes counterfactual masks for equal diagnostics.
++        # Its actual loss coefficients are all one, with no support dependence.
++        assigned = np.zeros_like(support) if self.rule == "uniform" else masks[self.rule]
+         for mask in masks.values():
+             if int(mask.sum()) != k or np.any(mask & ~e):
+                 raise RuntimeError("Assignment count/eligibility invariant failed")
+--- reference/code/src/metacog_lite_v0/config.py
++++ code/src/metacog_lite_v0/config.py
+@@ -239,7 +239,7 @@
+         if self.assignment_experiment:
+             if self.resume or self.resume_path:
+                 raise ValueError("Assignment experiment permits fresh runs only")
+-            if self.assignment_rule not in {"support", "random", "td_topk"}:
++            if self.assignment_rule not in {"support", "random", "td_topk", "uniform"}:
+                 raise ValueError("Unknown assignment rule")
+             required = {
+                 "method": "b3_support_runtime_opt", "task_name": "drawer_open",
+--- reference/code/src/metacog_lite_v0/trainer.py
++++ code/src/metacog_lite_v0/trainer.py
+@@ -628,6 +628,7 @@
+     eval_seed: int,
+     eval_episodes: int,
+     task: Any | None = None,
++    observer=None,
+ ) -> Dict[str, float]:
+     returns = []
+     goal_successes_ever = []
+@@ -758,6 +759,8 @@
+                 metrics[key] = float(value)
+             elif key not in metrics or not np.isfinite(float(metrics[key])):
+                 metrics[key] = float(value)
++    if observer is not None:
++        observer.on_evaluation(agent, eval_obs, eval_goals, metrics)
+     return metrics
+ 
+ 
+@@ -877,7 +880,7 @@
+     return tuple(str(name) for name in names)
+ 
+ 
+-def run_training(config: LiteConfig, repo_root: Path) -> Path:
++def run_training(config: LiteConfig, repo_root: Path, observer=None) -> Path:
+     config.normalize()
+     from .assignment_comparison import AssignmentSelector, AssignmentWindows
+     strict_control = _strict_control_enabled(config)
+@@ -1463,6 +1466,10 @@
+         }
+         return payload
+ 
++    if observer is not None:
++        observer.start(agent, task, replay, run_dir, config)
++        observer.on_step_end(global_step, agent, replay, checkpoint_payload)
++
+     while global_step < config.total_steps:
+         h_t = train_env.max_episode_steps - ep_step
+         if global_step < config.start_steps:
+@@ -1496,6 +1503,9 @@
+         obs = obs_next
+         ep_step += 1
+         global_step += 1
++
++        if observer is not None:
++            observer.on_transition(global_step, obs, action, info, done, episode_idx)
+ 
+         if replay.size >= config.batch_size and global_step >= config.warmup_steps:
+             for _ in range(config.updates_per_step):
+@@ -1543,6 +1553,8 @@
+                     AssignmentSelector(wb, config.assignment_rule, assignment_rng, td_tie_rng)
+                     if config.assignment_experiment else None
+                 )
++                if observer is not None:
++                    observer.before_update(global_step, agent, batch, wb)
+                 update = agent.update(
+                     state=state_t,
+                     action_exec=action_t,
+@@ -1553,7 +1565,10 @@
+                     omega_actor=torch.as_tensor(wb.omega_actor, dtype=torch.float32, device=device),
+                     critic_weight_selector=selector,
+                     fail_on_nonfinite=config.assignment_experiment,
++                    diagnostic_hook=observer.after_critic if observer is not None else None,
+                 )
++                if observer is not None:
++                    observer.after_update(global_step, agent, update, selector, wb)
+                 if comparison_windows is not None:
+                     comparison_windows.add(total_updates + 1, global_step, selector.stats)
+                 t_update1 = time.perf_counter()
+@@ -1639,6 +1654,7 @@
+                 eval_seed=config.seeds.eval_seed + global_step * 10,
+                 eval_episodes=config.eval_episodes,
+                 task=task,
++                observer=observer,
+             )
+             row = _metric_row(
+                 global_step,
+@@ -1728,6 +1744,9 @@
+             save_checkpoint(_checkpoint_path(run_dir), payload)
+             if config.save_step_checkpoints:
+                 save_checkpoint(_step_checkpoint_path(run_dir, global_step), payload)
++
++        if observer is not None:
++            observer.on_step_end(global_step, agent, replay, checkpoint_payload)
+ 
+         if global_step % config.log_every_steps == 0 and global_step > 0:
+             logger.info(

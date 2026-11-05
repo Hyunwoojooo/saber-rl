@@ -1,0 +1,13 @@
+arm,seed,profile,auc,auc_start,auc_end,final,hit90,zero_evaluation_run,updates,eligible_for_pilot_summary,first_observed_all_tanh_zero_fixed_original,first_observed_all_tanh_zero_fixed_her,zero_gradient_censoring_step,first_training_goal_success_step,first_training_env_success_step,first_support_saturation_window_start,first_support_saturation_window_end,probe_rows,scheduled_checkpoints
+her,101,pilot,0.2693877551020408,10000,500000,1.0,420000,False,495001,True,,,500000,128756,128764,,,3300,13
+saber,101,pilot,0.01479591836734694,10000,500000,0.35,,False,495001,True,,,500000,202309,202312,,,3300,13
+random,101,pilot,0.12091836734693878,10000,500000,0.45,400000,False,495001,True,,,500000,312278,312287,,,3300,13
+td_topk,101,pilot,0.00510204081632653,10000,500000,0.0,,False,495001,True,,,500000,206730,206732,,,3300,13
+her,102,pilot,0.12551020408163266,10000,500000,1.0,430000,False,495001,True,,,500000,170945,170958,,,3300,13
+saber,102,pilot,0.0,10000,500000,0.0,,True,495001,True,407000,399000,500000,,,,,3300,13
+random,102,pilot,0.0010204081632653062,10000,500000,0.0,,False,495001,True,,,500000,,,,,3300,13
+td_topk,102,pilot,0.39285714285714285,10000,500000,1.0,340000,False,495001,True,,,500000,148791,148794,,,3300,13
+her,103,pilot,0.0,10000,500000,0.0,,True,495001,True,,,500000,,,,,3300,13
+saber,103,pilot,0.02040816326530612,10000,500000,0.0,,False,495001,True,,,500000,340714,340718,,,3300,13
+random,103,pilot,0.09489795918367347,10000,500000,0.4,,False,495001,True,,,500000,82032,82034,,,3300,13
+td_topk,103,pilot,0.0,10000,500000,0.0,,True,495001,True,,,500000,299923,373596,,,3300,13

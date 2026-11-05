@@ -1,0 +1,80 @@
+{
+  "checked_learning_updates_per_smoke": 5201,
+  "environment": {
+    "architecture": "aarch64",
+    "device": "cpu",
+    "packages": {
+      "gymnasium": "1.3.0",
+      "gymnasium-robotics": "1.4.2",
+      "metaworld": "3.1.1",
+      "mujoco": "3.3.0",
+      "numba": "0.66.0",
+      "numpy": "2.3.5",
+      "torch": "2.12.1"
+    },
+    "python": "3.12.3",
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "NUMBA_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "torch_threads": 1
+  },
+  "finished_utc": "2026-10-31T03:33:40.706084+00:00",
+  "fixed_probe_bank_parity": true,
+  "new_pilot_runs": 0,
+  "observer_parity_keys": [
+    "agent",
+    "replay",
+    "gap_stats",
+    "episode_state",
+    "eval_history_env",
+    "last_loss",
+    "noise_rng_state",
+    "sample_rng_state",
+    "weight_rng_state",
+    "assignment_rng_state",
+    "td_tie_rng_state",
+    "python_random_state",
+    "numpy_global_rng_state",
+    "torch_cpu_rng_state",
+    "torch_cuda_rng_state_all",
+    "total_updates",
+    "global_step",
+    "assignment_diagnostics_state"
+  ],
+  "passed": true,
+  "prelearning_checkpoint_parity": true,
+  "runs": [
+    {
+      "arm": "her",
+      "diagnostics": "on",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/validation/runs/check_01/runs/her_on"
+    },
+    {
+      "arm": "saber",
+      "diagnostics": "on",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/validation/runs/check_01/runs/saber_on"
+    },
+    {
+      "arm": "random",
+      "diagnostics": "on",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/validation/runs/check_01/runs/random_on"
+    },
+    {
+      "arm": "td_topk",
+      "diagnostics": "on",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/validation/runs/check_01/runs/td_topk_on"
+    },
+    {
+      "arm": "saber",
+      "diagnostics": "off",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/validation/runs/check_01/runs/saber_off"
+    }
+  ],
+  "smoke_steps_per_run": 10200,
+  "smoke_training_steps_total": 51000,
+  "source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "started_utc": "2026-10-31T03:25:33.129267+00:00"
+}

@@ -1,0 +1,1794 @@
+{
+  "cohort_runs": 12,
+  "cohort_training_steps": 6000000,
+  "created_utc": "2026-11-05T04:27:20.923384+00:00",
+  "exporter_relative_to_artifact": "../../publish_a1_artifact.py",
+  "exporter_sha256": "ebb7e3b1f429c4652135cdf5661a445274b7d8d4d3a671315995800980a9e3d5",
+  "files": {
+    "README.md": "b4b1a465796a1b616522ba90ec7cca8ceb414dedcfccc75ea025c5ae5299397b",
+    "analysis/REPORT_ko.md": "ae8d6b0ad1bf2199730ac51be3234abfbc561ee8e1a7acd590afdf8a85f0e808",
+    "analysis/report.json": "234af131e8657e52f678fb09326db4a40560ec8a6c353cde28fc1cd24487e109",
+    "analysis/seed_metrics.csv": "83e2b7984a4b74576446c952bb84d7860ca5064ab412ea62e44157297c23fe71",
+    "cohort/launch_receipt.json": "9315e687981b72bd8d4b79b7685818005bb7be23738739f8c5f181317b57545f",
+    "cohort/plan.json": "2a22ab70ff2983187395b551c876da91d7e2cdce8b656d1aafa339f1701d695e",
+    "cohort/status.json": "2c478d0d309ec7dfbe2cf135d72648c5a225f4c90efb68ac39483d6a3a39ea3a",
+    "records/her/seed_101/completion_audit.json": "c338296f36a420e5a00fa50d2feceb74fd959b53b4d40f66a9be8da84fa63d51",
+    "records/her/seed_101/diagnostics/checkpoints.jsonl.gz": "d864c6beb0518a573f9399650c93782190a0dc65b25a5777679e0d2f6e715db6",
+    "records/her/seed_101/diagnostics/evaluation.jsonl.gz": "3782f3861384fa12215239b02e2faf8920e24b73ad973159a2ffa423949aaaed",
+    "records/her/seed_101/diagnostics/events.jsonl.gz": "9f2f83adf84bac430e258cc1fae428798f66fa05b781cef9dda3b562ff1bdbc6",
+    "records/her/seed_101/diagnostics/fixed_probe_bank.npz": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51",
+    "records/her/seed_101/diagnostics/probe_bank.json": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6",
+    "records/her/seed_101/diagnostics/probes.jsonl.gz": "043c5bd1dc5ccae91985984cf643e313c6984be23a73b231290d0c6ba9c63c03",
+    "records/her/seed_101/diagnostics/summary.json": "d28d4dc154b2b07de1a8afe924c90862c0505b13a1187832552ec9718de1363e",
+    "records/her/seed_101/diagnostics/training_windows.jsonl.gz": "5a41567e1d3d6eb73a751f11b1c5b6a27d5da1da1060099e0b0900f1f7d569d5",
+    "records/her/seed_101/diagnostics/update_windows.jsonl.gz": "2a4cd7ef20fa01a1df278b564c6b80026745dbff6609873435b7ef63783cde4e",
+    "records/her/seed_101/diagnostics/updates.jsonl.gz": "0ef8f0fd4f48441b1c0d2732d88bb67f945799f010e88f1d7bc9c932a7a33a1c",
+    "records/her/seed_101/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/her/seed_101/requested_config.json": "ea8d0f1ad9f5c13c967d0273d15774cafb2530f50f587050b6cf590aa5f4ab3f",
+    "records/her/seed_101/run/assignment_windows.csv.gz": "a3523630cee00f37731fd98dc7c02b71a4de1bab32dea206ebeb9d28398cd202",
+    "records/her/seed_101/run/best_checkpoint.json": "a83954049aa12773d3a12cb9246ba69fb30df6399d6f83453621725f510f5283",
+    "records/her/seed_101/run/config.json": "c2343002e9c3fd875bbf34d90fc48488545954e5ecd855584677a4d16fddec8c",
+    "records/her/seed_101/run/env_snapshot.json": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc",
+    "records/her/seed_101/run/metrics.csv.gz": "e010407865557234cc614a40e626491024aa1f1c8face16067170185a2ad5e26",
+    "records/her/seed_101/run/summary.json": "7d1c005a0cc54be20f04db52e7d1db715fd77bf4d6b83a840226e3b5e68c0d18",
+    "records/her/seed_101/status.json": "d9ec46c939fd49550210788616dddc7365ada7735b6e26db940dfab390155f16",
+    "records/her/seed_102/completion_audit.json": "51a44b3afe36b857c9dd8afcaba1944157b3c564105b45c93724453ee2b2aeab",
+    "records/her/seed_102/diagnostics/checkpoints.jsonl.gz": "8c04bd03b8c0d3d5a8c84ef20b76c7e5f8faa3efbeb7855f2db7458fc0dba479",
+    "records/her/seed_102/diagnostics/evaluation.jsonl.gz": "75fc057bfb16cf9871fdca41cb0e8062c5b27267a21e7caf96fc288649e12dd7",
+    "records/her/seed_102/diagnostics/events.jsonl.gz": "a856bbec70bb99ca0ccbb66b38f4676aa238a932418cd7038ca377a65d925fd7",
+    "records/her/seed_102/diagnostics/fixed_probe_bank.npz": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7",
+    "records/her/seed_102/diagnostics/probe_bank.json": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb",
+    "records/her/seed_102/diagnostics/probes.jsonl.gz": "3007cd67d6fcda463daf639c0d87e6c19cf4118a91e2929309dc109f30b0f633",
+    "records/her/seed_102/diagnostics/summary.json": "13be999623d5809c613087be9f0461926933366211a23caf284e49049a0eac43",
+    "records/her/seed_102/diagnostics/training_windows.jsonl.gz": "3c320606e9465b8bd8da3b4e0633db0e499bb0a1b88652a97c69e84def3008a0",
+    "records/her/seed_102/diagnostics/update_windows.jsonl.gz": "21a0385d9ea287b07571fe5c93ad8d81c8ae9c6927b87834813a66940b05532e",
+    "records/her/seed_102/diagnostics/updates.jsonl.gz": "8a2f8da6a423d7ea6d5e08922a09176b2d3c2f0910a158407d3d9e778f84d221",
+    "records/her/seed_102/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/her/seed_102/requested_config.json": "0bddb51e3b965aa35e4601d44e5a425d72a47b9e9635ea6240521b63f86649d1",
+    "records/her/seed_102/run/assignment_windows.csv.gz": "8b28fac90b306cb6112603cbc81455c434ba757a9d2265c2867f0acbe569526e",
+    "records/her/seed_102/run/best_checkpoint.json": "8d3beb9e512db3ca01d7c9eb061e3c481501115ce6aad1599e5c6785ca72c707",
+    "records/her/seed_102/run/config.json": "713d8104ab0f4917a01dfd1825e9c19e1f543b8557ff111f8c8a11b68347d4b3",
+    "records/her/seed_102/run/env_snapshot.json": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40",
+    "records/her/seed_102/run/metrics.csv.gz": "05f345cfa1e641aebe07d2f019dd95e7f11e18f8b95ebf021d4c3b247134cf24",
+    "records/her/seed_102/run/summary.json": "75ccb07053caf224d1d67066c5bccc68025477678a2113f9557192425aa4539d",
+    "records/her/seed_102/status.json": "59e4f914fde39fb35508c44285ec0f52ba577af8142b69f03e6531a459d08c3a",
+    "records/her/seed_103/completion_audit.json": "297c84b57296d83b1dbb12eeb544670c68a87bc17b0db88f5fe3cd81c8eabeed",
+    "records/her/seed_103/diagnostics/checkpoints.jsonl.gz": "d6a9a2184f09bbc8af07db8634b0f1c59ac349cffa928a35abc0a3705c11858c",
+    "records/her/seed_103/diagnostics/evaluation.jsonl.gz": "ea07ebf1d4e9c67f6778dc3754a2b77fe20bc12ad4a9ebf3a9c3cb6be820a461",
+    "records/her/seed_103/diagnostics/events.jsonl.gz": "491d13c7f54db09ce010c2c2f087e7517243fd2ab42d5fe8d8d61875294d6623",
+    "records/her/seed_103/diagnostics/fixed_probe_bank.npz": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9",
+    "records/her/seed_103/diagnostics/probe_bank.json": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031",
+    "records/her/seed_103/diagnostics/probes.jsonl.gz": "251a3a56f6f7ea4759cea96404f736181854a70a396e8dac960ee2b859bbf66b",
+    "records/her/seed_103/diagnostics/summary.json": "2eab66066016d114bd71b777d260846a6d4d8f2ef2b5f8ec08a81ac4bc2d75b4",
+    "records/her/seed_103/diagnostics/training_windows.jsonl.gz": "3b1625dbe52484e049aa7e42663f6a2bce0e0a256dff2aef5f56086d50f6ea23",
+    "records/her/seed_103/diagnostics/update_windows.jsonl.gz": "8b48036edc99f231e20e7b95b0796a0882852c92beffe14e42d8c54e7e7ff354",
+    "records/her/seed_103/diagnostics/updates.jsonl.gz": "c11ac8f4fbada7f9227da9dbf3943b69987011537209839e69d8ad853c203097",
+    "records/her/seed_103/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/her/seed_103/requested_config.json": "0bcd250edf1c8a68c55f91038a4e267ef946a6343f0f1fccd8df26d86ae5e2f6",
+    "records/her/seed_103/run/assignment_windows.csv.gz": "21b4ba82c39498b54e1f2ae73aca268b068338bfab3f0491cd47e3eb8fc860d8",
+    "records/her/seed_103/run/best_checkpoint.json": "192a9584b7287f1f3dc668b504e653d26240ab155eb50f294681ef4f66d7394d",
+    "records/her/seed_103/run/config.json": "09f4750ec943c5ee0ef6bd8b082279a7e643ca3266b07fd6c8f7ae8842f70345",
+    "records/her/seed_103/run/env_snapshot.json": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132",
+    "records/her/seed_103/run/metrics.csv.gz": "e53a71e473ba85fd535c00c618bbd029fe44223aa15ff55927da7f27ab120732",
+    "records/her/seed_103/run/summary.json": "3f6bafe5340d72be45a7d8113fa444fdf842bc240b464c7358160645b4312fe8",
+    "records/her/seed_103/status.json": "335697ec9cc98e011706e701d316757415e0e437b961d1efd7a103111abf384c",
+    "records/random/seed_101/completion_audit.json": "70823338d7f4adde76cdabb7b4a74273e36bb7af41ee4dfbfcb3b1f3a701231b",
+    "records/random/seed_101/diagnostics/checkpoints.jsonl.gz": "399f400fda1b1b73c7a904f4a5bfa801e00d5c062a31873f9856235a5d865ef5",
+    "records/random/seed_101/diagnostics/evaluation.jsonl.gz": "20c0185220ada64aaa04a893def459e8c968546edc935d707bf9afed12f10c38",
+    "records/random/seed_101/diagnostics/events.jsonl.gz": "1dacd86ee18e927f0988eb2e3132aed60238eda97b74b6f43efeb2931ec85dec",
+    "records/random/seed_101/diagnostics/fixed_probe_bank.npz": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51",
+    "records/random/seed_101/diagnostics/probe_bank.json": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6",
+    "records/random/seed_101/diagnostics/probes.jsonl.gz": "b257a9c71ebbfc20601e13eca3ea17a4f69f36efe704b959900d233fd04776fa",
+    "records/random/seed_101/diagnostics/summary.json": "a27970dab6a59bb2190f9f7e7ea124f5a79dc67adfe69b39617579da32bb54f6",
+    "records/random/seed_101/diagnostics/training_windows.jsonl.gz": "90187ef6a5abe9807dd5df76ead1cf18915d681e67fc63ff74248dca76ee611b",
+    "records/random/seed_101/diagnostics/update_windows.jsonl.gz": "fd1536b18c7a2d60bdd1b520b47b91fdbad1e3acf61a02ab7721fc72776b03bb",
+    "records/random/seed_101/diagnostics/updates.jsonl.gz": "00a13fe229ab854737a3d8a1f0997dc2188e331c76ab406e027a86db051cc9c9",
+    "records/random/seed_101/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/random/seed_101/requested_config.json": "a48a7236c504b531daf0ef45e9520b82c1c419cabd0cb0a401ca509d74b2c100",
+    "records/random/seed_101/run/assignment_windows.csv.gz": "f03aa73b78d4c45c2b5a44def894204bb97c89de776336ae30358ca0e0a5be29",
+    "records/random/seed_101/run/best_checkpoint.json": "70d8cb8043f4d20a728daa091005b1060d325cb78da71618176912f7bb57f656",
+    "records/random/seed_101/run/config.json": "565fea80c4489fed04c12cd7d1091ab433a151c42c98f45b6a4e37ec64a7caf9",
+    "records/random/seed_101/run/env_snapshot.json": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc",
+    "records/random/seed_101/run/metrics.csv.gz": "6a2c9390af7cc181193fb608691fab1bccbf8ae93c7e9dc98aec479bb07dc852",
+    "records/random/seed_101/run/summary.json": "bcd78230e549cd2f4bcf962cde3cd5cec164acfac9510d8f37630c82fa8590ce",
+    "records/random/seed_101/status.json": "43404d2916f24f0b56f133f7d9b2b5217e06bd9b1b6192a458d95afa6f5415af",
+    "records/random/seed_102/completion_audit.json": "ba1cbb425e96c16c9368321f898f04c0a8b4abea866f024ee0d96b47f3c7e0e6",
+    "records/random/seed_102/diagnostics/checkpoints.jsonl.gz": "874196c6e94b353a042a0362c48e6e06298a8df0586faac54b5f170a8a228cb6",
+    "records/random/seed_102/diagnostics/evaluation.jsonl.gz": "f8852230ebd3b69c47406f6037eea96e86d8c11eddd116ddb1f15982ad3bc305",
+    "records/random/seed_102/diagnostics/events.jsonl.gz": "4ed776a6dc085e9da0c58adf80775e9f0d20deb5602ad72e934dba6ec7367c8d",
+    "records/random/seed_102/diagnostics/fixed_probe_bank.npz": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7",
+    "records/random/seed_102/diagnostics/probe_bank.json": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb",
+    "records/random/seed_102/diagnostics/probes.jsonl.gz": "6a19f1f218f3f0a966f8d806d5312835bc07e781edcdbbabb03bd603f04004e5",
+    "records/random/seed_102/diagnostics/summary.json": "2eab66066016d114bd71b777d260846a6d4d8f2ef2b5f8ec08a81ac4bc2d75b4",
+    "records/random/seed_102/diagnostics/training_windows.jsonl.gz": "7557bd1eb9494ea6a68366747f5468c9bede8acd66630cccfa7fa64f86466e51",
+    "records/random/seed_102/diagnostics/update_windows.jsonl.gz": "50148c17665f42c636292676f25de71de2b5571f30c0990924847d42ed39d295",
+    "records/random/seed_102/diagnostics/updates.jsonl.gz": "a531893be6e4733bd15574c389542f97bc10f68b10b33d6d5b97067493a7b1e7",
+    "records/random/seed_102/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/random/seed_102/requested_config.json": "ca12c5c8444f051dadd4eaea6b5caab74db441173ae6b7818d4dbe5b07a42e2d",
+    "records/random/seed_102/run/assignment_windows.csv.gz": "2e14b26a9372006e4aca0265ab0bbfb161d72db2253e76b91d0190435b17a0c0",
+    "records/random/seed_102/run/best_checkpoint.json": "d6a090f34c09bd6430d8f784b00a45314eab14fc7294a100f01434315a3d1528",
+    "records/random/seed_102/run/config.json": "14ff8b578ecffb952a03aca8dfdf4895613e361f5de1b139a5cf6fd01afcac55",
+    "records/random/seed_102/run/env_snapshot.json": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40",
+    "records/random/seed_102/run/metrics.csv.gz": "05c2e6968378fa49cd6fe9a89713e3e67588e0c3cc5aac8683fd473fd25f5ddb",
+    "records/random/seed_102/run/summary.json": "de5f533bfd59af22ac0d18e3f0676ae25df7f18be081af1cfb9ae3cf9389dc8a",
+    "records/random/seed_102/status.json": "09ac44eb85927ccfeb2c6e329e31f7ddae039047a10af8f04166ca9d41447de0",
+    "records/random/seed_103/completion_audit.json": "eb2bd8626d81151c56187c34c2d87ba08872bd26ec7b9e73a64cfbbb03228f01",
+    "records/random/seed_103/diagnostics/checkpoints.jsonl.gz": "f02933520321309d1173e6b70a5e10531eaa30e2a46656b4751e3a643008cfe3",
+    "records/random/seed_103/diagnostics/evaluation.jsonl.gz": "561bfc10bd9df003b8ed3ee7941649c86e30e4e2ededfa664ba41e471b506d24",
+    "records/random/seed_103/diagnostics/events.jsonl.gz": "3d742587105b2841aff3731840b0f0e20d7d37bc0435dfb8eb1e5f685654127a",
+    "records/random/seed_103/diagnostics/fixed_probe_bank.npz": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9",
+    "records/random/seed_103/diagnostics/probe_bank.json": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031",
+    "records/random/seed_103/diagnostics/probes.jsonl.gz": "2fefd34896ef2ba60b5bae4b158df55116c3db81ec52f93cddfea4e70ef04784",
+    "records/random/seed_103/diagnostics/summary.json": "06d210435cdc656b36341d7b6298e7ceddd0c958cb8445a27c72aa88b5ce7cb4",
+    "records/random/seed_103/diagnostics/training_windows.jsonl.gz": "c9ffc4feab1d48ebb36e37269fc29ee25bb1a17b54ad2bc8dcd391701df7ebdc",
+    "records/random/seed_103/diagnostics/update_windows.jsonl.gz": "1122fd67342e4bb1cf91626d40847e6694e9432c4938e1a35eb7021a6a5c2322",
+    "records/random/seed_103/diagnostics/updates.jsonl.gz": "ad5440d9130837564b5dc455f700ceeb46318fc16f4058a4378fb98fcb8f0153",
+    "records/random/seed_103/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/random/seed_103/requested_config.json": "ba8cae67048b98cb6b81a0b6b1ad341dff298e71d7cc2a2a5616e14aa5e137b1",
+    "records/random/seed_103/run/assignment_windows.csv.gz": "62b7d082ccbf30bad73166f5b5c0ba578d1896374f806229953af8748d544237",
+    "records/random/seed_103/run/best_checkpoint.json": "f86ca6d29657aa7ae31fee0f4eff549727579bf8c91408b719efc9479e8ca0db",
+    "records/random/seed_103/run/config.json": "3ddf9ffa21ae62fcfc776bc9a2e630fd668b203bd72ae4749fe90302d3190b8a",
+    "records/random/seed_103/run/env_snapshot.json": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132",
+    "records/random/seed_103/run/metrics.csv.gz": "99aaec6d2b6918b4b73c8f916829aea9abcc6e697f42705c80e07782b33b17a9",
+    "records/random/seed_103/run/summary.json": "0945d67c24f6051525e0bf64bc14f614643f25a3745512ff19c630aca3ef1980",
+    "records/random/seed_103/status.json": "1c01a5cb65df63476049eb3b0e8548c9896e9f6ef405d1ea272e05795f9df3ae",
+    "records/saber/seed_101/completion_audit.json": "0ce4b33531d5d07ed7d7ec52185fa947051f20a0bba3d16fa18d5d6c66d7f4cf",
+    "records/saber/seed_101/diagnostics/checkpoints.jsonl.gz": "5c0c75f9c49f8f2b028a3762a3bdc7226917f15b147cb7b8bfbdcf903ae4a94e",
+    "records/saber/seed_101/diagnostics/evaluation.jsonl.gz": "2aacb74be42a537b8254e8566900f95c5147c23f50a902dc7d601ecb0f75e394",
+    "records/saber/seed_101/diagnostics/events.jsonl.gz": "8b27355778171cff1b5b3fd986e5976a316d6f592f941f6c981a8eecbbd200c7",
+    "records/saber/seed_101/diagnostics/fixed_probe_bank.npz": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51",
+    "records/saber/seed_101/diagnostics/probe_bank.json": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6",
+    "records/saber/seed_101/diagnostics/probes.jsonl.gz": "c38317a425deeef94980482c1c01ef0d6580dd63c4163bd6d5db8b80af6b5e01",
+    "records/saber/seed_101/diagnostics/summary.json": "df49dfa84a85900e2a025598685e9c9c3ad62f4ea8b33ad1780feb5de262e53f",
+    "records/saber/seed_101/diagnostics/training_windows.jsonl.gz": "49538dbea7d874e546c229a5a91f7280d98ce0c8cd600f67b1bd0185082d6bbb",
+    "records/saber/seed_101/diagnostics/update_windows.jsonl.gz": "71523a713b9ebc46dc9cdce3f7eb0d8aa08c012391feefb61a7649683f6e894a",
+    "records/saber/seed_101/diagnostics/updates.jsonl.gz": "4f67432176ebd4a4fc2f68c0c1a8602cbf65dab4f31698d7103bdfb9d2d1f59b",
+    "records/saber/seed_101/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/saber/seed_101/requested_config.json": "d0f1d683fec6670510691abf7df885388bb3f6832efd752ed46f17b234d0f9a2",
+    "records/saber/seed_101/run/assignment_windows.csv.gz": "95e3c474fc62c019cae41eb645933aba5ae3df86804064887b3a57f5564c8eb9",
+    "records/saber/seed_101/run/best_checkpoint.json": "fc84cc866597ef63b1f3642afab765e1d3143583aafdce29ca7f489f7fad710d",
+    "records/saber/seed_101/run/config.json": "53a8a0a20e8ba5febaba89acdcc58646bb5a914d6c65283268cabb38d5262457",
+    "records/saber/seed_101/run/env_snapshot.json": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc",
+    "records/saber/seed_101/run/metrics.csv.gz": "535d0ea52ca43822ac0192f151cdee3d22702efcf8aa0a9b4eff8f316b2aecd4",
+    "records/saber/seed_101/run/summary.json": "4bb9a802052e2294258958f3e1309e0e16adac4bf2cd142ab1af6f12139da01e",
+    "records/saber/seed_101/status.json": "68a3da0d31771f6a60733b663c2eda117587bec95ef797f12a29723bf41ed408",
+    "records/saber/seed_102/completion_audit.json": "01a0ac9d863442c920ca69f62aa93b2f30c56f2ee1cb6fb80532fce8e62b6ef9",
+    "records/saber/seed_102/diagnostics/checkpoints.jsonl.gz": "91bafce95878cfc10335c9a02630a6d1439910f3dcad942d5e191e32bacf8204",
+    "records/saber/seed_102/diagnostics/evaluation.jsonl.gz": "5ff51b60cf756b794a7da4db29e27c557f7b5f8d51a42af44a72e1dfeadf88b0",
+    "records/saber/seed_102/diagnostics/events.jsonl.gz": "bd08624349e00ba25d03225268ca7fbb96c7f17db5d23d0795d3c18a59592ceb",
+    "records/saber/seed_102/diagnostics/fixed_probe_bank.npz": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7",
+    "records/saber/seed_102/diagnostics/probe_bank.json": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb",
+    "records/saber/seed_102/diagnostics/probes.jsonl.gz": "f03379bed00a62f092000e8a14574a02da7f32294f0cb1307e586fac9365c913",
+    "records/saber/seed_102/diagnostics/summary.json": "2eab66066016d114bd71b777d260846a6d4d8f2ef2b5f8ec08a81ac4bc2d75b4",
+    "records/saber/seed_102/diagnostics/training_windows.jsonl.gz": "011e86e289469f46c77584548427c19e707d322e26158cb26e2c9b00fa7d4a64",
+    "records/saber/seed_102/diagnostics/update_windows.jsonl.gz": "beeb0b666fefb7af1bd6c08d54f49742d5a447a29bf87f21a16cfc3ceafe350c",
+    "records/saber/seed_102/diagnostics/updates.jsonl.gz": "d7701ae25c41ee14eea3b718a6af0c65bbaadcf843e5afba527ee366f568d64f",
+    "records/saber/seed_102/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/saber/seed_102/requested_config.json": "33b3450fe2251cb1da6abf44712e16180bc6331a6c7f6012720798c758bb434d",
+    "records/saber/seed_102/run/assignment_windows.csv.gz": "b5eff0c6f77cb76c61dff598632ae4ffbee0af28be307f8352d50a1a52aa6b04",
+    "records/saber/seed_102/run/best_checkpoint.json": "d6e1ce97cbd69b2dd942747de5187b626de8a5a59849b704ce2432e330589536",
+    "records/saber/seed_102/run/config.json": "694c8d52533e4c62ebd5391372588a237f5b2bcdf3250f372e1cd0f14a22ae53",
+    "records/saber/seed_102/run/env_snapshot.json": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40",
+    "records/saber/seed_102/run/metrics.csv.gz": "2f2bd3ca7f4cc18cab85b7ef5955ad8bea2a0f2ba9bc8357208f1ad2468d3b45",
+    "records/saber/seed_102/run/summary.json": "99a601a1dea55f7e316a4844cad9177c84a96267c19af3be1d159e108e549387",
+    "records/saber/seed_102/status.json": "a90274b93d129ca5b6b7e7dc840b5159e8a980a7ecbbddf85655695be2d0d2a8",
+    "records/saber/seed_103/completion_audit.json": "ba5d4a7014a701a41c145ce123b8d132edf0d491f8ab9b3d35c84612dba2985a",
+    "records/saber/seed_103/diagnostics/checkpoints.jsonl.gz": "42a8dc97b04657ac97217007bb589226d8fe9600ef472dcd8e55c5d2952ae1dc",
+    "records/saber/seed_103/diagnostics/evaluation.jsonl.gz": "cfd0287c7c0502b245898109428eae9fc7cad78683d9fc31ad1a274afea23fd5",
+    "records/saber/seed_103/diagnostics/events.jsonl.gz": "6229d93d5cd9905408102aefeb06b76fd2b510fcade77393de8b453422a190a2",
+    "records/saber/seed_103/diagnostics/fixed_probe_bank.npz": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9",
+    "records/saber/seed_103/diagnostics/probe_bank.json": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031",
+    "records/saber/seed_103/diagnostics/probes.jsonl.gz": "ad5f3a1cf3ad57bdbe46a03c99a9ecddef02402f76db162402a17b6ca10d88ea",
+    "records/saber/seed_103/diagnostics/summary.json": "0859e8b253192f39346dbd0e04a5da31ee106326127cbef9294d072fc4fbb666",
+    "records/saber/seed_103/diagnostics/training_windows.jsonl.gz": "6fc73356c6d624cc27f92b8044a313aaf59cac214a07676e05585b41cc096d80",
+    "records/saber/seed_103/diagnostics/update_windows.jsonl.gz": "5a1251b539873a6d5fb2212c5acf7bd50afe27a3d4eb6733083497baa8e56444",
+    "records/saber/seed_103/diagnostics/updates.jsonl.gz": "dae99d4e051aa168e82d4ec091c92906b9ccc0a46f51fa95f3dd5c4182abb05b",
+    "records/saber/seed_103/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/saber/seed_103/requested_config.json": "9f5d96b770b4f396d42d72d21823a520d31db78fbfe12811c2400ff3f8e205a3",
+    "records/saber/seed_103/run/assignment_windows.csv.gz": "684672dda71568f86a839731fea3a7e801a0f5700936f0858dc17129f7c0db0d",
+    "records/saber/seed_103/run/best_checkpoint.json": "08ad66bc91d9a77d3b11f1c36c2d8a1513cb2447a28ff749cd2b0e21921d85d2",
+    "records/saber/seed_103/run/config.json": "2442101e9fc7f2b6849502d186502336bf7b8b17bb85706c3fc2be164db9950b",
+    "records/saber/seed_103/run/env_snapshot.json": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132",
+    "records/saber/seed_103/run/metrics.csv.gz": "9cf842fb56c13b1d74e705f5600fd086a4e929d9f95af1659357f6fabfd5bc06",
+    "records/saber/seed_103/run/summary.json": "838902df773b3570067e79dd5d975e15aea29ce6ec69a51dbe05524950a3ec79",
+    "records/saber/seed_103/status.json": "00f1c690d3032f40d98e84de4850407e0a38736da8f8fc6fc51e34c1bc8f8ffd",
+    "records/td_topk/seed_101/completion_audit.json": "6675c94421904f3fbfbbc6b18c21bcf302b54767c31f526dd6de53c482e84048",
+    "records/td_topk/seed_101/diagnostics/checkpoints.jsonl.gz": "2c4207e4e8477b5e843cf4619ee16c25c4208928b06c04041b8b1297ecbe83f0",
+    "records/td_topk/seed_101/diagnostics/evaluation.jsonl.gz": "c7dece9b5064a04e2ca9c2da88d822e9f6799bbb80a0341e2083faf2c8b92c80",
+    "records/td_topk/seed_101/diagnostics/events.jsonl.gz": "4b1334b21435ecf1031b0ce77347d18df87f948a2b18a7e4494ce80bcafab718",
+    "records/td_topk/seed_101/diagnostics/fixed_probe_bank.npz": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51",
+    "records/td_topk/seed_101/diagnostics/probe_bank.json": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6",
+    "records/td_topk/seed_101/diagnostics/probes.jsonl.gz": "cc4728394b18f583991492cf48b9bebdf25ab7bd9cd853cc0b900acf2c24b704",
+    "records/td_topk/seed_101/diagnostics/summary.json": "8612d106dbf69af5d07bb0695958c0493afe19da33cc31644f31e85e0435d48d",
+    "records/td_topk/seed_101/diagnostics/training_windows.jsonl.gz": "9ed8c64d29a1e523c83a516ce3c5e9c82df0f4fddd89115648cf50b0b6c7bd44",
+    "records/td_topk/seed_101/diagnostics/update_windows.jsonl.gz": "f5138eee1de64062192d6bebc91c18219bf5378e4207e23a5abfd36735947101",
+    "records/td_topk/seed_101/diagnostics/updates.jsonl.gz": "1517cd73e89db57de69efd5e68e01f234bdcd9894303a63359b15a1cf49065dd",
+    "records/td_topk/seed_101/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/td_topk/seed_101/requested_config.json": "6517839aa8218ca54448cc09b99c45ecec141aecb1a520933a50360d73e17bda",
+    "records/td_topk/seed_101/run/assignment_windows.csv.gz": "d301e3e51e158d43f5417a890728d76ca7c82193ebfbf6930a6fb09dc571f0fc",
+    "records/td_topk/seed_101/run/best_checkpoint.json": "320507741284fc7b0ee99a034c670eb93736bbf459b86a3ad2be9943e5dd5743",
+    "records/td_topk/seed_101/run/config.json": "a4b390801d665da7cccb661a9006ef60789815d532296e503636f6136263f7e2",
+    "records/td_topk/seed_101/run/env_snapshot.json": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc",
+    "records/td_topk/seed_101/run/metrics.csv.gz": "fd3e0ff18c59e1c3f902124757e8a51db475190bc19f6dd492f76faee479ddb9",
+    "records/td_topk/seed_101/run/summary.json": "a883778f28344bc76ebb1c1e73bcd823a5597591ea71e7f07073728925ed0788",
+    "records/td_topk/seed_101/status.json": "9ea6104eddc1fe91378ef73c20fc5176348863cffa7d22eeac0b14785dbbe69e",
+    "records/td_topk/seed_102/completion_audit.json": "73e3241212d14c1f0573bd021622a42f10c82f7e349f24153fb8428d57dd2fca",
+    "records/td_topk/seed_102/diagnostics/checkpoints.jsonl.gz": "5c14ccaebbc21d9a8b0c6573b8a9af24764dc61637be3fa5511dffbdcc976709",
+    "records/td_topk/seed_102/diagnostics/evaluation.jsonl.gz": "5e62009b43e7cbca45aa17ee21ebb07aba981f72751be5f77c0f1eba3b94bd89",
+    "records/td_topk/seed_102/diagnostics/events.jsonl.gz": "7f42e954a8b2821ea62482a22d074df86833e1c87b288a2373d817084cc8467a",
+    "records/td_topk/seed_102/diagnostics/fixed_probe_bank.npz": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7",
+    "records/td_topk/seed_102/diagnostics/probe_bank.json": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb",
+    "records/td_topk/seed_102/diagnostics/probes.jsonl.gz": "636f57a60dff910f26096b35d04bd0f1fb13edb70240d262b0e3739c55946a6a",
+    "records/td_topk/seed_102/diagnostics/summary.json": "f188d423ba788130c87fb62d3123ec9b2f0e8b189eea3bd5fafd803b4a7445a2",
+    "records/td_topk/seed_102/diagnostics/training_windows.jsonl.gz": "1b66caf053cd807a19039ec3a3911150c11713ae8250fd1c441c75fd22e08067",
+    "records/td_topk/seed_102/diagnostics/update_windows.jsonl.gz": "310fbb44c990a92b939cb11b78c7a22b39da90f43422595f354448bf9b61d000",
+    "records/td_topk/seed_102/diagnostics/updates.jsonl.gz": "d212b5fd4f93744da3aba6a2c1af50b53e50a69a02689449490c3d429463dc64",
+    "records/td_topk/seed_102/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/td_topk/seed_102/requested_config.json": "6b82bd3e65d35130b29af8cde07453b56b437bcb9cc45244ee99f3b49c64cd2a",
+    "records/td_topk/seed_102/run/assignment_windows.csv.gz": "7166895c5abbf849e92761b2f5343839d295f7d5d986db60dc4bb10b4dfa9e7b",
+    "records/td_topk/seed_102/run/best_checkpoint.json": "c75eb73aeb1b434c0037d4bea8fe8dcc2ec094fb1408d504bb44914559c94600",
+    "records/td_topk/seed_102/run/config.json": "33f4b7e3ffe6051e80f1be7ba402153d823222a0b8712c016280f097a090bf11",
+    "records/td_topk/seed_102/run/env_snapshot.json": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40",
+    "records/td_topk/seed_102/run/metrics.csv.gz": "3bede55666fb1f57ebdaa2a1f3730f675e74a76385e10e0f9a5ab0e3308e7327",
+    "records/td_topk/seed_102/run/summary.json": "0f43467a7fab85b1b818d4fd3d518751017b62f99e82a85f3965c7d6b9889b20",
+    "records/td_topk/seed_102/status.json": "056a02775ee12d5b45335e7266527a8558a2f4ea3d488cb144b6fa69fe1d187e",
+    "records/td_topk/seed_103/completion_audit.json": "ec2d50ef123f2c0a75c72ec053abc77a7a933c97f135f90add23e1e349185861",
+    "records/td_topk/seed_103/diagnostics/checkpoints.jsonl.gz": "879caf183453137b8cb9db7b22d1a559e099b449d86347297a88b002e2a0962c",
+    "records/td_topk/seed_103/diagnostics/evaluation.jsonl.gz": "111f58f9d6e99d998cfe18c12ace447004a79cb9de3a12d430d9211e052e772c",
+    "records/td_topk/seed_103/diagnostics/events.jsonl.gz": "83fb506f7aeedade63b0f565bd90113ea3dbd1cfffcbd6811d033414bd3d7302",
+    "records/td_topk/seed_103/diagnostics/fixed_probe_bank.npz": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9",
+    "records/td_topk/seed_103/diagnostics/probe_bank.json": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031",
+    "records/td_topk/seed_103/diagnostics/probes.jsonl.gz": "025aa2b5dfb74ec033c94750c4c76e23faf93b522fa8678bfc9bddb40cc5e734",
+    "records/td_topk/seed_103/diagnostics/summary.json": "f59b82428d1e8f03a9b06fe326719aa4e598a67e192e709405a2dfae5e7d8475",
+    "records/td_topk/seed_103/diagnostics/training_windows.jsonl.gz": "75d3ccd32163f17c899650e80548b6b7ca746d21b011566f82682dcd3bd8277d",
+    "records/td_topk/seed_103/diagnostics/update_windows.jsonl.gz": "b8b63eeea808013df807a51f679beb921012b47a0ceddfca0e51638c7f8f17a0",
+    "records/td_topk/seed_103/diagnostics/updates.jsonl.gz": "729815f0d95ec157f030ac5e89b5158b8823d8b81af5c9f05107cede6027004b",
+    "records/td_topk/seed_103/environment.json": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c",
+    "records/td_topk/seed_103/requested_config.json": "727f6e4a417813b6b8b418070eff442bdc39a9dd2989cea11dbaf01a9898a842",
+    "records/td_topk/seed_103/run/assignment_windows.csv.gz": "a83f01d3bd5d2befb2bed0a5e3fb25a51cf6e61ebe66174f9b0106cc2f0146ff",
+    "records/td_topk/seed_103/run/best_checkpoint.json": "72742b96c8fadf8183c8c0de0f3a3158399b60564982421dd9ce9db07138ac6a",
+    "records/td_topk/seed_103/run/config.json": "b394ac00b7a27ef8b88583d245635464477e83cfd0d848a6956376d5fa07cf59",
+    "records/td_topk/seed_103/run/env_snapshot.json": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132",
+    "records/td_topk/seed_103/run/metrics.csv.gz": "3082c8afd13ce83bac93269adfaa0aebc3ee63cd14b1a823ba41a9dc20293f99",
+    "records/td_topk/seed_103/run/summary.json": "ae193ee2d1380a046ad02e7ccc95e87e302e6a47891dd2bfd7dc2d3da61352bb",
+    "records/td_topk/seed_103/status.json": "d1af01950e813a9d68ab99f26669adf45d061c786d496422ccb1044d7fd924a4",
+    "validation/REPORT.md": "fd9df46f3f372d328b7691c610e428fbb350062da68a45d8a02797091a9c46e0",
+    "validation/gate.json": "409de0c7fae767bad542ce4e7dc2373e528bb2d0d84b2e04c614aa5f26187a44",
+    "validation/native_changes.diff": "355a4dec1c86de9f42f6e094865dd6b40009375b3ce2f088bec2be09865ceb66",
+    "validation/results.json": "028b221a2ee90bd74c0504415f3a40a0d6534293cebef2c3d07888102d138471",
+    "validation/smoke_report.json": "8883dd6a1fb35706f3efdcaa8ed937c4f144c650b973ecfcd33327b893d92ec2",
+    "validation/source_audit.json": "f57767aad9db5850425c76c72312c0365ecd63ab4bf4663c55f6a9736f7c123f",
+    "validation/unit_tests.txt": "24cd03b6375c22b5eb6ff114e8a735cd87e78a63d702fd8a4267468c1eb962a9",
+    "verify.py": "451452748a2ed6c8f1b4dae0d04d78c0c6980c3256952955d89b5c0d7de31053"
+  },
+  "new_training_runs": 0,
+  "omitted": [
+    "PyTorch checkpoints",
+    "duplicated native run/metrics.jsonl",
+    "console logs",
+    "runtime caches"
+  ],
+  "packed_inputs": {
+    "analysis/REPORT_ko.md": {
+      "encoding": "identity",
+      "original_bytes": 2044,
+      "original_relative_to_experiment": "outputs/pilot_01/analysis/REPORT_ko.md",
+      "original_sha256": "ae8d6b0ad1bf2199730ac51be3234abfbc561ee8e1a7acd590afdf8a85f0e808"
+    },
+    "analysis/report.json": {
+      "encoding": "identity",
+      "original_bytes": 947,
+      "original_relative_to_experiment": "outputs/pilot_01/analysis/report.json",
+      "original_sha256": "234af131e8657e52f678fb09326db4a40560ec8a6c353cde28fc1cd24487e109"
+    },
+    "analysis/seed_metrics.csv": {
+      "encoding": "identity",
+      "original_bytes": 1616,
+      "original_relative_to_experiment": "outputs/pilot_01/analysis/seed_metrics.csv",
+      "original_sha256": "83e2b7984a4b74576446c952bb84d7860ca5064ab412ea62e44157297c23fe71"
+    },
+    "cohort/launch_receipt.json": {
+      "encoding": "identity",
+      "original_bytes": 721,
+      "original_relative_to_experiment": "outputs/pilot_01/launch_receipt.json",
+      "original_sha256": "9315e687981b72bd8d4b79b7685818005bb7be23738739f8c5f181317b57545f"
+    },
+    "cohort/plan.json": {
+      "encoding": "identity",
+      "original_bytes": 90322,
+      "original_relative_to_experiment": "outputs/pilot_01/plan.json",
+      "original_sha256": "2a22ab70ff2983187395b551c876da91d7e2cdce8b656d1aafa339f1701d695e"
+    },
+    "cohort/status.json": {
+      "encoding": "identity",
+      "original_bytes": 5410,
+      "original_relative_to_experiment": "outputs/pilot_01/status.json",
+      "original_sha256": "2c478d0d309ec7dfbe2cf135d72648c5a225f4c90efb68ac39483d6a3a39ea3a"
+    },
+    "records/her/seed_101/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 641,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/completion_audit.json",
+      "original_sha256": "c338296f36a420e5a00fa50d2feceb74fd959b53b4d40f66a9be8da84fa63d51"
+    },
+    "records/her/seed_101/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3051,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/checkpoints.jsonl",
+      "original_sha256": "464d11cd0430250dc9142fef6e9520310938f9e50be2ad86096dc53918702805"
+    },
+    "records/her/seed_101/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 74913,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/evaluation.jsonl",
+      "original_sha256": "ddccac0c09feb554ab7b0cd172cd6d726dc61b2aa4cb5bbb6da519e9cc386718"
+    },
+    "records/her/seed_101/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 361037,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/events.jsonl",
+      "original_sha256": "707a6f7349bc8a61592ff828ce7ecc2266e6ac39e5188a4ac8a05ec73cbf0318"
+    },
+    "records/her/seed_101/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14413,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51"
+    },
+    "records/her/seed_101/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/probe_bank.json",
+      "original_sha256": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6"
+    },
+    "records/her/seed_101/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2682197,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/probes.jsonl",
+      "original_sha256": "8223fd33192f17df344637b43dc1daccc5780dc00356a5baea13a126af1e6a0a"
+    },
+    "records/her/seed_101/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/summary.json",
+      "original_sha256": "d28d4dc154b2b07de1a8afe924c90862c0505b13a1187832552ec9718de1363e"
+    },
+    "records/her/seed_101/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 245454,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/training_windows.jsonl",
+      "original_sha256": "ab74db184c8d1823c8b816f7967e154b6bf4ad8e34c7e1f4219c86468d1e7b39"
+    },
+    "records/her/seed_101/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 328563,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/update_windows.jsonl",
+      "original_sha256": "bf2850075a08285a265b2a85b00c15eba9a00a1acf4b6157316f5119a3fbfff4"
+    },
+    "records/her/seed_101/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 593987,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/diagnostics/updates.jsonl",
+      "original_sha256": "55e314eae8c195959efcfd0e2836748c2f7a7ed34346c91d44ed4b15faf56c19"
+    },
+    "records/her/seed_101/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/her/seed_101/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5547,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/requested_config.json",
+      "original_sha256": "ea8d0f1ad9f5c13c967d0273d15774cafb2530f50f587050b6cf590aa5f4ab3f"
+    },
+    "records/her/seed_101/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 316863,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/run/assignment_windows.csv",
+      "original_sha256": "231df9d95fd021c1d1f4444ee561508785d39b1018254c86ca1294e9e24815d0"
+    },
+    "records/her/seed_101/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 528,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/run/best_checkpoint.json",
+      "original_sha256": "a83954049aa12773d3a12cb9246ba69fb30df6399d6f83453621725f510f5283"
+    },
+    "records/her/seed_101/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5754,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/run/config.json",
+      "original_sha256": "c2343002e9c3fd875bbf34d90fc48488545954e5ecd855584677a4d16fddec8c"
+    },
+    "records/her/seed_101/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/run/env_snapshot.json",
+      "original_sha256": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc"
+    },
+    "records/her/seed_101/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4332696,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/run/metrics.csv",
+      "original_sha256": "bc498962c179ccd8cda3508afa241d1b273eb263b5a23ab0bc88bda493780b73"
+    },
+    "records/her/seed_101/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9659,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/run/summary.json",
+      "original_sha256": "7d1c005a0cc54be20f04db52e7d1db715fd77bf4d6b83a840226e3b5e68c0d18"
+    },
+    "records/her/seed_101/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1056,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_101/status.json",
+      "original_sha256": "d9ec46c939fd49550210788616dddc7365ada7735b6e26db940dfab390155f16"
+    },
+    "records/her/seed_102/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 642,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/completion_audit.json",
+      "original_sha256": "51a44b3afe36b857c9dd8afcaba1944157b3c564105b45c93724453ee2b2aeab"
+    },
+    "records/her/seed_102/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3051,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/checkpoints.jsonl",
+      "original_sha256": "0eb1d16460e0980f32bfb40a9a31b1c2bdb02c673681ddfe051c9ca9ccd60163"
+    },
+    "records/her/seed_102/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 75037,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/evaluation.jsonl",
+      "original_sha256": "74f082aa012de9b7d902bc7cc4443e7cfa3fa1fa6e6f1bdeb6dd59792c285eba"
+    },
+    "records/her/seed_102/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 361037,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/events.jsonl",
+      "original_sha256": "b0233cb7f9924810da1dd08232a06215760df7495d295054e05f52209c66f4f5"
+    },
+    "records/her/seed_102/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14405,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7"
+    },
+    "records/her/seed_102/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/probe_bank.json",
+      "original_sha256": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb"
+    },
+    "records/her/seed_102/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2687963,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/probes.jsonl",
+      "original_sha256": "39dd4437830e06377ecd60390b94ea6d392403da1535a1f5d1a91c72926a8aca"
+    },
+    "records/her/seed_102/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/summary.json",
+      "original_sha256": "13be999623d5809c613087be9f0461926933366211a23caf284e49049a0eac43"
+    },
+    "records/her/seed_102/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 245322,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/training_windows.jsonl",
+      "original_sha256": "62400b597188698ba4775516be1deb9d47de2363828dbd4496ca51330a146ac6"
+    },
+    "records/her/seed_102/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 328587,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/update_windows.jsonl",
+      "original_sha256": "9c751b6f8b8066431af4ecd8bf7a99047fe1499543c5b81f988c2aa77ba201df"
+    },
+    "records/her/seed_102/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 594010,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/diagnostics/updates.jsonl",
+      "original_sha256": "026299eea2ae9bb5b2128735b046fe4418ac4eb22dc349f3b71308a12952987b"
+    },
+    "records/her/seed_102/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/her/seed_102/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5547,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/requested_config.json",
+      "original_sha256": "0bddb51e3b965aa35e4601d44e5a425d72a47b9e9635ea6240521b63f86649d1"
+    },
+    "records/her/seed_102/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 316891,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/run/assignment_windows.csv",
+      "original_sha256": "274c755035923b9cc650c1c178b25455d2cb2a1b2c3e72126089da9330fd024e"
+    },
+    "records/her/seed_102/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 528,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/run/best_checkpoint.json",
+      "original_sha256": "8d3beb9e512db3ca01d7c9eb061e3c481501115ce6aad1599e5c6785ca72c707"
+    },
+    "records/her/seed_102/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5754,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/run/config.json",
+      "original_sha256": "713d8104ab0f4917a01dfd1825e9c19e1f543b8557ff111f8c8a11b68347d4b3"
+    },
+    "records/her/seed_102/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/run/env_snapshot.json",
+      "original_sha256": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40"
+    },
+    "records/her/seed_102/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4312887,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/run/metrics.csv",
+      "original_sha256": "a4a65a95348510457485da2cdd7c47cf48e14021848d16252442af4c9ea83c6d"
+    },
+    "records/her/seed_102/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9562,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/run/summary.json",
+      "original_sha256": "75ccb07053caf224d1d67066c5bccc68025477678a2113f9557192425aa4539d"
+    },
+    "records/her/seed_102/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1058,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_102/status.json",
+      "original_sha256": "59e4f914fde39fb35508c44285ec0f52ba577af8142b69f03e6531a459d08c3a"
+    },
+    "records/her/seed_103/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 619,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/completion_audit.json",
+      "original_sha256": "297c84b57296d83b1dbb12eeb544670c68a87bc17b0db88f5fe3cd81c8eabeed"
+    },
+    "records/her/seed_103/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3051,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/checkpoints.jsonl",
+      "original_sha256": "c5c71707fd2ca8f9ca6cd4ec57153de301a7344818553ad3e925bf800b2a9257"
+    },
+    "records/her/seed_103/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 73305,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/evaluation.jsonl",
+      "original_sha256": "1c13dfd2bdb8c50a55f7f3b6a5b73c310e1544b971fc7822eff32bf826be41e0"
+    },
+    "records/her/seed_103/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 360838,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/events.jsonl",
+      "original_sha256": "6eb3568ce1786e479614bafd4ae3a148829e4e4681369b443c18b98119945375"
+    },
+    "records/her/seed_103/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14478,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9"
+    },
+    "records/her/seed_103/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 472,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/probe_bank.json",
+      "original_sha256": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031"
+    },
+    "records/her/seed_103/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2690187,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/probes.jsonl",
+      "original_sha256": "76263c6ebdbf82d9e92be42b84c86f485f4f4bb9ac8ca805a78f5298def88574"
+    },
+    "records/her/seed_103/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 358,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/summary.json",
+      "original_sha256": "2eab66066016d114bd71b777d260846a6d4d8f2ef2b5f8ec08a81ac4bc2d75b4"
+    },
+    "records/her/seed_103/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 244719,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/training_windows.jsonl",
+      "original_sha256": "5657cbdf46a71b3dfff773d8383b8bd042aea6f7adf1d94d8d57f25a337b2fbf"
+    },
+    "records/her/seed_103/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 329388,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/update_windows.jsonl",
+      "original_sha256": "c829ff4943207d72b7f3ffad0a1520fd96e073ce782a3db161b61600cbd71b8a"
+    },
+    "records/her/seed_103/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 595176,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/diagnostics/updates.jsonl",
+      "original_sha256": "168a0f52332d379f5a5755af2f88d921755b92ed19a3dfc7be1763073127b18a"
+    },
+    "records/her/seed_103/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/her/seed_103/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5547,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/requested_config.json",
+      "original_sha256": "0bcd250edf1c8a68c55f91038a4e267ef946a6343f0f1fccd8df26d86ae5e2f6"
+    },
+    "records/her/seed_103/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 316759,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/run/assignment_windows.csv",
+      "original_sha256": "c7f57dbc8dc0da5dd35d8156deb3d418a0729c431f42946f3c6f7ecec211ed35"
+    },
+    "records/her/seed_103/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 526,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/run/best_checkpoint.json",
+      "original_sha256": "192a9584b7287f1f3dc668b504e653d26240ab155eb50f294681ef4f66d7394d"
+    },
+    "records/her/seed_103/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5754,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/run/config.json",
+      "original_sha256": "09f4750ec943c5ee0ef6bd8b082279a7e643ca3266b07fd6c8f7ae8842f70345"
+    },
+    "records/her/seed_103/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/run/env_snapshot.json",
+      "original_sha256": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132"
+    },
+    "records/her/seed_103/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4283735,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/run/metrics.csv",
+      "original_sha256": "9e13e4a7adc0442c623bdfaedc458a71c1b1fad07556762d57cbad23a28158cd"
+    },
+    "records/her/seed_103/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9508,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/run/summary.json",
+      "original_sha256": "3f6bafe5340d72be45a7d8113fa444fdf842bc240b464c7358160645b4312fe8"
+    },
+    "records/her/seed_103/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1035,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/her/seed_103/status.json",
+      "original_sha256": "335697ec9cc98e011706e701d316757415e0e437b961d1efd7a103111abf384c"
+    },
+    "records/random/seed_101/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 646,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/completion_audit.json",
+      "original_sha256": "70823338d7f4adde76cdabb7b4a74273e36bb7af41ee4dfbfcb3b1f3a701231b"
+    },
+    "records/random/seed_101/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3090,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/checkpoints.jsonl",
+      "original_sha256": "fc78cf4e36787860abe07ae8ed50544f3d611ca9332e2b8d0a29ca1dee851084"
+    },
+    "records/random/seed_101/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 74348,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/evaluation.jsonl",
+      "original_sha256": "44231c2cde7357526a9e757b503203c1d1ee02d29137b83270e88db9a4f52165"
+    },
+    "records/random/seed_101/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 368545,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/events.jsonl",
+      "original_sha256": "e98540c69301fd728bd5bd2d8a3bbae615ac8093921631ec08d5d266fd664c21"
+    },
+    "records/random/seed_101/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14413,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51"
+    },
+    "records/random/seed_101/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/probe_bank.json",
+      "original_sha256": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6"
+    },
+    "records/random/seed_101/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2692881,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/probes.jsonl",
+      "original_sha256": "e532427187866745e7b0a1d3d00b3c3d23718161910d30ad5a535a053bbae480"
+    },
+    "records/random/seed_101/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/summary.json",
+      "original_sha256": "a27970dab6a59bb2190f9f7e7ea124f5a79dc67adfe69b39617579da32bb54f6"
+    },
+    "records/random/seed_101/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 246502,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/training_windows.jsonl",
+      "original_sha256": "dfec9ec97146b13762f38f36da1927f0e30a8d5c92672bb0953a3a2899bbc008"
+    },
+    "records/random/seed_101/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343810,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/update_windows.jsonl",
+      "original_sha256": "336445c604999e34be1005e67e89173fea3fd8962cccaa3137c7addca3fc92b7"
+    },
+    "records/random/seed_101/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 611051,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/diagnostics/updates.jsonl",
+      "original_sha256": "9b43a744c9348c7661c8907cca8baabf354c497839fd0a8715d762806bc2d2dd"
+    },
+    "records/random/seed_101/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/random/seed_101/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/requested_config.json",
+      "original_sha256": "a48a7236c504b531daf0ef45e9520b82c1c419cabd0cb0a401ca509d74b2c100"
+    },
+    "records/random/seed_101/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 350413,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/run/assignment_windows.csv",
+      "original_sha256": "26e4ca23773818176ca3bc2ef79a2b14294f195006fd23b44d31150c25e19a16"
+    },
+    "records/random/seed_101/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 530,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/run/best_checkpoint.json",
+      "original_sha256": "70d8cb8043f4d20a728daa091005b1060d325cb78da71618176912f7bb57f656"
+    },
+    "records/random/seed_101/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5756,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/run/config.json",
+      "original_sha256": "565fea80c4489fed04c12cd7d1091ab433a151c42c98f45b6a4e37ec64a7caf9"
+    },
+    "records/random/seed_101/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/run/env_snapshot.json",
+      "original_sha256": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc"
+    },
+    "records/random/seed_101/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4586964,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/run/metrics.csv",
+      "original_sha256": "ac9c88f8c7a15302f1d3712b2f6ad10b8e314c98511f160b5e456a0706ad1554"
+    },
+    "records/random/seed_101/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9675,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/run/summary.json",
+      "original_sha256": "bcd78230e549cd2f4bcf962cde3cd5cec164acfac9510d8f37630c82fa8590ce"
+    },
+    "records/random/seed_101/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1064,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_101/status.json",
+      "original_sha256": "43404d2916f24f0b56f133f7d9b2b5217e06bd9b1b6192a458d95afa6f5415af"
+    },
+    "records/random/seed_102/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 641,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/completion_audit.json",
+      "original_sha256": "ba1cbb425e96c16c9368321f898f04c0a8b4abea866f024ee0d96b47f3c7e0e6"
+    },
+    "records/random/seed_102/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3090,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/checkpoints.jsonl",
+      "original_sha256": "df9749944f8fedc49c5e2015af95617104c0b5ece46fda9a07135fe9e42724ab"
+    },
+    "records/random/seed_102/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 73651,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/evaluation.jsonl",
+      "original_sha256": "f1446da123ea102be63888049f2da1d470b8481b8d8de3f1c9dcee3dbb3d6c72"
+    },
+    "records/random/seed_102/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 368338,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/events.jsonl",
+      "original_sha256": "3257a1699b9afbfbfe27baeb2e78b97f0ab2c8c6bfd84f5f18152bba73b221bf"
+    },
+    "records/random/seed_102/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14405,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7"
+    },
+    "records/random/seed_102/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/probe_bank.json",
+      "original_sha256": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb"
+    },
+    "records/random/seed_102/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2703606,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/probes.jsonl",
+      "original_sha256": "d658499388f47455d691e63f1558f14a60bdcde505310af911559f333cb25424"
+    },
+    "records/random/seed_102/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 358,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/summary.json",
+      "original_sha256": "2eab66066016d114bd71b777d260846a6d4d8f2ef2b5f8ec08a81ac4bc2d75b4"
+    },
+    "records/random/seed_102/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 245921,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/training_windows.jsonl",
+      "original_sha256": "ade1b484b22f7bc238481b78474efdf8f742fa389562c81aee33975c2f38bda0"
+    },
+    "records/random/seed_102/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343974,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/update_windows.jsonl",
+      "original_sha256": "4e561e8670de4cbc2405ac59979306cbc3741466c4200ab8a5c2069204dd945d"
+    },
+    "records/random/seed_102/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 611829,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/diagnostics/updates.jsonl",
+      "original_sha256": "e76f464b9820afb864577cad10c4e737263989aaa56e8c9f0d06ec0288e56cf8"
+    },
+    "records/random/seed_102/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/random/seed_102/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/requested_config.json",
+      "original_sha256": "ca12c5c8444f051dadd4eaea6b5caab74db441173ae6b7818d4dbe5b07a42e2d"
+    },
+    "records/random/seed_102/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 350549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/run/assignment_windows.csv",
+      "original_sha256": "988e371403b9ff9fe4d2f3eaf932843dc1abdd13e3ae33a644a9bc7f68b773d7"
+    },
+    "records/random/seed_102/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 536,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/run/best_checkpoint.json",
+      "original_sha256": "d6a090f34c09bd6430d8f784b00a45314eab14fc7294a100f01434315a3d1528"
+    },
+    "records/random/seed_102/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5756,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/run/config.json",
+      "original_sha256": "14ff8b578ecffb952a03aca8dfdf4895613e361f5de1b139a5cf6fd01afcac55"
+    },
+    "records/random/seed_102/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/run/env_snapshot.json",
+      "original_sha256": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40"
+    },
+    "records/random/seed_102/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4565977,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/run/metrics.csv",
+      "original_sha256": "33561dcac9623681fe5c751d1e518ecd0bd5559dd00dc71277cbf7c24e22f2a3"
+    },
+    "records/random/seed_102/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9600,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/run/summary.json",
+      "original_sha256": "de5f533bfd59af22ac0d18e3f0676ae25df7f18be081af1cfb9ae3cf9389dc8a"
+    },
+    "records/random/seed_102/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1060,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_102/status.json",
+      "original_sha256": "09ac44eb85927ccfeb2c6e329e31f7ddae039047a10af8f04166ca9d41447de0"
+    },
+    "records/random/seed_103/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 641,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/completion_audit.json",
+      "original_sha256": "eb2bd8626d81151c56187c34c2d87ba08872bd26ec7b9e73a64cfbbb03228f01"
+    },
+    "records/random/seed_103/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3090,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/checkpoints.jsonl",
+      "original_sha256": "58dc5ebf648c945819c4e661c2e9dce6d8df4d46b6a31b41f13315281eba3084"
+    },
+    "records/random/seed_103/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 74872,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/evaluation.jsonl",
+      "original_sha256": "dbedc4ec6a3dcd0ac12308b627e1e1a90d06dc2d56afdfb2483b5da2b504ec46"
+    },
+    "records/random/seed_103/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 368541,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/events.jsonl",
+      "original_sha256": "8d02dd685265eb4ee6f5ba6fff5ebc2e3aace9ca89c2bf95218c82081d76652f"
+    },
+    "records/random/seed_103/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14478,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9"
+    },
+    "records/random/seed_103/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 472,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/probe_bank.json",
+      "original_sha256": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031"
+    },
+    "records/random/seed_103/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2699594,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/probes.jsonl",
+      "original_sha256": "347a623757016a38cfd3be7311bbb1735d63f5682d77d2f7bd13694e87e64dcd"
+    },
+    "records/random/seed_103/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 360,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/summary.json",
+      "original_sha256": "06d210435cdc656b36341d7b6298e7ceddd0c958cb8445a27c72aa88b5ce7cb4"
+    },
+    "records/random/seed_103/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 246628,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/training_windows.jsonl",
+      "original_sha256": "890b4367fa14f9605e1ef1c1454113bc6e722c2cdd8c531068f7eda9c2fce9a2"
+    },
+    "records/random/seed_103/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343621,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/update_windows.jsonl",
+      "original_sha256": "fa57f509d6836ed78c78bdb23424865067d74620921ffc7b8f0e21e2c9a0048d"
+    },
+    "records/random/seed_103/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 610802,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/diagnostics/updates.jsonl",
+      "original_sha256": "c71ae02dcc740d1ebe561d233afe32f9075703616aec976a462ad856b6dce40a"
+    },
+    "records/random/seed_103/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/random/seed_103/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/requested_config.json",
+      "original_sha256": "ba8cae67048b98cb6b81a0b6b1ad341dff298e71d7cc2a2a5616e14aa5e137b1"
+    },
+    "records/random/seed_103/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 350467,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/run/assignment_windows.csv",
+      "original_sha256": "7b6792163894a665bcc3eeac33a5335f12c2fe74d79e98831e65e4cd63f2d487"
+    },
+    "records/random/seed_103/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 530,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/run/best_checkpoint.json",
+      "original_sha256": "f86ca6d29657aa7ae31fee0f4eff549727579bf8c91408b719efc9479e8ca0db"
+    },
+    "records/random/seed_103/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5756,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/run/config.json",
+      "original_sha256": "3ddf9ffa21ae62fcfc776bc9a2e630fd668b203bd72ae4749fe90302d3190b8a"
+    },
+    "records/random/seed_103/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/run/env_snapshot.json",
+      "original_sha256": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132"
+    },
+    "records/random/seed_103/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4591799,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/run/metrics.csv",
+      "original_sha256": "3f902028c0faee29e674b8f0cae0b10e892e646e77b7ebfdaea3fa72e6331693"
+    },
+    "records/random/seed_103/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9614,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/run/summary.json",
+      "original_sha256": "0945d67c24f6051525e0bf64bc14f614643f25a3745512ff19c630aca3ef1980"
+    },
+    "records/random/seed_103/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1060,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/random/seed_103/status.json",
+      "original_sha256": "1c01a5cb65df63476049eb3b0e8548c9896e9f6ef405d1ea272e05795f9df3ae"
+    },
+    "records/saber/seed_101/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 643,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/completion_audit.json",
+      "original_sha256": "0ce4b33531d5d07ed7d7ec52185fa947051f20a0bba3d16fa18d5d6c66d7f4cf"
+    },
+    "records/saber/seed_101/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3077,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/checkpoints.jsonl",
+      "original_sha256": "518ae894fdeedf2d3d56399dc4bf282b40ae4c7e3abe7ee246c5413d93e84141"
+    },
+    "records/saber/seed_101/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 73723,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/evaluation.jsonl",
+      "original_sha256": "156e05e4b1b686c10e9caa0ea48174a9ca36c9f62e7c8ce9538ef46c31e4b9b3"
+    },
+    "records/saber/seed_101/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 366043,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/events.jsonl",
+      "original_sha256": "8b5298bdf1623421c0bf867d208d738327c3cb7066f01e9dea17408ca617dfa9"
+    },
+    "records/saber/seed_101/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14413,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51"
+    },
+    "records/saber/seed_101/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/probe_bank.json",
+      "original_sha256": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6"
+    },
+    "records/saber/seed_101/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2698620,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/probes.jsonl",
+      "original_sha256": "28ec6e4dc8a548d83d7e77a0fd8a4062cde50d9fac5fe09eb5f9f8c5275ea9a0"
+    },
+    "records/saber/seed_101/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/summary.json",
+      "original_sha256": "df49dfa84a85900e2a025598685e9c9c3ad62f4ea8b33ad1780feb5de262e53f"
+    },
+    "records/saber/seed_101/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 245862,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/training_windows.jsonl",
+      "original_sha256": "eb7ac0c762982bdbd322b6547a8515a557960726376cfed68a36f9c33a6bce24"
+    },
+    "records/saber/seed_101/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343337,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/update_windows.jsonl",
+      "original_sha256": "3e1cef5c1eb686963da62acf881ffa04ff1b088ead3ce4435ae9dcfe4778aa03"
+    },
+    "records/saber/seed_101/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 609167,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/diagnostics/updates.jsonl",
+      "original_sha256": "494f26ef6ee007f543222a0527830c385c932b927bf2715210077040eaa4b4f0"
+    },
+    "records/saber/seed_101/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/saber/seed_101/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/requested_config.json",
+      "original_sha256": "d0f1d683fec6670510691abf7df885388bb3f6832efd752ed46f17b234d0f9a2"
+    },
+    "records/saber/seed_101/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 320127,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/run/assignment_windows.csv",
+      "original_sha256": "29fed067046fd13a1f159b17b3a28af41e31e40244fff63425fdbc879b2ce7b7"
+    },
+    "records/saber/seed_101/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 534,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/run/best_checkpoint.json",
+      "original_sha256": "fc84cc866597ef63b1f3642afab765e1d3143583aafdce29ca7f489f7fad710d"
+    },
+    "records/saber/seed_101/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5756,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/run/config.json",
+      "original_sha256": "53a8a0a20e8ba5febaba89acdcc58646bb5a914d6c65283268cabb38d5262457"
+    },
+    "records/saber/seed_101/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/run/env_snapshot.json",
+      "original_sha256": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc"
+    },
+    "records/saber/seed_101/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4565459,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/run/metrics.csv",
+      "original_sha256": "52c1915877424426642e6ffb446e8f62a95b03fa7cf4ac8b3234062d3acc0e27"
+    },
+    "records/saber/seed_101/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9650,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/run/summary.json",
+      "original_sha256": "4bb9a802052e2294258958f3e1309e0e16adac4bf2cd142ab1af6f12139da01e"
+    },
+    "records/saber/seed_101/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1060,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_101/status.json",
+      "original_sha256": "68a3da0d31771f6a60733b663c2eda117587bec95ef797f12a29723bf41ed408"
+    },
+    "records/saber/seed_102/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 625,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/completion_audit.json",
+      "original_sha256": "01a0ac9d863442c920ca69f62aa93b2f30c56f2ee1cb6fb80532fce8e62b6ef9"
+    },
+    "records/saber/seed_102/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3077,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/checkpoints.jsonl",
+      "original_sha256": "be401640538c57ccaf4717907bd5576c1d338cd4c8a10af8cbf4973fca460fff"
+    },
+    "records/saber/seed_102/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 73433,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/evaluation.jsonl",
+      "original_sha256": "989c3f15437c456b0a7eef4b157b0294b889bd4328e974dc9f57db7d5499fd66"
+    },
+    "records/saber/seed_102/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 365838,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/events.jsonl",
+      "original_sha256": "c4d8651a2d8dcc68dd5583e27f69e620421a1204dd50e0b6b58387868c0b3815"
+    },
+    "records/saber/seed_102/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14405,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7"
+    },
+    "records/saber/seed_102/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/probe_bank.json",
+      "original_sha256": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb"
+    },
+    "records/saber/seed_102/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2698667,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/probes.jsonl",
+      "original_sha256": "1a3907aeec63ef68ffaf52f8fa62d34f4ffed1db1e0bfcdcbc64be9dbc610f93"
+    },
+    "records/saber/seed_102/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 358,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/summary.json",
+      "original_sha256": "2eab66066016d114bd71b777d260846a6d4d8f2ef2b5f8ec08a81ac4bc2d75b4"
+    },
+    "records/saber/seed_102/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 245534,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/training_windows.jsonl",
+      "original_sha256": "d3a666d5f5d60edc8a32c7e2ffd36f79332bc98c5ee09de92d302dd0ea729044"
+    },
+    "records/saber/seed_102/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343220,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/update_windows.jsonl",
+      "original_sha256": "2dfc3c4b9fd5541f3b63fe62d65f7b60c215e769c82afe1c5585771c32a21d4c"
+    },
+    "records/saber/seed_102/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 609766,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/diagnostics/updates.jsonl",
+      "original_sha256": "afd3368d953c7b941bd996719b452c2c20a338797df51cfdcbdf5fea07535dcc"
+    },
+    "records/saber/seed_102/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/saber/seed_102/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/requested_config.json",
+      "original_sha256": "33b3450fe2251cb1da6abf44712e16180bc6331a6c7f6012720798c758bb434d"
+    },
+    "records/saber/seed_102/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 318853,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/run/assignment_windows.csv",
+      "original_sha256": "4caf220f5a04e0499d3623a4dab8990c574df4568c07835427366760d71ec5f0"
+    },
+    "records/saber/seed_102/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 528,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/run/best_checkpoint.json",
+      "original_sha256": "d6e1ce97cbd69b2dd942747de5187b626de8a5a59849b704ce2432e330589536"
+    },
+    "records/saber/seed_102/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5756,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/run/config.json",
+      "original_sha256": "694c8d52533e4c62ebd5391372588a237f5b2bcdf3250f372e1cd0f14a22ae53"
+    },
+    "records/saber/seed_102/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/run/env_snapshot.json",
+      "original_sha256": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40"
+    },
+    "records/saber/seed_102/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4573472,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/run/metrics.csv",
+      "original_sha256": "e5fcccdca381583ea7fe591ddc5281db4501dd11f56c2652c2b81988ed68f6f9"
+    },
+    "records/saber/seed_102/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9567,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/run/summary.json",
+      "original_sha256": "99a601a1dea55f7e316a4844cad9177c84a96267c19af3be1d159e108e549387"
+    },
+    "records/saber/seed_102/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1043,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_102/status.json",
+      "original_sha256": "a90274b93d129ca5b6b7e7dc840b5159e8a980a7ecbbddf85655695be2d0d2a8"
+    },
+    "records/saber/seed_103/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 642,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/completion_audit.json",
+      "original_sha256": "ba5d4a7014a701a41c145ce123b8d132edf0d491f8ab9b3d35c84612dba2985a"
+    },
+    "records/saber/seed_103/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3077,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/checkpoints.jsonl",
+      "original_sha256": "2742a6df343530bb47ca120d51c009d45762a93548ee016326ccbb2900d8c597"
+    },
+    "records/saber/seed_103/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 74051,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/evaluation.jsonl",
+      "original_sha256": "608f60de801f7659f16f5a015cffc28c1ce91c86c0322d890419c473d46e558b"
+    },
+    "records/saber/seed_103/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 366043,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/events.jsonl",
+      "original_sha256": "4b8a90e86db2f474de540966cbd5a519053fc7774668aabce946922c31903ac5"
+    },
+    "records/saber/seed_103/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14478,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9"
+    },
+    "records/saber/seed_103/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 472,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/probe_bank.json",
+      "original_sha256": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031"
+    },
+    "records/saber/seed_103/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2694671,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/probes.jsonl",
+      "original_sha256": "4a214dd2265294873841ad305c61481fd7119de0c8ee2a61f84e7d9e47ab4706"
+    },
+    "records/saber/seed_103/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/summary.json",
+      "original_sha256": "0859e8b253192f39346dbd0e04a5da31ee106326127cbef9294d072fc4fbb666"
+    },
+    "records/saber/seed_103/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 245666,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/training_windows.jsonl",
+      "original_sha256": "a1cfad8649e5e48cf3dd652c2735ab4b9fbe57a04c4278a47ddc96c4e82166bc"
+    },
+    "records/saber/seed_103/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343122,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/update_windows.jsonl",
+      "original_sha256": "5d159ba4eca502b73b660aa5e7f6c7fda1630c8fdc69a6407fe6990d431306ad"
+    },
+    "records/saber/seed_103/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 609244,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/diagnostics/updates.jsonl",
+      "original_sha256": "d394c0535b51f19f0e84d687ffbc1c7261ea6bc22f52159835a63a633787b8bf"
+    },
+    "records/saber/seed_103/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/saber/seed_103/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5549,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/requested_config.json",
+      "original_sha256": "9f5d96b770b4f396d42d72d21823a520d31db78fbfe12811c2400ff3f8e205a3"
+    },
+    "records/saber/seed_103/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 319943,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/run/assignment_windows.csv",
+      "original_sha256": "07bc57303f8a62ad1eb1eae71ad514de51eeabc3119869bacc0d554e7823adb8"
+    },
+    "records/saber/seed_103/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 536,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/run/best_checkpoint.json",
+      "original_sha256": "08ad66bc91d9a77d3b11f1c36c2d8a1513cb2447a28ff749cd2b0e21921d85d2"
+    },
+    "records/saber/seed_103/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5756,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/run/config.json",
+      "original_sha256": "2442101e9fc7f2b6849502d186502336bf7b8b17bb85706c3fc2be164db9950b"
+    },
+    "records/saber/seed_103/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/run/env_snapshot.json",
+      "original_sha256": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132"
+    },
+    "records/saber/seed_103/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4554388,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/run/metrics.csv",
+      "original_sha256": "b66e45dea78d7b7106628ffa007200ded0777573731705826b57528f7d1f9261"
+    },
+    "records/saber/seed_103/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9504,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/run/summary.json",
+      "original_sha256": "838902df773b3570067e79dd5d975e15aea29ce6ec69a51dbe05524950a3ec79"
+    },
+    "records/saber/seed_103/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1060,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/saber/seed_103/status.json",
+      "original_sha256": "00f1c690d3032f40d98e84de4850407e0a38736da8f8fc6fc51e34c1bc8f8ffd"
+    },
+    "records/td_topk/seed_101/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 644,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/completion_audit.json",
+      "original_sha256": "6675c94421904f3fbfbbc6b18c21bcf302b54767c31f526dd6de53c482e84048"
+    },
+    "records/td_topk/seed_101/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3103,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/checkpoints.jsonl",
+      "original_sha256": "c3d018bd2fba08cfa808912d01349cdc7f3869d834b43bd07757cd610e49f4a6"
+    },
+    "records/td_topk/seed_101/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 73720,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/evaluation.jsonl",
+      "original_sha256": "80a168567c47b6b73c1a30de125f5b8fe32311b57b3d98c93edf69aba6dd9c42"
+    },
+    "records/td_topk/seed_101/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 371047,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/events.jsonl",
+      "original_sha256": "942920ed3d63034e80494f3ae1cebc9d70d2dd2cff18d5a520443f5bbd4aa5d3"
+    },
+    "records/td_topk/seed_101/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14413,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51"
+    },
+    "records/td_topk/seed_101/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/probe_bank.json",
+      "original_sha256": "88b1779712741be331222c566f6f06c41b79244de31c4a6ec2f89c5602fdeef6"
+    },
+    "records/td_topk/seed_101/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2702285,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/probes.jsonl",
+      "original_sha256": "952b3af0f59a7a16f5cae5fdd91c55534dfec8b1acfe467e243c3f8ea590d09d"
+    },
+    "records/td_topk/seed_101/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/summary.json",
+      "original_sha256": "8612d106dbf69af5d07bb0695958c0493afe19da33cc31644f31e85e0435d48d"
+    },
+    "records/td_topk/seed_101/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 246712,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/training_windows.jsonl",
+      "original_sha256": "49e8e4ccde1b6d7b0994ffd93bed427445d56a2c6fc9feb638a6fa14f3598ee1"
+    },
+    "records/td_topk/seed_101/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 344499,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/update_windows.jsonl",
+      "original_sha256": "bd7ae5393c4949da7c397019eb8ba3add99664e3c43782450e90e46ee4295028"
+    },
+    "records/td_topk/seed_101/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 613048,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/diagnostics/updates.jsonl",
+      "original_sha256": "a752db3e9de2dcf9904c42ba0df11dc525f9e9707cce61639f882af3d7080387"
+    },
+    "records/td_topk/seed_101/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/td_topk/seed_101/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5551,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/requested_config.json",
+      "original_sha256": "6517839aa8218ca54448cc09b99c45ecec141aecb1a520933a50360d73e17bda"
+    },
+    "records/td_topk/seed_101/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 350687,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/run/assignment_windows.csv",
+      "original_sha256": "74564601d891f21d47eb829932bfad17a107c6e150c7d1827206f93182d9f6e5"
+    },
+    "records/td_topk/seed_101/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 537,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/run/best_checkpoint.json",
+      "original_sha256": "320507741284fc7b0ee99a034c670eb93736bbf459b86a3ad2be9943e5dd5743"
+    },
+    "records/td_topk/seed_101/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5758,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/run/config.json",
+      "original_sha256": "a4b390801d665da7cccb661a9006ef60789815d532296e503636f6136263f7e2"
+    },
+    "records/td_topk/seed_101/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/run/env_snapshot.json",
+      "original_sha256": "0164cdc75da7452faabcc99a881e64cce58b92050d38bf053aaa0b6f6bbd99cc"
+    },
+    "records/td_topk/seed_101/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4542433,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/run/metrics.csv",
+      "original_sha256": "e80cdb0bcc124ede32ee5188d58df6f3e475e0381bc2ddd11d598130c54c2278"
+    },
+    "records/td_topk/seed_101/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9618,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/run/summary.json",
+      "original_sha256": "a883778f28344bc76ebb1c1e73bcd823a5597591ea71e7f07073728925ed0788"
+    },
+    "records/td_topk/seed_101/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1063,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_101/status.json",
+      "original_sha256": "9ea6104eddc1fe91378ef73c20fc5176348863cffa7d22eeac0b14785dbbe69e"
+    },
+    "records/td_topk/seed_102/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 646,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/completion_audit.json",
+      "original_sha256": "73e3241212d14c1f0573bd021622a42f10c82f7e349f24153fb8428d57dd2fca"
+    },
+    "records/td_topk/seed_102/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3103,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/checkpoints.jsonl",
+      "original_sha256": "dddb6f5545ecb8dd59ddbee5d2ba912f2eaa11fbeefb59ef88dff2844efd0412"
+    },
+    "records/td_topk/seed_102/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 75704,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/evaluation.jsonl",
+      "original_sha256": "06696556919d8a5dc1b0525e8c858213a3a7a72e7a61966303c53959ed3df99b"
+    },
+    "records/td_topk/seed_102/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 371045,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/events.jsonl",
+      "original_sha256": "7ef7074730eab84a4c36dcfaa1896d92dd9395946a077697051a6f43c213b7b8"
+    },
+    "records/td_topk/seed_102/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14405,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "feea8fd613bca9fd760b52fbe5ec5124e9662917a3064ac9037d4c2e090b54e7"
+    },
+    "records/td_topk/seed_102/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 471,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/probe_bank.json",
+      "original_sha256": "547b6136dca9d1a5de0ccc28eea187809d36d9338360e04cb65c0735419668cb"
+    },
+    "records/td_topk/seed_102/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2697932,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/probes.jsonl",
+      "original_sha256": "04a3fea5e8e46474444a69d346e98461e6a1b87c716bf13c98c0dd3dacd294f2"
+    },
+    "records/td_topk/seed_102/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/summary.json",
+      "original_sha256": "f188d423ba788130c87fb62d3123ec9b2f0e8b189eea3bd5fafd803b4a7445a2"
+    },
+    "records/td_topk/seed_102/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 247511,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/training_windows.jsonl",
+      "original_sha256": "46bd95d5c5b936768b0ca8890f530a29102781d21140473523d6bd6badbacded"
+    },
+    "records/td_topk/seed_102/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 343835,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/update_windows.jsonl",
+      "original_sha256": "c0529cef0344f56443c95cdecd23e2608aa98dab2d1080a30f854a96e1e2824f"
+    },
+    "records/td_topk/seed_102/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 611898,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/diagnostics/updates.jsonl",
+      "original_sha256": "d9929f6a91599ea7e2ed23e39f07bfbd1d273ff0989bca380b6e73cc110efdc6"
+    },
+    "records/td_topk/seed_102/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/td_topk/seed_102/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5551,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/requested_config.json",
+      "original_sha256": "6b82bd3e65d35130b29af8cde07453b56b437bcb9cc45244ee99f3b49c64cd2a"
+    },
+    "records/td_topk/seed_102/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 350273,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/run/assignment_windows.csv",
+      "original_sha256": "25b9e1bdf6dcb32f5d959dcc4c32465b2e3ccfd9e9128fc6ee8156211037da31"
+    },
+    "records/td_topk/seed_102/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 531,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/run/best_checkpoint.json",
+      "original_sha256": "c75eb73aeb1b434c0037d4bea8fe8dcc2ec094fb1408d504bb44914559c94600"
+    },
+    "records/td_topk/seed_102/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5758,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/run/config.json",
+      "original_sha256": "33f4b7e3ffe6051e80f1be7ba402153d823222a0b8712c016280f097a090bf11"
+    },
+    "records/td_topk/seed_102/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/run/env_snapshot.json",
+      "original_sha256": "d23fd4602ce41d61db6135b15c3b07e7244a540922727978aa57b0adcbacda40"
+    },
+    "records/td_topk/seed_102/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4643297,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/run/metrics.csv",
+      "original_sha256": "44569b6eebaf81d141b3801bb99b21e178c5d926407365de7f33caafa3b92e39"
+    },
+    "records/td_topk/seed_102/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9741,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/run/summary.json",
+      "original_sha256": "0f43467a7fab85b1b818d4fd3d518751017b62f99e82a85f3965c7d6b9889b20"
+    },
+    "records/td_topk/seed_102/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1066,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_102/status.json",
+      "original_sha256": "056a02775ee12d5b45335e7266527a8558a2f4ea3d488cb144b6fa69fe1d187e"
+    },
+    "records/td_topk/seed_103/completion_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 627,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/completion_audit.json",
+      "original_sha256": "ec2d50ef123f2c0a75c72ec053abc77a7a933c97f135f90add23e1e349185861"
+    },
+    "records/td_topk/seed_103/diagnostics/checkpoints.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 3103,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/checkpoints.jsonl",
+      "original_sha256": "9f84ced3b988bf6b3d7abc395de0dc184b1bca515a437ab76e0992b4e8cabb00"
+    },
+    "records/td_topk/seed_103/diagnostics/evaluation.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 73587,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/evaluation.jsonl",
+      "original_sha256": "dff2dd6e33493d535ad8e98ae8762f4e568612b92a0ad4f89e14aa783c96719a"
+    },
+    "records/td_topk/seed_103/diagnostics/events.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 371047,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/events.jsonl",
+      "original_sha256": "dcf2aede4f3d685cb8b63133b4db01203314a5b3239f04d937d415b71ebb11ae"
+    },
+    "records/td_topk/seed_103/diagnostics/fixed_probe_bank.npz": {
+      "encoding": "identity",
+      "original_bytes": 14478,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/fixed_probe_bank.npz",
+      "original_sha256": "18dc41ebe11adbcee1ebc1ebd89d728090d92e2f8fae20832021a8f42e3147c9"
+    },
+    "records/td_topk/seed_103/diagnostics/probe_bank.json": {
+      "encoding": "identity",
+      "original_bytes": 472,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/probe_bank.json",
+      "original_sha256": "56c53605b651719e64b6be8eb243b922948a59a8a24889c9f0af831ddac66031"
+    },
+    "records/td_topk/seed_103/diagnostics/probes.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 2696424,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/probes.jsonl",
+      "original_sha256": "0ac00a9a204e5f435ccb4cd896959412dfb9cfb1d6e5a4bdf3938490a8916304"
+    },
+    "records/td_topk/seed_103/diagnostics/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 362,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/summary.json",
+      "original_sha256": "f59b82428d1e8f03a9b06fe326719aa4e598a67e192e709405a2dfae5e7d8475"
+    },
+    "records/td_topk/seed_103/diagnostics/training_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 246568,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/training_windows.jsonl",
+      "original_sha256": "68c2cbbef4b508e78b5d051a2d6ec74cb65a6c17d96c17a3d401bdb97bd90df2"
+    },
+    "records/td_topk/seed_103/diagnostics/update_windows.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 344110,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/update_windows.jsonl",
+      "original_sha256": "3c165c8a782f7898561f4ffb3ba8113d49a58ee7f83c68060e4dba9a9ae185f7"
+    },
+    "records/td_topk/seed_103/diagnostics/updates.jsonl.gz": {
+      "encoding": "gzip",
+      "original_bytes": 612457,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/diagnostics/updates.jsonl",
+      "original_sha256": "52b3b2bc61bd2c1d6b754a17759582da758ff605aa3dda9d59260744a0da2e56"
+    },
+    "records/td_topk/seed_103/environment.json": {
+      "encoding": "identity",
+      "original_bytes": 431,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/environment.json",
+      "original_sha256": "c522c9bd1953517a2345442e3194a0a8a5226a60bb17c3e9d514ec8be2dab54c"
+    },
+    "records/td_topk/seed_103/requested_config.json": {
+      "encoding": "identity",
+      "original_bytes": 5551,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/requested_config.json",
+      "original_sha256": "727f6e4a417813b6b8b418070eff442bdc39a9dd2989cea11dbaf01a9898a842"
+    },
+    "records/td_topk/seed_103/run/assignment_windows.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 350385,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/run/assignment_windows.csv",
+      "original_sha256": "4eb58ace4d9f4477c73a829796a5a01e0625957310abcb739f23ac38444aa5c5"
+    },
+    "records/td_topk/seed_103/run/best_checkpoint.json": {
+      "encoding": "identity",
+      "original_bytes": 530,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/run/best_checkpoint.json",
+      "original_sha256": "72742b96c8fadf8183c8c0de0f3a3158399b60564982421dd9ce9db07138ac6a"
+    },
+    "records/td_topk/seed_103/run/config.json": {
+      "encoding": "identity",
+      "original_bytes": 5758,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/run/config.json",
+      "original_sha256": "b394ac00b7a27ef8b88583d245635464477e83cfd0d848a6956376d5fa07cf59"
+    },
+    "records/td_topk/seed_103/run/env_snapshot.json": {
+      "encoding": "identity",
+      "original_bytes": 2748,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/run/env_snapshot.json",
+      "original_sha256": "bb584b4418ccd7fedfce3ca7658fab3e278977a73ca09a5e6d80a7b2202f8132"
+    },
+    "records/td_topk/seed_103/run/metrics.csv.gz": {
+      "encoding": "gzip",
+      "original_bytes": 4564289,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/run/metrics.csv",
+      "original_sha256": "550cb8af4bcae2379b41e9ebe127b3baa94cf31c3d61592ea6185b1bac68b040"
+    },
+    "records/td_topk/seed_103/run/summary.json": {
+      "encoding": "identity",
+      "original_bytes": 9582,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/run/summary.json",
+      "original_sha256": "ae193ee2d1380a046ad02e7ccc95e87e302e6a47891dd2bfd7dc2d3da61352bb"
+    },
+    "records/td_topk/seed_103/status.json": {
+      "encoding": "identity",
+      "original_bytes": 1047,
+      "original_relative_to_experiment": "outputs/pilot_01/runs/td_topk/seed_103/status.json",
+      "original_sha256": "d1af01950e813a9d68ab99f26669adf45d061c786d496422ccb1044d7fd924a4"
+    },
+    "validation/REPORT.md": {
+      "encoding": "identity",
+      "original_bytes": 1833,
+      "original_relative_to_experiment": "validation/REPORT.md",
+      "original_sha256": "fd9df46f3f372d328b7691c610e428fbb350062da68a45d8a02797091a9c46e0"
+    },
+    "validation/gate.json": {
+      "encoding": "identity",
+      "original_bytes": 912,
+      "original_relative_to_experiment": "validation/gate.json",
+      "original_sha256": "409de0c7fae767bad542ce4e7dc2373e528bb2d0d84b2e04c614aa5f26187a44"
+    },
+    "validation/native_changes.diff": {
+      "encoding": "identity",
+      "original_bytes": 5833,
+      "original_relative_to_experiment": "validation/native_changes.diff",
+      "original_sha256": "355a4dec1c86de9f42f6e094865dd6b40009375b3ce2f088bec2be09865ceb66"
+    },
+    "validation/results.json": {
+      "encoding": "identity",
+      "original_bytes": 2002,
+      "original_relative_to_experiment": "validation/results.json",
+      "original_sha256": "028b221a2ee90bd74c0504415f3a40a0d6534293cebef2c3d07888102d138471"
+    },
+    "validation/smoke_report.json": {
+      "encoding": "identity",
+      "original_bytes": 2522,
+      "original_relative_to_experiment": "validation/runs/check_01/report.json",
+      "original_sha256": "8883dd6a1fb35706f3efdcaa8ed937c4f144c650b973ecfcd33327b893d92ec2"
+    },
+    "validation/source_audit.json": {
+      "encoding": "identity",
+      "original_bytes": 1573,
+      "original_relative_to_experiment": "validation/source_audit.json",
+      "original_sha256": "f57767aad9db5850425c76c72312c0365ecd63ab4bf4663c55f6a9736f7c123f"
+    },
+    "validation/unit_tests.txt": {
+      "encoding": "identity",
+      "original_bytes": 1725,
+      "original_relative_to_experiment": "validation/runs/check_01/unit_tests.log",
+      "original_sha256": "24cd03b6375c22b5eb6ff114e8a735cd87e78a63d702fd8a4267468c1eb962a9"
+    }
+  },
+  "schema": 1,
+  "training_source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "training_source_relative_to_artifact": "../../experiments/draweropen_ddpg_actor_dynamics_20261031"
+}

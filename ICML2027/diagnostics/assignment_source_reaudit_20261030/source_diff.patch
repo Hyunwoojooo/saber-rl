@@ -1,0 +1,266 @@
+--- seed1_10/PROTOCOL.md
++++ seed11_20/PROTOCOL.md
+@@ -1,4 +1,6 @@
+ # Assignment-specific value of current-policy support
++
++**Extension notice (2026-10-20):** seeds 11–20, CPU, maximum three workers, SABER then Random then TD. See `../PROTOCOL.md` for the governing extension contract. The source experiment's historical protocol is preserved unchanged at `../original/PROTOCOL.md`.
+ 
+ ## Question and limits
+ 
+--- seed1_10/README.md
++++ seed11_20/README.md
+@@ -1,4 +1,6 @@
+ # DrawerOpen: support vs random vs TD-error assignment
++
++**2026-10-20 extension:** this copy launches seeds 11–20 only. See `../PROTOCOL.md` for the extension, CPU execution and historical-summary reuse limits. The unchanged original snapshot is in `../original/`. The historical description below records the source experiment.
+ 
+ Independent experiment for the post-review mechanism question. No existing
+ experiment, paper, or result is edited. Read [PROTOCOL.md](PROTOCOL.md) before running.
+--- seed1_10/freeze.py
++++ seed11_20/freeze.py
+@@ -5,7 +5,7 @@
+ from pathlib import Path
+ 
+ ROOT = Path(__file__).resolve().parent
+-ORIGIN = "worktrees/code-supplementary-final/metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/source_snapshot/code/src"
++ORIGIN = "github.com/Hyunwoojooo/saber-rl@a62b096f3cce0067a152a4e4719a8aaa0b3c2b98/ICML_27/experiments/draweropen_ddpg_saber_vs_random_vs_td_topk/source"
+ 
+ 
+ def digest(path):
+@@ -35,7 +35,8 @@
+     ap.add_argument("--create", action="store_true")
+     args = ap.parse_args()
+     if args.create:
+-        payload = {"snapshot_id": "draweropen_assignment_v1", "origin": ORIGIN,
++        payload = {"snapshot_id": "draweropen_assignment_seed11_20_extension_20261020", "origin": ORIGIN,
++                   "original_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+                    "sha256": inventory()}
+         with (ROOT / "source_manifest.json").open("x") as f:
+             json.dump(payload, f, indent=2, sort_keys=True)
+--- seed1_10/launch.py
++++ seed11_20/launch.py
+@@ -8,11 +8,18 @@
+ import subprocess
+ import sys
+ import time
++import shutil
+ from pathlib import Path
+ 
+ from protocol import ROOT, ARMS, SEEDS
+ from freeze import verify
+ from analyze import list_attempts
++
++
++def enough_resources(root):
++    mem = next(int(line.split()[1]) / 1024**2 for line in
++               Path("/proc/meminfo").read_text().splitlines() if line.startswith("MemAvailable:"))
++    return mem >= 12.0 and shutil.disk_usage(root).free >= 15 * 1024**3
+ 
+ 
+ def main():
+@@ -26,7 +33,7 @@
+     ap.add_argument("--dry-run", action="store_true")
+     ap.add_argument("--retry-infrastructure", metavar="REASON")
+     args = ap.parse_args()
+-    if args.parallel < 1 or len(set(args.arms)) != len(args.arms) or len(set(args.seeds)) != len(args.seeds):
++    if not 1 <= args.parallel <= 3 or len(set(args.arms)) != len(args.arms) or len(set(args.seeds)) != len(args.seeds):
+         ap.error("Parallelism must be positive; arms/seeds must be unique")
+     snapshot = verify()
+     if args.profile == "production" and not args.dry_run:
+@@ -65,7 +72,8 @@
+         if json.loads(plan_path.read_text()) != plan:
+             raise SystemExit("Output root already belongs to a different plan")
+     env = os.environ.copy()
+-    env.update(OMP_NUM_THREADS="1", MKL_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", MUJOCO_GL="egl")
++    env.update(OMP_NUM_THREADS="1", MKL_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", NUMBA_NUM_THREADS="1",
++               PYTHONDONTWRITEBYTECODE="1", MUJOCO_GL="egl")
+     active, failures = [], []
+ 
+     def interrupted(signum, frame):
+@@ -74,7 +82,7 @@
+     signal.signal(signal.SIGTERM, interrupted)
+     try:
+         while jobs or active:
+-            while jobs and len(active) < args.parallel:
++            while jobs and not failures and len(active) < args.parallel and enough_resources(parent):
+                 command, attempt = jobs.pop(0)
+                 attempt.parent.mkdir(parents=True, exist_ok=True)
+                 log = (attempt.parent / (attempt.name + ".log")).open("x")
+@@ -91,8 +99,10 @@
+                     if code:
+                         failures.append(str(attempt))
+                     print(f"EXIT code={code} {attempt}", flush=True)
+-            if active:
+-                time.sleep(1)
++            if failures and not active:
++                break
++            if active or jobs:
++                time.sleep(2)
+     finally:
+         for child, _, _ in active:
+             try:
+--- seed1_10/protocol.py
++++ seed11_20/protocol.py
+@@ -9,14 +9,16 @@
+ from metacog_lite_v0.config import LiteConfig, SeedConfig
+ 
+ ARMS = ("support", "random", "td_topk")
+-SEEDS = tuple(range(1, 11))
+-BOOTSTRAP_SEED = 20260925
++SEEDS = tuple(range(11, 21))
++# Historical seeds remain constructible for config-parity audits, never launchable.
++CONFIG_SEEDS = tuple(range(1, 21))
++BOOTSTRAP_SEED = 20261020
+ BOOTSTRAP_RESAMPLES = 10_000
+-ANALYSIS_VERSION = "assignment-v1"
++ANALYSIS_VERSION = "assignment-v1-extension-11-20"
+ 
+ 
+ def make_config(arm, seed, output_root, profile="production", device="cuda"):
+-    if arm not in ARMS or seed not in SEEDS:
++    if arm not in ARMS or seed not in CONFIG_SEEDS:
+         raise ValueError("Arm/seed outside the preregistered cohort")
+     if profile not in {"production", "smoke"}:
+         raise ValueError(profile)
+--- seed1_10/source_manifest.json
++++ seed11_20/source_manifest.json
+@@ -1,8 +1,9 @@
+ {
+-  "origin": "worktrees/code-supplementary-final/metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_saber_context_eligible_count_matched_2m/source_snapshot/code/src",
++  "origin": "github.com/Hyunwoojooo/saber-rl@a62b096f3cce0067a152a4e4719a8aaa0b3c2b98/ICML_27/experiments/draweropen_ddpg_saber_vs_random_vs_td_topk/source",
++  "original_manifest_sha256": "d281263084807ec6010986dc762301dce420b004e022c88985e51dcc50ccf496",
+   "sha256": {
+-    "PROTOCOL.md": "edec829c3855e7217b7b8924fb36f67a92676aec4155bfa1bfa29f2e085dc017",
+-    "README.md": "58d62322c0e91d6e81cd98a6f0a716e755d338a91fe4f0388728d9a0c3a72f18",
++    "PROTOCOL.md": "5acfd644798be82470b20b204ea6689febb9cc81b519d7411b323b906c20bca7",
++    "README.md": "7a1194526e1abb71f3cf5ad7b10dbbc33e588f194358ea7a5dad3a69950138ac",
+     "analyze.py": "96a930cbf3f0bbc93f94b82ffd1395c2f296a604e6fe92926352052ce4b988ff",
+     "code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+     "code/src/metacog_lite_v0/agent.py": "334a1d15cd7cb04b8a7f593190d031852b7836eda2370e15b5bf3e1bc11be293",
+@@ -30,11 +31,12 @@
+     "code/src/test_strict_ddpg_loss_scope.py": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10",
+     "code/src/test_strict_drawer_open_scanner.py": "27ab9f4baf17d96e0527fad1cb3eb6b4792e89bbd60effaa93f54052336dd1a8",
+     "code/src/train_drawer_open_lite_v0.py": "81a939cd90f7bc2c21c279cc61a000c568078bd5dead40f17dec4a4d1d827086",
+-    "freeze.py": "19f021085872842bbe6bc461f74055284bae71d79467934ad24b6e4183ab50cb",
+-    "launch.py": "94089e9763a944ab983d629ccdb4f2b20cb0c35b1e068611c2a9ffc11a397469",
+-    "protocol.py": "8dc8c46668d321adb15935a3f78036115934c573799d9f6e4867ce8732946b8f",
+-    "tests/test_assignment.py": "2b981abf19c966fae1ad1922e9730bb299f24e4a6b1e409890d5486ba3fef0af",
+-    "train.py": "dc64d843171f44f6f5b17cdce6b18e2d16fea37fcf0fe74f3c41de78dc5efd78",
++    "completion.py": "02f366aeff7bf683ca69a00737147f84201c0c3827939c2437e9bc5fe7e429eb",
++    "freeze.py": "ea658f490373cc70bdde83b6f5009715c5348f6d520ac077eb717592d3ee11f4",
++    "launch.py": "81672c4b08b0ac7a6a8992da08e6dae339b2f5c32d2b6831aea9e8858d879f0a",
++    "protocol.py": "a5883ae07d9b2c711e3c5bd427b776ae000eea89980ca83880e9f9336f5c1469",
++    "tests/test_assignment.py": "3f10355d45339f208422eb7f2ff09e03e67409054244d79e824f3d700e425dc7",
++    "train.py": "6197260963431b8951cf322e8504d8d995af441171b6ceff87502f178114a0c3",
+     "upstream/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+     "upstream/code/src/metacog_lite_v0/agent.py": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+     "upstream/code/src/metacog_lite_v0/assignment_diagnostics.py": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5",
+@@ -60,7 +62,7 @@
+     "upstream/code/src/test_strict_ddpg_loss_scope.py": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10",
+     "upstream/code/src/test_strict_drawer_open_scanner.py": "14454eaf7cba5ad653992e0bba6090710abef1f0a6538de2af74383006d15b03",
+     "upstream/code/src/train_drawer_open_lite_v0.py": "81a939cd90f7bc2c21c279cc61a000c568078bd5dead40f17dec4a4d1d827086",
+-    "validate.py": "7ff3b552cec5b007d2d08464b91f535af9e4b5b759fdad325885290aca9aae0e"
++    "validate.py": "fca75c49ea51b3d25585b74a32a121fc98e7a92fa864185e09539821305388a0"
+   },
+-  "snapshot_id": "draweropen_assignment_v1"
++  "snapshot_id": "draweropen_assignment_seed11_20_extension_20261020"
+ }
+--- seed1_10/tests/test_assignment.py
++++ seed11_20/tests/test_assignment.py
+@@ -17,7 +17,7 @@
+ import torch
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+-from protocol import ROOT, make_config, evaluation_seed, scientific_config
++from protocol import ROOT, SEEDS, make_config, evaluation_seed, scientific_config
+ from metacog_lite_v0.agent import DDPGAgent
+ from metacog_lite_v0.assignment_comparison import (
+     AssignmentSelector, AssignmentWindows, random_mask, td_mask,
+@@ -243,7 +243,7 @@
+             production = root / "production"
+             production.mkdir()
+             (production / "plan.json").write_text(json.dumps({"source_manifest_sha256": "fixture"}))
+-            for seed in range(1, 11):
++            for seed in SEEDS:
+                 for j, arm in enumerate(("support", "random", "td_topk")):
+                     attempt = production / arm / f"seed_{seed:02d}" / "attempt_01"
+                     run = attempt / "run"
+@@ -281,7 +281,7 @@
+                 analyze.main()
+                 report = json.loads((root / "analysis/report.json").read_text())
+                 self.assertAlmostEqual(report["inference"]["support_minus_td_topk"]["mean"], .1)
+-                target = production / "td_topk/seed_04/attempt_01/status.json"
++                target = production / f"td_topk/seed_{SEEDS[3]:02d}/attempt_01/status.json"
+                 status = json.loads(target.read_text())
+                 status["status"] = "failed_learning"
+                 target.write_text(json.dumps(status))
+@@ -290,8 +290,8 @@
+                 report = json.loads((root / "analysis/report.json").read_text())
+                 self.assertIsNone(report["inference"])
+                 self.assertEqual(len(report["runs"]), 30)
+-                self.assertEqual(report["failures_or_missing"][0]["seed"], 4)
+-                status["status"], status["seed"] = "complete", 5
++                self.assertEqual(report["failures_or_missing"][0]["seed"], SEEDS[3])
++                status["status"], status["seed"] = "complete", SEEDS[4]
+                 target.write_text(json.dumps(status))
+                 with self.assertRaises(SystemExit):
+                     analyze.main()
+--- seed1_10/train.py
++++ seed11_20/train.py
+@@ -13,7 +13,7 @@
+ from datetime import datetime, timezone
+ from pathlib import Path
+ 
+-from protocol import ARMS, ROOT, make_config
++from protocol import ARMS, ROOT, SEEDS, make_config
+ from freeze import verify
+ 
+ 
+@@ -47,7 +47,7 @@
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--arm", choices=ARMS, required=True)
+-    ap.add_argument("--seed", type=int, choices=range(1, 11), required=True)
++    ap.add_argument("--seed", type=int, choices=SEEDS, required=True)
+     ap.add_argument("--attempt-dir", type=Path, required=True)
+     ap.add_argument("--profile", choices=("production", "smoke"), default="production")
+     ap.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
+@@ -60,7 +60,7 @@
+             raise SystemExit("Production requires the validated regression/smoke gate")
+     root = args.attempt_dir.resolve()
+     root.mkdir(parents=True, exist_ok=False)
+-    state = dict(arm=args.arm, seed=args.seed, profile=args.profile, status="running",
++    state = dict(arm=args.arm, seed=args.seed, profile=args.profile, status="running", pid=os.getpid(),
+                  source_manifest_sha256=snapshot, checkpoint_continuation=False,
+                  retry_reason=args.retry_reason, started_utc=datetime.now(timezone.utc).isoformat())
+     status_path = root / "status.json"
+@@ -83,6 +83,9 @@
+         run_training(cfg, ROOT)
+         from analyze import validate_run
+         metrics = validate_run(root, args.profile, require_status=False)
++        from completion import audit_checkpoint
++        checkpoint_audit = audit_checkpoint(root, cfg.as_dict())
++        write_json(root / "checkpoint_audit.json", checkpoint_audit)
+         state.update(status="complete", metrics=metrics)
+     except FloatingPointError as exc:
+         state.update(status="failed_learning", error=str(exc))
+--- seed1_10/validate.py
++++ seed11_20/validate.py
+@@ -6,7 +6,7 @@
+ from datetime import datetime, timezone
+ from pathlib import Path
+ 
+-from protocol import ROOT, ARMS
++from protocol import ROOT, ARMS, SEEDS
+ from freeze import verify
+ from analyze import accepted_attempt, validate_run, read_json
+ 
+@@ -27,7 +27,7 @@
+     if args.smoke_root:
+         runs = {}
+         for arm in ARMS:
+-            attempt = accepted_attempt(args.smoke_root.resolve() / "smoke" / arm / "seed_01")
++            attempt = accepted_attempt(args.smoke_root.resolve() / "smoke" / arm / f"seed_{SEEDS[0]:02d}")
+             if read_json(attempt / "status.json")["source_manifest_sha256"] != snapshot:
+                 raise ValueError("Smoke source differs from current snapshot")
+             runs[arm] = validate_run(attempt, "smoke")

@@ -1,0 +1,7 @@
+{
+  "checkpoints": 36,
+  "goal_kinds_per_checkpoint": 2,
+  "total_queries": 18432,
+  "optimizer_updates": 0,
+  "post_hoc_added_after_rollout_saturation_observed": true
+}

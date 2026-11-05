@@ -1,0 +1,11 @@
+{
+  "bank_sha256": "9ca6f2dca757de3bef79f4000a34e9e527d428766d5ad1aff1421f9de2e7fc51",
+  "native_tail_her_goal_max_abs_difference": 0.1899999976158142,
+  "native_tail_original_goal_max_abs_difference": 0.0,
+  "note": "Tail agreement is a representation diagnostic, not evidence of causal harm; no input is changed.",
+  "observation_dim": 39,
+  "probe_environment_steps": 800,
+  "query_count": 32,
+  "simulator_state_serialized": false,
+  "training_streams_used": false
+}

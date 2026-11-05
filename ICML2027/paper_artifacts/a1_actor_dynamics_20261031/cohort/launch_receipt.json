@@ -1,0 +1,25 @@
+{
+  "arms": [
+    "her",
+    "saber",
+    "random",
+    "td_topk"
+  ],
+  "automatic_analysis_after_training": true,
+  "automatic_retries": false,
+  "checkpoint_continuation": false,
+  "experiment": "A1 early actor dynamics pilot",
+  "launcher_log": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01_launcher.log",
+  "recorded_utc": "2026-10-31T03:40:30.072532+00:00",
+  "seeds": [
+    101,
+    102,
+    103
+  ],
+  "source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "steps_per_run": 500000,
+  "tmux_session": "saber_a1_20261031",
+  "total_runs": 12,
+  "total_training_steps": 6000000,
+  "workers": 2
+}

@@ -1,0 +1,6 @@
+# Keep frozen source and evidence bytes identical across checkout platforms.
+# Their manifests hash the original bytes, including native CSV line endings.
+diagnostics/** -text
+experiments/draweropen_ddpg_actor_dynamics_20261031/** -text
+paper_artifacts/a1_actor_dynamics_20261031/** -text
+experment_design/2026-10-30_additional_experiments/** -text

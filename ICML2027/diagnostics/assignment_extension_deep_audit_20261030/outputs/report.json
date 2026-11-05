@@ -1,0 +1,556 @@
+{
+  "scope": "Exploratory diagnosis, not new confirmatory evidence",
+  "log_audit": {
+    "passed": true,
+    "config_parity": true,
+    "environment_parity": true,
+    "code_parity": true,
+    "historical_environment_verified": false,
+    "new_environment": {
+      "architecture": "aarch64",
+      "cpu_count": 20,
+      "cpu_model": "aarch64",
+      "cudnn": 92000,
+      "gpu": [
+        {
+          "cuda_addressable_bytes": 130663231488,
+          "name": "NVIDIA GB10"
+        }
+      ],
+      "host": "aitopatom-164d",
+      "nvidia_driver": "580.159.03",
+      "packages": {
+        "Farama-Notifications": "0.0.6",
+        "ImageIO": "2.37.3",
+        "Jinja2": "3.1.6",
+        "MarkupSafe": "3.0.3",
+        "PyOpenGL": "3.1.10",
+        "absl-py": "2.5.0",
+        "cloudpickle": "3.1.2",
+        "cuda-bindings": "13.3.1",
+        "cuda-pathfinder": "1.5.6",
+        "cuda-toolkit": "13.0.2",
+        "etils": "1.14.0",
+        "filelock": "3.29.7",
+        "fsspec": "2026.6.0",
+        "glfw": "2.10.0",
+        "gymnasium": "1.3.0",
+        "gymnasium-robotics": "1.4.2",
+        "llvmlite": "0.48.0",
+        "metaworld": "3.1.1",
+        "mpmath": "1.3.0",
+        "mujoco": "3.3.0",
+        "networkx": "3.6.1",
+        "numba": "0.66.0",
+        "numpy": "2.3.5",
+        "nvidia-cublas": "13.1.1.3",
+        "nvidia-cuda-cupti": "13.0.85",
+        "nvidia-cuda-nvrtc": "13.0.88",
+        "nvidia-cuda-runtime": "13.0.96",
+        "nvidia-cudnn-cu13": "9.20.0.48",
+        "nvidia-cufft": "12.0.0.61",
+        "nvidia-cufile": "1.15.1.6",
+        "nvidia-curand": "10.4.0.35",
+        "nvidia-cusolver": "12.0.4.66",
+        "nvidia-cusparse": "12.6.3.3",
+        "nvidia-cusparselt-cu13": "0.8.1",
+        "nvidia-nccl-cu13": "2.29.7",
+        "nvidia-nvjitlink": "13.0.88",
+        "nvidia-nvshmem-cu13": "3.4.5",
+        "nvidia-nvtx": "13.0.85",
+        "packaging": "26.2",
+        "pettingzoo": "1.26.1",
+        "pillow": "12.3.0",
+        "pip": "24.0",
+        "scipy": "1.18.0",
+        "setuptools": "81.0.0",
+        "sympy": "1.14.0",
+        "torch": "2.12.1",
+        "triton": "3.7.1",
+        "typing_extensions": "4.16.0",
+        "zipp": "4.1.0"
+      },
+      "physical_memory_bytes": 130663231488,
+      "platform": "Linux-6.17.0-1026-nvidia-aarch64-with-glibc2.39",
+      "python": "3.12.3",
+      "threads": {
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      },
+      "torch_cuda_build": "13.0"
+    },
+    "decomposition": {
+      "support": {
+        "old_hit90_fraction": 0.9,
+        "new_hit90_fraction": 0.4,
+        "old_hit_group_auc": 0.7251256281407036,
+        "new_hit_group_auc": 0.7719221105527638,
+        "old_nohit_group_auc": 0.0,
+        "new_nohit_group_auc": 4.187604690117253e-05,
+        "observed_mean_change": -0.343819095477387,
+        "descriptive_hit_fraction_component": -0.3742514656616416,
+        "descriptive_conditional_auc_component": 0.03043237018425457,
+        "causal_interpretation": false
+      },
+      "random": {
+        "old_hit90_fraction": 0.7,
+        "new_hit90_fraction": 0.8,
+        "old_hit_group_auc": 0.736683417085427,
+        "new_hit_group_auc": 0.6717650753768845,
+        "old_nohit_group_auc": 0.0,
+        "new_nohit_group_auc": 0.0,
+        "observed_mean_change": 0.021733668341708645,
+        "descriptive_hit_fraction_component": 0.07042242462311563,
+        "descriptive_conditional_auc_component": -0.04868875628140687,
+        "causal_interpretation": false
+      },
+      "td_topk": {
+        "old_hit90_fraction": 0.7,
+        "new_hit90_fraction": 0.8,
+        "old_hit_group_auc": 0.7637473079684135,
+        "new_hit_group_auc": 0.7616520100502513,
+        "old_nohit_group_auc": 0.0,
+        "new_nohit_group_auc": 0.0001256281407035176,
+        "observed_mean_change": 0.07472361809045236,
+        "descriptive_hit_fraction_component": 0.07626368449389813,
+        "descriptive_conditional_auc_component": -0.0015400664034457773,
+        "causal_interpretation": false
+      }
+    },
+    "exploratory_paired_hit90_tests": {
+      "random": {
+        "support_only": 1,
+        "control_only": 5,
+        "exact_two_sided_p": 0.21875,
+        "nominal_exploratory_not_multiplicity_adjusted": true
+      },
+      "td_topk": {
+        "support_only": 0,
+        "control_only": 4,
+        "exact_two_sided_p": 0.125,
+        "nominal_exploratory_not_multiplicity_adjusted": true
+      }
+    },
+    "primary_inference_unchanged": {
+      "support_minus_random": {
+        "mean": -0.22861809045226136,
+        "positive_pairs": 3,
+        "seed_differences": [
+          0.36381909547738694,
+          0.1620603015075377,
+          -0.6859296482412061,
+          0.0,
+          -0.6394472361809045,
+          -0.7796482412060302,
+          -0.0027638190954774045,
+          -0.7447236180904523,
+          0.757035175879397,
+          -0.7165829145728644
+        ],
+        "ci95": [
+          -0.5469139447236181,
+          0.10462499999999995
+        ],
+        "ci97_5_bonferroni": [
+          -0.5804874371859297,
+          0.163372801507538
+        ]
+      },
+      "support_minus_td_topk": {
+        "mean": -0.3005527638190955,
+        "positive_pairs": 1,
+        "seed_differences": [
+          0.042713567839196,
+          -0.06658291457286436,
+          -0.0002512562814070352,
+          -0.742713567839196,
+          -0.7736180904522613,
+          0.0,
+          -0.0017587939698493482,
+          -0.6120603015075377,
+          -0.03768844221105527,
+          -0.81356783919598
+        ],
+        "ci95": [
+          -0.5302022613065327,
+          -0.08379208542713575
+        ],
+        "ci97_5_bonferroni": [
+          -0.5571372487437186,
+          -0.07065326633165828
+        ]
+      }
+    }
+  },
+  "checkpoint_audit": {
+    "checkpoints": 36,
+    "queries": 18432,
+    "parity_mismatches": 0,
+    "index_failures": 0,
+    "cache_mismatches": 0,
+    "replayed_episodes": 120,
+    "rollout_environment_steps": 24000,
+    "paired_initial_states_identical": true,
+    "original_binary_final_success_reproduced": true,
+    "new_training_updates": 0
+  },
+  "full_reference_queries": 576,
+  "tail_misses_in_full_reference_subset": 143,
+  "leave_one_out_decision_changes": 0,
+  "rollout_summary": [
+    {
+      "arm": "support",
+      "seed": 11,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.0653325617313385,
+      "mean_approach_fraction": 0.12874999999999998,
+      "mean_action_saturation": 0.7215625
+    },
+    {
+      "arm": "support",
+      "seed": 12,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.008404920808970928,
+      "mean_approach_fraction": 0.16499999999999998,
+      "mean_action_saturation": 0.5375
+    },
+    {
+      "arm": "support",
+      "seed": 13,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.17402057349681854,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "support",
+      "seed": 14,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.1671099215745926,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "support",
+      "seed": 15,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.16750645637512207,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "support",
+      "seed": 16,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.16640150547027588,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "support",
+      "seed": 17,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.0085451016202569,
+      "mean_approach_fraction": 0.06625,
+      "mean_action_saturation": 0.4821875
+    },
+    {
+      "arm": "support",
+      "seed": 18,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.1710541844367981,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "support",
+      "seed": 19,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.06674738973379135,
+      "mean_approach_fraction": 0.27625,
+      "mean_action_saturation": 0.6556250000000001
+    },
+    {
+      "arm": "support",
+      "seed": 20,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.1675238311290741,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "random",
+      "seed": 11,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.004439132753759623,
+      "mean_approach_fraction": 0.2775,
+      "mean_action_saturation": 0.6481250000000001
+    },
+    {
+      "arm": "random",
+      "seed": 12,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.00782853364944458,
+      "mean_approach_fraction": 0.105,
+      "mean_action_saturation": 0.5525
+    },
+    {
+      "arm": "random",
+      "seed": 13,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.06555904448032379,
+      "mean_approach_fraction": 0.09,
+      "mean_action_saturation": 0.5918749999999999
+    },
+    {
+      "arm": "random",
+      "seed": 14,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.1667655110359192,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "random",
+      "seed": 15,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.005333164241164923,
+      "mean_approach_fraction": 0.12375,
+      "mean_action_saturation": 0.685
+    },
+    {
+      "arm": "random",
+      "seed": 16,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.005425422452390194,
+      "mean_approach_fraction": 0.07625,
+      "mean_action_saturation": 0.5346875
+    },
+    {
+      "arm": "random",
+      "seed": 17,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.03473038971424103,
+      "mean_approach_fraction": 0.29,
+      "mean_action_saturation": 0.654375
+    },
+    {
+      "arm": "random",
+      "seed": 18,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.010277381166815758,
+      "mean_approach_fraction": 0.25125000000000003,
+      "mean_action_saturation": 0.7428125000000001
+    },
+    {
+      "arm": "random",
+      "seed": 19,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.16713126003742218,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 0.8534375
+    },
+    {
+      "arm": "random",
+      "seed": 20,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.0049571809358894825,
+      "mean_approach_fraction": 0.08625000000000001,
+      "mean_action_saturation": 0.6728125
+    },
+    {
+      "arm": "td_topk",
+      "seed": 11,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.06510896980762482,
+      "mean_approach_fraction": 0.1425,
+      "mean_action_saturation": 0.7
+    },
+    {
+      "arm": "td_topk",
+      "seed": 12,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.01483473926782608,
+      "mean_approach_fraction": 0.1175,
+      "mean_action_saturation": 0.6134375
+    },
+    {
+      "arm": "td_topk",
+      "seed": 13,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.173641175031662,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "td_topk",
+      "seed": 14,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.007007742766290903,
+      "mean_approach_fraction": 0.0825,
+      "mean_action_saturation": 0.363125
+    },
+    {
+      "arm": "td_topk",
+      "seed": 15,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.018276292830705643,
+      "mean_approach_fraction": 0.065,
+      "mean_action_saturation": 0.599375
+    },
+    {
+      "arm": "td_topk",
+      "seed": 16,
+      "episodes": 4,
+      "successes": 0,
+      "contact_episodes": 0,
+      "opening_episodes": 0,
+      "min_hand_distance": 0.16821911931037903,
+      "mean_approach_fraction": 1.0,
+      "mean_action_saturation": 1.0
+    },
+    {
+      "arm": "td_topk",
+      "seed": 17,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.008166421204805374,
+      "mean_approach_fraction": 0.0675,
+      "mean_action_saturation": 0.4109375
+    },
+    {
+      "arm": "td_topk",
+      "seed": 18,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.004989011213183403,
+      "mean_approach_fraction": 0.15125,
+      "mean_action_saturation": 0.4153125
+    },
+    {
+      "arm": "td_topk",
+      "seed": 19,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.0230940543115139,
+      "mean_approach_fraction": 0.10375,
+      "mean_action_saturation": 0.5303125
+    },
+    {
+      "arm": "td_topk",
+      "seed": 20,
+      "episodes": 4,
+      "successes": 4,
+      "contact_episodes": 4,
+      "opening_episodes": 4,
+      "min_hand_distance": 0.01386940386146307,
+      "mean_approach_fraction": 0.06125,
+      "mean_action_saturation": 0.459375
+    }
+  ],
+  "gradient_audit": {
+    "checkpoints": 36,
+    "goal_kinds_per_checkpoint": 2,
+    "total_queries": 18432,
+    "optimizer_updates": 0,
+    "post_hoc_added_after_rollout_saturation_observed": true
+  },
+  "exploration_calculation": {
+    "conditional_assumption": "deterministic z action exactly +1; additive independent Normal(0,0.2^2), clipped to [-1,1]",
+    "probability_noisy_z_negative": 2.8665157187919344e-07,
+    "mean_steps_per_negative_z": 3488555.787237896,
+    "probability_behavior_same_4d_corner_bin_under_K5": 0.9120580520993946,
+    "interpretation": "Conditional calculation only; does not assert the policy was saturated for the entire historical training trajectory."
+  },
+  "geometry_audit": {
+    "jsonl_evaluations": 6000,
+    "primary_success_matches_csv": true,
+    "csv_unprefixed_geometry": "Last training HER minibatch, inherited through _metric_row(last_lite)",
+    "jsonl_unprefixed_geometry": "Actual policy evaluation, overwritten by **eval_metrics in JSONL writer",
+    "primary_metric_affected": false,
+    "extra_diagnostics_interpretation_affected": true
+  },
+  "source_learning_runs_unchanged": true
+}

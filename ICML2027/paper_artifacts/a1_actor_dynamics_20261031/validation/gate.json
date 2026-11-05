@@ -1,0 +1,28 @@
+{
+  "environment": {
+    "architecture": "aarch64",
+    "device": "cpu",
+    "packages": {
+      "gymnasium": "1.3.0",
+      "gymnasium-robotics": "1.4.2",
+      "metaworld": "3.1.1",
+      "mujoco": "3.3.0",
+      "numba": "0.66.0",
+      "numpy": "2.3.5",
+      "torch": "2.12.1"
+    },
+    "python": "3.12.3",
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "NUMBA_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "torch_threads": 1
+  },
+  "passed": true,
+  "report_path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/validation/runs/check_01/report.json",
+  "report_sha256": "8883dd6a1fb35706f3efdcaa8ed937c4f144c650b973ecfcd33327b893d92ec2",
+  "source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "validated_utc": "2026-10-31T03:33:40.706305+00:00"
+}

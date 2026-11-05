@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-30",
+  "status": "proposal_only_no_training_started_or_queued",
+  "github_reference": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+  "independent_unit": "training_seed_within_declared_execution_cohort",
+  "budget_caution": "Pilot sizes are feasibility examples, not power calculations or automatic production authorizations. Alternatives are not one combined queue.",
+  "candidates": [
+    {
+      "id": "A1",
+      "priority": "first_training_candidate",
+      "question": "When do actor output saturation and loss of usable actor gradients emerge under each critic allocation rule?",
+      "arms": ["her", "saber", "context_eligible_random_assignment", "td_error_topk"],
+      "pilot_seeds": [101, 102, 103],
+      "steps_per_run": 500000,
+      "new_training_runs": 12,
+      "new_environment_steps": 6000000,
+      "primary_scope": "exploratory_event_trajectories_and_measurement_validation",
+      "preconditions": ["effective_config_parity", "non_consuming_diagnostic_rng", "independent_actor_and_critic_gradient_measurements", "balanced_randomized_arm_order", "dense_early_checkpoint_schedule"],
+      "limits": ["n3_does_not_establish_failure_probability", "no_event_before_500k_is_censored_at_500k", "temporal_order_is_not_causal_identification"]
+    },
+    {
+      "id": "A2",
+      "priority": "after_A1_checkpoints",
+      "question": "At a shared checkpoint, does support allocation change policy-query accuracy or the critic action-gradient direction beyond matched-count alternatives?",
+      "arms": ["uniform", "support", "random", "td_topk"],
+      "new_training_runs": 0,
+      "new_environment_steps": null,
+      "environment_steps_note": "Separate evaluation rollouts required; no new online training cohort. Final query and rollout counts are fixed before execution.",
+      "critic_updates_per_independent_branch": [1, 10],
+      "preconditions": ["clone_critic_and_adam", "fixed_actor_targets_replay_batches_goals", "fixed_policy_rollout_reference", "predeclared_query_bank", "original_and_her_goal_results_separated"],
+      "limits": ["existing_single_seed_Q_diagnostics_already_completed", "does_not_replace_online_AUC", "value_accuracy_does_not_guarantee_actor_gradient_accuracy"]
+    },
+    {
+      "id": "A3",
+      "priority": "optional_recovery_diagnostic",
+      "question": "Does an explicitly specified pre-tanh intervention release the terminal zero-gradient trap?",
+      "new_training_runs": null,
+      "new_environment_steps": null,
+      "preconditions": ["new_diagnostic_branch_protocol", "unchanged_checkpoint_control", "explicit_actor_target_optimizer_handling"],
+      "limits": ["not_evidence_for_initial_cause", "not_original_SABER_performance", "post_tanh_penalty_can_have_zero_gradient"]
+    },
+    {
+      "id": "B1",
+      "priority": "parallel_no_training_audit",
+      "question": "Which goal fields remain in actual model inputs after HER relabeling?",
+      "new_training_runs": 0,
+      "new_environment_steps": null,
+      "preconditions": ["inspect_actual_native_observation_layout", "verify_reward_goal_and_input_goal_semantics"],
+      "limits": ["conflicting_goal_fields_alone_do_not_prove_causal_harm"]
+    },
+    {
+      "id": "B2",
+      "priority": "conditional_on_B1",
+      "question": "Does consistent goal representation change the HER-versus-SABER effect?",
+      "arms": ["legacy_her", "legacy_saber", "masked_native_goal_her", "masked_native_goal_saber"],
+      "pilot_seeds": [101, 102, 103],
+      "steps_per_run": 500000,
+      "new_training_runs": 12,
+      "new_environment_steps": 6000000,
+      "preconditions": ["physical_information_not_masked", "constant_network_dimensions", "same_representation_for_all_current_next_actor_target_and_eval_paths", "new_protocol_version"],
+      "limits": ["500k_pilot_not_2m_performance_evidence", "old_results_retained", "shared_caveat_does_not_imply_equal_effect_on_all_methods"]
+    },
+    {
+      "id": "C1",
+      "priority": "generality_after_core_diagnosis",
+      "question": "Can a reduced common context retain utility when its rule is frozen before target-task evaluation?",
+      "arms": ["her", "saber_original_context", "saber_common_context"],
+      "development_task": "FetchPickAndPlace-DDPG",
+      "target_task": "DrawerOpen-DDPG_or_separately_pinned_TD3_design",
+      "pilot_seeds": [101, 102, 103],
+      "steps_per_run": 1000000,
+      "new_training_runs": 9,
+      "new_environment_steps": 9000000,
+      "target_training_budget": null,
+      "preconditions": ["source_rule_frozen_before_target_outcomes", "document_observation_adapters", "no_hidden_legacy_context_in_retrieval_key", "audited_baseline_reuse_only"],
+      "limits": ["design_transfer_not_policy_zero_shot_generalization", "three_scalar_manipulation_context_not_directly_navigation_general"]
+    },
+    {
+      "id": "D1",
+      "priority": "sensitivity_followup",
+      "question": "Does changing the effective minimum context population change signal and learning?",
+      "effective_N_local_values": [4, 8, 16],
+      "M_Q_min": 4,
+      "M_B": 16,
+      "pilot_seeds": [101, 102, 103],
+      "steps_per_run": 2000000,
+      "new_training_runs": 9,
+      "new_environment_steps": 18000000,
+      "preconditions": ["explicit_N_local_not_reset_by_normalize", "requested_effective_config_equal", "baseline_parity_and_threshold_boundary_checks"],
+      "limits": ["no_robustness_claim_from_identical_effective_thresholds", "existing_lambda_pilot_not_repeated_as_missing"]
+    },
+    {
+      "id": "D2",
+      "priority": "static_first",
+      "question": "How do scan budget and discretization affect missed occupancy, allocation and cost across learning stages?",
+      "new_training_runs": 0,
+      "new_environment_steps": 0,
+      "preconditions": ["sufficient_stage_checkpoints_exist", "same_query_bank_and_context_definition", "full_reference_not_true_continuous_support_oracle"],
+      "limits": ["online_followup_requires_new_fixed_protocol", "scan_budget_and_scan_rule_are_different_factors"]
+    },
+    {
+      "id": "D3",
+      "priority": "implementation_and_existing_result_audit_first",
+      "question": "Does context population without any policy-action query suffice?",
+      "new_training_runs": null,
+      "new_environment_steps": null,
+      "preconditions": ["check_existing_context_count_only_code_and_all_available_outputs", "do_not_confuse_with_count_matched_random_using_support_derived_k"],
+      "limits": ["not_assumed_unimplemented_or_unexecuted"]
+    },
+    {
+      "id": "D4",
+      "priority": "one_representative_backbone_condition",
+      "question": "Does the support-versus-matched-control finding transport beyond DDPG?",
+      "new_training_runs": null,
+      "new_environment_steps": null,
+      "preconditions": ["audit_existing_FPP_TD3_controls", "separate_backbone_and_task_effects", "freeze_added_control_scope"],
+      "limits": ["do_not_duplicate_completed_SAC_main_comparisons"]
+    },
+    {
+      "id": "E1",
+      "priority": "matched_measurement_cost_followup",
+      "question": "What performance benefit remains per wall-clock budget under equal instrumentation and host load?",
+      "arms": ["her", "saber", "pal"],
+      "new_training_runs": null,
+      "new_environment_steps": null,
+      "preconditions": ["matched_hardware_threads_load_logging_eval", "include_index_construction_updates_and_lookup", "separate_fixed_replay_microbenchmark_from_online_time"],
+      "limits": ["current_assignment_vs_PAL_runtime_is_not_fair_algorithm_cost_comparison"]
+    }
+  ],
+  "not_prioritized": ["continue_seeds_until_positive_CI", "rerun_completed_PAL_as_new_baseline", "rerun_completed_lambda_pilot_as_missing", "rerun_completed_random512_comparison_as_pending", "fill_already_completed_drawer_SAC_tables_again", "all_task_backbone_cartesian_product"],
+  "statistical_policy": {
+    "confidence_level": 0.95,
+    "precision_target": null,
+    "minimum_meaningful_effect": null,
+    "confirmatory_seed_count": null,
+    "note": "Choose precision, effect and final n before new main outcomes; 0 inclusion is not a publication validity gate. Preserve negative outcomes and execution cohorts."
+  }
+}

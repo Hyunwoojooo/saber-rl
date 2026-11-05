@@ -1,0 +1,76 @@
+{
+  "environment": {
+    "architecture": "aarch64",
+    "device": "cpu",
+    "packages": {
+      "gymnasium": "1.3.0",
+      "gymnasium-robotics": "1.4.2",
+      "metaworld": "3.1.1",
+      "mujoco": "3.3.0",
+      "numba": "0.66.0",
+      "numpy": "2.3.5",
+      "torch": "2.12.1"
+    },
+    "python": "3.12.3",
+    "threads": {
+      "MKL_NUM_THREADS": "1",
+      "NUMBA_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "torch_threads": 1
+  },
+  "finished_utc": "2026-10-31T03:33:40.706084+00:00",
+  "fixed_probe_bank_parity": true,
+  "observer_on_off_state_parity": true,
+  "passed": true,
+  "pilot_runs_started": 0,
+  "prelearning_checkpoint_parity": true,
+  "runs": [
+    {
+      "arm": "her",
+      "critic_and_actor_updates": 5201,
+      "diagnostics": "on",
+      "scheduled_checkpoints": 7,
+      "status": "complete",
+      "training_steps": 10200
+    },
+    {
+      "arm": "saber",
+      "critic_and_actor_updates": 5201,
+      "diagnostics": "on",
+      "scheduled_checkpoints": 7,
+      "status": "complete",
+      "training_steps": 10200
+    },
+    {
+      "arm": "random",
+      "critic_and_actor_updates": 5201,
+      "diagnostics": "on",
+      "scheduled_checkpoints": 7,
+      "status": "complete",
+      "training_steps": 10200
+    },
+    {
+      "arm": "td_topk",
+      "critic_and_actor_updates": 5201,
+      "diagnostics": "on",
+      "scheduled_checkpoints": 7,
+      "status": "complete",
+      "training_steps": 10200
+    },
+    {
+      "arm": "saber",
+      "critic_and_actor_updates": 5201,
+      "diagnostics": "off",
+      "scheduled_checkpoints": 0,
+      "status": "complete",
+      "training_steps": 10200
+    }
+  ],
+  "source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "started_utc": "2026-10-31T03:25:33.129267+00:00",
+  "training_steps_total": 51000,
+  "unit_tests_passed": 14,
+  "validation_report_sha256": "8883dd6a1fb35706f3efdcaa8ed937c4f144c650b973ecfcd33327b893d92ec2"
+}

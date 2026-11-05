@@ -1,0 +1,419 @@
+{
+  "created_utc": "2026-10-30T10:49:59.780631+00:00",
+  "scope": "Evidence inventory for an experiment agenda; not a new full audit of all raw runs.",
+  "git_reference": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+  "source_entries": [
+    {
+      "id": "assignment_final",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/outputs/final/report.json",
+      "bytes": 10207,
+      "sha256": "0206dd22508dbab7dbcdf94059432944f687c9ef40c4dbda43d9c78871c8b869"
+    },
+    {
+      "id": "assignment_final_text",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/outputs/final/REPORT.md",
+      "bytes": 2419,
+      "sha256": "8ba049de10d584e2b71497de3e5d107b4b4482aa2279bfd63e66f6ae751f8a51"
+    },
+    {
+      "id": "deep_audit",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/diagnostics/assignment_extension_deep_audit_20261030/outputs/REPORT_ko.md",
+      "bytes": 17065,
+      "sha256": "17318fcdadb04316726f9909c736fb6ce3f6dc1c8f450e83f02014fd4394bbe7"
+    },
+    {
+      "id": "deep_audit_json",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/diagnostics/assignment_extension_deep_audit_20261030/outputs/report.json",
+      "bytes": 15981,
+      "sha256": "c093cf78504693b74a8419c81c0b6d7f024e9de5fe7d445796275f813fac3a0a"
+    },
+    {
+      "id": "source_reaudit",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/diagnostics/assignment_source_reaudit_20261030/REPORT_ko.md",
+      "bytes": 5255,
+      "sha256": "3aa708fc09a84b9acf6a680420e54beb4dcf0e8c9c44d77f19f946d8945c671f"
+    },
+    {
+      "id": "lambda_final",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_lambda_sensitivity_20261015/outputs/analysis/report.json",
+      "bytes": 2290,
+      "sha256": "d54be38a2edd91eb0604f27ab2179e7043811e15a588c024acb96a4fa0b69585"
+    },
+    {
+      "id": "lambda_protocol",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_lambda_sensitivity_20261015/PROTOCOL.md",
+      "bytes": 6826,
+      "sha256": "61ee88cb40942cb8832bbac0d640ac424f44fd2183ac6af0be26e7d2a5685b50"
+    },
+    {
+      "id": "lambda_status",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_lambda_sensitivity_20261015/outputs/automation/status.json",
+      "bytes": 2067,
+      "sha256": "86d8d3cc4408633fc3d951ad51b59e00218e5c40533f7d3480e08b146c649d30"
+    },
+    {
+      "id": "q_error_findings",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_q_error_audit_20261015/FINDINGS_ko.md",
+      "bytes": 4764,
+      "sha256": "1364436448aca60ef8aafdb464a01e48ca37d25eb028fe9d7f4c7335c3e606d6"
+    },
+    {
+      "id": "q_error_report",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_q_error_audit_20261015/outputs/attempt_01/REPORT.md",
+      "bytes": 5509,
+      "sha256": "b359f9fdcbb7ed927acc783af87a7f651123f46fc499b19f0c93710d4bb5f0c8"
+    },
+    {
+      "id": "prior_policy_query_design",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experment_design/01_policy_query_value_diagnostic.md",
+      "bytes": 21172,
+      "sha256": "4c76a1cf013b14bf37b93067647218739f787a8998de316d85e09b1f0a9cf7ac"
+    },
+    {
+      "id": "prior_sensitivity_design",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experment_design/02_support_hyperparameter_sensitivity.md",
+      "bytes": 15836,
+      "sha256": "1a53d04d742f0c521c96f695082755bf75dd70dd689c15b90821c8f2bf645c44"
+    },
+    {
+      "id": "prior_transfer_design",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experment_design/03_common_context_transfer.md",
+      "bytes": 20401,
+      "sha256": "9c5b54a91f55769274e85177a137886f72aa247fc6cddbc275a6692a72dc8624"
+    },
+    {
+      "id": "existing_context_only_source",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/metaworld_Drawer_Open_DDPG/code/src/metacog_lite_v0/weights.py",
+      "bytes": 76516,
+      "sha256": "c800fd598a9ef249cb60714395fcb55ddbd42bb625cf8652bd7a7fd0959a35d0"
+    },
+    {
+      "id": "existing_context_only_queue",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/metaworld_Drawer_Open_DDPG/queue_context_count_only_after_strict.sh",
+      "bytes": 4041,
+      "sha256": "a41cea4dcd8e13828f3656fc1f0e1fa4eb9f931b3896642d1f52221fec603803"
+    },
+    {
+      "id": "assignment_native_config.py",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/study/code/src/metacog_lite_v0/config.py",
+      "bytes": 20626,
+      "sha256": "1338e48e8e0f8e9d9c203b577f99bd49791cebae0d57cca9751b418de1ec5cd7"
+    },
+    {
+      "id": "assignment_native_envs.py",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/study/code/src/metacog_lite_v0/envs.py",
+      "bytes": 12291,
+      "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b"
+    },
+    {
+      "id": "assignment_native_trainer.py",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/study/code/src/metacog_lite_v0/trainer.py",
+      "bytes": 99142,
+      "sha256": "3db3dcc3c7514137300a8dc85a2e55ac308f2041ccd34b128ea25aabdca5cdca"
+    },
+    {
+      "id": "assignment_native_weights.py",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/study/code/src/metacog_lite_v0/weights.py",
+      "bytes": 80231,
+      "sha256": "9c2ae980dde6136b9bdc7c6f41a080ad0d49b1488a172b2340966ed139c6d0b8"
+    },
+    {
+      "id": "assignment_native_task_drawer_open.py",
+      "type": "local",
+      "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/study/code/src/metacog_lite_v0/task_drawer_open.py",
+      "bytes": 9112,
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
+    },
+    {
+      "id": "published_assignment",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "ICML_27/experiments/draweropen_ddpg_saber_vs_random_vs_td_topk/README.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/ICML_27/experiments/draweropen_ddpg_saber_vs_random_vs_td_topk/README.md",
+      "bytes": 2163,
+      "sha256": "1edd4e41ad4ec1b5ef5da71adcc3c1ac3607392751a4a12bacf3f6ce07dddee7"
+    },
+    {
+      "id": "published_pal",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "ICML_27/experiments/draweropen_ddpg_saber_vs_pal/README.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/ICML_27/experiments/draweropen_ddpg_saber_vs_pal/README.md",
+      "bytes": 1919,
+      "sha256": "3e9be57d88dfbfce0fa24f02a95d52d23e739f491567f1bb55de209c14f0eebc"
+    },
+    {
+      "id": "published_random512",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "ICML_27/experiments/draweropen_ddpg_saber_tail_vs_random512/README.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/ICML_27/experiments/draweropen_ddpg_saber_tail_vs_random512/README.md",
+      "bytes": 2088,
+      "sha256": "16954e39853eeca42df3ff951c8bc4ba2943c1740d0f8f9e2f7c6763db901d96"
+    },
+    {
+      "id": "published_sac_her_saber",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/README.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/README.md",
+      "bytes": 2956,
+      "sha256": "cde7f4d97091dedd9f2d8644167c2b12a2c95d601b5aeefdc4db096955433125"
+    },
+    {
+      "id": "published_sac_hgr_per",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/README.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/README.md",
+      "bytes": 2907,
+      "sha256": "72ce205265417df1fddf9a01593fa1139d3c3df542f3022a4059e6eafdcff03d"
+    },
+    {
+      "id": "published_main_ddpg",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/README.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/README.md",
+      "bytes": 8558,
+      "sha256": "db2c85644e4d652f23e93fcc9648eb020faea351d41fa4a7f56854e92da35040"
+    },
+    {
+      "id": "published_main_ddpg_provenance",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/provenance.json",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/metaworld_Drawer_Open_DDPG/paper_artifacts/drawer_open_ddpg_main_seed_extension_2m/provenance.json",
+      "bytes": 57014,
+      "sha256": "23d563ddec47bfa73d8a213857993ab58e032faf78a3a0804eb62c09bb043b7f"
+    },
+    {
+      "id": "published_handoff",
+      "type": "git_blob",
+      "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+      "path": "ICML_27/postAAAI_Review.md",
+      "url": "https://github.com/Hyunwoojooo/saber-rl/blob/1c6f2872acb1bc9bccd81908a8ebcceab6392efc/ICML_27/postAAAI_Review.md",
+      "bytes": 73357,
+      "sha256": "03d1677cb15f25c1b68463d6c8c557859d984554186d9ecbf877308b215f0719"
+    }
+  ],
+  "observed_results": {
+    "assignment_cohorts": {
+      "historical_1_10": {
+        "auc": {
+          "random": {
+            "mean": 0.5156783919597989,
+            "sd": 0.3594426615756658
+          },
+          "support": {
+            "mean": 0.6526130653266332,
+            "sd": 0.24840218588350135
+          },
+          "td_topk": {
+            "mean": 0.5346231155778894,
+            "sd": 0.3801913876924001
+          }
+        },
+        "contrasts": {
+          "support_minus_random": {
+            "mean": 0.13693467336683418,
+            "ci95": [
+              -0.12745131909547738,
+              0.38433448492462313
+            ]
+          },
+          "support_minus_td_topk": {
+            "mean": 0.11798994974874373,
+            "ci95": [
+              -0.05486557788944726,
+              0.32491677135678365
+            ]
+          }
+        }
+      },
+      "new_11_20": {
+        "auc": {
+          "random": {
+            "mean": 0.5374120603015076,
+            "sd": 0.30549128031818795
+          },
+          "support": {
+            "mean": 0.30879396984924623,
+            "sd": 0.39884271883403005
+          },
+          "td_topk": {
+            "mean": 0.6093467336683418,
+            "sd": 0.3281934088083351
+          }
+        },
+        "contrasts": {
+          "support_minus_random": {
+            "mean": -0.22861809045226136,
+            "ci95": [
+              -0.5469139447236181,
+              0.10462499999999995
+            ]
+          },
+          "support_minus_td_topk": {
+            "mean": -0.3005527638190955,
+            "ci95": [
+              -0.5302022613065327,
+              -0.08379208542713575
+            ]
+          }
+        }
+      },
+      "pooled_1_20": {
+        "auc": {
+          "random": {
+            "mean": 0.5265452261306534,
+            "sd": 0.3248544050799678
+          },
+          "support": {
+            "mean": 0.4807035175879396,
+            "sd": 0.36835839919853564
+          },
+          "td_topk": {
+            "mean": 0.5719849246231157,
+            "sd": 0.34779196286596153
+          }
+        },
+        "contrasts": {
+          "support_minus_random": {
+            "mean": -0.04584170854271356,
+            "ci95": [
+              -0.25030967336683424,
+              0.16247644472361802
+            ]
+          },
+          "support_minus_td_topk": {
+            "mean": -0.09128140703517588,
+            "ci95": [
+              -0.2373999685929649,
+              0.051294440954773854
+            ]
+          }
+        }
+      }
+    },
+    "lambda_pilot": [
+      {
+        "lambda": 0.5,
+        "training_seeds": 3,
+        "auc_mean": 0.4779731993299833,
+        "auc_sd": 0.420192634740277,
+        "fq_auc_mean": 0.6546666666666666,
+        "fq_auc_sd": 0.5671069857913349,
+        "final_success_mean": 0.6666666666666666,
+        "final_success_sd": 0.5773502691896257,
+        "hit90_reached": 2,
+        "hit90_median_reached_only": 540000.0,
+        "zero_evaluation_runs": 1
+      },
+      {
+        "lambda": 1.0,
+        "training_seeds": 3,
+        "auc_mean": 0.7452261306532664,
+        "auc_sd": 0.11149778820146546,
+        "fq_auc_mean": 0.9966666666666667,
+        "fq_auc_sd": 0.005773502691896263,
+        "final_success_mean": 1.0,
+        "final_success_sd": 0.0,
+        "hit90_reached": 3,
+        "hit90_median_reached_only": 560000,
+        "zero_evaluation_runs": 0
+      },
+      {
+        "lambda": 2.0,
+        "training_seeds": 3,
+        "auc_mean": 0.5380234505862647,
+        "auc_sd": 0.46791869074367765,
+        "fq_auc_mean": 0.6623333333333333,
+        "fq_auc_sd": 0.5736151439191031,
+        "final_success_mean": 0.6666666666666666,
+        "final_success_sd": 0.5773502691896257,
+        "hit90_reached": 2,
+        "hit90_median_reached_only": 405000.0,
+        "zero_evaluation_runs": 1
+      }
+    ]
+  },
+  "boundary": {
+    "not_recounted_as_independent": "Reused SABER references, re-exported task artifacts and same-seed cohorts require provenance before pooling. No grand total is inferred.",
+    "missing": "Historical assignment raw per-run configs/environment locks, many symmetric early checkpoints, and unpublished remote-machine updates are not asserted available.",
+    "no_training": "Only source/report reads and planning-document generation were performed."
+  },
+  "literature_lookup": {
+    "date": "2026-10-30",
+    "scope": "Targeted primary/official sources; not a systematic review.",
+    "queries_or_open_topics": [
+      "DDPG sparse-reward deadlock and spontaneous actor drift",
+      "PAL loss-side versus replay sampling",
+      "RL uncertainty across limited training seeds",
+      "PointMaze observation reward termination semantics",
+      "confidence level precision and statistical thresholds",
+      "Scientific Agent Skills current metadata"
+    ],
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/1911.11679",
+        "role": "DDPG deadlock antecedent; does not establish the current causal mechanism"
+      },
+      {
+        "url": "https://arxiv.org/html/1911.11679",
+        "role": "Full-text spontaneous actor drift and critic action-gradient account"
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper/2020/hash/a3bf6e4db673b6449c2f7d13ee6ec9c0-Abstract.html",
+        "role": "Loss-side replay antecedent"
+      },
+      {
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html",
+        "role": "RL evaluation uncertainty"
+      },
+      {
+        "url": "https://robotics.farama.org/envs/maze/point_maze/",
+        "role": "Optional navigation task semantics"
+      },
+      {
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm",
+        "role": "Confidence level and precision distinction"
+      },
+      {
+        "url": "https://www.amstat.org/docs/default-source/amstat-documents/p-valuestatement.pdf",
+        "role": "Scientific claims should not rest on a single threshold"
+      },
+      {
+        "url": "https://arxiv.org/abs/2609.00065",
+        "role": "Procedural skills citation, not SABER performance evidence"
+      }
+    ]
+  },
+  "tool_assistance": {
+    "skills": [
+      "experimental-design",
+      "hypothesis-generation"
+    ],
+    "material_influence": "Unit of analysis, blocked execution order, rival explanations, operationalization and prespecified decision boundaries.",
+    "reference": "Timothy Kassis, Vinayak Agarwal, Yuhuan He, Darshil Patel, Aubrey M. Brueckner (2026). Scientific Agent Skills: A Library of Procedural Knowledge for Research Agents. https://doi.org/10.48550/arXiv.2609.00065"
+  }
+}

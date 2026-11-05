@@ -1,0 +1,143 @@
+{
+  "finished_utc": "2026-11-01T04:35:16.492640+00:00",
+  "jobs": [
+    {
+      "arm": "saber",
+      "finished_utc": "2026-10-31T07:58:00.502958+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/saber/seed_101",
+      "pid": 909268,
+      "position": 1,
+      "returncode": 0,
+      "seed": 101,
+      "started_utc": "2026-10-31T03:39:58.107660+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "her",
+      "finished_utc": "2026-10-31T07:45:00.302847+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/her/seed_101",
+      "pid": 909269,
+      "position": 2,
+      "returncode": 0,
+      "seed": 101,
+      "started_utc": "2026-10-31T03:39:58.108039+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "random",
+      "finished_utc": "2026-10-31T11:56:48.374840+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/random/seed_101",
+      "pid": 960846,
+      "position": 3,
+      "returncode": 0,
+      "seed": 101,
+      "started_utc": "2026-10-31T07:45:02.304847+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "td_topk",
+      "finished_utc": "2026-10-31T12:15:38.655091+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/td_topk/seed_101",
+      "pid": 963322,
+      "position": 4,
+      "returncode": 0,
+      "seed": 101,
+      "started_utc": "2026-10-31T07:58:02.518210+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "random",
+      "finished_utc": "2026-10-31T16:29:11.163438+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/random/seed_102",
+      "pid": 1016188,
+      "position": 1,
+      "returncode": 0,
+      "seed": 102,
+      "started_utc": "2026-10-31T12:15:38.667687+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "td_topk",
+      "finished_utc": "2026-10-31T15:46:02.352225+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/td_topk/seed_102",
+      "pid": 1016189,
+      "position": 2,
+      "returncode": 0,
+      "seed": 102,
+      "started_utc": "2026-10-31T12:15:38.668484+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "saber",
+      "finished_utc": "2026-10-31T20:14:09.165781+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/saber/seed_102",
+      "pid": 1060827,
+      "position": 3,
+      "returncode": 0,
+      "seed": 102,
+      "started_utc": "2026-10-31T15:46:04.395092+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "her",
+      "finished_utc": "2026-10-31T20:02:23.060941+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/her/seed_102",
+      "pid": 1069240,
+      "position": 4,
+      "returncode": 0,
+      "seed": 102,
+      "started_utc": "2026-10-31T16:29:13.176219+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "her",
+      "finished_utc": "2026-10-31T23:56:17.606220+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/her/seed_103",
+      "pid": 1113204,
+      "position": 1,
+      "returncode": 0,
+      "seed": 103,
+      "started_utc": "2026-10-31T20:14:09.167376+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "random",
+      "finished_utc": "2026-11-01T00:18:53.877670+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/random/seed_103",
+      "pid": 1113205,
+      "position": 2,
+      "returncode": 0,
+      "seed": 103,
+      "started_utc": "2026-10-31T20:14:09.176794+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "td_topk",
+      "finished_utc": "2026-11-01T03:38:55.651358+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/td_topk/seed_103",
+      "pid": 1156611,
+      "position": 3,
+      "returncode": 0,
+      "seed": 103,
+      "started_utc": "2026-10-31T23:56:19.619176+00:00",
+      "status": "complete"
+    },
+    {
+      "arm": "saber",
+      "finished_utc": "2026-11-01T04:34:04.556658+00:00",
+      "output": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/draweropen_ddpg_actor_dynamics_20261031/outputs/pilot_01/runs/saber/seed_103",
+      "pid": 1161299,
+      "position": 4,
+      "returncode": 0,
+      "seed": 103,
+      "started_utc": "2026-11-01T00:18:55.891719+00:00",
+      "status": "complete"
+    }
+  ],
+  "new_jobs_stopped": false,
+  "pid": 909265,
+  "source_manifest_sha256": "4fe8ef8fdde863802548ed992d918926ffb593f81ceb69529d2ecec1573eccab",
+  "started_utc": "2026-10-31T03:39:58.107216+00:00",
+  "status": "complete",
+  "workers": 2
+}

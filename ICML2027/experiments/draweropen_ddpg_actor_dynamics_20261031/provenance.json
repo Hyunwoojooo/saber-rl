@@ -1,0 +1,119 @@
+{
+  "source_experiment": "draweropen_ddpg_assignment_extension_20261020",
+  "source_path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/study/code",
+  "source_reference": "published assignment core; executed seeds 11-20",
+  "reference_files": [
+    {
+      "path": "code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/agent.py",
+      "sha256": "334a1d15cd7cb04b8a7f593190d031852b7836eda2370e15b5bf3e1bc11be293"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/assignment_comparison.py",
+      "sha256": "e9128fa6f83e61d706a18a7243c2e7e1aad380f90c92a9962a9e7f5f4d58615e"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/assignment_diagnostics.py",
+      "sha256": "5cfb4bd77741358afbf7cf237c444d4edc6ccdde25f93cc51db35601317da8c5"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/config.py",
+      "sha256": "1338e48e8e0f8e9d9c203b577f99bd49791cebae0d57cca9751b418de1ec5cd7"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/envs.py",
+      "sha256": "3c3a2ea12201d19f8594488da7180e4bc8fc572cb5c87045578285fc8baf632b"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "4cdb214d2f8092b2f995d879dcb592243d92e034a884827192e381590072c33d"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/trainer.py",
+      "sha256": "3db3dcc3c7514137300a8dc85a2e55ac308f2041ccd34b128ea25aabdca5cdca"
+    },
+    {
+      "path": "code/src/metacog_lite_v0/weights.py",
+      "sha256": "9c2ae980dde6136b9bdc7c6f41a080ad0d49b1488a172b2340966ed139c6d0b8"
+    },
+    {
+      "path": "code/src/test_strict_config_resume_contract.py",
+      "sha256": "5266e63968c72f83db1aebcb1b2dc629669523dff03b2ee25ec8e621d7f0da05"
+    },
+    {
+      "path": "code/src/test_strict_context_eligible_count_matched.py",
+      "sha256": "a5816bb24fcbd359d8ba210a868e3f70cf489a39c8edde04e03d7fc4d68266bb"
+    },
+    {
+      "path": "code/src/test_strict_ddpg_loss_scope.py",
+      "sha256": "f0e19b2badf8037eb77187c02dc4ee01cfb95649f0879e0d3e8d79bc8a289c10"
+    },
+    {
+      "path": "code/src/test_strict_drawer_open_scanner.py",
+      "sha256": "27ab9f4baf17d96e0527fad1cb3eb6b4792e89bbd60effaa93f54052336dd1a8"
+    },
+    {
+      "path": "code/src/train_drawer_open_lite_v0.py",
+      "sha256": "81a939cd90f7bc2c21c279cc61a000c568078bd5dead40f17dec4a4d1d827086"
+    }
+  ],
+  "note": "reference/code is byte-identical; code contains documented optional observer hooks and a uniform selector arm.",
+  "template_source": {
+    "path": "/home/mimiclab-gigabyte-gen5/ICML2027/draweropen_ddpg_assignment_extension_20261020/outputs/production/support/seed_11/attempt_01/requested_config.json",
+    "sha256": "6c2932093b759bb1765a71a85ccc877da9527e5424becc9f4f53dc5fe6458b9a",
+    "sanitization": [
+      "output_root replaced by SET_BY_RUNNER"
+    ]
+  }
+}

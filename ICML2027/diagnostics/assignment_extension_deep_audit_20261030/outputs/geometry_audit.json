@@ -1,0 +1,8 @@
+{
+  "jsonl_evaluations": 6000,
+  "primary_success_matches_csv": true,
+  "csv_unprefixed_geometry": "Last training HER minibatch, inherited through _metric_row(last_lite)",
+  "jsonl_unprefixed_geometry": "Actual policy evaluation, overwritten by **eval_metrics in JSONL writer",
+  "primary_metric_affected": false,
+  "extra_diagnostics_interpretation_affected": true
+}

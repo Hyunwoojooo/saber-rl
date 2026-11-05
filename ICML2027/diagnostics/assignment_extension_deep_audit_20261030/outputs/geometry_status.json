@@ -1,0 +1,16 @@
+{
+  "status": "complete",
+  "finished_utc": "2026-10-30T06:34:52.109131+00:00",
+  "source_sha256": {
+    "log_analysis.py": "08b7e7546d5b5bc825ebfa2aab29c0c0914f58d641b44269f7bcf3b0fc8d106a",
+    "presentation.py": "9659ca0a203758b6a36580710c8b5f068d2468047e6f8b69e5be24a9327d3c73",
+    "run.py": "ae84b0a44abca6eab360e0b639d6caf270d94e49dee8846ea686490be7cf3759",
+    "geometry_analysis.py": "97e694fc016c2c44b24b6ad9d5127b2a0ba4ee8ac749f382ffb9eea2634f9fae",
+    "common.py": "da62ca6c29156e27a63373e44755b6c0a39f2b265181f50738eb195022fc6248",
+    "checkpoint_analysis.py": "03c85b34a00e58b6b66448771dfe919f80c29851399eac95d5ebf980d4558c2b",
+    "saturation_followup.py": "6e9d551a9e541160eb558a70009bbce4998377044682b02a55c1edaa84af371a",
+    "test_audit.py": "6cdfe51768690cfa7b8c5c6df41b266c00b55e46b84a06f55162f5f6fa2c0697",
+    "gradient_audit.py": "add5038294a04f9c9d77e7647be221b5658f4b7d778fecde7bf6de92e78c74df"
+  },
+  "new_training_updates": 0
+}

@@ -1,0 +1,16 @@
+{
+  "purpose": "Provisional local diagnostic figures, not venue-formatted manuscript figures",
+  "smoothing": "none",
+  "sampling_unit": "training seed",
+  "all_seeds_retained": true,
+  "description": [
+    "cohort_auc: each raw seed AUC and paired connections; black lines are means, no CI bars.",
+    "new_seed_curves: all ten added-seed learning trajectories, three arms, unsmoothed.",
+    "support_dynamics: SABER windows, descriptive grouping by final outcome.",
+    "policy_replay: task success and geometric contact/open count out of four reproduced episodes.",
+    "actor_gradient: mean-loss gradient norms and exact tanh derivative zeros for two query-goal kinds.",
+    "evaluation_geometry: actual policy evaluation geometry recovered from JSONL, all SABER seeds."
+  ],
+  "matplotlib": "3.11.2",
+  "exports": "PNG 180 DPI and SVG"
+}

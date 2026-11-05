@@ -1,0 +1,14 @@
+{
+  "commit": "1c6f2872acb1bc9bccd81908a8ebcceab6392efc",
+  "results": {
+    "seed_metrics.csv": {
+      "sha256": "711f7b71984b510f7d28aa6f9d3e3818eac83bfa3a35910243823172c36f35db",
+      "matches_historical_used": true
+    },
+    "report.json": {
+      "sha256": "c255af2252387ad38ccfcb77884ea5a75d64bf7a098f294b3ae1996610cb6529",
+      "matches_historical_used": true
+    }
+  },
+  "raw_run_configs_or_environment_in_assignment_archive": false
+}
