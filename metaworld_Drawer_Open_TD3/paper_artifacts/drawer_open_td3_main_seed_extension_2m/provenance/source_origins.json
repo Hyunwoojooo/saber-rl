@@ -5,6 +5,25 @@
       "launcher_path": "metaworld_Drawer_Open_TD3/TD3-HER-B0-2M.sh",
       "original_run_configs_retained": false,
       "source_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src"
+    },
+    "hgr": {
+      "execution_commit_known": false,
+      "launcher_path": "metaworld_Drawer_Open_TD3_HGR/TD3-HER-HGR-2M.sh",
+      "original_run_configs_retained": false,
+      "source_path": "metaworld_Drawer_Open_TD3_HGR/code/src"
+    },
+    "per": {
+      "execution_commit_known": false,
+      "launcher_path": "metaworld_Drawer_Open_TD3/experiments/TD3-HER-PER-Full-2M/run.py",
+      "original_run_configs_retained": false,
+      "retained_preset": true,
+      "source_path": "metaworld_Drawer_Open_TD3/experiments/TD3-HER-PER-Full-2M"
+    },
+    "saber": {
+      "execution_commit_known": false,
+      "launcher_path": "metaworld_Drawer_Open_TD3/TD3-HER-B3-Critic-Only-2M.sh",
+      "original_run_configs_retained": false,
+      "source_path": "metaworld_Drawer_Open_TD3/B3_v4_512_s1_5/code/src"
     }
   },
   "curves": [
@@ -42,6 +61,111 @@
       "seed": 5,
       "sha256": "22416efa175ae657aa352f399bfb6753f421fa358a2382872559e3791a2fc0cb",
       "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B0-2M/drawer_open_TD3-HER-B0-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 1,
+      "sha256": "a2ff612992fce271f47533dcd58063ae7fda66603362f05672f0c86546ac07c0",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_open_TD3-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 2,
+      "sha256": "bd7d01532a0cb78a6375df2093c0d5d6aed3e4dfca4cc6a384eeb39a5ebab066",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_open_TD3-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 3,
+      "sha256": "adc7578d975e28b5d110435d14fc45157845ed0e444e06ec765c54c89970e131",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_open_TD3-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 4,
+      "sha256": "c9ea577884d9493850522ccf7fcbc53999d6addd84437f1f191bccdf1885ae45",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_open_TD3-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 5,
+      "sha256": "756803ed406732f837e86181f9e892a39506deab7875b106c2801a23924267da",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_open_TD3-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "hgr",
+      "evaluation_count": 200,
+      "seed": 1,
+      "sha256": "d027723b0e0ccf05484aca6d23d6177d12d5af1219c6644701d2afa2bac72642",
+      "source_path": "metaworld_Drawer_Open_TD3_HGR/runs/td3_hgr_pair_priority_is_2m/TD3-HER-HGR-2m/drawer_open_td3_hgr_pair_priority_is_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "hgr",
+      "evaluation_count": 200,
+      "seed": 2,
+      "sha256": "b3be43b1b468df93d206a7163cb2b9afa0d1f81939a1010f641b1db9d88744f0",
+      "source_path": "metaworld_Drawer_Open_TD3_HGR/runs/td3_hgr_pair_priority_is_2m/TD3-HER-HGR-2m/drawer_open_td3_hgr_pair_priority_is_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "hgr",
+      "evaluation_count": 200,
+      "seed": 3,
+      "sha256": "46da2834feab7830f775cdf5f6b5c002c71fba6082b52070261e4f2edf6c63a0",
+      "source_path": "metaworld_Drawer_Open_TD3_HGR/runs/td3_hgr_pair_priority_is_2m/TD3-HER-HGR-2m/drawer_open_td3_hgr_pair_priority_is_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "hgr",
+      "evaluation_count": 200,
+      "seed": 4,
+      "sha256": "1b7524731cd9e626d018f3533d5f4ac1d86a84b03bb5643f4cdecf1ae883801c",
+      "source_path": "metaworld_Drawer_Open_TD3_HGR/runs/td3_hgr_pair_priority_is_2m/TD3-HER-HGR-2m/drawer_open_td3_hgr_pair_priority_is_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "hgr",
+      "evaluation_count": 200,
+      "seed": 5,
+      "sha256": "174caf095656b40be057774d41fcfb463907a1c4d3a2466f267213bc2ea518fb",
+      "source_path": "metaworld_Drawer_Open_TD3_HGR/runs/td3_hgr_pair_priority_is_2m/TD3-HER-HGR-2m/drawer_open_td3_hgr_pair_priority_is_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "per",
+      "evaluation_count": 200,
+      "seed": 1,
+      "sha256": "f78893bc62cc21e4886520aa715d346b8e079bc50f6482c47c276446187b4aaa",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-PER-Full-2M/drawer_open_td3_her_per_full_s1_2000000/metrics.csv"
+    },
+    {
+      "arm": "per",
+      "evaluation_count": 200,
+      "seed": 2,
+      "sha256": "09280857fd1210a7362508671af2aa635a62a978c672185a3cdde2c4c61d9c56",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-PER-Full-2M/drawer_open_td3_her_per_full_s2_2000000/metrics.csv"
+    },
+    {
+      "arm": "per",
+      "evaluation_count": 200,
+      "seed": 3,
+      "sha256": "d02f6a607c64a61fe2e973d004153e95a1938ca4ff0273154846bbcc282f0ae0",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-PER-Full-2M/drawer_open_td3_her_per_full_s3_2000000/metrics.csv"
+    },
+    {
+      "arm": "per",
+      "evaluation_count": 200,
+      "seed": 4,
+      "sha256": "a6da7919dcbb131ad676cf3dcf856b9a3f160e6bb00e3ed2f214faf83cba0bab",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-PER-Full-2M/drawer_open_td3_her_per_full_s4_2000000/metrics.csv"
+    },
+    {
+      "arm": "per",
+      "evaluation_count": 200,
+      "seed": 5,
+      "sha256": "566ed01aced282a357903682d2d5a24f788d5abfa683e0b55cc3d5bc6fa65917",
+      "source_path": "metaworld_Drawer_Open_TD3/results_2m/TD3-HER-PER-Full-2M/drawer_open_td3_her_per_full_s5_2000000/metrics.csv"
     }
   ],
   "historical_limit": "Retained source/preset parity and published metric parity are audited. Original execution commit and byte-for-byte historical software environment are not asserted.",

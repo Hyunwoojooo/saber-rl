@@ -1,8 +1,8 @@
 # DrawerOpen TD3: Completed Main-Paper Seed Extensions
 
-Snapshot: **2026-11-05T05:09:44.289423+00:00**. This is not a live dashboard.
+Snapshot: **2026-11-07T21:12:17.656999+00:00**. This is not a live dashboard.
 
-This artifact contains **5 completed new runs** and 5 historical seed-level references.
+This artifact contains **20 completed new runs** and 20 historical seed-level references.
 Each new run has 2M environment steps. Only completed runs are exported.
 Unfinished methods are listed as status only; their intermediate curves and results are omitted.
 
@@ -11,31 +11,54 @@ Unfinished methods are listed as status only; their intermediate curves and resu
 | Method | Completed new seeds | State at capture |
 | --- | --- | --- |
 | HER | 6, 7, 8, 9, 10 | completed |
-| SABER (Ours) | None | running |
-| HGR | None | queued |
-| PER-full | None | queued |
+| SABER (Ours) | 6, 7, 8, 9, 10 | completed |
+| HGR | 6, 7, 8, 9, 10 | completed |
+| PER-full | 6, 7, 8, 9, 10 | completed |
 
 ## historical_1_5
 
 | Method | AUC mean +/- SD | FQ-AUC mean +/- SD | Final success mean +/- SD | Hit90 |
 | --- | ---: | ---: | ---: | ---: |
 | HER | 0.126508 +/- 0.282739 | 0.199900 +/- 0.446990 | 0.190000 +/- 0.424853 | 1/5 |
+| SABER (Ours) | 0.361834 +/- 0.338296 | 0.598100 +/- 0.545988 | 0.590000 +/- 0.538981 | 3/5 |
+| HGR | 0.370528 +/- 0.343037 | 0.597000 +/- 0.544987 | 0.580000 +/- 0.531037 | 3/5 |
+| PER-full | 0.406432 +/- 0.374116 | 0.595800 +/- 0.543908 | 0.600000 +/- 0.547723 | 3/5 |
+
+| AUC contrast | Mean difference | Paired 95% CI | Positive pairs |
+| --- | ---: | --- | ---: |
+| saber_minus_her | +0.235327 | [-0.058191, +0.529129] | 3/5 |
+| saber_minus_hgr | -0.008693 | [-0.488769, +0.471382] | 3/5 |
+| saber_minus_per | -0.044598 | [-0.100628, -0.002211] | 1/5 |
 
 ## extension_6_10
 
 | Method | AUC mean +/- SD | FQ-AUC mean +/- SD | Final success mean +/- SD | Hit90 |
 | --- | ---: | ---: | ---: | ---: |
 | HER | 0.148291 +/- 0.331590 | 0.199000 +/- 0.444978 | 0.200000 +/- 0.447214 | 1/5 |
+| SABER (Ours) | 0.554623 +/- 0.312782 | 0.796200 +/- 0.445109 | 0.800000 +/- 0.447214 | 4/5 |
+| HGR | 0.117035 +/- 0.261558 | 0.198800 +/- 0.444530 | 0.200000 +/- 0.447214 | 1/5 |
+| PER-full | 0.383568 +/- 0.356180 | 0.586800 +/- 0.536152 | 0.600000 +/- 0.547723 | 3/5 |
+
+| AUC contrast | Mean difference | Paired 95% CI | Positive pairs |
+| --- | ---: | --- | ---: |
+| saber_minus_her | +0.406332 | [-0.176231, +0.726131] | 4/5 |
+| saber_minus_hgr | +0.437588 | [+0.170101, +0.670603] | 4/5 |
+| saber_minus_per | +0.171055 | [-0.246482, +0.588593] | 3/5 |
 
 ## pooled_1_10
 
 | Method | AUC mean +/- SD | FQ-AUC mean +/- SD | Final success mean +/- SD | Hit90 |
 | --- | ---: | ---: | ---: | ---: |
 | HER | 0.137399 +/- 0.290738 | 0.199450 +/- 0.420479 | 0.195000 +/- 0.411265 | 2/10 |
+| SABER (Ours) | 0.458229 +/- 0.323527 | 0.697150 +/- 0.481088 | 0.695000 +/- 0.479844 | 7/10 |
+| HGR | 0.243781 +/- 0.317104 | 0.397900 +/- 0.513688 | 0.390000 +/- 0.504315 | 4/10 |
+| PER-full | 0.395000 +/- 0.344580 | 0.591300 +/- 0.509180 | 0.600000 +/- 0.516398 | 6/10 |
 
-**No new paired comparison is available.** SABER and a comparator must both have all five
-extension seeds complete before paired contrasts are reported. The paired CSV contains a header only.
-Do not compare ten HER seeds against five historical SABER seeds as a paired ten-seed result.
+| AUC contrast | Mean difference | Paired 95% CI | Positive pairs |
+| --- | ---: | --- | ---: |
+| saber_minus_her | +0.320829 | [+0.016682, +0.602965] | 7/10 |
+| saber_minus_hgr | +0.214447 | [-0.097636, +0.501464] | 7/10 |
+| saber_minus_per | +0.063229 | [-0.149962, +0.300094] | 4/10 |
 
 ## Completed New Seed Results
 
@@ -46,6 +69,21 @@ Do not compare ten HER seeds against five historical SABER seeds as a paired ten
 | HER | 8 | 0.741457 | 0.995000 | 1.00 | 500000 |
 | HER | 9 | 0.000000 | 0.000000 | 0.00 | Not reached |
 | HER | 10 | 0.000000 | 0.000000 | 0.00 | Not reached |
+| SABER (Ours) | 6 | 0.764573 | 1.000000 | 1.00 | 490000 |
+| SABER (Ours) | 7 | 0.671608 | 0.989000 | 1.00 | 620000 |
+| SABER (Ours) | 8 | 0.000000 | 0.000000 | 0.00 | Not reached |
+| SABER (Ours) | 9 | 0.664070 | 0.994000 | 1.00 | 660000 |
+| SABER (Ours) | 10 | 0.672864 | 0.998000 | 1.00 | 650000 |
+| HGR | 6 | 0.584925 | 0.994000 | 1.00 | 900000 |
+| HGR | 7 | 0.000000 | 0.000000 | 0.00 | Not reached |
+| HGR | 8 | 0.000251 | 0.000000 | 0.00 | Not reached |
+| HGR | 9 | 0.000000 | 0.000000 | 0.00 | Not reached |
+| HGR | 10 | 0.000000 | 0.000000 | 0.00 | Not reached |
+| PER-full | 6 | 0.000000 | 0.000000 | 0.00 | Not reached |
+| PER-full | 7 | 0.000754 | 0.000000 | 0.00 | Not reached |
+| PER-full | 8 | 0.576884 | 0.997000 | 1.00 | 910000 |
+| PER-full | 9 | 0.591960 | 0.941000 | 1.00 | 810000 |
+| PER-full | 10 | 0.748241 | 0.996000 | 1.00 | 530000 |
 
 ## Protocol and Interpretation
 

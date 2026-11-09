@@ -108,108 +108,329 @@
       "status": "completed"
     },
     "hgr": {
+      "finished_utc": "2026-11-07T06:58:41.497763+00:00",
       "seeds": {
         "10": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T06:49:40.573161+00:00",
+          "last_write_age_sec": 13.050194025039673,
+          "nonfinite_loss": [],
+          "pid": 2612169,
+          "result": {
+            "arm": "hgr",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-05T12:53:49.007920+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "13.250662930627241"
         },
         "6": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T06:58:41.274080+00:00",
+          "last_write_age_sec": 25.803807735443115,
+          "nonfinite_loss": [],
+          "pid": 2612165,
+          "result": {
+            "arm": "hgr",
+            "auc": 0.5849246231155779,
+            "final_quarter_auc": 0.994,
+            "final_success": 1.0,
+            "hit90_step": 900000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-05T12:53:49.006383+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "13.204499631389366"
         },
         "7": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T06:48:10.319069+00:00",
+          "last_write_age_sec": 32.58375597000122,
+          "nonfinite_loss": [],
+          "pid": 2612166,
+          "result": {
+            "arm": "hgr",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-05T12:53:49.006764+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "13.260333930175657"
         },
         "8": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T06:53:11.034311+00:00",
+          "last_write_age_sec": 20.29806423187256,
+          "nonfinite_loss": [],
+          "pid": 2612167,
+          "result": {
+            "arm": "hgr",
+            "auc": 0.0002512562814070352,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-05T12:53:49.007056+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "13.232872673854137"
         },
         "9": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T06:51:10.800745+00:00",
+          "last_write_age_sec": 3.0021445751190186,
+          "nonfinite_loss": [],
+          "pid": 2612168,
+          "result": {
+            "arm": "hgr",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-05T12:53:49.007340+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "13.241889693399225"
         }
       },
-      "status": "queued"
+      "started_utc": "2026-11-05T12:53:49.005392+00:00",
+      "status": "completed"
     },
     "per": {
+      "finished_utc": "2026-11-07T21:12:17.657612+00:00",
       "seeds": {
         "10": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T21:12:17.447013+00:00",
+          "last_write_age_sec": 12.308113813400269,
+          "nonfinite_loss": [],
+          "pid": 3100217,
+          "result": {
+            "arm": "per",
+            "auc": 0.7482412060301508,
+            "final_quarter_auc": 0.996,
+            "final_success": 1.0,
+            "hit90_step": 530000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-07T06:58:41.541670+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "39.06205182115555"
         },
         "6": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T21:09:16.808328+00:00",
+          "last_write_age_sec": 18.103107929229736,
+          "nonfinite_loss": [],
+          "pid": 3100213,
+          "result": {
+            "arm": "per",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-07T06:58:41.540093+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "39.20480442313236"
         },
         "7": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T21:08:46.565099+00:00",
+          "last_write_age_sec": 5.714930772781372,
+          "nonfinite_loss": [],
+          "pid": 3100214,
+          "result": {
+            "arm": "per",
+            "auc": 0.0007537688442211055,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-07T06:58:41.540465+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "39.21849918304451"
         },
         "8": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T21:11:17.236594+00:00",
+          "last_write_age_sec": 16.936909914016724,
+          "nonfinite_loss": [],
+          "pid": 3100215,
+          "result": {
+            "arm": "per",
+            "auc": 0.5768844221105528,
+            "final_quarter_auc": 0.997,
+            "final_success": 1.0,
+            "hit90_step": 910000,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-07T06:58:41.541072+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "39.11153466863341"
         },
         "9": {
-          "status": "queued",
-          "step": 0
+          "exit_code": 0,
+          "finished_utc": "2026-11-07T21:10:47.023139+00:00",
+          "last_write_age_sec": 20.03361177444458,
+          "nonfinite_loss": [],
+          "pid": 3100216,
+          "result": {
+            "arm": "per",
+            "auc": 0.5919597989949749,
+            "final_quarter_auc": 0.941,
+            "final_success": 1.0,
+            "hit90_step": 810000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-07T06:58:41.541349+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "39.1370855159198"
         }
       },
-      "status": "queued"
+      "started_utc": "2026-11-07T06:58:41.539010+00:00",
+      "status": "completed"
     },
     "saber": {
+      "finished_utc": "2026-11-05T12:53:48.964245+00:00",
       "seeds": {
         "10": {
-          "last_write_age_sec": 4.118416786193848,
+          "exit_code": 0,
+          "finished_utc": "2026-11-05T12:40:18.469641+00:00",
+          "last_write_age_sec": 8.943061590194702,
           "nonfinite_loss": [],
           "pid": 2343887,
+          "result": {
+            "arm": "saber",
+            "auc": 0.6728643216080402,
+            "final_quarter_auc": 0.998,
+            "final_success": 1.0,
+            "hit90_step": 650000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
           "started_utc": "2026-11-04T14:04:37.640515+00:00",
-          "status": "running",
-          "step": 1401800,
-          "steps_per_sec": "25.816354643472373"
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "24.591695494403037"
         },
         "6": {
-          "last_write_age_sec": 2.4766573905944824,
+          "exit_code": 0,
+          "finished_utc": "2026-11-05T09:24:16.367408+00:00",
+          "last_write_age_sec": 15.214250564575195,
           "nonfinite_loss": [],
           "pid": 2343883,
+          "result": {
+            "arm": "saber",
+            "auc": 0.7645728643216081,
+            "final_quarter_auc": 1.0,
+            "final_success": 1.0,
+            "hit90_step": 490000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
           "started_utc": "2026-11-04T14:04:37.639251+00:00",
-          "status": "running",
-          "step": 1580800,
-          "steps_per_sec": "29.112016392801007"
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.752180248386978"
         },
         "7": {
-          "last_write_age_sec": 5.986896514892578,
+          "exit_code": 0,
+          "finished_utc": "2026-11-05T12:53:48.728838+00:00",
+          "last_write_age_sec": 29.518316507339478,
           "nonfinite_loss": [],
           "pid": 2343884,
+          "result": {
+            "arm": "saber",
+            "auc": 0.6716080402010051,
+            "final_quarter_auc": 0.989,
+            "final_success": 1.0,
+            "hit90_step": 620000,
+            "seed": 7,
+            "total_updates": 1995001
+          },
           "started_utc": "2026-11-04T14:04:37.639611+00:00",
-          "status": "running",
-          "step": 1408000,
-          "steps_per_sec": "25.931411147717487"
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "24.355198917658853"
         },
         "8": {
-          "last_write_age_sec": 5.293081045150757,
+          "exit_code": 0,
+          "finished_utc": "2026-11-05T12:34:48.198200+00:00",
+          "last_write_age_sec": 14.588582992553711,
           "nonfinite_loss": [],
           "pid": 2343885,
+          "result": {
+            "arm": "saber",
+            "auc": 0.0,
+            "final_quarter_auc": 0.0,
+            "final_success": 0.0,
+            "hit90_step": null,
+            "seed": 8,
+            "total_updates": 1995001
+          },
           "started_utc": "2026-11-04T14:04:37.639931+00:00",
-          "status": "running",
-          "step": 1347000,
-          "steps_per_sec": "24.807662819390153"
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "24.69368987323261"
         },
         "9": {
-          "last_write_age_sec": 1.9502437114715576,
+          "exit_code": 0,
+          "finished_utc": "2026-11-05T10:08:16.847769+00:00",
+          "last_write_age_sec": 2.484408378601074,
           "nonfinite_loss": [],
           "pid": 2343886,
+          "result": {
+            "arm": "saber",
+            "auc": 0.6640703517587939,
+            "final_quarter_auc": 0.994,
+            "final_success": 1.0,
+            "hit90_step": 660000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
           "started_utc": "2026-11-04T14:04:37.640208+00:00",
-          "status": "running",
-          "step": 1524400,
-          "steps_per_sec": "28.07308153266942"
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "27.6957859081303"
         }
       },
       "started_utc": "2026-11-04T14:04:37.637964+00:00",
-      "status": "running"
+      "status": "completed"
     }
   },
-  "current_arm": "saber",
+  "current_arm": null,
+  "finished_utc": "2026-11-07T21:12:21.860068+00:00",
   "protocol": {
     "auc_denominator": 1990000,
     "backbone": "TD3",
@@ -267,6 +488,6 @@
   },
   "queue_pid": 2212787,
   "started_utc": "2026-11-04T02:52:02.709627+00:00",
-  "status": "running",
-  "updated_utc": "2026-11-05T05:09:44.289423+00:00"
+  "status": "completed",
+  "updated_utc": "2026-11-07T21:12:17.656999+00:00"
 }

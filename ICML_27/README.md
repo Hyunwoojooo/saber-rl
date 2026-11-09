@@ -72,15 +72,22 @@ python3 ICML_27/tools/ddpg_completed_extension_results.py verify
 ### DrawerOpen TD3 Seed Extension
 
 The [TD3 main-paper seed-extension artifact](../metaworld_Drawer_Open_TD3/paper_artifacts/drawer_open_td3_main_seed_extension_2m/README.md)
-adds **five completed HER executions**, seeds 6-10 at 2M steps each, as of
-**2026-11-05 05:09 UTC**. All five runs completed on November 4, including four
-zero-success outcomes. Their mean AUC is **0.148291 +/- 0.331590**; final success
-is **0.200000 +/- 0.447214**. Historical and pooled HER results are separate.
+now contains **all 20 completed new executions**, finished on
+**2026-11-07 21:12 UTC**: HER, SABER, HGR and PER, each with seeds 6-10 at 2M
+steps. This publication adds the 15 SABER/HGR/PER runs beyond the prior HER-only
+snapshot. There are no remaining jobs in this queue.
 
-SABER is running; HGR and PER are queued. Their unfinished results are not
-published, and no new SABER-minus-HER CI is computed. The original submitted
-five-seed comparisons remain unchanged. The repository now contains **135
-distinct completed post-review training executions**, excluding reused references.
+The artifact includes 20 historical seed-level references, separate historical,
+extension and pooled summaries, and all nine cohort/comparator paired analyses.
+All zero/low-success outcomes remain included. Pooled SABER AUC is
+**0.458229 +/- 0.323527**; SABER-minus-HER is **+0.320829** with pointwise 95% CI
+**[+0.016682, +0.602965]**. Pooled HGR and PER contrast intervals include zero.
+The bootstrap intervals are approximate and unadjusted for multiple comparisons;
+the improvement does not establish a causal support mechanism.
+
+The original submitted five-seed files remain unchanged. These archived families
+now contain **150 distinct completed post-review training executions**, excluding
+reused references. Historical execution-environment identity is not asserted.
 The previous six-family index does not include these later DDPG/TD3 extensions.
 
 ```bash

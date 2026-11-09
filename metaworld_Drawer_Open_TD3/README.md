@@ -3,19 +3,32 @@
 ## Completed Seed-Extension Results
 
 The [main-paper seed-extension artifact](paper_artifacts/drawer_open_td3_main_seed_extension_2m/README.md)
-contains completed **HER seeds 6-10**, 2M steps per seed, with full evaluation
-curves, recorded configs and frozen executed source. Snapshot: November 5, 2026.
+contains **all 20 completed HER/SABER/HGR/PER runs**, seeds 6-10 at 2M steps per
+method and seed, with full evaluation curves, recorded configs and frozen
+executed source. Finished: November 7, 2026, 21:12 UTC. No jobs remain in this queue.
 
-| HER cohort | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
+Pooled results below combine the retained seeds 1-5 with the new seeds 6-10.
+The artifact also reports both five-seed cohorts separately.
+
+| Method, seeds 1-10 | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
 | --- | ---: | ---: | ---: |
-| Historical seeds 1-5 | 0.126508 +/- 0.282739 | 0.190000 +/- 0.424853 | 1/5 |
-| New seeds 6-10 | 0.148291 +/- 0.331590 | 0.200000 +/- 0.447214 | 1/5 |
-| Pooled seeds 1-10 | 0.137399 +/- 0.290738 | 0.195000 +/- 0.411265 | 2/10 |
+| HER | 0.137399 +/- 0.290738 | 0.195000 +/- 0.411265 | 2/10 |
+| SABER (Ours), critic-only | 0.458229 +/- 0.323527 | 0.695000 +/- 0.479844 | 7/10 |
+| HGR | 0.243781 +/- 0.317104 | 0.390000 +/- 0.504315 | 4/10 |
+| PER-full | 0.395000 +/- 0.344580 | 0.600000 +/- 0.516398 | 6/10 |
 
-SABER seeds 6-10 are running; HGR and PER are queued. Unfinished outputs are
-not included, and no new paired CI is available. All completed zero-success
-runs are retained. See the artifact for historical provenance limitations.
-The legacy code and result notes below remain unchanged.
+| Paired AUC contrast, seeds 1-10 | Mean difference | Pointwise 95% CI |
+| --- | ---: | --- |
+| SABER minus HER | +0.320829 | [+0.016682, +0.602965] |
+| SABER minus HGR | +0.214447 | [-0.097636, +0.501464] |
+| SABER minus PER-full | +0.063229 | [-0.149962, +0.300094] |
+
+All completed zero-success runs, including SABER seed 8, are retained.
+Intervals use 10,000 paired seed-row resamples and are approximate and unadjusted
+for multiple comparisons. HER-relative improvement does not establish superiority
+to HGR/PER or identify the support mechanism. See the artifact for FQ-AUC,
+per-seed results, reproduction commands and historical provenance limitations.
+The submitted paper, legacy code and historical result notes below are unchanged.
 
 ## Historical Experiment Layout
 

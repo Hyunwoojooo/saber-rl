@@ -13,7 +13,7 @@ actor updates, network architectures and the update budget.
 
 ## DrawerOpen Results
 
-Snapshot: **2026-11-05 UTC**. This is a results overview, not a live dashboard.
+Snapshot: **2026-11-09 UTC**. This is a results overview, not a live dashboard.
 It covers the current main-comparison cohorts and post-AAAI follow-ups; historical
 supplementary-only studies are linked below rather than pooled into this table.
 
@@ -49,13 +49,11 @@ in the linked reports.
 | Post-AAAI / SAC | SABER (Ours), critic-only | 1-5 | 0.4485 +/- 0.4108 | 0.600 | Reference | [Data][sac] |
 | Post-AAAI / SAC | HGR | 1-5 | 0.7066 +/- 0.0659 | 1.000 | -0.2581 [-0.5965, +0.0651] | [Data][sac] |
 | Post-AAAI / SAC | PER-full | 1-5 | 0.7976 +/- 0.0722 | 1.000 | -0.3491 [-0.6747, -0.0235] | [Data][sac] |
-| Submitted primary / TD3 | HER | 1-5 | 0.1265 +/- 0.2827 | 0.190 | +0.2353 [-0.0582, +0.5288] | [Metrics][td3-metrics], [CIs][td3-ci] |
-| Submitted primary / TD3 | SABER (Ours), critic-only | 1-5 | 0.3618 +/- 0.3383 | 0.590 | Reference | [Metrics][td3-metrics], [CIs][td3-ci] |
-| Submitted primary / TD3 | HGR | 1-5 | 0.3705 +/- 0.3430 | 0.580 | -0.0087 [-0.4888, +0.4714] | [Metrics][td3-metrics], [CIs][td3-ci] |
-| Submitted primary / TD3 | PER-full | 1-5 | 0.4064 +/- 0.3741 | 0.600 | -0.0446 [-0.1005, -0.0022] | [Metrics][td3-metrics], [CIs][td3-ci] |
-| Completed extension / TD3 | HER | 6-10 | 0.1483 +/- 0.3316 | 0.200 | Pending SABER completion | [Data][td3-extension] |
+| Main extension / TD3 | HER | 1-10 | 0.1374 +/- 0.2907 | 0.195 | +0.3208 [+0.0167, +0.6030] | [Data][td3-extension] |
+| Main extension / TD3 | SABER (Ours), critic-only | 1-10 | 0.4582 +/- 0.3235 | 0.695 | Reference | [Data][td3-extension] |
+| Main extension / TD3 | HGR | 1-10 | 0.2438 +/- 0.3171 | 0.390 | +0.2144 [-0.0976, +0.5015] | [Data][td3-extension] |
+| Main extension / TD3 | PER-full | 1-10 | 0.3950 +/- 0.3446 | 0.600 | +0.0632 [-0.1500, +0.3001] | [Data][td3-extension] |
 | Offline diagnostics / DDPG | Tail / random / exhaustive retrieval; failure and saturation | 10 checkpoints; 30 training logs | Not a training comparison | N/A | Descriptive analysis only | [Report][offline] |
-| Remaining extension / TD3 | SABER (Ours) / HGR / PER-full | 6-10 | Pending | Pending | Not available | [Queue snapshot][td3-extension] |
 
 ### Reading the Cohorts
 
@@ -80,13 +78,15 @@ in the linked reports.
   after observing the HER/SABER results. The inherited observation includes
   original-goal coordinates alongside the relabeled goal input; all four
   methods share that representation, and its causal effect is unresolved.
-- **New extension / TD3:** HER seeds 6-10 are complete and published; SABER
-  is running five parallel seeds, followed by HGR and PER. Five of the 20 new
-  2M runs are complete. The artifact preserves historical 1-5, extension 6-10
-  and pooled 1-10 HER results separately; pooled HER AUC is 0.1374 +/- 0.2907.
-  The submitted TD3 comparison above remains five-seed. There is no new paired
-  CI until SABER also completes its extension. Only completed HER outputs and
-  their frozen trainer source are published, not intermediate SABER results.
+- **Main extension / TD3:** all 20 new runs (HER, SABER, HGR and PER, each
+  seeds 6-10) completed on November 7 at 21:12 UTC. Historical 1-5, extension
+  6-10 and pooled 1-10 results remain separate in the artifact. The pooled
+  SABER-minus-HER AUC interval excludes zero; the HGR and PER intervals do not.
+  This is cohort-specific evidence, not proof of the support mechanism or a
+  multiplicity-adjusted superiority claim. SABER seed 8 has zero AUC and is
+  retained. The original submitted [five-seed metrics][td3-metrics] and
+  [paired statistics][td3-ci] are unchanged. Retained source/preset parity does
+  not establish byte-for-byte historical execution-environment identity.
 - **Scope:** these are cohort-specific results, not a cross-backbone ranking
   or a claim of universal superiority. Equal UTD is not equal wall-clock cost;
   runtime includes different instrumentation and concurrent workloads. See
