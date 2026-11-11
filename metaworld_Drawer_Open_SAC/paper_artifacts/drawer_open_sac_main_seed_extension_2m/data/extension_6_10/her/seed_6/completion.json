@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "finished_utc": "2026-11-10T00:13:34.817823+00:00",
+  "last_write_age_sec": 8.379817485809326,
+  "nonfinite_loss": [],
+  "pid": 3647573,
+  "result": {
+    "arm": "her",
+    "auc": 0.7738693467336684,
+    "final_quarter_auc": 1.0,
+    "final_success": 1.0,
+    "hit90_step": 500000,
+    "runtime_seconds": 65487.632694237866,
+    "seed": 6,
+    "steps_per_second": 30.540117541551876,
+    "total_updates": 1995001
+  },
+  "started_utc": "2026-11-09T06:01:56.816296+00:00",
+  "status": "completed",
+  "step": 2000000,
+  "steps_per_sec": "30.5405939916489"
+}

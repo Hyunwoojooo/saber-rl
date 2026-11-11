@@ -94,6 +94,31 @@ The previous six-family index does not include these later DDPG/TD3 extensions.
 python3 ICML_27/tools/td3_seed_extension_results.py verify
 ```
 
+### DrawerOpen SAC HER Seed Extension
+
+The [SAC extension artifact](../metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
+adds **five completed HER runs**, seeds 6-10 at 2M steps, finished on
+**2026-11-10 00:13 UTC**. Only HER is published in this update. New SABER,
+HGR, PER and CPU-pilot results are deliberately excluded.
+
+New-seed HER AUC is **0.526332 +/- 0.383685**; pooled seeds 1-10 AUC is
+**0.486683 +/- 0.377089**, with mean final success **0.700**. All seeds,
+including zero-success seed 8, are retained. The five historical references
+are already counted in the SAC archive and are not additional executions.
+The archive therefore contains **155 distinct completed post-review training
+executions** with this publication, not counting reused references.
+
+The original five-seed SAC artifact remains unchanged. Historical, extension
+and pooled HER results are reported separately; no ten-seed SABER contrast
+or paired CI is published while only HER is included. These are the existing
+auto-temperature SAC settings, not the fixed-alpha prototype. Scientific
+configuration parity and source hashes are checked without changing the live
+training queue or importing its trainers.
+
+```bash
+python3 ICML_27/tools/sac_seed_extension_results.py verify
+```
+
 ## What Is Included
 
 Each experiment directory has a current `README.md`, frozen `source/`, compact `results/`
@@ -156,7 +181,7 @@ not edited during verification.
 - Failure/saturation associations and final-checkpoint search agreement are descriptive, not causal proof.
 - The SAC observation retains original-goal coordinates while HER relabels a separate goal input. The inherited representation is shared across compared SAC methods; its causal effect is unresolved. Executed code is not silently corrected in this archive.
 - Runtime includes instrumentation. These experiments do not supply a controlled, matched-instrumentation wall-clock superiority claim.
-- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity, context transfer, and SAC seed 6-10 expansion are not completed experiments in this archive.
+- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. For the SAC seed 6-10 extension, only DrawerOpen HER has been published; the four-method ten-seed comparison is not complete in this archive.
 
 ## License
 

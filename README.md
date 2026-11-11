@@ -13,7 +13,7 @@ actor updates, network architectures and the update budget.
 
 ## DrawerOpen Results
 
-Snapshot: **2026-11-09 UTC**. This is a results overview, not a live dashboard.
+Snapshot: **2026-11-11 UTC**. This is a results overview, not a live dashboard.
 It covers the current main-comparison cohorts and post-AAAI follow-ups; historical
 supplementary-only studies are linked below rather than pooled into this table.
 
@@ -49,6 +49,8 @@ in the linked reports.
 | Post-AAAI / SAC | SABER (Ours), critic-only | 1-5 | 0.4485 +/- 0.4108 | 0.600 | Reference | [Data][sac] |
 | Post-AAAI / SAC | HGR | 1-5 | 0.7066 +/- 0.0659 | 1.000 | -0.2581 [-0.5965, +0.0651] | [Data][sac] |
 | Post-AAAI / SAC | PER-full | 1-5 | 0.7976 +/- 0.0722 | 1.000 | -0.3491 [-0.6747, -0.0235] | [Data][sac] |
+| Main extension / SAC | HER, new seeds only | 6-10 | 0.5263 +/- 0.3837 | 0.800 | Not published: HER only | [Data][sac-extension] |
+| Main extension / SAC | HER, pooled | 1-10 | 0.4867 +/- 0.3771 | 0.700 | Not published: HER only | [Data][sac-extension] |
 | Main extension / TD3 | HER | 1-10 | 0.1374 +/- 0.2907 | 0.195 | +0.3208 [+0.0167, +0.6030] | [Data][td3-extension] |
 | Main extension / TD3 | SABER (Ours), critic-only | 1-10 | 0.4582 +/- 0.3235 | 0.695 | Reference | [Data][td3-extension] |
 | Main extension / TD3 | HGR | 1-10 | 0.2438 +/- 0.3171 | 0.390 | +0.2144 [-0.0976, +0.5015] | [Data][td3-extension] |
@@ -78,6 +80,11 @@ in the linked reports.
   after observing the HER/SABER results. The inherited observation includes
   original-goal coordinates alongside the relabeled goal input; all four
   methods share that representation, and its causal effect is unresolved.
+- **Main extension / SAC:** only the five new HER runs (seeds 6-10) are
+  published in this update. They completed on November 10 at 00:13 UTC.
+  The new and pooled HER rows overlap; the historical five runs also appear
+  in the original SAC cohort above. No new SABER/HGR/PER results or ten-seed
+  paired comparisons are published here. Zero-success seed 8 is retained.
 - **Main extension / TD3:** all 20 new runs (HER, SABER, HGR and PER, each
   seeds 6-10) completed on November 7 at 21:12 UTC. Historical 1-5, extension
   6-10 and pooled 1-10 results remain separate in the artifact. The pooled
@@ -115,6 +122,7 @@ the following checks are read-only and do not start training:
 python3 ICML_27/tools/verify_archive.py
 python3 ICML_27/tools/ddpg_completed_extension_results.py verify
 python3 ICML_27/tools/sac_results.py verify --task drawer_open
+python3 ICML_27/tools/sac_seed_extension_results.py verify
 python3 ICML_27/tools/td3_seed_extension_results.py verify
 ```
 
@@ -128,6 +136,7 @@ preserved third-party notices are described in the [archive license section](ICM
 [pal]: ICML_27/experiments/draweropen_ddpg_saber_vs_pal/README.md
 [retrieval]: ICML_27/experiments/draweropen_ddpg_saber_tail_vs_random512/README.md
 [sac]: metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/README.md
+[sac-extension]: metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md
 [td3-metrics]: paper/supplementary_artifacts/primary_seed_results/aggregate_metrics.csv
 [td3-ci]: paper/supplementary_artifacts/primary_seed_results/paired_statistics.csv
 [td3-extension]: metaworld_Drawer_Open_TD3/paper_artifacts/drawer_open_td3_main_seed_extension_2m/README.md

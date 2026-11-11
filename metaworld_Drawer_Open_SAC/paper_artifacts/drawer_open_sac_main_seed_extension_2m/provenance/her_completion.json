@@ -1,0 +1,117 @@
+{
+  "finished_utc": "2026-11-10T00:13:35.004982+00:00",
+  "seeds": {
+    "10": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-10T00:11:04.013191+00:00",
+      "last_write_age_sec": 13.54013204574585,
+      "nonfinite_loss": [],
+      "pid": 3647577,
+      "result": {
+        "arm": "her",
+        "auc": 0.2371859296482412,
+        "final_quarter_auc": 0.886,
+        "final_success": 1.0,
+        "hit90_step": 1500000,
+        "runtime_seconds": 65331.564667641185,
+        "seed": 10,
+        "steps_per_second": 30.613073637138875,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-09T06:01:56.817847+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "30.61354149843428"
+    },
+    "6": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-10T00:13:34.817823+00:00",
+      "last_write_age_sec": 8.379817485809326,
+      "nonfinite_loss": [],
+      "pid": 3647573,
+      "result": {
+        "arm": "her",
+        "auc": 0.7738693467336684,
+        "final_quarter_auc": 1.0,
+        "final_success": 1.0,
+        "hit90_step": 500000,
+        "runtime_seconds": 65487.632694237866,
+        "seed": 6,
+        "steps_per_second": 30.540117541551876,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-09T06:01:56.816296+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "30.5405939916489"
+    },
+    "7": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-10T00:13:04.625541+00:00",
+      "last_write_age_sec": 11.495737791061401,
+      "nonfinite_loss": [],
+      "pid": 3647574,
+      "result": {
+        "arm": "her",
+        "auc": 0.757035175879397,
+        "final_quarter_auc": 1.0,
+        "final_success": 1.0,
+        "hit90_step": 560000,
+        "runtime_seconds": 65454.23328070296,
+        "seed": 7,
+        "steps_per_second": 30.55570128555206,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-09T06:01:56.816887+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "30.556166517540092"
+    },
+    "8": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-10T00:11:34.235492+00:00",
+      "last_write_age_sec": 25.996341228485107,
+      "nonfinite_loss": [],
+      "pid": 3647575,
+      "result": {
+        "arm": "her",
+        "auc": 0.0,
+        "final_quarter_auc": 0.0,
+        "final_success": 0.0,
+        "hit90_step": null,
+        "runtime_seconds": 65349.425677187275,
+        "seed": 8,
+        "steps_per_second": 30.60470661027059,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-09T06:01:56.817232+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "30.605181847048794"
+    },
+    "9": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-10T00:12:04.430973+00:00",
+      "last_write_age_sec": 17.863579988479614,
+      "nonfinite_loss": [],
+      "pid": 3647576,
+      "result": {
+        "arm": "her",
+        "auc": 0.8635678391959799,
+        "final_quarter_auc": 1.0,
+        "final_success": 1.0,
+        "hit90_step": 270000,
+        "runtime_seconds": 65387.726477669086,
+        "seed": 9,
+        "steps_per_second": 30.586779931598183,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-09T06:01:56.817520+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "30.587272797312018"
+    }
+  },
+  "started_utc": "2026-11-09T06:01:56.815417+00:00",
+  "status": "completed"
+}

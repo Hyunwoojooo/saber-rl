@@ -1,5 +1,26 @@
 # MetaWorld DrawerOpen SAC Experiments
 
+## HER Seed Extension: Completed Seeds 6-10
+
+The [HER extension artifact](paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
+adds **five completed fresh 2M runs**, finished on **2026-11-10 00:13 UTC**.
+This publication contains HER only, not new SABER/HGR/PER results.
+
+| HER cohort | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
+| --- | ---: | ---: | ---: |
+| New seeds 6-10 | 0.526332 +/- 0.383685 | 0.800 +/- 0.447214 | 4/5 |
+| Pooled seeds 1-10 | 0.486683 +/- 0.377089 | 0.700 +/- 0.483046 | 7/10 |
+
+Seed 8's zero-success result is retained. Historical, extension and pooled
+results are separated; the original five-seed artifact below is unchanged.
+No ten-seed paired comparison is reported until the matched comparison cohort
+is complete and published. Configs, all evaluation checkpoints, source hashes,
+completion records and standalone analysis are included.
+
+```bash
+python3 ICML_27/tools/sac_seed_extension_results.py verify
+```
+
 ## Completed Auto-Temperature SAC Results
 
 The post-AAAI FPP-reference SAC comparison is complete: **HER, SABER (Ours),

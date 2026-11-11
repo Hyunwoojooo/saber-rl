@@ -1,0 +1,44 @@
+{
+  "experiment_id": "draweropen_sac_main_seed_extension",
+  "authorized_utc_date": "2026-11-09",
+  "task": "drawer-open-v3",
+  "backbone": "SAC, FPP-reference automatic entropy temperature",
+  "order": ["her", "saber", "hgr", "per"],
+  "seeds": [6, 7, 8, 9, 10],
+  "reference_seeds": [1, 2, 3, 4, 5],
+  "steps_per_run": 2000000,
+  "total_new_runs": 20,
+  "total_environment_steps": 40000000,
+  "parallel_seeds": 5,
+  "concurrent_conditions": 1,
+  "gpu_smoke": {"seed": 11, "steps": 20000},
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 2027,
+  "statistics": {
+    "auc_grid": "10000..2000000 inclusive, every 10000; denominator 1990000",
+    "final_quarter_grid": "1500000..2000000 inclusive; denominator 500000",
+    "success": "eval/env_success_mean, ever-success in 20 evaluation episodes",
+    "comparisons": ["saber-her", "saber-hgr", "saber-per"],
+    "intervals": "Pointwise percentile 95% and nominal Bonferroni 98.333333% for three AUC contrasts, approximate bootstrap coverage",
+    "resampling": "One seed-row index matrix shared by all comparisons and metrics in a cohort",
+    "reporting": "Report historical 1-5, extension 6-10 and pooled 1-10 separately, including all failed/zero-success runs",
+    "scope": "Exploratory fixed-size extension authorized after seeing seeds 1-5; no optional stopping or superiority guarantee"
+  },
+  "failure_policy": {
+    "resume": false,
+    "overwrite": false,
+    "silent_replacement": false,
+    "next_method_on_failure": "Stop after active method; retain failures and require an explicit audited restart plan",
+    "low_success": "Not a failure; run the entire fixed budget without exclusion",
+    "non_finite": "Fail rather than substituting loss, TD error or temperature values",
+    "power_interruption": "No automatic resume; preserve partial attempts"
+  },
+  "caveats": [
+    "This extends the post-AAAI automatic-temperature SAC cohort, not the legacy fixed-alpha prototype.",
+    "Keep the inherited original-goal observation components and separate HER-relabelled goal unchanged in all arms.",
+    "Retain native HGR inclusive-future pair convention and IS weighting; do not silently force it into the HER/PER future convention.",
+    "The existing HER/SABER source and HGR/PER source remain separate frozen snapshots.",
+    "Historical power-interrupted attempts are not pooled; only validated fresh complete runs are retained.",
+    "Runtime under five parallel seeds is descriptive, not a dedicated wall-clock comparison."
+  ]
+}

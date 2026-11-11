@@ -1,0 +1,11 @@
+{
+  "finite_values_checked": {
+    "loss/critic": 10176,
+    "loss/actor": 10176,
+    "loss/td_error_abs_mean": 10176,
+    "sac/alpha": 10176,
+    "sac/alpha_loss": 10176
+  },
+  "last_step": 2000000,
+  "monotonic_step_and_runtime": true
+}
