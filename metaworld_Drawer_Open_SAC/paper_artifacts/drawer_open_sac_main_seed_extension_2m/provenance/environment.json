@@ -24,6 +24,31 @@
       "arm": "her",
       "core_packages_match": true,
       "seed": 5
+    },
+    {
+      "arm": "saber",
+      "core_packages_match": true,
+      "seed": 1
+    },
+    {
+      "arm": "saber",
+      "core_packages_match": true,
+      "seed": 2
+    },
+    {
+      "arm": "saber",
+      "core_packages_match": true,
+      "seed": 3
+    },
+    {
+      "arm": "saber",
+      "core_packages_match": true,
+      "seed": 4
+    },
+    {
+      "arm": "saber",
+      "core_packages_match": true,
+      "seed": 5
     }
   ],
   "packages": {

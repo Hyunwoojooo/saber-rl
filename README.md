@@ -49,8 +49,10 @@ in the linked reports.
 | Post-AAAI / SAC | SABER (Ours), critic-only | 1-5 | 0.4485 +/- 0.4108 | 0.600 | Reference | [Data][sac] |
 | Post-AAAI / SAC | HGR | 1-5 | 0.7066 +/- 0.0659 | 1.000 | -0.2581 [-0.5965, +0.0651] | [Data][sac] |
 | Post-AAAI / SAC | PER-full | 1-5 | 0.7976 +/- 0.0722 | 1.000 | -0.3491 [-0.6747, -0.0235] | [Data][sac] |
-| Main extension / SAC | HER, new seeds only | 6-10 | 0.5263 +/- 0.3837 | 0.800 | Not published: HER only | [Data][sac-extension] |
-| Main extension / SAC | HER, pooled | 1-10 | 0.4867 +/- 0.3771 | 0.700 | Not published: HER only | [Data][sac-extension] |
+| Main extension / SAC | HER, new seeds only | 6-10 | 0.5263 +/- 0.3837 | 0.800 | +0.0153 [-0.1089, +0.1459] | [Data][sac-extension] |
+| Main extension / SAC | SABER (Ours), new seeds only | 6-10 | 0.5416 +/- 0.3346 | 0.800 | Reference | [Data][sac-extension] |
+| Main extension / SAC | HER, pooled | 1-10 | 0.4867 +/- 0.3771 | 0.700 | +0.0084 [-0.0598, +0.0769] | [Data][sac-extension] |
+| Main extension / SAC | SABER (Ours), pooled | 1-10 | 0.4951 +/- 0.3566 | 0.700 | Reference | [Data][sac-extension] |
 | Main extension / TD3 | HER | 1-10 | 0.1374 +/- 0.2907 | 0.195 | +0.3208 [+0.0167, +0.6030] | [Data][td3-extension] |
 | Main extension / TD3 | SABER (Ours), critic-only | 1-10 | 0.4582 +/- 0.3235 | 0.695 | Reference | [Data][td3-extension] |
 | Main extension / TD3 | HGR | 1-10 | 0.2438 +/- 0.3171 | 0.390 | +0.2144 [-0.0976, +0.5015] | [Data][td3-extension] |
@@ -80,11 +82,14 @@ in the linked reports.
   after observing the HER/SABER results. The inherited observation includes
   original-goal coordinates alongside the relabeled goal input; all four
   methods share that representation, and its causal effect is unresolved.
-- **Main extension / SAC:** only the five new HER runs (seeds 6-10) are
-  published in this update. They completed on November 10 at 00:13 UTC.
-  The new and pooled HER rows overlap; the historical five runs also appear
-  in the original SAC cohort above. No new SABER/HGR/PER results or ten-seed
-  paired comparisons are published here. Zero-success seed 8 is retained.
+- **Main extension / SAC:** HER and SABER each have five completed new runs
+  (seeds 6-10). SABER completed on November 11 at 04:04 UTC. The pooled AUC
+  difference is small and both its pointwise 95% and nominal three-contrast
+  adjusted interval [-0.0750, +0.0942] include zero. This establishes neither
+  superiority nor equivalence. Final success is 0.700 for both methods;
+  final-zero seeds 2, 3 and 8 are retained. Historical, new and pooled rows
+  overlap and are not extra independent observations. New HGR/PER results
+  are not published, and their five-seed rows above are not ten-seed comparisons.
 - **Main extension / TD3:** all 20 new runs (HER, SABER, HGR and PER, each
   seeds 6-10) completed on November 7 at 21:12 UTC. Historical 1-5, extension
   6-10 and pooled 1-10 results remain separate in the artifact. The pooled

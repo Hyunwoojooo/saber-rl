@@ -1,0 +1,117 @@
+{
+  "finished_utc": "2026-11-11T04:04:48.724395+00:00",
+  "seeds": {
+    "10": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-11T04:04:48.518637+00:00",
+      "last_write_age_sec": 19.240408182144165,
+      "nonfinite_loss": [],
+      "pid": 3859841,
+      "result": {
+        "arm": "saber",
+        "auc": 0.46256281407035177,
+        "final_quarter_auc": 0.995,
+        "final_success": 1.0,
+        "hit90_step": 1110000,
+        "runtime_seconds": 100251.446489505,
+        "seed": 10,
+        "steps_per_second": 19.94983683561487,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-10T00:13:35.027358+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "19.950001003639972"
+    },
+    "6": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-11T03:09:17.387160+00:00",
+      "last_write_age_sec": 11.969597578048706,
+      "nonfinite_loss": [],
+      "pid": 3859837,
+      "result": {
+        "arm": "saber",
+        "auc": 0.7444723618090452,
+        "final_quarter_auc": 1.0,
+        "final_success": 1.0,
+        "hit90_step": 520000,
+        "runtime_seconds": 96927.60396206612,
+        "seed": 6,
+        "steps_per_second": 20.633956873448827,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-10T00:13:35.025491+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "20.634136543761837"
+    },
+    "7": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-11T01:50:46.475999+00:00",
+      "last_write_age_sec": 5.480289459228516,
+      "nonfinite_loss": [],
+      "pid": 3859838,
+      "result": {
+        "arm": "saber",
+        "auc": 0.85,
+        "final_quarter_auc": 1.0,
+        "final_success": 1.0,
+        "hit90_step": 320000,
+        "runtime_seconds": 92223.09692484187,
+        "seed": 7,
+        "steps_per_second": 21.686541297023673,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-10T00:13:35.026268+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "21.686734295269616"
+    },
+    "8": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-11T04:03:48.314588+00:00",
+      "last_write_age_sec": 6.023403882980347,
+      "nonfinite_loss": [],
+      "pid": 3859839,
+      "result": {
+        "arm": "saber",
+        "auc": 0.0,
+        "final_quarter_auc": 0.0,
+        "final_success": 0.0,
+        "hit90_step": null,
+        "runtime_seconds": 100204.34511390515,
+        "seed": 8,
+        "steps_per_second": 19.959214320761667,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-10T00:13:35.026613+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "19.959369317432152"
+    },
+    "9": {
+      "exit_code": 0,
+      "finished_utc": "2026-11-11T03:23:17.747317+00:00",
+      "last_write_age_sec": 15.4094820022583,
+      "nonfinite_loss": [],
+      "pid": 3859840,
+      "result": {
+        "arm": "saber",
+        "auc": 0.6510050251256282,
+        "final_quarter_auc": 0.988,
+        "final_success": 1.0,
+        "hit90_step": 710000,
+        "runtime_seconds": 97764.50832153205,
+        "seed": 9,
+        "steps_per_second": 20.457321724795214,
+        "total_updates": 1995001
+      },
+      "started_utc": "2026-11-10T00:13:35.027036+00:00",
+      "status": "completed",
+      "step": 2000000,
+      "steps_per_sec": "20.45749471404293"
+    }
+  },
+  "started_utc": "2026-11-10T00:13:35.024102+00:00",
+  "status": "completed"
+}

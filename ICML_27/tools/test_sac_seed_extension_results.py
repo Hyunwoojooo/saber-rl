@@ -1,4 +1,4 @@
-"""HER-only publication guards; no simulator, trainer, GPU or new training."""
+"""Completed-cohort publication guards; no simulator, trainer or new training."""
 import copy
 import csv
 from pathlib import Path
@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from sac_seed_extension_results import (
-    LOSS_FIELDS, METRICS, require_complete_her, scan_training_csv, summarize,
+    LOSS_FIELDS, METRICS, require_complete, require_complete_her, scan_training_csv, summarize,
 )
 from sac_results import curve
 
@@ -17,8 +17,8 @@ def completed():
         for s in range(6, 11)}}
 
 
-def rows():
-    return [{"method": "her", "seed": s, **{k: 0.0 for k in METRICS}, "hit90": None}
+def rows(method="her"):
+    return [{"method": method, "seed": s, **{k: 0.0 for k in METRICS}, "hit90": None}
             for s in range(1, 11)]
 
 
@@ -64,6 +64,62 @@ class PublicationTests(unittest.TestCase):
         values[-1] = copy.deepcopy(values[-2])
         with self.assertRaises(ValueError):
             summarize(values)
+
+    def test_complete_saber_enables_three_paired_cohorts(self):
+        report = summarize(rows() + rows("saber"), ("her", "saber"))
+        self.assertEqual(report["new_completed_runs"], 10)
+        self.assertEqual(report["historical_reference_runs"], 10)
+        self.assertEqual(report["published_methods"], ["her", "saber"])
+        for cohort, n in (("historical_1_5", 5), ("extension_6_10", 5), ("pooled_1_10", 10)):
+            value = report["comparisons"][cohort]["auc"]
+            self.assertEqual(value["n"], n)
+            self.assertEqual(value["ci95"], [0.0, 0.0])
+            self.assertEqual(value["seed_differences"], [0.0] * n)
+
+    def test_missing_or_duplicate_saber_seed_rejected(self):
+        values = rows() + rows("saber")
+        for bad in (values[:-1], values[:-1] + [values[-2]]):
+            with self.assertRaises(ValueError):
+                summarize(bad, ("her", "saber"))
+
+    def test_hgr_and_per_not_authorized_by_saber_append(self):
+        for method in ("hgr", "per"):
+            with self.assertRaises(ValueError):
+                summarize(rows() + rows(method), ("her", method))
+
+    def test_pairing_uses_seed_and_saber_minus_her_direction(self):
+        values = rows() + rows("saber")
+        for row in values:
+            row["auc"] = row["seed"] / (100 if row["method"] == "saber" else 200)
+        expected = summarize(values, ("her", "saber"))
+        self.assertEqual(expected, summarize(values[::-1], ("her", "saber")))
+        value = expected["comparisons"]["pooled_1_10"]["auc"]
+        self.assertAlmostEqual(value["mean_difference"], .0275)
+        self.assertEqual(value["positive_pairs"], 10)
+        for seed, difference in enumerate(value["seed_differences"], 1):
+            self.assertAlmostEqual(difference, seed / 200)
+
+    def test_bootstrap_matches_predeclared_single_metric_calculation(self):
+        import numpy as np
+        values = rows() + rows("saber")
+        diffs = np.asarray([-.1, .1, 0, .03, .04, -.02, .09, 0, -.21, .22])
+        for row in values:
+            row["auc"] = .3 + (diffs[row["seed"] - 1] if row["method"] == "saber" else 0)
+        report = summarize(values, ("her", "saber"))
+        value = report["comparisons"]["pooled_1_10"]["auc"]
+        indices = np.random.default_rng(2027).integers(0, 10, size=(10000, 10))
+        means = diffs[indices].mean(axis=1)
+        np.testing.assert_allclose(value["ci95"], np.quantile(means, [.025, .975]), atol=1e-12)
+        np.testing.assert_allclose(value["ci_bonferroni_three"], np.quantile(means, [.05/6, 1-.05/6]), atol=1e-12)
+        self.assertLessEqual(value["ci_bonferroni_three"][0], value["ci95"][0])
+        self.assertGreaterEqual(value["ci_bonferroni_three"][1], value["ci95"][1])
+
+    def test_saber_completion_required_without_performance_filter(self):
+        state = completed()
+        require_complete(state)
+        state["seeds"]["8"]["status"] = "running"
+        with self.assertRaises(ValueError):
+            require_complete(state)
 
     def test_exact_evaluation_grid(self):
         values = [{"step": s, "eval/env_success_mean": 0.0} for s in range(10000, 2000001, 10000)]

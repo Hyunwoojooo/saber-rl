@@ -1,21 +1,30 @@
 # MetaWorld DrawerOpen SAC Experiments
 
-## HER Seed Extension: Completed Seeds 6-10
+## HER and SABER Seed Extensions: Completed Seeds 6-10
 
-The [HER extension artifact](paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
-adds **five completed fresh 2M runs**, finished on **2026-11-10 00:13 UTC**.
-This publication contains HER only, not new SABER/HGR/PER results.
+The [extension artifact](paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
+now includes **HER and SABER, five fresh 2M runs each**, plus their historical
+seeds 1-5. SABER completed on **2026-11-11 04:04 UTC**. This update adds five
+new SABER executions; the previously published HER run files are unchanged.
+New HGR/PER results are not included.
 
-| HER cohort | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
-| --- | ---: | ---: | ---: |
-| New seeds 6-10 | 0.526332 +/- 0.383685 | 0.800 +/- 0.447214 | 4/5 |
-| Pooled seeds 1-10 | 0.486683 +/- 0.377089 | 0.700 +/- 0.483046 | 7/10 |
+| Cohort | Method | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
+| --- | --- | ---: | ---: | ---: |
+| New seeds 6-10 | HER | 0.526332 +/- 0.383685 | 0.800 +/- 0.447214 | 4/5 |
+| New seeds 6-10 | SABER (Ours) | 0.541608 +/- 0.334595 | 0.800 +/- 0.447214 | 4/5 |
+| Pooled seeds 1-10 | HER | 0.486683 +/- 0.377089 | 0.700 +/- 0.483046 | 7/10 |
+| Pooled seeds 1-10 | SABER (Ours) | 0.495050 +/- 0.356622 | 0.700 +/- 0.483046 | 7/10 |
 
-Seed 8's zero-success result is retained. Historical, extension and pooled
-results are separated; the original five-seed artifact below is unchanged.
-No ten-seed paired comparison is reported until the matched comparison cohort
-is complete and published. Configs, all evaluation checkpoints, source hashes,
-completion records and standalone analysis are included.
+Pooled SABER-minus-HER AUC is **+0.008367**, with pointwise 95% CI
+**[-0.059777, +0.076912]** and nominal three-contrast-adjusted 98.333333% CI
+**[-0.075049, +0.094180]**. The small mean difference and intervals crossing
+zero establish neither superiority nor equivalence. The paired bootstrap uses
+10,000 seed-row resamples; its small-sample coverage is approximate.
+
+All zero-success results are retained. Historical, extension and pooled
+results remain separate; the original five-seed artifact below is unchanged.
+Configs, all evaluation checkpoints, source hashes, completion records,
+seed-level paired differences and reproducible analysis are included.
 
 ```bash
 python3 ICML_27/tools/sac_seed_extension_results.py verify

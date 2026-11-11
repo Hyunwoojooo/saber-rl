@@ -94,26 +94,32 @@ The previous six-family index does not include these later DDPG/TD3 extensions.
 python3 ICML_27/tools/td3_seed_extension_results.py verify
 ```
 
-### DrawerOpen SAC HER Seed Extension
+### DrawerOpen SAC HER and SABER Seed Extensions
 
 The [SAC extension artifact](../metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
-adds **five completed HER runs**, seeds 6-10 at 2M steps, finished on
-**2026-11-10 00:13 UTC**. Only HER is published in this update. New SABER,
-HGR, PER and CPU-pilot results are deliberately excluded.
+contains **ten completed new runs**, HER and SABER each with seeds 6-10 at
+2M steps. This update adds the five SABER runs, finished on
+**2026-11-11 04:04 UTC**, to the previously published HER runs.
+New HGR, PER and CPU-pilot results are deliberately excluded.
 
-New-seed HER AUC is **0.526332 +/- 0.383685**; pooled seeds 1-10 AUC is
-**0.486683 +/- 0.377089**, with mean final success **0.700**. All seeds,
-including zero-success seed 8, are retained. The five historical references
-are already counted in the SAC archive and are not additional executions.
-The archive therefore contains **155 distinct completed post-review training
-executions** with this publication, not counting reused references.
+Pooled seeds 1-10 AUC is **0.486683 +/- 0.377089** for HER and
+**0.495050 +/- 0.356622** for SABER. The paired difference is **+0.008367**,
+pointwise 95% CI **[-0.059777, +0.076912]**; its nominal three-contrast-adjusted
+98.333333% interval is **[-0.075049, +0.094180]**. Both methods have mean final
+success **0.700** and Hit90 coverage **7/10**. All zero/low-success seeds are
+retained. The small difference does not establish superiority or equivalence.
+
+The ten historical references were already counted in the SAC archive and are
+not additional executions. The archive now contains **160 distinct completed
+post-review training executions**, excluding reused references.
 
 The original five-seed SAC artifact remains unchanged. Historical, extension
-and pooled HER results are reported separately; no ten-seed SABER contrast
-or paired CI is published while only HER is included. These are the existing
-auto-temperature SAC settings, not the fixed-alpha prototype. Scientific
-configuration parity and source hashes are checked without changing the live
-training queue or importing its trainers.
+and pooled HER/SABER results are reported separately, with complete seed-level
+paired differences and approximate bootstrap intervals. The planned
+three-AUC-contrast adjustment is retained, but HGR/PER contrasts are not yet
+published. These are the existing auto-temperature SAC settings, not the
+fixed-alpha prototype. Scientific configuration parity and source hashes are
+checked without changing the live queue or importing its trainers.
 
 ```bash
 python3 ICML_27/tools/sac_seed_extension_results.py verify
@@ -181,7 +187,7 @@ not edited during verification.
 - Failure/saturation associations and final-checkpoint search agreement are descriptive, not causal proof.
 - The SAC observation retains original-goal coordinates while HER relabels a separate goal input. The inherited representation is shared across compared SAC methods; its causal effect is unresolved. Executed code is not silently corrected in this archive.
 - Runtime includes instrumentation. These experiments do not supply a controlled, matched-instrumentation wall-clock superiority claim.
-- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. For the SAC seed 6-10 extension, only DrawerOpen HER has been published; the four-method ten-seed comparison is not complete in this archive.
+- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. For the SAC seed 6-10 extension, DrawerOpen HER and SABER are published; HGR/PER extension results and the four-method ten-seed comparison are not yet published.
 
 ## License
 

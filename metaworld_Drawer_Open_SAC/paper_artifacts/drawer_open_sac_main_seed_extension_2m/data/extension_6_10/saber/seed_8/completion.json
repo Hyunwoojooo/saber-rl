@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "finished_utc": "2026-11-11T04:03:48.314588+00:00",
+  "last_write_age_sec": 6.023403882980347,
+  "nonfinite_loss": [],
+  "pid": 3859839,
+  "result": {
+    "arm": "saber",
+    "auc": 0.0,
+    "final_quarter_auc": 0.0,
+    "final_success": 0.0,
+    "hit90_step": null,
+    "runtime_seconds": 100204.34511390515,
+    "seed": 8,
+    "steps_per_second": 19.959214320761667,
+    "total_updates": 1995001
+  },
+  "started_utc": "2026-11-10T00:13:35.026613+00:00",
+  "status": "completed",
+  "step": 2000000,
+  "steps_per_sec": "19.959369317432152"
+}
