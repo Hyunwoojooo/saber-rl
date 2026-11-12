@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "ICML2027/experiments/draweropen_ddpg_first_order_usefulness_20261109/run.py",
+    "measure",
+    "--set",
+    "fpp_primary",
+    "--out",
+    "outputs/fpp_primary",
+    "--arms",
+    "saber",
+    "--seeds",
+    "1",
+    "2"
+  ],
+  "set": "fpp_primary",
+  "git": "99acfa8658cedfbeb448f867b4046eb4f8cbc012",
+  "code_sha256": {
+    "fou/__init__.py": "6a1ee0283e1a37f6f062e8ed6f3be23abd20779277c680113a18059d0e231e06",
+    "fou/core.py": "2505a0d270b3c4e2d6bbe5d5fb33189b67ea07b3a000f848dd291b0666235e80",
+    "fou/protocol.py": "70f629d7e694569f69644341c477187a4ae3543cd72cd71f3265f7c8fdb18549",
+    "fou/vendor_sim.py": "198da8d1c592d6510d8e2442dce2675b39e80ed236c05664b1a70cc2f246bc1f",
+    "run.py": "2567ce6906f24a2f69019f78435caef7b35a9c218eb3023d43669f6251e7755a"
+  },
+  "versions": {
+    "torch": "2.12.1",
+    "numpy": "2.3.5",
+    "metaworld": "3.1.1",
+    "mujoco": "3.3.0",
+    "gymnasium": "1.3.0"
+  },
+  "python": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]"
+}

@@ -1,0 +1,91 @@
+bank,stratum,test,verdict,runs,positive,negative,ties,sign_test_p
+R1,"success, all arms",H1 SABER > uniform (K=100),mixed,20,8,12,0,0.2517
+R1,"success, all arms",H1 SABER > uniform (K=10),mixed,20,10,10,0,0.5881
+R1,"success, all arms",H1 SABER > uniform (real 1-step),mixed,20,8,12,0,0.2517
+R1,"success, all arms",H1 SABER > uniform (G3 prediction),mixed,20,9,11,0,0.4119
+R1,"success, all arms",H2 SABER > Random (K=100),mixed,20,11,9,0,0.4119
+R1,"success, all arms",H2 SABER > TD top-k (K=100),mixed,20,9,11,0,0.4119
+R1,"success, all arms",inverse (psi=0 upweighted) > uniform (K=100),mixed,20,10,10,0,0.5881
+R1,"success, all arms","H3 kappa(M) > kappa(E\M), dist-matched",consistent +,20,20,0,0,0.0
+R1,"success, all arms","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,20,8,12,0,0.2517
+R1,"success, SABER-trained",H1 SABER > uniform (K=100),mixed,4,2,2,0,0.6875
+R1,"success, SABER-trained",H1 SABER > uniform (K=10),mixed,4,2,2,0,0.6875
+R1,"success, SABER-trained",H1 SABER > uniform (real 1-step),mixed,4,1,3,0,0.3125
+R1,"success, SABER-trained",H1 SABER > uniform (G3 prediction),mixed,4,2,2,0,0.6875
+R1,"success, SABER-trained",H2 SABER > Random (K=100),mixed,4,2,2,0,0.6875
+R1,"success, SABER-trained",H2 SABER > TD top-k (K=100),mixed,4,2,2,0,0.6875
+R1,"success, SABER-trained",inverse (psi=0 upweighted) > uniform (K=100),mixed,4,2,2,0,0.6875
+R1,"success, SABER-trained","H3 kappa(M) > kappa(E\M), dist-matched",mixed,4,4,0,0,0.0625
+R1,"success, SABER-trained","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,4,3,1,0,0.3125
+R1,"success, Random-trained",H1 SABER > uniform (K=100),mixed,8,3,5,0,0.3633
+R1,"success, Random-trained",H1 SABER > uniform (K=10),mixed,8,4,4,0,0.6367
+R1,"success, Random-trained",H1 SABER > uniform (real 1-step),mixed,8,4,4,0,0.6367
+R1,"success, Random-trained",H1 SABER > uniform (G3 prediction),mixed,8,4,4,0,0.6367
+R1,"success, Random-trained",H2 SABER > Random (K=100),mixed,8,4,4,0,0.6367
+R1,"success, Random-trained",H2 SABER > TD top-k (K=100),mixed,8,3,5,0,0.3633
+R1,"success, Random-trained",inverse (psi=0 upweighted) > uniform (K=100),mixed,8,4,4,0,0.6367
+R1,"success, Random-trained","H3 kappa(M) > kappa(E\M), dist-matched",consistent +,8,8,0,0,0.0039
+R1,"success, Random-trained","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,8,2,6,0,0.1445
+R1,"success, TD-trained",H1 SABER > uniform (K=100),mixed,8,3,5,0,0.3633
+R1,"success, TD-trained",H1 SABER > uniform (K=10),mixed,8,4,4,0,0.6367
+R1,"success, TD-trained",H1 SABER > uniform (real 1-step),mixed,8,3,5,0,0.3633
+R1,"success, TD-trained",H1 SABER > uniform (G3 prediction),mixed,8,3,5,0,0.3633
+R1,"success, TD-trained",H2 SABER > Random (K=100),mixed,8,5,3,0,0.3633
+R1,"success, TD-trained",H2 SABER > TD top-k (K=100),mixed,8,4,4,0,0.6367
+R1,"success, TD-trained",inverse (psi=0 upweighted) > uniform (K=100),mixed,8,4,4,0,0.6367
+R1,"success, TD-trained","H3 kappa(M) > kappa(E\M), dist-matched",consistent +,8,8,0,0,0.0039
+R1,"success, TD-trained","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,8,3,5,0,0.3633
+R1,"failed, all arms",H1 SABER > uniform (K=100),mixed,10,1,2,7,0.5
+R1,"failed, all arms",H1 SABER > uniform (K=10),mixed,10,1,2,7,0.5
+R1,"failed, all arms",H1 SABER > uniform (real 1-step),mixed,10,1,2,7,0.5
+R1,"failed, all arms",H1 SABER > uniform (G3 prediction),mixed,10,3,0,7,0.125
+R1,"failed, all arms",H2 SABER > Random (K=100),mixed,10,1,0,9,0.5
+R1,"failed, all arms",H2 SABER > TD top-k (K=100),mixed,10,0,1,9,0.5
+R1,"failed, all arms",inverse (psi=0 upweighted) > uniform (K=100),mixed,10,1,2,7,0.5
+R1,"failed, all arms","H3 kappa(M) > kappa(E\M), dist-matched",mixed,10,0,1,9,0.5
+R1,"failed, all arms","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,10,3,0,7,0.125
+R2,"success, all arms",H1 SABER > uniform (K=100),mixed,20,10,10,0,0.5881
+R2,"success, all arms",H1 SABER > uniform (K=10),mixed,20,12,8,0,0.2517
+R2,"success, all arms",H1 SABER > uniform (real 1-step),mixed,20,13,7,0,0.1316
+R2,"success, all arms",H1 SABER > uniform (G3 prediction),mixed,20,13,7,0,0.1316
+R2,"success, all arms",H2 SABER > Random (K=100),mixed,20,11,9,0,0.4119
+R2,"success, all arms",H2 SABER > TD top-k (K=100),mixed,20,13,7,0,0.1316
+R2,"success, all arms",inverse (psi=0 upweighted) > uniform (K=100),mixed,20,11,9,0,0.4119
+R2,"success, all arms","H3 kappa(M) > kappa(E\M), dist-matched",consistent +,20,20,0,0,0.0
+R2,"success, all arms","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,20,10,10,0,0.5881
+R2,"success, SABER-trained",H1 SABER > uniform (K=100),mixed,4,3,1,0,0.3125
+R2,"success, SABER-trained",H1 SABER > uniform (K=10),mixed,4,2,2,0,0.6875
+R2,"success, SABER-trained",H1 SABER > uniform (real 1-step),mixed,4,3,1,0,0.3125
+R2,"success, SABER-trained",H1 SABER > uniform (G3 prediction),mixed,4,4,0,0,0.0625
+R2,"success, SABER-trained",H2 SABER > Random (K=100),mixed,4,3,1,0,0.3125
+R2,"success, SABER-trained",H2 SABER > TD top-k (K=100),mixed,4,3,1,0,0.3125
+R2,"success, SABER-trained",inverse (psi=0 upweighted) > uniform (K=100),mixed,4,4,0,0,0.0625
+R2,"success, SABER-trained","H3 kappa(M) > kappa(E\M), dist-matched",mixed,4,4,0,0,0.0625
+R2,"success, SABER-trained","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,4,3,1,0,0.3125
+R2,"success, Random-trained",H1 SABER > uniform (K=100),mixed,8,2,6,0,0.1445
+R2,"success, Random-trained",H1 SABER > uniform (K=10),mixed,8,5,3,0,0.3633
+R2,"success, Random-trained",H1 SABER > uniform (real 1-step),mixed,8,5,3,0,0.3633
+R2,"success, Random-trained",H1 SABER > uniform (G3 prediction),mixed,8,5,3,0,0.3633
+R2,"success, Random-trained",H2 SABER > Random (K=100),mixed,8,5,3,0,0.3633
+R2,"success, Random-trained",H2 SABER > TD top-k (K=100),mixed,8,5,3,0,0.3633
+R2,"success, Random-trained",inverse (psi=0 upweighted) > uniform (K=100),mixed,8,3,5,0,0.3633
+R2,"success, Random-trained","H3 kappa(M) > kappa(E\M), dist-matched",consistent +,8,8,0,0,0.0039
+R2,"success, Random-trained","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,8,2,6,0,0.1445
+R2,"success, TD-trained",H1 SABER > uniform (K=100),mixed,8,5,3,0,0.3633
+R2,"success, TD-trained",H1 SABER > uniform (K=10),mixed,8,5,3,0,0.3633
+R2,"success, TD-trained",H1 SABER > uniform (real 1-step),mixed,8,5,3,0,0.3633
+R2,"success, TD-trained",H1 SABER > uniform (G3 prediction),mixed,8,4,4,0,0.6367
+R2,"success, TD-trained",H2 SABER > Random (K=100),mixed,8,3,5,0,0.3633
+R2,"success, TD-trained",H2 SABER > TD top-k (K=100),mixed,8,5,3,0,0.3633
+R2,"success, TD-trained",inverse (psi=0 upweighted) > uniform (K=100),mixed,8,4,4,0,0.6367
+R2,"success, TD-trained","H3 kappa(M) > kappa(E\M), dist-matched",consistent +,8,8,0,0,0.0039
+R2,"success, TD-trained","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,8,5,3,0,0.3633
+R2,"failed, all arms",H1 SABER > uniform (K=100),mixed,10,2,1,7,0.5
+R2,"failed, all arms",H1 SABER > uniform (K=10),mixed,10,1,2,7,0.5
+R2,"failed, all arms",H1 SABER > uniform (real 1-step),mixed,10,1,2,7,0.5
+R2,"failed, all arms",H1 SABER > uniform (G3 prediction),mixed,10,3,0,7,0.125
+R2,"failed, all arms",H2 SABER > Random (K=100),mixed,10,1,0,9,0.5
+R2,"failed, all arms",H2 SABER > TD top-k (K=100),mixed,10,1,0,9,0.5
+R2,"failed, all arms",inverse (psi=0 upweighted) > uniform (K=100),mixed,10,1,2,7,0.5
+R2,"failed, all arms","H3 kappa(M) > kappa(E\M), dist-matched",mixed,10,0,1,9,0.5
+R2,"failed, all arms","dir: cos(M) > cos(not M), abs(delta)-matched",mixed,10,3,0,7,0.125

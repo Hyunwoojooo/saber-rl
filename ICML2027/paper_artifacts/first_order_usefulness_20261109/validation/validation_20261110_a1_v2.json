@@ -1,0 +1,30 @@
+{
+  "results": {
+    "counterexample_sign": "PASS G1=-0.166667 (expected -1/6): the measurement can report SABER worse than uniform",
+    "saber101@100k:labels": "PASS checkpoint says arm=saber seed=101 step=100000 kind=a1_scheduled family=drawer_ddpg; evaluation success at this step 0.00, 95,001 updates",
+    "saber101@100k:production_parity": "PASS psi, eligibility and omega equal LiteWeightComputer on 8 batches (p = [0.465, 0.371, 0.418, 0.43, 0.426, 0.434, 0.461, 0.402])",
+    "saber101@100k:sample_age": "PASS age is consistent with episode order on 8 batches (replay ptr 100,000, size 100,000)",
+    "saber101@100k:production_update": "PASS our critic step vs agent.update of the training code: difference 0.0e+00 of the update norm (bit-identical)",
+    "saber101@100k:jacobian": "PASS max rel err J 1.7e-07, jvp 1.1e-04",
+    "saber101@100k:identity_uniform": "PASS G1 1.759485e+02 vs closed form 1.759485e+02",
+    "saber101@100k:identity_random": "PASS SABER-Random MC 1.7673e+02 vs closed form 1.7595e+02 (4 se = 4.1e+00)",
+    "saber101@100k:finite_difference": "PASS float64 first-order value 1.7595e+02 vs float64 finite difference 1.7595e+02 (eta 1e-9: 1.7595e+02, 1e-10: 1.7595e+02)",
+    "saber101@100k:float32_pipeline": "PASS float32 G1 1.7595e+02 vs float64 1.7595e+02 (policy-query RMS residual 4.7e-01, mean |u| 3.98e+03)",
+    "saber101@100k:adam_step": "PASS float32 emulation of Adam+clip lands on torch's parameters (err 7.0e-05 of the update norm); float64 step |R diff| 1.9e-06 vs |R change| 6.5e-02",
+    "saber101@100k:source_unchanged": "PASS actor/targets/critic(s)/Adam/replay hash unchanged",
+    "her101@300k:labels": "PASS checkpoint says arm=her seed=101 step=300000 kind=a1_scheduled family=drawer_ddpg; evaluation success at this step 0.00, 295,001 updates",
+    "her101@300k:production_parity": "PASS psi, eligibility and omega equal LiteWeightComputer on 8 batches (p = [0.168, 0.207, 0.18, 0.223, 0.215, 0.238, 0.156, 0.191])",
+    "her101@300k:sample_age": "PASS age is consistent with episode order on 8 batches (replay ptr 0, size 300,000)",
+    "her101@300k:production_update": "PASS our critic step vs agent.update of the training code: difference 0.0e+00 of the update norm (bit-identical)",
+    "her101@300k:jacobian": "PASS max rel err J 9.5e-08, jvp 4.0e-05",
+    "her101@300k:identity_uniform": "PASS G1 3.666259e+02 vs closed form 3.666259e+02",
+    "her101@300k:identity_random": "PASS SABER-Random MC 3.5634e+02 vs closed form 3.5615e+02 (4 se = 5.3e+00)",
+    "her101@300k:finite_difference": "PASS float64 first-order value 3.6664e+02 vs float64 finite difference 3.6664e+02 (eta 1e-9: 3.6663e+02, 1e-10: 3.6664e+02)",
+    "her101@300k:float32_pipeline": "PASS float32 G1 3.6663e+02 vs float64 3.6664e+02 (policy-query RMS residual 2.7e-01, mean |u| 1.97e+03)",
+    "her101@300k:adam_step": "PASS float32 emulation of Adam+clip lands on torch's parameters (err 3.5e-05 of the update norm); float64 step |R diff| 2.8e-07 vs |R change| 3.3e-02",
+    "her101@300k:source_unchanged": "PASS actor/targets/critic(s)/Adam/replay hash unchanged",
+    "restore_determinism": "PASS restore + same 5 actions reproduces the trajectory bit-for-bit",
+    "saber101@100k:end_to_end": "PASS measure_one wrote 4 files in 3.9s; query phases R1 [400, 0, 0, 0], R2 [4, 0, 0, 28]; source unchanged"
+  },
+  "seconds": 10.988758510909975
+}

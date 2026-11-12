@@ -1,0 +1,20 @@
+{
+  "started": "2026-11-10T10:10:19",
+  "device": "cpu",
+  "threads": 1,
+  "max_parallel": 10,
+  "steps": 1000000,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "git": "99acfa8658cedfbeb448f867b4046eb4f8cbc012",
+  "code_sha256": {
+    "her": "c0b3f45dc7a37b7b689ace1f1a941602d64619fed3af2650d67e867518209c8a",
+    "saber": "c4dd3bbb7ca413195cc4b5975b1f94afeae8c875baf7f687668d55b2f4c2af8c"
+  },
+  "host": "aitopatom-164d"
+}

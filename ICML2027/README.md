@@ -2,6 +2,20 @@
 
 이 폴더는 AAAI 리뷰 이후 보완 실험의 설계, 실행 코드와 완료 자료를 관리한다. 전체 저장소의 자료 위치와 브랜치 안내는 [WORKSPACE.md](../WORKSPACE.md)에 있다.
 
+## 현재 계획 — 2026-11-10
+
+[논리 공백 로드맵](experment_design/2026-11-10_logic_gap_roadmap_ko.md)이 지금 기준의 출발점이다. 논문 논리에서 비어 있는 고리, 초반부 직접 측정 결과, 남은 일의 우선순위와 상태를 한곳에 적었다. 진행하면서 그 문서의 상태 열을 고친다.
+
+| 작업 | 상태 | 자료 |
+| --- | --- | --- |
+| 실험 4: SABER 가중의 1차 유용성 측정, 초반부(A1, 10k–500k) | 완료 (2026-11-09) | [설계](experment_design/04_first_order_usefulness/README_ko.md), [코드](experiments/draweropen_ddpg_first_order_usefulness_20261109/README.md), [결과 요약](paper_artifacts/first_order_usefulness_20261109/early_phase_a1/REPORT_ko.md) |
+| 같은 측정, 후반부(기존 2M 실행의 저장본 38개) | 완료 (2026-11-10) | [protocol](experiments/draweropen_ddpg_first_order_usefulness_20261109/PROTOCOL_late_ko.md), [2M 결과](paper_artifacts/first_order_usefulness_20261109/late_ext2m/REPORT_ko.md), [seed 1 시점별](paper_artifacts/first_order_usefulness_20261109/late_mature/REPORT_ko.md) |
+
+| 같은 측정, FetchPickAndPlace–TD3 (기존 inclusive-future cohort 90개, 재학습 cohort 90개) | 완료 (2026-11-10) | [protocol](experiments/draweropen_ddpg_first_order_usefulness_20261109/PROTOCOL_fpp_ko.md), [기존 cohort](paper_artifacts/first_order_usefulness_20261109/fpp_incl/REPORT_ko.md), [재학습 cohort](paper_artifacts/first_order_usefulness_20261109/fpp_primary/REPORT_ko.md) |
+| FPP–TD3 주 비교(HER·SABER seed 1–5) 재학습 | 완료 (2026-11-10). **원 실행의 이득(+0.071)이 재현되지 않음(+0.004)** | [설정](experiments/fpp_td3_primary_checkpoint_rerun_20261110/PROTOCOL_ko.md), [원 실행과의 비교](paper_artifacts/fpp_td3_primary_rerun_20261110/README.md) |
+
+재현성 문제가 지금 가장 먼저 풀 일이다. 로드맵 0번 절을 본다.
+
 ## 미팅 자료
 
 [2026-11-05 리뷰 이후 첫 미팅 자료](meetings/2026-11-05_post_review_first_meeting_ko.md)는 GitHub main의 공유 실험과 이 PC의 결과를 합쳐, 리뷰 내용·실험 목적·결과·남은 질문·다음 우선순위를 쉽게 설명한다. 문서 앞부분에 핵심 요약이 있으며, 뒤에는 출처와 회의 결정 항목을 두었다. 진행 상태는 확인 시점의 기록이다.

@@ -1,0 +1,22 @@
+{
+  "results": {
+    "counterexample_sign": "PASS G1=-0.166667 (expected -1/6): the measurement can report SABER worse than uniform",
+    "saber101@100000:production_parity": "PASS psi, eligibility and omega equal LiteWeightComputer on 8 batches (p = [0.465, 0.371, 0.418, 0.43, 0.426, 0.434, 0.461, 0.402])",
+    "saber101@100000:jacobian": "PASS max rel err J 1.7e-07, jvp 1.1e-04",
+    "saber101@100000:identity_uniform": "PASS G1 1.759485e+02 vs closed form 1.759485e+02",
+    "saber101@100000:identity_random": "PASS SABER-Random MC 1.7673e+02 vs closed form 1.7595e+02 (4 se = 4.1e+00)",
+    "saber101@100000:finite_difference": "PASS G1 1.7595e+02 vs FD(eta=1e-8) 1.7593e+02",
+    "saber101@100000:adam_step": "PASS float32 emulation of Adam+clip lands on torch's parameters (err 6.9e-05 of the update norm); float64 step |R diff| 1.9e-06 vs |R change| 6.5e-02",
+    "saber101@100000:source_unchanged": "PASS actor/targets/critic/Adam/replay hash unchanged",
+    "her101@300000:production_parity": "PASS psi, eligibility and omega equal LiteWeightComputer on 8 batches (p = [0.168, 0.207, 0.18, 0.223, 0.215, 0.238, 0.156, 0.191])",
+    "her101@300000:jacobian": "PASS max rel err J 9.5e-08, jvp 4.0e-05",
+    "her101@300000:identity_uniform": "PASS G1 3.666259e+02 vs closed form 3.666259e+02",
+    "her101@300000:identity_random": "PASS SABER-Random MC 3.5634e+02 vs closed form 3.5615e+02 (4 se = 5.3e+00)",
+    "her101@300000:finite_difference": "PASS G1 3.6663e+02 vs FD(eta=1e-8) 3.6655e+02",
+    "her101@300000:adam_step": "PASS float32 emulation of Adam+clip lands on torch's parameters (err 3.5e-05 of the update norm); float64 step |R diff| 2.7e-07 vs |R change| 3.3e-02",
+    "her101@300000:source_unchanged": "PASS actor/targets/critic/Adam/replay hash unchanged",
+    "restore_determinism": "PASS restore + same 5 actions reproduces the trajectory bit-for-bit",
+    "end_to_end": "PASS measure_one wrote ['batches.csv', 'ksteps.csv', 'meta.json', 'per_sample.npz'] in 3.7s; source verified unchanged"
+  },
+  "seconds": 10.404045570176095
+}

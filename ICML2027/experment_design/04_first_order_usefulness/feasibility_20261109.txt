@@ -1,0 +1,46 @@
+# feasibility_probe.py raw output, 2026-11-09T05:51Z, git 99acfa8, torch 2.12.1+cu130
+checkpoint saber/seed_101/step_0100000.pt  step=100000
+query bank: 1000 on-policy queries, R0=0.2342, |grad R|=130.0329
+time: load 1.2s  bank 0.8s  total 3.3s  (4 batches)
+ b     p    u+        u-        pred(<gR,gS-gU>)  -fd/eta     cos+   cos-   |a^r-a^pi|+ -
+ 0 0.465 +4.58e+03 +3.49e+03  +1.842e+02   +1.840e+02  0.665  0.561  2.394 2.709   eta=1e-06:+1.824e+02  eta=1e-07:+1.840e+02  eta=1e-08:+1.842e+02
+ 1 0.371 +4.78e+03 +3.81e+03  +1.652e+02   +1.650e+02  0.670  0.571  2.369 2.672   eta=1e-06:+1.634e+02  eta=1e-07:+1.650e+02  eta=1e-08:+1.652e+02
+ 2 0.418 +5.55e+03 +3.64e+03  +3.285e+02   +3.281e+02  0.665  0.590  2.358 2.594   eta=1e-06:+3.246e+02  eta=1e-07:+3.281e+02  eta=1e-08:+3.284e+02
+ 3 0.430 +4.42e+03 +4.10e+03  +5.470e+01   +5.465e+01  0.644  0.556  2.513 2.717   eta=1e-06:+5.420e+01  eta=1e-07:+5.465e+01  eta=1e-08:+5.469e+01
+
+actual Adam+clip step (R after; grad-norm before clip):
+b=0  R0=0.23425  dR uniform=+7.038e-02 (|g|=37.4)  dR saber=+6.753e-02 (|g|=39.0)  saber-uniform=-2.850e-03
+b=1  R0=0.23425  dR uniform=+7.030e-02 (|g|=38.8)  dR saber=+6.671e-02 (|g|=40.2)  saber-uniform=-3.585e-03
+b=2  R0=0.23425  dR uniform=+6.923e-02 (|g|=40.8)  dR saber=+6.764e-02 (|g|=43.6)  saber-uniform=-1.589e-03
+b=3  R0=0.23425  dR uniform=+7.081e-02 (|g|=39.4)  dR saber=+7.032e-02 (|g|=40.0)  saber-uniform=-4.902e-04
+
+checkpoint saber/seed_101/step_0500000.pt  step=500000
+query bank: 1000 on-policy queries, R0=1.2107, |grad R|=130.8576
+time: load 1.4s  bank 0.7s  total 3.5s  (4 batches)
+ b     p    u+        u-        pred(<gR,gS-gU>)  -fd/eta     cos+   cos-   |a^r-a^pi|+ -
+ 0 0.402 +2.00e+03 +1.17e+02  +3.226e+02   +3.219e+02  0.745  0.598  2.075 2.804   eta=1e-06:+3.162e+02  eta=1e-07:+3.219e+02  eta=1e-08:+3.225e+02
+ 1 0.379 -5.50e+03 -1.76e+02  -9.086e+02   -9.135e+02  0.763  0.611  1.987 2.769   eta=1e-06:-9.573e+02  eta=1e-07:-9.135e+02  eta=1e-08:-9.091e+02
+ 2 0.402 -1.60e+02 +1.62e+03  -3.055e+02   -3.052e+02  0.745  0.626  2.117 2.718   eta=1e-06:-3.019e+02  eta=1e-07:-3.052e+02  eta=1e-08:-3.055e+02
+ 3 0.387 +3.39e+03 +9.96e+02  +4.089e+02   +4.072e+02  0.765  0.569  1.919 2.912   eta=1e-06:+3.926e+02  eta=1e-07:+4.072e+02  eta=1e-08:+4.087e+02
+
+actual Adam+clip step (R after; grad-norm before clip):
+b=0  R0=1.21065  dR uniform=-6.021e-03 (|g|=10.0)  dR saber=-9.041e-03 (|g|=13.8)  saber-uniform=-3.020e-03
+b=1  R0=1.21065  dR uniform=+5.084e-03 (|g|=18.8)  dR saber=+4.426e-03 (|g|=26.4)  saber-uniform=-6.585e-04
+b=2  R0=1.21065  dR uniform=-9.460e-03 (|g|=12.2)  dR saber=-1.142e-02 (|g|=11.3)  saber-uniform=-1.961e-03
+b=3  R0=1.21065  dR uniform=+4.879e-03 (|g|=17.8)  dR saber=+5.796e-03 (|g|=21.1)  saber-uniform=+9.173e-04
+
+checkpoint her/seed_101/step_0300000.pt  step=300000
+query bank: 1000 on-policy queries, R0=0.1085, |grad R|=125.0381
+time: load 1.4s  bank 0.6s  total 3.5s  (4 batches)
+ b     p    u+        u-        pred(<gR,gS-gU>)  -fd/eta     cos+   cos-   |a^r-a^pi|+ -
+ 0 0.168 +1.24e+04 +4.16e+03  +9.833e+02   +9.789e+02  0.672  0.650  2.291 2.462   eta=1e-06:+9.401e+02  eta=1e-07:+9.789e+02  eta=1e-08:+9.829e+02
+ 1 0.207 +1.02e+04 +3.11e+03  +9.660e+02   +9.626e+02  0.741  0.671  2.034 2.408   eta=1e-06:+9.320e+02  eta=1e-07:+9.626e+02  eta=1e-08:+9.656e+02
+ 2 0.180 +1.42e+04 +2.87e+03  +1.416e+03   +1.410e+03  0.722  0.671  2.096 2.389   eta=1e-06:+1.358e+03  eta=1e-07:+1.410e+03  eta=1e-08:+1.416e+03
+ 3 0.223 +1.49e+04 +2.53e+03  +1.757e+03   +1.749e+03  0.694  0.665  2.273 2.434   eta=1e-06:+1.676e+03  eta=1e-07:+1.749e+03  eta=1e-08:+1.756e+03
+
+actual Adam+clip step (R after; grad-norm before clip):
+b=0  R0=0.10850  dR uniform=-5.161e-02 (|g|=54.7)  dR saber=-5.140e-02 (|g|=65.7)  saber-uniform=+2.153e-04
+b=1  R0=0.10850  dR uniform=-5.217e-02 (|g|=45.4)  dR saber=-5.402e-02 (|g|=55.6)  saber-uniform=-1.847e-03
+b=2  R0=0.10850  dR uniform=-4.894e-02 (|g|=48.8)  dR saber=-5.110e-02 (|g|=62.6)  saber-uniform=-2.160e-03
+b=3  R0=0.10850  dR uniform=-5.743e-02 (|g|=47.4)  dR saber=-5.872e-02 (|g|=62.9)  saber-uniform=-1.291e-03
+

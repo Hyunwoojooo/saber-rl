@@ -1,0 +1,37 @@
+trained_arm,bank,test,verdict,seed_101(+/-/n),seed_102(+/-/n),seed_103(+/-/n)
+her,R1,H1 SABER > uniform (G3),mixed,5/3/8,5/3/8,7/1/8
+her,R1,H1 SABER > uniform (real 1-step),mixed,5/3/8,3/5/8,2/6/8
+her,R1,H1 SABER > uniform (K=100),mixed,2/6/8,3/5/8,6/2/8
+her,R1,H2 SABER > Random (G3),mixed,5/3/8,6/2/8,7/1/8
+her,R1,H2 SABER > TD top-k (G3),mixed,7/1/8,1/7/8,3/5/8
+her,R1,H2 SABER > Random (K=100),mixed,3/5/8,4/4/8,5/3/8
+her,R1,"H3 kappa(M) > kappa(E\M), dist-matched",mixed,7/1/8,7/1/8,5/3/8
+her,R1,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,5/3/8,4/4/8,6/2/8
+her,R1,H4 G3 sign agreement - 0.8,mixed,7/1/8,5/3/8,3/5/8
+her,R2,H1 SABER > uniform (G3),mixed,4/4/8,5/3/8,5/3/8
+her,R2,H1 SABER > uniform (real 1-step),mixed,5/3/8,4/4/8,2/6/8
+her,R2,H1 SABER > uniform (K=100),mixed,2/6/8,3/5/8,6/2/8
+her,R2,H2 SABER > Random (G3),mixed,4/4/8,5/3/8,5/3/8
+her,R2,H2 SABER > TD top-k (G3),mixed,7/1/8,3/5/8,2/6/8
+her,R2,H2 SABER > Random (K=100),mixed,3/5/8,4/4/8,5/3/8
+her,R2,"H3 kappa(M) > kappa(E\M), dist-matched",mixed,7/1/8,7/1/8,5/3/8
+her,R2,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,4/4/8,5/3/8,5/3/8
+her,R2,H4 G3 sign agreement - 0.8,mixed,6/2/8,2/6/8,4/4/8
+saber,R1,H1 SABER > uniform (G3),consistent +,7/1/8,7/1/8,8/0/8
+saber,R1,H1 SABER > uniform (real 1-step),mixed,5/3/8,5/3/8,5/3/8
+saber,R1,H1 SABER > uniform (K=100),mixed,4/4/8,3/5/8,3/5/8
+saber,R1,H2 SABER > Random (G3),consistent +,7/1/8,7/1/8,8/0/8
+saber,R1,H2 SABER > TD top-k (G3),mixed,2/6/8,3/5/8,5/3/8
+saber,R1,H2 SABER > Random (K=100),mixed,4/4/8,4/4/8,3/5/8
+saber,R1,"H3 kappa(M) > kappa(E\M), dist-matched",consistent +,6/2/8,8/0/8,6/2/8
+saber,R1,"dir: cos(M) > cos(not M), abs(delta)-matched",consistent +,6/2/8,7/1/8,6/2/8
+saber,R1,H4 G3 sign agreement - 0.8,mixed,5/3/8,5/3/8,5/3/8
+saber,R2,H1 SABER > uniform (G3),mixed,6/2/8,5/3/8,6/2/8
+saber,R2,H1 SABER > uniform (real 1-step),mixed,6/2/8,4/4/8,2/6/8
+saber,R2,H1 SABER > uniform (K=100),mixed,5/3/8,3/5/8,2/6/8
+saber,R2,H2 SABER > Random (G3),mixed,6/2/8,5/3/8,6/2/8
+saber,R2,H2 SABER > TD top-k (G3),mixed,4/4/8,2/6/8,3/5/8
+saber,R2,H2 SABER > Random (K=100),mixed,5/3/8,4/4/8,4/4/8
+saber,R2,"H3 kappa(M) > kappa(E\M), dist-matched",consistent +,6/2/8,8/0/8,6/2/8
+saber,R2,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,7/1/8,4/4/8,5/3/8
+saber,R2,H4 G3 sign agreement - 0.8,mixed,4/4/8,6/2/8,4/4/8

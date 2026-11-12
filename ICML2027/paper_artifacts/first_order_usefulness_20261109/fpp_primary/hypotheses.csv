@@ -1,0 +1,37 @@
+trained_arm,bank,test,verdict,seed_1(+/-/n),seed_2(+/-/n),seed_3(+/-/n),seed_4(+/-/n),seed_5(+/-/n)
+her,R1,H1 SABER > uniform (G3),mixed,3/6/9,4/5/9,8/1/9,5/4/9,5/4/9
+her,R1,H1 SABER > uniform (real 1-step),mixed,2/7/9,4/5/9,8/1/9,3/6/9,3/6/9
+her,R1,H1 SABER > uniform (K=100),mixed,3/6/9,4/5/9,4/5/9,6/3/9,3/6/9
+her,R1,H2 SABER > Random (G3),mixed,4/5/9,5/4/9,8/1/9,5/4/9,5/4/9
+her,R1,H2 SABER > TD top-k (G3),mixed,2/7/9,5/4/9,4/5/9,4/5/9,4/5/9
+her,R1,H2 SABER > Random (K=100),mixed,4/5/9,5/4/9,5/4/9,8/1/9,6/3/9
+her,R1,"H3 kappa(M) > kappa(E\M), dist-matched",consistent +,8/1/9,9/0/9,9/0/9,9/0/9,8/1/9
+her,R1,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,2/7/9,6/3/9,8/1/9,4/5/9,6/3/9
+her,R1,H4 G3 sign agreement - 0.8,consistent +,9/0/9,8/1/9,9/0/9,9/0/9,8/1/9
+her,R2,H1 SABER > uniform (G3),mixed,6/3/9,4/5/9,3/6/9,4/5/9,5/4/9
+her,R2,H1 SABER > uniform (real 1-step),mixed,3/6/9,3/6/9,6/3/9,3/6/9,4/5/9
+her,R2,H1 SABER > uniform (K=100),mixed,3/6/9,5/4/9,4/5/9,8/1/9,5/4/9
+her,R2,H2 SABER > Random (G3),mixed,6/3/9,6/3/9,5/4/9,4/5/9,5/4/9
+her,R2,H2 SABER > TD top-k (G3),mixed,5/4/9,7/2/9,7/2/9,6/3/9,5/4/9
+her,R2,H2 SABER > Random (K=100),mixed,1/8/9,5/4/9,5/4/9,7/2/9,8/1/9
+her,R2,"H3 kappa(M) > kappa(E\M), dist-matched",consistent +,8/1/9,9/0/9,9/0/9,9/0/9,8/1/9
+her,R2,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,4/5/9,5/4/9,7/2/9,5/4/9,6/3/9
+her,R2,H4 G3 sign agreement - 0.8,consistent +,8/1/9,8/1/9,8/1/9,9/0/9,7/2/9
+saber,R1,H1 SABER > uniform (G3),mixed,6/3/9,1/8/9,5/4/9,6/3/9,5/4/9
+saber,R1,H1 SABER > uniform (real 1-step),mixed,5/4/9,1/8/9,6/3/9,6/3/9,5/4/9
+saber,R1,H1 SABER > uniform (K=100),mixed,3/6/9,3/6/9,2/7/9,4/5/9,4/5/9
+saber,R1,H2 SABER > Random (G3),mixed,7/2/9,4/5/9,6/3/9,6/3/9,5/4/9
+saber,R1,H2 SABER > TD top-k (G3),mixed,7/2/9,7/2/9,7/2/9,6/3/9,4/5/9
+saber,R1,H2 SABER > Random (K=100),mixed,4/5/9,3/6/9,5/4/9,5/4/9,4/5/9
+saber,R1,"H3 kappa(M) > kappa(E\M), dist-matched",consistent +,9/0/9,9/0/9,9/0/9,9/0/9,9/0/9
+saber,R1,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,7/2/9,3/6/9,7/2/9,2/7/9,6/3/9
+saber,R1,H4 G3 sign agreement - 0.8,consistent +,9/0/9,8/1/9,8/1/9,8/1/9,9/0/9
+saber,R2,H1 SABER > uniform (G3),mixed,5/4/9,2/7/9,4/5/9,4/5/9,5/4/9
+saber,R2,H1 SABER > uniform (real 1-step),mixed,4/5/9,2/7/9,4/5/9,4/5/9,5/4/9
+saber,R2,H1 SABER > uniform (K=100),mixed,4/5/9,0/9/9,3/6/9,4/5/9,5/4/9
+saber,R2,H2 SABER > Random (G3),mixed,6/3/9,4/5/9,5/4/9,4/5/9,5/4/9
+saber,R2,H2 SABER > TD top-k (G3),mixed,7/2/9,9/0/9,7/2/9,6/3/9,5/4/9
+saber,R2,H2 SABER > Random (K=100),mixed,5/4/9,2/7/9,6/3/9,3/6/9,4/5/9
+saber,R2,"H3 kappa(M) > kappa(E\M), dist-matched",consistent +,9/0/9,9/0/9,9/0/9,9/0/9,9/0/9
+saber,R2,"dir: cos(M) > cos(not M), abs(delta)-matched",mixed,5/4/9,5/4/9,5/4/9,2/7/9,7/2/9
+saber,R2,H4 G3 sign agreement - 0.8,mixed,8/1/9,8/1/9,9/0/9,6/3/9,8/1/9
