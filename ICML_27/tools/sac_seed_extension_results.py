@@ -1,4 +1,4 @@
-"""Publish completed DrawerOpen SAC HER/SABER extensions without training."""
+"""Publish completed DrawerOpen SAC HER/SABER/HGR extensions without training."""
 import argparse
 import csv
 import json
@@ -19,6 +19,7 @@ REPO = Path(__file__).resolve().parents[2]
 EXPERIMENT = "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension"
 ARTIFACT = Path("metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m")
 SOURCE = "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source"
+BASELINE_SOURCE = "ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source"
 COHORTS = {"historical_1_5": range(1, 6), "extension_6_10": range(6, 11),
            "pooled_1_10": range(1, 11)}
 LOSS_FIELDS = ("loss/critic", "loss/actor", "loss/td_error_abs_mean", "sac/alpha", "sac/alpha_loss")
@@ -43,12 +44,19 @@ def science(config):
     return {k: v for k, v in config.items() if k not in CONFIG_METADATA}
 
 
-def paired_metrics(rows, seeds):
+def source_directories(methods):
+    sources = {"her_saber": SOURCE}
+    if "hgr" in methods:
+        sources["hgr_per"] = BASELINE_SOURCE
+    return sources
+
+
+def paired_metrics(rows, seeds, control="her"):
     import numpy as np
 
     indexed = {(r["method"], r["seed"]): r for r in rows}
     metrics = ("auc", "fq_auc", "final")
-    diff = np.asarray([[indexed["saber", s][m] - indexed["her", s][m]
+    diff = np.asarray([[indexed["saber", s][m] - indexed[control, s][m]
                         for m in metrics] for s in seeds], dtype=np.float64)
     if not np.isfinite(diff).all():
         raise ValueError("Nonfinite paired difference")
@@ -64,8 +72,8 @@ def paired_metrics(rows, seeds):
 
 def summarize(rows, methods=("her",)):
     methods = tuple(methods)
-    if methods not in (("her",), ("her", "saber")):
-        raise ValueError("Only explicitly selected HER or HER/SABER may be published")
+    if methods not in (("her",), ("her", "saber"), ("her", "saber", "hgr")):
+        raise ValueError("Only explicitly selected complete HER/SABER/HGR cohorts may be published")
     keys = [(r["method"], r["seed"]) for r in rows]
     if len(keys) != 10 * len(methods) or set(keys) != {(m, s) for m in methods for s in range(1, 11)}:
         raise ValueError("Publish all ten seeds per selected method, including zero-success runs")
@@ -80,11 +88,22 @@ def summarize(rows, methods=("her",)):
                                   for stat, fn in (("mean", statistics.mean), ("sd", statistics.stdev))},
                                "hit90_count": sum(r["hit90"] is not None for r in selected)})
     comparisons = {c: paired_metrics(rows, seeds) for c, seeds in COHORTS.items()} if "saber" in methods else {}
-    return {"task": "drawer_open", "published_methods": list(methods), "new_completed_runs": 5 * len(methods),
+    report = {"task": "drawer_open", "published_methods": list(methods), "new_completed_runs": 5 * len(methods),
             "historical_reference_runs": 5 * len(methods), "runs": rows, "aggregates": aggregates,
             "comparisons": comparisons,
             "comparison_status": "SABER minus HER; HGR/PER not published" if comparisons else
             "Not published: this snapshot contains HER only"}
+    if "hgr" in methods:
+        report["baseline_comparisons"] = {
+            "saber_minus_hgr": {c: paired_metrics(rows, seeds, "hgr") for c, seeds in COHORTS.items()}}
+        report["comparison_status"] = "SABER minus HER and HGR; PER extension not published"
+    return report
+
+
+def comparison_groups(report):
+    # Preserve the published HER comparison schema while adding named contrasts.
+    groups = {"saber_minus_her": report["comparisons"]} if report["comparisons"] else {}
+    return {**groups, **report.get("baseline_comparisons", {})}
 
 
 def scan_training_csv(path):
@@ -119,9 +138,9 @@ def scan_training_csv(path):
 def products(root):
     provenance = read(root / "provenance.json")
     methods = provenance["published_methods"]
-    if methods not in (["her"], ["her", "saber"]):
+    if methods not in (["her"], ["her", "saber"], ["her", "saber", "hgr"]):
         raise ValueError("Unexpected publication scope")
-    assert_close(provenance["sources"], {"her_saber": SOURCE})
+    assert_close(provenance["sources"], source_directories(methods))
     states = {m: read(root / f"provenance/{m}_completion.json") for m in methods}
     for state in states.values():
         require_complete(state)
@@ -152,7 +171,7 @@ def products(root):
             wanted = expected[f"{method}:{seed}"]
             assert_close({k: config[k] for k in wanted}, wanted)
             assert_close(config["sac_target_entropy_effective"], -4.0)
-            assert_close(config["weight_scope"], "critic_only" if method == "saber" else "none")
+            assert_close(config["weight_scope"], "none" if method == "her" else "critic_only")
             launch = read(folder / "launch_record.json")
             for key, value in {"arm": method, "seed": seed, "phase": "production", "resume": False}.items():
                 assert_close(launch[key], value)
@@ -191,17 +210,18 @@ def products(root):
               "analysis/learning_curves.csv": csv_text(learning)}
     if report["comparisons"]:
         intervals, differences = [], []
-        for cohort, metrics in report["comparisons"].items():
-            for metric, value in metrics.items():
-                intervals.append({"cohort": cohort, "contrast": "saber_minus_her", "metric": metric,
-                                  "n": value["n"], "mean_difference": value["mean_difference"],
-                                  "positive_pairs": value["positive_pairs"],
-                                  **{f"{level}_{side}": value[level][i]
-                                     for level in ("ci95", "ci_bonferroni_three")
-                                     for i, side in enumerate(("low", "high"))}})
-                differences.extend({"cohort": cohort, "contrast": "saber_minus_her", "metric": metric,
-                                    "seed": seed, "difference": difference}
-                                   for seed, difference in zip(COHORTS[cohort], value["seed_differences"]))
+        for contrast, cohorts in comparison_groups(report).items():
+            for cohort, metrics in cohorts.items():
+                for metric, value in metrics.items():
+                    intervals.append({"cohort": cohort, "contrast": contrast, "metric": metric,
+                                      "n": value["n"], "mean_difference": value["mean_difference"],
+                                      "positive_pairs": value["positive_pairs"],
+                                      **{f"{level}_{side}": value[level][i]
+                                         for level in ("ci95", "ci_bonferroni_three")
+                                         for i, side in enumerate(("low", "high"))}})
+                    differences.extend({"cohort": cohort, "contrast": contrast, "metric": metric,
+                                        "seed": seed, "difference": difference}
+                                       for seed, difference in zip(COHORTS[cohort], value["seed_differences"]))
         result["analysis/paired_statistics.csv"] = csv_text(intervals)
         result["analysis/paired_seed_differences.csv"] = csv_text(differences)
     return result
@@ -263,14 +283,23 @@ def make_readme(report, provenance, state):
 
 
 def comparison_readme(report, provenance):
-    labels = {"her": "HER", "saber": "SABER (Ours)"}
-    lines = ["# DrawerOpen SAC: HER and SABER Seed Extensions", "",
+    labels = {"her": "HER", "saber": "SABER (Ours)", "hgr": "HGR"}
+    has_hgr = "hgr" in report["published_methods"]
+    if has_hgr:
+        lines = ["# DrawerOpen SAC: HER, SABER and HGR Seed Extensions", "",
+                 f"Published snapshot: **{provenance['exported_utc']}**.",
+                 f"HGR seeds 6-10 completed on **{provenance['hgr_finished_utc']}**.", "",
+                 "**Completed HER, SABER and HGR only:** fifteen new runs (five per method, seeds 6-10),",
+                 "each at 2M steps, plus fifteen historical seed-level references (1-5).",
+                 "PER extension and CPU-pilot results are excluded. Previously published HER/SABER run files are unchanged.", ""]
+    else:
+        lines = ["# DrawerOpen SAC: HER and SABER Seed Extensions", "",
              f"Published snapshot: **{provenance['exported_utc']}**.",
              f"SABER seeds 6-10 completed on **{provenance['saber_finished_utc']}**.", "",
              "**HER and SABER only:** ten completed new runs (five per method, seeds 6-10),",
              "each at 2M steps, plus ten historical seed-level references (1-5).",
-             "New HGR, PER and CPU-pilot results are not included. The original HER run files are unchanged.", "",
-             "## Results", "", "Values are mean +/- sample SD (ddof=1).", "",
+             "New HGR, PER and CPU-pilot results are not included. The original HER run files are unchanged.", ""]
+    lines += ["## Results", "", "Values are mean +/- sample SD (ddof=1).", "",
              "| Cohort | Method | Seeds | AUC | FQ-AUC | Final success | Hit90 | Steps/s |",
              "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |"]
     for row in report["aggregates"]:
@@ -280,15 +309,17 @@ def comparison_readme(report, provenance):
         lines.append(f"| {row['cohort']} | {labels[row['method']]} | {seeds.start}-{seeds.stop - 1} | "
                      f"{' | '.join(cells)} | {row['hit90_count']}/{row['n']} | "
                      f"{row['steps_per_second_mean']:.3f} +/- {row['steps_per_second_sd']:.3f} |")
-    lines += ["", "### Paired AUC: SABER Minus HER", "",
-              "| Cohort | Mean difference | Pointwise 95% CI | Nominal 98.333333% CI | Positive pairs |",
-              "| --- | ---: | --- | --- | ---: |"]
-    for cohort, metrics in report["comparisons"].items():
-        c = metrics["auc"]
-        lines.append(f"| {cohort} | {c['mean_difference']:+.6f} | "
-                     f"[{c['ci95'][0]:+.6f}, {c['ci95'][1]:+.6f}] | "
-                     f"[{c['ci_bonferroni_three'][0]:+.6f}, {c['ci_bonferroni_three'][1]:+.6f}] | "
-                     f"{c['positive_pairs']}/{c['n']} |")
+    for contrast, cohorts in comparison_groups(report).items():
+        control = contrast.removeprefix("saber_minus_").upper()
+        lines += ["", f"### Paired AUC: SABER Minus {control}", "",
+                  "| Cohort | Mean difference | Pointwise 95% CI | Nominal 98.333333% CI | Positive pairs |",
+                  "| --- | ---: | --- | --- | ---: |"]
+        for cohort, metrics in cohorts.items():
+            c = metrics["auc"]
+            lines.append(f"| {cohort} | {c['mean_difference']:+.6f} | "
+                         f"[{c['ci95'][0]:+.6f}, {c['ci95'][1]:+.6f}] | "
+                         f"[{c['ci_bonferroni_three'][0]:+.6f}, {c['ci_bonferroni_three'][1]:+.6f}] | "
+                         f"{c['positive_pairs']}/{c['n']} |")
     lines += ["", "### New Seed-Level Results", "",
               "| Method | Seed | AUC | FQ-AUC | Final success | Hit90 step | Runtime (h) |",
               "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
@@ -301,14 +332,25 @@ def comparison_readme(report, provenance):
     lower = sum(d < 0 for d in pooled["seed_differences"])
     tied = sum(d == 0 for d in pooled["seed_differences"])
     lines += ["", "## Interpretation and Scope", "",
-              f"Across ten paired seeds, SABER AUC is higher in {pooled['positive_pairs']}, lower in {lower}, and equal in {tied}.",
+              f"Across ten paired seeds, SABER AUC is higher in {pooled['positive_pairs']}, lower in {lower}, and equal in {tied}." +
+              (" This sentence compares SABER with HER." if has_hgr else ""),
               "SABER has a slightly higher mean AUC, but both the pointwise and adjusted intervals include zero.",
               "These data establish neither superiority nor equivalence. They do not demonstrate a causal support mechanism.",
-              "Both methods have mean final success 0.700 and Hit90 coverage 7/10. The final-zero seeds are 2, 3 and 8 in both methods.",
+              ("HER and SABER" if has_hgr else "Both methods") + " have mean final success 0.700 and Hit90 coverage 7/10. The final-zero seeds are 2, 3 and 8 in both methods.",
               "All zero/low-success seeds are retained. Do not pool the historical, extension and combined summaries as independent cohorts.",
-              "The ten historical references overlap the [original five-seed artifact](../drawer_open_sac_her_saber_hgr_per_2m/README.md).",
-              "Only five new SABER executions are added by this update; the previously published HER runs are not new executions.", "",
-              "## Protocol, Statistics and Caveats", "",
+              ("The fifteen" if has_hgr else "The ten") + " historical references overlap the [original five-seed artifact](../drawer_open_sac_her_saber_hgr_per_2m/README.md).",
+              "Only five new HGR executions are added by this update; HER/SABER results are preserved, not additional executions." if has_hgr else
+              "Only five new SABER executions are added by this update; the previously published HER runs are not new executions."]
+    if has_hgr:
+        hgr = next(r for r in report["aggregates"] if r["cohort"] == "pooled_1_10" and r["method"] == "hgr")
+        contrast = report["baseline_comparisons"]["saber_minus_hgr"]["pooled_1_10"]["auc"]
+        lines += ["", f"HGR pooled AUC is {hgr['auc_mean']:.6f} +/- {hgr['auc_sd']:.6f}, with final success 1.0 in all ten runs.",
+                  f"SABER-minus-HGR AUC is {contrast['mean_difference']:+.6f}. Its pointwise 95% interval is negative,",
+                  "but the predeclared three-comparison adjusted interval includes zero. The mean difference and lower HGR seed variability",
+                  "favor HGR in this DrawerOpen-SAC cohort, without an adjusted superiority or causal mechanism claim.",
+                  "SABER AUC is higher in five paired seeds and lower in five; its failed seeds contribute large negative differences.",
+                  "This is not evidence of a code defect or a general explanation of SAC behavior. Such causes require separate diagnostics."]
+    lines += ["", "## Protocol, Statistics and Caveats", "",
               "- FPP-reference automatic-temperature SAC: twin critics, stochastic actor, initial alpha=0.2, target entropy=-4. This is not the legacy fixed-alpha prototype.",
               "- DrawerOpen-v3 sparse reward v2, 2M steps, UTD=1, HER ratio=0.8, horizon=200, gamma=0.98, batch=256, replay capacity=300000.",
               "- SABER reweights critic losses only and queries support at the squashed policy mean: K=5, minimum local count=4, tail-512. Actor objectives and Bellman targets remain the inherited SAC definitions.",
@@ -316,23 +358,38 @@ def comparison_readme(report, provenance):
               "- Success is eval/env_success_mean, ever-success within an evaluation episode. AUC integrates the exact 10k..2M grid divided by 1,990,000; FQ-AUC integrates 1.5M..2M divided by 500,000. No missing-grid truncation or smoothing.",
               "- Hit90 is the first crossing, not sustained success. Missing Hit90 stays missing.",
               "- Pair by seed, not row order. NumPy default_rng(2027), 10,000 seed-row bootstrap resamples; all metrics share the same sampled indices within each cohort. Percentile 95% endpoints are 0.025 and 0.975.",
-              "- Adjusted endpoints are 0.05/6 and 1-0.05/6, retaining the predeclared three-AUC-comparison family (SABER versus HER/HGR/PER), although only HER is published here. Small-sample coverage is approximate, not an exact simultaneous guarantee.",
+              "- Adjusted endpoints are 0.05/6 and 1-0.05/6, retaining the predeclared three-AUC-comparison family (SABER versus HER/HGR/PER), " +
+              ("although the PER contrast is not yet published." if has_hgr else "although only HER is published here.") +
+              " Small-sample coverage is approximate, not an exact simultaneous guarantee.",
               "- FQ-AUC/final-success intervals are secondary descriptive analyses. The three-contrast adjustment does not cover every metric and all three overlapping cohort summaries jointly.",
-              "- All new seeds began from scratch without continuation, splicing, replacement or outcome-based exclusion. Historical HER seeds 1-3 were complete pre-outage runs; the other retained HER/SABER references are complete fresh recovery runs.",
+              "- All new seeds began from scratch without continuation, splicing, replacement or outcome-based exclusion. Historical HER seeds 1-3 were complete pre-outage runs; the other retained HER/SABER references are complete fresh recovery runs." +
+              (" Historical HGR references are completed original five-seed runs." if has_hgr else ""),
               "- Recorded scientific configs match across historical and new seeds within each method after documented seed/output metadata is removed. Source files match the already published executed snapshot byte-for-byte.",
-              "- The inherited original-goal observation components plus the separately HER-relabeled goal are unchanged in both methods; their causal effect is unresolved.",
+              "- The inherited original-goal observation components plus the separately HER-relabeled goal are unchanged in " +
+              ("all three methods" if has_hgr else "both methods") + "; their causal effect is unresolved.",
               "- Core recorded package versions matched the prelaunch audit. This is not a claim of byte-for-byte historical host identity. Runtime includes evaluation, checkpoints and concurrent workloads, not a controlled wall-clock comparison.",
-              "- The fixed-size extension was selected after historical outcomes were observed. The four-method protocol is retained, but HGR/PER extension results are not included here.", "",
+              "- The fixed-size extension was selected after historical outcomes were observed. The four-method protocol is retained, but " +
+              ("PER extension results are" if has_hgr else "HGR/PER extension results are") + " not included here."]
+    if has_hgr:
+        lines += ["- HGR uses hierarchical episode/goal priority exponents 0.6/0.6, epsilon=1e-6 and beta annealing from 0.4 to 1.0 over 1,995,001 updates, with SABER support weighting disabled (lambda_support=0). See the exact recorded configs and unchanged HGR/PER source."]
+    lines += ["",
               "## Files and Verification", "",
               "- [Seed metrics](analysis/seed_metrics.csv), [aggregates](analysis/aggregate_metrics.csv), [evaluation curves](analysis/learning_curves.csv), [report](analysis/report.json).",
               "- [Paired statistics](analysis/paired_statistics.csv) and [seed-level differences](analysis/paired_seed_differences.csv).",
-              "- [Provenance](provenance.json), [HER completion](provenance/her_completion.json), [SABER completion](provenance/saber_completion.json), [protocol](protocol.json), [environment](provenance/environment.json).",
+              "- [Provenance](provenance.json), [HER completion](provenance/her_completion.json), [SABER completion](provenance/saber_completion.json), " +
+              ("[HGR completion](provenance/hgr_completion.json), " if has_hgr else "") +
+              "[protocol](protocol.json), [environment](provenance/environment.json).",
               "- [Executed source](../../../ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/) is unchanged and hash-verified. Configs, summaries, evaluation rows, completion and launch records are included.",
               "- Full-log finite-loss counts are retained for new runs. Workspace prefixes are redacted; optional unavailable JSON diagnostics become null. Evaluation strings are not rounded.",
-              "- Checkpoints, replay buffers, full raw logs, new HGR/PER results and CPU-pilot results are omitted. This compact result artifact is not a standalone training bundle.", "",
+              "- Checkpoints, replay buffers, full raw logs, " +
+              ("new PER results" if has_hgr else "new HGR/PER results") +
+              " and CPU-pilot results are omitted. This compact result artifact is not a standalone training bundle."]
+    if has_hgr:
+        lines += ["- [Executed HGR source](../../../ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source/) is also unchanged and hash-verified against the extension snapshot."]
+    lines += ["",
               "From the repository root with Python 3.12 and NumPy:", "", "```bash",
               "python3 ICML_27/tools/sac_seed_extension_results.py verify", "```", "",
-              "This read-only CPU check regenerates metrics and paired intervals from 4,000 evaluation points, checks completion/config/source hashes and verifies the manifest. It does not import trainers or change the live queue.", ""]
+              f"This read-only CPU check regenerates metrics and paired intervals from {len(report['runs']) * 200:,} evaluation points, checks completion/config/source hashes and verifies the manifest. It does not import trainers or change the live queue.", ""]
     return "\n".join(lines)
 
 
@@ -340,7 +397,9 @@ def verify(repo=REPO, root=None):
     root = root or repo / ARTIFACT
     provenance = read(root / "provenance.json")
     sources = provenance["source_files_sha256"]
-    if not sources or any(not p.startswith(SOURCE + "/") for p in sources):
+    allowed = source_directories(provenance["published_methods"])
+    if (not sources or any(not any(p.startswith(d + "/") for d in allowed.values()) for p in sources)
+            or any(not any(p.startswith(d + "/") for p in sources) for d in allowed.values())):
         raise ValueError("Unexpected or empty source snapshot")
     check_hashes(repo, sources)
     for name, value in products(root).items():
@@ -356,7 +415,8 @@ def verify(repo=REPO, root=None):
             "historical_runs": report["historical_reference_runs"],
             "evaluation_points": len(report["runs"]) * 200,
             "published_methods": report["published_methods"],
-            "paired_comparisons": len(report["comparisons"]), "source_files": len(sources)}
+            "paired_comparisons": sum(len(c) for c in comparison_groups(report).values()),
+            "source_files": len(sources)}
 
 
 def export_method(workspace, repo, root, origin, method, state):
@@ -454,23 +514,38 @@ def export(workspace, repo=REPO):
     return verify(repo, root)
 
 
-def append_saber(workspace, repo=REPO):
+def append_method(workspace, method, repo=REPO):
+    previous_methods = {"saber": ["her"], "hgr": ["her", "saber"]}
+    if method not in previous_methods:
+        raise ValueError("Only explicit SABER or HGR appends are authorized")
+    previous = previous_methods[method]
+    methods = previous + [method]
     workspace, repo = workspace.resolve(), repo.resolve()
     root, origin = repo / ARTIFACT, within(workspace, EXPERIMENT)
     if repo == workspace or workspace in root.parents:
         raise ValueError("Never publish into the live experiment workspace")
     verify(repo, root)
     provenance = read(root / "provenance.json")
-    assert_close(provenance["published_methods"], ["her"])
+    assert_close(provenance["published_methods"], previous)
     protected = {p.relative_to(root).as_posix(): sha(p) for cohort in ("historical_1_5", "extension_6_10")
-                 for p in (root / "data" / cohort / "her").rglob("*") if p.is_file()}
-    protected.update({p: sha(root / p) for p in ("protocol.json", "provenance/her_completion.json")})
+                 for arm in previous for p in (root / "data" / cohort / arm).rglob("*") if p.is_file()}
+    protected.update({p: sha(root / p) for p in ["protocol.json", *[
+        f"provenance/{arm}_completion.json" for arm in previous]]})
     queue = read(origin / "outputs/queue_status.json")
-    state = queue["arms"]["saber"]
+    state = queue["arms"][method]
     require_complete(state)
     assert_close(queue["protocol"], read(root / "protocol.json"))
     assert_close(sha(origin / "snapshot_manifest.json"), provenance["original_snapshot_manifest_sha256"])
-    check_hashes(origin, read(origin / "snapshot_manifest.json"))
+    snapshot = read(origin / "snapshot_manifest.json")
+    check_hashes(origin, snapshot)
+    sources = {f"{directory}/{Path(p).relative_to('sources/' + family).as_posix()}": h
+               for family, directory in source_directories(methods).items()
+               for p, h in snapshot.items() if p.startswith(f"sources/{family}/")}
+    if not sources:
+        raise ValueError("No executed source hashes")
+    check_hashes(repo, sources)
+    for p, h in provenance["source_files_sha256"].items():
+        assert_close(sources[p], h)
     approval = read(origin / "outputs/validation/approved.json")
     assert_close(approval["passed"], True)
     assert_close(approval["package_hashes"], provenance["approved_launcher_hashes"])
@@ -479,25 +554,28 @@ def append_saber(workspace, repo=REPO):
     assert_close(sha(path), approval["expected_configs_sha256"])
     expected = read(root / "provenance/expected_configs.json")
     for key, value in read(path).items():
-        if key.startswith("saber:"):
+        if key.startswith(method + ":"):
             expected[key] = scrub(value, workspace)
-        elif key.startswith("her:"):
+        elif key.split(":", 1)[0] in previous:
             assert_close(expected[key], scrub(value, workspace))
-    entries, rows = export_method(workspace, repo, root, origin, "saber", state)
+    entries, rows = export_method(workspace, repo, root, origin, method, state)
     old_rows = read(root / "reference_report.json")["runs"]
     provenance["runs"].extend(entries)
-    provenance["her_publication_utc"] = provenance["exported_utc"]
+    provenance[f"{previous[-1]}_publication_utc"] = provenance["exported_utc"]
     provenance["exported_utc"] = datetime.now(timezone.utc).isoformat()
-    provenance["saber_finished_utc"] = state["finished_utc"]
-    provenance["published_methods"] = ["her", "saber"]
-    provenance["omitted"] = ["new HGR/PER results", "CPU pilot", "checkpoints", "replay buffers", "full training logs"]
+    provenance[f"{method}_finished_utc"] = state["finished_utc"]
+    provenance["published_methods"] = methods
+    provenance["sources"] = source_directories(methods)
+    provenance["source_files_sha256"] = sources
+    provenance["omitted"] = ["new PER results" if method == "hgr" else "new HGR/PER results",
+                             "CPU pilot", "checkpoints", "replay buffers", "full training logs"]
     environment = read(origin / "outputs/validation/environment.json")
-    environment["historical_checks"] = [r for r in environment["historical_checks"] if r["arm"] in ("her", "saber")]
+    environment["historical_checks"] = [r for r in environment["historical_checks"] if r["arm"] in methods]
     write_json(root / "provenance/environment.json", environment)
     write_json(root / "provenance/expected_configs.json", expected)
-    write_json(root / "provenance/saber_completion.json", scrub(state, workspace))
+    write_json(root / f"provenance/{method}_completion.json", scrub(state, workspace))
     write_json(root / "provenance.json", provenance)
-    report = summarize(old_rows + rows, ("her", "saber"))
+    report = summarize(old_rows + rows, methods)
     write_json(root / "reference_report.json", report)
     for name, value in products(root).items():
         (root / name).write_text(value)
@@ -507,17 +585,28 @@ def append_saber(workspace, repo=REPO):
     return verify(repo, root)
 
 
+def append_saber(workspace, repo=REPO):
+    return append_method(workspace, "saber", repo)
+
+
+def append_hgr(workspace, repo=REPO):
+    return append_method(workspace, "hgr", repo)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("export").add_argument("--workspace", type=Path, required=True)
     commands.add_parser("append-saber").add_argument("--workspace", type=Path, required=True)
+    commands.add_parser("append-hgr").add_argument("--workspace", type=Path, required=True)
     commands.add_parser("verify")
     args = parser.parse_args()
     if args.command == "export":
         result = export(args.workspace)
     elif args.command == "append-saber":
         result = append_saber(args.workspace)
+    elif args.command == "append-hgr":
+        result = append_hgr(args.workspace)
     else:
         result = verify()
     print(json.dumps(result, indent=2))

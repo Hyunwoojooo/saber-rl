@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "finished_utc": "2026-11-13T02:30:42.128922+00:00",
+  "last_write_age_sec": 11.587282180786133,
+  "nonfinite_loss": [],
+  "pid": 4185745,
+  "result": {
+    "arm": "hgr",
+    "auc": 0.6017587939698492,
+    "final_quarter_auc": 1.0,
+    "final_success": 1.0,
+    "hit90_step": 810000,
+    "runtime_seconds": 167140.66843327368,
+    "seed": 10,
+    "steps_per_second": 11.965968658300808,
+    "total_updates": 1995001
+  },
+  "started_utc": "2026-11-11T04:04:48.780795+00:00",
+  "status": "completed",
+  "step": 2000000,
+  "steps_per_sec": "11.966103686915247"
+}

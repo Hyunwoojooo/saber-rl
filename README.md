@@ -13,7 +13,7 @@ actor updates, network architectures and the update budget.
 
 ## DrawerOpen Results
 
-Snapshot: **2026-11-11 UTC**. This is a results overview, not a live dashboard.
+Snapshot: **2026-11-13 UTC**. This is a results overview, not a live dashboard.
 It covers the current main-comparison cohorts and post-AAAI follow-ups; historical
 supplementary-only studies are linked below rather than pooled into this table.
 
@@ -51,8 +51,10 @@ in the linked reports.
 | Post-AAAI / SAC | PER-full | 1-5 | 0.7976 +/- 0.0722 | 1.000 | -0.3491 [-0.6747, -0.0235] | [Data][sac] |
 | Main extension / SAC | HER, new seeds only | 6-10 | 0.5263 +/- 0.3837 | 0.800 | +0.0153 [-0.1089, +0.1459] | [Data][sac-extension] |
 | Main extension / SAC | SABER (Ours), new seeds only | 6-10 | 0.5416 +/- 0.3346 | 0.800 | Reference | [Data][sac-extension] |
+| Main extension / SAC | HGR, new seeds only | 6-10 | 0.6758 +/- 0.0996 | 1.000 | -0.1342 [-0.3661, +0.0280] | [Data][sac-extension] |
 | Main extension / SAC | HER, pooled | 1-10 | 0.4867 +/- 0.3771 | 0.700 | +0.0084 [-0.0598, +0.0769] | [Data][sac-extension] |
 | Main extension / SAC | SABER (Ours), pooled | 1-10 | 0.4951 +/- 0.3566 | 0.700 | Reference | [Data][sac-extension] |
+| Main extension / SAC | HGR, pooled | 1-10 | 0.6912 +/- 0.0812 | 1.000 | -0.1962 [-0.4134, -0.0118] | [Data][sac-extension] |
 | Main extension / TD3 | HER | 1-10 | 0.1374 +/- 0.2907 | 0.195 | +0.3208 [+0.0167, +0.6030] | [Data][td3-extension] |
 | Main extension / TD3 | SABER (Ours), critic-only | 1-10 | 0.4582 +/- 0.3235 | 0.695 | Reference | [Data][td3-extension] |
 | Main extension / TD3 | HGR | 1-10 | 0.2438 +/- 0.3171 | 0.390 | +0.2144 [-0.0976, +0.5015] | [Data][td3-extension] |
@@ -82,14 +84,19 @@ in the linked reports.
   after observing the HER/SABER results. The inherited observation includes
   original-goal coordinates alongside the relabeled goal input; all four
   methods share that representation, and its causal effect is unresolved.
-- **Main extension / SAC:** HER and SABER each have five completed new runs
-  (seeds 6-10). SABER completed on November 11 at 04:04 UTC. The pooled AUC
-  difference is small and both its pointwise 95% and nominal three-contrast
+- **Main extension / SAC:** HER, SABER and HGR each have five completed new
+  runs (seeds 6-10). HGR completed on November 13 at 02:35 UTC. The pooled
+  SABER-minus-HER AUC difference is small and both its pointwise 95% and nominal three-contrast
   adjusted interval [-0.0750, +0.0942] include zero. This establishes neither
   superiority nor equivalence. Final success is 0.700 for both methods;
   final-zero seeds 2, 3 and 8 are retained. Historical, new and pooled rows
-  overlap and are not extra independent observations. New HGR/PER results
-  are not published, and their five-seed rows above are not ten-seed comparisons.
+  overlap and are not extra independent observations. HGR reaches final success
+  1.0 in all ten runs and has a higher mean AUC with lower seed variability.
+  The SABER-minus-HGR pointwise 95% interval is negative, but the predeclared
+  three-contrast-adjusted interval [-0.4597, +0.0271] includes zero. This is
+  cohort-specific evidence, not an adjusted superiority or causal claim.
+  PER seeds 6-10 are still running at this snapshot and are not published;
+  the PER five-seed row above is not a ten-seed comparison.
 - **Main extension / TD3:** all 20 new runs (HER, SABER, HGR and PER, each
   seeds 6-10) completed on November 7 at 21:12 UTC. Historical 1-5, extension
   6-10 and pooled 1-10 results remain separate in the artifact. The pooled

@@ -94,13 +94,14 @@ The previous six-family index does not include these later DDPG/TD3 extensions.
 python3 ICML_27/tools/td3_seed_extension_results.py verify
 ```
 
-### DrawerOpen SAC HER and SABER Seed Extensions
+### DrawerOpen SAC HER, SABER and HGR Seed Extensions
 
 The [SAC extension artifact](../metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
-contains **ten completed new runs**, HER and SABER each with seeds 6-10 at
-2M steps. This update adds the five SABER runs, finished on
-**2026-11-11 04:04 UTC**, to the previously published HER runs.
-New HGR, PER and CPU-pilot results are deliberately excluded.
+contains **fifteen completed new runs**, HER, SABER and HGR each with seeds 6-10
+at 2M steps. This update adds the five HGR runs, finished on
+**2026-11-13 02:35 UTC**, to the previously published HER/SABER runs.
+PER seeds 6-10 are still running at this snapshot; their results and the
+CPU-pilot results are deliberately excluded.
 
 Pooled seeds 1-10 AUC is **0.486683 +/- 0.377089** for HER and
 **0.495050 +/- 0.356622** for SABER. The paired difference is **+0.008367**,
@@ -109,14 +110,21 @@ pointwise 95% CI **[-0.059777, +0.076912]**; its nominal three-contrast-adjusted
 success **0.700** and Hit90 coverage **7/10**. All zero/low-success seeds are
 retained. The small difference does not establish superiority or equivalence.
 
-The ten historical references were already counted in the SAC archive and are
-not additional executions. The archive now contains **160 distinct completed
+HGR pooled AUC is **0.691206 +/- 0.081239**, final success **1.000** and
+Hit90 coverage **10/10**. SABER-minus-HGR AUC is **-0.196156**, pointwise
+95% CI **[-0.413446, -0.011833]** and nominal three-contrast-adjusted
+98.333333% CI **[-0.459733, +0.027149]**. HGR has a higher sample mean and
+lower variability in this cohort, but the adjusted interval includes zero.
+The result does not establish the cause of the performance difference.
+
+The fifteen historical references were already counted in the SAC archive and are
+not additional executions. The archive now contains **165 distinct completed
 post-review training executions**, excluding reused references.
 
 The original five-seed SAC artifact remains unchanged. Historical, extension
-and pooled HER/SABER results are reported separately, with complete seed-level
+and pooled HER/SABER/HGR results are reported separately, with complete seed-level
 paired differences and approximate bootstrap intervals. The planned
-three-AUC-contrast adjustment is retained, but HGR/PER contrasts are not yet
+three-AUC-contrast adjustment is retained, but the PER contrast is not yet
 published. These are the existing auto-temperature SAC settings, not the
 fixed-alpha prototype. Scientific configuration parity and source hashes are
 checked without changing the live queue or importing its trainers.
@@ -187,7 +195,7 @@ not edited during verification.
 - Failure/saturation associations and final-checkpoint search agreement are descriptive, not causal proof.
 - The SAC observation retains original-goal coordinates while HER relabels a separate goal input. The inherited representation is shared across compared SAC methods; its causal effect is unresolved. Executed code is not silently corrected in this archive.
 - Runtime includes instrumentation. These experiments do not supply a controlled, matched-instrumentation wall-clock superiority claim.
-- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. For the SAC seed 6-10 extension, DrawerOpen HER and SABER are published; HGR/PER extension results and the four-method ten-seed comparison are not yet published.
+- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. For the SAC seed 6-10 extension, DrawerOpen HER, SABER and HGR are published; PER extension results and the four-method ten-seed comparison are not yet published.
 
 ## License
 

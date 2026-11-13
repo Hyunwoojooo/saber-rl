@@ -6,7 +6,8 @@ import tempfile
 import unittest
 
 from sac_seed_extension_results import (
-    LOSS_FIELDS, METRICS, require_complete, require_complete_her, scan_training_csv, summarize,
+    BASELINE_SOURCE, SOURCE, LOSS_FIELDS, METRICS, append_method, comparison_groups,
+    require_complete, require_complete_her, scan_training_csv, source_directories, summarize,
 )
 from sac_results import curve
 
@@ -86,6 +87,64 @@ class PublicationTests(unittest.TestCase):
         for method in ("hgr", "per"):
             with self.assertRaises(ValueError):
                 summarize(rows() + rows(method), ("her", method))
+
+    def test_hgr_append_requires_all_ten_seeds(self):
+        values = rows() + rows("saber") + rows("hgr")
+        report = summarize(values, ("her", "saber", "hgr"))
+        self.assertEqual(report["new_completed_runs"], 15)
+        self.assertEqual(report["historical_reference_runs"], 15)
+        self.assertEqual(len(report["aggregates"]), 9)
+        for bad in (values[:-1], values[:-1] + [values[-2]]):
+            with self.assertRaises(ValueError):
+                summarize(bad, ("her", "saber", "hgr"))
+
+    def test_hgr_publication_does_not_enable_per(self):
+        values = rows() + rows("saber") + rows("hgr")
+        with self.assertRaises(ValueError):
+            summarize(values + rows("per"), ("her", "saber", "hgr"))
+        with self.assertRaises(ValueError):
+            summarize(values + rows("per"), ("her", "saber", "hgr", "per"))
+        with self.assertRaises(ValueError):
+            append_method(Path("/nonexistent"), "per")
+
+    def test_hgr_source_family_is_explicit(self):
+        self.assertEqual(source_directories(("her", "saber")), {"her_saber": SOURCE})
+        self.assertEqual(source_directories(("her", "saber", "hgr")),
+                         {"her_saber": SOURCE, "hgr_per": BASELINE_SOURCE})
+
+    def test_hgr_contrast_preserves_her_results_and_sign(self):
+        values = rows() + rows("saber") + rows("hgr")
+        for row in values:
+            row["auc"] = row["seed"] / {"her": 100, "saber": 50, "hgr": 25}[row["method"]]
+        old = summarize([r for r in values if r["method"] != "hgr"], ("her", "saber"))
+        report = summarize(values[::-1], ("her", "saber", "hgr"))
+        self.assertEqual(report["comparisons"], old["comparisons"])
+        groups = comparison_groups(report)
+        self.assertEqual(set(groups), {"saber_minus_her", "saber_minus_hgr"})
+        result = groups["saber_minus_hgr"]["pooled_1_10"]["auc"]
+        self.assertAlmostEqual(result["mean_difference"], -.11)
+        self.assertEqual(result["positive_pairs"], 0)
+        for seed, diff in enumerate(result["seed_differences"], 1):
+            self.assertAlmostEqual(diff, -seed / 50)
+
+    def test_hgr_bootstrap_retains_three_comparison_adjustment(self):
+        import numpy as np
+        values = rows() + rows("saber") + rows("hgr")
+        diffs = np.asarray([.01, -.66, -.80, .08, .08, .07, .01, -.59, -.03, -.14])
+        for row in values:
+            row["auc"] = .9 - (diffs[row["seed"] - 1] if row["method"] == "hgr" else 0)
+        report = summarize(values, ("her", "saber", "hgr"))
+        result = report["baseline_comparisons"]["saber_minus_hgr"]["pooled_1_10"]["auc"]
+        ids = np.random.default_rng(2027).integers(0, 10, size=(10000, 10))
+        means = diffs[ids].mean(axis=1)
+        np.testing.assert_allclose(result["ci95"], np.quantile(means, [.025, .975]), atol=1e-12)
+        np.testing.assert_allclose(result["ci_bonferroni_three"], np.quantile(means, [.05/6, 1-.05/6]), atol=1e-12)
+
+    def test_zero_hgr_success_is_retained(self):
+        report = summarize(rows() + rows("saber") + rows("hgr"), ("her", "saber", "hgr"))
+        pooled = report["baseline_comparisons"]["saber_minus_hgr"]["pooled_1_10"]["auc"]
+        self.assertEqual(pooled["n"], 10)
+        self.assertEqual(pooled["ci95"], [0.0, 0.0])
 
     def test_pairing_uses_seed_and_saber_minus_her_direction(self):
         values = rows() + rows("saber")
