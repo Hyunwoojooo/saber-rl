@@ -1,21 +1,23 @@
 # MetaWorld DrawerOpen SAC Experiments
 
-## HER, SABER and HGR Seed Extensions: Completed Seeds 6-10
+## HER, SABER, HGR and PER Seed Extensions: Completed Seeds 6-10
 
 The [extension artifact](paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
-now includes **HER, SABER and HGR, five fresh 2M runs each**, plus their historical
-seeds 1-5. HGR completed on **2026-11-13 02:35 UTC**. This update adds five
-new HGR executions; the previously published HER/SABER run files are unchanged.
-PER seeds 6-10 are still running at this snapshot and are not included.
+now includes **HER, SABER, HGR and PER, five fresh 2M runs each**, plus their
+historical seeds 1-5. PER and the entire 20-run extension queue completed on
+**2026-11-13 22:25 UTC** (November 14 at 07:25 KST). This update adds five
+new PER executions; the previously published HER/SABER/HGR run files are unchanged.
 
 | Cohort | Method | AUC mean +/- SD | Final success mean +/- SD | Hit90 |
 | --- | --- | ---: | ---: | ---: |
 | New seeds 6-10 | HER | 0.526332 +/- 0.383685 | 0.800 +/- 0.447214 | 4/5 |
 | New seeds 6-10 | SABER (Ours) | 0.541608 +/- 0.334595 | 0.800 +/- 0.447214 | 4/5 |
 | New seeds 6-10 | HGR | 0.675829 +/- 0.099596 | 1.000 +/- 0.000000 | 5/5 |
+| New seeds 6-10 | PER (full replay) | 0.737286 +/- 0.153576 | 1.000 +/- 0.000000 | 5/5 |
 | Pooled seeds 1-10 | HER | 0.486683 +/- 0.377089 | 0.700 +/- 0.483046 | 7/10 |
 | Pooled seeds 1-10 | SABER (Ours) | 0.495050 +/- 0.356622 | 0.700 +/- 0.483046 | 7/10 |
 | Pooled seeds 1-10 | HGR | 0.691206 +/- 0.081239 | 1.000 +/- 0.000000 | 10/10 |
+| Pooled seeds 1-10 | PER (full replay) | 0.767437 +/- 0.117522 | 1.000 +/- 0.000000 | 10/10 |
 
 Pooled SABER-minus-HER AUC is **+0.008367**, with pointwise 95% CI
 **[-0.059777, +0.076912]** and nominal three-contrast-adjusted 98.333333% CI
@@ -29,11 +31,18 @@ Pooled SABER-minus-HGR AUC is **-0.196156**, with pointwise 95% CI
 and final success 1.0 in all ten runs. The adjusted interval still includes
 zero; do not turn this into an adjusted superiority or causal mechanism claim.
 
+Pooled SABER-minus-PER AUC is **-0.272387**, with pointwise 95% CI
+**[-0.498065, -0.068810]** and nominal three-contrast-adjusted 98.333333% CI
+**[-0.548727, -0.029166]**. Both intervals are below zero. PER reaches final
+success 1.0 in all ten runs, while SABER has higher AUC in only 2/10 paired
+seeds. This is evidence for lower SABER AUC in this DrawerOpen-SAC cohort,
+not a universal result or a diagnosis of the mechanism causing the difference.
+
 All zero-success results are retained. Historical, extension and pooled
 results remain separate; the original five-seed artifact below is unchanged.
 Configs, all evaluation checkpoints, source hashes, completion records,
 seed-level paired differences and reproducible analysis are included. All
-6,000 evaluation points can be regenerated without importing training code.
+8,000 evaluation points can be regenerated without importing training code.
 
 ```bash
 python3 ICML_27/tools/sac_seed_extension_results.py verify

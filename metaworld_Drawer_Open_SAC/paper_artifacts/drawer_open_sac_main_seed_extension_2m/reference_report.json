@@ -3,10 +3,11 @@
   "published_methods": [
     "her",
     "saber",
-    "hgr"
+    "hgr",
+    "per"
   ],
-  "new_completed_runs": 15,
-  "historical_reference_runs": 15,
+  "new_completed_runs": 20,
+  "historical_reference_runs": 20,
   "runs": [
     {
       "task": "drawer_open",
@@ -367,6 +368,126 @@
       "updates": 1995001,
       "runtime_seconds": 167140.66843327368,
       "steps_per_second": 11.965968658300808
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 1,
+      "auc": 0.8648241206030151,
+      "fq_auc": 0.96,
+      "final": 1.0,
+      "hit90": 260000,
+      "updates": 1995001,
+      "runtime_seconds": 55030.41907899699,
+      "steps_per_second": 36.34353569303134
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 2,
+      "auc": 0.8442211055276382,
+      "fq_auc": 0.982,
+      "final": 1.0,
+      "hit90": 320000,
+      "updates": 1995001,
+      "runtime_seconds": 55092.439391497,
+      "steps_per_second": 36.30262195848023
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 3,
+      "auc": 0.7761306532663317,
+      "fq_auc": 0.999,
+      "final": 1.0,
+      "hit90": 450000,
+      "updates": 1995001,
+      "runtime_seconds": 49720.053930466995,
+      "steps_per_second": 40.22521783256672
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 4,
+      "auc": 0.8201005025125628,
+      "fq_auc": 0.993,
+      "final": 1.0,
+      "hit90": 360000,
+      "updates": 1995001,
+      "runtime_seconds": 49297.390810377954,
+      "steps_per_second": 40.570098480322926
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 5,
+      "auc": 0.6826633165829146,
+      "fq_auc": 0.986,
+      "final": 1.0,
+      "hit90": 620000,
+      "updates": 1995001,
+      "runtime_seconds": 45473.096731927944,
+      "steps_per_second": 43.982049689519904
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 6,
+      "auc": 0.8434673366834171,
+      "fq_auc": 1.0,
+      "final": 1.0,
+      "hit90": 370000,
+      "updates": 1995001,
+      "runtime_seconds": 71274.22280089976,
+      "steps_per_second": 28.060635688541694
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 7,
+      "auc": 0.8831658291457286,
+      "fq_auc": 1.0,
+      "final": 1.0,
+      "hit90": 200000,
+      "updates": 1995001,
+      "runtime_seconds": 71374.90198453609,
+      "steps_per_second": 28.021054241634058
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 8,
+      "auc": 0.7175879396984924,
+      "fq_auc": 0.986,
+      "final": 1.0,
+      "hit90": 560000,
+      "updates": 1995001,
+      "runtime_seconds": 71152.06305612484,
+      "steps_per_second": 28.1088125079718
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 9,
+      "auc": 0.4899497487437186,
+      "fq_auc": 0.994,
+      "final": 1.0,
+      "hit90": 1080000,
+      "updates": 1995001,
+      "runtime_seconds": 71021.98988471413,
+      "steps_per_second": 28.16029237207355
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 10,
+      "auc": 0.7522613065326633,
+      "fq_auc": 0.997,
+      "final": 1.0,
+      "hit90": 470000,
+      "updates": 1995001,
+      "runtime_seconds": 71312.49683863018,
+      "steps_per_second": 28.045575301138445
     }
   ],
   "aggregates": [
@@ -419,6 +540,22 @@
       "hit90_count": 5
     },
     {
+      "cohort": "historical_1_5",
+      "method": "per",
+      "n": 5,
+      "auc_mean": 0.7975879396984925,
+      "auc_sd": 0.07223270692979249,
+      "fq_auc_mean": 0.984,
+      "fq_auc_sd": 0.014916433890176311,
+      "final_mean": 1.0,
+      "final_sd": 0.0,
+      "runtime_seconds_mean": 50922.67998865338,
+      "runtime_seconds_sd": 4124.507423098243,
+      "steps_per_second_mean": 39.48470473078422,
+      "steps_per_second_sd": 3.23825356545954,
+      "hit90_count": 5
+    },
+    {
       "cohort": "extension_6_10",
       "method": "her",
       "n": 5,
@@ -467,6 +604,22 @@
       "hit90_count": 5
     },
     {
+      "cohort": "extension_6_10",
+      "method": "per",
+      "n": 5,
+      "auc_mean": 0.737286432160804,
+      "auc_sd": 0.15357644300268658,
+      "fq_auc_mean": 0.9954,
+      "fq_auc_sd": 0.005813776741499459,
+      "final_mean": 1.0,
+      "final_sd": 0.0,
+      "runtime_seconds_mean": 71227.134912981,
+      "runtime_seconds_sd": 140.58742946081534,
+      "steps_per_second_mean": 28.07927402227191,
+      "steps_per_second_sd": 0.055473032389199636,
+      "hit90_count": 5
+    },
+    {
       "cohort": "pooled_1_10",
       "method": "her",
       "n": 10,
@@ -512,6 +665,22 @@
       "runtime_seconds_sd": 3629.333284596859,
       "steps_per_second_mean": 11.868789136947647,
       "steps_per_second_sd": 0.2582082242534356,
+      "hit90_count": 10
+    },
+    {
+      "cohort": "pooled_1_10",
+      "method": "per",
+      "n": 10,
+      "auc_mean": 0.7674371859296483,
+      "auc_sd": 0.11752249463700587,
+      "fq_auc_mean": 0.9897,
+      "fq_auc_sd": 0.012247902314727669,
+      "final_mean": 1.0,
+      "final_sd": 0.0,
+      "runtime_seconds_mean": 61074.90745081719,
+      "runtime_seconds_sd": 11049.396814452966,
+      "steps_per_second_mean": 33.78198937652807,
+      "steps_per_second_sd": 6.387201419530091,
       "hit90_count": 10
     }
   ],
@@ -718,7 +887,7 @@
       }
     }
   },
-  "comparison_status": "SABER minus HER and HGR; PER extension not published",
+  "comparison_status": "Completed four-method comparison: SABER minus HER, HGR and PER",
   "baseline_comparisons": {
     "saber_minus_hgr": {
       "historical_1_5": {
@@ -894,6 +1063,209 @@
             -1.0,
             -0.01200000000000001,
             -0.0050000000000000044
+          ]
+        },
+        "final": {
+          "n": 10,
+          "mean_difference": -0.3,
+          "ci95": [
+            -0.6,
+            0.0
+          ],
+          "ci_bonferroni_three": [
+            -0.7,
+            0.0
+          ],
+          "positive_pairs": 0,
+          "seed_differences": [
+            0.0,
+            -1.0,
+            -1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "saber_minus_per": {
+      "historical_1_5": {
+        "auc": {
+          "n": 5,
+          "mean_difference": -0.3490954773869347,
+          "ci95": [
+            -0.6747236180904522,
+            -0.023467336683417096
+          ],
+          "ci_bonferroni_three": [
+            -0.8032663316582914,
+            -0.006984924623115596
+          ],
+          "positive_pairs": 1,
+          "seed_differences": [
+            -0.1334170854271357,
+            -0.8439698492462312,
+            -0.7761306532663317,
+            -0.016582914572864316,
+            0.02462311557788943
+          ]
+        },
+        "fq_auc": {
+          "n": 5,
+          "mean_difference": -0.3848,
+          "ci95": [
+            -0.7928,
+            0.02200000000000002
+          ],
+          "ci_bonferroni_three": [
+            -0.9882,
+            0.027200000000000023
+          ],
+          "positive_pairs": 3,
+          "seed_differences": [
+            0.040000000000000036,
+            -0.981,
+            -0.999,
+            0.0020000000000000018,
+            0.014000000000000012
+          ]
+        },
+        "final": {
+          "n": 5,
+          "mean_difference": -0.4,
+          "ci95": [
+            -0.8,
+            0.0
+          ],
+          "ci_bonferroni_three": [
+            -1.0,
+            0.0
+          ],
+          "positive_pairs": 0,
+          "seed_differences": [
+            0.0,
+            -1.0,
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "extension_6_10": {
+        "auc": {
+          "n": 5,
+          "mean_difference": -0.195678391959799,
+          "ci95": [
+            -0.47015075376884424,
+            0.03206030150753771
+          ],
+          "ci_bonferroni_three": [
+            -0.54643216080402,
+            0.07020100502512563
+          ],
+          "positive_pairs": 1,
+          "seed_differences": [
+            -0.09899497487437192,
+            -0.03316582914572863,
+            -0.7175879396984924,
+            0.16105527638190958,
+            -0.28969849246231155
+          ]
+        },
+        "fq_auc": {
+          "n": 5,
+          "mean_difference": -0.1988,
+          "ci95": [
+            -0.5928,
+            -0.00040000000000000034
+          ],
+          "ci_bonferroni_three": [
+            -0.594,
+            0.0
+          ],
+          "positive_pairs": 0,
+          "seed_differences": [
+            0.0,
+            0.0,
+            -0.986,
+            -0.006000000000000005,
+            -0.0020000000000000018
+          ]
+        },
+        "final": {
+          "n": 5,
+          "mean_difference": -0.2,
+          "ci95": [
+            -0.6,
+            0.0
+          ],
+          "ci_bonferroni_three": [
+            -0.6,
+            0.0
+          ],
+          "positive_pairs": 0,
+          "seed_differences": [
+            0.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "pooled_1_10": {
+        "auc": {
+          "n": 10,
+          "mean_difference": -0.27238693467336683,
+          "ci95": [
+            -0.49806532663316583,
+            -0.0688096733668343
+          ],
+          "ci_bonferroni_three": [
+            -0.5487273869346734,
+            -0.029165829145727983
+          ],
+          "positive_pairs": 2,
+          "seed_differences": [
+            -0.1334170854271357,
+            -0.8439698492462312,
+            -0.7761306532663317,
+            -0.016582914572864316,
+            0.02462311557788943,
+            -0.09899497487437192,
+            -0.03316582914572863,
+            -0.7175879396984924,
+            0.16105527638190958,
+            -0.28969849246231155
+          ]
+        },
+        "fq_auc": {
+          "n": 10,
+          "mean_difference": -0.2918,
+          "ci95": [
+            -0.5917,
+            -0.00020000000000000017
+          ],
+          "ci_bonferroni_three": [
+            -0.6874374999999999,
+            0.008800000000000007
+          ],
+          "positive_pairs": 3,
+          "seed_differences": [
+            0.040000000000000036,
+            -0.981,
+            -0.999,
+            0.0020000000000000018,
+            0.014000000000000012,
+            0.0,
+            0.0,
+            -0.986,
+            -0.006000000000000005,
+            -0.0020000000000000018
           ]
         },
         "final": {

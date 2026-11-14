@@ -103,9 +103,63 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             summarize(values + rows("per"), ("her", "saber", "hgr"))
         with self.assertRaises(ValueError):
-            summarize(values + rows("per"), ("her", "saber", "hgr", "per"))
-        with self.assertRaises(ValueError):
-            append_method(Path("/nonexistent"), "per")
+            append_method(Path("/nonexistent"), "pal")
+
+    def test_explicit_per_publication_requires_all_ten_seeds(self):
+        values = rows() + rows("saber") + rows("hgr") + rows("per")
+        report = summarize(values, ("her", "saber", "hgr", "per"))
+        self.assertEqual(report["new_completed_runs"], 20)
+        self.assertEqual(report["historical_reference_runs"], 20)
+        self.assertEqual(len(report["aggregates"]), 12)
+        self.assertEqual(len(report["runs"]), 40)
+        for bad in (values[:-1], values[:-1] + [values[-2]]):
+            with self.assertRaises(ValueError):
+                summarize(bad, ("her", "saber", "hgr", "per"))
+
+    def test_per_preserves_existing_comparisons_and_seed_pairing(self):
+        values = rows() + rows("saber") + rows("hgr") + rows("per")
+        for row in values:
+            row["auc"] = row["seed"] / {"her": 100, "saber": 50, "hgr": 25, "per": 20}[row["method"]]
+        old = summarize([r for r in values if r["method"] != "per"], ("her", "saber", "hgr"))
+        report = summarize(values[::-1], ("her", "saber", "hgr", "per"))
+        self.assertEqual(report["comparisons"], old["comparisons"])
+        self.assertEqual(report["baseline_comparisons"]["saber_minus_hgr"],
+                         old["baseline_comparisons"]["saber_minus_hgr"])
+        groups = comparison_groups(report)
+        self.assertEqual(set(groups), {"saber_minus_her", "saber_minus_hgr", "saber_minus_per"})
+        per = groups["saber_minus_per"]["pooled_1_10"]["auc"]
+        self.assertAlmostEqual(per["mean_difference"], -.165)
+        self.assertEqual(per["positive_pairs"], 0)
+        for seed, diff in enumerate(per["seed_differences"], 1):
+            self.assertAlmostEqual(diff, -.03 * seed)
+
+    def test_per_uses_already_published_baseline_source(self):
+        self.assertEqual(source_directories(("her", "saber", "hgr", "per")),
+                         source_directories(("her", "saber", "hgr")))
+
+    def test_per_bootstrap_preserves_predeclared_adjustment(self):
+        import numpy as np
+        values = rows() + rows("saber") + rows("hgr") + rows("per")
+        diffs = np.asarray([-.13, -.84, -.77, -.02, .02, -.10, -.03, -.72, .16, -.29])
+        for row in values:
+            row["auc"] = .16 - (diffs[row["seed"] - 1] if row["method"] == "per" else 0)
+        report = summarize(values, ("her", "saber", "hgr", "per"))
+        result = report["baseline_comparisons"]["saber_minus_per"]["pooled_1_10"]["auc"]
+        ids = np.random.default_rng(2027).integers(0, 10, size=(10000, 10))
+        means = diffs[ids].mean(axis=1)
+        np.testing.assert_allclose(result["ci95"], np.quantile(means, [.025, .975]), atol=1e-12)
+        np.testing.assert_allclose(result["ci_bonferroni_three"], np.quantile(means, [.05/6, 1-.05/6]), atol=1e-12)
+
+    def test_zero_per_success_is_retained(self):
+        report = summarize(rows() + rows("saber") + rows("hgr") + rows("per"), ("her", "saber", "hgr", "per"))
+        pooled = report["baseline_comparisons"]["saber_minus_per"]["pooled_1_10"]["auc"]
+        self.assertEqual(pooled["n"], 10)
+        self.assertEqual(pooled["ci95"], [0.0, 0.0])
+
+    def test_per_cannot_skip_preceding_publication_methods(self):
+        for methods in (("per",), ("her", "per"), ("her", "saber", "per")):
+            with self.subTest(methods=methods), self.assertRaises(ValueError):
+                summarize([r for method in methods for r in rows(method)], methods)
 
     def test_hgr_source_family_is_explicit(self):
         self.assertEqual(source_directories(("her", "saber")), {"her_saber": SOURCE})

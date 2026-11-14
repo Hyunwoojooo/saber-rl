@@ -74,6 +74,31 @@
       "arm": "hgr",
       "core_packages_match": true,
       "seed": 5
+    },
+    {
+      "arm": "per",
+      "core_packages_match": true,
+      "seed": 1
+    },
+    {
+      "arm": "per",
+      "core_packages_match": true,
+      "seed": 2
+    },
+    {
+      "arm": "per",
+      "core_packages_match": true,
+      "seed": 3
+    },
+    {
+      "arm": "per",
+      "core_packages_match": true,
+      "seed": 4
+    },
+    {
+      "arm": "per",
+      "core_packages_match": true,
+      "seed": 5
     }
   ],
   "packages": {

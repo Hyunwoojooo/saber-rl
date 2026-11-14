@@ -1,10 +1,11 @@
 {
-  "exported_utc": "2026-11-13T05:14:32.252741+00:00",
+  "exported_utc": "2026-11-14T07:50:37.262406+00:00",
   "experiment": "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension",
   "published_methods": [
     "her",
     "saber",
-    "hgr"
+    "hgr",
+    "per"
   ],
   "sources": {
     "her_saber": "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source",
@@ -748,6 +749,171 @@
         "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/hgr/seed_10.claim.json": "b86129d9d6702f64ebfffd2f0a339f4bbafbf85f526dff8639c2973ba3af26c5",
         "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/hgr/seed_10/metrics.csv": "ed3ec8a96b89d49ffce6d2f1ed35137f72f5176e48c32a33d722da575fc43b93"
       }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 1,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1",
+      "published_directory": "data/historical_1_5/per/seed_1",
+      "original_files_sha256": {
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1/completion.json": "46090efe778db1bf8396cc587b80f5cf2fb1e4a267a3b186cf627c0fa8310531",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1/config.json": "6e52c276edcfe89e286afc209b3c226e1761d0ed82c28e8daf5e45db3743427a",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1/env_snapshot.json": "fd35e8abe60c735a2e4f6f7c2e66268d096d48f80a279f72ca55aff954e8183b",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1/evaluations.csv": "6c84ce54402b631e4356808325f3f56081e03e44fdc4654bc3e8569a99a4ff32",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_1/summary.json": "7554220d1250c94b730e21242c7b81c6cb1187baef4fb9b2146ca15f9b11efb7"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 2,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2",
+      "published_directory": "data/historical_1_5/per/seed_2",
+      "original_files_sha256": {
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2/completion.json": "1515c8fb2a28ba3c735730b123d2132bde1c14e6e2f17983372aed0d8abb67af",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2/config.json": "7f07442bf95af6761a8a256af983a40a02420c0d2e954c2f4c9d69b0ec299df8",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2/env_snapshot.json": "32071078f9ea275926e3e0d8194b2d60634e7cad6e0c8b9a89f12d08a62b2c1b",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2/evaluations.csv": "b5070961df43478395ce628ebcfe41cb48fd149de6b7e4c819045bb4fb7db18f",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_2/summary.json": "73014f5334fc20db1d87d6890c04f0edb885229c6cb17943cff1667c1277faaf"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 3,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3",
+      "published_directory": "data/historical_1_5/per/seed_3",
+      "original_files_sha256": {
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3/completion.json": "93e64472c14fdbf000ad0d75b16c296f621513741082a3aaf6084a434e80cd05",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3/config.json": "df46831d5bff19490ea8b901587593c4478f132b27733602be50c6cb67768abe",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3/env_snapshot.json": "3ecf237a0c8d058d49e8ca84c6429372f2d51a39ecb7f4c19449568c2f3ea31d",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3/evaluations.csv": "51b6722efaf0ce1531161792b4142cb76665474f49c8b49734181ebaa1c16890",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_3/summary.json": "34afedd9addc52efb8dc831a25a894f8c5b76f219273d7496b009816fa7080e8"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 4,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4",
+      "published_directory": "data/historical_1_5/per/seed_4",
+      "original_files_sha256": {
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4/completion.json": "ee419d62d7d9e7d1bed8ea57f3a34a4ae338cc3e8784139fbf9811361d981d7d",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4/config.json": "a34c1e44cbc335dd106d43e87d8e86d5aa0db9f95adb5e0558e00c2f3ad48838",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4/env_snapshot.json": "c4a86f4db2a577a694eb6ff4b9dc4b812ada69ee74f0286a8bef4ce13b102ac2",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4/evaluations.csv": "74d8d65e99c62f548947ee4b093f4f96fd3b1ff52ff47ff27a665b3f4bd81f6a",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_4/summary.json": "491b70b5ccf6932f2dc8e04eebbb417171d2927496534bac9e94ccbc16dd68d2"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 5,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5",
+      "published_directory": "data/historical_1_5/per/seed_5",
+      "original_files_sha256": {
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5/completion.json": "d112a6d7a740abc123a5932401be3c3817f7059479e90ec0ed289a3e2818e96a",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5/config.json": "fdd4e349c39b1d6823fdb8ebcb4cc506dcbe578d960c2f2e90890e30bdeea1b7",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5/env_snapshot.json": "5123cf2f86dc9ba3dfee8f4fb6aa49944d6694f034bddd42343efdff450d4442",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5/evaluations.csv": "2d6356cc70317579885de1439b2f1a8a3fcce2eb6e35db3a1a974fc8918e0756",
+        "metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_her_saber_hgr_per_2m/data/per/seed_5/summary.json": "f60a2ceed8b47f383b94da0fb3bab80fa28bd8161396d9ef139d0951544736c0"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 6,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_06",
+      "published_directory": "data/extension_6_10/per/seed_6",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_06/config.json": "9dd6bc030124b672d7551d4abc478b325f5cce2de63b1be762be5834cef496e6",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_06/summary.json": "52a22315e1544347e26e7525e429993655abd1b0293a6d823105bb47fa314786",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_06/env_snapshot.json": "a50d69e150453ece19ab51f9af4a7869c98734009db10fd5ac2d21b7204c66e0",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_06.claim.json": "cc06af3d3e42de93390d1b46bdb2cd0c10eedcc438a724a15a049a0d123a36fe",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_06/metrics.csv": "6706622d9b08425c708f38fd204230cd716d1cc18d95fc1df7af51896acc6fb5"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 7,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_07",
+      "published_directory": "data/extension_6_10/per/seed_7",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_07/config.json": "9823b4672b4e1a20c8aa902ecd1910c5151c1e424c1b71034139c223351498b5",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_07/summary.json": "f680885c14c5a9583b746154abb9cd9a0e839dc5c4298e8350e2085ffcc98791",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_07/env_snapshot.json": "90422c07e39129cf559d05add51e283a9d042a738178c89a7f706424a3470004",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_07.claim.json": "8914750c1a8f813922087aa8146d8a7d02819d8965a215e8e91416b33b1e006f",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_07/metrics.csv": "ccd1f3334f9e723732c19cef4c979ef7f521d2bb8c00a1c132d784b1c2ef982f"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 8,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_08",
+      "published_directory": "data/extension_6_10/per/seed_8",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_08/config.json": "de2b439834013d23cac61b5983f292fe3da5898a6bf5dfe0702e13fea9ed6a0b",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_08/summary.json": "73af163e2ff974b740a54530a4f5564b1d1716dc03d6eab314c868e95eb42e8f",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_08/env_snapshot.json": "d45317e6036c5d422d737436fb4e4bd8e1c61494d71d8a972609e784425b4df7",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_08.claim.json": "19e6960c0737eb5cf3fdb4e3241f0956544775a4f1979312eaaa330befc7c01c",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_08/metrics.csv": "b04a76de48fa7417f94b13caa2a5ed2656f10d86d44bc0c312a312aac163e8f9"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 9,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_09",
+      "published_directory": "data/extension_6_10/per/seed_9",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_09/config.json": "2f0a619e98ea66f522351cf75f1af8ff05360ee6d24b068f5fee3f07ac2c53d2",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_09/summary.json": "dc6181926a22a39adf1cce9398623cce421326eac3e5ab02a2cde74c61d83ccd",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_09/env_snapshot.json": "e091d17180717190215cd1b46406ca75238479b095082130c229c2b3f2d4eda5",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_09.claim.json": "59dc1816d5e5871adf884d2c7d0e8bfafe51dd343b258273c6f8d514a65b9b60",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_09/metrics.csv": "7dc9586e7cf529e8f8b70b04b2f5ebbf188836d84b1a23ad3b2e9cc3c1516ad2"
+      }
+    },
+    {
+      "task": "drawer_open",
+      "method": "per",
+      "seed": 10,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_10",
+      "published_directory": "data/extension_6_10/per/seed_10",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_10/config.json": "52e15c001eb18ed97e6ccd9b01758fb6c38478894d6455b2469474f5edb8828d",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_10/summary.json": "cbd5fabb94da7231d11a746ed13a08ccbf254121935ff1b05fa073762396759d",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_10/env_snapshot.json": "d80cf091e75f6ea9983fd0b239b0709faf9643af227d8f383d6ddc4af5711be5",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_10.claim.json": "ba11d7245f9d1539af2bb6e41feb6a8ed0fc2f1a4ca39563a64ed2de3cdd3587",
+        "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension/outputs/production/per/seed_10/metrics.csv": "db2ebf8c7e4d5a53ce6ba51e7fd5b7e02e0fda5631b4b4fca5f4e830e20e95b4"
+      }
     }
   ],
   "original_snapshot_manifest_sha256": "be425d7afe5ff01731f46a7e38e42c9a219a48351e9f35f25c7bfc02f103f6c2",
@@ -769,7 +935,6 @@
     "training CSV restricted to every evaluation row and eval/runtime columns"
   ],
   "omitted": [
-    "new PER results",
     "CPU pilot",
     "checkpoints",
     "replay buffers",
@@ -778,5 +943,7 @@
   "her_publication_utc": "2026-11-11T03:54:19.265462+00:00",
   "saber_finished_utc": "2026-11-11T04:04:48.724395+00:00",
   "saber_publication_utc": "2026-11-11T04:59:48.566532+00:00",
-  "hgr_finished_utc": "2026-11-13T02:35:43.243990+00:00"
+  "hgr_finished_utc": "2026-11-13T02:35:43.243990+00:00",
+  "hgr_publication_utc": "2026-11-13T05:14:32.252741+00:00",
+  "per_finished_utc": "2026-11-13T22:25:22.945512+00:00"
 }

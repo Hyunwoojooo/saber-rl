@@ -94,14 +94,14 @@ The previous six-family index does not include these later DDPG/TD3 extensions.
 python3 ICML_27/tools/td3_seed_extension_results.py verify
 ```
 
-### DrawerOpen SAC HER, SABER and HGR Seed Extensions
+### Completed DrawerOpen SAC Main Seed Extensions
 
 The [SAC extension artifact](../metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m/README.md)
-contains **fifteen completed new runs**, HER, SABER and HGR each with seeds 6-10
-at 2M steps. This update adds the five HGR runs, finished on
-**2026-11-13 02:35 UTC**, to the previously published HER/SABER runs.
-PER seeds 6-10 are still running at this snapshot; their results and the
-CPU-pilot results are deliberately excluded.
+contains **twenty completed new runs**, HER, SABER, HGR and PER each with
+seeds 6-10 at 2M steps. This update adds the five PER runs, finished on
+**2026-11-13 22:25 UTC** (November 14 at 07:25 KST), to the previously
+published HER/SABER/HGR runs. The extension queue is complete; CPU-pilot
+results remain excluded from this training artifact.
 
 Pooled seeds 1-10 AUC is **0.486683 +/- 0.377089** for HER and
 **0.495050 +/- 0.356622** for SABER. The paired difference is **+0.008367**,
@@ -117,14 +117,21 @@ Hit90 coverage **10/10**. SABER-minus-HGR AUC is **-0.196156**, pointwise
 lower variability in this cohort, but the adjusted interval includes zero.
 The result does not establish the cause of the performance difference.
 
-The fifteen historical references were already counted in the SAC archive and are
-not additional executions. The archive now contains **165 distinct completed
+PER pooled AUC is **0.767437 +/- 0.117522**, final success **1.000** and
+Hit90 coverage **10/10**. SABER-minus-PER AUC is **-0.272387**, pointwise
+95% CI **[-0.498065, -0.068810]** and nominal three-contrast-adjusted
+98.333333% CI **[-0.548727, -0.029166]**. Both intervals are below zero,
+supporting lower SABER AUC in this cohort under the specified bootstrap
+analysis. The result does not establish a general ranking or its cause.
+
+The twenty historical references were already counted in the SAC archive and are
+not additional executions. The archive now contains **170 distinct completed
 post-review training executions**, excluding reused references.
 
 The original five-seed SAC artifact remains unchanged. Historical, extension
-and pooled HER/SABER/HGR results are reported separately, with complete seed-level
+and pooled HER/SABER/HGR/PER results are reported separately, with complete seed-level
 paired differences and approximate bootstrap intervals. The planned
-three-AUC-contrast adjustment is retained, but the PER contrast is not yet
+three-AUC-contrast adjustment is retained and all three contrasts are now
 published. These are the existing auto-temperature SAC settings, not the
 fixed-alpha prototype. Scientific configuration parity and source hashes are
 checked without changing the live queue or importing its trainers.
@@ -195,7 +202,7 @@ not edited during verification.
 - Failure/saturation associations and final-checkpoint search agreement are descriptive, not causal proof.
 - The SAC observation retains original-goal coordinates while HER relabels a separate goal input. The inherited representation is shared across compared SAC methods; its causal effect is unresolved. Executed code is not silently corrected in this archive.
 - Runtime includes instrumentation. These experiments do not supply a controlled, matched-instrumentation wall-clock superiority claim.
-- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. For the SAC seed 6-10 extension, DrawerOpen HER, SABER and HGR are published; PER extension results and the four-method ten-seed comparison are not yet published.
+- Critic-branch/policy-action diagnostics, broader hyperparameter sensitivity and context transfer are not completed experiments in this archive. The DrawerOpen SAC seed 6-10 extension is complete and published for HER, SABER, HGR and PER, including the four-method ten-seed comparison. This does not imply that DrawerClose SAC or other unlisted cohorts have been extended to ten seeds.
 
 ## License
 
