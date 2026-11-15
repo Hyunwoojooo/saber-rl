@@ -2,6 +2,20 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
+## Completed HER Seed Extension
+
+HER seeds **6-10** completed 2M steps each on November 14, 2026 (UTC).
+The [completed HER artifact](paper_artifacts/drawer_close_ddpg_her_seed_extension_2m/README.md)
+contains seed-level results, historical/new/pooled cohort tables, evaluation
+curves, executed source, and a SHA-256 verifier. Existing seeds 1-5 are reused
+as references, not rerun or counted as new executions.
+
+For the five new seeds, AUC is **0.307688 +/- 0.051379**, FQ-AUC is
+**0.232400 +/- 0.060551**, and final success is **0.600000 +/- 0.413824**
+(mean +/- sample SD). The SABER extension is still running at this publication
+snapshot; no final HER-SABER comparison or paired CI is included here.
+The original five-seed tables below remain unchanged.
+
 ## Experiment Set
 
 | Experiment | Script | Method | Weight Scope |

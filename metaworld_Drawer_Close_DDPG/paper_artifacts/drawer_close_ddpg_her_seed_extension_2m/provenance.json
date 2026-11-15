@@ -1,0 +1,156 @@
+{
+  "exported_utc": "2026-11-15T07:29:14.204483+00:00",
+  "experiment": "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension",
+  "source_files_sha256": {
+    "source_snapshot/her/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+    "source_snapshot/her/code/src/metacog_lite_v0/agent.py": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+    "source_snapshot/her/code/src/metacog_lite_v0/config.py": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6",
+    "source_snapshot/her/code/src/metacog_lite_v0/envs.py": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
+    "source_snapshot/her/code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+    "source_snapshot/her/code/src/metacog_lite_v0/io_utils.py": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+    "source_snapshot/her/code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+    "source_snapshot/her/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
+    "source_snapshot/her/code/src/metacog_lite_v0/numba_support_scan_fpp.py": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+    "source_snapshot/her/code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_drawer_close.py": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_drawer_open.py": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+    "source_snapshot/her/code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+    "source_snapshot/her/code/src/metacog_lite_v0/trainer.py": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c",
+    "source_snapshot/her/code/src/metacog_lite_v0/weights.py": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
+    "source_snapshot/her/code/src/train_drawer_close_lite_v0.py": "679ed88a0e168d53634e1271f90d52eb55744c2362ebea93acfa2d024ad5fed3",
+    "source_snapshot/her/original_launcher.sh": "f9048c809eef36e0ac1e0ccb0da123239f12708fa63d43f8750f293b01718cb3"
+  },
+  "runs": [
+    {
+      "arm": "her",
+      "seed": 1,
+      "cohort": "historical_1_5",
+      "published_directory": "data/historical_1_5/her/seed_1",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/references/her/seed_1/evaluation.csv": "4373823fc43e34ebe4fb49187211d95a92ed9b0ac6c77ecdc3077854bc5f77cf"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 2,
+      "cohort": "historical_1_5",
+      "published_directory": "data/historical_1_5/her/seed_2",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/references/her/seed_2/evaluation.csv": "babc9b69fc4e9a9265222b90c0738c7f7455eb473c9a40fd9ba8433a541267d0"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 3,
+      "cohort": "historical_1_5",
+      "published_directory": "data/historical_1_5/her/seed_3",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/references/her/seed_3/evaluation.csv": "2bfa11cebf8c7229e2dab299126ae23108be30134a81387039d01ca178f22cdf"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 4,
+      "cohort": "historical_1_5",
+      "published_directory": "data/historical_1_5/her/seed_4",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/references/her/seed_4/evaluation.csv": "7e946cc220f1d8e6cd1ac389385dbbfbce16d83194c01048699d360a93ed292f"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 5,
+      "cohort": "historical_1_5",
+      "published_directory": "data/historical_1_5/her/seed_5",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/references/her/seed_5/evaluation.csv": "1d54b3307f526e20ded6afc8946e8cd14a760a9780d73b6696ae48c47b94d9ba"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 6,
+      "cohort": "extension_6_10",
+      "published_directory": "data/extension_6_10/her/seed_6",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_06/config.json": "5800f41f6607a1892fc13041ac56e9e8f13e5b08ca1dcf675a79f9d20d4b7258",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_06/summary.json": "1bf99b0801f030d278452c75690f2266e2a8a411df2c61b7b6ede7d6e2b64b32",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_06/env_snapshot.json": "1aa404ecbbd3b091d297a0a540aea20f1015a5feb5c325b6315c8c8b591f9d3b",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_06.claim.json": "2d720f55b2e05ad2d2100ebf015331ef43f8f22a89ed93fe70bc1e69a029ec95",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_06/metrics.csv": "16fa58e565000f0cb995f523b9acff530456e35d60f885a7a507847c247c59a4"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 7,
+      "cohort": "extension_6_10",
+      "published_directory": "data/extension_6_10/her/seed_7",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_07/config.json": "c5ad5ef0adee7bfd54eeeff43491a54d52dc62186ff51cc9bf9081639c2ec084",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_07/summary.json": "ec63646e6cb00500c3d42ca79df60f6e986490ba5075b6de05c154779fc7967e",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_07/env_snapshot.json": "343eb2eebf4d4037c222d7cb8b54e82cabce85908474768424820f7839d93506",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_07.claim.json": "9249e5d7e9e46812f0f08bf1fba710caa494ac3bdfa930dd5380ad933150d939",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_07/metrics.csv": "f2f600e3a5359ca24da4a5f27a6d8be35155733dd31eafd122dddfba57f2ddfc"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 8,
+      "cohort": "extension_6_10",
+      "published_directory": "data/extension_6_10/her/seed_8",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_08/config.json": "dab3268dc2762b5b1ad5069c15a6c63f0fb0cfe09242ccf0480cce049c380972",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_08/summary.json": "51f6337c28aa937e16dce8c44de3c8cd499d6938f637659bd745ac9fce67d361",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_08/env_snapshot.json": "80a05a3d002f40e430aba93d655e8e538e9ce57ddf2b6912be08241f4028f6b7",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_08.claim.json": "8b0b6a6cf78c8eb494a224ce347eae58ea53799d52ef365dfe7a296f65a1c563",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_08/metrics.csv": "e6266c6c23989973017c52e483aae1e31def0f53e1747650d1945468234a124b"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 9,
+      "cohort": "extension_6_10",
+      "published_directory": "data/extension_6_10/her/seed_9",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_09/config.json": "f5796d24ac31841d18624dd6cbecc2b3c9d01f90200a1e35f2f613b48b949000",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_09/summary.json": "76b765d5f1885e61257518292d6f793df1230e4f1939187d910ddd91a7120680",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_09/env_snapshot.json": "511c96f6ab1334fd077b3438cdf698f5783391f21889bd3c01ae52c73544eb41",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_09.claim.json": "657fdd706f53253425303dde7e504271a9ecef571d8dcd29b3fc49f46bc9d445",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_09/metrics.csv": "3ef0ab041fce88f33d85605108e5221d61d84f1aeb7f5083f4691538e98eeb2a"
+      }
+    },
+    {
+      "arm": "her",
+      "seed": 10,
+      "cohort": "extension_6_10",
+      "published_directory": "data/extension_6_10/her/seed_10",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_10/config.json": "750bb32fb3d31b3e58bcc039f180b6638dba6cc263f202a9b18d58d1f5bad72b",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_10/summary.json": "9c22269c2f599cb4fcc11e27bef09ca369bfb9cea23fd0ce71fd359015ac6383",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_10/env_snapshot.json": "41f550439e311be8929aa2c6074fdeae04f202d63a8507344a2cfd2d43856574",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_10.claim.json": "37724297c61ae3fdc88023d4e67c7a34acc898d0eb30caf37b8f6df8cdb97971",
+        "experiments_post_review/2026-11-14_drawerclose_ddpg_main_seed_extension/outputs/production/her/seed_10/metrics.csv": "c3aae668333dbd87c7a5611d4cbea39418c640fa1a3ac5e2fd5e5a96c4c60e61"
+      }
+    }
+  ],
+  "original_snapshot_manifest_sha256": "f6a8cac952cdb8d1c49b49f6de52ebc9137b4f026ea580e4a483c53847f0bf72",
+  "original_queue_snapshot_sha256": "cb7fd3db0efc00bc337b4aa03e8982976c0633ad3d414cfea94542d54b9a82ec",
+  "historical_limit": "Some original execution configs and historical dependency locks were not retained. Launcher/source-contract reconstruction is not bit-for-bit historical execution verification. Report seeds 6-10 separately as well as the planned pooled 1-10 estimates. Do not substitute post-review assignment-cohort runs.",
+  "transformations": [
+    "workspace paths redacted in JSON",
+    "optional nonfinite diagnostics become null",
+    "all evaluation checkpoints retained; training rows omitted",
+    "non-HER queue entries retain status only"
+  ],
+  "omitted": [
+    "checkpoints",
+    "replay buffers",
+    "raw logs",
+    "unfinished outputs",
+    "non-HER source/results"
+  ]
+}
