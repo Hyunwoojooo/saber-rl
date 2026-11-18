@@ -2,7 +2,26 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
-## Completed HER Seed Extension
+## Completed HER-SABER Seed Extension
+
+HER and SABER seeds **6-10** have both completed 2M steps each.
+The [HER-SABER comparison artifact](paper_artifacts/drawer_close_ddpg_her_saber_seed_extension_2m/README.md)
+contains all seed results, historical/new/pooled tables, paired confidence
+intervals, evaluation curves, executed source snapshots, and SHA-256 verification.
+
+| Cohort | HER mean AUC | SABER mean AUC | SABER - HER | Paired 95% CI |
+| --- | ---: | ---: | ---: | --- |
+| Historical seeds 1-5 | 0.251005 | 0.324422 | +0.073417 | [+0.016181, +0.143191] |
+| Extension seeds 6-10 | 0.307688 | 0.304673 | -0.003015 | [-0.055176, +0.053442] |
+| Pooled seeds 1-10 | 0.279347 | 0.314548 | +0.035201 | [-0.010289, +0.086697] |
+
+The pooled sample mean favors SABER, but the 10-seed interval includes zero;
+superiority and equivalence are not established. All seeds remain included.
+The combined artifact reuses the previously published HER runs, not additional
+independent executions. Historical execution-environment provenance limitations
+are documented in the artifact. Other methods' performance is not included.
+
+### Earlier HER-Only Publication
 
 HER seeds **6-10** completed 2M steps each on November 14, 2026 (UTC).
 The [completed HER artifact](paper_artifacts/drawer_close_ddpg_her_seed_extension_2m/README.md)
@@ -12,8 +31,8 @@ as references, not rerun or counted as new executions.
 
 For the five new seeds, AUC is **0.307688 +/- 0.051379**, FQ-AUC is
 **0.232400 +/- 0.060551**, and final success is **0.600000 +/- 0.413824**
-(mean +/- sample SD). The SABER extension is still running at this publication
-snapshot; no final HER-SABER comparison or paired CI is included here.
+(mean +/- sample SD). This earlier artifact remains unchanged and contains HER
+only. The completed HER-SABER comparison is linked above.
 The original five-seed tables below remain unchanged.
 
 ## Experiment Set
