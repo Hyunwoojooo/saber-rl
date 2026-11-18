@@ -1,0 +1,36 @@
+{
+  "AUC 10k-1M (primary)": {
+    "n": 20,
+    "mean": 0.04508838383838384,
+    "ci_low": 0.017499999999999995,
+    "ci_high": 0.07297979797979799,
+    "positive": 14,
+    "negative": 6,
+    "sign_flip_p": 0.0058956146240234375,
+    "her_mean": 0.3710732323232323,
+    "saber_mean": 0.4161616161616162,
+    "verdict": "SABER > HER (95% CI excludes 0)"
+  },
+  "final-quarter AUC": {
+    "n": 20,
+    "mean": 0.13655,
+    "ci_low": 0.0664,
+    "ci_high": 0.2092,
+    "positive": 14,
+    "negative": 6,
+    "sign_flip_p": 0.0015430450439453125,
+    "her_mean": 0.57915,
+    "saber_mean": 0.7157000000000001
+  },
+  "final success": {
+    "n": 20,
+    "mean": 0.25749999999999995,
+    "ci_low": 0.1275,
+    "ci_high": 0.39,
+    "positive": 13,
+    "negative": 3,
+    "sign_flip_p": 0.001800537109375,
+    "her_mean": 0.54,
+    "saber_mean": 0.7975000000000001
+  }
+}

@@ -1,0 +1,17 @@
+window,test,target,spearman,converged,n_converged,failed,n_failed
+all 9 stages,"SABER > uniform, K=100, R1",pair AUC diff,0.18045112781954886,,,,
+all 9 stages,"SABER > uniform, K=100, R1",pair final-quarter diff,0.22105263157894736,,,,
+all 9 stages,"SABER > uniform, K=100, R1",SABER final success,0.03308270676691729,,,,
+all 9 stages,"SABER > uniform, K=100, R1",median score: SABER final>=0.9 vs <=0.1,,-0.016056038846435736,14,nan,0
+all 9 stages,"SABER > uniform, K=100, R2",pair AUC diff,-0.07218045112781954,,,,
+all 9 stages,"SABER > uniform, K=100, R2",pair final-quarter diff,-0.012030075187969924,,,,
+all 9 stages,"SABER > uniform, K=100, R2",SABER final success,0.037593984962406006,,,,
+all 9 stages,"SABER > uniform, K=100, R2",median score: SABER final>=0.9 vs <=0.1,,0.004404705562225707,14,nan,0
+late 500k-1M,"SABER > uniform, K=100, R1",pair AUC diff,0.16992481203007515,,,,
+late 500k-1M,"SABER > uniform, K=100, R1",pair final-quarter diff,0.21654135338345865,,,,
+late 500k-1M,"SABER > uniform, K=100, R1",SABER final success,0.09774436090225563,,,,
+late 500k-1M,"SABER > uniform, K=100, R1",median score: SABER final>=0.9 vs <=0.1,,-0.030228411868427493,14,nan,0
+late 500k-1M,"SABER > uniform, K=100, R2",pair AUC diff,0.060150375939849614,,,,
+late 500k-1M,"SABER > uniform, K=100, R2",pair final-quarter diff,0.15939849624060148,,,,
+late 500k-1M,"SABER > uniform, K=100, R2",SABER final success,0.24812030075187969,,,,
+late 500k-1M,"SABER > uniform, K=100, R2",median score: SABER final>=0.9 vs <=0.1,,-0.0020992333195432645,14,nan,0

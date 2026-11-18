@@ -49,6 +49,8 @@
 
 # 추가: GPU 재실행 (2026-11-12 고정)
 
+> **정정 (2026-11-12).** 아래에서 "다른 기계"라고 쓴 `/home/mimiclab/` 실행은 사용자 확인 결과 **이 PC와 같은 컴퓨터**에서 돌았다. 갈리는 지점은 기계가 아니라 시점이다. 이 PC의 현재 계정(`/home/mimiclab-gigabyte-gen5`)은 2026-07-08에 만들어졌고, `/home/mimiclab/` 경로의 실행은 2026-05-27 ~ 07-11, 현재 계정의 실행은 07-09부터다. 그 사이에 OS 재설치나 환경 재구성이 있었다면 드라이버·CUDA·패키지 버전이 바뀌었을 수 있다. 원 실행 폴더에는 패키지 버전 기록이 없다. 또 cpu 재학습의 초반 평가 성공률이 원 실행과 같았던 것은 궤적이 같았다는 증거가 아니다. 초반 정책은 거의 무작위라 성공률이 평가 episode의 초기 배치(고정 seed)로 정해진다.
+
 ## 왜 하나
 
 11월 10일의 cpu 재학습에서는 원 실행의 이득이 재현되지 않았다(SABER − HER +0.071 → +0.004). [비교 자료](../../paper_artifacts/fpp_td3_primary_rerun_20261110/README.md). 원 실행과 달랐던 것은 기계와 device 두 가지다. 이 가운데 **device만 원 실행과 같게(cuda) 맞춰** 다시 돌린다.
@@ -87,4 +89,54 @@
 
 ```bash
 .venv/bin/python ICML2027/experiments/fpp_td3_primary_checkpoint_rerun_20261110/launch.py status --tag cuda
+```
+
+---
+
+# 추가 2: 20쌍 확장 (2026-11-13 고정)
+
+## 왜 하나
+
+GPU 재실행에서도 원 실행의 이득이 재현되지 않았다(+0.071 → +0.017). 같은 seed를 세 번 돌린 AUC의 표준편차가 HER 0.039, SABER 0.061로 원 효과만큼 커서, seed 5개로는 SABER가 HER보다 나은지 판단할 수 없다. 새 seed로 짝 실행을 크게 늘려 FPP–TD3 주 비교의 효과 크기를 다시 추정한다.
+
+## 고정 조건
+
+| 항목 | 값 |
+|---|---|
+| 코드, 명령, arm, 길이, 저장본 | 위와 같음(1M step, 50k마다 저장) |
+| seed | **11–30 (20쌍)**. 이전 어떤 FPP–TD3 실행에도 쓰지 않은 seed다(원 실행 1–5, 10-seed 확장 6–10) |
+| device | cuda, 실행당 1 thread |
+| 동시 실행 | 최대 12개. 처음에 20개로 시작했으나 1분 만에 메모리 여유가 3GB로 떨어져(GB10은 GPU와 CPU가 메모리를 공유하고, LLM 서버가 76GB를 쓴다) 모두 멈추고 지운 뒤 12개로 다시 시작했다. 결과를 보기 전의 운영상 변경이다 |
+| 출력 | `outputs/runs_n20/`. 태그 `n20` |
+| 실패 처리 | 실패가 나면 새 실행을 시작하지 않는다. 재시도나 seed 교체는 하지 않는다 |
+
+## 분석 규칙 (실행 전에 고정, `analyze_n20.py`)
+
+- 단위: seed 짝. 주 지표는 짝별 SABER − HER AUC(10k–1M) 20개.
+- 보고: 평균, 짝 bootstrap 95% 구간(100,000회, 난수 seed 20261113), 양수/음수 개수, 정확한 양측 sign-flip permutation p.
+- 판정(주 지표):
+
+| 결과 | 판정 |
+|---|---|
+| 95% 구간 하한 > 0 | SABER > HER |
+| 95% 구간 상한 < 0 | SABER < HER |
+| 구간이 0을 포함하고 상한 < +0.035 | 원 효과의 절반 크기의 이득도 없다 |
+| 구간이 0을 포함하고 상한 ≥ +0.035 | 판단 보류 |
+
+- 보조: final-quarter AUC, 마지막 평가 성공률(같은 통계, 판정 없음).
+- 서술(판정 없음): 이전 15쌍(seed 1–5 × 원 실행·cpu·cuda)과 합친 값. 이전 15쌍은 같은 seed의 반복이라 독립 표본이 아니므로 판정에 쓰지 않는다.
+- 이 확장으로 이득이 확인되면, 그 저장본으로 실험 4(정책 조회 critic 측정)를 한다. 이득이 확인되지 않으면 원고의 FPP–TD3 성능 주장을 이 결과로 고친다.
+
+## 실행
+
+```bash
+.venv/bin/python ICML2027/experiments/fpp_td3_primary_checkpoint_rerun_20261110/launch.py run --device cuda --threads 1 --max-parallel 12 --tag n20 --seeds 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+```
+
+```bash
+.venv/bin/python ICML2027/experiments/fpp_td3_primary_checkpoint_rerun_20261110/launch.py status --tag n20 --seeds 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+```
+
+```bash
+.venv/bin/python ICML2027/experiments/fpp_td3_primary_checkpoint_rerun_20261110/analyze_n20.py
 ```

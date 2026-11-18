@@ -97,7 +97,7 @@ A1 checkpoint 48개(SABER·HER 학습, seed 101–103, 10k–500k)에서 critic�
 | 순서 | 일 | 상태 | 비용 |
 |---|---|---|---|
 | 1 | DrawerOpen 후반부 측정 | **완료 (2026-11-10). 주 판정 mixed** | 2.1b절 |
-| 0 | **SABER 이득의 재현성 확인** (2026-11-10 추가) | **진행 중. GPU 재실행을 2026-11-12 02:30에 시작** | 아래 0번 절 |
+| 0 | **SABER 이득의 재현성 확인** (2026-11-10 추가) | **완료 (2026-11-16). 새 seed 11–30 20쌍: AUC +0.045 [+0.018, +0.073], 14/6 → 규칙상 SABER > HER. 효과 크기는 원 +0.071의 약 2/3** | 아래 0번 절 |
 | 2 | FPP에서 같은 측정 | **완료 (2026-11-10). A·C 모두 mixed. C 재학습에서 원 실행의 이득이 재현되지 않음(+0.071 → +0.004)** | 아래 2번 절 |
 | 3 | ψ가 무엇을 대신 재는지: 대조 arm 2개 | 미착수 | 2번 측정에 얹음 |
 | 4 | 주장 확정과 원고 재작성 | 일부는 지금 가능 | – |
@@ -105,6 +105,10 @@ A1 checkpoint 48개(SABER·HER 학습, seed 101–103, 10k–500k)에서 critic�
 | – | A1-2M 계측 학습 | 보류. 1번이 mixed라 지금 근거로는 불필요 | 학습 약 2일 |
 
 ### 0. SABER 이득의 재현성 확인 (2026-11-10 추가)
+
+> **정정 (2026-11-12).** 아래에서 "다른 기계"라고 쓴 `/home/mimiclab/` 실행은 사용자 확인 결과 **이 PC와 같은 컴퓨터**에서 돌았다. 갈리는 지점은 기계가 아니라 시점이다. 이 PC의 현재 계정(`/home/mimiclab-gigabyte-gen5`)은 2026-07-08에 만들어졌고, `/home/mimiclab/` 경로의 실행은 2026-05-27 ~ 07-11, 현재 계정의 실행은 07-09부터다. 그 사이에 OS 재설치나 환경 재구성이 있었다면 드라이버·CUDA·패키지 버전이 바뀌었을 수 있다. 원 실행 폴더에는 패키지 버전 기록이 없다. 또 cpu 재학습의 초반 평가 성공률이 원 실행과 같았던 것은 궤적이 같았다는 증거가 아니다. 초반 정책은 거의 무작위라 성공률이 평가 episode의 초기 배치(고정 seed)로 정해진다.
+>
+> **추가 (2026-11-12).** 7월 29일 공동연구자가 정리한 실행 환경 감사(`paper/supplementary_artifacts/technical_supplement/execution_environment_summary.csv`, `execution_host_mapping.csv`)에 따르면 실험은 **물리적으로 다른 GB10 컴퓨터 4대**(host A: MSI GB10, 드라이버 580.142; host B·C: GIGABYTE AI TOP ATOM, 580.159.03; host D: GB10, 580.95.05)에서 돌았고, 네 대 모두 라이브러리 버전이 지금 이 PC와 같다(PyTorch 2.12.1, MuJoCo 3.3.0, gymnasium 1.3.0, gymnasium-robotics 1.4.2). `/home/mimiclab/` 경로는 host A와 host B의 실행 모두에 나타나므로 경로만으로는 컴퓨터를 가릴 수 없다. 6월 FPP–TD3 주 비교가 어느 host에서 돌았는지는 감사 표에 없다. 따라서 "7월 8일의 환경 변화"도 확인된 원인이 아니다.
 
 2번을 진행하다 드러난 문제다. 설명하려던 성능 이득이 이 PC의 실행에서는 관측되지 않는다.
 
@@ -124,6 +128,22 @@ A1 checkpoint 48개(SABER·HER 학습, seed 101–103, 10k–500k)에서 critic�
 - 2026-11-12: "다른 기계"가 무엇인지 확인했다. 저장소의 실행 설정에 기록된 출력 경로의 home 폴더가 네 가지다. `/home/mimiclab`(FPP, 5–7월. 주 비교가 여기서 돌았다), `/home/mimiclab-gigabyte-gen4`(DrawerOpen·DrawerClose DDPG 일부, 7월), `/home/mimiclab_asus`(FetchPush, DrawerOpen REDQ), `/home/mimiclab-gigabyte-gen5`(이 PC). 이 PC에는 `/home/mimiclab` 계정이 없다.
 - cpu 재학습의 평가 곡선은 30k–180k까지 원 실행과 값이 같고 그 뒤 갈라진다. 환경과 seed는 재현되고, 궤적은 부동소수 차이로 갈라진다.
 - 2026-11-12 02:30: 할 일 2번을 시작했다. 같은 10개 실행을 이 PC에서 cuda로 다시 돌린다. 설정은 원 실행과 출력 경로·thread 키만 다르다. 읽는 규칙은 [재학습 protocol](../experiments/fpp_td3_primary_checkpoint_rerun_20261110/PROTOCOL_ko.md)의 "추가: GPU 재실행"에 미리 적었다(평균 ≥ +0.035이고 4개 이상 양수면 재현, ≤ +0.020이면 재현 안 됨).
+- 2026-11-12 11:47: GPU 재실행 완료. SABER − HER = +0.0173(95% 구간 [−0.035, +0.071]), 양수 2/5. **규칙상 재현 안 됨.** 같은 seed를 세 번(원 실행, cpu, cuda) 돌린 AUC의 seed별 표준편차가 HER 0.039, SABER 0.061로 원 효과(+0.071)와 비슷하다. 세 번을 합친 15쌍의 서술적 평균은 +0.031이다. [비교 자료](../paper_artifacts/fpp_td3_primary_rerun_20261110/README.md). 다음은 seed 수를 크게 늘린 효과 크기 재추정이다.
+- 2026-11-13 05:07: 20쌍 확장 시작. 새 seed 11–30, HER·SABER 40개 실행, cuda, 최대 12개 동시. 분석 규칙은 [재학습 protocol](../experiments/fpp_td3_primary_checkpoint_rerun_20261110/PROTOCOL_ko.md)의 "추가 2"와 `analyze_n20.py`에 실행 전에 고정했다(95% 구간 하한 > 0이면 SABER > HER, 구간이 0을 포함하고 상한 < +0.035이면 원 효과 절반의 이득도 없음). 약 하루 걸린다.
+- 2026-11-16: 20쌍 분석(`analyze_n20.py`, 미리 고정한 규칙). AUC 10k–1M: HER 0.371, SABER 0.416, 차이 +0.0451 (95% 구간 [+0.0175, +0.0730]), 양수 14/20, sign-flip p=0.006 → **SABER > HER**. final-quarter AUC +0.137 [+0.066, +0.209], final success +0.258 [+0.128, +0.390](SABER 11/20 seed가 최종 1.0, HER 2/20). 이 PC의 환경 재구성 뒤에도 FPP TD3 이득은 있다. 효과는 원 보고보다 작고 후반 수렴에서 크다. 5쌍 재실행의 "재현 안 됨"은 표본 부족으로 읽는다. 결과: [n20_seeds11_30](../paper_artifacts/fpp_td3_primary_rerun_20261110/n20_seeds11_30/analysis.json).
+- 2026-11-16 09:00: 20쌍 결과를 받아 두 작업을 시작했다. (1) 20쌍 저장본 360개로 정책 조회 critic 측정(`fpp_n20`). 이득이 확인된 FPP cohort에서 저장본이 있는 것은 처음이다. 판정 규칙은 측정 전에 [PROTOCOL_fpp_n20_ko.md](../experiments/draweropen_ddpg_first_order_usefulness_20261109/PROTOCOL_fpp_n20_ko.md)와 `analyze_fpp_n20.py`에 고정했다(seed 점수의 부호 검정, 전체 9개 시점과 후반 3개 시점). (2) count-matched 대조군을 같은 seed 11–30으로 학습([protocol](../experiments/fpp_td3_count_matched_n20_20261116/PROTOCOL_ko.md), 주 대비 SABER − count-matched AUC). cuda, 최대 10개 동시.
+- 2026-11-17 03:45: `fpp_n20` 측정 360개 완료, 사전 규칙으로 분석([요약](../paper_artifacts/first_order_usefulness_20261109/fpp_n20/seed_verdicts.csv)). **주 판정 consistent −**: SABER로 학습한 checkpoint에서 K = 100 SABER 가중이 uniform보다 R1 정책 조회 오차를 덜 줄인다(seed 5/15, p = 0.041, 중앙값 −1.9%). 후반 3개 시점도 consistent −(4/16, p = 0.012, −2.6%), 후반에는 eligible Random보다도 나쁘다(5/15). R2, 실제 1-step, 1차 예측은 mixed. κ만 20/20 양수. HER로 학습한 checkpoint도 같은 방향(2/18). seed별 측정 점수와 AUC 이득의 Spearman은 0.17–0.22로 약하다. 양성 비율 p는 0.14–0.27, 퇴화 없음. 행동 거리·나이로 ψ를 맞히는 ROC AUC는 0.65로, ψ는 최근·근접 데이터의 단순 대리가 아니다. **protocol 6절에 따라: 이득이 있는 cohort에서도 SABER 가중은 정책 조회 값 정확도를 개선하지 않고 오히려 약간 악화시킨다. 이득은 값 정확도 경로가 아닌 곳에서 온다.**
+- 2026-11-17 05:10: count-matched 대조군 seed 11–30 학습 완료(20개, 실패 없음), 사전 고정한 `analyze.py`로 분석([결과](../paper_artifacts/fpp_td3_count_matched_n20_20261116/analysis.json)). **주 판정 SABER > count-matched**: AUC +0.051 [+0.015, +0.086], 15/5, p = 0.013. final-quarter +0.130, 최종 성공률 +0.230. count-matched − HER는 −0.006 [−0.034, +0.023], 10/10으로 HER와 같다. 같은 후보 집합에서 같은 수를 무작위로 올리면 이득이 전혀 없다. **이득은 재가중 자체가 아니라 support가 고른 위치에서 온다. 그 경로는 정책 조회 값 정확도가 아니다(위 fpp_n20 측정).**
+- 2026-11-17 06:30: 다음 두 작업을 동시에 시작.
+  - context-count-only 대조군 seed 11–30 학습([protocol](../experiments/fpp_td3_context_count_only_n20_20261117/PROTOCOL_ko.md)). a^π 조회를 빼고 context 개수 조건만 남긴 대조군이다. 7월 실행 기준 양성 비율이 약 0.96이라 거의 균등 가중이다. 실행 전에 query ablation 패키지의 parity 테스트 3개를 통과했고, 인자 56개가 7월 실행과 같다.
+  - actor 신호 측정, `fpp_n20` 360개([protocol](../experiments/draweropen_ddpg_first_order_usefulness_20261109/PROTOCOL_actor_signal_ko.md)). 결정적 시뮬레이터 rollout으로 Q^π(s, a)의 참값을 구한다. 이를 기준으로 갱신된 critic이 a^π 근처 행동 쌍의 우열(PA), 기울기 방향(GC), 기울기를 따른 실제 return 변화(AI)를 얼마나 맞추는지 arm별로 비교한다. 검사 39개 통과. 주 판정은 PA SABER > uniform(K = 100, SABER로 학습한 checkpoint)이다. 실행 간 K0 비교(장기 효과)는 보조로 둔다.
+- 2026-11-18 01:30: actor 신호 측정 360개 완료, 사전 규칙으로 분석([요약](../paper_artifacts/first_order_usefulness_20261109/actor_signal_n20/seed_verdicts.csv)).
+  - **주 판정 mixed**: PA SABER > uniform, 9/7, p = 0.80, 중앙값 0. 후반도 7/8. SABER vs Random 10/10.
+  - GC SABER > uniform은 전체 구간 consistent −(4/16, p = 0.012, −0.01), 후반 mixed. AI는 모두 mixed.
+  - 실행 간 K0 비교(SABER 실행 − HER 실행): PA +0.020(13/7, p = 0.26), 후반 GC +0.08(12/8). 방향은 양수지만 유의하지 않다.
+  - **서술 결과:** 어느 critic이든 PA가 0.49–0.59다. 저장된 critic은 a^π 근처 행동 쌍의 실제 우열을 거의 우연 수준으로만 맞춘다. 100 step 갱신으로 바뀌는 것은 ±0.02 이하다. 초기(50k–150k)에는 정책이 거의 실패해 정보 있는 쌍이 부족하다.
+  - **해석:** 100 step 국소 갱신으로는 행동 신호 경로도 지지되지 않는다. 다만 단일 step 섭동의 장기 sparse return 차이는 접촉 동역학 때문에 거칠 수 있어 이 지표의 해상도에 한계가 있다. 실행 간 비교의 약한 양의 방향은 장기 누적 효과 가설로 남는다.
+- 2026-11-18 01:50: context-count-only 대조군 seed 11–30 학습 완료(20개, 실패 없음), 사전 고정한 `analyze.py`로 분석([결과](../paper_artifacts/fpp_td3_context_count_only_n20_20261117/analysis.json)). **주 판정 SABER > context-count-only**: AUC +0.046 [+0.013, +0.077], 12/8, p = 0.015. final-quarter +0.122, 최종 성공률 +0.213. context-count-only − HER는 −0.001 [−0.028, +0.025], 9/11로 HER와 같다. **context 개수 조건만으로는 이득이 없고, a^π bin 조회가 필요하다.** count-matched 결과와 합치면, 이득에는 "a^π 조회로 고른 위치"가 필요하다.
 
 ### 1. DrawerOpen 후반부 측정
 

@@ -182,7 +182,8 @@ def names(tag: str) -> dict:
 def cmd_run(a) -> None:
     n = names(a.tag)
     base = n["base"]
-    jobs = [(arm, seed) for seed in SEEDS for arm in ("saber", "her")]       # SABER (slower) starts first per seed
+    seeds = tuple(a.seeds) if a.seeds else SEEDS
+    jobs = [(arm, seed) for seed in seeds for arm in ("saber", "her")]       # SABER (slower) starts first per seed
     for arm, seed in jobs:
         target = out_root(arm, base) / run_name(arm, seed, STEPS)
         if target.exists():
@@ -190,7 +191,7 @@ def cmd_run(a) -> None:
     logs = n["logs"]
     logs.mkdir(parents=True, exist_ok=True)
     meta = dict(started=datetime.now().isoformat(timespec="seconds"), device=a.device, threads=a.threads,
-                max_parallel=a.max_parallel, steps=STEPS, seeds=list(SEEDS),
+                max_parallel=a.max_parallel, steps=STEPS, seeds=list(seeds),
                 git=subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True, text=True).stdout.strip(),
                 code_sha256={arm: tree_sha256(ARMS[arm] / "code" / "src") for arm in ARMS},
                 python=sys.version, host=os.uname().nodename,
@@ -233,7 +234,7 @@ def cmd_status(a) -> None:
         s = json.loads(st.read_text())
         print(f"launcher: updated {s['updated']}, running {len(s['running'])}, pending {len(s['pending'])}, failed {s['failed']}")
     for arm in ARMS:
-        for seed in SEEDS:
+        for seed in (tuple(a.seeds) if a.seeds else SEEDS):
             d = out_root(arm, base) / run_name(arm, seed, STEPS)
             step, first, last = log_progress(d)
             ck = len(list(d.glob("checkpoint_step_*.pt"))) if d.exists() else 0
@@ -248,8 +249,9 @@ def cmd_status(a) -> None:
             summ = d / "summary.json"
             if summ.exists():
                 new = json.loads(summ.read_text()).get("eval_AUC_success")
-                old = json.loads((original_dir(arm, seed) / "summary.json").read_text()).get("eval_AUC_success")
-                line += f"  | AUC {new:.4f} (original {old:.4f})"
+                orig = original_dir(arm, seed) / "summary.json"
+                old = json.loads(orig.read_text()).get("eval_AUC_success") if orig.exists() else None
+                line += f"  | AUC {new:.4f}" + (f" (original {old:.4f})" if old is not None else "")
             print(line)
 
 
@@ -267,9 +269,11 @@ def main() -> None:
     r.add_argument("--threads", type=int, default=1)
     r.add_argument("--max-parallel", type=int, default=10)
     r.add_argument("--tag", default="")
+    r.add_argument("--seeds", type=int, nargs="+", default=None)
     r.set_defaults(fn=cmd_run)
     st = sub.add_parser("status")
     st.add_argument("--tag", default="")
+    st.add_argument("--seeds", type=int, nargs="+", default=None)
     st.set_defaults(fn=cmd_status)
     a = ap.parse_args()
     a.fn(a)

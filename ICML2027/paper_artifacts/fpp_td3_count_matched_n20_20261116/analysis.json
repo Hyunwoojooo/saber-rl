@@ -1,0 +1,102 @@
+{
+  "SABER - count-matched | AUC 10k-1M": {
+    "n": 20,
+    "mean": 0.05113636363636363,
+    "ci_low": 0.014848484848484843,
+    "ci_high": 0.08599747474747475,
+    "positive": 15,
+    "negative": 5,
+    "sign_flip_p": 0.013339996337890625,
+    "saber_mean": 0.4161616161616162,
+    "cm_mean": 0.3650252525252526,
+    "verdict": "SABER > count-matched: placing the weight on support-positive samples matters (95% CI excludes 0)"
+  },
+  "SABER - count-matched | final-quarter AUC": {
+    "n": 20,
+    "mean": 0.1299,
+    "ci_low": 0.03609999999999999,
+    "ci_high": 0.21569999999999995,
+    "positive": 14,
+    "negative": 6,
+    "sign_flip_p": 0.013153076171875,
+    "saber_mean": 0.7157000000000001,
+    "cm_mean": 0.5857999999999999
+  },
+  "SABER - count-matched | final success": {
+    "n": 20,
+    "mean": 0.22999999999999998,
+    "ci_low": 0.06749999999999999,
+    "ci_high": 0.385,
+    "positive": 13,
+    "negative": 4,
+    "sign_flip_p": 0.0155487060546875,
+    "saber_mean": 0.7975000000000001,
+    "cm_mean": 0.5675000000000001
+  },
+  "count-matched - HER | AUC 10k-1M": {
+    "n": 20,
+    "mean": -0.006047979797979797,
+    "ci_low": -0.033800505050505046,
+    "ci_high": 0.022815656565656574,
+    "positive": 10,
+    "negative": 10,
+    "sign_flip_p": 0.6908454895019531,
+    "cm_mean": 0.3650252525252526,
+    "her_mean": 0.3710732323232323
+  },
+  "count-matched - HER | final-quarter AUC": {
+    "n": 20,
+    "mean": 0.006650000000000017,
+    "ci_low": -0.06129999999999998,
+    "ci_high": 0.08120124999999973,
+    "positive": 10,
+    "negative": 10,
+    "sign_flip_p": 0.8644943237304688,
+    "cm_mean": 0.5857999999999999,
+    "her_mean": 0.57915
+  },
+  "count-matched - HER | final success": {
+    "n": 20,
+    "mean": 0.027500000000000004,
+    "ci_low": -0.11749999999999998,
+    "ci_high": 0.18250000000000002,
+    "positive": 6,
+    "negative": 8,
+    "sign_flip_p": 0.75341796875,
+    "cm_mean": 0.5675000000000001,
+    "her_mean": 0.54
+  },
+  "SABER - HER (n20, for reference) | AUC 10k-1M": {
+    "n": 20,
+    "mean": 0.04508838383838384,
+    "ci_low": 0.017499999999999995,
+    "ci_high": 0.07297979797979799,
+    "positive": 14,
+    "negative": 6,
+    "sign_flip_p": 0.0058956146240234375,
+    "saber_mean": 0.4161616161616162,
+    "her_mean": 0.3710732323232323
+  },
+  "SABER - HER (n20, for reference) | final-quarter AUC": {
+    "n": 20,
+    "mean": 0.13655,
+    "ci_low": 0.0664,
+    "ci_high": 0.2092,
+    "positive": 14,
+    "negative": 6,
+    "sign_flip_p": 0.0015430450439453125,
+    "saber_mean": 0.7157000000000001,
+    "her_mean": 0.57915
+  },
+  "SABER - HER (n20, for reference) | final success": {
+    "n": 20,
+    "mean": 0.25749999999999995,
+    "ci_low": 0.1275,
+    "ci_high": 0.39,
+    "positive": 13,
+    "negative": 3,
+    "sign_flip_p": 0.001800537109375,
+    "saber_mean": 0.7975000000000001,
+    "her_mean": 0.54
+  }
+}

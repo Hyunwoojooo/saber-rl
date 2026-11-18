@@ -112,6 +112,15 @@ FPP_SETS = {
         arms={"her": "td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s{seed}_1000000_ls512",
               "saber": "td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s{seed}_1000000_ls512"},
         seeds=(1, 2, 3, 4, 5), her_inclusive=False),
+    # same primary rule, new seeds 11-30 trained 2026-11-13/14 (20 pairs; pre-registered AUC gain
+    # +0.045 [+0.018, +0.073]); the first FPP cohort with a confirmed gain that kept checkpoints.
+    # Rules for this set: PROTOCOL_fpp_n20_ko.md (fixed 2026-11-16 before measurement)
+    "fpp_n20": dict(
+        code_src=FPP / "td3_saber_critic_only_v4_ls512" / "code" / "src",
+        runs=RERUN.parent / "runs_n20",
+        arms={"her": "td3_her_baseline_ls512/fetch_pick_and_place_td3_her_baseline_ls512_s{seed}_1000000_ls512",
+              "saber": "td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s{seed}_1000000_ls512"},
+        seeds=tuple(range(11, 31)), her_inclusive=False),
 }
 
 
