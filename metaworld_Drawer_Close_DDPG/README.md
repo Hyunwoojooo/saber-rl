@@ -2,7 +2,26 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
-## Completed HER-SABER Seed Extension
+## Completed Primary Seed Extensions
+
+HER, SABER, HGR and PER have all completed **seeds 6-10, 2M steps per seed**.
+The [four-method result artifact](paper_artifacts/drawer_close_ddpg_primary_seed_extension_2m/README.md)
+adds HGR/PER results and includes the existing HER/SABER runs for comparison.
+It contains 40 distinct runs (four methods x ten seeds), not additional copies
+counted as independent observations. Non-primary control results are excluded.
+
+| Method | Seeds 6-10 mean AUC | Seeds 1-10 mean AUC | Seeds 1-10 mean FQ-AUC | Seeds 1-10 mean final success |
+| --- | ---: | ---: | ---: | ---: |
+| HER | 0.307688 | 0.279347 | 0.241300 | 0.380 |
+| SABER (Ours) | 0.304673 | 0.314548 | 0.303300 | 0.340 |
+| HGR | 0.291910 | 0.320553 | 0.251050 | 0.165 |
+| PER | 0.307563 | 0.307751 | 0.335350 | 0.325 |
+
+All three pooled SABER-minus-comparator AUC intervals include zero. See the
+artifact for sample SDs, paired CIs, seed-level outcomes, provenance limits,
+and a read-only verifier. Earlier published artifacts remain unchanged.
+
+### Earlier HER-SABER Publication
 
 HER and SABER seeds **6-10** have both completed 2M steps each.
 The [HER-SABER comparison artifact](paper_artifacts/drawer_close_ddpg_her_saber_seed_extension_2m/README.md)

@@ -8,6 +8,15 @@ replay-overwrite, and checkpoint semantics as
 
 The existing DrawerClose DDPG HER/SABER/PER implementations are unchanged.
 
+## Completed Seeds 6-10
+
+The five 2M-step extension runs are complete. The
+[primary comparison artifact](../metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_primary_seed_extension_2m/README.md)
+contains HGR seed-level results, original seeds 1-5, combined 10-seed statistics,
+paired comparisons, executed source, configs and SHA-256 verification.
+HGR mean AUC is **0.291910** for seeds 6-10 and **0.320553** for seeds 1-10.
+All outcomes are retained, including seeds 6 and 8 with zero final success.
+
 ## HGR Intervention
 
 For each completed episode of length `T`, the sampler stores every valid
