@@ -1,0 +1,81 @@
+{
+  "arms": {
+    "replay_query": {
+      "basis": "Artifact frozen source snapshot",
+      "git_ref": "51c9dd6aa8460d657657970710d1b20660a5cb0a",
+      "original_full_config_retained": true,
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_replay_action_query_2m/source_snapshot"
+    },
+    "saber": {
+      "basis": "Earliest retained primary trainer and original launcher; before added live-target diagnostic instrumentation.",
+      "git_ref": "823cebc",
+      "original_execution_commit_known": false,
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Close_DDPG/code/src"
+    }
+  },
+  "curves": [
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "seed": 1,
+      "sha256": "22e30c1354778cd01ae2a89809f700cb94f7f440b3a63e72f0b147697d7f41cc"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "seed": 2,
+      "sha256": "957df43ec129d6a1af42cc8210a88e45fa212536b89706b385e5f08171325f15"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "seed": 3,
+      "sha256": "0a54df538006c345cff66c8cc17624595f05b4cf04f39a2cc50e5a98de048faa"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "seed": 4,
+      "sha256": "236060460cc296df64ee72399eddafe309da05f6e85934e6b7895e0e210d2730"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "seed": 5,
+      "sha256": "e88ff0cd59967f79f74c8b17fc10a6dadab0f57b2397ec2eca4ca203cb6e5ef5"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_replay_action_query_2m/data/replay/seed_1/metrics_selected_10k.csv",
+      "seed": 1,
+      "sha256": "25103de5eb84e690b58437e6d1f902c1e877b40dd5fc6ac191a4acefa42231b4"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_replay_action_query_2m/data/replay/seed_2/metrics_selected_10k.csv",
+      "seed": 2,
+      "sha256": "a7951279a23789e9c3490a3f82de32835c773f3cc4b6ad61cb1286d13aa28c8d"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_replay_action_query_2m/data/replay/seed_3/metrics_selected_10k.csv",
+      "seed": 3,
+      "sha256": "a4b347e8afc26f3f16d829734de2cc44aac2309c936da5acf1f34a46be16186f"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_replay_action_query_2m/data/replay/seed_4/metrics_selected_10k.csv",
+      "seed": 4,
+      "sha256": "992ad7c066dcae4ccfe1eeba291140d0a33738baa50341c730f3e739edbb38f3"
+    },
+    {
+      "arm": "replay_query",
+      "path": "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_saber_replay_action_query_2m/data/replay/seed_5/metrics_selected_10k.csv",
+      "seed": 5,
+      "sha256": "29c522776ec240ff38bf5a4eb8b5423098aab7767770dee65b1e9e28ca5d9a84"
+    }
+  ],
+  "historical_limit": "Some original execution configs and historical dependency locks were not retained. Launcher/source-contract reconstruction is not bit-for-bit historical execution verification. Report seeds 6-10 separately as well as the planned pooled 1-10 estimates. Do not substitute post-review assignment-cohort runs.",
+  "publication_head": "51c9dd6aa8460d657657970710d1b20660a5cb0a"
+}

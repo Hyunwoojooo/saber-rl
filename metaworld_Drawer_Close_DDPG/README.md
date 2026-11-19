@@ -2,6 +2,28 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
+## Completed Replay-Action Query Seed Extension
+
+Replay-Action Query has completed **seeds 6-10, 2M steps per seed**.
+The [Replay-Action Query result artifact](paper_artifacts/drawer_close_ddpg_replay_action_query_seed_extension_2m/README.md)
+contains the five newly published runs, historical seeds 1-5, and the already
+published SABER results for paired comparison. Reused SABER runs are not extra
+independent observations. Other control results are not included in this artifact.
+
+| Cohort | Replay-Action Query mean AUC | SABER mean AUC | SABER - Replay-Action Query | Paired 95% CI |
+| --- | ---: | ---: | ---: | --- |
+| Historical seeds 1-5 | 0.275754 | 0.324422 | +0.048668 | [-0.005553, +0.124824] |
+| Extension seeds 6-10 | 0.287412 | 0.304673 | +0.017261 | [-0.017211, +0.051734] |
+| Pooled seeds 1-10 | 0.281583 | 0.314548 | +0.032965 | [-0.002136, +0.077193] |
+
+The pooled primary AUC interval includes zero. The secondary FQ-AUC difference
+is +0.060200 with an unadjusted 95% interval [+0.001750, +0.117300]; this does
+not establish general superiority or necessity of current-policy querying.
+All seeds, including zero-final-success outcomes, remain included. Intervals
+use 10,000 paired bootstrap resamples; original five-seed exact-enumeration
+tables remain unchanged. The artifact includes SDs, curves, configs, source
+snapshots, provenance and a read-only verifier.
+
 ## Completed Primary Seed Extensions
 
 HER, SABER, HGR and PER have all completed **seeds 6-10, 2M steps per seed**.
