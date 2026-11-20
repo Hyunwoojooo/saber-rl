@@ -1,6 +1,7 @@
-"""Publish completed DrawerClose DDPG Replay-Action Query results against SABER."""
+"""Publish completed DrawerClose DDPG query controls against SABER."""
 import argparse
 import csv
+from dataclasses import dataclass
 import hashlib
 import importlib
 import json
@@ -20,15 +21,44 @@ from sac_results import assert_close, csv_text, inventory, within
 from verify_archive import check_hashes, check_links
 
 REPO = Path(__file__).resolve().parents[2]
-ARTIFACT = REPO / "metaworld_Drawer_Close_DDPG/paper_artifacts/drawer_close_ddpg_replay_action_query_seed_extension_2m"
 ARMS = ("her", "saber", "hgr", "per", "replay_query", "shuffled_query", "random_support", "strict_random")
-PUBLISHED_ARMS = ("saber", "replay_query")
 LABELS = {"her": "HER", "saber": "SABER (Ours)", "hgr": "HGR", "per": "PER",
           "replay_query": "Replay-Action Query", "shuffled_query": "Shuffled-Policy Query",
           "random_support": "Random-Support", "strict_random": "Context-Eligible Count-Matched"}
 
 
-def completed_keys(queue):
+@dataclass(frozen=True)
+class QueryControl:
+    arm: str
+    mode: str
+    artifact_name: str
+    description: str
+    secondary_interpretation: str
+
+    @property
+    def arms(self):
+        return ("saber", self.arm)
+
+    @property
+    def artifact(self):
+        return REPO / "metaworld_Drawer_Close_DDPG/paper_artifacts" / self.artifact_name
+
+
+REPLAY_QUERY = QueryControl(
+    "replay_query", "replay_action", "drawer_close_ddpg_replay_action_query_seed_extension_2m",
+    "This control queries support at the sampled replay action instead of the current-policy action; critic regression still uses the replay action. It is not random candidate retrieval or prioritized replay.",
+    "The pooled secondary FQ-AUC interval is slightly above zero; final-success uncertainty includes zero. This unadjusted secondary result does not override the primary AUC uncertainty or prove current-policy querying is necessary.",
+)
+SHUFFLED_QUERY = QueryControl(
+    "shuffled_query", "shuffled_policy", "drawer_close_ddpg_shuffled_policy_query_seed_extension_2m",
+    "This control permutes the current-policy action indices within each minibatch without fixed points. It preserves the action multiset while breaking the context-to-query pairing by index. Critic regression still uses the unshuffled replay action.",
+    "The pooled secondary FQ-AUC and final-success means are slightly higher for Shuffled-Policy Query, and their paired intervals also include zero. Shuffling can change how many samples receive higher weights; this is not a count-matched assignment test.",
+)
+ARTIFACT = REPLAY_QUERY.artifact
+PUBLISHED_ARMS = REPLAY_QUERY.arms
+
+
+def completed_keys(queue, control=REPLAY_QUERY):
     protocol = queue["protocol"]
     if (tuple(protocol["order"]) != ARMS or protocol["seeds"] != list(range(6, 11)) or
             protocol["task"] != "DrawerClose-v3" or protocol["backbone"] != "DDPG" or
@@ -37,7 +67,7 @@ def completed_keys(queue):
     if set(queue["arms"]) != set(ARMS):
         raise ValueError("Missing or unexpected queue arm")
     keys = set()
-    for arm in PUBLISHED_ARMS:
+    for arm in control.arms:
         states = queue["arms"][arm]["seeds"]
         if (queue["arms"][arm]["status"] != "completed" or
                 set(states) != {str(s) for s in range(6, 11)}):
@@ -50,26 +80,26 @@ def completed_keys(queue):
     return keys
 
 
-def status_snapshot(queue):
+def status_snapshot(queue, control=REPLAY_QUERY):
     result = json.loads(json.dumps(queue))
     for arm in ARMS:
-        if arm not in PUBLISHED_ARMS:
+        if arm not in control.arms:
             group = result["arms"][arm]
             result["arms"][arm] = {"status": group["status"], "seeds": {
                 s: {"status": r["status"], "step": r["step"]} for s, r in group["seeds"].items()}}
     return result
 
 
-def require_config(config, arm, seed):
-    if arm not in PUBLISHED_ARMS or seed not in range(6, 11):
+def require_config(config, arm, seed, control=REPLAY_QUERY):
+    if arm not in control.arms or seed not in range(6, 11):
         raise ValueError("Unexpected arm or seed")
     require_pair_config(config, "saber", seed)
     mode = config.get("support_query_mode", "current_policy")
-    assert_close(mode, "replay_action" if arm == "replay_query" else "current_policy")
+    assert_close(mode, control.mode if arm == control.arm else "current_policy")
 
 
-def summarize(rows, queue):
-    selected = completed_keys(queue)
+def summarize(rows, queue, control=REPLAY_QUERY):
+    selected = completed_keys(queue, control)
     included_arms = [a for a in ARMS if any(k[0] == a for k in selected)]
     expected = selected | {(a, s) for a in included_arms for s in range(1, 6)}
     keys = [(r["arm"], r["seed"]) for r in rows]
@@ -100,14 +130,14 @@ def summarize(rows, queue):
             "cohorts": cohorts, "per_seed": rows}
 
 
-def products(root):
+def products(root, control=REPLAY_QUERY):
     provenance = read(root / "provenance.json")
     queue = read(root / "provenance/queue_snapshot.json")
     expected = read(root / "provenance/expected_configs.json")
     assert_close(provenance["experiment"], EXPERIMENT)
-    assert_close(queue, status_snapshot(queue))
+    assert_close(queue, status_snapshot(queue, control))
     assert_close(read(root / "protocol.json"), queue["protocol"])
-    selected = completed_keys(queue)
+    selected = completed_keys(queue, control)
     assert_close(set(expected), {f"{a}:{s}" for a, s in selected})
     rows, curves, runtimes = [], [], []
     for entry in provenance["runs"]:
@@ -117,7 +147,7 @@ def products(root):
         assert_close(entry["published_directory"], f"data/{cohort}/{arm}/seed_{seed}")
         if seed >= 6:
             folder = within(root, entry["published_directory"])
-            require_config(read(folder / "config.json"), arm, seed)
+            require_config(read(folder / "config.json"), arm, seed, control)
             claim = read(folder / "launch_record.json")
             assert_close(claim["phase"], "production")
             if any(arg.split("=", 1)[0] in {"--resume", "--resume_path", "--smoke"} for arg in claim["argv"]):
@@ -133,7 +163,7 @@ def products(root):
         row, points = published_run(root, entry, expected, queue)
         rows.append(row)
         curves.extend({"arm": row["arm"], "seed": row["seed"], "step": s, "success": v} for s, v in points)
-    report = summarize(rows, queue)
+    report = summarize(rows, queue, control)
     assert_close(report, read(root / "reference_report.json"))
     actual_dirs = {p.parent.relative_to(root).as_posix() for p in (root / "data").rglob("evaluation.csv")}
     assert_close(actual_dirs, {e["published_directory"] for e in provenance["runs"]})
@@ -159,17 +189,18 @@ def products(root):
             "analysis/runtime_metrics.csv": csv_text(runtimes)}
 
 
-def make_readme(report, queue):
-    lines = ["# DrawerClose DDPG: Replay-Action Query Seed Extension", "",
+def make_readme(report, queue, control=REPLAY_QUERY):
+    name = LABELS[control.arm]
+    lines = [f"# DrawerClose DDPG: {name} Seed Extension", "",
              f"Snapshot: **{report['snapshot_utc']}**. This is not a live dashboard.", "",
              f"This artifact contains **{report['new_completed_runs']} completed seed-extension runs** and "
              f"{report['historical_reference_runs']} historical seed-level references. Each new run has 2M steps.",
-             "Five Replay-Action Query runs are newly published. Five previously published SABER extension runs are reused for comparison, not additional independent observations.",
+             f"Five {name} runs are newly published. Five previously published SABER extension runs are reused for comparison, not additional independent observations.",
              "There are 20 distinct runs: two methods x ten seeds. Historical seeds 1-5 are reused, not rerun. All earlier artifacts remain unchanged.",
-             "Only Replay-Action Query and SABER results are included. Other methods appear as timestamped queue status only.",
-             "This control queries support at the sampled replay action instead of the current-policy action; critic regression still uses the replay action. It is not random candidate retrieval or prioritized replay.", "",
+             f"Only {name} and SABER results are included. Other methods appear as timestamped queue status only.",
+             control.description, "",
              "## Queue Coverage", "", "| Method | Included extension seeds | State at capture |", "| --- | --- | --- |"]
-    selected = completed_keys(queue)
+    selected = completed_keys(queue, control)
     for arm in ARMS:
         seeds = [str(s) for s in range(6, 11) if (arm, s) in selected]
         lines.append(f"| {LABELS[arm]} | {', '.join(seeds) if seeds else 'None'} | {queue['arms'][arm]['status']} |")
@@ -195,14 +226,14 @@ def make_readme(report, queue):
             hit = str(r["hit90_step"]) if r["hit90_step"] is not None else "Not reached"
             lines.append(f"| {LABELS[r['arm']]} | {r['seed']} | {r['auc']:.6f} | {r['final_quarter_auc']:.6f} | {r['final_success']:.2f} | {hit} |")
     lines += ["", "## Pooled Paired Metrics (Seeds 1-10)", "",
-              "All differences are SABER minus Replay-Action Query.", "",
+              f"All differences are SABER minus {name}.", "",
               "| Metric | Mean difference | Paired 95% CI | Positive pairs |",
               "| --- | ---: | --- | ---: |"]
-    for metric, v in report["cohorts"]["pooled_1_10"]["paired"]["saber_minus_replay_query"].items():
+    for metric, v in report["cohorts"]["pooled_1_10"]["paired"][f"saber_minus_{control.arm}"].items():
         lines.append(f"| {metric} | {v['mean_difference']:+.6f} | [{v['ci95'][0]:+.6f}, {v['ci95'][1]:+.6f}] | {v['positive_pairs']}/{v['n']} |")
     lines += ["", "## Interpretation and Protocol", "",
               "- SABER has higher mean AUC in both the added-seed and pooled cohorts, but both AUC intervals include zero. Superiority and equivalence are not established.",
-              "- The pooled secondary FQ-AUC interval is slightly above zero; final-success uncertainty includes zero. This unadjusted secondary result does not override the primary AUC uncertainty or prove current-policy querying is necessary.",
+              f"- {control.secondary_interpretation}",
               "- The historical, added-seed and pooled estimates are reported separately. Their differing directions and failure-to-learn outcomes must remain visible.",
               "- Both included methods have five complete extension runs. Other methods are excluded even if their queue status later becomes completed.",
               "- DrawerClose-v3 / DDPG / sparse reward v2; 2M steps, UTD=1, 1,995,001 optimizer updates, HER ratio 0.8, horizon 200, 20 evaluation episodes every 10k steps.",
@@ -210,9 +241,9 @@ def make_readme(report, queue):
               "- Final success is evaluated at 2M. Hit90 is the first evaluation >=0.90, not sustained task mastery. SD is across seeds with ddof=1.",
               "- Paired percentile bootstrap resamples seed rows 10,000 times using NumPy default_rng(2027); endpoints are 2.5% and 97.5%. These are approximate, pointwise, unadjusted intervals, not simultaneous guarantees. AUC is primary; other metrics are secondary.",
               "- Every completed zero/low-success run is retained. New runs began from scratch; no checkpoint continuation or outcome-based exclusions.",
-              "- Replay-Action Query uses support_query_mode=replay_action. Both methods retain critic-only weighting, lambda_support=1, action bins=5, minimum local count=4 and deterministic tail-512 scanning, with unchanged uniform replay and HER relabeling.",
+              f"- {name} uses support_query_mode={control.mode}. Both methods retain critic-only weighting, lambda_support=1, action bins=5, minimum local count=4 and deterministic tail-512 scanning, with unchanged uniform replay and HER relabeling.",
               "- Historical exact 3,125-assignment mechanism-control bootstrap intervals are not overwritten. All intervals in this artifact, including historical-only estimates, use the declared 10,000-resample Monte Carlo procedure.",
-              "- The original SABER full configs and exact historical environment locks were not retained. The original Replay-Action Query full configs were retained and audited. New configs follow frozen-source/launcher contracts; bitwise historical environment identity is not asserted.",
+              f"- The original SABER full configs and exact historical environment locks were not retained. The original {name} full configs were retained and audited. New configs follow frozen-source/launcher contracts; bitwise historical environment identity is not asserted.",
               "- Earlier diagnostic and assignment executions are not extra independent seeds in these cohorts. Source/result overlap across artifacts must not be counted twice.",
               "- Runtime records include instrumentation and are not evidence of a matched-cost algorithm ranking.", "",
               "## Included and Omitted", "",
@@ -223,23 +254,24 @@ def make_readme(report, queue):
               "- [Provenance](provenance.json) records original file hashes and transformations. [Queue snapshot](provenance/queue_snapshot.json) records status only for non-included methods; their result directories are omitted. [Manifest](MANIFEST.sha256) covers every artifact file.",
               "- Checkpoints, replay buffers, raw training logs, caches, locks and unfinished output files are excluded. Workspace prefixes are redacted in exported JSON; unavailable optional diagnostics become null, never valid performance values.", "",
               "## Verification", "", "From the repository root with Python 3.12 and NumPy:", "", "```bash",
-              "python3 ICML_27/tools/drawerclose_ddpg_replay_query_results.py verify", "```", "",
+              f"python3 ICML_27/tools/drawerclose_ddpg_{control.arm}_results.py verify", "```", "",
               "Read-only CPU verification recomputes all seed metrics and complete-cohort intervals, checks configs/completion/source hashes, and verifies every manifest entry. It does not import trainers or modify the training queue.", ""]
     return "\n".join(lines)
 
 
-def verify(root=ARTIFACT):
+def verify(root=None, *, control=REPLAY_QUERY):
+    root = control.artifact if root is None else root
     provenance = read(root / "provenance.json")
     sources = provenance["source_files_sha256"]
-    if (not sources or any(not any(p.startswith(f"source_snapshot/{a}/") for a in PUBLISHED_ARMS) for p in sources)
-            or {Path(p).parts[1] for p in sources} != set(PUBLISHED_ARMS)):
+    if (not sources or any(not any(p.startswith(f"source_snapshot/{a}/") for a in control.arms) for p in sources)
+            or {Path(p).parts[1] for p in sources} != set(control.arms)):
         raise ValueError("Require exactly the two published source families")
     check_hashes(root, provenance["source_files_sha256"])
-    for name, expected in products(root).items():
+    for name, expected in products(root, control).items():
         if (root / name).read_text() != expected:
             raise ValueError(f"Derived result mismatch: {name}")
     report = read(root / "analysis/report.json")
-    if (root / "README.md").read_text() != make_readme(report, read(root / "provenance/queue_snapshot.json")):
+    if (root / "README.md").read_text() != make_readme(report, read(root / "provenance/queue_snapshot.json"), control):
         raise ValueError("README differs from verified metrics/status")
     if (root / "MANIFEST.sha256").read_text() != inventory(root):
         raise ValueError("Artifact manifest mismatch")
@@ -251,9 +283,9 @@ def verify(root=ARTIFACT):
             "source_files": len(provenance["source_files_sha256"]), "paired_intervals": 9}
 
 
-def export(workspace, destination=ARTIFACT):
+def export(workspace, destination=None, *, control=REPLAY_QUERY):
     workspace = workspace.resolve()
-    destination = destination.resolve()
+    destination = control.artifact if destination is None else destination.resolve()
     origin = within(workspace, EXPERIMENT)
     if (destination.exists() or workspace == REPO.resolve() or
             destination == workspace or workspace in destination.parents):
@@ -268,15 +300,15 @@ def export(workspace, destination=ARTIFACT):
     assert_close(approval["package_hashes"], common.package_hashes())
     assert_close(approval["expected_configs_sha256"], sha(origin / "outputs/validation/expected_configs.json"))
     queue_bytes = (origin / "outputs/queue_status.json").read_bytes()
-    queue = status_snapshot(json.loads(queue_bytes))
-    selected = completed_keys(queue)
+    queue = status_snapshot(json.loads(queue_bytes), control)
+    selected = completed_keys(queue, control)
     arms = [a for a in ARMS if any(k[0] == a for k in selected)]
     expected = read(origin / "outputs/validation/expected_configs.json")
     old = [r for r in api.reference_rows() if r["arm"] in arms]
     new = [api.read_run(a, s, expected_config=expected[f"{a}:{s}"])
            for a, s in sorted(selected, key=lambda k: (ARMS.index(k[0]), k[1]))]
     rows = [{k: r[k] for k in ("arm", "seed", *FIELDS, "hit90_step")} for r in old + new]
-    report = summarize(rows, queue)
+    report = summarize(rows, queue, control)
     indexed = {(r["arm"], r["seed"]): r for r in rows}
     for label, c in report["cohorts"].items():
         for contrast, metrics in c["paired"].items():
@@ -335,28 +367,28 @@ def export(workspace, destination=ARTIFACT):
                                    "non-included methods retain timestamped queue status only"],
                "omitted": ["checkpoints", "replay buffers", "raw training logs", "non-included result directories", "non-included trainers"]})
     write_json(destination / "reference_report.json", report)
-    for name, value in products(destination).items():
+    for name, value in products(destination, control).items():
         path = destination / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(value)
-    (destination / "README.md").write_text(make_readme(report, queue))
+    (destination / "README.md").write_text(make_readme(report, queue, control))
     (destination / "MANIFEST.sha256").write_text(inventory(destination))
-    print(json.dumps(verify(destination), indent=2))
+    print(json.dumps(verify(destination, control=control), indent=2))
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+def main(control=REPLAY_QUERY):
+    parser = argparse.ArgumentParser(description=f"Publish DrawerClose DDPG {LABELS[control.arm]} results.")
     sub = parser.add_subparsers(dest="command", required=True)
     exporter = sub.add_parser("export")
     exporter.add_argument("--workspace", type=Path, required=True)
-    exporter.add_argument("--output", type=Path, default=ARTIFACT,
+    exporter.add_argument("--output", type=Path, default=control.artifact,
                           help="New destination outside the experiment workspace; existing paths are refused")
-    sub.add_parser("verify").add_argument("--root", type=Path, default=ARTIFACT)
+    sub.add_parser("verify").add_argument("--root", type=Path, default=control.artifact)
     args = parser.parse_args()
     if args.command == "export":
-        export(args.workspace, args.output)
+        export(args.workspace, args.output, control=control)
     else:
-        print(json.dumps(verify(args.root.resolve()), indent=2))
+        print(json.dumps(verify(args.root.resolve(), control=control), indent=2))
 
 
 if __name__ == "__main__":

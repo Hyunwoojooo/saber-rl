@@ -1,17 +1,18 @@
-"""Verify Replay-Action Query publication boundaries without importing trainers."""
+"""Verify DrawerClose query-control publication boundaries without importing trainers."""
 from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
 from drawerclose_ddpg_replay_query_results import (
-    ARMS, ARTIFACT, PUBLISHED_ARMS, completed_keys, export, require_config,
+    ARMS, ARTIFACT, PUBLISHED_ARMS, REPLAY_QUERY, SHUFFLED_QUERY,
+    completed_keys, export, require_config,
     status_snapshot, summarize,
 )
 
 
 class DrawerCloseReplayPublicationTests(unittest.TestCase):
-    def fixture(self):
+    def fixture(self, control=REPLAY_QUERY):
         queue = {"updated_utc": "2026-11-19T00:00:00+00:00",
                  "protocol": {"order": list(ARMS), "seeds": list(range(6, 11)),
                               "task": "DrawerClose-v3", "backbone": "DDPG", "steps_per_run": 2000000},
@@ -21,10 +22,10 @@ class DrawerCloseReplayPublicationTests(unittest.TestCase):
                      for s in range(6, 11)}} for a in ARMS}}
         rows = [{"arm": a, "seed": s, "auc": .2 + s / 30,
                  "final_quarter_auc": .3, "final_success": 0., "hit90_step": None}
-                for a in PUBLISHED_ARMS for s in range(1, 11)]
+                for a in control.arms for s in range(1, 11)]
         return queue, rows
 
-    def config(self, arm):
+    def config(self, arm, control=REPLAY_QUERY):
         config = {"task_name": "drawer_close", "metaworld_env_name": "drawer-close-v3",
                   "metaworld_reward_function_version": "v2", "reward_type": "sparse",
                   "total_steps": 2000000, "updates_per_step": 1, "her_ratio": .8,
@@ -36,8 +37,8 @@ class DrawerCloseReplayPublicationTests(unittest.TestCase):
                   "policy_support_mode": "bin", "support_scan_mode": "deterministic_tail_v1",
                   "seeds": {"env_seed": 6, "numpy_seed": 6, "torch_seed": 6,
                             "action_noise_seed": 6, "eval_seed": 10006, "weight_seed": 20006}}
-        if arm == "replay_query":
-            config["support_query_mode"] = "replay_action"
+        if arm == control.arm:
+            config["support_query_mode"] = control.mode
         return config
 
     def test_destination_is_drawerclose(self):
@@ -133,6 +134,39 @@ class DrawerCloseReplayPublicationTests(unittest.TestCase):
             config["seeds"]["eval_seed"] += 1
             with self.assertRaises(ValueError):
                 require_config(config, arm, 6)
+
+    def test_shuffled_scope_excludes_replay_and_incomplete_control(self):
+        q, rows = self.fixture(SHUFFLED_QUERY)
+        q["arms"]["random_support"].update(status="running")
+        q["arms"]["random_support"]["seeds"]["6"].update(status="running", step=1000000)
+        clean = status_snapshot(q, SHUFFLED_QUERY)
+        self.assertEqual(clean["arms"]["shuffled_query"], q["arms"]["shuffled_query"])
+        self.assertEqual(clean["arms"]["replay_query"]["seeds"]["6"],
+                         {"status": "completed", "step": 2000000})
+        self.assertEqual(clean["arms"]["random_support"]["seeds"]["6"],
+                         {"status": "running", "step": 1000000})
+        report = summarize(rows, clean, SHUFFLED_QUERY)
+        self.assertEqual(report["complete_arms"], ["saber", "shuffled_query"])
+        self.assertEqual(report["newly_published_runs"], 5)
+        for cohort in report["cohorts"].values():
+            self.assertEqual(set(cohort["paired"]), {"saber_minus_shuffled_query"})
+        with self.assertRaises(ValueError):
+            summarize(rows + [{**rows[0], "arm": "replay_query"}], clean, SHUFFLED_QUERY)
+
+    def test_shuffled_requires_all_five_completed_seeds(self):
+        q, _ = self.fixture(SHUFFLED_QUERY)
+        q["arms"]["shuffled_query"]["seeds"]["6"]["step"] = 1900000
+        with self.assertRaises(ValueError):
+            completed_keys(q, SHUFFLED_QUERY)
+
+    def test_shuffled_query_mode_is_not_exchangeable_with_other_modes(self):
+        for arm in SHUFFLED_QUERY.arms:
+            require_config(self.config(arm, SHUFFLED_QUERY), arm, 6, SHUFFLED_QUERY)
+        config = self.config("shuffled_query", SHUFFLED_QUERY)
+        for mode in ("replay_action", "current_policy"):
+            config["support_query_mode"] = mode
+            with self.assertRaises(ValueError):
+                require_config(config, "shuffled_query", 6, SHUFFLED_QUERY)
 
     def test_no_overwrite_or_live_workspace_export(self):
         with TemporaryDirectory() as temp:

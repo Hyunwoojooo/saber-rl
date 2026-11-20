@@ -2,6 +2,26 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
+## Completed Shuffled-Policy Query Seed Extension
+
+Shuffled-Policy Query has completed **seeds 6-10, 2M steps per seed**.
+The [Shuffled-Policy Query result artifact](paper_artifacts/drawer_close_ddpg_shuffled_policy_query_seed_extension_2m/README.md)
+includes the five new runs, retained seeds 1-5, and the previously published
+SABER runs for paired comparison. Reused runs are not extra independent
+observations. Results from other control methods are excluded.
+
+| Cohort | Shuffled-Policy Query mean AUC | SABER mean AUC | SABER - Shuffled-Policy Query | Paired 95% CI |
+| --- | ---: | ---: | ---: | --- |
+| Historical seeds 1-5 | 0.291508 | 0.324422 | +0.032915 | [-0.062739, +0.119070] |
+| Extension seeds 6-10 | 0.281206 | 0.304673 | +0.023467 | [-0.007387, +0.056332] |
+| Pooled seeds 1-10 | 0.286357 | 0.314548 | +0.028191 | [-0.018556, +0.073090] |
+
+SABER has higher pooled mean AUC, but the paired interval includes zero.
+Pooled FQ-AUC and final-success intervals also include zero. Shuffling
+breaks sample-query pairing but can change the number of high weights,
+so this is not a count-matched assignment comparison. All seeds, including
+zero-final-success outcomes, are retained.
+
 ## Completed Replay-Action Query Seed Extension
 
 Replay-Action Query has completed **seeds 6-10, 2M steps per seed**.
