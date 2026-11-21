@@ -1,0 +1,431 @@
+{
+  "arms": {
+    "her": {
+      "status": "completed",
+      "seeds": {
+        "10": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "6": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "7": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "8": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "9": {
+          "status": "completed",
+          "step": 2000000
+        }
+      }
+    },
+    "hgr": {
+      "status": "completed",
+      "seeds": {
+        "10": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "6": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "7": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "8": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "9": {
+          "status": "completed",
+          "step": 2000000
+        }
+      }
+    },
+    "per": {
+      "status": "completed",
+      "seeds": {
+        "10": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "6": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "7": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "8": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "9": {
+          "status": "completed",
+          "step": 2000000
+        }
+      }
+    },
+    "random_support": {
+      "finished_utc": "2026-11-20T13:15:55.315990+00:00",
+      "seeds": {
+        "10": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-20T12:53:24.341915+00:00",
+          "last_write_age_sec": 30.16946029663086,
+          "nonfinite_loss": [],
+          "pid": 2404437,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.35829145728643214,
+            "final_quarter_auc": 0.33,
+            "final_success": 0.0,
+            "hit90_step": 50000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-19T17:22:14.480520+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.475396846544438"
+        },
+        "6": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-20T13:15:55.106838+00:00",
+          "last_write_age_sec": 13.739069700241089,
+          "nonfinite_loss": [],
+          "pid": 2404433,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.3047738693467337,
+            "final_quarter_auc": 0.3195,
+            "final_success": 0.0,
+            "hit90_step": 120000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-19T17:22:14.479027+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "27.93168184410286"
+        },
+        "7": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-20T12:41:24.064554+00:00",
+          "last_write_age_sec": 28.870611906051636,
+          "nonfinite_loss": [],
+          "pid": 2404434,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.26532663316582916,
+            "final_quarter_auc": 0.275,
+            "final_success": 0.1,
+            "hit90_step": 40000,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-19T17:22:14.479418+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.76990266967983"
+        },
+        "8": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-20T12:58:24.595104+00:00",
+          "last_write_age_sec": 9.146776676177979,
+          "nonfinite_loss": [],
+          "pid": 2404435,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.2022613065326633,
+            "final_quarter_auc": 0.169,
+            "final_success": 0.1,
+            "hit90_step": 40000,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-19T17:22:14.479733+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.345748157595217"
+        },
+        "9": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-20T13:06:24.873230+00:00",
+          "last_write_age_sec": 4.045403480529785,
+          "nonfinite_loss": [],
+          "pid": 2404436,
+          "result": {
+            "arm": "random_support",
+            "auc": 0.3060301507537688,
+            "final_quarter_auc": 0.293,
+            "final_success": 0.0,
+            "hit90_step": 110000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-19T17:22:14.480186+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.152078130873115"
+        }
+      },
+      "started_utc": "2026-11-19T17:22:14.478121+00:00",
+      "status": "completed"
+    },
+    "replay_query": {
+      "status": "completed",
+      "seeds": {
+        "10": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "6": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "7": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "8": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "9": {
+          "status": "completed",
+          "step": 2000000
+        }
+      }
+    },
+    "saber": {
+      "finished_utc": "2026-11-15T15:44:52.097280+00:00",
+      "seeds": {
+        "10": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-15T15:32:21.213429+00:00",
+          "last_write_age_sec": 30.341451406478882,
+          "nonfinite_loss": [],
+          "pid": 1022572,
+          "result": {
+            "arm": "saber",
+            "auc": 0.29158291457286434,
+            "final_quarter_auc": 0.2845,
+            "final_success": 0.25,
+            "hit90_step": 40000,
+            "seed": 10,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-14T20:06:11.612882+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.59775091160831"
+        },
+        "6": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-15T15:44:51.894417+00:00",
+          "last_write_age_sec": 15.429523229598999,
+          "nonfinite_loss": [],
+          "pid": 1022568,
+          "result": {
+            "arm": "saber",
+            "auc": 0.31105527638190955,
+            "final_quarter_auc": 0.32,
+            "final_success": 0.6,
+            "hit90_step": 70000,
+            "seed": 6,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-14T20:06:11.611372+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.2880412108482"
+        },
+        "7": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-15T15:40:51.681985+00:00",
+          "last_write_age_sec": 16.835216522216797,
+          "nonfinite_loss": [],
+          "pid": 1022569,
+          "result": {
+            "arm": "saber",
+            "auc": 0.32399497487437184,
+            "final_quarter_auc": 0.3885,
+            "final_success": 0.85,
+            "hit90_step": 60000,
+            "seed": 7,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-14T20:06:11.611756+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.385089213689238"
+        },
+        "8": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-15T15:29:20.968633+00:00",
+          "last_write_age_sec": 17.478304147720337,
+          "nonfinite_loss": [],
+          "pid": 1022570,
+          "result": {
+            "arm": "saber",
+            "auc": 0.25326633165829143,
+            "final_quarter_auc": 0.286,
+            "final_success": 0.0,
+            "hit90_step": 90000,
+            "seed": 8,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-14T20:06:11.612017+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.666322688733423"
+        },
+        "9": {
+          "exit_code": 0,
+          "finished_utc": "2026-11-15T15:38:21.469955+00:00",
+          "last_write_age_sec": 3.7593894004821777,
+          "nonfinite_loss": [],
+          "pid": 1022571,
+          "result": {
+            "arm": "saber",
+            "auc": 0.3434673366834171,
+            "final_quarter_auc": 0.367,
+            "final_success": 0.3,
+            "hit90_step": 370000,
+            "seed": 9,
+            "total_updates": 1995001
+          },
+          "started_utc": "2026-11-14T20:06:11.612312+00:00",
+          "status": "completed",
+          "step": 2000000,
+          "steps_per_sec": "28.44044288326042"
+        }
+      },
+      "started_utc": "2026-11-14T20:06:11.610331+00:00",
+      "status": "completed"
+    },
+    "shuffled_query": {
+      "status": "completed",
+      "seeds": {
+        "10": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "6": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "7": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "8": {
+          "status": "completed",
+          "step": 2000000
+        },
+        "9": {
+          "status": "completed",
+          "step": 2000000
+        }
+      }
+    },
+    "strict_random": {
+      "status": "running",
+      "seeds": {
+        "10": {
+          "status": "running",
+          "step": 1662000
+        },
+        "6": {
+          "status": "running",
+          "step": 1661000
+        },
+        "7": {
+          "status": "running",
+          "step": 1660800
+        },
+        "8": {
+          "status": "running",
+          "step": 1608000
+        },
+        "9": {
+          "status": "running",
+          "step": 1656600
+        }
+      }
+    }
+  },
+  "current_arm": "strict_random",
+  "protocol": {
+    "auc_denominator": 1990000,
+    "backbone": "DDPG",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 2027,
+    "evaluation_episodes": 20,
+    "evaluation_steps": {
+      "first": 10000,
+      "interval": 10000,
+      "last": 2000000
+    },
+    "failure_policy": "Stop queue on failed run, nonfinite recorded loss, configuration mismatch or incomplete evaluation grid. Preserve every attempt. No automatic production restart/resume and no outcome-based exclusions.",
+    "final_quarter_start": 1500000,
+    "gpu_smoke": {
+      "changes_from_production": [
+        "total_steps",
+        "run_name",
+        "output_root",
+        "seed"
+      ],
+      "included_in_results": false,
+      "seed": 11,
+      "steps": 6000
+    },
+    "historical_control_reference": "Submitted AAAI Table 2; original seeds 1-5",
+    "historical_primary_reference": "Submitted AAAI Table 1; original seeds 1-5",
+    "historical_provenance_limit": "HER/SABER/Random original full configs were not retained; use earliest retained canonical source and original launchers. PER uses retained frozen preset. Original-config parity is tested where configs survive. Historical bitwise environment identity is not asserted.",
+    "order": [
+      "her",
+      "saber",
+      "hgr",
+      "per",
+      "replay_query",
+      "shuffled_query",
+      "random_support",
+      "strict_random"
+    ],
+    "parallel_seeds": 5,
+    "power_failure_policy": "No reboot autostart. Audit partial runs before explicit restart authorization.",
+    "report_cohorts": [
+      "historical_1_5",
+      "extension_6_10",
+      "pooled_1_10"
+    ],
+    "seeds": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "statistics_note": "Primary metric definitions are unchanged. Extension and pooled comparisons use paired 10000-resample percentile bootstrap. Historical exact 3125-assignment mechanism intervals remain separately reported; they are not overwritten or claimed identical to Monte Carlo intervals. No selective stopping for significance.",
+    "steps_per_run": 2000000,
+    "success_metric": "eval/env_success_mean",
+    "task": "DrawerClose-v3",
+    "total_environment_steps": 80000000,
+    "total_new_runs": 40
+  },
+  "queue_pid": 888985,
+  "started_utc": "2026-11-14T08:39:35.649049+00:00",
+  "status": "running",
+  "updated_utc": "2026-11-21T05:53:04.177211+00:00"
+}

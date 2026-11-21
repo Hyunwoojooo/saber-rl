@@ -1,11 +1,11 @@
-"""Verify DrawerClose query-control publication boundaries without importing trainers."""
+"""Verify DrawerClose mechanism-control publication boundaries without importing trainers."""
 from copy import deepcopy
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
 from drawerclose_ddpg_replay_query_results import (
-    ARMS, ARTIFACT, PUBLISHED_ARMS, REPLAY_QUERY, SHUFFLED_QUERY,
+    ARMS, ARTIFACT, PUBLISHED_ARMS, RANDOM_SUPPORT, REPLAY_QUERY, SHUFFLED_QUERY,
     completed_keys, export, require_config,
     status_snapshot, summarize,
 )
@@ -38,7 +38,11 @@ class DrawerCloseReplayPublicationTests(unittest.TestCase):
                   "seeds": {"env_seed": 6, "numpy_seed": 6, "torch_seed": 6,
                             "action_noise_seed": 6, "eval_seed": 10006, "weight_seed": 20006}}
         if arm == control.arm:
-            config["support_query_mode"] = control.mode
+            config["method"] = control.method
+            if control.mode is not None:
+                config["support_query_mode"] = control.mode
+            if control == RANDOM_SUPPORT:
+                config["random_fixed_count_k"] = 0
         return config
 
     def test_destination_is_drawerclose(self):
@@ -167,6 +171,39 @@ class DrawerCloseReplayPublicationTests(unittest.TestCase):
             config["support_query_mode"] = mode
             with self.assertRaises(ValueError):
                 require_config(config, "shuffled_query", 6, SHUFFLED_QUERY)
+
+    def test_random_support_scope_excludes_count_matched_control(self):
+        q, rows = self.fixture(RANDOM_SUPPORT)
+        q["arms"]["strict_random"].update(status="running")
+        q["arms"]["strict_random"]["seeds"]["6"].update(status="running", step=1500000)
+        clean = status_snapshot(q, RANDOM_SUPPORT)
+        self.assertEqual(clean["arms"]["strict_random"]["seeds"]["6"],
+                         {"status": "running", "step": 1500000})
+        self.assertEqual(clean["arms"]["random_support"], q["arms"]["random_support"])
+        report = summarize(rows, clean, RANDOM_SUPPORT)
+        self.assertEqual(report["complete_arms"], ["saber", "random_support"])
+        self.assertEqual(report["newly_published_runs"], 5)
+        for cohort in report["cohorts"].values():
+            self.assertEqual(set(cohort["paired"]), {"saber_minus_random_support"})
+        with self.assertRaises(ValueError):
+            summarize(rows + [{**rows[0], "arm": "strict_random"}], clean, RANDOM_SUPPORT)
+
+    def test_random_support_requires_completed_seeds(self):
+        q, _ = self.fixture(RANDOM_SUPPORT)
+        q["arms"]["random_support"]["seeds"]["9"]["exit_code"] = 1
+        with self.assertRaises(ValueError):
+            completed_keys(q, RANDOM_SUPPORT)
+
+    def test_random_support_requires_own_matched_count_preset(self):
+        for arm in RANDOM_SUPPORT.arms:
+            require_config(self.config(arm, RANDOM_SUPPORT), arm, 6, RANDOM_SUPPORT)
+        correct = self.config("random_support", RANDOM_SUPPORT)
+        for change in ({"method": "b3_support_runtime_opt"},
+                       {"method": "b3_fully_random_fixed_count"},
+                       {"random_fixed_count_k": 32},
+                       {"support_query_mode": "shuffled_policy"}):
+            with self.assertRaises(ValueError):
+                require_config({**correct, **change}, "random_support", 6, RANDOM_SUPPORT)
 
     def test_no_overwrite_or_live_workspace_export(self):
         with TemporaryDirectory() as temp:

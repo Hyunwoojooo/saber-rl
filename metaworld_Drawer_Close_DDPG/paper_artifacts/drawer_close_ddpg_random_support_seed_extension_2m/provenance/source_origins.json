@@ -1,0 +1,82 @@
+{
+  "arms": {
+    "random_support": {
+      "basis": "Earliest retained primary trainer and original launcher; before added live-target diagnostic instrumentation.",
+      "git_ref": "823cebc",
+      "original_execution_commit_known": false,
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Close_DDPG/code/src"
+    },
+    "saber": {
+      "basis": "Earliest retained primary trainer and original launcher; before added live-target diagnostic instrumentation.",
+      "git_ref": "823cebc",
+      "original_execution_commit_known": false,
+      "original_full_config_retained": false,
+      "path": "metaworld_Drawer_Close_DDPG/code/src"
+    }
+  },
+  "curves": [
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv",
+      "seed": 1,
+      "sha256": "22e30c1354778cd01ae2a89809f700cb94f7f440b3a63e72f0b147697d7f41cc"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv",
+      "seed": 2,
+      "sha256": "957df43ec129d6a1af42cc8210a88e45fa212536b89706b385e5f08171325f15"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv",
+      "seed": 3,
+      "sha256": "0a54df538006c345cff66c8cc17624595f05b4cf04f39a2cc50e5a98de048faa"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv",
+      "seed": 4,
+      "sha256": "236060460cc296df64ee72399eddafe309da05f6e85934e6b7895e0e210d2730"
+    },
+    {
+      "arm": "saber",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Critic-Only-2M/drawer_close_DDPG-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv",
+      "seed": 5,
+      "sha256": "e88ff0cd59967f79f74c8b17fc10a6dadab0f57b2397ec2eca4ca203cb6e5ef5"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_close_DDPG-HER-B3-Random-Support-2M_s1_2m_cuda/metrics.csv",
+      "seed": 1,
+      "sha256": "afe268750588c85dda6baa72b7e81810904852b5d9ec7b7d1b6394b7a81ff27b"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_close_DDPG-HER-B3-Random-Support-2M_s2_2m_cuda/metrics.csv",
+      "seed": 2,
+      "sha256": "376ffaeb20bf92caead200d2c3b19258e70f152085fbf8e122261eeb41760183"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_close_DDPG-HER-B3-Random-Support-2M_s3_2m_cuda/metrics.csv",
+      "seed": 3,
+      "sha256": "60dcbfad3617d9d20cbcdf3f3d9a7d65515ccf31ad71159af4ce18a468960063"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_close_DDPG-HER-B3-Random-Support-2M_s4_2m_cuda/metrics.csv",
+      "seed": 4,
+      "sha256": "abdc47230b47601b2006cf698818c7469dc734b139502e0766d5cbd235e4542a"
+    },
+    {
+      "arm": "random_support",
+      "path": "metaworld_Drawer_Close_DDPG/results_2m/DDPG-HER-B3-Random-Support-2M/drawer_close_DDPG-HER-B3-Random-Support-2M_s5_2m_cuda/metrics.csv",
+      "seed": 5,
+      "sha256": "a4511e12b4f518451c5b3a4d95560332ed6d60c27281e56e52c1ee883c049ba1"
+    }
+  ],
+  "historical_limit": "Some original execution configs and historical dependency locks were not retained. Launcher/source-contract reconstruction is not bit-for-bit historical execution verification. Report seeds 6-10 separately as well as the planned pooled 1-10 estimates. Do not substitute post-review assignment-cohort runs.",
+  "publication_head": "51c9dd6aa8460d657657970710d1b20660a5cb0a"
+}

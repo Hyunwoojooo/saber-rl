@@ -42,7 +42,7 @@ def status_snapshot(queue):
     return result
 
 
-def require_config(config, arm, seed):
+def require_config(config, arm, seed, *, support_method="b3_support_runtime_opt"):
     if arm not in ARMS or seed not in range(6, 11):
         raise ValueError("Unexpected production arm or seed")
     if arm == "her":
@@ -53,7 +53,7 @@ def require_config(config, arm, seed):
                 "total_steps": 2000000, "updates_per_step": 1, "her_ratio": .8,
                 "max_episode_steps": 200, "eval_freq": 10000, "eval_episodes": 20,
                 "resume": False, "resume_path": None, "smoke": False,
-                "method": "b3_support_runtime_opt", "weight_scope": "critic_only",
+                "method": support_method, "weight_scope": "critic_only",
                 "lambda_support": 1., "weighting_mode": "batch_norm", "action_bins_per_dim": 5,
                 "N_local_min": 4, "M_Q_min": 4, "M_B": 16, "local_search_max": 512,
                 "policy_support_mode": "bin", "support_scan_mode": "deterministic_tail_v1"}

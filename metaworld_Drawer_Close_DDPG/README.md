@@ -2,6 +2,27 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
+## Completed Random-Support Seed Extension
+
+Random-Support has completed **seeds 6-10, 2M steps per seed**.
+The [Random-Support result artifact](paper_artifacts/drawer_close_ddpg_random_support_seed_extension_2m/README.md)
+includes the five new runs, retained seeds 1-5, and the previously published
+SABER runs for paired comparison. Reused runs are not extra independent
+observations. Other control results are excluded.
+
+| Cohort | Random-Support mean AUC | SABER mean AUC | SABER - Random-Support | Paired 95% CI |
+| --- | ---: | ---: | ---: | --- |
+| Historical seeds 1-5 | 0.276683 | 0.324422 | +0.047739 | [-0.004070, +0.114724] |
+| Extension seeds 6-10 | 0.287337 | 0.304673 | +0.017337 | [-0.027035, +0.051357] |
+| Pooled seeds 1-10 | 0.282010 | 0.314548 | +0.032538 | [-0.003040, +0.072075] |
+
+SABER has higher pooled mean AUC, but the paired interval includes zero.
+Random-Support draws high-weight positions from the entire minibatch, using
+the support-positive count from its own batch and buffer. Unlike the
+Context-Eligible Count-Matched control, it does not restrict selection to
+context-eligible positions. All seeds, including zero-final-success outcomes,
+are retained.
+
 ## Completed Shuffled-Policy Query Seed Extension
 
 Shuffled-Policy Query has completed **seeds 6-10, 2M steps per seed**.

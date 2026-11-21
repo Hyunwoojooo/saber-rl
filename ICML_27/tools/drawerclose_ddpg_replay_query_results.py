@@ -1,4 +1,4 @@
-"""Publish completed DrawerClose DDPG query controls against SABER."""
+"""Publish completed DrawerClose DDPG mechanism controls against SABER."""
 import argparse
 import csv
 from dataclasses import dataclass
@@ -28,12 +28,14 @@ LABELS = {"her": "HER", "saber": "SABER (Ours)", "hgr": "HGR", "per": "PER",
 
 
 @dataclass(frozen=True)
-class QueryControl:
+class MechanismControl:
     arm: str
-    mode: str
+    mode: str | None
     artifact_name: str
     description: str
     secondary_interpretation: str
+    method: str = "b3_support_runtime_opt"
+    original_full_config_retained: bool = True
 
     @property
     def arms(self):
@@ -44,15 +46,22 @@ class QueryControl:
         return REPO / "metaworld_Drawer_Close_DDPG/paper_artifacts" / self.artifact_name
 
 
-REPLAY_QUERY = QueryControl(
+REPLAY_QUERY = MechanismControl(
     "replay_query", "replay_action", "drawer_close_ddpg_replay_action_query_seed_extension_2m",
     "This control queries support at the sampled replay action instead of the current-policy action; critic regression still uses the replay action. It is not random candidate retrieval or prioritized replay.",
     "The pooled secondary FQ-AUC interval is slightly above zero; final-success uncertainty includes zero. This unadjusted secondary result does not override the primary AUC uncertainty or prove current-policy querying is necessary.",
 )
-SHUFFLED_QUERY = QueryControl(
+SHUFFLED_QUERY = MechanismControl(
     "shuffled_query", "shuffled_policy", "drawer_close_ddpg_shuffled_policy_query_seed_extension_2m",
     "This control permutes the current-policy action indices within each minibatch without fixed points. It preserves the action multiset while breaking the context-to-query pairing by index. Critic regression still uses the unshuffled replay action.",
     "The pooled secondary FQ-AUC and final-success means are slightly higher for Shuffled-Policy Query, and their paired intervals also include zero. Shuffling can change how many samples receive higher weights; this is not a count-matched assignment test.",
+)
+RANDOM_SUPPORT = MechanismControl(
+    "random_support", None, "drawer_close_ddpg_random_support_seed_extension_2m",
+    "Random-Support computes the SABER support-positive count on its own batch and replay state, then chooses that many positions uniformly without replacement across the full minibatch. This matches the weight distribution to its own counterfactual, not eligibility or counts across separate online runs.",
+    "Both pooled secondary intervals include zero. The larger added-seed final-success difference is secondary and does not override the primary AUC uncertainty.",
+    method="b3_support_random_runtime_opt",
+    original_full_config_retained=False,
 )
 ARTIFACT = REPLAY_QUERY.artifact
 PUBLISHED_ARMS = REPLAY_QUERY.arms
@@ -93,9 +102,15 @@ def status_snapshot(queue, control=REPLAY_QUERY):
 def require_config(config, arm, seed, control=REPLAY_QUERY):
     if arm not in control.arms or seed not in range(6, 11):
         raise ValueError("Unexpected arm or seed")
-    require_pair_config(config, "saber", seed)
-    mode = config.get("support_query_mode", "current_policy")
-    assert_close(mode, control.mode if arm == control.arm else "current_policy")
+    if arm == control.arm:
+        require_pair_config(config, "saber", seed, support_method=control.method)
+        expected_mode = control.mode or "current_policy"
+    else:
+        require_pair_config(config, "saber", seed)
+        expected_mode = "current_policy"
+    assert_close(config.get("support_query_mode", "current_policy"), expected_mode)
+    if arm == RANDOM_SUPPORT.arm:
+        assert_close(config["random_fixed_count_k"], 0)
 
 
 def summarize(rows, queue, control=REPLAY_QUERY):
@@ -191,6 +206,11 @@ def products(root, control=REPLAY_QUERY):
 
 def make_readme(report, queue, control=REPLAY_QUERY):
     name = LABELS[control.arm]
+    setting = (f"{name} uses support_query_mode={control.mode}." if control.mode is not None
+               else f"{name} uses method={control.method} with the current-policy support query.")
+    historical_config = (f"The original SABER full configs and exact historical environment locks were not retained. The original {name} full configs were retained and audited."
+                         if control.original_full_config_retained else
+                         "The original full configs for both methods and exact historical environment locks were not retained. The retained launchers and source contracts were audited.")
     lines = [f"# DrawerClose DDPG: {name} Seed Extension", "",
              f"Snapshot: **{report['snapshot_utc']}**. This is not a live dashboard.", "",
              f"This artifact contains **{report['new_completed_runs']} completed seed-extension runs** and "
@@ -241,9 +261,9 @@ def make_readme(report, queue, control=REPLAY_QUERY):
               "- Final success is evaluated at 2M. Hit90 is the first evaluation >=0.90, not sustained task mastery. SD is across seeds with ddof=1.",
               "- Paired percentile bootstrap resamples seed rows 10,000 times using NumPy default_rng(2027); endpoints are 2.5% and 97.5%. These are approximate, pointwise, unadjusted intervals, not simultaneous guarantees. AUC is primary; other metrics are secondary.",
               "- Every completed zero/low-success run is retained. New runs began from scratch; no checkpoint continuation or outcome-based exclusions.",
-              f"- {name} uses support_query_mode={control.mode}. Both methods retain critic-only weighting, lambda_support=1, action bins=5, minimum local count=4 and deterministic tail-512 scanning, with unchanged uniform replay and HER relabeling.",
+              f"- {setting} Both methods retain critic-only weighting, lambda_support=1, action bins=5, minimum local count=4 and deterministic tail-512 scanning, with unchanged uniform replay and HER relabeling.",
               "- Historical exact 3,125-assignment mechanism-control bootstrap intervals are not overwritten. All intervals in this artifact, including historical-only estimates, use the declared 10,000-resample Monte Carlo procedure.",
-              f"- The original SABER full configs and exact historical environment locks were not retained. The original {name} full configs were retained and audited. New configs follow frozen-source/launcher contracts; bitwise historical environment identity is not asserted.",
+              f"- {historical_config} New configs follow frozen-source/launcher contracts; bitwise historical environment identity is not asserted.",
               "- Earlier diagnostic and assignment executions are not extra independent seeds in these cohorts. Source/result overlap across artifacts must not be counted twice.",
               "- Runtime records include instrumentation and are not evidence of a matched-cost algorithm ranking.", "",
               "## Included and Omitted", "",
@@ -262,6 +282,9 @@ def make_readme(report, queue, control=REPLAY_QUERY):
 def verify(root=None, *, control=REPLAY_QUERY):
     root = control.artifact if root is None else root
     provenance = read(root / "provenance.json")
+    source_origins = read(root / "provenance/source_origins.json")["arms"]
+    assert_close(set(source_origins), set(control.arms))
+    assert_close(source_origins[control.arm]["original_full_config_retained"], control.original_full_config_retained)
     sources = provenance["source_files_sha256"]
     if (not sources or any(not any(p.startswith(f"source_snapshot/{a}/") for a in control.arms) for p in sources)
             or {Path(p).parts[1] for p in sources} != set(control.arms)):
