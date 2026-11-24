@@ -1,0 +1,201 @@
+{
+  "snapshot_id": "drawer_sac_fpp_v1",
+  "files": [
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/__init__.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/agent.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/agent.py",
+      "sha256": "d65bcc588f92e1f73202390c5c6b2b5860fb1f77ba5fcfe7acf68b8bbc54769e"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/config.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/config.py",
+      "sha256": "13e6de73c756c980e483f744d7ca5e9648dfaec0bebf617795a63b0e849aea20"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/envs.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/envs.py",
+      "sha256": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/envs_maniskill.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/io_utils.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/networks.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/replay.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/task_fetch_push.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/task_pick_cube.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/task_push_t.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/trainer.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "6a4bc953a91d93a8f91b1a30e21d687c557d80f6bc6e494646d71e4813c9d69e"
+    },
+    {
+      "path": "upstream/fpp/code/src/metacog_lite_v0/weights.py",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/weights.py",
+      "sha256": "823bede077e45aa8596275560414dd4be95371a05b35db3240dcf86d72082223"
+    },
+    {
+      "path": "upstream/fpp/config.json",
+      "origin": "worktrees/code-supplementary-final/experiment_FPP/sac_saber_critic_only_v4_ls512/config.json",
+      "sha256": "5184571b0bfe4660aab7d687f4acb790ce7c0a11e2ac9d87ef084c7ac87a5e7e"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/__init__.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/__init__.py",
+      "sha256": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/agent.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/agent.py",
+      "sha256": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/config.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/config.py",
+      "sha256": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/envs.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/envs.py",
+      "sha256": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/envs_maniskill.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/envs_maniskill.py",
+      "sha256": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/io_utils.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/io_utils.py",
+      "sha256": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/networks.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/networks.py",
+      "sha256": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py",
+      "sha256": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/numba_support_scan_fpp.py",
+      "sha256": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/replay.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/replay.py",
+      "sha256": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_drawer_close.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_drawer_close.py",
+      "sha256": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_drawer_open.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_drawer_open.py",
+      "sha256": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_pick_and_place.py",
+      "sha256": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_fetch_push.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_push.py",
+      "sha256": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_fetch_slide.py",
+      "sha256": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_pick_cube.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_pick_cube.py",
+      "sha256": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_push_t.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_push_t.py",
+      "sha256": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/task_unitree_apple.py",
+      "sha256": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/trainer.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/trainer.py",
+      "sha256": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c"
+    },
+    {
+      "path": "upstream/drawer/code/src/metacog_lite_v0/weights.py",
+      "origin": "metaworld_Drawer_Close_DDPG/code/src/metacog_lite_v0/weights.py",
+      "sha256": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0"
+    },
+    {
+      "path": "upstream/drawer/DDPG-HER-B3-Critic-Only-2M.sh",
+      "origin": "metaworld_Drawer_Close_DDPG/DDPG-HER-B3-Critic-Only-2M.sh",
+      "sha256": "25020650d687c45a7071e46b91b32de51f34b07dce7f19f5388820701ddb302d"
+    }
+  ],
+  "note": "Working-file SHA256 snapshots, not a claim about historical execution commits."
+}

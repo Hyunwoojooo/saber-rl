@@ -144,6 +144,34 @@ A1 checkpoint 48개(SABER·HER 학습, seed 101–103, 10k–500k)에서 critic�
   - **서술 결과:** 어느 critic이든 PA가 0.49–0.59다. 저장된 critic은 a^π 근처 행동 쌍의 실제 우열을 거의 우연 수준으로만 맞춘다. 100 step 갱신으로 바뀌는 것은 ±0.02 이하다. 초기(50k–150k)에는 정책이 거의 실패해 정보 있는 쌍이 부족하다.
   - **해석:** 100 step 국소 갱신으로는 행동 신호 경로도 지지되지 않는다. 다만 단일 step 섭동의 장기 sparse return 차이는 접촉 동역학 때문에 거칠 수 있어 이 지표의 해상도에 한계가 있다. 실행 간 비교의 약한 양의 방향은 장기 누적 효과 가설로 남는다.
 - 2026-11-18 01:50: context-count-only 대조군 seed 11–30 학습 완료(20개, 실패 없음), 사전 고정한 `analyze.py`로 분석([결과](../paper_artifacts/fpp_td3_context_count_only_n20_20261117/analysis.json)). **주 판정 SABER > context-count-only**: AUC +0.046 [+0.013, +0.077], 12/8, p = 0.015. final-quarter +0.122, 최종 성공률 +0.213. context-count-only − HER는 −0.001 [−0.028, +0.025], 9/11로 HER와 같다. **context 개수 조건만으로는 이득이 없고, a^π bin 조회가 필요하다.** count-matched 결과와 합치면, 이득에는 "a^π 조회로 고른 위치"가 필요하다.
+- 2026-11-18 05:30: 누적 효과 분석(새 학습 없음, [protocol](../experiments/fpp_td3_cumulative_effect_n20_20261118/PROTOCOL_ko.md), [결과](../paper_artifacts/fpp_td3_cumulative_effect_n20_20261118/README_ko.md)).
+  - 성능이 같은 초반 100k–400k에서 지표 13개를 SABER − HER로 비교했다.
+  - **Holm 보정 후 유의한 실질 지표는 critic Q 수준 하나다.** SABER가 +0.54 높고 17/3이다. critic loss도 18/2로 유의하지만, SABER 쪽이 가중 손실이라 해석할 수 없다.
+  - 방문 데이터(lift·place 15/5), 탐험, actor 포화, 기울기 크기, 행동 순위는 보정 후 유의하지 않다.
+  - seed별 후반 이득을 예측하는 지표는 보정 후 없다.
+  - 사후 확인(사전 고정 아님): 실제 return이 같은 400k에서 SABER critic의 과소추정이 더 작다. SABER − HER의 Q0 − G0 차이는 +2.87, 18/2다.
+  - **남은 가설:** TD3의 과소추정이 줄어 sparse 보상 값이 더 빨리 전파되는 경로. 인과 확인에는 중간 전환 실험(새 학습)이 필요하다.
+- 2026-11-18 07:00: 0단계, 과제 × 알고리즘 9개 조건의 기존 HER·SABER 짝 정리([결과](../paper_artifacts/stage0_cohort_inventory_20261118/README_ko.md)). 작업 트리와 origin/main을 모두 찾았고, AUC는 평가 곡선으로 같은 규칙에 따라 다시 계산했다.
+  - 합산 짝 수: FPP TD3 30, DrawerOpen 세 알고리즘과 DrawerClose DDPG 각 10, 나머지 각 5.
+  - **확립된 조건은 FPP TD3 하나다**(+0.046 [+0.023, +0.067], 22/8).
+  - 이득 쪽이지만 짝이 적은 조건: FPP SAC(+0.112, 5/0), DrawerOpen TD3(+0.321, CI 하한 +0.006).
+  - 갈리는 조건: DrawerOpen DDPG. seed 1–5 +0.546, seed 6–10 −0.045, 합산 +0.251로 CI가 0을 포함한다.
+  - 이득이 거의 없거나 반대인 조건: DrawerOpen SAC +0.008, DrawerClose DDPG +0.035, DrawerClose SAC −0.157.
+- 2026-11-18 07:10: 1단계 첫 묶음 시작([protocol](../experiments/stage1_n20_extension_20261118/PROTOCOL_ko.md)).
+  - FPP DDPG와 FPP SAC, HER·SABER × 새 seed 11–30 = 실행 80개, cuda.
+  - 기계 전체 동시 14개, 가용 메모리 8 GB 이상일 때만 새 실행을 띄운다.
+  - SAC 명령 인자 53개는 6월 실행과 같다.
+  - DDPG HER는 논문의 옛 B0 코드가 없어서, SABER와 같은 코드 트리의 `b0_same_env_v4`를 쓴다.
+  - 예상 완료는 약 2일 뒤다. Drawer 조건은 이 PC에서 실행 시간을 잰 뒤 같은 규칙으로 추가한다.
+- 2026-11-19: 사용하지 않던 vLLM 컨테이너를 사용자 결정으로 내렸다. 동시 실행 상한을 18로 올렸지만, 실행 하나가 약 25% 느려져 전체 처리량은 거의 같았다. CPU가 빠른 코어 10개와 효율 코어 10개로 되어 있어서다.
+- 2026-11-22 03:06: 1단계 첫 묶음 80개 완료, 실패 0개([결과](../paper_artifacts/stage1_n20_extension_20261118/)).
+  - **FPP SAC:** +0.023 [−0.018, +0.065], 12/8. 판단 보류. seed 1–5에서는 +0.112였다.
+  - **FPP DDPG:** −0.015 [−0.052, +0.019], 11/9. 판단 보류. 이번 HER는 SABER와 같은 코드 트리에서 돌려 AUC 0.600이 나왔고, 논문의 옛 HER는 0.539였다.
+  - 새 20쌍 기준으로 FPP에서 이득이 확인된 것은 TD3(+0.045) 하나다. 세 조건 모두 5쌍 결과가 20쌍에서 줄었다.
+- 2026-11-22 21:08 KST: 1단계 두 번째 묶음 시작(protocol 7절). DrawerOpen SAC, DrawerClose SAC, DrawerClose DDPG × HER·SABER × seed 11–30 = 실행 120개, 2M step, 동시 18개.
+  - 코드는 기존 결과를 만든 실행 코드를 origin/main 5facb92에서 꺼내 쓴다. 설정은 기존 실행 기록과 대조해 seed·이름·경로만 바꿨다.
+  - smoke 실행 6개가 통과했다. 예상 소요는 약 8일이다.
+  - DrawerOpen DDPG·TD3와 DrawerClose TD3는 흩어짐이 커서 나중에 정한다.
 
 ### 1. DrawerOpen 후반부 측정
 

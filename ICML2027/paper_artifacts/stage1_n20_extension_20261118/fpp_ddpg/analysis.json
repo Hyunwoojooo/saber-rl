@@ -1,0 +1,36 @@
+{
+  "AUC 10k-end": {
+    "n": 20,
+    "mean": -0.014583333333333332,
+    "ci_low": -0.051969696969696964,
+    "ci_high": 0.019065656565656553,
+    "positive": 11,
+    "negative": 9,
+    "sign_flip_p": 0.45468711853027344,
+    "her_mean": 0.5997727272727272,
+    "saber_mean": 0.585189393939394,
+    "verdict": "inconclusive (95% CI includes 0); report the effect size"
+  },
+  "final-quarter AUC": {
+    "n": 20,
+    "mean": -0.019049999999999994,
+    "ci_low": -0.062,
+    "ci_high": 0.009950000000000004,
+    "positive": 9,
+    "negative": 10,
+    "sign_flip_p": 0.4474029541015625,
+    "her_mean": 0.9498999999999999,
+    "saber_mean": 0.9308499999999997
+  },
+  "final success": {
+    "n": 20,
+    "mean": -0.027500000000000017,
+    "ci_low": -0.07250000000000004,
+    "ci_high": 0.014999999999999968,
+    "positive": 4,
+    "negative": 9,
+    "sign_flip_p": 0.300048828125,
+    "her_mean": 0.9524999999999999,
+    "saber_mean": 0.9249999999999998
+  }
+}

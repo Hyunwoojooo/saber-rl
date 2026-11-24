@@ -1,0 +1,47 @@
+{
+  "recovery_id": "drawer_sac_fpp_v2_power_interruption_recovery_20261012",
+  "parent": "2026-10-08_drawer_sac_fpp_v2_s1_5",
+  "source_manifest_sha256": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede",
+  "authorization": "2026-10-12: user explicitly authorized fresh reruns of the five interrupted jobs and execution of the twelve unstarted jobs",
+  "interruption": {
+    "reason": "User-reported power loss; five workers disappeared without completion",
+    "last_queue_heartbeat_utc": "2026-10-10T08:06:49.035085+00:00",
+    "new_boot_utc": "2026-10-12T05:22:08+00:00",
+    "original_status_files_remain_unchanged": true
+  },
+  "reuse": [
+    ["drawer_open", "her", 1],
+    ["drawer_open", "her", 2],
+    ["drawer_open", "her", 3]
+  ],
+  "rerun_from_zero": [
+    ["drawer_open", "saber", 1],
+    ["drawer_open", "saber", 2],
+    ["drawer_open", "saber", 3],
+    ["drawer_open", "her", 4],
+    ["drawer_open", "saber", 4]
+  ],
+  "fresh_unstarted": [
+    ["drawer_open", "her", 5],
+    ["drawer_open", "saber", 5],
+    ["drawer_close", "her", 1],
+    ["drawer_close", "saber", 1],
+    ["drawer_close", "her", 2],
+    ["drawer_close", "saber", 2],
+    ["drawer_close", "her", 3],
+    ["drawer_close", "saber", 3],
+    ["drawer_close", "her", 4],
+    ["drawer_close", "saber", 4],
+    ["drawer_close", "her", 5],
+    ["drawer_close", "saber", 5]
+  ],
+  "task_order": ["drawer_open", "drawer_close"],
+  "parallel": 5,
+  "steps_per_run": 2000000,
+  "new_runs": 17,
+  "new_environment_steps": 34000000,
+  "checkpoint_continuation": false,
+  "automatic_seed_extension": false,
+  "performance_based_replacement": false,
+  "stability_evidence": "Reuse the four verified parent 100k GPU runs only with identical frozen source and matching recorded execution environments; rerun CPU validation, CUDA update parity and all four 600-step GPU smokes"
+}

@@ -1,0 +1,6 @@
+{
+  "origin_main": "5facb928d4a8d139a415b293fd2189f3bb4c48b1",
+  "rule": "eval/success_mean trapezoid AUC over [10000, total]",
+  "bootstrap": 100000,
+  "bootstrap_seed": 20261113
+}
