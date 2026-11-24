@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from drawerclose_ddpg_replay_query_results import (
-    ARMS, ARTIFACT, PUBLISHED_ARMS, RANDOM_SUPPORT, REPLAY_QUERY, SHUFFLED_QUERY,
+    ARMS, ARTIFACT, PUBLISHED_ARMS, RANDOM_SUPPORT, REPLAY_QUERY, SHUFFLED_QUERY, STRICT_RANDOM,
     completed_keys, export, require_config,
     status_snapshot, summarize,
 )
@@ -138,6 +138,22 @@ class DrawerCloseReplayPublicationTests(unittest.TestCase):
             config["seeds"]["eval_seed"] += 1
             with self.assertRaises(ValueError):
                 require_config(config, arm, 6)
+
+    def test_context_eligible_scope_and_assignment_contract(self):
+        q, rows = self.fixture(STRICT_RANDOM)
+        result = summarize(rows, status_snapshot(q, STRICT_RANDOM), STRICT_RANDOM)
+        self.assertEqual(result["complete_arms"], ["saber", "strict_random"])
+        self.assertEqual(set(result["cohorts"]["pooled_1_10"]["paired"]), {"saber_minus_strict_random"})
+        config = self.config("strict_random", STRICT_RANDOM)
+        config.update(support_assignment_mode="context_eligible_count_matched", random_fixed_count_k=0)
+        config["seeds"]["assignment_seed"] = 30006
+        require_config(config, "strict_random", 6, STRICT_RANDOM)
+        for key, value in (("support_assignment_mode", "support"), ("random_fixed_count_k", 4)):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                require_config({**config, key: value}, "strict_random", 6, STRICT_RANDOM)
+        config["seeds"]["assignment_seed"] = 30007
+        with self.assertRaises(ValueError):
+            require_config(config, "strict_random", 6, STRICT_RANDOM)
 
     def test_shuffled_scope_excludes_replay_and_incomplete_control(self):
         q, rows = self.fixture(SHUFFLED_QUERY)

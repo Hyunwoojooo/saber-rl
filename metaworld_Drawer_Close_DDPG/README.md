@@ -2,6 +2,26 @@
 
 This folder contains an independent DDPG+HER code snapshot for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. It reuses the Drawer-Close TD3 environment/task/HER/SABER code path, but replaces the actor-critic backend with the single-critic DDPG agent used in `metaworld_Drawer_Open_DDPG`.
 
+## Completed Context-Eligible Count-Matched Seed Extension
+
+The [Context-Eligible Count-Matched result artifact](paper_artifacts/drawer_close_ddpg_context_eligible_count_matched_seed_extension_2m/README.md)
+contains all five new control runs at 2M steps, the retained seeds 1-5, and
+the already published SABER runs for paired comparison. The reused runs
+are not extra independent observations.
+
+| Cohort | Context-Eligible Count-Matched mean AUC | SABER mean AUC | SABER - control | Paired 95% CI |
+| --- | ---: | ---: | ---: | --- |
+| Historical seeds 1-5 | 0.294799 | 0.324422 | +0.029623 | [-0.033191, +0.092437] |
+| Extension seeds 6-10 | 0.297010 | 0.304673 | +0.007663 | [-0.022764, +0.037362] |
+| Pooled seeds 1-10 | 0.295905 | 0.314548 | +0.018643 | [-0.014874, +0.056295] |
+
+The control draws high-weight positions only from the context-eligible
+set, using the support-positive count from its own batch and buffer.
+The pooled AUC interval includes zero. Pooled FQ-AUC and final-success
+means favor the control, and neither paired secondary interval excludes
+zero. These results do not establish a benefit of the exact bin-based
+assignment over the count-matched alternative.
+
 ## Completed Random-Support Seed Extension
 
 Random-Support has completed **seeds 6-10, 2M steps per seed**.

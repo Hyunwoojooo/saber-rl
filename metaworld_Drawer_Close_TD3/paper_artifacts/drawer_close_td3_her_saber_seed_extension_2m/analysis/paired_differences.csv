@@ -1,0 +1,10 @@
+cohort,contrast,metric,n,mean_difference,ci95_low,ci95_high,positive_pairs
+historical_1_5,saber_minus_her,auc,5,0.2200251256281407,-0.2155527638190955,0.6556030150753769,2
+historical_1_5,saber_minus_her,final_quarter_auc,5,0.24989999999999996,-0.2304,0.7302000000000001,2
+historical_1_5,saber_minus_her,final_success,5,0.24,-0.32,0.8,3
+extension_6_10,saber_minus_her,auc,5,-0.16517587939698491,-0.5152512562814071,0.030703517587939693,2
+extension_6_10,saber_minus_her,final_quarter_auc,5,-0.20900000000000002,-0.5811999999999999,0.0017999999999999995,1
+extension_6_10,saber_minus_her,final_success,5,-0.15,-0.45,0.0,0
+pooled_1_10,saber_minus_her,auc,10,0.027424623115577883,-0.26077575376884427,0.3254192839195979,4
+pooled_1_10,saber_minus_her,final_quarter_auc,10,0.02044999999999999,-0.29660875,0.35595,3
+pooled_1_10,saber_minus_her,final_success,10,0.04499999999999997,-0.3,0.40499999999999997,3

@@ -1,0 +1,91 @@
+{
+  "arms": {
+    "her": {
+      "execution_commit_known": false,
+      "launcher_path": "metaworld_Drawer_Close_TD3/TD3-HER-B0-2M.sh",
+      "original_run_configs_retained": false,
+      "source_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src"
+    },
+    "saber": {
+      "execution_commit_known": false,
+      "launcher_path": "metaworld_Drawer_Close_TD3/TD3-HER-B3-Critic-Only-2M.sh",
+      "original_run_configs_retained": false,
+      "source_path": "metaworld_Drawer_Close_TD3/B3_v4_512_s1_5/code/src"
+    }
+  },
+  "curves": [
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 1,
+      "sha256": "8550a87f3d0c0111b306dacbdf269b1f12bbb9786b73bd9f4145ca2f7f733a0c",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M/drawer_close_TD3-HER-B0-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 2,
+      "sha256": "08b72fefe02f204f357f573c12363a596c861f2da917b9f8c628107fb1d3235b",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M/drawer_close_TD3-HER-B0-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 3,
+      "sha256": "74b089e40ab33bea2f1b7ad5b6ba8786f76a8316dd1e6911b5c808a5d29c16ef",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M/drawer_close_TD3-HER-B0-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 4,
+      "sha256": "b5e025ecdad6be6add11c13a9ac2cb5c5c1934e436401bb01371467ebcfd8434",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M/drawer_close_TD3-HER-B0-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "her",
+      "evaluation_count": 200,
+      "seed": 5,
+      "sha256": "e6263dc463cbb36e6e348edea408aab30882e6d66352c1c88998f5215ba8a68d",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B0-2M/drawer_close_TD3-HER-B0-2M_s5_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 1,
+      "sha256": "dbce0a6ce523c0502686047d6e09e01d821e48635edc023c955fbf8a5591faa0",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_close_TD3-HER-B3-Critic-Only-2M_s1_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 2,
+      "sha256": "a3ea8c326add166a35b4504c322e60ec5f19aa9fcbff99f2b0778981cc7a019b",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_close_TD3-HER-B3-Critic-Only-2M_s2_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 3,
+      "sha256": "0055d9be24fbcd138390743319a51266cb723986ed6fc6345e5018548900437a",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_close_TD3-HER-B3-Critic-Only-2M_s3_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 4,
+      "sha256": "cb480023ad4317eebdf5c199ec0958a6590d63e4302f2738e2849635b35ef722",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_close_TD3-HER-B3-Critic-Only-2M_s4_2m_cuda/metrics.csv"
+    },
+    {
+      "arm": "saber",
+      "evaluation_count": 200,
+      "seed": 5,
+      "sha256": "0be9bdd7dc45556422d98b61a4edfc11afd0eafc74d99a644f5e49c60417ce6f",
+      "source_path": "metaworld_Drawer_Close_TD3/results_2m/TD3-HER-B3-Critic-Only-2M/drawer_close_TD3-HER-B3-Critic-Only-2M_s5_2m_cuda/metrics.csv"
+    }
+  ],
+  "historical_limit": "Retained source/preset parity and published metric parity are audited. Original execution commit and byte-for-byte historical software environment are not asserted.",
+  "retained_source_commit": "720a4c27ae4be53805e60ebb6474d2e4748bf3fc",
+  "source_selection": "Use the B3_v4_512_s1_5 TD3 source actually referenced by primary shell launchers; do not substitute DDPG or newer assignment-control code."
+}

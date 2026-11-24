@@ -36,6 +36,7 @@ class MechanismControl:
     secondary_interpretation: str
     method: str = "b3_support_runtime_opt"
     original_full_config_retained: bool = True
+    assignment_mode: str | None = None
 
     @property
     def arms(self):
@@ -62,6 +63,12 @@ RANDOM_SUPPORT = MechanismControl(
     "Both pooled secondary intervals include zero. The larger added-seed final-success difference is secondary and does not override the primary AUC uncertainty.",
     method="b3_support_random_runtime_opt",
     original_full_config_retained=False,
+)
+STRICT_RANDOM = MechanismControl(
+    "strict_random", "current_policy", "drawer_close_ddpg_context_eligible_count_matched_seed_extension_2m",
+    "This control derives the high-weight count from the current-policy SABER mask on its own batch and buffer, then assigns that many high weights uniformly without replacement within the context-eligible positions. It preserves context eligibility and weight distribution within that batch, not buffer contents or counts across separate online runs.",
+    "The pooled FQ-AUC and final-success means favor the control, while added-seed FQ-AUC favors SABER. All secondary paired intervals include zero. These results do not isolate an advantage from assigning high weights to the exact action-bin matches.",
+    assignment_mode="context_eligible_count_matched",
 )
 ARTIFACT = REPLAY_QUERY.artifact
 PUBLISHED_ARMS = REPLAY_QUERY.arms
@@ -111,6 +118,10 @@ def require_config(config, arm, seed, control=REPLAY_QUERY):
     assert_close(config.get("support_query_mode", "current_policy"), expected_mode)
     if arm == RANDOM_SUPPORT.arm:
         assert_close(config["random_fixed_count_k"], 0)
+    if arm == control.arm and control.assignment_mode is not None:
+        assert_close(config["support_assignment_mode"], control.assignment_mode)
+        assert_close(config["random_fixed_count_k"], 0)
+        assert_close(config["seeds"]["assignment_seed"], 30000 + seed)
 
 
 def summarize(rows, queue, control=REPLAY_QUERY):
@@ -208,6 +219,8 @@ def make_readme(report, queue, control=REPLAY_QUERY):
     name = LABELS[control.arm]
     setting = (f"{name} uses support_query_mode={control.mode}." if control.mode is not None
                else f"{name} uses method={control.method} with the current-policy support query.")
+    if control.assignment_mode is not None:
+        setting += f" Its support_assignment_mode is {control.assignment_mode}."
     historical_config = (f"The original SABER full configs and exact historical environment locks were not retained. The original {name} full configs were retained and audited."
                          if control.original_full_config_retained else
                          "The original full configs for both methods and exact historical environment locks were not retained. The retained launchers and source contracts were audited.")

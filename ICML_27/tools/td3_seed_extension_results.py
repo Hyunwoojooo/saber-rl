@@ -1,9 +1,11 @@
-"""Export completed DrawerOpen TD3 cohorts without importing a trainer."""
+"""Export completed Drawer TD3 cohorts without importing a trainer."""
 import argparse
 import csv
+from dataclasses import dataclass
 import hashlib
 import importlib
 import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 import shutil
@@ -24,9 +26,35 @@ LABELS = {"her": "HER", "saber": "SABER (Ours)", "hgr": "HGR", "per": "PER-full"
 INTERVAL_COLUMNS = "cohort,contrast,metric,n,mean_difference,ci95_low,ci95_high,positive_pairs\n"
 
 
-def completed_keys(queue):
+@dataclass(frozen=True)
+class Publication:
+    task: str
+    experiment: str
+    artifact: Path
+    verifier: str
+    required_arms: tuple[str, ...] = ()
+
+
+DRAWEROPEN = Publication("DrawerOpen-v3", EXPERIMENT, ARTIFACT, "td3_seed_extension_results.py")
+DRAWERCLOSE_HER_SABER = Publication(
+    "DrawerClose-v3", "experiments_post_review/2026-11-19_drawerclose_td3_main_seed_extension",
+    REPO / "metaworld_Drawer_Close_TD3/paper_artifacts/drawer_close_td3_her_saber_seed_extension_2m",
+    "drawerclose_td3_her_saber_results.py", ("her", "saber"),
+)
+
+
+def status_snapshot(queue, publication=DRAWEROPEN):
+    if not publication.required_arms:
+        return queue
+    return {**queue, "arms": {
+        arm: group if arm in publication.required_arms else {"status": group["status"]}
+        for arm, group in queue["arms"].items()
+    }}
+
+
+def completed_keys(queue, publication=DRAWEROPEN):
     protocol = queue["protocol"]
-    required = {"task": "DrawerOpen-v3", "backbone": "TD3", "order": list(ARMS),
+    required = {"task": publication.task, "backbone": "TD3", "order": list(ARMS),
                 "seeds": list(range(6, 11)), "steps_per_run": 2000000,
                 "total_new_runs": 20, "bootstrap_resamples": 10000, "bootstrap_seed": 2027}
     for key, value in required.items():
@@ -34,7 +62,7 @@ def completed_keys(queue):
     if set(queue["arms"]) != set(ARMS):
         raise ValueError("Unexpected queue arms")
     result = set()
-    for arm in ARMS:
+    for arm in publication.required_arms or ARMS:
         states = queue["arms"][arm]["seeds"]
         if set(states) != {str(s) for s in range(6, 11)}:
             raise ValueError("Incomplete queue population")
@@ -45,13 +73,15 @@ def completed_keys(queue):
                 result.add((arm, int(seed)))
         if queue["arms"][arm]["status"] == "completed" and not all((arm, s) in result for s in range(6, 11)):
             raise ValueError("Arm marked complete with unfinished seeds")
+        if publication.required_arms and queue["arms"][arm]["status"] != "completed":
+            raise ValueError("Require all five completed seeds of each included method")
     if not result:
         raise ValueError("No completed production runs")
     return result
 
 
-def summarize(rows, queue):
-    selected = completed_keys(queue)
+def summarize(rows, queue, publication=DRAWEROPEN):
+    selected = completed_keys(queue, publication)
     included = [a for a in ARMS if any(arm == a for arm, _ in selected)]
     expected = selected | {(a, s) for a in included for s in range(1, 6)}
     keys = [(r["arm"], r["seed"]) for r in rows]
@@ -73,28 +103,45 @@ def summarize(rows, queue):
                     m: paired([indexed["saber", s][m] for s in seeds], [indexed[arm, s][m] for s in seeds])
                     for m in FIELDS}
         cohorts[label] = {"summary": summary, "paired": contrasts}
-    return {"snapshot_utc": queue["updated_utc"], "full_queue_completed": len(selected) == 20,
+    full_queue = (all(queue["arms"][a]["status"] == "completed" for a in ARMS)
+                  if publication.required_arms else len(selected) == 20)
+    return {"snapshot_utc": queue["updated_utc"], "full_queue_completed": full_queue,
             "new_completed_runs": len(selected), "historical_reference_runs": len(expected) - len(selected),
             "complete_arms": complete, "partial_arms": [a for a in included if a not in complete],
             "cohorts": cohorts, "per_seed": rows}
 
 
-def products(root):
+def products(root, publication=DRAWEROPEN):
     provenance = read(root / "provenance.json")
     queue = read(root / "provenance/queue_snapshot.json")
     expected = read(root / "provenance/expected_configs.json")
+    assert_close(provenance["experiment"], publication.experiment)
+    assert_close(queue, status_snapshot(queue, publication))
     assert_close(read(root / "protocol.json"), queue["protocol"])
-    selected = completed_keys(queue)
+    selected = completed_keys(queue, publication)
     assert_close(set(expected), {f"{a}:{s}" for a, s in selected})
-    rows, curves = [], []
+    rows, curves, runtimes = [], [], []
     for entry in provenance["runs"]:
         cohort = "historical_1_5" if entry["seed"] <= 5 else "extension_6_10"
         assert_close(entry["cohort"], cohort)
         assert_close(entry["published_directory"], f"data/{cohort}/{entry['arm']}/seed_{entry['seed']}")
         row, points = published_run(root, entry, expected, queue)
+        if publication.required_arms and row["seed"] >= 6:
+            folder = within(root, entry["published_directory"])
+            claim = read(folder / "launch_record.json")
+            assert_close(claim["phase"], "production")
+            if any(arg.split("=", 1)[0] in {"--resume", "--resume_path", "--smoke"} for arg in claim["argv"]):
+                raise ValueError("Unexpected resume/smoke production argument")
+            summary = read(folder / "summary.json")
+            seconds, speed = summary["runtime_total_sec"], summary["final_steps_per_sec"]
+            if (not all(math.isfinite(v) and v > 0 for v in (seconds, speed)) or
+                    not math.isclose(seconds * speed, 2000000, rel_tol=1e-6)):
+                raise ValueError("Invalid runtime or throughput")
+            runtimes.append({"arm": row["arm"], "seed": row["seed"], "runtime_seconds": seconds,
+                             "runtime_hours": seconds / 3600, "steps_per_second": speed})
         rows.append(row)
         curves.extend({"arm": row["arm"], "seed": row["seed"], "step": s, "success": v} for s, v in points)
-    report = summarize(rows, queue)
+    report = summarize(rows, queue, publication)
     assert_close(report, read(root / "reference_report.json"))
     actual_dirs = {p.parent.relative_to(root).as_posix() for p in (root / "data").rglob("evaluation.csv")}
     assert_close(actual_dirs, {e["published_directory"] for e in provenance["runs"]})
@@ -118,22 +165,31 @@ def products(root):
                                   "positive_pairs": values["positive_pairs"]})
     if not aggregates:
         raise ValueError("At least one complete five-seed extension is required")
-    return {"analysis/report.json": json.dumps(report, indent=2, allow_nan=False) + "\n",
-            "analysis/seed_metrics.csv": csv_text(report["per_seed"]),
-            "analysis/aggregate_metrics.csv": csv_text(aggregates),
-            "analysis/paired_differences.csv": csv_text(intervals) if intervals else INTERVAL_COLUMNS,
-            "analysis/learning_curves.csv": csv_text(curves)}
+    result = {"analysis/report.json": json.dumps(report, indent=2, allow_nan=False) + "\n",
+              "analysis/seed_metrics.csv": csv_text(report["per_seed"]),
+              "analysis/aggregate_metrics.csv": csv_text(aggregates),
+              "analysis/paired_differences.csv": csv_text(intervals) if intervals else INTERVAL_COLUMNS,
+              "analysis/learning_curves.csv": csv_text(curves)}
+    if publication.required_arms:
+        result["analysis/runtime_metrics.csv"] = csv_text(runtimes)
+    return result
 
 
-def make_readme(report, queue):
-    lines = ["# DrawerOpen TD3: Completed Main-Paper Seed Extensions", "",
+def make_readme(report, queue, publication=DRAWEROPEN):
+    task = publication.task.removesuffix("-v3")
+    title = "Completed Main-Paper Seed Extensions" if not publication.required_arms else "HER and SABER Seed Extension"
+    lines = [f"# {task} TD3: {title}", "",
              f"Snapshot: **{report['snapshot_utc']}**. This is not a live dashboard.", "",
              f"This artifact contains **{report['new_completed_runs']} completed new runs** and "
              f"{report['historical_reference_runs']} historical seed-level references.",
              "Each new run has 2M environment steps. Only completed runs are exported.",
-             "Unfinished methods are listed as status only; their intermediate curves and results are omitted.", "",
-             "## Queue Coverage", "", "| Method | Completed new seeds | State at capture |", "| --- | --- | --- |"]
-    selected = completed_keys(queue)
+             "Unfinished methods are listed as status only; their intermediate curves and results are omitted."]
+    if publication.required_arms:
+        lines += ["Only HER and SABER results are included; other methods appear as timestamped status only.",
+                  "Seeds 1-5 are reused, not additional executions. The two methods are compared on paired seeds.",
+                  "[Runtime records](analysis/runtime_metrics.csv) cover all ten extension runs."]
+    lines += ["", "## Queue Coverage", "", "| Method | Completed new seeds | State at capture |", "| --- | --- | --- |"]
+    selected = completed_keys(queue, publication)
     for arm in ARMS:
         seeds = [str(s) for s in range(6, 11) if (arm, s) in selected]
         lines.append(f"| {LABELS[arm]} | {', '.join(seeds) if seeds else 'None'} | {queue['arms'][arm]['status']} |")
@@ -162,7 +218,7 @@ def make_readme(report, queue):
             hit = row["hit90_step"] if row["hit90_step"] is not None else "Not reached"
             lines.append(f"| {LABELS[row['arm']]} | {row['seed']} | {row['auc']:.6f} | {row['final_quarter_auc']:.6f} | {row['final_success']:.2f} | {hit} |")
     lines += ["", "## Protocol and Interpretation", "",
-              "- DrawerOpen-v3 / TD3 / sparse reward v2; UTD=1, HER ratio 0.8, horizon 200, 20 evaluation episodes every 10k steps.",
+              f"- {publication.task} / TD3 / sparse reward v2; UTD=1, HER ratio 0.8, horizon 200, 20 evaluation episodes every 10k steps.",
               "- Every completed run has 2M environment steps and 1,995,001 recorded update iterations. TD3 retains its delayed actor updates.",
               "- Success is eval/env_success_mean. AUC uses all 200 checkpoints from 10k to 2M, divided by 1,990,000; FQ-AUC covers 1.5M..2M, divided by 500,000. No smoothing, interpolation or silently shortened horizon.",
               "- Final success is evaluated at 2M. Hit90 means the first evaluation >=0.90, not sustained success. SD is across seeds with ddof=1.",
@@ -182,18 +238,19 @@ def make_readme(report, queue):
               "- Workspace prefixes are redacted in JSON; unavailable optional diagnostics become null. Required loss and evaluation values are validated as finite before export.",
               "- Checkpoints, replay buffers, raw training logs, caches and unfinished result directories are omitted. This is a compact result artifact, not a standalone training bundle.", "",
               "## Verification", "", "From the repository root with Python 3.12 and NumPy:", "", "```bash",
-              "python3 ICML_27/tools/td3_seed_extension_results.py verify", "```", "",
+              f"python3 ICML_27/tools/{publication.verifier} verify", "```", "",
               "This read-only CPU check regenerates metrics from every included evaluation point, checks completion/config/source hashes and verifies the manifest. It does not import trainers or modify the live queue.", ""]
     return "\n".join(lines)
 
 
-def verify(root=ARTIFACT):
+def verify(root=None, *, publication=DRAWEROPEN):
+    root = publication.artifact if root is None else root
     check_hashes(root, read(root / "provenance.json")["source_files_sha256"])
-    for name, value in products(root).items():
+    for name, value in products(root, publication).items():
         if (root / name).read_text() != value:
             raise ValueError(f"Derived result mismatch: {name}")
     report = read(root / "analysis/report.json")
-    if (root / "README.md").read_text() != make_readme(report, read(root / "provenance/queue_snapshot.json")):
+    if (root / "README.md").read_text() != make_readme(report, read(root / "provenance/queue_snapshot.json"), publication):
         raise ValueError("README differs from verified results/status")
     if (root / "MANIFEST.sha256").read_text() != inventory(root):
         raise ValueError("Artifact manifest mismatch")
@@ -205,9 +262,10 @@ def verify(root=ARTIFACT):
             "source_files": len(read(root / "provenance.json")["source_files_sha256"])}
 
 
-def export(workspace, destination=ARTIFACT):
+def export(workspace, destination=None, *, publication=DRAWEROPEN):
+    destination = publication.artifact if destination is None else destination
     workspace, destination = workspace.resolve(), destination.resolve()
-    origin = within(workspace, EXPERIMENT)
+    origin = within(workspace, publication.experiment)
     if destination.exists() or workspace == REPO.resolve() or destination == workspace or workspace in destination.parents:
         raise ValueError("Use a separate publication checkout and a new destination")
     # Import only the experiment's read-only analysis helpers, never worker/trainer modules.
@@ -215,16 +273,30 @@ def export(workspace, destination=ARTIFACT):
     api, common = importlib.import_module("analysis"), importlib.import_module("common")
     common.verify_snapshots()
     api.verify_reference_metrics()
+    if publication.required_arms:
+        validation = origin / "outputs/validation"
+        approval = read(validation / "approved.json")
+        assert_close(approval["passed"], True)
+        assert_close(approval["smoke_arms"], list(ARMS))
+        assert_close(approval["package_hashes"], common.package_hashes())
+        for name in ("expected_configs", "preflight", "smoke_results"):
+            assert_close(approval[f"{name}_sha256"], sha(validation / f"{name}.json"))
     queue_bytes = (origin / "outputs/queue_status.json").read_bytes()
-    queue = json.loads(queue_bytes)
-    selected = completed_keys(queue)
+    queue = status_snapshot(json.loads(queue_bytes), publication)
+    selected = completed_keys(queue, publication)
     arms = [a for a in ARMS if any(k[0] == a for k in selected)]
     expected = read(origin / "outputs/validation/expected_configs.json")
     old = [r for r in api.reference_rows() if r["arm"] in arms]
     new = [api.read_run(a, s, expected_config=expected[f"{a}:{s}"])
            for a, s in sorted(selected, key=lambda k: (ARMS.index(k[0]), k[1]))]
     rows = [{k: r[k] for k in ("arm", "seed", *FIELDS, "hit90_step")} for r in old + new]
-    report = summarize(rows, queue)
+    report = summarize(rows, queue, publication)
+    if publication.required_arms:
+        indexed = {(r["arm"], r["seed"]): r for r in rows}
+        for cohort, cs in COHORTS.items():
+            for metric, value in report["cohorts"][cohort]["paired"]["saber_minus_her"].items():
+                assert_close(value, api.paired([indexed["saber", s][metric] for s in cs],
+                                               [indexed["her", s][metric] for s in cs]))
     destination.mkdir(parents=True)
     sources, entries = {}, []
     for name, digest in read(origin / "snapshot_manifest.json").items():
@@ -267,7 +339,7 @@ def export(workspace, destination=ARTIFACT):
     write_json(destination / "provenance/environment.json", scrub(read(origin / "outputs/validation/environment.json"), workspace))
     shutil.copy2(origin / "protocol.json", destination / "protocol.json")
     write_json(destination / "provenance.json", {"exported_utc": datetime.now(timezone.utc).isoformat(),
-               "experiment": EXPERIMENT, "source_files_sha256": sources, "runs": entries,
+               "experiment": publication.experiment, "source_files_sha256": sources, "runs": entries,
                "original_snapshot_manifest_sha256": sha(origin / "snapshot_manifest.json"),
                "original_queue_snapshot_sha256": hashlib.sha256(queue_bytes).hexdigest(),
                "historical_limit": origins["historical_limit"],
@@ -276,24 +348,28 @@ def export(workspace, destination=ARTIFACT):
                                    "all 200 evaluation steps retained per completed run; training rows omitted"],
                "omitted": ["checkpoints", "replay buffers", "raw training logs", "unfinished results", "unexecuted trainers"]})
     write_json(destination / "reference_report.json", report)
-    for name, value in products(destination).items():
+    for name, value in products(destination, publication).items():
         path = destination / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(value)
-    (destination / "README.md").write_text(make_readme(report, queue))
+    (destination / "README.md").write_text(make_readme(report, queue, publication))
     (destination / "MANIFEST.sha256").write_text(inventory(destination))
-    print(json.dumps(verify(destination), indent=2))
+    print(json.dumps(verify(destination, publication=publication), indent=2))
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__)
+def main(publication=DRAWEROPEN):
+    parser = argparse.ArgumentParser(description=f"Export completed {publication.task} TD3 results.")
     sub = parser.add_subparsers(dest="command", required=True)
     exporter = sub.add_parser("export")
     exporter.add_argument("--workspace", type=Path, required=True)
-    exporter.add_argument("--output", type=Path, default=ARTIFACT)
-    sub.add_parser("verify").add_argument("--root", type=Path, default=ARTIFACT)
+    exporter.add_argument("--output", type=Path, default=publication.artifact)
+    sub.add_parser("verify").add_argument("--root", type=Path, default=publication.artifact)
     args = parser.parse_args()
     if args.command == "export":
-        export(args.workspace, args.output)
+        export(args.workspace, args.output, publication=publication)
     else:
-        print(json.dumps(verify(args.root.resolve()), indent=2))
+        print(json.dumps(verify(args.root.resolve(), publication=publication), indent=2))
+
+
+if __name__ == "__main__":
+    main()

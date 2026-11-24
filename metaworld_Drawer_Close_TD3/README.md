@@ -2,6 +2,24 @@
 
 This folder contains TD3+HER experiment runners for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. The code is kept as an independent snapshot under `B3_v4_512_s1_5/code/src`.
 
+## Completed HER and SABER Seed Extension
+
+The [HER/SABER result artifact](paper_artifacts/drawer_close_td3_her_saber_seed_extension_2m/README.md)
+includes all ten new runs (seeds 6-10 for each method, 2M steps per seed),
+paired with the retained evaluation curves for seeds 1-5. It excludes
+HGR and PER-full performance results.
+
+| Cohort | HER mean AUC | SABER mean AUC | SABER - HER | Paired 95% CI |
+| --- | ---: | ---: | ---: | --- |
+| Historical seeds 1-5 | 0.328744 | 0.548769 | +0.220025 | [-0.215553, +0.655603] |
+| Extension seeds 6-10 | 0.410829 | 0.245653 | -0.165176 | [-0.515251, +0.030704] |
+| Pooled seeds 1-10 | 0.369786 | 0.397211 | +0.027425 | [-0.260776, +0.325419] |
+
+HER has the higher mean AUC on the new seeds. SABER has a small positive
+pooled mean difference, but the paired interval spans zero. The artifact
+retains every completed seed, including zero-final-success runs, with
+evaluation curves, seed metrics, runtime and configuration provenance.
+
 ## Experiment Set
 
 | Experiment | Script | Method | Weight Scope |

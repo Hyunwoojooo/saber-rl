@@ -2,7 +2,9 @@
 import copy
 import unittest
 
-from td3_seed_extension_results import ARMS, FIELDS, completed_keys, summarize
+from td3_seed_extension_results import (
+    ARMS, DRAWERCLOSE_HER_SABER, FIELDS, completed_keys, make_readme, status_snapshot, summarize,
+)
 
 
 def queue_fixture(complete=("her",)):
@@ -77,6 +79,40 @@ class PublicationTests(unittest.TestCase):
         queue["protocol"]["backbone"] = "DDPG"
         with self.assertRaises(ValueError):
             completed_keys(queue)
+
+    def test_drawerclose_pair_excludes_other_arm_results_and_sources(self):
+        study = DRAWERCLOSE_HER_SABER
+        queue = queue_fixture(("her", "saber", "hgr"))
+        queue["protocol"]["task"] = study.task
+        queue["arms"]["hgr"]["seeds"]["6"]["result"] = {"auc": .9}
+        snapshot = status_snapshot(queue, study)
+        self.assertEqual(snapshot["arms"]["hgr"], {"status": "completed"})
+        self.assertEqual(snapshot["arms"]["per"], {"status": "queued"})
+        self.assertIn("result", queue["arms"]["hgr"]["seeds"]["6"])
+        self.assertEqual(status_snapshot(snapshot, study), snapshot)
+        rows = result_fixture(("her", "saber"))
+        report = summarize(rows, snapshot, study)
+        self.assertEqual(report["complete_arms"], ["her", "saber"])
+        self.assertEqual(report["new_completed_runs"], 10)
+        self.assertFalse(report["full_queue_completed"])
+        self.assertIn("drawerclose_td3_her_saber_results.py verify", make_readme(report, snapshot, study))
+        with self.assertRaises(ValueError):
+            summarize(rows + result_fixture(("hgr",)), snapshot, study)
+
+    def test_drawerclose_pair_requires_all_ten_valid_completions(self):
+        study = DRAWERCLOSE_HER_SABER
+        for arm_status, update in (
+            ("running", {}),
+            ("completed", {"status": "running", "step": 1500000}),
+            ("completed", {"exit_code": 1}),
+            ("completed", {"nonfinite_loss": ["loss/critic"]}),
+        ):
+            queue = queue_fixture(("her", "saber"))
+            queue["protocol"]["task"] = study.task
+            queue["arms"]["saber"]["status"] = arm_status
+            queue["arms"]["saber"]["seeds"]["8"].update(update)
+            with self.subTest(arm_status=arm_status, update=update), self.assertRaises(ValueError):
+                completed_keys(status_snapshot(queue, study), study)
 
 
 if __name__ == "__main__":
