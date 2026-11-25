@@ -21,6 +21,8 @@ from verify_archive import check_hashes, check_links
 REPO = Path(__file__).resolve().parents[2]
 EXPERIMENT = "experiments_post_review/2026-11-04_draweropen_td3_main_seed_extension"
 ARTIFACT = REPO / "metaworld_Drawer_Open_TD3/paper_artifacts/drawer_open_td3_main_seed_extension_2m"
+DRAWERCLOSE_EXPERIMENT = "experiments_post_review/2026-11-19_drawerclose_td3_main_seed_extension"
+DRAWERCLOSE_ARTIFACTS = REPO / "metaworld_Drawer_Close_TD3/paper_artifacts"
 ARMS = ("her", "saber", "hgr", "per")
 LABELS = {"her": "HER", "saber": "SABER (Ours)", "hgr": "HGR", "per": "PER-full"}
 INTERVAL_COLUMNS = "cohort,contrast,metric,n,mean_difference,ci95_low,ci95_high,positive_pairs\n"
@@ -37,9 +39,14 @@ class Publication:
 
 DRAWEROPEN = Publication("DrawerOpen-v3", EXPERIMENT, ARTIFACT, "td3_seed_extension_results.py")
 DRAWERCLOSE_HER_SABER = Publication(
-    "DrawerClose-v3", "experiments_post_review/2026-11-19_drawerclose_td3_main_seed_extension",
-    REPO / "metaworld_Drawer_Close_TD3/paper_artifacts/drawer_close_td3_her_saber_seed_extension_2m",
+    "DrawerClose-v3", DRAWERCLOSE_EXPERIMENT,
+    DRAWERCLOSE_ARTIFACTS / "drawer_close_td3_her_saber_seed_extension_2m",
     "drawerclose_td3_her_saber_results.py", ("her", "saber"),
+)
+DRAWERCLOSE_MAIN = Publication(
+    "DrawerClose-v3", DRAWERCLOSE_EXPERIMENT,
+    DRAWERCLOSE_ARTIFACTS / "drawer_close_td3_main_seed_extension_2m",
+    "drawerclose_td3_main_results.py", ARMS,
 )
 
 
@@ -61,6 +68,8 @@ def completed_keys(queue, publication=DRAWEROPEN):
         assert_close(protocol[key], value)
     if set(queue["arms"]) != set(ARMS):
         raise ValueError("Unexpected queue arms")
+    if publication.required_arms == ARMS and queue.get("status") != "completed":
+        raise ValueError("Require completed final production queue")
     result = set()
     for arm in publication.required_arms or ARMS:
         states = queue["arms"][arm]["seeds"]
@@ -177,14 +186,24 @@ def products(root, publication=DRAWEROPEN):
 
 def make_readme(report, queue, publication=DRAWEROPEN):
     task = publication.task.removesuffix("-v3")
-    title = "Completed Main-Paper Seed Extensions" if not publication.required_arms else "HER and SABER Seed Extension"
+    full_publication = publication.required_arms == ARMS
+    title = ("HER and SABER Seed Extension" if publication.required_arms == ("her", "saber")
+             else "Completed Main-Paper Seed Extensions")
     lines = [f"# {task} TD3: {title}", "",
              f"Snapshot: **{report['snapshot_utc']}**. This is not a live dashboard.", "",
              f"This artifact contains **{report['new_completed_runs']} completed new runs** and "
              f"{report['historical_reference_runs']} historical seed-level references.",
-             "Each new run has 2M environment steps. Only completed runs are exported.",
-             "Unfinished methods are listed as status only; their intermediate curves and results are omitted."]
-    if publication.required_arms:
+             "Each new run has 2M environment steps. Only completed runs are exported."]
+    if full_publication:
+        lines += ["HGR and PER-full seeds 6-10 are newly published. The ten HER/SABER extension runs "
+                  "from the earlier comparison at fb4e55a are reused, not new independent runs.",
+                  "Seeds 1-5 are the retained main-paper references. There are 40 distinct runs "
+                  "across the four methods and ten matched seeds.",
+                  "The complete extension includes zero-final-success runs.",
+                  "[Runtime records](analysis/runtime_metrics.csv) cover all twenty extension runs."]
+    else:
+        lines.append("Unfinished methods are listed as status only; their intermediate curves and results are omitted.")
+    if publication.required_arms and not full_publication:
         lines += ["Only HER and SABER results are included; other methods appear as timestamped status only.",
                   "Seeds 1-5 are reused, not additional executions. The two methods are compared on paired seeds.",
                   "[Runtime records](analysis/runtime_metrics.csv) cover all ten extension runs."]
@@ -243,6 +262,24 @@ def make_readme(report, queue, publication=DRAWEROPEN):
     return "\n".join(lines)
 
 
+def verify_native_report(report, native, protocol):
+    """Match the final queue analysis, excluding fields not exported in the compact table."""
+    assert_close(native["protocol"], protocol)
+    fields = ("arm", "seed", *FIELDS, "hit90_step")
+    expected_rows = sorted(native["per_seed"], key=lambda row: (ARMS.index(row["arm"]), row["seed"]))
+    assert_close(report["per_seed"], [{key: row[key] for key in fields} for row in expected_rows])
+    assert_close(set(report["cohorts"]), set(native["cohorts"]))
+    for label, cohort in report["cohorts"].items():
+        ref = native["cohorts"][label]
+        assert_close(cohort["paired"], ref["paired"])
+        assert_close(set(cohort["summary"]), set(ref["summary"]))
+        for arm, values in cohort["summary"].items():
+            other = ref["summary"][arm]
+            assert_close(values["hit90_reached"], other["hit90_reached"])
+            for metric in FIELDS:
+                assert_close(values[metric], {"mean": other[metric]["mean"], "sd": other[metric]["std"]})
+
+
 def verify(root=None, *, publication=DRAWEROPEN):
     root = publication.artifact if root is None else root
     check_hashes(root, read(root / "provenance.json")["source_files_sha256"])
@@ -291,7 +328,10 @@ def export(workspace, destination=None, *, publication=DRAWEROPEN):
            for a, s in sorted(selected, key=lambda k: (ARMS.index(k[0]), k[1]))]
     rows = [{k: r[k] for k in ("arm", "seed", *FIELDS, "hit90_step")} for r in old + new]
     report = summarize(rows, queue, publication)
-    if publication.required_arms:
+    native_report = origin / "outputs/analysis/report.json"
+    if publication.required_arms == ARMS:
+        verify_native_report(report, read(native_report), queue["protocol"])
+    elif publication.required_arms:
         indexed = {(r["arm"], r["seed"]): r for r in rows}
         for cohort, cs in COHORTS.items():
             for metric, value in report["cohorts"][cohort]["paired"]["saber_minus_her"].items():
@@ -338,7 +378,7 @@ def export(workspace, destination=None, *, publication=DRAWEROPEN):
     write_json(destination / "provenance/queue_snapshot.json", scrub(queue, workspace))
     write_json(destination / "provenance/environment.json", scrub(read(origin / "outputs/validation/environment.json"), workspace))
     shutil.copy2(origin / "protocol.json", destination / "protocol.json")
-    write_json(destination / "provenance.json", {"exported_utc": datetime.now(timezone.utc).isoformat(),
+    provenance = {"exported_utc": datetime.now(timezone.utc).isoformat(),
                "experiment": publication.experiment, "source_files_sha256": sources, "runs": entries,
                "original_snapshot_manifest_sha256": sha(origin / "snapshot_manifest.json"),
                "original_queue_snapshot_sha256": hashlib.sha256(queue_bytes).hexdigest(),
@@ -346,7 +386,10 @@ def export(workspace, destination=None, *, publication=DRAWEROPEN):
                "transformations": ["workspace path replaced with <WORKSPACE> in JSON",
                                    "unavailable optional nonfinite diagnostics serialized as null",
                                    "all 200 evaluation steps retained per completed run; training rows omitted"],
-               "omitted": ["checkpoints", "replay buffers", "raw training logs", "unfinished results", "unexecuted trainers"]})
+               "omitted": ["checkpoints", "replay buffers", "raw training logs", "unfinished results", "unexecuted trainers"]}
+    if publication.required_arms == ARMS:
+        provenance["native_final_report_sha256"] = sha(native_report)
+    write_json(destination / "provenance.json", provenance)
     write_json(destination / "reference_report.json", report)
     for name, value in products(destination, publication).items():
         path = destination / name

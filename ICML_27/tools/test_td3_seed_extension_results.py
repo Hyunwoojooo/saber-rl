@@ -3,7 +3,8 @@ import copy
 import unittest
 
 from td3_seed_extension_results import (
-    ARMS, DRAWERCLOSE_HER_SABER, FIELDS, completed_keys, make_readme, status_snapshot, summarize,
+    ARMS, DRAWERCLOSE_HER_SABER, DRAWERCLOSE_MAIN, FIELDS,
+    completed_keys, make_readme, status_snapshot, summarize, verify_native_report,
 )
 
 
@@ -113,6 +114,54 @@ class PublicationTests(unittest.TestCase):
             queue["arms"]["saber"]["seeds"]["8"].update(update)
             with self.subTest(arm_status=arm_status, update=update), self.assertRaises(ValueError):
                 completed_keys(status_snapshot(queue, study), study)
+
+    def test_drawerclose_final_publication_requires_complete_queue(self):
+        study = DRAWERCLOSE_MAIN
+        queue = queue_fixture(ARMS)
+        queue["protocol"]["task"] = study.task
+        queue["status"] = "running"
+        with self.assertRaises(ValueError):
+            completed_keys(queue, study)
+        queue["status"] = "completed"
+        self.assertEqual(len(completed_keys(queue, study)), 20)
+        queue["arms"]["per"]["seeds"]["10"]["nonfinite_loss"] = ["loss/critic"]
+        with self.assertRaises(ValueError):
+            completed_keys(queue, study)
+
+    def test_drawerclose_final_publication_includes_all_completed_arms(self):
+        study = DRAWERCLOSE_MAIN
+        queue = queue_fixture(ARMS)
+        queue["protocol"]["task"] = study.task
+        queue["status"] = "completed"
+        rows = result_fixture(ARMS)
+        report = summarize(rows, queue, study)
+        self.assertTrue(report["full_queue_completed"])
+        self.assertEqual(report["new_completed_runs"], 20)
+        self.assertEqual(report["historical_reference_runs"], 20)
+        self.assertEqual(report["complete_arms"], list(ARMS))
+        for cohort in report["cohorts"].values():
+            self.assertEqual(set(cohort["paired"]), {"saber_minus_her", "saber_minus_hgr", "saber_minus_per"})
+        readme = make_readme(report, queue, study)
+        self.assertIn("HGR and PER-full seeds 6-10 are newly published", readme)
+        self.assertNotIn("Only HER and SABER results are included", readme)
+        with self.assertRaises(ValueError):
+            summarize(rows[:-1], queue, study)
+
+    def test_drawerclose_final_report_cross_check_rejects_metric_mismatch(self):
+        study = DRAWERCLOSE_MAIN
+        queue = queue_fixture(ARMS)
+        queue["protocol"]["task"] = study.task
+        queue["status"] = "completed"
+        report = summarize(result_fixture(ARMS), queue, study)
+        native = {**copy.deepcopy(report), "protocol": queue["protocol"]}
+        for cohort in native["cohorts"].values():
+            for values in cohort["summary"].values():
+                for metric in FIELDS:
+                    values[metric]["std"] = values[metric].pop("sd")
+        verify_native_report(report, native, queue["protocol"])
+        native["cohorts"]["pooled_1_10"]["summary"]["per"]["auc"]["mean"] = 0.01
+        with self.assertRaises(ValueError):
+            verify_native_report(report, native, queue["protocol"])
 
 
 if __name__ == "__main__":

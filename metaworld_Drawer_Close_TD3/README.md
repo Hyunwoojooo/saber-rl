@@ -2,6 +2,33 @@
 
 This folder contains TD3+HER experiment runners for MetaWorld `drawer-close-v3` with sparse reward, `reward_function_version=v2`, 2M steps, and seeds 1-5. The code is kept as an independent snapshot under `B3_v4_512_s1_5/code/src`.
 
+## Completed Main-Paper Seed Extensions
+
+The [four-method result artifact](paper_artifacts/drawer_close_td3_main_seed_extension_2m/README.md)
+contains the completed HER, SABER, HGR, and PER-full extensions, each with
+seeds 6-10 at 2M steps per seed. The ten HGR/PER-full runs are newly
+published. The earlier HER/SABER extension and the original seeds 1-5 are
+reused; they are not additional independent runs.
+
+| Method | AUC seeds 1-5 | AUC seeds 6-10 | AUC seeds 1-10 | FQ-AUC seeds 1-10 | Final success seeds 1-10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| HER | 0.328744 | 0.410829 | 0.369786 | 0.338300 | 0.350 |
+| SABER (Ours) | 0.548769 | 0.245653 | 0.397211 | 0.358750 | 0.395 |
+| HGR | 0.601608 | 0.526357 | 0.563982 | 0.503400 | 0.510 |
+| PER-full | 0.523769 | 0.280477 | 0.402123 | 0.407950 | 0.485 |
+
+| Pooled AUC contrast | Mean difference | Paired 95% CI |
+| --- | ---: | --- |
+| SABER - HER | +0.027425 | [-0.260776, +0.325419] |
+| SABER - HGR | -0.166771 | [-0.472595, +0.140829] |
+| SABER - PER-full | -0.004912 | [-0.246408, +0.251466] |
+
+HGR has the highest mean AUC in both seed blocks. SABER's mean is lower
+than HER's in the extension and slightly higher in the pooled result.
+All pooled paired AUC intervals include zero. Four of the five new SABER
+runs end at zero success and remain included; all five completed the
+training budget. The full evaluation curves and configurations are retained.
+
 ## Completed HER and SABER Seed Extension
 
 The [HER/SABER result artifact](paper_artifacts/drawer_close_td3_her_saber_seed_extension_2m/README.md)
