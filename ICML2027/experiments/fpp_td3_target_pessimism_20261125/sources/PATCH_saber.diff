@@ -1,0 +1,90 @@
+diff -ru '--exclude=__pycache__' ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/agent.py sources/saber/code/src/metacog_lite_v0/agent.py
+--- ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/agent.py	2026-07-08 11:36:10.270101988 +0000
++++ sources/saber/code/src/metacog_lite_v0/agent.py	2026-11-25 07:16:01.787541710 +0000
+@@ -179,6 +179,7 @@
+         policy_delay: int = 2,
+         target_policy_noise: float = 0.2,
+         target_noise_clip: float = 0.5,
++        target_mix_alpha: float = 0.0,
+     ) -> None:
+         self.device = device
+         self.gamma = float(gamma)
+@@ -187,6 +188,8 @@
+         self.policy_delay = max(1, int(policy_delay))
+         self.target_policy_noise = float(target_policy_noise)
+         self.target_noise_clip = float(target_noise_clip)
++        # target = min(Q1', Q2') + alpha * |Q1' - Q2'|: alpha 0 is TD3's clipped double Q, 0.5 the mean of the two
++        self.target_mix_alpha = float(target_mix_alpha)
+         self.total_it = 0
+         self.action_low_np = np.asarray(action_low, dtype=np.float32)
+         self.action_high_np = np.asarray(action_high, dtype=np.float32)
+@@ -237,6 +240,8 @@
+             target_q1 = self.critic1_target(next_state, next_action)
+             target_q2 = self.critic2_target(next_state, next_action)
+             target_q = torch.minimum(target_q1, target_q2)
++            if self.target_mix_alpha > 0.0:
++                target_q = target_q + self.target_mix_alpha * (target_q1 - target_q2).abs()
+             target = reward + self.gamma * nonterminal * target_q
+ 
+         q1 = self.critic1(state, action_exec)
+@@ -295,7 +300,10 @@
+         next_action = torch.max(torch.min(next_action, self.action_high_t), self.action_low_t)
+         target_q1 = self.critic1_target(next_state, next_action)
+         target_q2 = self.critic2_target(next_state, next_action)
+-        target = reward + self.gamma * nonterminal * torch.minimum(target_q1, target_q2)
++        target_q = torch.minimum(target_q1, target_q2)
++        if self.target_mix_alpha > 0.0:
++            target_q = target_q + self.target_mix_alpha * (target_q1 - target_q2).abs()
++        target = reward + self.gamma * nonterminal * target_q
+         q1 = self.critic1(state, action_exec)
+         q2 = self.critic2(state, action_exec)
+         return torch.minimum((q1 - target).abs(), (q2 - target).abs())
+@@ -328,6 +336,7 @@
+             'policy_delay': self.policy_delay,
+             'target_policy_noise': self.target_policy_noise,
+             'target_noise_clip': self.target_noise_clip,
++            'target_mix_alpha': self.target_mix_alpha,
+             'total_it': self.total_it,
+             'last_actor_loss': self._last_actor_loss,
+         }
+diff -ru '--exclude=__pycache__' ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/config.py sources/saber/code/src/metacog_lite_v0/config.py
+--- ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/config.py	2026-07-08 11:36:10.270101988 +0000
++++ sources/saber/code/src/metacog_lite_v0/config.py	2026-11-25 07:16:01.787583230 +0000
+@@ -101,6 +101,7 @@
+     td3_policy_delay: int = 2
+     td3_target_policy_noise: float = 0.2
+     td3_target_noise_clip: float = 0.5
++    td3_target_mix_alpha: float = 0.0
+ 
+     eval_freq: int = 10_000
+     eval_episodes: int = 20
+diff -ru '--exclude=__pycache__' ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/trainer.py sources/saber/code/src/metacog_lite_v0/trainer.py
+--- ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/metacog_lite_v0/trainer.py	2026-07-08 11:36:10.270101988 +0000
++++ sources/saber/code/src/metacog_lite_v0/trainer.py	2026-11-25 07:16:01.787657822 +0000
+@@ -55,6 +55,7 @@
+             policy_delay=config.td3_policy_delay,
+             target_policy_noise=config.td3_target_policy_noise,
+             target_noise_clip=config.td3_target_noise_clip,
++            target_mix_alpha=config.td3_target_mix_alpha,
+         )
+     return DDPGAgent(
+         state_dim=state_dim,
+diff -ru '--exclude=__pycache__' ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py sources/saber/code/src/train_fetch_pick_and_place_lite_v0.py
+--- ../../../experiment_FPP/td3_saber_critic_only_v4_ls512/code/src/train_fetch_pick_and_place_lite_v0.py	2026-07-08 11:36:10.270101988 +0000
++++ sources/saber/code/src/train_fetch_pick_and_place_lite_v0.py	2026-11-25 07:16:01.788040927 +0000
+@@ -65,6 +65,7 @@
+     parser.add_argument("--td3_policy_delay", type=int, default=2)
+     parser.add_argument("--td3_target_policy_noise", type=float, default=0.2)
+     parser.add_argument("--td3_target_noise_clip", type=float, default=0.5)
++    parser.add_argument("--td3_target_mix_alpha", type=float, default=0.0)
+ 
+     parser.add_argument("--eval_freq", type=int, default=10_000)
+     parser.add_argument("--eval_episodes", type=int, default=20)
+@@ -156,6 +157,7 @@
+         td3_policy_delay=args.td3_policy_delay,
+         td3_target_policy_noise=args.td3_target_policy_noise,
+         td3_target_noise_clip=args.td3_target_noise_clip,
++        td3_target_mix_alpha=args.td3_target_mix_alpha,
+         eval_freq=args.eval_freq,
+         eval_episodes=args.eval_episodes,
+         checkpoint_every_steps=args.checkpoint_every_steps,

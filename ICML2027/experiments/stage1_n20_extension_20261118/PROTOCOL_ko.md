@@ -91,3 +91,43 @@ Drawer 조건은 이 PC에서 실행 시간을 측정한 뒤 다음 묶음으로
 - **Drawer SAC 관찰값:** 관찰 벡터의 마지막 세 성분에 원래 목표가 들어 있다(기존 README에 기록된 사항). 두 arm이 같은 구현을 쓰므로 그대로 둔다.
 - **DrawerClose DDPG 과거 기록:** 과거 seed 1–5의 정확한 config는 남아 있지 않다. 그래서 seed 6–10 확장 실행을 기준으로 삼았다.
 - **예상 실행 시간:** 기존 기록 기준으로 SAC는 HER 18시간·SABER 27시간, DrawerClose DDPG는 HER 11.4시간·SABER 19.5시간이다. 이 PC에서 18개를 동시에 돌리면 약 1.3배 느려진다고 보고, 전체 약 3,100 실행-시간, 약 8일로 예상한다.
+
+## 8. 두 번째 묶음 변경: SAC 두 조건 보류 (2026-11-25, 중단 전에 기록)
+
+**결정:** DrawerOpen SAC와 DrawerClose SAC의 20쌍 실행을 보류한다. DrawerClose DDPG는 그대로 20쌍을 돌린다. 대신 DrawerOpen TD3 20쌍(9절)과 FPP TD3의 Q 수준 검정(`../fpp_td3_target_pessimism_20261125/`)을 먼저 돌린다.
+
+**결정 시점의 상태 (2026-11-25 07:11 UTC)**
+- SAC SABER seed 11–19는 두 조건 모두 끝났다(18개). seed 20–28은 2M 중 7만–27만 step까지 진행됐다(18개). seed 29–30과 SAC HER 40개, DrawerClose DDPG 40개는 시작하지 않았다.
+- 새 seed의 HER 실행은 하나도 없다. 따라서 이 세 조건에서 새 seed의 SABER − HER 차이는 관찰된 적이 없다. 끝난 SABER 18개의 성능도 집계하지 않았다.
+
+**사유 (모두 새 seed의 결과와 무관하다)**
+1. **비용.** SAC SABER 한 개가 예상 35시간이 아니라 59–64시간 걸렸다. 남은 SAC 실행만 장비 전체로 약 7일이다.
+2. **우선순위.** 0단계 값으로 보면 DrawerOpen SAC는 10쌍에서 +0.008 [−0.059, +0.076]이고 DrawerClose SAC는 5쌍에서 −0.157이다. 20쌍 결과가 어느 쪽이어도 논문의 주장 범위를 넓히지 못한다. 0단계에서 추정 이득이 20쌍 예상 구간 반폭을 넘고 seed 6–10에서도 유지된 조건은 DrawerOpen TD3 하나다(10쌍 +0.321, seed 6–10만 +0.406, 예상 반폭 ±0.21).
+3. **7절 선정 기준의 정정.** 7절은 "흩어짐이 작은 조건부터"로 골랐다. 판정이 날 가능성은 흩어짐이 아니라 흩어짐 대비 이득 크기로 정해진다. 이 기준으로 순서를 다시 정했다.
+
+**처리**
+- 끝난 SAC SABER 18개(`outputs/runs/{draweropen,drawerclose}_sac/saber/*_s11..s19_2m`)는 그대로 둔다. 나중에 SAC를 이어 돌리면 이 실행을 그대로 쓴다.
+- 진행 중이던 seed 20–28의 18개는 중단하고, 폴더와 로그를 `outputs/aborted_20261125_sac_saber_partial/`로 옮긴다. 분석에 쓰지 않는다. 이어 돌릴 때는 처음부터 다시 돌린다.
+- 기존 launcher 상태 파일은 `superseded_` 접두어를 붙여 남긴다.
+- SAC를 이어 돌릴 때의 규칙(seed 11–30, `analyze.py`, 4절 판정)은 바뀌지 않는다. 그 전까지 이 두 조건의 서술은 0단계 값(10쌍, 5쌍)에 근거한다.
+
+## 9. DrawerOpen TD3 추가 (2026-11-25, 이 조건의 1단계 실행 시작 전에 고정)
+
+| 조건 | 코드 (origin/main 76753b2에서 추출, `sources/draweropen_td3/<arm>`) | 기준으로 삼은 기존 실행 | 길이 |
+|---|---|---|---|
+| DrawerOpen TD3 | `metaworld_Drawer_Open_TD3/paper_artifacts/drawer_open_td3_main_seed_extension_2m/source_snapshot` | seed 6 확장 실행의 argv (`templates/draweropen_td3_*_seed6_launch_record.json`) | 2M |
+
+**실행 방식**
+- DrawerClose DDPG와 같다. 기록된 argv를 그대로 쓰고 seed 6개, `--run_name seed_XX`, `--output_root`만 바꾼다. HER와 SABER 코드 트리는 서로 같다.
+- 한 가지를 더 바꿨다. `--no_save_step_checkpoints`를 뺐다. 50k step마다 checkpoint 사본을 남겨 나중에 critic을 측정할 수 있게 하기 위해서다. 파일을 더 쓸 뿐 학습 계산은 같다.
+- 2026-11-25에 seed 11, 12,000 step, cpu로 두 arm을 짧게 돌려 `config.json`을 main의 seed 6 기록과 대조했다. 132개 항목 중 다른 것은 seed, run_name, output_root, save_step_checkpoints와 시험용으로 바꾼 device·total_steps뿐이었다.
+- seed 11–30, cuda, thread 1개, 동시 실행 상한 18. 실패 처리는 3절과 같다.
+
+**분석:** `analyze.py --cells draweropen_td3`. 지표와 판정 규칙은 4절·7절과 같다(AUC 구간 [10k, 2M]).
+
+**미리 적어 두는 점**
+- 이 조건의 실행은 대부분 끝까지 실패하거나(AUC 0) 50만–90만 step에 풀린다(AUC 0.6–0.76). seed 1–10에서 풀린 실행은 HER 2/10, SABER 7/10이다. 그래서 AUC 차이는 사실상 풀린 비율의 차이다.
+- 같은 seed 1–10에서 PER-full은 6/10, HGR은 4/10이 풀렸다. 이 실행은 HER와 SABER만 비교하므로, SABER > HER로 판정되더라도 SABER가 다른 가중 방법보다 낫다는 뜻은 아니다.
+- 기존 기록의 실행 시간은 HER 11.2시간(5개 동시)이다. 이 PC에서 18개를 동시에 돌릴 때의 시간은 재지 않았다.
+
+**실행 순서 (2026-11-25):** FPP TD3 target 검정(`../fpp_td3_target_pessimism_20261125/`) → DrawerOpen TD3 → DrawerClose DDPG. 앞 묶음에 새로 시작할 실행이 없어지면 다음 묶음이 빈자리를 채운다(`launch.py run --after`).

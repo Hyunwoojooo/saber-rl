@@ -19,13 +19,15 @@ OUT = REPO / "ICML2027" / "paper_artifacts" / "stage1_n20_extension_20261118"
 SEEDS = tuple(range(11, 31))
 STEPS = {"fpp_ddpg": 1_000_000, "fpp_sac": 1_000_000,
          # Drawer cells added 2026-11-22 before any Drawer stage-1 run started (PROTOCOL_ko.md section 7)
-         "draweropen_sac": 2_000_000, "drawerclose_sac": 2_000_000, "drawerclose_ddpg": 2_000_000}
+         "draweropen_sac": 2_000_000, "drawerclose_sac": 2_000_000, "drawerclose_ddpg": 2_000_000,
+         # added 2026-11-25 before any DrawerOpen TD3 stage-1 run started (PROTOCOL_ko.md section 9)
+         "draweropen_td3": 2_000_000}
 
 
 def run_glob(cell: str, arm: str, s: int, T: int) -> str:
     if cell.endswith("_sac") and cell.startswith("drawer"):
         return f"*_sac_{arm}_s{s}_2m/summary.json"
-    if cell == "drawerclose_ddpg":
+    if cell in ("drawerclose_ddpg", "draweropen_td3"):
         return f"seed_{s:02d}/summary.json"
     return f"*_s{s}_{T}_*/summary.json"
 

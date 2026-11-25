@@ -47,7 +47,10 @@ CELLS = {
     "drawerclose_sac": {"her": ({"kind": "drawer_sac", "task": "drawer_close"}, 23.0),
                         "saber": ({"kind": "drawer_sac", "task": "drawer_close"}, 34.0)},
     "drawerclose_ddpg": {"her": ({"kind": "dc_ddpg"}, 20.0), "saber": ({"kind": "dc_ddpg"}, 30.0)},
+    # added 2026-11-25 (PROTOCOL_ko.md section 9), sources from origin/main 76753b2
+    "draweropen_td3": {"her": ({"kind": "do_td3"}, 20.0), "saber": ({"kind": "do_td3"}, 35.0)},
 }
+ARGV_TRAINER = {"dc_ddpg": "train_drawer_close_lite_v0.py", "do_td3": "train_drawer_open_lite_v0.py"}
 DDPG_SEED_ARGS = {"--env_seed": 0, "--torch_seed": 0, "--numpy_seed": 0, "--action_noise_seed": 0,
                   "--weight_seed": 20000, "--eval_seed": 10000}
 
@@ -58,7 +61,7 @@ def code_dir(cell: str, arm: str) -> Path:
         return spec / "code" / "src"
     if spec["kind"] == "drawer_sac":
         return SOURCES / "drawer_sac" / "code" / "src"
-    return SOURCES / "drawerclose_ddpg" / arm / "code" / "src"
+    return SOURCES / cell / arm / "code" / "src"
 
 
 def package_module(folder: Path):
@@ -88,15 +91,18 @@ def build(cell: str, arm: str, seed: int, device: str) -> tuple[list[str], Path]
                "--seed", str(seed), "--output-root", str(root), "--device", device]
         return cmd, root / f"{folder['task']}_sac_{arm}_s{seed}_2m"
     if isinstance(folder, dict):
-        # DrawerClose DDPG: the recorded argv of the executed seed-6 extension run, with only seed values,
-        # run name and output root replaced
-        argv = list(json.loads((HERE / "templates" / f"drawerclose_ddpg_{arm}_seed6_launch_record.json").read_text())["argv"])
+        # DrawerClose DDPG / DrawerOpen TD3: the recorded argv of the executed seed-6 extension run, with only
+        # seed values, run name and output root replaced
+        argv = list(json.loads((HERE / "templates" / f"{cell}_{arm}_seed6_launch_record.json").read_text())["argv"])
+        if folder["kind"] == "do_td3":
+            # keep a copy of the checkpoint every 50k steps for later critic measurements (writes files only)
+            argv.remove("--no_save_step_checkpoints")
         for flag, offset in DDPG_SEED_ARGS.items():
             argv[argv.index(flag) + 1] = str(offset + seed)
         argv[argv.index("--run_name") + 1] = f"seed_{seed:02d}"
         argv[argv.index("--output_root") + 1] = str(root)
         argv[argv.index("--device") + 1] = device
-        return [str(PYTHON), str(code_dir(cell, arm) / "train_drawer_close_lite_v0.py"), *argv], root / f"seed_{seed:02d}"
+        return [str(PYTHON), str(code_dir(cell, arm) / ARGV_TRAINER[folder["kind"]]), *argv], root / f"seed_{seed:02d}"
     mod = package_module(folder)
     kw = dict(seed=seed, steps=None, device=device, output_root=str(root), smoke=False, validate_only=False)
     if "verify_runtime_optimization" in inspect.signature(mod.build_command).parameters:
@@ -177,6 +183,16 @@ def cmd_run(a) -> None:
         (OUT / "pip_freeze.txt").write_text(subprocess.run([str(PYTHON), "-m", "pip", "freeze"], capture_output=True, text=True).stdout)
     pending, running, failed, done = list(todo), {}, [], []
     status = OUT / f"launcher_status_{tag}.json"
+    if a.after:
+        # queue behind another launcher: start only once that launcher has nothing left to start
+        def other_ready() -> bool:
+            try:
+                s = json.loads(Path(a.after).read_text())
+            except (OSError, ValueError):
+                return False
+            return not s["pending"] or bool(s["failed"])
+        while not other_ready():
+            time.sleep(60)
 
     def write_status():
         status.write_text(json.dumps(dict(updated=datetime.now().isoformat(timespec="seconds"),
@@ -250,6 +266,7 @@ def main() -> None:
     r.add_argument("--max-total", type=int, default=14)
     r.add_argument("--adopt-existing", action="store_true",
                    help="skip runs whose folder exists and watch them instead (after stopping an earlier launcher)")
+    r.add_argument("--after", default=None, help="status JSON of another launcher; wait until its pending list is empty")
     r.set_defaults(fn=cmd_run)
     sub.add_parser("status").set_defaults(fn=cmd_status)
     a = ap.parse_args()

@@ -1,0 +1,31 @@
+{
+  "steps": 8000,
+  "ok": true,
+  "arms": {
+    "saber": {
+      "alpha0_bit_identical": true,
+      "alpha05_differs": true,
+      "n_tensors": 30,
+      "config_keys_differing_alpha0_vs_frozen": {
+        "td3_target_mix_alpha": [
+          "<absent>",
+          0.0
+        ]
+      },
+      "alpha_recorded": 0.5
+    },
+    "her": {
+      "alpha0_bit_identical": true,
+      "alpha05_differs": true,
+      "n_tensors": 30,
+      "config_keys_differing_alpha0_vs_frozen": {
+        "td3_target_mix_alpha": [
+          "<absent>",
+          0.0
+        ]
+      },
+      "alpha_recorded": 0.5
+    }
+  },
+  "checked": "2026-11-25T07:19:36"
+}
