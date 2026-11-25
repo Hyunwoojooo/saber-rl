@@ -1,0 +1,11 @@
+{
+  "checkpoint": "/home/mimiclab-gigabyte-gen5/Hyunwoo/saber-rl/ICML2027/experiments/fpp_td3_primary_checkpoint_rerun_20261110/outputs/runs_n20/td3_saber_critic_only_v4_ls512/fetch_pick_and_place_td3_saber_critic_only_v4_ls512_s21_1000000_ls512/checkpoint_step_300000.pt",
+  "arm": "saber",
+  "seed": 21,
+  "step": 300000,
+  "gamma": 0.98,
+  "horizon": 300,
+  "last_eval_success": 0.3,
+  "n": 64,
+  "seconds": 30.98182746814564
+}
