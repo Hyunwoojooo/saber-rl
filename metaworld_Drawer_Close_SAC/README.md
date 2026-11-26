@@ -8,6 +8,12 @@ for seed-level metrics, full evaluation curves, paired CIs, execution environmen
 source provenance and SHA256 verification. All seeds, including collapsed and
 zero-final-success runs, are retained. An early Hit90 does not imply stable success.
 
+## Seed Extension
+
+The [10-seed HER results](paper_artifacts/drawer_close_sac_main_seed_extension_2m/README.md)
+add five fresh 2M-step runs (seeds 6-10) and report seeds 1-5, 6-10, and 1-10 separately.
+Only the completed HER extension is included. No new SABER, HGR, or PER results are reported here.
+
 Exact executed auto-temperature SAC code is preserved in the
 [HER/SABER source](../ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/)
 and [HGR/PER source](../ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source/).

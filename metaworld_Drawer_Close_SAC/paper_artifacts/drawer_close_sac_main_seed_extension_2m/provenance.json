@@ -1,0 +1,287 @@
+{
+  "exported_utc": "2026-11-26T08:26:38.267093+00:00",
+  "experiment": "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension",
+  "published_methods": [
+    "her"
+  ],
+  "sources": {
+    "her_saber": "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source"
+  },
+  "source_files_sha256": {
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/PROTOCOL.md": "fd0efd8e724e7d03d98c1eba24f07c09f21a7b223cf3a2992dbbb36e174e098d",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/README.md": "885b232a4a6f76756a6f147b62bf5af7763e8fa9adf8b682fc1a4a3d94d9b51b",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/analyze.py": "ff1829c5d20be15c34e6eacd2fa8ac08b2262e101ac4f1ba9ecd2970a69d750b",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/agent.py": "b8cbc76ae5bbe11e1f8d23664ab149d9d51af6d39e95f4cab43cae6c1ae6353b",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/config.py": "e3412ec6c51a4c125e3f99e5ddd624dc52187a8313093493f7a52516e0af64bd",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/drawer_adapter.py": "837b89b82374ef89dc240310d2e9d2a3a673561454375295129cdca8d0a7f871",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/envs.py": "695e927303cf74d97504dce43befaf805c2422db4bb82415ee88386d8cb50065",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/io_utils.py": "5f0d42547df9a67dbf3cad8664132f2339531c1e66b997e19dd5d5e77ee3b455",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/numba_support_scan_fpp.py": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_drawer_close.py": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_drawer_open.py": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/trainer.py": "ccee4639e2e41b38bec9b6623ab4198d31785d3e812f831bd24b31a289e4ed3c",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/code/src/metacog_lite_v0/weights.py": "f83133e01fffbc9430382e558dd00dd3fc9439823f142b472eff613ffbe38aad",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/freeze_upstream.py": "f5cb5d5f74b89ced01dba4549bbd1d9821224672d2df6d206e57fe32528f315e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/gates.py": "fe4634ea839030f317bce0def1d690fbfa9d94d4ed59dc4f99ba0e25fc9c6fd5",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/gpu_validate.py": "222c00f7d30374ee36edd12876914ebd576d5fa070ca7201fa6027d4e293e15a",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/launch.py": "47254564c9408b4f05b70ca012b0a60b5975f2a9e1d9e9554582bf86d2b1350a",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/manifest.py": "1639b3cb9b4d423413cd7ebee9178187c9acc5aea8795d22debf40ab56d47081",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/protocol.json": "242508feaaa4015e3a80e536a59fd30e1fdc554419a9ede753196bf66a0ca984",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/protocol.py": "e3a413aac865ed7de4cd4f97fc1baa35bc5a124743b1e448761925f07216ecf8",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/recovery/README.md": "b2406e2470da5e779cc064f5c48aa857efb9e9c46fcbaf468558fb227f93cf94",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/recovery/manage.py": "dedc4ec14e88d17a2e692f52a788e632ee1f6da97abb33ed04b5ae76ce554f3c",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/recovery/plan.json": "041863a69d216708522257e32bffb2d56a359b6ca90e114b37ef993d88310664",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/recovery/test_recovery.py": "a0b85265fd2e932d0b1011ad6b5b25de584b5750f128436e27c78435e954de19",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/recovery_manifest.json": "e4deec7afd36863bd42da072a8642798c946a247c5e77a653fc245596b1c23c4",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/schedule_spec.json": "531073b9711b9166186ff49d6e8c5352bbcd7ee2f9b7e19ad680965c66ddb3a6",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/scheduled_run.py": "32adbd994efdc68ab2519335f5db6b29df752899b43a0233b8a2728f07b5e3b6",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/source_manifest.json": "bc9377ff0628c1048124909a7c32b6a25a0c29fb0e89a5b2f5a856a73f40cede",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/tests/test_contract.py": "5dc3ebc07b7d2ecde60490342b9fd497eea324e0b557907668982b110b82c01e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/tests/test_schedule.py": "a47c6a3b7328b431fd7e9f44d5f4ab727ef44a5d20e23bd19d8c2be03b10c587",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/train.py": "28cd971eb32fba66a19bf5541ef246459324a286730bf3796503742b1d891e41",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/DDPG-HER-B3-Critic-Only-2M.sh": "25020650d687c45a7071e46b91b32de51f34b07dce7f19f5388820701ddb302d",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/agent.py": "45fbfa729a1063996c9b605de129a85998eda633d543aed07d83d8571160e72e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/config.py": "8ed79c1dfa269e7bffeab67b445ea3b4ff7c3e6c6761ae4109d95e3d7eda71e6",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/envs.py": "72c2dff8dc16c330b1d82f310ebb5a50b69ac7c3446292e5d48c8dfa988057e8",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/io_utils.py": "066ad2ebf749be17a86cc30c89f04c8e59bfe378b7a620f50070e59ff02cc05e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/numba_support_scan_drawer_open.py": "b46bbbce00e47a1eb6f26b40d575ffbeabcde879a8608c81e848c3bce30fbb36",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/numba_support_scan_fpp.py": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_drawer_close.py": "453c85555181e58dfa1ecd28af8bd1a886d9e969fa524c620844b07f8c17c296",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_drawer_open.py": "f06339262d30a7d1f51880195057374a656c3e7dbedcde72be20de6a47972a6a",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/trainer.py": "1639baae63c8937dc890125e3d4a51dad186bb84bcb9e27829c80a33f761996c",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/drawer/code/src/metacog_lite_v0/weights.py": "e061a2fbaa5328975a4990ed59f1841df991a326422c0937605c6a3e626153b0",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/__init__.py": "45f7b6fa7df24becccb4518e501631b4ab035e54731d847374d229cf02c73aae",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/agent.py": "d65bcc588f92e1f73202390c5c6b2b5860fb1f77ba5fcfe7acf68b8bbc54769e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/config.py": "13e6de73c756c980e483f744d7ca5e9648dfaec0bebf617795a63b0e849aea20",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/envs.py": "2a12222b061712075a39d095cb0d7922728ca617a056c036fc21aaa9e70d37cb",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/envs_maniskill.py": "7bd59df5269f2c75d470430ff02a0737a2cceb63ad902ddf6fab9230f30c8390",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/io_utils.py": "84960bcf0643e100f11a265463229c3ae5639bf514be65bb4cf476c9be25d242",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/networks.py": "cc4fc92714008c5208abf8a60531f79ac0d359e1db129842943624bde0a024c3",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/numba_support_scan_fpp.py": "f1118b572946dc6b9ebe662353e4134e5ca47db413c70201ad569803dbd56ec9",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/replay.py": "ab57b65983f988abd5fda3709fda08ba61960b4e4c9bd35b27429bda7d8b0363",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/task_fetch_pick_and_place.py": "7581cc5cde139355617a426d2b10f3e51c72ffe67953bfed1be10a8aaebf9318",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/task_fetch_push.py": "63359e03725fccfca5e916183ccef93b28d5622f965a073c23a532400da9192e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/task_fetch_slide.py": "9929f00b7389f477e24edc1f55560dd7ce0e641474222a95dc7e3233c022550d",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/task_pick_cube.py": "f7ac878d5d8fc54598d9999fb0a2ec7f0a34bab7af435384bff74becbfb5ae23",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/task_push_t.py": "cb867e0e289f4a4dcc90183c2beff730cb6c78f0f5c1138d8cf096b1456875c2",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/task_unitree_apple.py": "b9bf6d6381a526830f474d7af214061f7439f5b77c6b48e1d3196fa228ffdcb8",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/trainer.py": "6a4bc953a91d93a8f91b1a30e21d687c557d80f6bc6e494646d71e4813c9d69e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/code/src/metacog_lite_v0/weights.py": "823bede077e45aa8596275560414dd4be95371a05b35db3240dcf86d72082223",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream/fpp/config.json": "5184571b0bfe4660aab7d687f4acb790ce7c0a11e2ac9d87ef084c7ac87a5e7e",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/upstream_manifest.json": "304ed5a16dfef211a4950baa2f4c27511e4f2dcc9f93518f6654392f6106868c",
+    "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source/validate.py": "a97fde0c1a65d0883c2da98a9d4dee2c33f63d58f1f36ebff49762ebd4dc083b"
+  },
+  "runs": [
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 1,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1",
+      "published_directory": "data/historical_1_5/her/seed_1",
+      "original_files_sha256": {
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1/completion.json": "7330e8204fd83295d6aaf44763d56203279c1da8eaa0b6665a7346b998db55d2",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1/config.json": "f4c41bc937849dd71181a8b80ada53b666c8f4ebf5d593bc01c49ea1461ae772",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1/env_snapshot.json": "d47e8a5d59df247d0df7e79968404a2a14a4843edb5eaa0b925b44df781f9bc6",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1/evaluations.csv": "689bfa6a1ddfcf8c8adcf112942d225c68c6ae557b11836e99a4cc3824707aaf",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_1/summary.json": "8ad9671d9f8a7fb4783e1ef14bafca0cf40fc8a60e8b3ad80fca0e6d7f76c27a"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 2,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2",
+      "published_directory": "data/historical_1_5/her/seed_2",
+      "original_files_sha256": {
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2/completion.json": "d6e375fddc5b877863f0f5193fb24604d10a5378d77059abd212b014c0cf2f62",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2/config.json": "4614b580f72b02a7826278a6962e206b7153fea753ca49c9b6a03bda738999ab",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2/env_snapshot.json": "1f17e175d1fa34bbe88187e50bccfa515e22628b49da68806580eedae71961f9",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2/evaluations.csv": "5712220ce97b115199110b8d8ccb5a0fb9b1132056abcad0e058e4c35783c1e7",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_2/summary.json": "6b2cb9f6fbc67ef75a8e83ff0b5061ae6595f051cbf6186bf8ddcef23469ffc3"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 3,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3",
+      "published_directory": "data/historical_1_5/her/seed_3",
+      "original_files_sha256": {
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3/completion.json": "fe9a8e644d522582f8202878b4523ec5969b4cd92077213f8b15f64f17061ed1",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3/config.json": "c5a816c37a500181df0e897dbcc9644e5d4852f382c03e8d5536e265ec04ddfc",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3/env_snapshot.json": "ff7eceff1eebee23f72d1f0274bfc9f4d933e123193ebf96ce77c00573249363",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3/evaluations.csv": "0124b7bcfc62ee5f64f74d7ed9ceb63af6c6be1068cf73f7a15d74b985ffa52c",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_3/summary.json": "96983525d4a3ebbb698be9c2f05087c3392a3dd3a2c371b3bbdaee05f14e03a9"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 4,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4",
+      "published_directory": "data/historical_1_5/her/seed_4",
+      "original_files_sha256": {
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4/completion.json": "76a4c372f888166926d735be9696198354a238f8fa1552e9c2d5586472d01235",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4/config.json": "91a018fe21dda279915a4ad4108de8ec591c75eee345baf5097cf8f67643dad4",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4/env_snapshot.json": "369f1e9d48584e5b903c4eec90ca7331fe52ae4e3610f77cf8d7950c3a4e995a",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4/evaluations.csv": "a2454629585a10941c2aeeaba091859ca7ca091dadfdb66c30e76b1db690d3f7",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_4/summary.json": "273ef8076035cdbac966da9b108ad0d4cdc579c2a4675d2a1c0327e263c5e999"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 5,
+      "cohort": "historical_1_5",
+      "checkpoint_continuation": false,
+      "original_directory": "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5",
+      "published_directory": "data/historical_1_5/her/seed_5",
+      "original_files_sha256": {
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5/completion.json": "b80050583d34053d6f6fd2f78abd00857ca6783dba3a4f01daa21edfae2d4322",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5/config.json": "ebdab4e85052baec56ac649356b923e2bc7b3fb03abc083777b95b57b3bbbccf",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5/env_snapshot.json": "b4171afeb0e285c567599b4bbdc49d3c3e68a729cd6e35a7b6b6f13b099cea65",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5/environment.json": "fb8e1b8c3d0c8f58583eacb86585911c598a1b768f5d5342722218aaac2392de",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5/evaluations.csv": "e16ab0920ba2b280903ff790192c837afe03ef5d216066231908a687d06f6cd0",
+        "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m/data/her/seed_5/summary.json": "82c2ed3bb5d999e558ffd803eddc995d3e5cad8854ff94c8ae7b3dc757c7252d"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 6,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_06",
+      "published_directory": "data/extension_6_10/her/seed_6",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_06/config.json": "e6c19c06290b29ef0c863c605cd5202d6770b11b191a4b91584b9f6c5baf5d52",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_06/summary.json": "209308f26e782428956729914da351b147d6bc79fecb2b93e06e784100f35b3c",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_06/env_snapshot.json": "1aa404ecbbd3b091d297a0a540aea20f1015a5feb5c325b6315c8c8b591f9d3b",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_06.claim.json": "624ff7bc2a022c59a3b99b97ffd12ad8124fa636bf0f626c0db8db3967f2dfae",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_06/metrics.csv": "153d27469f17b6a96869bb6af0d681208729915923b2a4140ea44236d1d67023"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 7,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_07",
+      "published_directory": "data/extension_6_10/her/seed_7",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_07/config.json": "655d73cf60bbbd17485ab9442af3f96fdca7bdd24da5b8f85b892a522eba2ea9",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_07/summary.json": "1d230b8e7125a5df29a9cd4c0c4a7f132fb098c84db98eafd79d0a6d4f6d6231",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_07/env_snapshot.json": "343eb2eebf4d4037c222d7cb8b54e82cabce85908474768424820f7839d93506",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_07.claim.json": "20efb94a19e13c381acc6a92802ce281557af0d31b2eb4dd7d432d6632322c55",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_07/metrics.csv": "90b74e135c96a3e809b7630013a6b41e895274ed3006fbd6487d77114ef912f7"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 8,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_08",
+      "published_directory": "data/extension_6_10/her/seed_8",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_08/config.json": "37c94eb80cb2de6ed150512c3a13c83b570de98119aa12a63b8a36d49865e1b2",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_08/summary.json": "882d5909f8309e70bad144213f1437e129356eebf1e462a9b011b021c206a42c",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_08/env_snapshot.json": "80a05a3d002f40e430aba93d655e8e538e9ce57ddf2b6912be08241f4028f6b7",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_08.claim.json": "7b7b290280c89d9a2192471cf35be5f5a9c8838eb24ee41d1d4cee1d266e29b4",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_08/metrics.csv": "4cdd1a75e5d829c8d7fb1599e44e56fb8808e69142f1aa29971fc3a0bd7ace59"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 9,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_09",
+      "published_directory": "data/extension_6_10/her/seed_9",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_09/config.json": "a92f19cae54bc18b01a8e1e7a859ad696cd8c532411ba14bd8c165259d18af58",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_09/summary.json": "78098cac3913fd57ed3ed069505d6d94935628876ffc112a2adad1e93e199f51",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_09/env_snapshot.json": "511c96f6ab1334fd077b3438cdf698f5783391f21889bd3c01ae52c73544eb41",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_09.claim.json": "4a55107861cf77a3bf8f8bb9446bc0f8aa73e243003ab74cbd124bfc0cf6be76",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_09/metrics.csv": "d32a52eff29977808fd82be0e2c640c6a092cde992252fda5ac5646bc55da7ba"
+      }
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 10,
+      "cohort": "extension_6_10",
+      "checkpoint_continuation": false,
+      "original_directory": "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_10",
+      "published_directory": "data/extension_6_10/her/seed_10",
+      "original_files_sha256": {
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_10/config.json": "4af4648d3f971bc46e0c9530c50f339530c3c9efba21836bd410fe8642840cea",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_10/summary.json": "76565608fe2b101e2114de4dde03f5c713feb8a4da3447e12ca255f3bceff61a",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_10/env_snapshot.json": "41f550439e311be8929aa2c6074fdeae04f202d63a8507344a2cfd2d43856574",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_10.claim.json": "04c4f0945205fc19bf11b85c782254cbe78139811d7383f76ffc2d701759b614",
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension/outputs/production/her/seed_10/metrics.csv": "c2d366063442119fc777f2b4872a5dc321a3c85bc42e0620240aeab26c90c6e0"
+      }
+    }
+  ],
+  "original_snapshot_manifest_sha256": "3580f25ca661ec115497ab25f5634cc257eec2043a08150ea59d2ea12d3743db",
+  "approved_launcher_hashes": {
+    "analysis.py": "90917493df93cf6a80c8e6cab2d2b692dbf3fd07aab9ca5144f4bb10ca319ce0",
+    "common.py": "be0b864d6242abe5b83691981d53d88373d20824691e6712c3db662969138fba",
+    "prepare.py": "4250c8b82e50967371f08f29db6abb31a2c3c8365fec57562ceb613e2cafc532",
+    "protocol.json": "d589205dab8aab61481f5a8c5685a4168a21a50233b227c9df47644171f9b1a6",
+    "schedule.py": "027b8f2fa8636479717bcdd7345bd809058bc6ba1be6166d02f9403adca650f2",
+    "snapshot_manifest.json": "3580f25ca661ec115497ab25f5634cc257eec2043a08150ea59d2ea12d3743db",
+    "test_extension.py": "9d9ec5d3ee188ab0c42f52fa7f19dcec034b135fd07c110318b38a0bf51a9988",
+    "validate.py": "3d4ab2d4da6bef9ca7780ac79ac2d32ea54af116a3507f6d9f72428ba8f1330d",
+    "worker.py": "17a5662aa60b24dd843c42a04ff0dd173e99461e5537444e9998cb8ee803e4e0"
+  },
+  "historical_artifact": "metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_her_saber_hgr_per_2m",
+  "transformations": [
+    "workspace prefixes redacted",
+    "unavailable JSON diagnostics become null",
+    "training CSV restricted to every evaluation row and eval/runtime columns"
+  ],
+  "omitted": [
+    "new SABER/HGR/PER results",
+    "CPU pilot",
+    "checkpoints",
+    "replay buffers",
+    "full training logs"
+  ]
+}

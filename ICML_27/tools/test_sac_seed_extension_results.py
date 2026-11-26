@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from sac_seed_extension_results import (
-    BASELINE_SOURCE, SOURCE, LOSS_FIELDS, METRICS, append_method, comparison_groups,
+    BASELINE_SOURCE, SOURCE, LOSS_FIELDS, METRICS, append_method, comparison_groups, make_readme,
     require_complete, require_complete_her, scan_training_csv, source_directories, summarize,
 )
 from sac_results import curve
@@ -44,6 +44,19 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(report["comparisons"], {})
         self.assertEqual(report["published_methods"], ["her"])
         self.assertEqual([r["n"] for r in report["aggregates"]], [5, 5, 10])
+
+    def test_drawerclose_her_readme_uses_its_own_task_and_results(self):
+        values = rows()
+        for row in values[5:]:
+            row["hit90"] = 30000
+        report = summarize(values, task="drawer_close")
+        text = make_readme(report, {"exported_utc": "2026-11-26"}, {"finished_utc": "2026-11-25"})
+        self.assertIn("# DrawerClose SAC: HER Seed Extension", text)
+        self.assertIn("5/5 new seeds reach Hit90 at least once and 5/5 finish with zero success", text)
+        self.assertIn("../drawer_close_sac_her_saber_hgr_per_2m/README.md", text)
+        self.assertIn("verify --task drawer_close", text)
+        self.assertNotIn("DrawerOpen", text)
+        self.assertEqual(report["comparisons"], {})
 
     def test_other_methods_not_exported_even_if_completed(self):
         values = rows()

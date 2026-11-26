@@ -1,4 +1,4 @@
-"""Publish completed DrawerOpen SAC HER/SABER/HGR/PER extensions without training."""
+"""Publish completed Drawer SAC seed extensions without training."""
 import argparse
 import csv
 import json
@@ -18,6 +18,13 @@ from verify_archive import check_hashes, check_links
 REPO = Path(__file__).resolve().parents[2]
 EXPERIMENT = "experiments_post_review/2026-11-09_draweropen_sac_main_seed_extension"
 ARTIFACT = Path("metaworld_Drawer_Open_SAC/paper_artifacts/drawer_open_sac_main_seed_extension_2m")
+PUBLICATIONS = {
+    "drawer_open": (EXPERIMENT, ARTIFACT),
+    "drawer_close": (
+        "experiments_post_review/2026-11-25_drawerclose_sac_main_seed_extension",
+        Path("metaworld_Drawer_Close_SAC/paper_artifacts/drawer_close_sac_main_seed_extension_2m"),
+    ),
+}
 SOURCE = "ICML_27/experiments/draweropen_drawerclose_sac_her_vs_saber/source"
 BASELINE_SOURCE = "ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source"
 COHORTS = {"historical_1_5": range(1, 6), "extension_6_10": range(6, 11),
@@ -70,7 +77,7 @@ def paired_metrics(rows, seeds, control="her"):
                 "seed_differences": diff[:, i].tolist()} for i, m in enumerate(metrics)}
 
 
-def summarize(rows, methods=("her",)):
+def summarize(rows, methods=("her",), *, task="drawer_open"):
     methods = tuple(methods)
     if methods not in (("her",), ("her", "saber"), ("her", "saber", "hgr"), ("her", "saber", "hgr", "per")):
         raise ValueError("Only explicitly selected complete HER/SABER/HGR/PER cohorts may be published")
@@ -88,7 +95,7 @@ def summarize(rows, methods=("her",)):
                                   for stat, fn in (("mean", statistics.mean), ("sd", statistics.stdev))},
                                "hit90_count": sum(r["hit90"] is not None for r in selected)})
     comparisons = {c: paired_metrics(rows, seeds) for c, seeds in COHORTS.items()} if "saber" in methods else {}
-    report = {"task": "drawer_open", "published_methods": list(methods), "new_completed_runs": 5 * len(methods),
+    report = {"task": task, "published_methods": list(methods), "new_completed_runs": 5 * len(methods),
             "historical_reference_runs": 5 * len(methods), "runs": rows, "aggregates": aggregates,
             "comparisons": comparisons,
             "comparison_status": "SABER minus HER; HGR/PER not published" if comparisons else
@@ -138,11 +145,14 @@ def scan_training_csv(path):
                          "monotonic_step_and_runtime": True}
 
 
-def products(root):
+def products(root, *, task="drawer_open"):
     provenance = read(root / "provenance.json")
+    assert_close(provenance["experiment"], PUBLICATIONS[task][0])
     methods = provenance["published_methods"]
     if methods not in (["her"], ["her", "saber"], ["her", "saber", "hgr"], ["her", "saber", "hgr", "per"]):
         raise ValueError("Unexpected publication scope")
+    if task == "drawer_close" and methods != ["her"]:
+        raise ValueError("This DrawerClose publication is restricted to the completed HER cohort")
     assert_close(provenance["sources"], source_directories(methods))
     states = {m: read(root / f"provenance/{m}_completion.json") for m in methods}
     for state in states.values():
@@ -150,7 +160,7 @@ def products(root):
     expected = read(root / "provenance/expected_configs.json")
     assert_close(set(expected), {f"{m}:{s}" for m in methods for s in range(6, 11)})
     protocol = read(root / "protocol.json")
-    for key, value in {"task": "drawer-open-v3", "seeds": list(range(6, 11)),
+    for key, value in {"task": task.replace("_", "-") + "-v3", "seeds": list(range(6, 11)),
                        "steps_per_run": 2000000,
                        "backbone": "SAC, FPP-reference automatic entropy temperature",
                        "bootstrap_seed": 2027, "bootstrap_resamples": 10000}.items():
@@ -160,7 +170,7 @@ def products(root):
         seed, method = entry["seed"], entry["method"]
         cohort = "historical_1_5" if seed <= 5 else "extension_6_10"
         assert_close(entry["cohort"], cohort)
-        assert_close(entry["task"], "drawer_open")
+        assert_close(entry["task"], task)
         assert_close(entry["checkpoint_continuation"], False)
         assert_close(entry["published_directory"], f"data/{cohort}/{method}/seed_{seed}")
         folder = within(root, entry["published_directory"])
@@ -203,7 +213,7 @@ def products(root):
     for values in configs.values():
         for config in values[1:]:
             assert_close(values[0], config)
-    report = summarize(rows, methods)
+    report = summarize(rows, methods, task=task)
     assert_close(report, read(root / "reference_report.json"))
     actual = {p.parent.relative_to(root).as_posix() for p in (root / "data").rglob("evaluations.csv")}
     assert_close(actual, {r["published_directory"] for r in provenance["runs"]})
@@ -233,7 +243,20 @@ def products(root):
 def make_readme(report, provenance, state):
     if "saber" in report["published_methods"]:
         return comparison_readme(report, provenance)
-    lines = ["# DrawerOpen SAC: HER Seed Extension", "",
+    task = report["task"]
+    label = {"drawer_open": "DrawerOpen", "drawer_close": "DrawerClose"}[task]
+    interpretation = "Four of five new seeds reach final success 1.0; seed 8 has zero success throughout and is retained."
+    historical_note = "Historical HER seeds 1-3 were retained complete pre-outage runs; seeds 4-5 were complete fresh recovery runs."
+    verify_command = "python3 ICML_27/tools/sac_seed_extension_results.py verify"
+    if task == "drawer_close":
+        extension = [r for r in report["runs"] if r["seed"] >= 6]
+        reached = sum(r["hit90"] is not None for r in extension)
+        zero = sum(r["final"] == 0.0 for r in extension)
+        interpretation = (f"{reached}/{len(extension)} new seeds reach Hit90 at least once and "
+                          f"{zero}/{len(extension)} finish with zero success at 2M. All runs are retained.")
+        historical_note = "Historical HER references are complete fresh recovery runs."
+        verify_command += " --task drawer_close"
+    lines = [f"# {label} SAC: HER Seed Extension", "",
              f"Published snapshot: **{provenance['exported_utc']}**.",
              f"HER seeds 6-10 completed on **{state['finished_utc']}**.", "",
              "**Only HER is included in this publication.** Five new seeds (6-10), each at 2M steps,",
@@ -256,17 +279,17 @@ def make_readme(report, provenance, state):
             hit = str(r["hit90"]) if r["hit90"] is not None else "Not reached"
             lines.append(f"| {r['seed']} | {r['auc']:.6f} | {r['fq_auc']:.6f} | {r['final']:.3f} | {hit} | {r['runtime_seconds']/3600:.3f} |")
     lines += ["", "## Interpretation and Scope", "",
-              "Four of five new seeds reach final success 1.0; seed 8 has zero success throughout and is retained.",
+              interpretation,
               "The pooled result is descriptive. No SABER-minus-HER interval is computed by this artifact:",
               "comparing ten HER seeds against five historical or selectively completed SABER seeds would not be the planned paired analysis.",
-              "The historical runs overlap the [original five-seed artifact](../drawer_open_sac_her_saber_hgr_per_2m/README.md); do not count them twice.", "",
+              f"The historical runs overlap the [original five-seed artifact](../{task}_sac_her_saber_hgr_per_2m/README.md); do not count them twice.", "",
               "## Protocol and Provenance", "",
               "- FPP-reference SAC with automatic entropy temperature, initial alpha=0.2, target entropy=-4, twin critics and stochastic actor. This is not the older fixed-alpha prototype.",
-              "- DrawerOpen-v3 sparse reward v2, 2M steps, UTD=1, HER ratio=0.8, horizon=200, gamma=0.98, batch=256, replay capacity=300000.",
+              f"- {label}-v3 sparse reward v2, 2M steps, UTD=1, HER ratio=0.8, horizon=200, gamma=0.98, batch=256, replay capacity=300000.",
               "- Each run has 1,995,001 optimizer updates and 20 evaluation episodes at each of 200 checkpoints.",
               "- AUC uses the exact 10k..2M grid divided by 1,990,000. FQ-AUC uses 1.5M..2M divided by 500,000. Curves are unsmoothed and retain all checkpoints.",
               "- Success is eval/env_success_mean (ever-success within each episode). Hit90 is the first crossing, not sustained success.",
-              "- New seeds started from scratch; no checkpoint continuation, replacement or splicing. Historical HER seeds 1-3 were retained complete pre-outage runs; seeds 4-5 were complete fresh recovery runs.",
+              "- New seeds started from scratch; no checkpoint continuation, replacement or splicing. " + historical_note,
               "- Exact recorded scientific configurations match across all ten HER runs after removing documented seed/output metadata. Frozen sources are byte-identical to the linked previously published source.",
               "- The inherited original-goal observation components plus separately relabeled HER goal are unchanged. Their causal effect is not established.",
               "- Recorded core package versions were matched in the prelaunch audit; this does not assert byte-for-byte identity of every historical machine component.",
@@ -280,7 +303,7 @@ def make_readme(report, provenance, state):
               "- Absolute workspace prefixes are redacted in JSON; unavailable optional diagnostics become null. Evaluation strings are not rounded.",
               "- Model weights, replay buffers, full training logs and other methods' result directories are excluded. This compact artifact is not a standalone training bundle.", "",
               "## Verification", "", "From the repository root using Python 3.12:", "", "```bash",
-              "python3 ICML_27/tools/sac_seed_extension_results.py verify", "```", "",
+              verify_command, "```", "",
               "Verification is read-only and CPU-only. It recomputes all 2,000 evaluation points, checks source/config/completion records and manifest hashes, and never imports a trainer or starts a run.", ""]
     return "\n".join(lines)
 
@@ -418,8 +441,8 @@ def comparison_readme(report, provenance):
     return "\n".join(lines)
 
 
-def verify(repo=REPO, root=None):
-    root = root or repo / ARTIFACT
+def verify(repo=REPO, root=None, *, task="drawer_open"):
+    root = root or repo / PUBLICATIONS[task][1]
     provenance = read(root / "provenance.json")
     sources = provenance["source_files_sha256"]
     allowed = source_directories(provenance["published_methods"])
@@ -427,7 +450,7 @@ def verify(repo=REPO, root=None):
             or any(not any(p.startswith(d + "/") for p in sources) for d in allowed.values())):
         raise ValueError("Unexpected or empty source snapshot")
     check_hashes(repo, sources)
-    for name, value in products(root).items():
+    for name, value in products(root, task=task).items():
         if (root / name).read_text() != value:
             raise ValueError(f"Derived result differs: {name}")
     report = read(root / "analysis/report.json")
@@ -444,9 +467,9 @@ def verify(repo=REPO, root=None):
             "source_files": len(sources)}
 
 
-def export_method(workspace, repo, root, origin, method, state):
+def export_method(workspace, repo, root, origin, method, state, *, task="drawer_open"):
     require_complete(state)
-    historical = artifact_path(repo, "drawer_open")
+    historical = artifact_path(repo, task)
     old_provenance = read(historical / "provenance.json")
     old_entries = {r["seed"]: r for r in old_provenance["runs"] if r["method"] == method}
     assert_close(set(old_entries), set(range(1, 6)))
@@ -478,7 +501,7 @@ def export_method(workspace, repo, root, origin, method, state):
             (dest / "evaluations.csv").write_text(csv_text(evaluations))
             write_json(dest / "training_validation.json", audit)
             write_json(dest / "completion.json", scrub(state["seeds"][str(seed)], workspace))
-        entry = {"task": "drawer_open", "method": method, "seed": seed, "cohort": cohort,
+        entry = {"task": task, "method": method, "seed": seed, "cohort": cohort,
                  "checkpoint_continuation": False, "original_directory": original_directory,
                  "published_directory": dest.relative_to(root).as_posix(), "original_files_sha256": hashes}
         metrics, _ = run_metrics(root, entry)
@@ -489,9 +512,10 @@ def export_method(workspace, repo, root, origin, method, state):
     return entries, rows
 
 
-def export(workspace, repo=REPO):
+def export(workspace, repo=REPO, *, task="drawer_open"):
     workspace, repo = workspace.resolve(), repo.resolve()
-    root, origin = repo / ARTIFACT, within(workspace, EXPERIMENT)
+    experiment, artifact = PUBLICATIONS[task]
+    root, origin = repo / artifact, within(workspace, experiment)
     if root.exists() or repo == workspace or workspace in root.parents:
         raise ValueError("Use a separate publication checkout and a new artifact")
     protocol = read(origin / "protocol.json")
@@ -511,32 +535,32 @@ def export(workspace, repo=REPO):
                for p, h in snapshot.items() if p.startswith("sources/her_saber/")}
     check_hashes(repo, sources)
     root.mkdir(parents=True)
-    entries, rows = export_method(workspace, repo, root, origin, "her", state)
+    entries, rows = export_method(workspace, repo, root, origin, "her", state, task=task)
     environment = read(origin / "outputs/validation/environment.json")
     environment["historical_checks"] = [r for r in environment["historical_checks"] if r["arm"] == "her"]
     write_json(root / "provenance/environment.json", environment)
     write_json(root / "provenance/her_completion.json", scrub(state, workspace))
     write_json(root / "provenance/expected_configs.json", scrub(expected, workspace))
     shutil.copy2(origin / "protocol.json", root / "protocol.json")
-    provenance = {"exported_utc": datetime.now(timezone.utc).isoformat(), "experiment": EXPERIMENT,
+    provenance = {"exported_utc": datetime.now(timezone.utc).isoformat(), "experiment": experiment,
                   "published_methods": ["her"], "sources": {"her_saber": SOURCE},
                   "source_files_sha256": sources, "runs": entries,
                   "original_snapshot_manifest_sha256": sha(origin / "snapshot_manifest.json"),
                   "approved_launcher_hashes": approval["package_hashes"],
-                  "historical_artifact": artifact_path(repo, "drawer_open").relative_to(repo).as_posix(),
+                  "historical_artifact": artifact_path(repo, task).relative_to(repo).as_posix(),
                   "transformations": ["workspace prefixes redacted", "unavailable JSON diagnostics become null",
                                       "training CSV restricted to every evaluation row and eval/runtime columns"],
                   "omitted": ["new SABER/HGR/PER results", "CPU pilot", "checkpoints", "replay buffers", "full training logs"]}
     write_json(root / "provenance.json", provenance)
-    report = summarize(rows)
+    report = summarize(rows, task=task)
     write_json(root / "reference_report.json", report)
-    for name, value in products(root).items():
+    for name, value in products(root, task=task).items():
         path = root / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(value)
     (root / "README.md").write_text(make_readme(report, provenance, state))
     (root / "MANIFEST.sha256").write_text(inventory(root))
-    return verify(repo, root)
+    return verify(repo, root, task=task)
 
 
 def append_method(workspace, method, repo=REPO):
@@ -628,14 +652,16 @@ def append_per(workspace, repo=REPO):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    commands.add_parser("export").add_argument("--workspace", type=Path, required=True)
+    exporter = commands.add_parser("export")
+    exporter.add_argument("--workspace", type=Path, required=True)
+    exporter.add_argument("--task", choices=PUBLICATIONS, default="drawer_open")
     commands.add_parser("append-saber").add_argument("--workspace", type=Path, required=True)
     commands.add_parser("append-hgr").add_argument("--workspace", type=Path, required=True)
     commands.add_parser("append-per").add_argument("--workspace", type=Path, required=True)
-    commands.add_parser("verify")
+    commands.add_parser("verify").add_argument("--task", choices=PUBLICATIONS, default="drawer_open")
     args = parser.parse_args()
     if args.command == "export":
-        result = export(args.workspace)
+        result = export(args.workspace, task=args.task)
     elif args.command == "append-saber":
         result = append_saber(args.workspace)
     elif args.command == "append-hgr":
@@ -643,5 +669,5 @@ if __name__ == "__main__":
     elif args.command == "append-per":
         result = append_per(args.workspace)
     else:
-        result = verify()
+        result = verify(task=args.task)
     print(json.dumps(result, indent=2))

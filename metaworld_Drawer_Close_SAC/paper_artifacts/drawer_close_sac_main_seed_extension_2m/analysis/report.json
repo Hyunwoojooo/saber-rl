@@ -1,0 +1,182 @@
+{
+  "task": "drawer_close",
+  "published_methods": [
+    "her"
+  ],
+  "new_completed_runs": 5,
+  "historical_reference_runs": 5,
+  "runs": [
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 1,
+      "auc": 0.10226130653266331,
+      "fq_auc": 0.03,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 57851.305657345016,
+      "steps_per_second": 34.571389137629126
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 2,
+      "auc": 0.13618090452261306,
+      "fq_auc": 0.104,
+      "final": 0.0,
+      "hit90": 50000,
+      "updates": 1995001,
+      "runtime_seconds": 58061.958179647016,
+      "steps_per_second": 34.44596191213334
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 3,
+      "auc": 0.12374371859296482,
+      "fq_auc": 0.106,
+      "final": 0.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 57927.312129949016,
+      "steps_per_second": 34.52602799027472
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 4,
+      "auc": 0.7675879396984925,
+      "fq_auc": 0.953,
+      "final": 1.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 49614.74851524699,
+      "steps_per_second": 40.31059432630974
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 5,
+      "auc": 0.17336683417085427,
+      "fq_auc": 0.0445,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 44559.008038164,
+      "steps_per_second": 44.88430259235204
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 6,
+      "auc": 0.11381909547738693,
+      "fq_auc": 0.023,
+      "final": 0.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 65577.75220190221,
+      "steps_per_second": 30.498148119538413
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 7,
+      "auc": 0.07035175879396985,
+      "fq_auc": 0.001,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 65435.645732426085,
+      "steps_per_second": 30.56438089077979
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 8,
+      "auc": 0.07914572864321608,
+      "fq_auc": 0.015,
+      "final": 0.0,
+      "hit90": 90000,
+      "updates": 1995001,
+      "runtime_seconds": 65611.74359069299,
+      "steps_per_second": 30.48234798448032
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 9,
+      "auc": 0.13467336683417086,
+      "fq_auc": 0.045,
+      "final": 0.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 65543.67691075988,
+      "steps_per_second": 30.51400370356203
+    },
+    {
+      "task": "drawer_close",
+      "method": "her",
+      "seed": 10,
+      "auc": 0.08517587939698493,
+      "fq_auc": 0.071,
+      "final": 0.0,
+      "hit90": 130000,
+      "updates": 1995001,
+      "runtime_seconds": 65424.933979786,
+      "steps_per_second": 30.569385069886803
+    }
+  ],
+  "aggregates": [
+    {
+      "cohort": "historical_1_5",
+      "method": "her",
+      "n": 5,
+      "auc_mean": 0.2606281407035176,
+      "auc_sd": 0.2845730517765682,
+      "fq_auc_mean": 0.2475,
+      "fq_auc_sd": 0.39587245420716,
+      "final_mean": 0.2,
+      "final_sd": 0.4472135954999579,
+      "runtime_seconds_mean": 53602.86650407041,
+      "runtime_seconds_sd": 6211.481804400176,
+      "steps_per_second_mean": 37.747655191739796,
+      "steps_per_second_sd": 4.7135209640058235,
+      "hit90_count": 5
+    },
+    {
+      "cohort": "extension_6_10",
+      "method": "her",
+      "n": 5,
+      "auc_mean": 0.09663316582914573,
+      "auc_sd": 0.026787148494408726,
+      "fq_auc_mean": 0.031,
+      "fq_auc_sd": 0.02745906043549196,
+      "final_mean": 0.0,
+      "final_sd": 0.0,
+      "runtime_seconds_mean": 65518.750483113436,
+      "runtime_seconds_sd": 84.34776754001763,
+      "steps_per_second_mean": 30.525653153649472,
+      "steps_per_second_sd": 0.03930614578721493,
+      "hit90_count": 5
+    },
+    {
+      "cohort": "pooled_1_10",
+      "method": "her",
+      "n": 10,
+      "auc_mean": 0.17863065326633165,
+      "auc_sd": 0.2092402584876157,
+      "fq_auc_mean": 0.13924999999999998,
+      "fq_auc_sd": 0.28810812495774335,
+      "final_mean": 0.1,
+      "final_sd": 0.31622776601683794,
+      "runtime_seconds_mean": 59560.80849359192,
+      "runtime_seconds_sd": 7522.774388586593,
+      "steps_per_second_mean": 34.136654172694634,
+      "steps_per_second_sd": 4.9359067949998146,
+      "hit90_count": 10
+    }
+  ],
+  "comparisons": {},
+  "comparison_status": "Not published: this snapshot contains HER only"
+}
