@@ -1,10 +1,11 @@
 {
   "task": "drawer_close",
   "published_methods": [
-    "her"
+    "her",
+    "saber"
   ],
-  "new_completed_runs": 5,
-  "historical_reference_runs": 5,
+  "new_completed_runs": 10,
+  "historical_reference_runs": 10,
   "runs": [
     {
       "task": "drawer_close",
@@ -125,6 +126,126 @@
       "updates": 1995001,
       "runtime_seconds": 65424.933979786,
       "steps_per_second": 30.569385069886803
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 1,
+      "auc": 0.1922110552763819,
+      "fq_auc": 0.025,
+      "final": 0.0,
+      "hit90": 110000,
+      "updates": 1995001,
+      "runtime_seconds": 101378.01103355401,
+      "steps_per_second": 19.728143998978652
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 2,
+      "auc": 0.11683417085427136,
+      "fq_auc": 0.025,
+      "final": 0.0,
+      "hit90": 20000,
+      "updates": 1995001,
+      "runtime_seconds": 100121.77541586399,
+      "steps_per_second": 19.975674539258183
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 3,
+      "auc": 0.06407035175879397,
+      "fq_auc": 0.019,
+      "final": 0.0,
+      "hit90": 30000,
+      "updates": 1995001,
+      "runtime_seconds": 95595.83983460299,
+      "steps_per_second": 20.921412516071193
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 4,
+      "auc": 0.09547738693467336,
+      "fq_auc": 0.018,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 92915.05076394099,
+      "steps_per_second": 21.525038016512298
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 5,
+      "auc": 0.04798994974874372,
+      "fq_auc": 0.001,
+      "final": 0.0,
+      "hit90": 40000,
+      "updates": 1995001,
+      "runtime_seconds": 83965.16476358694,
+      "steps_per_second": 23.819401839217697
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 6,
+      "auc": 0.07185929648241206,
+      "fq_auc": 0.0175,
+      "final": 0.0,
+      "hit90": 60000,
+      "updates": 1995001,
+      "runtime_seconds": 95272.1220442499,
+      "steps_per_second": 20.992499768936437
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 7,
+      "auc": 0.11482412060301507,
+      "fq_auc": 0.063,
+      "final": 0.0,
+      "hit90": 90000,
+      "updates": 1995001,
+      "runtime_seconds": 90968.14187416434,
+      "steps_per_second": 21.985718942864498
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 8,
+      "auc": 0.06633165829145729,
+      "fq_auc": 0.028,
+      "final": 0.0,
+      "hit90": 120000,
+      "updates": 1995001,
+      "runtime_seconds": 94435.35214928724,
+      "steps_per_second": 21.178509472155287
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 9,
+      "auc": 0.6341708542713568,
+      "fq_auc": 0.9745,
+      "final": 1.0,
+      "hit90": 50000,
+      "updates": 1995001,
+      "runtime_seconds": 89463.2758510788,
+      "steps_per_second": 22.35554176810174
+    },
+    {
+      "task": "drawer_close",
+      "method": "saber",
+      "seed": 10,
+      "auc": 0.052763819095477386,
+      "fq_auc": 0.008,
+      "final": 0.0,
+      "hit90": 110000,
+      "updates": 1995001,
+      "runtime_seconds": 98951.1656331839,
+      "steps_per_second": 20.211990300489067
     }
   ],
   "aggregates": [
@@ -145,6 +266,22 @@
       "hit90_count": 5
     },
     {
+      "cohort": "historical_1_5",
+      "method": "saber",
+      "n": 5,
+      "auc_mean": 0.10331658291457287,
+      "auc_sd": 0.05645287501802331,
+      "fq_auc_mean": 0.0176,
+      "fq_auc_sd": 0.009838699100999075,
+      "final_mean": 0.0,
+      "final_sd": 0.0,
+      "runtime_seconds_mean": 94795.16836230978,
+      "runtime_seconds_sd": 6949.30671498814,
+      "steps_per_second_mean": 21.193934182007606,
+      "steps_per_second_sd": 1.6362820389911943,
+      "hit90_count": 5
+    },
+    {
       "cohort": "extension_6_10",
       "method": "her",
       "n": 5,
@@ -158,6 +295,22 @@
       "runtime_seconds_sd": 84.34776754001763,
       "steps_per_second_mean": 30.525653153649472,
       "steps_per_second_sd": 0.03930614578721493,
+      "hit90_count": 5
+    },
+    {
+      "cohort": "extension_6_10",
+      "method": "saber",
+      "n": 5,
+      "auc_mean": 0.18798994974874372,
+      "auc_sd": 0.2505014037061591,
+      "fq_auc_mean": 0.2182,
+      "fq_auc_sd": 0.4232957890175616,
+      "final_mean": 0.2,
+      "final_sd": 0.4472135954999579,
+      "runtime_seconds_mean": 93818.01151039284,
+      "runtime_seconds_sd": 3739.328073445481,
+      "steps_per_second_mean": 21.344852050509406,
+      "steps_per_second_sd": 0.8466702143287648,
       "hit90_count": 5
     },
     {
@@ -175,8 +328,226 @@
       "steps_per_second_mean": 34.136654172694634,
       "steps_per_second_sd": 4.9359067949998146,
       "hit90_count": 10
+    },
+    {
+      "cohort": "pooled_1_10",
+      "method": "saber",
+      "n": 10,
+      "auc_mean": 0.1456532663316583,
+      "auc_sd": 0.17691035678928585,
+      "fq_auc_mean": 0.1179,
+      "fq_auc_sd": 0.3014235484423132,
+      "final_mean": 0.1,
+      "final_sd": 0.31622776601683794,
+      "runtime_seconds_mean": 94306.58993635132,
+      "runtime_seconds_sd": 5286.133241504686,
+      "steps_per_second_mean": 21.269393116258506,
+      "steps_per_second_sd": 1.2308090365198188,
+      "hit90_count": 10
     }
   ],
-  "comparisons": {},
-  "comparison_status": "Not published: this snapshot contains HER only"
+  "comparisons": {
+    "historical_1_5": {
+      "auc": {
+        "n": 5,
+        "mean_difference": -0.15731155778894473,
+        "ci95": [
+          -0.419070351758794,
+          0.025025125628140705
+        ],
+        "ci_bonferroni_three": [
+          -0.44027638190954776,
+          0.04623115577889449
+        ],
+        "positive_pairs": 1,
+        "seed_differences": [
+          0.0899497487437186,
+          -0.019346733668341692,
+          -0.05967336683417085,
+          -0.6721105527638191,
+          -0.12537688442211056
+        ]
+      },
+      "fq_auc": {
+        "n": 5,
+        "mean_difference": -0.2299,
+        "ci95": [
+          -0.5871,
+          -0.029100000000000004
+        ],
+        "ci_bonferroni_three": [
+          -0.5942000000000001,
+          -0.021399999999999995
+        ],
+        "positive_pairs": 0,
+        "seed_differences": [
+          -0.0049999999999999975,
+          -0.07899999999999999,
+          -0.087,
+          -0.9349999999999999,
+          -0.0435
+        ]
+      },
+      "final": {
+        "n": 5,
+        "mean_difference": -0.2,
+        "ci95": [
+          -0.6,
+          0.0
+        ],
+        "ci_bonferroni_three": [
+          -0.6,
+          0.0
+        ],
+        "positive_pairs": 0,
+        "seed_differences": [
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0
+        ]
+      }
+    },
+    "extension_6_10": {
+      "auc": {
+        "n": 5,
+        "mean_difference": 0.09135678391959798,
+        "ci95": [
+          -0.03231155778894472,
+          0.3002010050251256
+        ],
+        "ci_bonferroni_three": [
+          -0.03623115577889447,
+          0.3060301507537688
+        ],
+        "positive_pairs": 2,
+        "seed_differences": [
+          -0.04195979899497487,
+          0.04447236180904522,
+          -0.012814070351758786,
+          0.4994974874371859,
+          -0.03241206030150754
+        ]
+      },
+      "fq_auc": {
+        "n": 5,
+        "mean_difference": 0.18719999999999998,
+        "ci95": [
+          -0.026500000000000003,
+          0.5591999999999999
+        ],
+        "ci_bonferroni_three": [
+          -0.038,
+          0.5727
+        ],
+        "positive_pairs": 3,
+        "seed_differences": [
+          -0.005499999999999998,
+          0.062,
+          0.013000000000000001,
+          0.9295,
+          -0.063
+        ]
+      },
+      "final": {
+        "n": 5,
+        "mean_difference": 0.2,
+        "ci95": [
+          0.0,
+          0.6
+        ],
+        "ci_bonferroni_three": [
+          0.0,
+          0.6
+        ],
+        "positive_pairs": 1,
+        "seed_differences": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    "pooled_1_10": {
+      "auc": {
+        "n": 10,
+        "mean_difference": -0.03297738693467338,
+        "ci95": [
+          -0.2125075376884422,
+          0.1304908919597988
+        ],
+        "ci_bonferroni_three": [
+          -0.2421551507537689,
+          0.16219252512562846
+        ],
+        "positive_pairs": 3,
+        "seed_differences": [
+          0.0899497487437186,
+          -0.019346733668341692,
+          -0.05967336683417085,
+          -0.6721105527638191,
+          -0.12537688442211056,
+          -0.04195979899497487,
+          0.04447236180904522,
+          -0.012814070351758786,
+          0.4994974874371859,
+          -0.03241206030150754
+        ]
+      },
+      "fq_auc": {
+        "n": 10,
+        "mean_difference": -0.021350000000000008,
+        "ci95": [
+          -0.29425,
+          0.2580549999999999
+        ],
+        "ci_bonferroni_three": [
+          -0.31665125000000005,
+          0.28828625000000035
+        ],
+        "positive_pairs": 3,
+        "seed_differences": [
+          -0.0049999999999999975,
+          -0.07899999999999999,
+          -0.087,
+          -0.9349999999999999,
+          -0.0435,
+          -0.005499999999999998,
+          0.062,
+          0.013000000000000001,
+          0.9295,
+          -0.063
+        ]
+      },
+      "final": {
+        "n": 10,
+        "mean_difference": 0.0,
+        "ci95": [
+          -0.3,
+          0.3
+        ],
+        "ci_bonferroni_three": [
+          -0.3,
+          0.3
+        ],
+        "positive_pairs": 1,
+        "seed_differences": [
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "comparison_status": "SABER minus HER; HGR/PER not published"
 }

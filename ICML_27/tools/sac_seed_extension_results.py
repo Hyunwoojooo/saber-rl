@@ -151,8 +151,8 @@ def products(root, *, task="drawer_open"):
     methods = provenance["published_methods"]
     if methods not in (["her"], ["her", "saber"], ["her", "saber", "hgr"], ["her", "saber", "hgr", "per"]):
         raise ValueError("Unexpected publication scope")
-    if task == "drawer_close" and methods != ["her"]:
-        raise ValueError("This DrawerClose publication is restricted to the completed HER cohort")
+    if task == "drawer_close" and methods not in (["her"], ["her", "saber"]):
+        raise ValueError("This DrawerClose publication is restricted to completed HER and SABER cohorts")
     assert_close(provenance["sources"], source_directories(methods))
     states = {m: read(root / f"provenance/{m}_completion.json") for m in methods}
     for state in states.values():
@@ -309,6 +309,9 @@ def make_readme(report, provenance, state):
 
 
 def comparison_readme(report, provenance):
+    task = report["task"]
+    is_close = task == "drawer_close"
+    task_label = "DrawerClose" if is_close else "DrawerOpen"
     labels = {"her": "HER", "saber": "SABER (Ours)", "hgr": "HGR", "per": "PER (full replay)"}
     has_hgr = "hgr" in report["published_methods"]
     has_per = "per" in report["published_methods"]
@@ -327,7 +330,7 @@ def comparison_readme(report, provenance):
                  "each at 2M steps, plus fifteen historical seed-level references (1-5).",
                  "PER extension and CPU-pilot results are excluded. Previously published HER/SABER run files are unchanged.", ""]
     else:
-        lines = ["# DrawerOpen SAC: HER and SABER Seed Extensions", "",
+        lines = [f"# {task_label} SAC: HER and SABER Seed Extensions", "",
              f"Published snapshot: **{provenance['exported_utc']}**.",
              f"SABER seeds 6-10 completed on **{provenance['saber_finished_utc']}**.", "",
              "**HER and SABER only:** ten completed new runs (five per method, seeds 6-10),",
@@ -367,12 +370,26 @@ def comparison_readme(report, provenance):
     tied = sum(d == 0 for d in pooled["seed_differences"])
     lines += ["", "## Interpretation and Scope", "",
               f"Across ten paired seeds, SABER AUC is higher in {pooled['positive_pairs']}, lower in {lower}, and equal in {tied}." +
-              (" This sentence compares SABER with HER." if has_hgr else ""),
-              "SABER has a slightly higher mean AUC, but both the pointwise and adjusted intervals include zero.",
-              "These data establish neither superiority nor equivalence. They do not demonstrate a causal support mechanism.",
-              ("HER and SABER" if has_hgr else "Both methods") + " have mean final success 0.700 and Hit90 coverage 7/10. The final-zero seeds are 2, 3 and 8 in both methods.",
-              "All zero/low-success seeds are retained. Do not pool the historical, extension and combined summaries as independent cohorts.",
-              ("The twenty" if has_per else "The fifteen" if has_hgr else "The ten") + " historical references overlap the [original five-seed artifact](../drawer_open_sac_her_saber_hgr_per_2m/README.md).",
+              (" This sentence compares SABER with HER." if has_hgr else "")]
+    if is_close:
+        new = report["comparisons"]["extension_6_10"]["auc"]
+        best_seed, best_delta = max(zip(COHORTS["extension_6_10"], new["seed_differences"]),
+                                    key=lambda pair: pair[1])
+        best_run = next(r for r in report["runs"] if r["method"] == "saber" and r["seed"] == best_seed)
+        lines += [f"SABER-minus-HER mean AUC is {new['mean_difference']:+.6f} in seeds 6-10 and "
+                  f"{pooled['mean_difference']:+.6f} in seeds 1-10.",
+                  f"SABER has higher AUC in {new['positive_pairs']}/{new['n']} new pairs. The largest new "
+                  f"paired difference is seed {best_seed} ({best_delta:+.6f}), with SABER AUC "
+                  f"{best_run['auc']:.6f} and final success {best_run['final']:.3f}."]
+        if all(c["ci95"][0] <= 0 <= c["ci95"][1] for c in (new, pooled)):
+            lines += ["Both pointwise 95% intervals include zero, so neither establishes an AUC advantage or equivalence."]
+    else:
+        lines += ["SABER has a slightly higher mean AUC, but both the pointwise and adjusted intervals include zero.",
+                  "These data establish neither superiority nor equivalence. They do not demonstrate a causal support mechanism.",
+                  ("HER and SABER" if has_hgr else "Both methods") + " have mean final success 0.700 and Hit90 coverage 7/10. The final-zero seeds are 2, 3 and 8 in both methods."]
+    lines += ["All zero/low-success seeds are retained. Do not pool the historical, extension and combined summaries as independent cohorts.",
+              ("The twenty" if has_per else "The fifteen" if has_hgr else "The ten") +
+              f" historical references overlap the [original five-seed artifact](../{task}_sac_her_saber_hgr_per_2m/README.md).",
               "Only five new PER executions are added by this update; HER/SABER/HGR results are preserved, not additional executions." if has_per else
               "Only five new HGR executions are added by this update; HER/SABER results are preserved, not additional executions." if has_hgr else
               "Only five new SABER executions are added by this update; the previously published HER runs are not new executions."]
@@ -395,17 +412,22 @@ def comparison_readme(report, provenance):
                   "This comparison does not identify why the methods differ or establish that SAC and HER are inherently incompatible."]
     lines += ["", "## Protocol, Statistics and Caveats", "",
               "- FPP-reference automatic-temperature SAC: twin critics, stochastic actor, initial alpha=0.2, target entropy=-4. This is not the legacy fixed-alpha prototype.",
-              "- DrawerOpen-v3 sparse reward v2, 2M steps, UTD=1, HER ratio=0.8, horizon=200, gamma=0.98, batch=256, replay capacity=300000.",
+              f"- {task_label}-v3 sparse reward v2, 2M steps, UTD=1, HER ratio=0.8, horizon=200, gamma=0.98, batch=256, replay capacity=300000.",
               "- SABER reweights critic losses only and queries support at the squashed policy mean: K=5, minimum local count=4, tail-512. Actor objectives and Bellman targets remain the inherited SAC definitions.",
               "- Each run has 1,995,001 optimizer updates and 20 evaluation episodes at each of 200 checkpoints.",
               "- Success is eval/env_success_mean, ever-success within an evaluation episode. AUC integrates the exact 10k..2M grid divided by 1,990,000; FQ-AUC integrates 1.5M..2M divided by 500,000. No missing-grid truncation or smoothing.",
               "- Hit90 is the first crossing, not sustained success. Missing Hit90 stays missing.",
               "- Pair by seed, not row order. NumPy default_rng(2027), 10,000 seed-row bootstrap resamples; all metrics share the same sampled indices within each cohort. Percentile 95% endpoints are 0.025 and 0.975.",
               "- Adjusted endpoints are 0.05/6 and 1-0.05/6, retaining the predeclared three-AUC-comparison family (SABER versus HER/HGR/PER), " +
-              ("with all three contrasts now published." if has_per else "although the PER contrast is not yet published." if has_hgr else "although only HER is published here.") +
+              ("with all three contrasts now published." if has_per else
+               "although the PER contrast is not yet published." if has_hgr else
+               "although only the HER contrast is published here." if is_close else
+               "although only HER is published here.") +
               " Small-sample coverage is approximate, not an exact simultaneous guarantee.",
               "- FQ-AUC/final-success intervals are secondary descriptive analyses. The three-contrast adjustment does not cover every metric and all three overlapping cohort summaries jointly.",
-              "- All new seeds began from scratch without continuation, splicing, replacement or outcome-based exclusion. Historical HER seeds 1-3 were complete pre-outage runs; the other retained HER/SABER references are complete fresh recovery runs." +
+              "- All new seeds began from scratch without continuation, splicing, replacement or outcome-based exclusion. " +
+              ("Historical HER/SABER references are complete fresh recovery runs." if is_close else
+               "Historical HER seeds 1-3 were complete pre-outage runs; the other retained HER/SABER references are complete fresh recovery runs.") +
               (" Historical HGR/PER references are completed original five-seed runs." if has_per else " Historical HGR references are completed original five-seed runs." if has_hgr else ""),
               "- Recorded scientific configs match across historical and new seeds within each method after documented seed/output metadata is removed. Source files match the already published executed snapshot byte-for-byte.",
               "- The inherited original-goal observation components plus the separately HER-relabeled goal are unchanged in " +
@@ -436,7 +458,8 @@ def comparison_readme(report, provenance):
         lines += ["- [Executed " + ("HGR/PER" if has_per else "HGR") + " source](../../../ICML_27/experiments/draweropen_drawerclose_sac_hgr_per/source/) is also unchanged and hash-verified against the extension snapshot."]
     lines += ["",
               "From the repository root with Python 3.12 and NumPy:", "", "```bash",
-              "python3 ICML_27/tools/sac_seed_extension_results.py verify", "```", "",
+              "python3 ICML_27/tools/sac_seed_extension_results.py verify" + (" --task drawer_close" if is_close else ""),
+              "```", "",
               f"This read-only CPU check regenerates metrics and paired intervals from {len(report['runs']) * 200:,} evaluation points, checks completion/config/source hashes and verifies the manifest. It does not import trainers or change the live queue.", ""]
     return "\n".join(lines)
 
@@ -563,17 +586,20 @@ def export(workspace, repo=REPO, *, task="drawer_open"):
     return verify(repo, root, task=task)
 
 
-def append_method(workspace, method, repo=REPO):
+def append_method(workspace, method, repo=REPO, *, task="drawer_open"):
     previous_methods = {"saber": ["her"], "hgr": ["her", "saber"], "per": ["her", "saber", "hgr"]}
     if method not in previous_methods:
         raise ValueError("Only explicit SABER, HGR or PER appends are authorized")
+    if task == "drawer_close" and method != "saber":
+        raise ValueError("This DrawerClose append is restricted to the completed SABER cohort")
     previous = previous_methods[method]
     methods = previous + [method]
     workspace, repo = workspace.resolve(), repo.resolve()
-    root, origin = repo / ARTIFACT, within(workspace, EXPERIMENT)
+    experiment, artifact = PUBLICATIONS[task]
+    root, origin = repo / artifact, within(workspace, experiment)
     if repo == workspace or workspace in root.parents:
         raise ValueError("Never publish into the live experiment workspace")
-    verify(repo, root)
+    verify(repo, root, task=task)
     provenance = read(root / "provenance.json")
     assert_close(provenance["published_methods"], previous)
     protected = {p.relative_to(root).as_posix(): sha(p) for cohort in ("historical_1_5", "extension_6_10")
@@ -610,7 +636,7 @@ def append_method(workspace, method, repo=REPO):
             expected[key] = scrub(value, workspace)
         elif key.split(":", 1)[0] in previous:
             assert_close(expected[key], scrub(value, workspace))
-    entries, rows = export_method(workspace, repo, root, origin, method, state)
+    entries, rows = export_method(workspace, repo, root, origin, method, state, task=task)
     old_rows = read(root / "reference_report.json")["runs"]
     provenance["runs"].extend(entries)
     provenance[f"{previous[-1]}_publication_utc"] = provenance["exported_utc"]
@@ -627,18 +653,18 @@ def append_method(workspace, method, repo=REPO):
     write_json(root / "provenance/expected_configs.json", expected)
     write_json(root / f"provenance/{method}_completion.json", scrub(state, workspace))
     write_json(root / "provenance.json", provenance)
-    report = summarize(old_rows + rows, methods)
+    report = summarize(old_rows + rows, methods, task=task)
     write_json(root / "reference_report.json", report)
-    for name, value in products(root).items():
+    for name, value in products(root, task=task).items():
         (root / name).write_text(value)
     (root / "README.md").write_text(comparison_readme(report, provenance))
     check_hashes(root, protected)
     (root / "MANIFEST.sha256").write_text(inventory(root))
-    return verify(repo, root)
+    return verify(repo, root, task=task)
 
 
-def append_saber(workspace, repo=REPO):
-    return append_method(workspace, "saber", repo)
+def append_saber(workspace, repo=REPO, *, task="drawer_open"):
+    return append_method(workspace, "saber", repo, task=task)
 
 
 def append_hgr(workspace, repo=REPO):
@@ -655,7 +681,9 @@ if __name__ == "__main__":
     exporter = commands.add_parser("export")
     exporter.add_argument("--workspace", type=Path, required=True)
     exporter.add_argument("--task", choices=PUBLICATIONS, default="drawer_open")
-    commands.add_parser("append-saber").add_argument("--workspace", type=Path, required=True)
+    saber = commands.add_parser("append-saber")
+    saber.add_argument("--workspace", type=Path, required=True)
+    saber.add_argument("--task", choices=PUBLICATIONS, default="drawer_open")
     commands.add_parser("append-hgr").add_argument("--workspace", type=Path, required=True)
     commands.add_parser("append-per").add_argument("--workspace", type=Path, required=True)
     commands.add_parser("verify").add_argument("--task", choices=PUBLICATIONS, default="drawer_open")
@@ -663,7 +691,7 @@ if __name__ == "__main__":
     if args.command == "export":
         result = export(args.workspace, task=args.task)
     elif args.command == "append-saber":
-        result = append_saber(args.workspace)
+        result = append_saber(args.workspace, task=args.task)
     elif args.command == "append-hgr":
         result = append_hgr(args.workspace)
     elif args.command == "append-per":

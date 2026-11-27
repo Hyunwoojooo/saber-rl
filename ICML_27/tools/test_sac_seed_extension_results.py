@@ -90,6 +90,27 @@ class PublicationTests(unittest.TestCase):
             self.assertEqual(value["ci95"], [0.0, 0.0])
             self.assertEqual(value["seed_differences"], [0.0] * n)
 
+    def test_drawerclose_saber_readme_preserves_cohort_direction(self):
+        values = rows() + rows("saber")
+        for row in values:
+            if (row["method"], row["seed"]) == ("her", 4):
+                row["auc"] = 0.9
+            if (row["method"], row["seed"]) == ("saber", 9):
+                row.update(auc=0.7, final=1.0)
+        report = summarize(values, ("her", "saber"), task="drawer_close")
+        text = make_readme(report, {"exported_utc": "2026-11-27", "saber_finished_utc": "2026-11-27"}, {})
+        self.assertIn("# DrawerClose SAC: HER and SABER Seed Extensions", text)
+        self.assertIn("+0.140000 in seeds 6-10 and -0.020000 in seeds 1-10", text)
+        self.assertIn("seed 9 (+0.700000)", text)
+        self.assertIn("verify --task drawer_close", text)
+        self.assertNotIn("DrawerOpen", text)
+        self.assertNotIn("0.700 and Hit90 coverage 7/10", text)
+
+    def test_drawerclose_append_does_not_enable_hgr_or_per(self):
+        for method in ("hgr", "per"):
+            with self.subTest(method=method), self.assertRaisesRegex(ValueError, "SABER cohort"):
+                append_method(Path("/nonexistent"), method, task="drawer_close")
+
     def test_missing_or_duplicate_saber_seed_rejected(self):
         values = rows() + rows("saber")
         for bad in (values[:-1], values[:-1] + [values[-2]]):
